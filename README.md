@@ -1,4 +1,4 @@
-# Website https://github.com/MARTIMM
+# Website https://martimm.github.io/
 
 The website is build using a template from [opendesigns](http://www.opendesigns.org).
 When anyone likes to use the pages go to that site and find out. In the
