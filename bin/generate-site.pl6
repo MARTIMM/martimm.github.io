@@ -12,7 +12,6 @@ use Semi-xml;
 #
 role MARTIM-GITHUB-IO {
 
-  has Hash $!styles = { '.green' => { color => '#00aa0f' }};
   has Hash $!configuration = {
              options => {
                doctype => { show => 1},
@@ -31,7 +30,7 @@ sub MAIN( $filename ) {
   if $filename.IO ~~ :r {
     my $result-filename = $filename;
     $result-filename ~~ s/\.<-[\.]>+$$/.html/;
-say "FR: $filename, $result-filename";
+
     $x.parse-file(:$filename);
     $x.save(:filename($result-filename));
   }
