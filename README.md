@@ -14,6 +14,12 @@ Crash course html5 and css3 ...
 
 ## Changes
 
+* 0.4.0
+  * Used jquery from googleapis
+  * Split an article from index.sxml
+  * Setup directories Sxml for all sxml files and directories therein mirroring
+    the site like Articles/03-12.
+  * Split css from index.sxml
 * 0.3.1 Oeps, picture too large png convert to jpg almost 100x smaller.
 * 0.3.0 Ok, now we need content!
 * 0.2.1 Moved out program to Semi-xml as sxml2xml
