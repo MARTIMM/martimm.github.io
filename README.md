@@ -3,6 +3,15 @@
 New ideas are flowing in....
 Crash course html5 and css3 ...
 
+## Todo
+
+* Nasty items to tell about
+  * [ ] inheriting and EVAL
+  * [ ] error messages and multi
+  * [ ] $x.perl and XML
+
+* Crossroads as a set of links to other information
+
 ## Changes
 
 * 0.3.1 Oeps, picture too large png convert to jpg almost 100x smaller.
