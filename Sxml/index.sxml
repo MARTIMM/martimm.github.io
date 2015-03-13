@@ -17,27 +17,26 @@ $html [
     $script [+
       $(document).ready(
         function() {
-          var link = $('a');
-//          var ref = this.attr('data_href');
-console.log(this);
-          link.click(
+          // Load the home page
+          //
+          $('\#posts').load("home.html");
 
+          // Define the click event on each <a> element. Get the data_href
+          // attribute from the element and use that to load the page. If not
+          // defined, let the element do its job by the default process.
+          //
+          $('a').click(
             function(event) {
-               event.preventDefault();
-              $('\#posts').load("Articles/2015/03-12.html");
-//              $('\#posts').load(ref);
+              var ref = this.getAttribute('data_href');
+              if( ref != null ) {
+console.log(ref);
+                event.preventDefault();
+                $('\#posts').load(ref);
+              }
             }
           );
         }
       );
-/*
-*/
-/*
-      function v(event) {
-        \$('\#posts').load("Articles/2015/03-12.html");
-        event.preventDefault();
-      }
-*/
     ]
   ]
 
@@ -47,9 +46,8 @@ console.log(this);
       
       $nav [
         $ul [
-          $li [ $a href='' data_href=http://martimm.github.io/ [Home] ]
+          $li [ $a href='' data_href=home.html [Home] ]
           $li [ Crossroads ]
-          $li [ Blogs ]
           $li [ About ]
           $li [ Help ]
         ]
@@ -64,6 +62,7 @@ console.log(this);
         $ul [
           $li [October]
           $li [November]
+          $li [$a href=http://google.nl target=_blank [google]]
         ]
 
 #        $hr []
