@@ -14,6 +14,11 @@ Crash course html5 and css3 ...
 
 ## Changes
 
+* 0.5.0
+  * jquery select a[data_href] directly. Therefore the ref doesn't need to be
+    checked because it will not be selected.
+  * jquery fadin/out to make appearence nicer.
+  * Reload of the same article is prevented.
 * 0.4.0
   * Used jquery from googleapis
   * Split an article from index.sxml

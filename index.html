@@ -3,7 +3,9 @@
         function() {
           // Load the home page
           //
-          $('#posts').load("home.html");
+          var post_el = $('#posts');
+          post_el.load("home.html");
+          post_el.attr( 'data_article_ref', 'home.html');
 
           // Define the click event on each <a> element. Get the data_href
           // attribute from the element and use that to load the page. If not
@@ -12,11 +14,32 @@
           $('a[data_href]').click(
             function(event) {
               var ref = this.getAttribute('data_href');
-//              if( ref != null ) {
 console.log(ref);
-                event.preventDefault();
-                $('#posts').load(ref);
-//              }
+              // Prevent default <a> actions
+              //
+              event.preventDefault();
+
+              // Get the posts section. We need it several times
+              //
+              var post_el = $('#posts');
+              var post_attr = post_el.attr('data_article_ref');
+              if( post_attr != ref ) {
+                post_el.attr( 'data_article_ref', ref);
+              
+                // Fade out the previous article and only load the next article
+                // when the fadeout process is ready. Do this with a callback
+                // function
+                //
+                post_el.fadeOut(
+                  function(){
+                    post_el.load(ref);
+                  }
+                );
+
+                // Now show the page again
+                //
+                post_el.fadeIn();
+              }
             }
           );
         }
