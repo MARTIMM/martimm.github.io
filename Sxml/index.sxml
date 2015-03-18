@@ -12,9 +12,13 @@ $html [
   $head [
     $title [ MARTIMM's ]
     $link type=text/css href=css/style1.css rel=stylesheet []
+    $link type=text/css href=css/jquery.jscrollpane.css rel=stylesheet []
 
     $script src=http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
-    [= //]
+    [- //]
+#    $script src=javascript/jquery.mousewheel.js [- //]
+#    $script src=javascript/jquery.jscrollpane.min.js [- //]
+#    $script src=javascript/jquery.mwheelIntent.js [- //]
 
     $script [+
       $(document).ready(
@@ -29,15 +33,15 @@ $html [
           // attribute from the element and use that to load the page. If not
           // defined, let the element do its job by the default process.
           //
-          $('a[data_href\]').click(
-            function(event) {
+            var clickFunc;
+            clickFunc = function(event) {
               var ref = this.getAttribute('data_href');
 console.log(ref);
               // Prevent default <a> actions
               //
               event.preventDefault();
 
-              // Get the posts section. We need it several times
+              // Save the posts section. We need it several times
               //
               var post_el = $('\#posts');
               if( post_el.data('article_ref') != ref ) {
@@ -50,6 +54,8 @@ console.log(ref);
                 post_el.fadeOut(
                   function(){
                     post_el.load(ref);
+//                    $("section.container > article.post").jScrollPane();
+                    $('a[data_href\]').click(clickFunc);
                   }
                 );
 
@@ -58,7 +64,8 @@ console.log(ref);
                 post_el.fadeIn();
               }
             }
-          );
+
+          $('a[data_href\]').click(clickFunc);
         }
       );
     ]
@@ -66,7 +73,16 @@ console.log(ref);
 
   $body [
     $header id=page_header [
-      $h1 [ $img id=avatar src=Images/avatar-50x50.jpg [] MARTIMM's ]
+      $div id=div_header class=banner [
+        $img class='banner header_icon' src=Images/avatar-50x50.jpg []
+        $h1 class=banner class=banner [MARTIMM's]
+        $div id=camelia [
+          $img class=header_icon
+               src=Images/camelia-50x50.jpg
+               title='Perl 6 logo, Camelia is &copy; 2009 by Larry Wall'
+                 []
+          ]
+      ]
 
       $nav [
         $ul [
@@ -78,12 +94,13 @@ console.log(ref);
       ]
     ]
 
-    $section id=posts [ $article class=post []]
+    $section id=posts class=container [ $article class=post []]
 
     $section id=sidebar [
       $nav [
         $h3 [ Archives ]
-        $!list.dir-list header=4,5 directory=Articles id=archive []
+        $!list.dir-list header=4 directory=Articles
+               id=archive ref-attr=data_href []
 #        $ul [
 #          $li [October]
 #          $li [November]
