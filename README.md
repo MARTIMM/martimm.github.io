@@ -30,5 +30,5 @@ Crash course html5 and css3 ...
 * 0.2.1 Moved out program to Semi-xml as sxml2xml
 * 0.2.0 Created generate-site.pl6
 * 0.1.2 Tests with my own programs
-* 0.1.1 Tried a tamplate from opendesign.org
+* 0.1.1 Tried a template from opendesign.org
 * 0.1.0 Setup
