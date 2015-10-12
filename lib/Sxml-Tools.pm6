@@ -1,9 +1,5 @@
 use v6;
 
-BEGIN {
-  @*INC.unshift('/home/marcel/Languages/Perl6/Projects/Semi-xml/lib');
-}
-
 use Semi-xml;
 use XML;
 
