@@ -1,7 +1,7 @@
 use v6.c;
 
 use Semi-xml;
-use XML;
+#use XML;
 
 class Sxml-Tools {
   has Hash $.symbols = {};

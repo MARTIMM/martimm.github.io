@@ -1,33 +1,28 @@
 <article class="post"><header><h2>MongoDB and BSON Howto</h2></header><aside><p>The Perl 6 modules MongoDB and BSON are maintained by me and can be found <a href="https://github.com/MARTIMM/mongo-perl6-driver" target="_blank">here</a> and <a href="https://github.com/MARTIMM/BSON" target="_blank">here</a>.
-      However, the modules are also registered in the Perl 6 module library so
-      when panda is installed you can also install them using panda;<pre>
-&gt; panda install MongoDB
+However, the modules are also registered in the Perl 6 module library so
+when panda is installed you can also install them using panda;<pre>
 &gt; panda install BSON
-</pre>The last command is not really necessary because the MongoDB is dependent
-      on it and panda will install it automatically.</p></aside><p>The minimal use of the MongoDB driver is loading the driver, make contact
-    with the server, then do your thing and close it down. In this example a
-    connection with the localhost is made on port 65000.<pre>
+&gt; panda install MongoDB
+</pre>The first command is not really necessary because the MongoDB is dependent
+on it and panda will install it automatically.</p></aside><p>The minimal use of the MongoDB driver is loading the driver, make contact
+with the server, then do your thing and close it down. In this example a
+connection with the localhost is made on port 65000.<pre>
 use v6;
-use MongoDB::Connection;
+use BSON::Document;
+use MongoDB::Client;
 
-my MongoDB::Connection $connection .= new(:port(65000));
-my MongoDB::Database $database = $connection.database( 'test');
-my MongoDB::Collection $collection = $database.collection( 'perl_users');
+my MongoDB::Client $client .= new(:uri('mongodb://:65000'));
+my MongoDB::Database $database = $client.database('addresses');
+my MongoDB::Collection $collection = $database.collection( 'perl');
 
-my Hash $document1 = {
-  'name'      => 'Paweł Pabian',
-  'nick'      => 'bbkr',
-  'versions'  => [ 1, 2 ],
-  'author'    => {
-      'BSON'          => 'https://github.com/bbkr/BSON',
-      'Integer::Tiny' => 'http://search.cpan.org/perldoc?Integer%3A%3ATiny',
-  },
-  'IRC' => True,
-};
+my BSON::Document $doc = $database.run-command: (
+  insert => $collection.name,
+  documents => [
+    BSON::Document.new((
+      'name'        => 'Paweł Pabian',
+      'nick'        => 'bbkr',
+    ))
+  ]
+);
 
-$collection.insert($document1);
-
-</pre>What is also noticeable is that only MongoDB::Connection is loaded. This is
-    because that module needs MongoDB::Database and that one in turn needs 
-    MongoDB::Collection. So these modules you will also get by initializing a
-    database and a collection.</p><footer><hr/><p>Marcel Timmerman 2015-08-25</p></footer></article>
+</pre></p><footer><hr/><p>Marcel Timmerman 2016-03-21</p></footer></article>

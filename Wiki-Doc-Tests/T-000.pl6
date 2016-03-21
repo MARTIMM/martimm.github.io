@@ -3,23 +3,23 @@
 #`{{Example-Start}}
 
 use v6;
-use MongoDB::Connection;
+use BSON::Document;
+use MongoDB::Client;
 
-my MongoDB::Connection $connection .= new(:port(65000));
-my MongoDB::Database $database = $connection.database( 'test');
-my MongoDB::Collection $collection = $database.collection( 'perl_users');
+my MongoDB::Client $client .= new(:uri('mongodb://:65000'));
+my MongoDB::Database $database = $client.database('addresses');
+my MongoDB::Collection $collection = $database.collection('perl');
 
-my Hash $document1 = {
-  'name'      => 'Paweł Pabian',
-  'nick'      => 'bbkr',
-  'versions'  => [ 1, 2 ],
-  'author'    => {
-      'BSON'          => 'https://github.com/bbkr/BSON',
-      'Integer::Tiny' => 'http://search.cpan.org/perldoc?Integer%3A%3ATiny',
-  },
-  'IRC' => True,
-};
-
-$collection.insert($document1);
+my BSON::Document $doc = $database.run-command: (
+  insert => $collection.name,
+  documents => [
+    BSON::Document.new((
+      'name'        => 'Paweł Pabian',
+      'nick'        => 'bbkr',
+    ))
+  ]
+);
 
 #`{{Example-Stop}}
+
+say $doc.perl;
