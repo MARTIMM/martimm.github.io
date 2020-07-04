@@ -1,10 +1,10 @@
 ---
 title: Change log
 #nav_title: Home
-nav_menu: default-nav
 #![favicon](/assets/favicon.ico)layout: default
-sidebar_menu: main-sidebar
 layout: sidebar
+nav_menu: default-nav
+sidebar_menu: main-sidebar
 change_notes: change-log-data
 ---
 
