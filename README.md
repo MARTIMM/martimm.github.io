@@ -30,7 +30,7 @@ Crash course html5 and css3 ...
   * Reload of the same article is prevented.
 
 * 0.4.0
-  * Used jquery from googleapis
+  * Used jquery from google apis
   * Split an article from index.sxml
   * Setup directories Sxml for all sxml files and directories therein mirroring
   the site like Articles/03-12.
@@ -42,4 +42,4 @@ Crash course html5 and css3 ...
 * 0.2.0 Created generate-site.pl6
 * 0.1.2 Tests with my own programs
 * 0.1.1 Tried a template from opendesign.org
-* 2016-SommeMonth-SomeDay 0.1.0 Setup
+* 2016-SomeMonth-SomeDay 0.1.0 Setup
