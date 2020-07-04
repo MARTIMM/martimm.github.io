@@ -16,3 +16,8 @@ The latest release notes from all gnome Raku packages are noted here. See also t
 -->
 
 {% include changes-section.html %}
+
+
+{% for repository in site.github.public_repositories %}
+  * [{{ repository.name }}]({{ repository.html_url }})
+{% endfor %}
