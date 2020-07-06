@@ -1,22 +1,7 @@
-# Website https://martimm.github.io/
+# Center point for documentation
 
-Ok, w'll start all over again ...
+This repository is used for the [website](https://martimm.github.io/) and it functions like a home location to reach all documentation about my projects.
 
-
-
-<!--
-New ideas are flowing in....
-Crash course html5 and css3 ...
-
-## Todo
-
-* Nasty items to tell about
-  * [ ] inheriting and EVAL
-  * [ ] error messages and multi
-  * [ ] $x.perl and XML
-
-* Crossroads as a set of links to other information
--->
 
 ## Changes
 
