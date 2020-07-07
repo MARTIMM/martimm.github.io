@@ -3,8 +3,11 @@
 This repository is used for the [website](https://martimm.github.io/) and it functions like a home location to reach all documentation about my projects.
 
 
-## Changes
+## Change log
 
+For changes please look at [this sites page](https://martimm.github.io/content-docs/about.html)
+
+<!--
 * 2020-07-02 0.6.0
   * New start for this main entry point of all project information. Have some experience now with Jekyll to document the Gnome GTK+ project.
 
@@ -28,3 +31,4 @@ This repository is used for the [website](https://martimm.github.io/) and it fun
 * 0.1.2 Tests with my own programs
 * 0.1.1 Tried a template from opendesign.org
 * 2016-SomeMonth-SomeDay 0.1.0 Setup
+-->

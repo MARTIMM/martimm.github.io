@@ -1,9 +1,9 @@
 ---
 title: MARTIMM's projects
-layout: sidebar
+#layout: sidebar
 
 nav_menu: default-nav
-sidebar_menu: main-sidebar
+#sidebar_menu: main-sidebar
 ---
 # Here at MARTIMM's
 
