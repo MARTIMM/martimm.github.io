@@ -15,11 +15,11 @@ In the mean time I've left my job and got the opportunity to learn a bit more ab
 
 However, since December 2014 I took up studying **Perl 6** (in the mean time renamed to **Raku**). Now I'm hooked. It is a very nice language capable of many things without using basic modules. You can imagine what it will be capable of when there are as many modules as there are on CPAN for **Perl**.
 
-I am mainly working with **Rakudo Star** and the **Moarvm** virtual machine. Although I am still learning the language I've taken on maintaining two modules from **Paweł Pabian.** These are **MongoDB** and **BSON**. Besides that I am already full of ideas like making a meta information library about all files, projects and media I have scattered around on disk and computers using these modules.
+I am mainly working with **Rakudo** downloaded directly from github and the **Moarvm** virtual machine. Although I am still learning the language I've taken on maintaining two modules from **Paweł Pabian.** These are **MongoDB** and **BSON**. Besides that I am already full of ideas like making a meta information library about all files, projects and media I have scattered around on disk and computers using these modules.
 
 I am now writing 2020-07-07. A lot has changed. Modules have entered the ecosystem and also on **CPAN**. **Raku** is much faster and many bugs are removed. The list of projecs of mine is growing too. I need some prioritization to keep an eye on projects without them dying on me. You can read all about it on the projects page.
 
-**Note**: The **Perl** and **Raku** languages are created (with the help of meny other developers) by **Larry Wall**.
+**Note**: The **Perl** and **Raku** language development is initiated and created by **Larry Wall** with the help of many other thinkers and developers.
 
 <!--
 {% assign todo-url = site.baseurl | append: "/content-docs/about/todo.html" %}

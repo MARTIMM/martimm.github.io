@@ -27,7 +27,7 @@ Some links you might find interesting;
   * [Raku Documentation](https://docs.raku.org/)
   * [Rakudo](https://rakudo.org/)
   * [Raku Modules](https://modules.raku.org/)
-  * [Raku cheat sheet](https://raw.githubusercontent.com/Raku/mu/master/docs/Perl6/Cheatsheet/cheatsheet.txt)
+  * [Raku Cheat Sheet](https://raw.githubusercontent.com/Raku/mu/master/docs/Perl6/Cheatsheet/cheatsheet.txt)
   * [Periodic Table of the Operators](https://www.ozonehouse.com/mark/periodic/https://www.ozonehouse.com/mark/periodic/)
 * Blogs
   * [Archive of Wenzel P. P. Peppmeyer](https://gfldex.wordpress.com/about/)
