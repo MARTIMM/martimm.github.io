@@ -4,7 +4,7 @@ title: About
 nav_menu: about-nav
 sidebar_menu: about-sidebar
 layout: sidebar
-change_notes: change-log-data
+#change_notes: change-log-data
 ---
 
 # Something about me
@@ -20,20 +20,3 @@ I am mainly working with **Rakudo** downloaded directly from github and the **Mo
 I am now writing 2020-07-07. A lot has changed. Modules have entered the ecosystem and also on **CPAN**. **Raku** is much faster and many bugs are removed. The list of projecs of mine is growing too. I need some prioritization to keep an eye on projects without them dying on me. You can read all about it on the projects page.
 
 **Note**: The **Perl** and **Raku** language development is initiated and created by **Larry Wall** with the help of many other thinkers and developers.
-
-<!--
-{% assign todo-url = site.baseurl | append: "/content-docs/about/todo.html" %}
-{% assign done-url = site.baseurl | append: "/content-docs/about/todo-done.html" %}
-
-The latest release notes from all gnome Raku packages are noted here. See also the list of [todo]({{todo-url}}) notes and which [todo's are done]({{done-url}})
--->
-
-<!--
-{% include changes-section.html %}
-
-# Repositories
-
-{% for repository in site.github.public_repositories %}
-  * [{{ repository.name }}]({{ repository.html_url }})
-{% endfor %}
--->
