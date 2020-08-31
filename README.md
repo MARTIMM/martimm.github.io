@@ -1,6 +1,9 @@
+[![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
+[![docs License](http://martimm.github.io/label/License-label-docs.svg)](http://www.perlfoundation.org/artistic_license_2_0)
+
 # Center point for documentation
 
-This repository is used for the [website](https://martimm.github.io/) and it functions like a home location to reach all documentation about my projects.
+This repository is used for the [web site at martimm.github.io](https://martimm.github.io/) and it functions like a home location to reach all documentation about my projects.
 
 
 ## Change log
