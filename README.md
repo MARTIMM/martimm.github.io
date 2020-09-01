@@ -8,7 +8,7 @@ This repository is used for the [web site at martimm.github.io](https://martimm.
 
 ## Change log
 
-For changes please look at [this sites page](https://martimm.github.io/content-docs/about.html)
+For changes please look at [this sites page](https://martimm.github.io/content-docs/About/release-notes.html)
 
 <!--
 * 2020-07-02 0.6.0
