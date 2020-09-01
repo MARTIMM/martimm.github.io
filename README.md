@@ -1,6 +1,6 @@
 [![License](http://martimm.github.io/label/License-label.svg)](http://www.perlfoundation.org/artistic_license_2_0)
-[![docs License](http://martimm.github.io/label/License-label-docs.svg)](http://www.perlfoundation.org/artistic_license_2_0)
-
+[![docs License](http://martimm.github.io/label/License-label-docs.svg)](
+https://www.gnu.org/licenses/fdl-1.3.html)
 # Center point for documentation
 
 This repository is used for the [web site at martimm.github.io](https://martimm.github.io/) and it functions like a home location to reach all documentation about my projects.
