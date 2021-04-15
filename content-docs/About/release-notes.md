@@ -1,6 +1,5 @@
 ---
-title: About MongoDB Driver
-#nav_title: About
+title: About MARTIMM's
 nav_menu: about-nav
 sidebar_menu: about-sidebar
 layout: sidebar
