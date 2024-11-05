@@ -45,3 +45,13 @@ use Gnome::Gtk3::Window::api<1>;
 The main differences between the two versions are the following
 * The naming of the classes is a bit different
 * The instanciation of objects is changed
+
+### Naming of the classes
+
+Gnome has the types `class`, `interface`, `record` or `union` from which classes are generated.
+* `class`; This type will still convert to the same Raku type as in `:api<1>`. For instance, the <ins>Label</ins> class becomes **Gnome::Gtk4::Label**.
+* `interface`; These types will get a `R-` prefix. As an example, the Orientable interface becomes **Gnome::Gtk4::R-Orientable**. However, there is one interface class in Gio which is converted into a normall class. This class is **Gnome::Gio::File**.
+* `record` and `union`; Those types are both converted into class names with a `N-` prefixed. For example **Gnome::Gtk4::N-Bitset**.
+
+There are more types describing simpler structures. These are `constant`, `enumeration`, `bitfield` and `function`. Those are all saved in modules with lowercase names and prefixed with a `T-`. An example is **Gnome::Gtk4::T-enums**.
+
