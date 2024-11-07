@@ -12,6 +12,23 @@ This repository is used for the [web site at martimm.github.io](https://martimm.
 
 For changes please look at [this sites page](https://martimm.github.io/content-docs/About/release-notes.html)
 
+
+
+<!--
+> fez login
+>>= Username: martimm
+>>= Password:
+>>= login successful, you can now upload dists
+
+> git archive -v --output=gnome-native.tgz HEAD .
+…
+> fez upload --file gnome-native.tgz
+>>= Hey! You did it! Your dist will be indexed shortly.
+> fez list
+>>= Gnome::N:ver<0.1.37>:auth<zef:martimm>
+-->
+
+
 <!--
 * 2020-07-02 0.6.0
   * New start for this main entry point of all project information. Have some experience now with Jekyll to document the Gnome GTK+ project.
