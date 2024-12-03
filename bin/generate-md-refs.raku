@@ -4,6 +4,7 @@
 use v6.d;
 
 use Pod::To::HTML2;
+#use RakuDoc::To::HTML;
 use Pod::Load;
 
 
@@ -36,8 +37,13 @@ my Hash $sidebar-paths = %(
 #-------------------------------------------------------------------------------
 # e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
 #      generate-md-refs.raku Gtk4Api2
-sub MAIN ( Str:D $key, Str $raku-doc-name? is copy ) {
+sub MAIN (
+  Str:D $key, Str $raku-doc-name? is copy,
+  Bool :skip($skip-existing) = False
+) {
 #note "$?LINE $source-paths{$key}$raku-doc-name, $destination-paths{$key}";
+
+  chdir('./docs/content-docs');
 
   my Str ( $source-path, $destination-path);
 
@@ -50,12 +56,12 @@ sub MAIN ( Str:D $key, Str $raku-doc-name? is copy ) {
     if ?$raku-doc-name {
       $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
       my Str $source-file = $source-path ~ $raku-doc-name;
-      generate-html( $source-file, $destination-path);
+      generate-html( $source-file, $destination-path, :!skip-existing);
     }
 
     else {
-      for $source-path.IO.dir -> Str() $source-file {
-        generate-html( $source-file, $destination-path)
+      for $source-path.IO.dir.sort -> Str() $source-file {
+        generate-html( $source-file, $destination-path, :$skip-existing)
           if $source-file ~~ m/ rakudoc $/;
       }
     }
@@ -79,12 +85,16 @@ note Q:to/EOUSAGE/;
   all the HTML files found in the destination directory.
 
   Usage:
-    $*PROGRAM_NAME <key> <raku-doc-name>
+    $*PROGRAM_NAME <key> [<raku-doc-name>] [<options>]
 
   Arguments:
     key                 Key used to find paths in hashes
 
     raku-doc-name       Document holding rakudoc text
+
+  Options:
+    skip-existing       Skip generating documents which have
+                        been processed before
 
   EOUSAGE
 }
@@ -92,18 +102,22 @@ note Q:to/EOUSAGE/;
 #-------------------------------------------------------------------------------
 # Read doc and generate HTML and store in $raku-doc-dest
 
-sub generate-html ( Str $raku-doc-path, Str $raku-doc-dest ) {
+sub generate-html (
+  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip-existing
+) {
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
   my Array $rak = load $raku-doc-path;
+  my Str $filename = "$raku-doc-dest$basename";
+  return if $skip-existing and ("$filename.html".IO ~~ :e);
 
   my Pod::To::HTML2 $pr .= new;
+#  my RakuDoc::To::HTML $pr .= new;
   $pr.pod-file.path = $raku-doc-path;
   $pr.process-pod($rak);
   $pr.no-toc = True if $raku-doc-path ~~ m/ XMas /;
   $pr.no-glossary = True;
   $pr.no-footnotes = True;
 #  $pr.title-target($basename.Str);
-  my Str $filename = "$raku-doc-dest$basename";
   "$filename.html".IO.spurt: "---\n---\n" ~ $pr.source-wrap(:$filename);
 
   note "Generated {$filename.IO.basename}.html";
