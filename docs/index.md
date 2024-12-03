@@ -2,11 +2,9 @@
 title: MARTIMM's projects
 layout: sidebar
 nav_menu: default-nav
-sidebar_menu: posts-sidebar
+sidebar_menu: projects-sidebar
 ---
-# Here at MARTIMM's
-
-MARTIMM is my account name on github and used on other sites as well such as cpan and pause.
+# Project Documentation
 
 This is a site setup as a main entry point to the documentation of all my projects. The resent projects are libraries or programs written in the **Raku** language, formerly known as **Perl 6**.
 
@@ -14,8 +12,7 @@ Some of them are small and there is not much to tell about. Others are somewhat 
 
 There are also large projects. These projects not only have references but also have tutorials and examples, well, at least planned to have them 😃.
 
-This site will mainly show links to other projects documentation. Maybe I might blog even....
-
+This site will mainly show links to other projects documentation.
 
 Anyways, have fun!
 
