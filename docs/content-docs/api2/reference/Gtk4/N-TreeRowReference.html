@@ -1,0 +1,117 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::N-TreeRowReference</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::N-TreeRowReference">Gnome::Gtk4::N-TreeRowReference</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-treerowreference">new-treerowreference</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-proxy">new-proxy</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#free">free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-path">get-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#valid">valid</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#deleted">deleted</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#inserted">inserted</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#reordered">reordered</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">Description</a></h1>
+<p>A GtkTreeRowReference tracks model changes so that it always refers to the same row (a <strong>Gnome::Gtk4::N-TreePath</strong> refers to a position, not a fixed row). Create a new GtkTreeRowReference with <code>.new-treerowreference()</code>.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">Class initialization</a></h1>
+<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
+<h2 id="new"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-treerowreference"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">new-treerowreference</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a row reference based on <code>$path</code>.</p><p>This reference will keep pointing to the node pointed to by <code>$path</code>, so long as it exists. Any changes that occur on <code>$model</code> are propagated, and the path is updated appropriately. If <code>$path</code> isn’t a valid path in <code>$model</code>, then undefined is returned.</p><pre class="pod-block-code">method new-treerowreference ( N-Object() $model, N-Object $path --&gt; Gnome::Gtk4::TreeRowReference \)
+</pre><ul>
+<li><p>$model; a <strong>Gnome::Gtk4::R-TreeModel</strong>.</p></li>
+<li><p>$path; a valid <strong>Gnome::Gtk4::N-TreePath</strong> to monitor</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-proxy"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">new-proxy</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>You do not need to use this function.</p><p>Creates a row reference based on <code>$path</code>.</p><p>This reference will keep pointing to the node pointed to by <code>$path</code>, so long as it exists. If <code>$path</code> isn’t a valid path in <code>$model</code>, then undefined is returned. However, unlike references created with <code>.new-treerowreference()</code>, it does not listen to the model for changes. The creator of the row reference must do this explicitly using <code>.inserted()</code>, <code>.deleted()</code>, <code>.reordered()</code>.</p><p>These functions must be called exactly once per proxy when the corresponding signal on the model is emitted. This single call updates all row references for that proxy. Since built-in GTK objects like <strong>Gnome::Gtk4::TreeView</strong> already use this mechanism internally, using them as the proxy object will produce unpredictable results. Further more, passing the same object as <code>$model</code> and <code>$proxy</code> doesn’t work for reasons of internal implementation.</p><p>This type of row reference is primarily meant by structures that need to carefully monitor exactly when a row reference updates itself, and is not generally needed by most applications.</p><pre class="pod-block-code">method new-proxy ( N-Object() $proxy, N-Object() $model, N-Object $path --&gt; Gnome::Gtk4::TreeRowReference \)
+</pre><ul>
+<li><p>$proxy; a proxy <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$model; a <strong>Gnome::Gtk4::R-TreeModel</strong>.</p></li>
+<li><p>$path; a valid <strong>Gnome::Gtk4::N-TreePath</strong> to monitor</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="copy"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">copy</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Copies a <strong>Gnome::Gtk4::N-TreeRowReference</strong>.</p><pre class="pod-block-code">method copy (--&gt; N-Object )
+</pre><p>Return value; a copy of <code>$reference</code>. </p></section>
+<section name="pod">
+<h2 id="free"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">free</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Free’s <code>$reference</code>. <code>$reference</code> may be undefined</p><pre class="pod-block-code">method free ( )
+</pre></section>
+<section name="pod">
+<h2 id="get-model"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">get-model</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the model that the row reference is monitoring.</p><pre class="pod-block-code">method get-model (--&gt; N-Object )
+</pre><p>Return value; the model. </p></section>
+<section name="pod">
+<h2 id="get-path"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">get-path</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a path that the row reference currently points to, or undefined if the path pointed to is no longer valid.</p><pre class="pod-block-code">method get-path (--&gt; N-Object )
+</pre><p>Return value; a current path. </p></section>
+<section name="pod">
+<h2 id="valid"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">valid</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if the <code>$reference</code> is non-undefined and refers to a current valid path.</p><pre class="pod-block-code">method valid (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if <code>$reference</code> points to a valid path. </p></section>
+<section name="pod">
+<h1 id="Functions"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="pod">
+<h2 id="deleted"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">deleted</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Lets a set of row reference created by <code>.new-proxy()</code> know that the model emitted the <em>row-deleted</em> signal.</p><pre class="pod-block-code">method deleted ( N-Object() $proxy, N-Object $path )
+</pre><ul>
+<li><p>$proxy; a <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$path; the path position that was deleted</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="inserted"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">inserted</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Lets a set of row reference created by <code>.new-proxy()</code> know that the model emitted the <em>row-inserted</em> signal.</p><pre class="pod-block-code">method inserted ( N-Object() $proxy, N-Object $path )
+</pre><ul>
+<li><p>$proxy; a <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$path; the row position that was inserted</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="reordered"><a href="#Gnome::Gtk4::N-TreeRowReference" class="u" title="go to top of document">reordered</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Lets a set of row reference created by <code>.new-proxy()</code> know that the model emitted the <em>rows-reordered</em> signal.</p><pre class="pod-block-code">method reordered ( N-Object() $proxy, N-Object $path, N-Object $iter, Array[Int] $new-order )
+</pre><ul>
+<li><p>$proxy; a <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$path; the parent path of the reordered signal</p></li>
+<li><p>$iter; the iter pointing to the parent of the reordered</p></li>
+<li><p>$new-order; the new order of rows.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-TreeRowReference.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:52Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,184 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::CheckButton</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::CheckButton">Gnome::Gtk4::CheckButton</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inconsistent_state">Inconsistent state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Grouping">Grouping</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-checkbutton">new-checkbutton</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-label">new-with-label</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-mnemonic">new-with-mnemonic</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-active">get-active</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-inconsistent">get-inconsistent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-label">get-label</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-use-underline">get-use-underline</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-active">set-active</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-child">set-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-group">set-group</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-inconsistent">set-inconsistent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-label">set-label</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-use-underline">set-use-underline</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#toggled">toggled</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk4::CheckButton</strong> places a label next to an indicator.</p><div class="image-container inline"><img src="asset_files/images/check-button.png" width="30%" height="auto" alt="No caption"></div>
+<p>A <strong>Gnome::Gtk4::CheckButton</strong> is created by calling either <code>.newcheckbutton()</code> or <code>.new-with-label()</code>.</p><p>The state of a <strong>Gnome::Gtk4::CheckButton</strong> can be set specifically using <code>.set-active()</code>, and retrieved using <code>.get-active()</code>.</p>
+<h2 id="Inconsistent_state"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Inconsistent state</a></h2>
+<p>In addition to &quot;on&quot; and &quot;off&quot;, check buttons can be an &quot;in between&quot; state that is neither on nor off. This can be used e.g. when the user has selected a range of elements (such as some text or spreadsheet cells) that are affected by a check button, and the current values in that range are inconsistent.</p><p>To set a <strong>Gnome::Gtk4::CheckButton</strong> to inconsistent state, use <code>.set-inconsistent()</code>.</p>
+<h2 id="Grouping"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Grouping</a></h2>
+<p>Check buttons can be grouped together, to form mutually exclusive groups - only one of the buttons can be toggled at a time, and toggling another one will switch the currently toggled one off.</p><p>Grouped check buttons use a different indicator, and are commonly referred to as *radio buttons*.</p><div class="image-container inline"><img src="asset_files/images/radio-button.png" width="30%" height="auto" alt="No caption"></div>
+<p>To add a <strong>Gnome::Gtk4::CheckButton</strong> to a group, use <code>.set-group()</code>.</p><p>When the code must keep track of the state of a group of radio buttons, it is recommended to keep track of such state through a stateful <strong>Gnome::Gio::R-Action</strong> with a target for each button. Using the <strong>toggled</strong> signals to keep track of the group changes and state is discouraged.</p>
+<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">CSS nodes</a></h2>
+<p>A <strong>Gnome::Gtk4::CheckButton</strong> has a main node with name checkbutton. If the <em>label</em> or <em>child</em> properties are set, it contains a child widget. The indicator node is named check when no group is set, and radio if the checkbutton is grouped together with other checkbuttons.</p>
+<h2 id="Accessibility"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Accessibility</a></h2>
+<p><strong>Gnome::Gtk4::CheckButton</strong> uses the <code>GTK_ACCESSIBLE_ROLE_CHECKBOX</code> role.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-checkbutton"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">new-checkbutton</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::CheckButton</strong>.</p><pre class="pod-block-code">method new-checkbutton ( --&gt; Gnome::Gtk4::CheckButton \)
+</pre></section>
+<section name="pod">
+<h2 id="new-with-label"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">new-with-label</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::CheckButton</strong> with the given text.</p><pre class="pod-block-code">method new-with-label ( Str $label --&gt; Gnome::Gtk4::CheckButton \)
+</pre><ul>
+<li><p>$label; the text for the check button..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-with-mnemonic"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">new-with-mnemonic</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::CheckButton</strong> with the given text and a mnemonic.</p><pre class="pod-block-code">method new-with-mnemonic ( Str $label --&gt; Gnome::Gtk4::CheckButton \)
+</pre><ul>
+<li><p>$label; The text of the button, with an underscore in front of the mnemonic character.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-active"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">get-active</a></h2>
+<p>Returns whether the check button is active.</p><pre class="pod-block-code">method get-active (--&gt; Bool )
+</pre><p>Return value; whether the check button is active. </p></section>
+<section name="pod">
+<h2 id="get-child"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">get-child</a></h2>
+<p>Gets the child widget of <code>$button</code> or undefined if [property <code>$CheckButton</code>:label] is set.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
+</pre><p>Return value; the child widget of <code>$button</code>. </p></section>
+<section name="pod">
+<h2 id="get-inconsistent"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">get-inconsistent</a></h2>
+<p>Returns whether the check button is in an inconsistent state.</p><pre class="pod-block-code">method get-inconsistent (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if <code>$check-button</code> is currently in an inconsistent state. </p></section>
+<section name="pod">
+<h2 id="get-label"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">get-label</a></h2>
+<p>Returns the label of the check button or undefined if [property <code>$CheckButton</code>:child] is set.</p><pre class="pod-block-code">method get-label (--&gt; Str )
+</pre><p>Return value; The label <code>$self</code> shows next to the indicator. If no label is shown, undefined will be returned.. </p></section>
+<section name="pod">
+<h2 id="get-use-underline"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">get-use-underline</a></h2>
+<p>Returns whether underlines in the label indicate mnemonics.</p><pre class="pod-block-code">method get-use-underline (--&gt; Bool )
+</pre><p>Return value; The value of the <em>use-underline</em> property. See <code>.set-use-underline()</code> for details on how to set a new value.. </p></section>
+<section name="pod">
+<h2 id="set-active"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-active</a></h2>
+<p>Changes the check buttons active state.</p><pre class="pod-block-code">method set-active ( Bool() $setting )
+</pre><ul>
+<li><p>$setting; the new value to set.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-child"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-child</a></h2>
+<p>Sets the child widget of <code>$button</code>.</p><p>Note that by using this API, you take full responsibility for setting up the proper accessibility label and description information for <code>$button</code>. Most likely, you'll either set the accessibility label or description for <code>$button</code> explicitly, or you'll set a labelled-by or described-by relations from <code>$child</code> to <code>$button</code>.</p><pre class="pod-block-code">method set-child ( N-Object() $child )
+</pre><ul>
+<li><p>$child; the child widget.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-group"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-group</a></h2>
+<p>Adds <code>$self</code> to the group of <code>$group</code>.</p><p>In a group of multiple check buttons, only one button can be active at a time. The behavior of a checkbutton in a group is also commonly known as a *radio button*.</p><p>Setting the group of a check button also changes the css name of the indicator widget's CSS node to 'radio'.</p><p>Setting up groups in a cycle leads to undefined behavior.</p><p>Note that the same effect can be achieved via the <strong>Gnome::Gtk4::R-Actionable</strong> API, by using the same action with parameter type and state type 's' for all buttons in the group, and giving each button its own target value.</p><pre class="pod-block-code">method set-group ( N-Object() $group )
+</pre><ul>
+<li><p>$group; another <strong>Gnome::Gtk4::CheckButton</strong> to form a group with.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-inconsistent"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-inconsistent</a></h2>
+<p>Sets the <strong>Gnome::Gtk4::CheckButton</strong> to inconsistent state.</p><p>You should turn off the inconsistent state again if the user checks the check button. This has to be done manually.</p><pre class="pod-block-code">method set-inconsistent ( Bool() $inconsistent )
+</pre><ul>
+<li><p>$inconsistent; <code>True</code> if state is inconsistent.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-label"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-label</a></h2>
+<p>Sets the text of <code>$self</code>.</p><p>If <em>use-underline</em> is <code>True</code>, an underscore in <code>$label</code> is interpreted as mnemonic indicator, see <code>.set-use-underline()</code> for details on this behavior.</p><pre class="pod-block-code">method set-label ( Str $label )
+</pre><ul>
+<li><p>$label; The text shown next to the indicator, or undefined to show no text.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-use-underline"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">set-use-underline</a></h2>
+<p>Sets whether underlines in the label indicate mnemonics.</p><p>If <code>$setting</code> is <code>True</code>, an underscore character in <code>$self</code>'s label indicates a mnemonic accelerator key. This behavior is similar to <em>use-underline defined in Gnome::Gtk4::Label</em>.</p><pre class="pod-block-code">method set-use-underline ( Bool() $setting )
+</pre><ul>
+<li><p>$setting; the new value to set.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="activate"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">activate</a></h3>
+<p>Emitted to when the check button is activated.</p><p>The `::activate` signal on <strong>Gnome::Gtk4::CheckButton</strong> is an action signal and emitting it causes the button to animate press then release.</p><p>Applications should never connect to this signal, but use the <em>toggled</em> signal.</p><p>The default bindings for this signal are all forms of the &lt;kbd&gt;␣&lt;/kbd&gt; and &lt;kbd&gt;Enter&lt;/kbd&gt; keys.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::CheckButton :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::CheckButton</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+
+<h3 id="toggled"><a href="#Gnome::Gtk4::CheckButton" class="u" title="go to top of document">toggled</a></h3>
+<p>Emitted when the buttons's <em>active</em> property changes.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::CheckButton :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::CheckButton</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/CheckButton.rakudoc</span></div><div>at <span class="time">2024-12-02T20:09:39Z</span></div></footer>
+	</body>
+</html>

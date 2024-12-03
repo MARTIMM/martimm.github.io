@@ -1,0 +1,222 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::Popover</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Popover">Gnome::Gtk4::Popover</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#GtkPopover_as_menu_replacement">GtkPopover as menu replacement</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-popover">new-popover</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-autohide">get-autohide</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-cascade-popdown">get-cascade-popdown</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-arrow">get-has-arrow</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-mnemonics-visible">get-mnemonics-visible</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-offset">get-offset</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-pointing-to">get-pointing-to</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-position">get-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#popdown">popdown</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#popup">popup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#present">present</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-autohide">set-autohide</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-cascade-popdown">set-cascade-popdown</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-child">set-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-widget">set-default-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-arrow">set-has-arrow</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-mnemonics-visible">set-mnemonics-visible</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-offset">set-offset</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-pointing-to">set-pointing-to</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-position">set-position</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#activate-default">activate-default</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#closed">closed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::Popover</strong> is a bubble-like context popup.</p><div class="image-container inline"><img src="asset_files/images/popover.png" width="30%" height="auto" alt="No caption"></div>
+<p>It is primarily meant to provide context-dependent information or options. Popovers are attached to a parent widget. By default, they point to the whole widget area, although this behavior can be changed with <code>.set-pointing-to()</code>.</p><p>The position of a popover relative to the widget it is attached to can also be changed with <code>.set-position()</code></p><p>By default, <strong>Gnome::Gtk4::Popover</strong> performs a grab, in order to ensure input events get redirected to it while it is shown, and also so the popover is dismissed in the expected situations (clicks outside the popover, or the Escape key being pressed). If no such modal behavior is desired on a popover, <code>.set-autohide()</code> may be called on it to tweak its behavior.</p>
+<h3 id="GtkPopover_as_menu_replacement"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">GtkPopover as menu replacement</a></h3>
+<p><strong>Gnome::Gtk4::Popover</strong> is often used to replace menus. The best was to do this is to use the <strong>Gnome::Gtk4::PopoverMenu</strong> subclass which supports being populated from a <strong>Gnome::Gio::MenuModel</strong> with <code>.new-from-model() in class Gnome::Gtk4::PopoverMenu</code>.</p>
+<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">CSS nodes</a></h2>
+<p><strong>Gnome::Gtk4::Popover</strong> has a main node with name <strong>popover</strong>, an arrow with name <strong>arrow</strong>, and another node for the content named <strong>contents</strong>. The <strong>popover</strong> node always gets the `.background` style class. It also gets the `.menu` style class if the popover is menu-like, e.g. is a <strong>Gnome::Gtk4::PopoverMenu</strong>.</p><p>Particular uses of <strong>Gnome::Gtk4::Popover</strong>, such as touch selection popups or magnifiers in <strong>Gnome::Gtk4::Entry</strong> or <strong>Gnome::Gtk4::TextView</strong> get style classes like `.touch-selection` or `.magnifier` to differentiate from plain popovers.</p><p>When styling a popover directly, the <strong>popover</strong> node should usually not have any background. The visible part of the popover can have a shadow. To specify it in CSS, set the box-shadow of the <strong>contents</strong> node.</p><p>Note that, in order to accomplish appropriate arrow visuals, <strong>Gnome::Gtk4::Popover</strong> uses custom drawing for the <strong>arrow</strong> node. This makes it possible for the arrow to change its shape dynamically, but it also limits the possibilities of styling it using CSS. In particular, the <strong>arrow</strong> gets drawn over the <strong>content</strong> node's border and shadow, so they look like one shape, which means that the border width of the <strong>content</strong> node and the <strong>arrow</strong> node should be the same. The arrow also does not support any border shape other than solid, no border-radius, only one border width (border-bottom-width is used) and no box-shadow.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-popover"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">new-popover</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::Popover</strong>.</p><pre class="pod-block-code">method new-popover ( --&gt; Gnome::Gtk4::Popover \)
+</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-autohide"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-autohide</a></h2>
+<p>Returns whether the popover is modal.</p><p>See <code>.set-autohide()</code> for the implications of this.</p><pre class="pod-block-code">method get-autohide (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if <code>$popover</code> is modal. </p></section>
+<section name="pod">
+<h2 id="get-cascade-popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-cascade-popdown</a></h2>
+<p>Returns whether the popover will close after a modal child is closed.</p><pre class="pod-block-code">method get-cascade-popdown (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if <code>$popover</code> will close after a modal child.. </p></section>
+<section name="pod">
+<h2 id="get-child"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-child</a></h2>
+<p>Gets the child widget of <code>$popover</code>.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
+</pre><p>Return value; the child widget of <code>$popover</code>. </p></section>
+<section name="pod">
+<h2 id="get-has-arrow"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-has-arrow</a></h2>
+<p>Gets whether this popover is showing an arrow pointing at the widget that it is relative to.</p><pre class="pod-block-code">method get-has-arrow (--&gt; Bool )
+</pre><p>Return value; whether the popover has an arrow. </p></section>
+<section name="pod">
+<h2 id="get-mnemonics-visible"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-mnemonics-visible</a></h2>
+<p>Gets whether mnemonics are visible.</p><pre class="pod-block-code">method get-mnemonics-visible (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if mnemonics are supposed to be visible in this popover. </p></section>
+<section name="pod">
+<h2 id="get-offset"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-offset</a></h2>
+<p>Gets the offset previous set with <code>.set-offset()()</code>.</p><pre class="pod-block-code">method get-offset ( Array[Int] $x-offset, Array[Int] $y-offset )
+</pre><ul>
+<li><p>$x-offset; (transfer ownership: full) a location for the x_offset.</p></li>
+<li><p>$y-offset; (transfer ownership: full) a location for the y_offset.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-pointing-to"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-pointing-to</a></h2>
+<p>Gets the rectangle that the popover points to.</p><p>If a rectangle to point to has been set, this function will return <code>True</code> and fill in <code>$rect</code> with such rectangle, otherwise it will return <code>False</code> and fill in <code>$rect</code> with the parent widget coordinates.</p><pre class="pod-block-code">method get-pointing-to ( N-Object $rect --&gt; Bool )
+</pre><ul>
+<li><p>$rect; location to store the rectangle</p></li>
+</ul>
+<p>Return value; <code>True</code> if a rectangle to point to was set.. </p></section>
+<section name="pod">
+<h2 id="get-position"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-position</a></h2>
+<p>Returns the preferred position of <code>$popover</code>.</p><pre class="pod-block-code">method get-position (--&gt; GtkPositionType )
+</pre><p>Return value; The preferred position.. </p></section>
+<section name="pod">
+<h2 id="popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">popdown</a></h2>
+<p>Pops <code>$popover</code> down.</p><p>This may have the side-effect of closing a parent popover as well. See <em>cascade-popdown</em>.</p><pre class="pod-block-code">method popdown ( )
+</pre></section>
+<section name="pod">
+<h2 id="popup"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">popup</a></h2>
+<p>Pops <code>$popover</code> up.</p><pre class="pod-block-code">method popup ( )
+</pre></section>
+<section name="pod">
+<h2 id="present"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">present</a></h2>
+<p>Allocate a size for the <strong>Gnome::Gtk4::Popover</strong>.</p><p>This function needs to be called in size-allocate by widgets who have a <strong>Gnome::Gtk4::Popover</strong> as child. When using a layout manager, this is happening automatically.</p><p>To make a popover appear on screen, use <code>.popup()</code>.</p><pre class="pod-block-code">method present ( )
+</pre></section>
+<section name="pod">
+<h2 id="set-autohide"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-autohide</a></h2>
+<p>Sets whether <code>$popover</code> is modal.</p><p>A modal popover will grab the keyboard focus on it when being displayed. Focus will wrap around within the popover. Clicking outside the popover area or pressing Esc will dismiss the popover.</p><p>Called this function on an already showing popup with a new autohide value different from the current one, will cause the popup to be hidden.</p><pre class="pod-block-code">method set-autohide ( Bool() $autohide )
+</pre><ul>
+<li><p>$autohide; <code>True</code> to dismiss the popover on outside clicks.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-cascade-popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-cascade-popdown</a></h2>
+<p>If <code>$cascade-popdown</code> is <code>True</code>, the popover will be closed when a child modal popover is closed.</p><p>If <code>False</code>, <code>$popover</code> will stay visible.</p><pre class="pod-block-code">method set-cascade-popdown ( Bool() $cascade-popdown )
+</pre><ul>
+<li><p>$cascade-popdown; <code>True</code> if the popover should follow a child closing.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-child"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-child</a></h2>
+<p>Sets the child widget of <code>$popover</code>.</p><pre class="pod-block-code">method set-child ( N-Object() $child )
+</pre><ul>
+<li><p>$child; the child widget.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-default-widget"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-default-widget</a></h2>
+<p>Sets the default widget of a <strong>Gnome::Gtk4::Popover</strong>.</p><p>The default widget is the widget that’s activated when the user presses Enter in a dialog (for example). This function sets or unsets the default widget for a <strong>Gnome::Gtk4::Popover</strong>.</p><pre class="pod-block-code">method set-default-widget ( N-Object() $widget )
+</pre><ul>
+<li><p>$widget; a child widget of <code>$popover</code> to set as the default, or undefined to unset the default widget for the popover.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-has-arrow"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-has-arrow</a></h2>
+<p>Sets whether this popover should draw an arrow pointing at the widget it is relative to.</p><pre class="pod-block-code">method set-has-arrow ( Bool() $has-arrow )
+</pre><ul>
+<li><p>$has-arrow; <code>True</code> to draw an arrow.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-mnemonics-visible"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-mnemonics-visible</a></h2>
+<p>Sets whether mnemonics should be visible.</p><pre class="pod-block-code">method set-mnemonics-visible ( Bool() $mnemonics-visible )
+</pre><ul>
+<li><p>$mnemonics-visible; the new value.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-offset"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-offset</a></h2>
+<p>Sets the offset to use when calculating the position of the popover.</p><p>These values are used when preparing the <strong>Gnome::Gdk4::N-PopupLayout</strong> for positioning the popover.</p><pre class="pod-block-code">method set-offset ( Int() $x-offset, Int() $y-offset )
+</pre><ul>
+<li><p>$x-offset; the x offset to adjust the position by.</p></li>
+<li><p>$y-offset; the y offset to adjust the position by.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-pointing-to"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-pointing-to</a></h2>
+<p>Sets the rectangle that <code>$popover</code> points to.</p><p>This is in the coordinate space of the <code>$popover</code> parent.</p><pre class="pod-block-code">method set-pointing-to ( N-Object $rect )
+</pre><ul>
+<li><p>$rect; rectangle to point to</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-position"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-position</a></h2>
+<p>Sets the preferred position for <code>$popover</code> to appear.</p><p>If the <code>$popover</code> is currently visible, it will be immediately updated.</p><p>This preference will be respected where possible, although on lack of space (eg. if close to the window edges), the <strong>Gnome::Gtk4::Popover</strong> may choose to appear on the opposite side.</p><pre class="pod-block-code">method set-position ( GtkPositionType $position )
+</pre><ul>
+<li><p>$position; preferred popover position.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="activate-default"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">activate-default</a></h3>
+<p>Emitted whend the user activates the default widget.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::Popover :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Popover</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+
+<h3 id="closed"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">closed</a></h3>
+<p>Emitted when the popover is closed.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::Popover :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Popover</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Popover.rakudoc</span></div><div>at <span class="time">2024-12-02T20:11:03Z</span></div></footer>
+	</body>
+</html>

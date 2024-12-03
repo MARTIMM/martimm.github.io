@@ -1,0 +1,190 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::IconTheme</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::IconTheme">Gnome::Gtk4::IconTheme</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-icontheme">new-icontheme</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-resource-path">add-resource-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-search-path">add-search-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-display">get-display</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-names">get-icon-names</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-sizes">get-icon-sizes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-resource-path">get-resource-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-search-path">get-search-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-theme-name">get-theme-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#has-gicon">has-gicon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#has-icon">has-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-by-gicon_This_function_is_not_yet_available">lookup-by-gicon This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-icon_This_function_is_not_yet_available">lookup-icon This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-resource-path">set-resource-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-search-path">set-search-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-theme-name">set-theme-name</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-for-display">get-for-display</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::IconTheme</strong> provides a facility for loading themed icons.</p><p>The main reason for using a name rather than simply providing a filename is to allow different icons to be used depending on what “icon theme” is selected by the user. The operation of icon themes on Linux and Unix follows the [Icon Theme Specification](http://www.freedesktop.org/Standards/icon-theme-spec) There is a fallback icon theme, named <strong>hicolor</strong>, where applications should install their icons, but additional icon themes can be installed as operating system vendors and users choose.</p><p>In many cases, named themes are used indirectly, via <strong>Gnome::Gtk4::Image</strong> rather than directly, but looking up icons directly is also simple. The <strong>Gnome::Gtk4::IconTheme</strong> object acts as a database of all the icons in the current theme. You can create new <strong>Gnome::Gtk4::IconTheme</strong> objects, but it’s much more efficient to use the standard icon theme of the <strong>Gnome::Gtk4::Widget</strong> so that the icon information is shared with other people looking up icons.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-icontheme"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">new-icontheme</a></h2>
+<p>Creates a new icon theme object.</p><p>Icon theme objects are used to lookup up an icon by name in a particular icon theme. Usually, you’ll want to use <code>.IconTheme.get-for-display()</code> rather than creating a new icon theme object for scratch.</p><pre class="pod-block-code">method new-icontheme ( --&gt; Gnome::Gtk4::IconTheme \)
+</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="add-resource-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">add-resource-path</a></h2>
+<p>Adds a resource path that will be looked at when looking for icons, similar to search paths.</p><p>See <code>.set-resource-path()</code>.</p><p>This function should be used to make application-specific icons available as part of the icon theme.</p><pre class="pod-block-code">method add-resource-path ( Str $path )
+</pre><ul>
+<li><p>$path; a resource path.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-search-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">add-search-path</a></h2>
+<p>Appends a directory to the search path.</p><p>See <code>.set-search-path()</code>.</p><pre class="pod-block-code">method add-search-path ( Str $path )
+</pre><ul>
+<li><p>$path; directory name to append to the icon path.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-display"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-display</a></h2>
+<p>Returns the display that the <strong>Gnome::Gtk4::IconTheme</strong> object was created for.</p><pre class="pod-block-code">method get-display (--&gt; N-Object )
+</pre><p>Return value; the display of <code>$icon-theme</code>. </p></section>
+<section name="pod">
+<h2 id="get-icon-names"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-icon-names</a></h2>
+<p>Lists the names of icons in the current icon theme.</p><pre class="pod-block-code">method get-icon-names (--&gt; Array[Str] )
+</pre><p>Return value; a string array holding the names of all the icons in the theme. You must free the array using g_strfreev().. </p></section>
+<section name="pod">
+<h2 id="get-icon-sizes"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-icon-sizes</a></h2>
+<p>Returns an array of integers describing the sizes at which the icon is available without scaling.</p><p>A size of -1 means that the icon is available in a scalable format. The array is zero-terminated.</p><pre class="pod-block-code">method get-icon-sizes ( Str $icon-name --&gt; Array[Int] )
+</pre><ul>
+<li><p>$icon-name; the name of an icon.</p></li>
+</ul>
+<p>Return value; A newly allocated array describing the sizes at which the icon is available. The array should be freed with g_free() when it is no longer needed.. </p></section>
+<section name="pod">
+<h2 id="get-resource-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-resource-path</a></h2>
+<p>Gets the current resource path.</p><p>See <code>.set-resource-path()</code>.</p><pre class="pod-block-code">method get-resource-path (--&gt; Array[Str] )
+</pre><p>Return value; A list of resource paths. </p></section>
+<section name="pod">
+<h2 id="get-search-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-search-path</a></h2>
+<p>Gets the current search path.</p><p>See <code>.set-search-path()</code>.</p><pre class="pod-block-code">method get-search-path (--&gt; Array[Str] )
+</pre><p>Return value; a list of icon theme path directories. </p></section>
+<section name="pod">
+<h2 id="get-theme-name"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-theme-name</a></h2>
+<p>Gets the current icon theme name.</p><p>Returns (transfer full): the current icon theme name,</p><pre class="pod-block-code">method get-theme-name (--&gt; Str )
+</pre><p>Return value; No documentation about its value and use. </p></section>
+<section name="pod">
+<h2 id="has-gicon"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">has-gicon</a></h2>
+<p>Checks whether an icon theme includes an icon for a particular <strong>Gnome::Gio::R-Icon</strong>.</p><pre class="pod-block-code">method has-gicon ( N-Object() $gicon --&gt; Bool )
+</pre><ul>
+<li><p>$gicon; a <strong>Gnome::Gio::R-Icon</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$self</code> includes an icon for <code>$gicon</code>. </p></section>
+<section name="pod">
+<h2 id="has-icon"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">has-icon</a></h2>
+<p>Checks whether an icon theme includes an icon for a particular name.</p><pre class="pod-block-code">method has-icon ( Str $icon-name --&gt; Bool )
+</pre><ul>
+<li><p>$icon-name; the name of an icon.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$self</code> includes an icon for <code>$icon-name</code>.. </p></section>
+<section name="pod">
+<h2 id="lookup-by-gicon_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">lookup-by-gicon This function is not yet available</a></h2>
+<p>Looks up a icon for a desired size and window scale.</p><p>The icon can then be rendered by using it as a <strong>Gnome::Gdk4::R-Paintable</strong>, or you can get information such as the filename and size.</p><pre class="pod-block-code">method lookup-by-gicon ( N-Object() $icon, Int() $size, Int() $scale, GtkTextDirection $direction, UInt $flags --&gt; N-Object )
+</pre><ul>
+<li><p>$icon; the <strong>Gnome::Gio::R-Icon</strong> to look up.</p></li>
+<li><p>$size; desired icon size.</p></li>
+<li><p>$scale; the desired scale.</p></li>
+<li><p>$direction; text direction the icon will be displayed in.</p></li>
+<li><p>$flags; flags modifying the behavior of the icon lookup.</p></li>
+</ul>
+<p>Return value; a <strong>Gnome::Gtk4::IconPaintable</strong> containing information about the icon. Unref with g_object_unref(). </p></section>
+<section name="pod">
+<h2 id="lookup-icon_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">lookup-icon This function is not yet available</a></h2>
+<p>Looks up a named icon for a desired size and window scale, returning a <strong>Gnome::Gtk4::IconPaintable</strong>.</p><p>The icon can then be rendered by using it as a <strong>Gnome::Gdk4::R-Paintable</strong>, or you can get information such as the filename and size.</p><p>If the available <code>$icon-name</code> is not available and <code>$fallbacks</code> are provided, they will be tried in order.</p><p>If no matching icon is found, then a paintable that renders the &quot;missing icon&quot; icon is returned. If you need to do something else for missing icons you need to use <code>.has-icon()</code>.</p><p>Note that you probably want to listen for icon theme changes and update the icon. This is usually done by overriding the GtkWidgetClass.css-changed() function.</p><pre class="pod-block-code">method lookup-icon ( Str $icon-name, Array[Str] $fallbacks, Int() $size, Int() $scale, GtkTextDirection $direction, UInt $flags --&gt; N-Object )
+</pre><ul>
+<li><p>$icon-name; the name of the icon to lookup.</p></li>
+<li><p>$fallbacks; .</p></li>
+<li><p>$size; desired icon size..</p></li>
+<li><p>$scale; the window scale this will be displayed on.</p></li>
+<li><p>$direction; text direction the icon will be displayed in.</p></li>
+<li><p>$flags; flags modifying the behavior of the icon lookup.</p></li>
+</ul>
+<p>Return value; a <strong>Gnome::Gtk4::IconPaintable</strong> object containing the icon.. </p></section>
+<section name="pod">
+<h2 id="set-resource-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">set-resource-path</a></h2>
+<p>Sets the resource paths that will be looked at when looking for icons, similar to search paths.</p><p>The resources are considered as part of the hicolor icon theme and must be located in subdirectories that are defined in the hicolor icon theme, such as ` <code>$path</code>/16x16/actions/run.png` or ` <code>$path</code>/scalable/actions/run.svg`.</p><p>Icons that are directly placed in the resource path instead of a subdirectory are also considered as ultimate fallback, but they are treated like unthemed icons.</p><pre class="pod-block-code">method set-resource-path ( Array[Str] $path )
+</pre><ul>
+<li><p>$path; NULL-terminated array of resource paths that are searched for icons.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-search-path"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">set-search-path</a></h2>
+<p>Sets the search path for the icon theme object.</p><p>When looking for an icon theme, GTK will search for a subdirectory of one or more of the directories in <code>$path</code> with the same name as the icon theme containing an index.theme file. (Themes from multiple of the path elements are combined to allow themes to be extended by adding icons in the user’s home directory.)</p><p>In addition if an icon found isn’t found either in the current icon theme or the default icon theme, and an image file with the right name is found directly in one of the elements of <code>$path</code>, then that image will be used for the icon name. (This is legacy feature, and new icons should be put into the fallback icon theme, which is called hicolor, rather than directly on the icon path.)</p><pre class="pod-block-code">method set-search-path ( Array[Str] $path )
+</pre><ul>
+<li><p>$path; NULL-terminated array of directories that are searched for icon themes.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-theme-name"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">set-theme-name</a></h2>
+<p>Sets the name of the icon theme that the <strong>Gnome::Gtk4::IconTheme</strong> object uses overriding system configuration.</p><p>This function cannot be called on the icon theme objects returned from <code>.IconTheme.get-for-display()</code>.</p><pre class="pod-block-code">method set-theme-name ( Str $theme-name )
+</pre><ul>
+<li><p>$theme-name; name of icon theme to use instead of configured theme, or undefined to unset a previously set custom theme.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Functions"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-for-display"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">get-for-display</a></h2>
+<p>Gets the icon theme object associated with <code>$display</code>.</p><p>If this function has not previously been called for the given display, a new icon theme object will be created and associated with the display. Icon theme objects are fairly expensive to create, so using this function is usually a better choice than calling <code>.newicontheme()</code> and setting the display yourself; by using this function a single icon theme object will be shared between users.</p><pre class="pod-block-code">method get-for-display ( N-Object() $display --&gt; N-Object )
+</pre><ul>
+<li><p>$display; a <strong>Gnome::Gdk4::Display</strong>.</p></li>
+</ul>
+<p>Return value; A unique <strong>Gnome::Gtk4::IconTheme</strong> associated with the given display. This icon theme is associated with the display and can be used as long as the display is open. Do not ref or unref it.. </p></section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="changed"><a href="#Gnome::Gtk4::IconTheme" class="u" title="go to top of document">changed</a></h3>
+<p>Emitted when the icon theme changes.</p><p>This can happen because current icon theme is switched or because GTK detects that a change has occurred in the contents of the current icon theme.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::IconTheme :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::IconTheme</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/IconTheme.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:22Z</span></div></footer>
+	</body>
+</html>

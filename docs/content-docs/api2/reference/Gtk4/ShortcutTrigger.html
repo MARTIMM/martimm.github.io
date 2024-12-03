@@ -1,0 +1,114 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::ShortcutTrigger</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::ShortcutTrigger">Gnome::Gtk4::ShortcutTrigger</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-string">parse-string</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#compare">compare</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#hash">hash</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print">print</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print-label">print-label</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-label">to-label</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#trigger_This_function_is_not_yet_available">trigger This function is not yet available</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::ShortcutTrigger</strong> tracks how a <strong>Gnome::Gtk4::Shortcut</strong> should be activated.</p><p>To find out if a <strong>Gnome::Gtk4::ShortcutTrigger</strong> triggers, you can call <code>.trigger()</code> on a <strong>Gnome::Gdk4::Event</strong>.</p><p><strong>GtkShortcutTriggers</strong> contain functions that allow easy presentation to end users as well as being printed for debugging.</p><p>All <strong>GtkShortcutTriggers</strong> are immutable, you can only specify their properties during construction. If you want to change a trigger, you have to replace it with a new one.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="parse-string"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">parse-string</a></h2>
+<p>Tries to parse the given string into a trigger.</p><p>On success, the parsed trigger is returned. When parsing failed, undefined is returned.</p><p>The accepted strings are:</p><ul>
+<li><p><strong>never</strong>, for <strong>Gnome::Gtk4::NeverTrigger</strong></p></li>
+<li><p>a string parsed by gtk_accelerator_parse(), for a <strong>Gnome::Gtk4::KeyvalTrigger</strong>, e.g. `&lt;Control&gt;C`</p></li>
+<li><p>underscore, followed by a single character, for <strong>Gnome::Gtk4::MnemonicTrigger</strong>, e.g. <strong>_l</strong></p></li>
+<li><p>two valid trigger strings, separated by a `|` character, for a <strong>Gnome::Gtk4::AlternativeTrigger</strong>: `&lt;Control&gt;q|&lt;Control&gt;w`</p></li>
+</ul>
+<p>Note that you will have to escape the `&lt;` and `&gt;` characters when specifying triggers in XML files, such as GtkBuilder ui files. Use `&amp;lt;` instead of `&lt;` and `&amp;gt;` instead of `&gt;`.</p><pre class="pod-block-code">method parse-string ( Str $string --&gt; Gnome::Gtk4::ShortcutTrigger \)
+</pre><ul>
+<li><p>$string; the string to parse.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="compare"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">compare</a></h2>
+<p>The types of <code>$trigger1</code> and <code>$trigger2</code> are <strong>gconstpointer</strong> only to allow use of this function as a <strong>Gnome::Glib::T-types</strong>.</p><p>They must each be a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p><pre class="pod-block-code">method compare ( gpointer $trigger2 --&gt; Int )
+</pre><ul>
+<li><p>$trigger2; a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p></li>
+</ul>
+<p>Return value; An integer less than, equal to, or greater than zero if <code>$trigger1</code> is found, respectively, to be less than, to match, or be greater than <code>$trigger2</code>.. </p></section>
+<section name="pod">
+<h2 id="equal"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">equal</a></h2>
+<p>Checks if <code>$trigger1</code> and <code>$trigger2</code> trigger under the same conditions.</p><p>The types of <code>$one</code> and <code>$two</code> are <strong>gconstpointer</strong> only to allow use of this function with <strong>Gnome::Glib::N-HashTable</strong>. They must each be a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p><pre class="pod-block-code">method equal ( gpointer $trigger2 --&gt; Bool )
+</pre><ul>
+<li><p>$trigger2; a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$trigger1</code> and <code>$trigger2</code> are equal. </p></section>
+<section name="pod">
+<h2 id="hash"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">hash</a></h2>
+<p>Generates a hash value for a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p><p>The output of this function is guaranteed to be the same for a given value only per-process. It may change between different processor architectures or even different versions of GTK. Do not use this function as a basis for building protocols or file formats.</p><p>The types of <code>$trigger</code> is <strong>gconstpointer</strong> only to allow use of this function with <strong>Gnome::Glib::N-HashTable</strong>. They must each be a <strong>Gnome::Gtk4::ShortcutTrigger</strong>.</p><pre class="pod-block-code">method hash (--&gt; UInt )
+</pre><p>Return value; a hash value corresponding to <code>$trigger</code>. </p></section>
+<section name="pod">
+<h2 id="print"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">print</a></h2>
+<p>Prints the given trigger into a string for the developer. This is meant for debugging and logging.</p><p>The form of the representation may change at any time and is not guaranteed to stay identical.</p><pre class="pod-block-code">method print ( N-Object $string )
+</pre><ul>
+<li><p>$string; a <strong>Gnome::Glib::N-String</strong> to print into</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="print-label"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">print-label</a></h2>
+<p>Prints the given trigger into a string.</p><p>This function is returning a translated string for presentation to end users for example in menu items or in help texts.</p><p>The <code>$display</code> in use may influence the resulting string in various forms, such as resolving hardware keycodes or by causing display-specific modifier names.</p><p>The form of the representation may change at any time and is not guaranteed to stay identical.</p><pre class="pod-block-code">method print-label ( N-Object() $display, N-Object $string --&gt; Bool )
+</pre><ul>
+<li><p>$display; <strong>Gnome::Gdk4::Display</strong> to print for.</p></li>
+<li><p>$string; a <strong>Gnome::Glib::N-String</strong> to print into</p></li>
+</ul>
+<p>Return value; <code>True</code> if something was printed or <code>False</code> if the trigger did not have a textual representation suitable for end users.. </p></section>
+<section name="pod">
+<h2 id="to-label"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">to-label</a></h2>
+<p>Gets textual representation for the given trigger.</p><p>This function is returning a translated string for presentation to end users for example in menu items or in help texts.</p><p>The <code>$display</code> in use may influence the resulting string in various forms, such as resolving hardware keycodes or by causing display-specific modifier names.</p><p>The form of the representation may change at any time and is not guaranteed to stay identical.</p><pre class="pod-block-code">method to-label ( N-Object() $display --&gt; Str )
+</pre><ul>
+<li><p>$display; <strong>Gnome::Gdk4::Display</strong> to print for.</p></li>
+</ul>
+<p>Return value; a new string. </p></section>
+<section name="pod">
+<h2 id="to-string"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">to-string</a></h2>
+<p>Prints the given trigger into a human-readable string.</p><p>This is a small wrapper around <code>.print()</code> to help when debugging.</p><pre class="pod-block-code">method to-string (--&gt; Str )
+</pre><p>Return value; a new string. </p></section>
+<section name="pod">
+<h2 id="trigger_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::ShortcutTrigger" class="u" title="go to top of document">trigger This function is not yet available</a></h2>
+<p>Checks if the given <code>$event</code> triggers <code>$self</code>.</p><pre class="pod-block-code">method trigger ( N-Object() $event, Bool() $enable-mnemonics --&gt; GdkKeyMatch  )
+</pre><ul>
+<li><p>$event; the event to check.</p></li>
+<li><p>$enable-mnemonics; <code>True</code> if mnemonics should trigger. Usually the value of this property is determined by checking that the passed in <code>$event</code> is a Key event and has the right modifiers set..</p></li>
+</ul>
+<p>Return value; Whether the event triggered the shortcut. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ShortcutTrigger.rakudoc</span></div><div>at <span class="time">2024-12-03T13:32:14Z</span></div></footer>
+	</body>
+</html>

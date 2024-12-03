@@ -1,0 +1,168 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::EntryBuffer</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::EntryBuffer">Gnome::Gtk4::EntryBuffer</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-entrybuffer">new-entrybuffer</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#delete-text">delete-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#emit-deleted-text">emit-deleted-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#emit-inserted-text">emit-inserted-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bytes">get-bytes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-length">get-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-max-length">get-max-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-text">get-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-text">insert-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-max-length">set-max-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-text">set-text</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#deleted-text">deleted-text</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#inserted-text">inserted-text</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk4::EntryBuffer</strong> hold the text displayed in a <strong>Gnome::Gtk4::Text</strong> widget.</p><p>A single <strong>Gnome::Gtk4::EntryBuffer</strong> object can be shared by multiple widgets which will then share the same text content, but not the cursor position, visibility attributes, icon etc.</p><p><strong>Gnome::Gtk4::EntryBuffer</strong> may be derived from. Such a derived class might allow text to be stored in an alternate location, such as non-pageable memory, useful in the case of important passwords. Or a derived class could integrate with an application’s concept of undo/redo.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-entrybuffer"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">new-entrybuffer</a></h2>
+<p>Create a new <strong>Gnome::Gtk4::EntryBuffer</strong> object.</p><p>Optionally, specify initial text to set in the buffer.</p><pre class="pod-block-code">method new-entrybuffer ( Str $initial-chars, Int() $n-initial-chars --&gt; Gnome::Gtk4::EntryBuffer \)
+</pre><ul>
+<li><p>$initial-chars; initial buffer text.</p></li>
+<li><p>$n-initial-chars; number of characters in <code>$initial-chars</code>, or -1.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="delete-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">delete-text</a></h2>
+<p>Deletes a sequence of characters from the buffer. <code>$n-chars</code> characters are deleted starting at <code>$position</code>. If <code>$n-chars</code> is negative, then all characters until the end of the text are deleted.</p><p>If <code>$position</code> or <code>$n-chars</code> are out of bounds, then they are coerced to sane values.</p><p>Note that the positions are specified in characters, not bytes.</p><pre class="pod-block-code">method delete-text ( UInt() $position, Int() $n-chars --&gt; UInt )
+</pre><ul>
+<li><p>$position; position at which to delete text.</p></li>
+<li><p>$n-chars; number of characters to delete.</p></li>
+</ul>
+<p>Return value; The number of characters deleted.. </p></section>
+<section name="pod">
+<h2 id="emit-deleted-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">emit-deleted-text</a></h2>
+<p>Used when subclassing <strong>Gnome::Gtk4::EntryBuffer</strong>.</p><pre class="pod-block-code">method emit-deleted-text ( UInt() $position, UInt() $n-chars )
+</pre><ul>
+<li><p>$position; position at which text was deleted.</p></li>
+<li><p>$n-chars; number of characters deleted.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="emit-inserted-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">emit-inserted-text</a></h2>
+<p>Used when subclassing <strong>Gnome::Gtk4::EntryBuffer</strong>.</p><pre class="pod-block-code">method emit-inserted-text ( UInt() $position, Str $chars, UInt() $n-chars )
+</pre><ul>
+<li><p>$position; position at which text was inserted.</p></li>
+<li><p>$chars; text that was inserted.</p></li>
+<li><p>$n-chars; number of characters inserted.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-bytes"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">get-bytes</a></h2>
+<p>Retrieves the length in bytes of the buffer.</p><p>See <code>.get-length()</code>.</p><pre class="pod-block-code">method get-bytes (--&gt; Int )
+</pre><p>Return value; The byte length of the buffer.. </p></section>
+<section name="pod">
+<h2 id="get-length"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">get-length</a></h2>
+<p>Retrieves the length in characters of the buffer.</p><pre class="pod-block-code">method get-length (--&gt; UInt )
+</pre><p>Return value; The number of characters in the buffer.. </p></section>
+<section name="pod">
+<h2 id="get-max-length"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">get-max-length</a></h2>
+<p>Retrieves the maximum allowed length of the text in <code>$buffer</code>.</p><pre class="pod-block-code">method get-max-length (--&gt; Int )
+</pre><p>Return value; the maximum allowed number of characters in <strong>Gnome::Gtk4::EntryBuffer</strong>, or 0 if there is no maximum.. </p></section>
+<section name="pod">
+<h2 id="get-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">get-text</a></h2>
+<p>Retrieves the contents of the buffer.</p><p>The memory pointer returned by this call will not change unless this object emits a signal, or is finalized.</p><pre class="pod-block-code">method get-text (--&gt; Str )
+</pre><p>Return value; a pointer to the contents of the widget as a string. This string points to internally allocated storage in the buffer and must not be freed, modified or stored.. </p></section>
+<section name="pod">
+<h2 id="insert-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">insert-text</a></h2>
+<p>Inserts <code>$n-chars</code> characters of <code>$chars</code> into the contents of the buffer, at position <code>$position</code>.</p><p>If <code>$n-chars</code> is negative, then characters from chars will be inserted until a null-terminator is found. If <code>$position</code> or <code>$n-chars</code> are out of bounds, or the maximum buffer text length is exceeded, then they are coerced to sane values.</p><p>Note that the position and length are in characters, not in bytes.</p><pre class="pod-block-code">method insert-text ( UInt() $position, Str $chars, Int() $n-chars --&gt; UInt )
+</pre><ul>
+<li><p>$position; the position at which to insert text..</p></li>
+<li><p>$chars; the text to insert into the buffer..</p></li>
+<li><p>$n-chars; the length of the text in characters, or -1.</p></li>
+</ul>
+<p>Return value; The number of characters actually inserted.. </p></section>
+<section name="pod">
+<h2 id="set-max-length"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">set-max-length</a></h2>
+<p>Sets the maximum allowed length of the contents of the buffer.</p><p>If the current contents are longer than the given length, then they will be truncated to fit.</p><pre class="pod-block-code">method set-max-length ( Int() $max-length )
+</pre><ul>
+<li><p>$max-length; the maximum length of the entry buffer, or 0 for no maximum. (other than the maximum length of entries.) The value passed in will be clamped to the range 0-65536..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">set-text</a></h2>
+<p>Sets the text in the buffer.</p><p>This is roughly equivalent to calling <code>.delete-text()</code> and <code>.insert-text()</code>.</p><p>Note that <code>$n-chars</code> is in characters, not in bytes.</p><pre class="pod-block-code">method set-text ( Str $chars, Int() $n-chars )
+</pre><ul>
+<li><p>$chars; the new text.</p></li>
+<li><p>$n-chars; the number of characters in <code>$text</code>, or -1.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="deleted-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">deleted-text</a></h3>
+<p>The text is altered in the default handler for this signal.</p><p>If you want access to the text after the text has been modified, use <code>G_CONNECT_AFTER</code>.</p><pre class="pod-block-code">method handler (
+  guint $position,
+  guint $n-chars,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryBuffer :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$position; the position the text was deleted at..</p></li>
+<li><p>$n-chars; The number of characters that were deleted..</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryBuffer</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+
+<h3 id="inserted-text"><a href="#Gnome::Gtk4::EntryBuffer" class="u" title="go to top of document">inserted-text</a></h3>
+<p>This signal is emitted after text is inserted into the buffer.</p><pre class="pod-block-code">method handler (
+  guint $position,
+  Str $chars,
+  guint $n-chars,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryBuffer :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$position; the position the text was inserted at..</p></li>
+<li><p>$chars; The text that was inserted..</p></li>
+<li><p>$n-chars; The number of characters that were inserted..</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryBuffer</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/EntryBuffer.rakudoc</span></div><div>at <span class="time">2024-12-02T20:09:59Z</span></div></footer>
+	</body>
+</html>

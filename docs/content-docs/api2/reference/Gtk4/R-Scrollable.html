@@ -1,0 +1,99 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::R-Scrollable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::R-Scrollable">Gnome::Gtk4::R-Scrollable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Creating_a_scrollable_widget">Creating a scrollable widget</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-border">get-border</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-hadjustment">get-hadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-hscroll-policy">get-hscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-vadjustment">get-vadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-vscroll-policy">get-vscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hadjustment">set-hadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hscroll-policy">set-hscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-vadjustment">set-vadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-vscroll-policy">set-vscroll-policy</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::R-Scrollable</strong> is an interface for widgets with native scrolling ability.</p><p>To implement this interface you should override the <em>hadjustment</em> and <em>vadjustment</em> properties.</p>
+<h3 id="Creating_a_scrollable_widget"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">Creating a scrollable widget</a></h3>
+<p>All scrollable widgets should do the following.</p><ul>
+<li><p>When a parent widget sets the scrollable child widget’s adjustments, the widget should connect to the <em>value-changed defined in Adjustment</em> signal. The child widget should then populate the adjustments’ properties as soon as possible, which usually means queueing an allocation right away and populating the properties in the [vfunc <code>$Gtk</code>.Widget.size_allocate] implementation.</p></li>
+<li><p>Because its preferred size is the size for a fully expanded widget, the scrollable widget must be able to cope with underallocations. This means that it must accept any value passed to its [vfunc <code>$Gtk</code>.Widget.size_allocate] implementation.</p></li>
+<li><p>When the parent allocates space to the scrollable child widget, the widget must ensure the adjustments’ property values are correct and up to date, for example using <code>.configure() in class Gnome::Gtk4::Adjustment</code>.</p></li>
+<li><p>When any of the adjustments emits the <em>value-changed defined in Adjustment</em> signal, the scrollable widget should scroll its contents.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-border"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">get-border</a></h2>
+<p>Returns the size of a non-scrolling border around the outside of the scrollable.</p><p>An example for this would be treeview headers. GTK can use this information to display overlaid graphics, like the overshoot indication, at the right position.</p><pre class="pod-block-code">method get-border ( N-Object $border --&gt; Bool )
+</pre><ul>
+<li><p>$border; return location for the results</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$border</code> has been set. </p></section>
+<section name="pod">
+<h2 id="get-hadjustment"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">get-hadjustment</a></h2>
+<p>Retrieves the <strong>Gnome::Gtk4::Adjustment</strong> used for horizontal scrolling.</p><pre class="pod-block-code">method get-hadjustment (--&gt; N-Object )
+</pre><p>Return value; horizontal <strong>Gnome::Gtk4::Adjustment</strong>.. </p></section>
+<section name="pod">
+<h2 id="get-hscroll-policy"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">get-hscroll-policy</a></h2>
+<p>Gets the horizontal <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p><pre class="pod-block-code">method get-hscroll-policy (--&gt; GtkScrollablePolicy )
+</pre><p>Return value; The horizontal <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.. </p></section>
+<section name="pod">
+<h2 id="get-vadjustment"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">get-vadjustment</a></h2>
+<p>Retrieves the <strong>Gnome::Gtk4::Adjustment</strong> used for vertical scrolling.</p><pre class="pod-block-code">method get-vadjustment (--&gt; N-Object )
+</pre><p>Return value; vertical <strong>Gnome::Gtk4::Adjustment</strong>.. </p></section>
+<section name="pod">
+<h2 id="get-vscroll-policy"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">get-vscroll-policy</a></h2>
+<p>Gets the vertical <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p><pre class="pod-block-code">method get-vscroll-policy (--&gt; GtkScrollablePolicy )
+</pre><p>Return value; The vertical <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.. </p></section>
+<section name="pod">
+<h2 id="set-hadjustment"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">set-hadjustment</a></h2>
+<p>Sets the horizontal adjustment of the <strong>Gnome::Gtk4::R-Scrollable</strong>.</p><pre class="pod-block-code">method set-hadjustment ( N-Object() $hadjustment )
+</pre><ul>
+<li><p>$hadjustment; a <strong>Gnome::Gtk4::Adjustment</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-hscroll-policy"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">set-hscroll-policy</a></h2>
+<p>Sets the <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p><p>The policy determines whether horizontal scrolling should start below the minimum width or below the natural width.</p><pre class="pod-block-code">method set-hscroll-policy ( GtkScrollablePolicy $policy )
+</pre><ul>
+<li><p>$policy; the horizontal <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-vadjustment"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">set-vadjustment</a></h2>
+<p>Sets the vertical adjustment of the <strong>Gnome::Gtk4::R-Scrollable</strong>.</p><pre class="pod-block-code">method set-vadjustment ( N-Object() $vadjustment )
+</pre><ul>
+<li><p>$vadjustment; a <strong>Gnome::Gtk4::Adjustment</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-vscroll-policy"><a href="#Gnome::Gtk4::R-Scrollable" class="u" title="go to top of document">set-vscroll-policy</a></h2>
+<p>Sets the <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p><p>The policy determines whether vertical scrolling should start below the minimum height or below the natural height.</p><pre class="pod-block-code">method set-vscroll-policy ( GtkScrollablePolicy $policy )
+</pre><ul>
+<li><p>$policy; the vertical <code>enumeration GtkScrollablePolicy defined in Gnome::Gtk4::T-enums</code>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-Scrollable.rakudoc</span></div><div>at <span class="time">2024-12-03T13:32:03Z</span></div></footer>
+	</body>
+</html>

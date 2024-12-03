@@ -1,0 +1,198 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::Picture</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Picture">Gnome::Gtk4::Picture</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Sizing_the_paintable">Sizing the paintable</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-picture">new-picture</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-file">new-for-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-filename">new-for-filename</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-paintable">new-for-paintable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-pixbuf">new-for-pixbuf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-resource">new-for-resource</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-alternative-text">get-alternative-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-can-shrink">get-can-shrink</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-content-fit">get-content-fit</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-file">get-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-keep-aspect-ratio">get-keep-aspect-ratio</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-paintable">get-paintable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-alternative-text">set-alternative-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-can-shrink">set-can-shrink</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-content-fit">set-content-fit</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-file">set-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-filename">set-filename</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-keep-aspect-ratio">set-keep-aspect-ratio</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-paintable">set-paintable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-pixbuf">set-pixbuf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-resource">set-resource</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">Description</a></h1>
+<p>The <strong>Gnome::Gtk4::Picture</strong> widget displays a <strong>Gnome::Gdk4::R-Paintable</strong>.</p><div class="image-container inline"><img src="asset_files/images/picture.png" width="30%" height="auto" alt="No caption"></div>
+<p>Many convenience functions are provided to make pictures simple to use. For example, if you want to load an image from a file, and then display it, there’s a convenience function to do this:</p><p>If the file isn’t loaded successfully, the picture will contain a “broken image” icon similar to that used in many web browsers. If you want to handle errors in loading the file yourself, for example by displaying an error message, then load the image with <code>.new-from-file() in class Gnome::Gdk4::Texture</code>, then create the <strong>Gnome::Gtk4::Picture</strong> with <code>.new-for-paintable()</code>.</p><p>Sometimes an application will want to avoid depending on external data files, such as image files. See the documentation of <strong>Gnome::Gio::N-Resource</strong> for details. In this case, <code>.new-for-resource()</code> and <code>.set-resource()</code> should be used.</p><p><strong>Gnome::Gtk4::Picture</strong> displays an image at its natural size. See <strong>Gnome::Gtk4::Image</strong> if you want to display a fixed-size image, such as an icon.</p>
+<h3 id="Sizing_the_paintable"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">Sizing the paintable</a></h3>
+<p>You can influence how the paintable is displayed inside the <strong>Gnome::Gtk4::Picture</strong> by changing <em>content-fit</em>. See <code>enumeration ContentFit from Gnome::Gtk4::T-enums</code> for details. <em>can-shrink</em> can be unset to make sure that paintables are never made smaller than their ideal size - but be careful if you do not know the size of the paintable in use (like when displaying user-loaded images). This can easily cause the picture to grow larger than the screen. And <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> can be used to make sure the paintable doesn't fill all available space but is instead displayed at its original size.</p>
+<h3 id="CSS_nodes"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">CSS nodes</a></h3>
+<p><strong>Gnome::Gtk4::Picture</strong> has a single CSS node with the name <strong>picture</strong>.</p>
+<h3 id="Accessibility"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">Accessibility</a></h3>
+<p><strong>Gnome::Gtk4::Picture</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_IMG</strong> role.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-picture"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-picture</a></h2>
+<p>Creates a new empty <strong>Gnome::Gtk4::Picture</strong> widget.</p><pre class="pod-block-code">method new-picture ( --&gt; Gnome::Gtk4::Picture \)
+</pre></section>
+<section name="pod">
+<h2 id="new-for-file"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-for-file</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::Picture</strong> displaying the given <code>$file</code>.</p><p>If the file isn’t found or can’t be loaded, the resulting <strong>Gnome::Gtk4::Picture</strong> is empty.</p><p>If you need to detect failures to load the file, use <code>.new-from-file() in class Gnome::Gdk4::Texture</code> to load the file yourself, then create the <strong>Gnome::Gtk4::Picture</strong> from the texture.</p><pre class="pod-block-code">method new-for-file ( N-Object() $file --&gt; Gnome::Gtk4::Picture \)
+</pre><ul>
+<li><p>$file; a <strong>Gnome::Gio::R-File</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-for-filename"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-for-filename</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::Picture</strong> displaying the file <code>$filename</code>.</p><p>This is a utility function that calls <code>.new-for-file()</code>. See that function for details.</p><pre class="pod-block-code">method new-for-filename ( Str $filename --&gt; Gnome::Gtk4::Picture \)
+</pre><ul>
+<li><p>$filename; a filename.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-for-paintable"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-for-paintable</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::Picture</strong> displaying <code>$paintable</code>.</p><p>The <strong>Gnome::Gtk4::Picture</strong> will track changes to the <code>$paintable</code> and update its size and contents in response to it.</p><pre class="pod-block-code">method new-for-paintable ( N-Object() $paintable --&gt; Gnome::Gtk4::Picture \)
+</pre><ul>
+<li><p>$paintable; a <strong>Gnome::Gdk4::R-Paintable</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-for-pixbuf"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-for-pixbuf</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Creates a new <strong>Gnome::Gtk4::Picture</strong> displaying <code>$pixbuf</code>.</p><p>This is a utility function that calls <code>.new-for-paintable()</code>, See that function for details.</p><p>The pixbuf must not be modified after passing it to this function.</p><pre class="pod-block-code">method new-for-pixbuf ( N-Object() $pixbuf --&gt; Gnome::Gtk4::Picture \)
+</pre><ul>
+<li><p>$pixbuf; a <strong>Gnome::GdkPixbuf::Pixbuf</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-for-resource"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">new-for-resource</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::Picture</strong> displaying the resource at <code>$resource-path</code>.</p><p>This is a utility function that calls <code>.new-for-file()</code>. See that function for details.</p><pre class="pod-block-code">method new-for-resource ( Str $resource-path --&gt; Gnome::Gtk4::Picture \)
+</pre><ul>
+<li><p>$resource-path; resource path to play back.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-alternative-text"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-alternative-text</a></h2>
+<p>Gets the alternative textual description of the picture.</p><p>The returned string will be undefined if the picture cannot be described textually.</p><pre class="pod-block-code">method get-alternative-text (--&gt; Str )
+</pre><p>Return value; the alternative textual description of <code>$self</code>.. </p></section>
+<section name="pod">
+<h2 id="get-can-shrink"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-can-shrink</a></h2>
+<p>Returns whether the <strong>Gnome::Gtk4::Picture</strong> respects its contents size.</p><pre class="pod-block-code">method get-can-shrink (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the picture can be made smaller than its contents. </p></section>
+<section name="pod">
+<h2 id="get-content-fit"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-content-fit</a></h2>
+<p>Returns the fit mode for the content of the <strong>Gnome::Gtk4::Picture</strong>.</p><p>See <code>enumeration ContentFit from Gnome::Gtk4::T-enums</code> for details.</p><pre class="pod-block-code">method get-content-fit (--&gt; GtkContentFit )
+</pre><p>Return value; the content fit mode. </p></section>
+<section name="pod">
+<h2 id="get-file"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-file</a></h2>
+<p>Gets the <strong>Gnome::Gio::R-File</strong> currently displayed if <code>$self</code> is displaying a file.</p><p>If <code>$self</code> is not displaying a file, for example when <code>.set-paintable()</code> was used, then undefined is returned.</p><pre class="pod-block-code">method get-file (--&gt; N-Object )
+</pre><p>Return value; The <strong>Gnome::Gio::R-File</strong> displayed by <code>$self</code>.. </p></section>
+<section name="pod">
+<h2 id="get-keep-aspect-ratio"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-keep-aspect-ratio</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.8</strong></p><p>Returns whether the <strong>Gnome::Gtk4::Picture</strong> preserves its contents aspect ratio.</p><pre class="pod-block-code">method get-keep-aspect-ratio (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the self tries to keep the contents' aspect ratio. </p></section>
+<section name="pod">
+<h2 id="get-paintable"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">get-paintable</a></h2>
+<p>Gets the <strong>Gnome::Gdk4::R-Paintable</strong> being displayed by the <strong>Gnome::Gtk4::Picture</strong>.</p><pre class="pod-block-code">method get-paintable (--&gt; N-Object )
+</pre><p>Return value; the displayed paintable. </p></section>
+<section name="pod">
+<h2 id="set-alternative-text"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-alternative-text</a></h2>
+<p>Sets an alternative textual description for the picture contents.</p><p>It is equivalent to the &quot;alt&quot; attribute for images on websites.</p><p>This text will be made available to accessibility tools.</p><p>If the picture cannot be described textually, set this property to undefined.</p><pre class="pod-block-code">method set-alternative-text ( Str $alternative-text )
+</pre><ul>
+<li><p>$alternative-text; a textual description of the contents.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-can-shrink"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-can-shrink</a></h2>
+<p>If set to <code>True</code>, the <code>$self</code> can be made smaller than its contents.</p><p>The contents will then be scaled down when rendering.</p><p>If you want to still force a minimum size manually, consider using <code>.set-size-request() in class Gnome::Gtk4::Widget</code>.</p><p>Also of note is that a similar function for growing does not exist because the grow behavior can be controlled via <code>.set-halign() in class Gnome::Gtk4::Widget</code> and <code>.set-valign() in class Gnome::Gtk4::Widget</code>.</p><pre class="pod-block-code">method set-can-shrink ( Bool() $can-shrink )
+</pre><ul>
+<li><p>$can-shrink; if <code>$self</code> can be made smaller than its contents.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-content-fit"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-content-fit</a></h2>
+<p>Sets how the content should be resized to fit the <strong>Gnome::Gtk4::Picture</strong>.</p><p>See <code>enumeration ContentFit from Gnome::Gtk4::T-enums</code> for details.</p><pre class="pod-block-code">method set-content-fit ( GtkContentFit $content-fit )
+</pre><ul>
+<li><p>$content-fit; the content fit mode.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-file"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-file</a></h2>
+<p>Makes <code>$self</code> load and display <code>$file</code>.</p><p>See <code>.new-for-file()</code> for details.</p><pre class="pod-block-code">method set-file ( N-Object() $file )
+</pre><ul>
+<li><p>$file; a <strong>Gnome::Gio::R-File</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-filename"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-filename</a></h2>
+<p>Makes <code>$self</code> load and display the given <code>$filename</code>.</p><p>This is a utility function that calls <code>.set-file()</code>.</p><pre class="pod-block-code">method set-filename ( Str $filename )
+</pre><ul>
+<li><p>$filename; the filename to play.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-keep-aspect-ratio"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-keep-aspect-ratio</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.8</strong></p><p>If set to <code>True</code>, the <code>$self</code> will render its contents according to their aspect ratio.</p><p>That means that empty space may show up at the top/bottom or left/right of <code>$self</code>.</p><p>If set to <code>False</code> or if the contents provide no aspect ratio, the contents will be stretched over the picture's whole area.</p><pre class="pod-block-code">method set-keep-aspect-ratio ( Bool() $keep-aspect-ratio )
+</pre><ul>
+<li><p>$keep-aspect-ratio; whether to keep aspect ratio.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-paintable"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-paintable</a></h2>
+<p>Makes <code>$self</code> display the given <code>$paintable</code>.</p><p>If <code>$paintable</code> is undefined, nothing will be displayed.</p><p>See <code>.new-for-paintable()</code> for details.</p><pre class="pod-block-code">method set-paintable ( N-Object() $paintable )
+</pre><ul>
+<li><p>$paintable; a <strong>Gnome::Gdk4::R-Paintable</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-pixbuf"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-pixbuf</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Sets a <strong>Gnome::Gtk4::Picture</strong> to show a <strong>Gnome::GdkPixbuf::Pixbuf</strong>.</p><p>See <code>.new-for-pixbuf()</code> for details.</p><p>This is a utility function that calls <code>.set-paintable()</code>.</p><pre class="pod-block-code">method set-pixbuf ( N-Object() $pixbuf )
+</pre><ul>
+<li><p>$pixbuf; a <strong>Gnome::GdkPixbuf::Pixbuf</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-resource"><a href="#Gnome::Gtk4::Picture" class="u" title="go to top of document">set-resource</a></h2>
+<p>Makes <code>$self</code> load and display the resource at the given <code>$resource-path</code>.</p><p>This is a utility function that calls <code>.set-file()</code>.</p><pre class="pod-block-code">method set-resource ( Str $resource-path )
+</pre><ul>
+<li><p>$resource-path; the resource to set.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Picture.rakudoc</span></div><div>at <span class="time">2024-12-02T20:11:03Z</span></div></footer>
+	</body>
+</html>

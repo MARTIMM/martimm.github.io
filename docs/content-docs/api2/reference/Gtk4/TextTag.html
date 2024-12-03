@@ -1,0 +1,69 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::TextTag</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TextTag">Gnome::Gtk4::TextTag</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-texttag">new-texttag</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-priority">get-priority</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-priority">set-priority</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">Description</a></h1>
+<p>A tag that can be applied to text contained in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p><p>Tags should be in the <strong>Gnome::Gtk4::TextTagTable</strong> for a given <strong>Gnome::Gtk4::TextBuffer</strong> before using them with that buffer.</p><p><code>.create-tag() in class Gnome::Gtk4::TextBuffer</code> is the best way to create tags. See “gtk4-demo” for numerous examples.</p><p>For each property of <strong>Gnome::Gtk4::TextTag</strong>, there is a “set” property, e.g. “font-set” corresponds to “font”. These “set” properties reflect whether a property has been set or not.</p><p>They are maintained by GTK and you should not set them independently.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-texttag"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">new-texttag</a></h2>
+<p>Creates a <strong>Gnome::Gtk4::TextTag</strong>.</p><pre class="pod-block-code">method new-texttag ( Str $name --&gt; Gnome::Gtk4::TextTag \)
+</pre><ul>
+<li><p>$name; tag name.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="changed"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">changed</a></h2>
+<p>Emits the <em>tag-changed defined in TextTagTable</em> signal on the <strong>Gnome::Gtk4::TextTagTable</strong> where the tag is included.</p><p>The signal is already emitted when setting a <strong>Gnome::Gtk4::TextTag</strong> property. This function is useful for a <strong>Gnome::Gtk4::TextTag</strong> subclass.</p><pre class="pod-block-code">method changed ( Bool() $size-changed )
+</pre><ul>
+<li><p>$size-changed; whether the change affects the <strong>Gnome::Gtk4::TextView</strong> layout.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-priority"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">get-priority</a></h2>
+<p>Get the tag priority.</p><pre class="pod-block-code">method get-priority (--&gt; Int )
+</pre><p>Return value; The tag’s priority.. </p></section>
+<section name="pod">
+<h2 id="set-priority"><a href="#Gnome::Gtk4::TextTag" class="u" title="go to top of document">set-priority</a></h2>
+<p>Sets the priority of a <strong>Gnome::Gtk4::TextTag</strong>.</p><p>Valid priorities start at 0 and go to one less than <code>.get-size() in class Gnome::Gtk4::TextTagTable</code>. Each tag in a table has a unique priority; setting the priority of one tag shifts the priorities of all the other tags in the table to maintain a unique priority for each tag.</p><p>Higher priority tags “win” if two tags both set the same text attribute. When adding a tag to a tag table, it will be assigned the highest priority in the table by default; so normally the precedence of a set of tags is the order in which they were added to the table, or created with <code>.create-tag() in class Gnome::Gtk4::TextBuffer</code>, which adds the tag to the buffer’s table automatically.</p><pre class="pod-block-code">method set-priority ( Int() $priority )
+</pre><ul>
+<li><p>$priority; the new priority.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TextTag.rakudoc</span></div><div>at <span class="time">2024-12-03T13:32:51Z</span></div></footer>
+	</body>
+</html>
