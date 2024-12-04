@@ -22,6 +22,7 @@ zef install Gnome::Gtk4:api<2>
 
 ### Importing a module in your programs
 
+Example to load the `Window` module;
 ```
 use Gnome::Gtk4::Window::api<2>;
 ```
