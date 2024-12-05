@@ -32,18 +32,20 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-#      - name: Update bundle
-#        run: bundle update
       - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-#        run: bundle exec jekyll build # --baseurl "martimm.github.io"
-#        env:
-#          JEKYLL_ENV: production
+#        uses: actions/jekyll-build-pages@v1
+        run: |
+          bundle exec jekyll build --baseurl "martimm.github.io"
+#          bundle exec jekyll serve
         with:
-          source: docs
-          destination: docs/_site
+          source: ./
+          destination: ./_site
+          verbose: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          source: ./
+          destination: ./_site
 
   # Deployment job
   deploy:
