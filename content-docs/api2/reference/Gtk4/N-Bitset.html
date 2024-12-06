@@ -1,0 +1,259 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::N-Bitset</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::N-Bitset">Gnome::Gtk4::N-Bitset</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-empty">new-empty</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-range">new-range</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add">add</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-range">add-range</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-range-closed">add-range-closed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-rectangle">add-rectangle</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contains">contains</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#difference">difference</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equals">equals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-maximum">get-maximum</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-minimum">get-minimum</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-nth">get-nth</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-size">get-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-size-in-range">get-size-in-range</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intersect">intersect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-empty">is-empty</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all">remove-all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-range">remove-range</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-range-closed">remove-range-closed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-rectangle">remove-rectangle</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#shift-left">shift-left</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#shift-right">shift-right</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#splice">splice</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#subtract">subtract</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union">union</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk4::N-Bitset</strong> represents a set of unsigned integers.</p><p>Another name for this data structure is &quot;bitmap&quot;.</p><p>The current implementation is based on [roaring bitmaps](https://roaringbitmap.org/).</p><p>A bitset allows adding a set of integers and provides support for set operations like unions, intersections and checks for equality or if a value is contained in the set. <strong>Gnome::Gtk4::N-Bitset</strong> also contains various functions to query metadata about the bitset, such as the minimum or maximum values or its size.</p><p>The fastest way to iterate values in a bitset is <strong>Gnome::Gtk4::N-BitsetIter</strong> .</p><p>The main use case for <strong>Gnome::Gtk4::N-Bitset</strong> is implementing complex selections for <strong>Gnome::Gtk4::R-SelectionModel</strong>.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-empty"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">new-empty</a></h2>
+<p>Creates a new empty bitset.</p><pre class="pod-block-code">method new-empty ( --&gt; Gnome::Gtk4::Bitset \)
+</pre></section>
+<section name="pod">
+<h2 id="new-range"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">new-range</a></h2>
+<p>Creates a bitset with the given range set.</p><pre class="pod-block-code">method new-range ( UInt() $start, UInt() $n-items --&gt; Gnome::Gtk4::Bitset \)
+</pre><ul>
+<li><p>$start; first value to add.</p></li>
+<li><p>$n-items; number of consecutive values to add.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="add"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">add</a></h2>
+<p>Adds <code>$value</code> to <code>$self</code> if it wasn't part of it before.</p><pre class="pod-block-code">method add ( UInt() $value --&gt; Bool )
+</pre><ul>
+<li><p>$value; value to add.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$value</code> was not part of <code>$self</code> and <code>$self</code> was changed. </p></section>
+<section name="pod">
+<h2 id="add-range"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">add-range</a></h2>
+<p>Adds all values from <code>$start</code> (inclusive) to <code>$start</code> + <code>$n-items</code> (exclusive) in <code>$self</code>.</p><pre class="pod-block-code">method add-range ( UInt() $start, UInt() $n-items )
+</pre><ul>
+<li><p>$start; first value to add.</p></li>
+<li><p>$n-items; number of consecutive values to add.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-range-closed"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">add-range-closed</a></h2>
+<p>Adds the closed range [ <code>$first</code>, <code>$last</code>], so <code>$first</code>, <code>$last</code> and all values in between. <code>$first</code> must be smaller than <code>$last</code>.</p><pre class="pod-block-code">method add-range-closed ( UInt() $first, UInt() $last )
+</pre><ul>
+<li><p>$first; first value to add.</p></li>
+<li><p>$last; last value to add.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-rectangle"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">add-rectangle</a></h2>
+<p>Interprets the values as a 2-dimensional boolean grid with the given <code>$stride</code> and inside that grid, adds a rectangle with the given <code>$width</code> and <code>$height</code>.</p><pre class="pod-block-code">method add-rectangle ( UInt() $start, UInt() $width, UInt() $height, UInt() $stride )
+</pre><ul>
+<li><p>$start; first value to add.</p></li>
+<li><p>$width; width of the rectangle.</p></li>
+<li><p>$height; height of the rectangle.</p></li>
+<li><p>$stride; row stride of the grid.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="contains"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">contains</a></h2>
+<p>Checks if the given <code>$value</code> has been added to <code>$self</code></p><pre class="pod-block-code">method contains ( UInt() $value --&gt; Bool )
+</pre><ul>
+<li><p>$value; the value to check.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$self</code> contains <code>$value</code>. </p></section>
+<section name="pod">
+<h2 id="copy"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">copy</a></h2>
+<p>Creates a copy of <code>$self</code>.</p><pre class="pod-block-code">method copy (--&gt; N-Object )
+</pre><p>Return value; A new bitset that contains the same values as <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="difference"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">difference</a></h2>
+<p>Sets <code>$self</code> to be the symmetric difference of <code>$self</code> and <code>$other</code>.</p><p>The symmetric difference is set <code>$self</code> to contain all values that were either contained in <code>$self</code> or in <code>$other</code>, but not in both. This operation is also called an XOR.</p><p>It is allowed for <code>$self</code> and <code>$other</code> to be the same bitset. The bitset will be emptied in that case.</p><pre class="pod-block-code">method difference ( N-Object $other )
+</pre><ul>
+<li><p>$other; the <strong>Gnome::Gtk4::N-Bitset</strong> to compute the difference from</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="equals"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">equals</a></h2>
+<p>Returns <code>True</code> if <code>$self</code> and <code>$other</code> contain the same values.</p><pre class="pod-block-code">method equals ( N-Object $other --&gt; Bool )
+</pre><ul>
+<li><p>$other; another <strong>Gnome::Gtk4::N-Bitset</strong></p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$self</code> and <code>$other</code> contain the same values. </p></section>
+<section name="pod">
+<h2 id="get-maximum"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">get-maximum</a></h2>
+<p>Returns the largest value in <code>$self</code>.</p><p>If <code>$self</code> is empty, 0 is returned.</p><pre class="pod-block-code">method get-maximum (--&gt; UInt )
+</pre><p>Return value; The largest value in <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="get-minimum"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">get-minimum</a></h2>
+<p>Returns the smallest value in <code>$self</code>.</p><p>If <code>$self</code> is empty, <strong>G_MAXUINT</strong> is returned.</p><pre class="pod-block-code">method get-minimum (--&gt; UInt )
+</pre><p>Return value; The smallest value in <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="get-nth"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">get-nth</a></h2>
+<p>Returns the value of the <code>$nth</code> item in self.</p><p>If <code>$nth</code> is &gt;= the size of <code>$self</code>, 0 is returned.</p><pre class="pod-block-code">method get-nth ( UInt() $nth --&gt; UInt )
+</pre><ul>
+<li><p>$nth; index of the item to get.</p></li>
+</ul>
+<p>Return value; the value of the <code>$nth</code> item in <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="get-size"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">get-size</a></h2>
+<p>Gets the number of values that were added to the set.</p><p>For example, if the set is empty, 0 is returned.</p><p>Note that this function returns a <strong>guint64</strong>, because when all values are set, the return value is <strong>G_MAXUINT</strong> + 1`. Unless you are sure this cannot happen (it can't with <strong>Gnome::Gio::R-ListModel</strong>), be sure to use a 64bit type.</p><pre class="pod-block-code">method get-size (--&gt; UInt )
+</pre><p>Return value; The number of values in the set.. </p></section>
+<section name="pod">
+<h2 id="get-size-in-range"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">get-size-in-range</a></h2>
+<p>Gets the number of values that are part of the set from <code>$first</code> to <code>$last</code> (inclusive).</p><p>Note that this function returns a <strong>guint64</strong>, because when all values are set, the return value is <strong>G_MAXUINT</strong> + 1`. Unless you are sure this cannot happen (it can't with <strong>Gnome::Gio::R-ListModel</strong>), be sure to use a 64bit type.</p><pre class="pod-block-code">method get-size-in-range ( UInt() $first, UInt() $last --&gt; UInt )
+</pre><ul>
+<li><p>$first; the first element to include.</p></li>
+<li><p>$last; the last element to include.</p></li>
+</ul>
+<p>Return value; The number of values in the set from <code>$first</code> to <code>$last</code>.. </p></section>
+<section name="pod">
+<h2 id="intersect"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">intersect</a></h2>
+<p>Sets <code>$self</code> to be the intersection of <code>$self</code> and <code>$other</code>.</p><p>In other words, remove all values from <code>$self</code> that are not part of <code>$other</code>.</p><p>It is allowed for <code>$self</code> and <code>$other</code> to be the same bitset. Nothing will happen in that case.</p><pre class="pod-block-code">method intersect ( N-Object $other )
+</pre><ul>
+<li><p>$other; the <strong>Gnome::Gtk4::N-Bitset</strong> to intersect with</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="is-empty"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">is-empty</a></h2>
+<p>Check if no value is contained in bitset.</p><pre class="pod-block-code">method is-empty (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if <code>$self</code> is empty. </p></section>
+<section name="pod">
+<h2 id="ref"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">ref</a></h2>
+<p>Acquires a reference on the given <strong>Gnome::Gtk4::N-Bitset</strong>.</p><pre class="pod-block-code">method ref (--&gt; N-Object )
+</pre><p>Return value; the <strong>Gnome::Gtk4::N-Bitset</strong> with an additional reference. </p></section>
+<section name="pod">
+<h2 id="remove"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">remove</a></h2>
+<p>Removes <code>$value</code> from <code>$self</code> if it was part of it before.</p><pre class="pod-block-code">method remove ( UInt() $value --&gt; Bool )
+</pre><ul>
+<li><p>$value; value to remove.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$value</code> was part of <code>$self</code> and <code>$self</code> was changed. </p></section>
+<section name="pod">
+<h2 id="remove-all"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">remove-all</a></h2>
+<p>Removes all values from the bitset so that it is empty again.</p><pre class="pod-block-code">method remove-all ( )
+</pre></section>
+<section name="pod">
+<h2 id="remove-range"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">remove-range</a></h2>
+<p>Removes all values from <code>$start</code> (inclusive) to <code>$start</code> + <code>$n-items</code> (exclusive) in <code>$self</code>.</p><pre class="pod-block-code">method remove-range ( UInt() $start, UInt() $n-items )
+</pre><ul>
+<li><p>$start; first value to remove.</p></li>
+<li><p>$n-items; number of consecutive values to remove.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="remove-range-closed"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">remove-range-closed</a></h2>
+<p>Removes the closed range [ <code>$first</code>, <code>$last</code>], so <code>$first</code>, <code>$last</code> and all values in between. <code>$first</code> must be smaller than <code>$last</code>.</p><pre class="pod-block-code">method remove-range-closed ( UInt() $first, UInt() $last )
+</pre><ul>
+<li><p>$first; first value to remove.</p></li>
+<li><p>$last; last value to remove.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="remove-rectangle"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">remove-rectangle</a></h2>
+<p>Interprets the values as a 2-dimensional boolean grid with the given <code>$stride</code> and inside that grid, removes a rectangle with the given <code>$width</code> and <code>$height</code>.</p><pre class="pod-block-code">method remove-rectangle ( UInt() $start, UInt() $width, UInt() $height, UInt() $stride )
+</pre><ul>
+<li><p>$start; first value to remove.</p></li>
+<li><p>$width; width of the rectangle.</p></li>
+<li><p>$height; height of the rectangle.</p></li>
+<li><p>$stride; row stride of the grid.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="shift-left"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">shift-left</a></h2>
+<p>Shifts all values in <code>$self</code> to the left by <code>$amount</code>.</p><p>Values smaller than <code>$amount</code> are discarded.</p><pre class="pod-block-code">method shift-left ( UInt() $amount )
+</pre><ul>
+<li><p>$amount; amount to shift all values to the left.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="shift-right"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">shift-right</a></h2>
+<p>Shifts all values in <code>$self</code> to the right by <code>$amount</code>.</p><p>Values that end up too large to be held in a #guint are discarded.</p><pre class="pod-block-code">method shift-right ( UInt() $amount )
+</pre><ul>
+<li><p>$amount; amount to shift all values to the right.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="splice"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">splice</a></h2>
+<p>This is a support function for <strong>Gnome::Gio::R-ListModel</strong> handling, by mirroring the <strong>GlistModel</strong>::items-changed` signal.</p><p>First, it &quot;cuts&quot; the values from <code>$position</code> to <code>$removed</code> from the bitset. That is, it removes all those values and shifts all larger values to the left by <code>$removed</code> places.</p><p>Then, it &quot;pastes&quot; new room into the bitset by shifting all values larger than <code>$position</code> by <code>$added</code> spaces to the right. This frees up space that can then be filled.</p><pre class="pod-block-code">method splice ( UInt() $position, UInt() $removed, UInt() $added )
+</pre><ul>
+<li><p>$position; position at which to slice.</p></li>
+<li><p>$removed; number of values to remove.</p></li>
+<li><p>$added; number of values to add.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="subtract"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">subtract</a></h2>
+<p>Sets <code>$self</code> to be the subtraction of <code>$other</code> from <code>$self</code>.</p><p>In other words, remove all values from <code>$self</code> that are part of <code>$other</code>.</p><p>It is allowed for <code>$self</code> and <code>$other</code> to be the same bitset. The bitset will be emptied in that case.</p><pre class="pod-block-code">method subtract ( N-Object $other )
+</pre><ul>
+<li><p>$other; the <strong>Gnome::Gtk4::N-Bitset</strong> to subtract</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="union"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">union</a></h2>
+<p>Sets <code>$self</code> to be the union of <code>$self</code> and <code>$other</code>.</p><p>That is, add all values from <code>$other</code> into <code>$self</code> that weren't part of it.</p><p>It is allowed for <code>$self</code> and <code>$other</code> to be the same bitset. Nothing will happen in that case.</p><pre class="pod-block-code">method union ( N-Object $other )
+</pre><ul>
+<li><p>$other; the <strong>Gnome::Gtk4::N-Bitset</strong> to union with</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="unref"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">unref</a></h2>
+<p>Releases a reference on the given <strong>Gnome::Gtk4::N-Bitset</strong>.</p><p>If the reference was the last, the resources associated to the <code>$self</code> are freed.</p><pre class="pod-block-code">method unref ( )
+</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-Bitset.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:45Z</span></div></footer>
+	</body>
+</html>

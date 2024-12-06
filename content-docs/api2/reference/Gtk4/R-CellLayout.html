@@ -1,0 +1,116 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::R-CellLayout</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::R-CellLayout">Gnome::Gtk4::R-CellLayout</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#GtkCellLayouts_as_GtkBuildable">GtkCellLayouts as GtkBuildable</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Subclassing_GtkCellLayout_implementations">Subclassing GtkCellLayout implementations</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-attribute">add-attribute</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear">clear</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-attributes">clear-attributes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-area">get-area</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-cells">get-cells</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#pack-end">pack-end</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#pack-start">pack-start</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#reorder">reorder</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-attributes_This_function_is_not_yet_available">set-attributes This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-cell-data-func_This_function_is_not_yet_available">set-cell-data-func This function is not yet available</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">Description</a></h1>
+<p>An interface for packing cells</p><p><strong>Gnome::Gtk4::R-CellLayout</strong> is an interface to be implemented by all objects which want to provide a <strong>Gnome::Gtk4::TreeViewColumn</strong> like API for packing cells, setting attributes and data funcs.</p><p>One of the notable features provided by implementations of <strong>Gnome::Gtk4::R-CellLayout</strong> are attributes. Attributes let you set the properties in flexible ways. They can just be set to constant values like regular properties. But they can also be mapped to a column of the underlying tree model with <code>.set-attributes()</code>, which means that the value of the attribute can change from cell to cell as they are rendered by the cell renderer. Finally, it is possible to specify a function with <code>.set-cell-data-func()</code> that is called to determine the value of the attribute for each cell that is rendered.</p>
+<h3 id="GtkCellLayouts_as_GtkBuildable"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">GtkCellLayouts as GtkBuildable</a></h3>
+<p>Implementations of GtkCellLayout which also implement the GtkBuildable interface (<strong>Gnome::Gtk4::CellView</strong>, <strong>Gnome::Gtk4::IconView</strong>, <strong>Gnome::Gtk4::ComboBox</strong>, <strong>Gnome::Gtk4::EntryCompletion</strong>, <strong>Gnome::Gtk4::TreeViewColumn</strong>) accept <strong>Gnome::Gtk4::CellRenderer</strong> objects as `&lt;child&gt;` elements in UI definitions. They support a custom `&lt;attributes&gt;` element for their children, which can contain multiple `&lt;attribute&gt;` elements. Each `&lt;attribute&gt;` element has a name attribute which specifies a property of the cell renderer; the content of the element is the attribute value.</p><p>This is an example of a UI definition fragment specifying attributes:</p><p>Furthermore for implementations of <strong>Gnome::Gtk4::R-CellLayout</strong> that use a <strong>Gnome::Gtk4::CellArea</strong> to lay out cells (all <strong>Gnome::Gtk4::R-CellLayout</strong>s in GTK use a <strong>Gnome::Gtk4::CellArea</strong>) [cell properties](class.CellArea.html#cell-properties) can also be defined in the format by specifying the custom `&lt;cell-packing&gt;` attribute which can contain multiple `&lt;property&gt;` elements.</p><p>Here is a UI definition fragment specifying cell properties:</p>
+<h3 id="Subclassing_GtkCellLayout_implementations"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">Subclassing GtkCellLayout implementations</a></h3>
+<p>When subclassing a widget that implements <strong>Gnome::Gtk4::R-CellLayout</strong> like <strong>Gnome::Gtk4::IconView</strong> or <strong>Gnome::Gtk4::ComboBox</strong>, there are some considerations related to the fact that these widgets internally use a <strong>Gnome::Gtk4::CellArea</strong>. The cell area is exposed as a construct-only property by these widgets. This means that it is possible to e.g. do</p><p>to use a custom cell area with a combo box. But construct properties are only initialized after instance <strong>init</strong>()` functions have run, which means that using functions which rely on the existence of the cell area in your subclass <strong>init</strong>()` function will cause the default cell area to be instantiated. In this case, a provided construct property value will be ignored (with a warning, to alert you to the problem).</p><p>If supporting alternative cell areas with your derived widget is not important, then this does not have to concern you. If you want to support alternative cell areas, you can do so by moving the problematic calls out of <strong>init</strong>()` and into a <strong>constructor</strong>()` for your class.</p></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="add-attribute"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">add-attribute</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds an attribute mapping to the list in <code>$cell-layout</code>.</p><p>The <code>$column</code> is the column of the model to get a value from, and the <code>$attribute</code> is the property on <code>$cell</code> to be set from that value. So for example if column 2 of the model contains strings, you could have the “text” attribute of a <strong>Gnome::Gtk4::CellRendererText</strong> get its values from column 2. In this context &quot;attribute&quot; and &quot;property&quot; are used interchangeably.</p><pre class="pod-block-code">method add-attribute ( N-Object() $cell, Str $attribute, Int() $column )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong>.</p></li>
+<li><p>$attribute; a property on the renderer.</p></li>
+<li><p>$column; the column position on the model to get the attribute from.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="clear"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">clear</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Unsets all the mappings on all renderers on <code>$cell-layout</code> and removes all renderers from <code>$cell-layout</code>.</p><pre class="pod-block-code">method clear ( )
+</pre></section>
+<section name="pod">
+<h2 id="clear-attributes"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">clear-attributes</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Clears all existing attributes previously set with <code>.set-attributes()</code>.</p><pre class="pod-block-code">method clear-attributes ( N-Object() $cell )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong> to clear the attribute mapping on.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-area"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">get-area</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the underlying <strong>Gnome::Gtk4::CellArea</strong> which might be <code>$cell-layout</code> if called on a <strong>Gnome::Gtk4::CellArea</strong> or might be undefined if no <strong>Gnome::Gtk4::CellArea</strong> is used by <code>$cell-layout</code>.</p><pre class="pod-block-code">method get-area (--&gt; N-Object )
+</pre><p>Return value; the cell area used by <code>$cell-layout</code>. </p></section>
+<section name="pod">
+<h2 id="get-cells"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">get-cells</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the cell renderers which have been added to <code>$cell-layout</code>.</p><pre class="pod-block-code">method get-cells (--&gt; N-List )
+</pre><p>Return value; a list of cell renderers. The list, but not the renderers has been newly allocated and should be freed with g_list_free() when no longer needed.. </p></section>
+<section name="pod">
+<h2 id="pack-end"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">pack-end</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds the <code>$cell</code> to the end of <code>$cell-layout</code>. If <code>$expand</code> is <code>False</code>, then the <code>$cell</code> is allocated no more space than it needs. Any unused space is divided evenly between cells for which <code>$expand</code> is <code>True</code>.</p><p>Note that reusing the same cell renderer is not supported.</p><pre class="pod-block-code">method pack-end ( N-Object() $cell, Bool() $expand )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong>.</p></li>
+<li><p>$expand; <code>True</code> if <code>$cell</code> is to be given extra space allocated to <code>$cell-layout</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="pack-start"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">pack-start</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Packs the <code>$cell</code> into the beginning of <code>$cell-layout</code>. If <code>$expand</code> is <code>False</code>, then the <code>$cell</code> is allocated no more space than it needs. Any unused space is divided evenly between cells for which <code>$expand</code> is <code>True</code>.</p><p>Note that reusing the same cell renderer is not supported.</p><pre class="pod-block-code">method pack-start ( N-Object() $cell, Bool() $expand )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong>.</p></li>
+<li><p>$expand; <code>True</code> if <code>$cell</code> is to be given extra space allocated to <code>$cell-layout</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="reorder"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">reorder</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Re-inserts <code>$cell</code> at <code>$position</code>.</p><p>Note that <code>$cell</code> has already to be packed into <code>$cell-layout</code> for this to function properly.</p><pre class="pod-block-code">method reorder ( N-Object() $cell, Int() $position )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong> to reorder.</p></li>
+<li><p>$position; new position to insert <code>$cell</code> at.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-attributes_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">set-attributes This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the attributes in the parameter list as the attributes of <code>$cell-layout</code>.</p><p>See <code>.add-attribute()</code> for more details.</p><p>The attributes should be in attribute/column order, as in <code>.add-attribute()</code>. All existing attributes are removed, and replaced with the new attributes.</p><pre class="pod-block-code">method set-attributes ( N-Object() $cell, … )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong>.</p></li>
+<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-cell-data-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-CellLayout" class="u" title="go to top of document">set-cell-data-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the <strong>Gnome::Gtk4::R-CellLayout</strong>DataFunc to use for <code>$cell-layout</code>.</p><p>This function is used instead of the standard attributes mapping for setting the column value, and should set the value of <code>$cell-layout</code>’s cell renderer(s) as appropriate. <code>$func</code> may be undefined to remove a previously set function.</p><pre class="pod-block-code">method set-cell-data-func ( N-Object() $cell, &amp;func, gpointer $func-data, … )
+</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk4::CellRenderer</strong>.</p></li>
+<li><p>&amp;func; the <strong>Gnome::Gtk4::R-CellLayout</strong>DataFunc to use. Tthe function must be specified with following signature; <code>:( N-Object $cell-layout, N-Object $cell, N-Object $tree-model, N-Object $iter, gpointer $data )</code>.</p></li>
+<li><p>$func-data; user data for <code>$func</code>.</p></li>
+<li><p>destroy; destroy notify for <code>$func-data</code>. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-CellLayout.rakudoc</span></div><div>at <span class="time">2024-12-03T13:32:00Z</span></div></footer>
+	</body>
+</html>

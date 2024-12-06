@@ -1,0 +1,272 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::EntryCompletion</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::EntryCompletion">Gnome::Gtk4::EntryCompletion</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-entrycompletion">new-entrycompletion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-area">new-with-area</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#complete">complete</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#compute-prefix">compute-prefix</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-completion-prefix">get-completion-prefix</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-entry">get-entry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-inline-completion">get-inline-completion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-inline-selection">get-inline-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-minimum-key-length">get-minimum-key-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-popup-completion">get-popup-completion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-popup-set-width">get-popup-set-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-popup-single-match">get-popup-single-match</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-text-column">get-text-column</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-prefix">insert-prefix</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-inline-completion">set-inline-completion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-inline-selection">set-inline-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-match-func_This_function_is_not_yet_available">set-match-func This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-minimum-key-length">set-minimum-key-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-model">set-model</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-popup-completion">set-popup-completion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-popup-set-width">set-popup-set-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-popup-single-match">set-popup-single-match</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-text-column">set-text-column</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#cursor-on-match">cursor-on-match</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#insert-prefix_0">insert-prefix</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#match-selected">match-selected</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#no-matches">no-matches</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::EntryCompletion</strong> is an auxiliary object to provide completion functionality for <strong>Gnome::Gtk4::Entry</strong>.</p><p>It implements the <strong>Gnome::Gtk4::R-CellLayout</strong> interface, to allow the user to add extra cells to the <strong>Gnome::Gtk4::TreeView</strong> with completion matches.</p><p>“Completion functionality” means that when the user modifies the text in the entry, <strong>Gnome::Gtk4::EntryCompletion</strong> checks which rows in the model match the current content of the entry, and displays a list of matches. By default, the matching is done by comparing the entry text case-insensitively against the text column of the model (see <code>.set-text-column()</code>), but this can be overridden with a custom match function (see <code>.set-match-func()</code>).</p><p>When the user selects a completion, the content of the entry is updated. By default, the content of the entry is replaced by the text column of the model, but this can be overridden by connecting to the <em>match-selected</em> signal and updating the entry in the signal handler. Note that you should return <code>True</code> from the signal handler to suppress the default behaviour.</p><p>To add completion functionality to an entry, use <code>.set-completion() in class Gnome::Gtk4::Entry</code>.</p><p><strong>Gnome::Gtk4::EntryCompletion</strong> uses a <strong>Gnome::Gtk4::TreeModelFilter</strong> model to represent the subset of the entire model that is currently matching. While the <strong>Gnome::Gtk4::EntryCompletion</strong> signals <em>match-selected</em> and <em>cursor-on-match</em> take the original model and an iter pointing to that model as arguments, other callbacks and signals (such as <strong>Gnome::Gtk4::T-celllayout</strong> or <em>apply-attributes) defined in CellArea</em> will generally take the filter model as argument. As long as you are only calling <code>.get() in class Gnome::Gtk4::R-TreeModel</code>, this will make no difference to you. If for some reason, you need the original model, use <code>.get-model() in class Gnome::Gtk4::TreeModelFilter</code>. Don’t forget to use <code>.convert-iter-to-child-iter() in class Gnome::Gtk4::TreeModelFilter</code> to obtain a matching iter.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">Class initialization</a></h1>
+<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
+<h2 id="new"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-entrycompletion"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">new-entrycompletion</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::EntryCompletion</strong> object.</p><pre class="pod-block-code">method new-entrycompletion ( --&gt; Gnome::Gtk4::EntryCompletion \)
+</pre></section>
+<section name="pod">
+<h2 id="new-with-area"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">new-with-area</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::EntryCompletion</strong> object using the specified <code>$area</code>.</p><p>The <strong>Gnome::Gtk4::CellArea</strong> is used to layout cells in the underlying <strong>Gnome::Gtk4::TreeViewColumn</strong> for the drop-down menu.</p><pre class="pod-block-code">method new-with-area ( N-Object() $area --&gt; Gnome::Gtk4::EntryCompletion \)
+</pre><ul>
+<li><p>$area; the <strong>Gnome::Gtk4::CellArea</strong> used to layout cells.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="complete"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">complete</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Requests a completion operation, or in other words a refiltering of the current list with completions, using the current key.</p><p>The completion list view will be updated accordingly.</p><pre class="pod-block-code">method complete ( )
+</pre></section>
+<section name="pod">
+<h2 id="compute-prefix"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">compute-prefix</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Computes the common prefix that is shared by all rows in <code>$completion</code> that start with <code>$key</code>.</p><p>If no row matches <code>$key</code>, undefined will be returned. Note that a text column must have been set for this function to work, see <code>.set-text-column()</code> for details.</p><pre class="pod-block-code">method compute-prefix ( Str $key --&gt; Str )
+</pre><ul>
+<li><p>$key; The text to complete for.</p></li>
+</ul>
+<p>Return value; The common prefix all rows starting with <code>$key</code>. </p></section>
+<section name="pod">
+<h2 id="get-completion-prefix"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-completion-prefix</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Get the original text entered by the user that triggered the completion or undefined if there’s no completion ongoing.</p><pre class="pod-block-code">method get-completion-prefix (--&gt; Str )
+</pre><p>Return value; the prefix for the current completion. </p></section>
+<section name="pod">
+<h2 id="get-entry"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-entry</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the entry <code>$completion</code> has been attached to.</p><pre class="pod-block-code">method get-entry (--&gt; N-Object )
+</pre><p>Return value; The entry <code>$completion</code> has been attached to. </p></section>
+<section name="pod">
+<h2 id="get-inline-completion"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-inline-completion</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether the common prefix of the possible completions should be automatically inserted in the entry.</p><pre class="pod-block-code">method get-inline-completion (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if inline completion is turned on. </p></section>
+<section name="pod">
+<h2 id="get-inline-selection"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-inline-selection</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if inline-selection mode is turned on.</p><pre class="pod-block-code">method get-inline-selection (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if inline-selection mode is on. </p></section>
+<section name="pod">
+<h2 id="get-minimum-key-length"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-minimum-key-length</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the minimum key length as set for <code>$completion</code>.</p><pre class="pod-block-code">method get-minimum-key-length (--&gt; Int )
+</pre><p>Return value; The currently used minimum key length. </p></section>
+<section name="pod">
+<h2 id="get-model"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-model</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the model the <strong>Gnome::Gtk4::EntryCompletion</strong> is using as data source.</p><p>Returns undefined if the model is unset.</p><pre class="pod-block-code">method get-model (--&gt; N-Object )
+</pre><p>Return value; A <strong>Gnome::Gtk4::R-TreeModel</strong>. </p></section>
+<section name="pod">
+<h2 id="get-popup-completion"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-popup-completion</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether the completions should be presented in a popup window.</p><pre class="pod-block-code">method get-popup-completion (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if popup completion is turned on. </p></section>
+<section name="pod">
+<h2 id="get-popup-set-width"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-popup-set-width</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether the completion popup window will be resized to the width of the entry.</p><pre class="pod-block-code">method get-popup-set-width (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the popup window will be resized to the width of the entry. </p></section>
+<section name="pod">
+<h2 id="get-popup-single-match"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-popup-single-match</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether the completion popup window will appear even if there is only a single match.</p><pre class="pod-block-code">method get-popup-single-match (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the popup window will appear regardless of the number of matches. </p></section>
+<section name="pod">
+<h2 id="get-text-column"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">get-text-column</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the column in the model of <code>$completion</code> to get strings from.</p><pre class="pod-block-code">method get-text-column (--&gt; Int )
+</pre><p>Return value; the column containing the strings. </p></section>
+<section name="pod">
+<h2 id="insert-prefix"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">insert-prefix</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Requests a prefix insertion.</p><pre class="pod-block-code">method insert-prefix ( )
+</pre></section>
+<section name="pod">
+<h2 id="set-inline-completion"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-inline-completion</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether the common prefix of the possible completions should be automatically inserted in the entry.</p><pre class="pod-block-code">method set-inline-completion ( Bool() $inline-completion )
+</pre><ul>
+<li><p>$inline-completion; <code>True</code> to do inline completion.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-inline-selection"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-inline-selection</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether it is possible to cycle through the possible completions inside the entry.</p><pre class="pod-block-code">method set-inline-selection ( Bool() $inline-selection )
+</pre><ul>
+<li><p>$inline-selection; <code>True</code> to do inline selection.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-match-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-match-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the match function for <code>$completion</code> to be <code>$func</code>.</p><p>The match function is used to determine if a row should or should not be in the completion list.</p><pre class="pod-block-code">method set-match-func ( &amp;func, gpointer $func-data, … )
+</pre><ul>
+<li><p>&amp;func; the <strong>Gnome::Gtk4::EntryCompletion</strong>MatchFunc to use. Tthe function must be specified with following signature; <code>:( N-Object $completion, Str $key, N-Object $iter, gpointer $user-data --</code> gboolean )&gt;.</p></li>
+<li><p>$func-data; user data for <code>$func</code>.</p></li>
+<li><p>func-notify; destroy notify for <code>$func-data</code>.. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-minimum-key-length"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-minimum-key-length</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Requires the length of the search key for <code>$completion</code> to be at least <code>$length</code>.</p><p>This is useful for long lists, where completing using a small key takes a lot of time and will come up with meaningless results anyway (ie, a too large dataset).</p><pre class="pod-block-code">method set-minimum-key-length ( Int() $length )
+</pre><ul>
+<li><p>$length; the minimum length of the key in order to start completing.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-model"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-model</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the model for a <strong>Gnome::Gtk4::EntryCompletion</strong>.</p><p>If <code>$completion</code> already has a model set, it will remove it before setting the new model. If model is undefined, then it will unset the model.</p><pre class="pod-block-code">method set-model ( N-Object() $model )
+</pre><ul>
+<li><p>$model; the <strong>Gnome::Gtk4::R-TreeModel</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-popup-completion"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-popup-completion</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether the completions should be presented in a popup window.</p><pre class="pod-block-code">method set-popup-completion ( Bool() $popup-completion )
+</pre><ul>
+<li><p>$popup-completion; <code>True</code> to do popup completion.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-popup-set-width"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-popup-set-width</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether the completion popup window will be resized to be the same width as the entry.</p><pre class="pod-block-code">method set-popup-set-width ( Bool() $popup-set-width )
+</pre><ul>
+<li><p>$popup-set-width; <code>True</code> to make the width of the popup the same as the entry.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-popup-single-match"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-popup-single-match</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether the completion popup window will appear even if there is only a single match.</p><p>You may want to set this to <code>False</code> if you are using <em>inline-completion</em>.</p><pre class="pod-block-code">method set-popup-single-match ( Bool() $popup-single-match )
+</pre><ul>
+<li><p>$popup-single-match; <code>True</code> if the popup should appear even for a single match.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-text-column"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">set-text-column</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Convenience function for setting up the most used case of this code: a completion list with just strings.</p><p>This function will set up <code>$completion</code> to have a list displaying all (and just) strings in the completion list, and to get those strings from <code>$column</code> in the model of <code>$completion</code>.</p><p>This functions creates and adds a <strong>Gnome::Gtk4::CellRendererText</strong> for the selected column. If you need to set the text column, but don't want the cell renderer, use g_object_set() to set the <em>text-column</em> property directly.</p><pre class="pod-block-code">method set-text-column ( Int() $column )
+</pre><ul>
+<li><p>$column; the column in the model of <code>$completion</code> to get strings from.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="cursor-on-match"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">cursor-on-match</a></h3>
+<p>Emitted when a match from the cursor is on a match of the list.</p><p>The default behaviour is to replace the contents of the entry with the contents of the text column in the row pointed to by <code>$iter</code>.</p><p>Note that <code>$model</code> is the model that was passed to <code>.set-model()</code>.</p><pre class="pod-block-code">method handler (
+  N-Object $model,
+  N-Object $iter,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryCompletion :$_widget,
+  *C&lt;user&gt;-options
+  --&gt; gboolean
+)
+</pre><ul>
+<li><p>$model; the <strong>Gnome::Gtk4::R-TreeModel</strong> containing the matches.</p></li>
+<li><p>$iter; a <strong>Gnome::Gtk4::N-TreeIter</strong> positioned at the selected match.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryCompletion</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the signal has been handled</p>
+<h3 id="insert-prefix_0"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">insert-prefix</a></h3>
+<p>Emitted when the inline autocompletion is triggered.</p><p>The default behaviour is to make the entry display the whole prefix and select the newly inserted part.</p><p>Applications may connect to this signal in order to insert only a smaller part of the <code>$prefix</code> into the entry - e.g. the entry used in the <strong>Gnome::Gtk4::R-FileChooser</strong> inserts only the part of the prefix up to the next '/'.</p><pre class="pod-block-code">method handler (
+  Str $prefix,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryCompletion :$_widget,
+  *C&lt;user&gt;-options
+  --&gt; gboolean
+)
+</pre><ul>
+<li><p>$prefix; the common prefix of all possible completions.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryCompletion</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the signal has been handled</p>
+<h3 id="match-selected"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">match-selected</a></h3>
+<p>Emitted when a match from the list is selected.</p><p>The default behaviour is to replace the contents of the entry with the contents of the text column in the row pointed to by <code>$iter</code>.</p><p>Note that <code>$model</code> is the model that was passed to <code>.set-model()</code>.</p><pre class="pod-block-code">method handler (
+  N-Object $model,
+  N-Object $iter,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryCompletion :$_widget,
+  *C&lt;user&gt;-options
+  --&gt; gboolean
+)
+</pre><ul>
+<li><p>$model; the <strong>Gnome::Gtk4::R-TreeModel</strong> containing the matches.</p></li>
+<li><p>$iter; a <strong>Gnome::Gtk4::N-TreeIter</strong> positioned at the selected match.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryCompletion</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the signal has been handled</p>
+<h3 id="no-matches"><a href="#Gnome::Gtk4::EntryCompletion" class="u" title="go to top of document">no-matches</a></h3>
+<p>Emitted when the filter model has zero number of rows in completion_complete method.</p><p>In other words when <strong>Gnome::Gtk4::EntryCompletion</strong> is out of suggestions.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::EntryCompletion :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::EntryCompletion</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/EntryCompletion.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:00Z</span></div></footer>
+	</body>
+</html>

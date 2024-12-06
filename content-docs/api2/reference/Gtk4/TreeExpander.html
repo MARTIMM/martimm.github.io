@@ -1,0 +1,121 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::TreeExpander</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TreeExpander">Gnome::Gtk4::TreeExpander</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-treeexpander">new-treeexpander</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-hide-expander">get-hide-expander</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-indent-for-depth">get-indent-for-depth</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-indent-for-icon">get-indent-for-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-item">get-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-list-row">get-list-row</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-child">set-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hide-expander">set-hide-expander</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-indent-for-depth">set-indent-for-depth</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-indent-for-icon">set-indent-for-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-list-row">set-list-row</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::TreeExpander</strong> is a widget that provides an expander for a list.</p><p>It is typically placed as a bottommost child into a <strong>Gnome::Gtk4::ListView</strong> to allow users to expand and collapse children in a list with a <strong>Gnome::Gtk4::TreeListModel</strong>. <strong>Gnome::Gtk4::TreeExpander</strong> provides the common UI elements, gestures and keybindings for this purpose.</p><p>On top of this, the &quot;listitem.expand&quot;, &quot;listitem.collapse&quot; and &quot;listitem.toggle-expand&quot; actions are provided to allow adding custom UI for managing expanded state.</p><p>It is important to mention that you want to set the <em>focusable defined in Gnome::Gtk4::ListItem</em> property to FALSE when using this widget, as you want the keyboard focus to be in the treexpander, and not inside the list to make use of the keybindings.</p><p>The <strong>Gnome::Gtk4::TreeListModel</strong> must be set to not be passthrough. Then it will provide <strong>Gnome::Gtk4::TreeListRow</strong> items which can be set via <code>.set-list-row()</code> on the expander. The expander will then watch that row item automatically. <code>.set-child()</code> sets the widget that displays the actual row contents.</p><p><strong>Gnome::Gtk4::TreeExpander</strong> can be modified with properties such as <em>indent-for-icon</em>, <em>indent-for-depth</em>, and <em>hide-expander</em> to achieve a different appearance. This can even be done to influence individual rows, for example by binding the <em>hide-expander</em> property to the item count of the model of the treelistrow, to hide the expander for rows without children, even if the row is expandable.</p>
+<h3 id="CSS_nodes"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">CSS nodes</a></h3>
+<p><strong>Gnome::Gtk4::TreeExpander</strong> has zero or one CSS nodes with the name &quot;expander&quot; that should display the expander icon. The node will be `:checked` when it is expanded. If the node is not expandable, an &quot;indent&quot; node will be displayed instead.</p><p>For every level of depth, another &quot;indent&quot; node is prepended.</p>
+<h3 id="Accessibility"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">Accessibility</a></h3>
+<p>Until GTK 4.10, <strong>Gnome::Gtk4::TreeExpander</strong> used the <strong>GTK_ACCESSIBLE_ROLE_GROUP</strong> role.</p><p>Since GTK 4.12, <strong>Gnome::Gtk4::TreeExpander</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_BUTTON</strong> role. Toggling it will change the <strong>GTK_ACCESSIBLE_STATE_EXPANDED</strong> state.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-treeexpander"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">new-treeexpander</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::TreeExpander</strong></p><pre class="pod-block-code">method new-treeexpander ( --&gt; Gnome::Gtk4::TreeExpander \)
+</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-child"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-child</a></h2>
+<p>Gets the child widget displayed by <code>$self</code>.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
+</pre><p>Return value; The child displayed by <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="get-hide-expander"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-hide-expander</a></h2>
+<p>Gets whether the TreeExpander should be hidden in a GtkTreeListRow.</p><pre class="pod-block-code">method get-hide-expander (--&gt; Bool )
+</pre><p>Return value; TRUE if the expander icon should be hidden. Otherwise FALSE.. </p></section>
+<section name="pod">
+<h2 id="get-indent-for-depth"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-indent-for-depth</a></h2>
+<p>TreeExpander indents each level of depth with an additional indent.</p><pre class="pod-block-code">method get-indent-for-depth (--&gt; Bool )
+</pre><p>Return value; TRUE if the child should be indented . Otherwise FALSE.. </p></section>
+<section name="pod">
+<h2 id="get-indent-for-icon"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-indent-for-icon</a></h2>
+<p>TreeExpander indents the child by the width of an expander-icon if it is not expandable.</p><pre class="pod-block-code">method get-indent-for-icon (--&gt; Bool )
+</pre><p>Return value; TRUE if the child should be indented when not expandable. Otherwise FALSE.. </p></section>
+<section name="pod">
+<h2 id="get-item"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-item</a></h2>
+<p>Forwards the item set on the <strong>Gnome::Gtk4::TreeListRow</strong> that <code>$self</code> is managing.</p><p>This call is essentially equivalent to calling:</p><pre class="pod-block-code">method get-item (--&gt; gpointer )
+</pre><p>Return value; The item of the row. </p></section>
+<section name="pod">
+<h2 id="get-list-row"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">get-list-row</a></h2>
+<p>Gets the list row managed by <code>$self</code>.</p><pre class="pod-block-code">method get-list-row (--&gt; N-Object )
+</pre><p>Return value; The list row displayed by <code>$self</code>. </p></section>
+<section name="pod">
+<h2 id="set-child"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">set-child</a></h2>
+<p>Sets the content widget to display.</p><pre class="pod-block-code">method set-child ( N-Object() $child )
+</pre><ul>
+<li><p>$child; a <strong>Gnome::Gtk4::Widget</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-hide-expander"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">set-hide-expander</a></h2>
+<p>Sets whether the expander icon should be visible in a GtkTreeListRow.</p><pre class="pod-block-code">method set-hide-expander ( Bool() $hide-expander )
+</pre><ul>
+<li><p>$hide-expander; TRUE if the expander should be hidden. Otherwise FALSE..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-indent-for-depth"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">set-indent-for-depth</a></h2>
+<p>Sets if the TreeExpander should indent the child according to its depth.</p><pre class="pod-block-code">method set-indent-for-depth ( Bool() $indent-for-depth )
+</pre><ul>
+<li><p>$indent-for-depth; TRUE if the child should be indented. Otherwise FALSE..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-indent-for-icon"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">set-indent-for-icon</a></h2>
+<p>Sets if the TreeExpander should indent the child by the width of an expander-icon when it is not expandable.</p><pre class="pod-block-code">method set-indent-for-icon ( Bool() $indent-for-icon )
+</pre><ul>
+<li><p>$indent-for-icon; TRUE if the child should be indented without expander. Otherwise FALSE..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-list-row"><a href="#Gnome::Gtk4::TreeExpander" class="u" title="go to top of document">set-list-row</a></h2>
+<p>Sets the tree list row that this expander should manage.</p><pre class="pod-block-code">method set-list-row ( N-Object() $list-row )
+</pre><ul>
+<li><p>$list-row; a <strong>Gnome::Gtk4::TreeListRow</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeExpander.rakudoc</span></div><div>at <span class="time">2024-12-02T20:03:34Z</span></div></footer>
+	</body>
+</html>

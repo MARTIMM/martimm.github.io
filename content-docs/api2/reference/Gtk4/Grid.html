@@ -1,0 +1,232 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::Grid</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Grid">Gnome::Gtk4::Grid</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#GtkGrid_as_GtkBuildable">GtkGrid as GtkBuildable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-grid">new-grid</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attach">attach</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attach-next-to">attach-next-to</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-baseline-row">get-baseline-row</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child-at">get-child-at</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-column-homogeneous">get-column-homogeneous</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-column-spacing">get-column-spacing</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-row-baseline-position">get-row-baseline-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-row-homogeneous">get-row-homogeneous</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-row-spacing">get-row-spacing</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-column">insert-column</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-next-to">insert-next-to</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-row">insert-row</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#query-child">query-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-column">remove-column</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-row">remove-row</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-baseline-row">set-baseline-row</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-column-homogeneous">set-column-homogeneous</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-column-spacing">set-column-spacing</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-row-baseline-position">set-row-baseline-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-row-homogeneous">set-row-homogeneous</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-row-spacing">set-row-spacing</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::Grid</strong> is a container which arranges its child widgets in rows and columns.</p><div class="image-container inline"><img src="asset_files/images/grid.png" width="30%" height="auto" alt="No caption"></div>
+<p>It supports arbitrary positions and horizontal/vertical spans.</p><p>Children are added using <code>.attach()</code>. They can span multiple rows or columns. It is also possible to add a child next to an existing child, using <code>.attach-next-to()</code>. To remove a child from the grid, use <code>.remove()</code>.</p><p>The behaviour of <strong>Gnome::Gtk4::Grid</strong> when several children occupy the same grid cell is undefined.</p>
+<h2 id="GtkGrid_as_GtkBuildable"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">GtkGrid as GtkBuildable</a></h2>
+<p>Every child in a <strong>Gnome::Gtk4::Grid</strong> has access to a custom <strong>Gnome::Gtk4::R-Buildable</strong> element, called `&lt;layout&gt;`. It can by used to specify a position in the grid and optionally spans. All properties that can be used in the `&lt;layout&gt;` element are implemented by <strong>Gnome::Gtk4::GridLayoutChild</strong>.</p><p>It is implemented by <strong>Gnome::Gtk4::Widget</strong> using <strong>Gnome::Gtk4::LayoutManager</strong>.</p><p>To showcase it, here is a simple example:</p><p>It organizes the first two buttons side-by-side in one cell each. The third button is in the last column but spans across two rows. This is defined by the <strong>row</strong>-span` property. The last button is located in the second row and spans across two columns, which is defined by the <strong>column</strong>-span` property.</p>
+<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">CSS nodes</a></h2>
+<p><strong>Gnome::Gtk4::Grid</strong> uses a single CSS node with name <strong>grid</strong>.</p>
+<h2 id="Accessibility"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">Accessibility</a></h2>
+<p>Until GTK 4.10, <strong>Gnome::Gtk4::Grid</strong> used the <strong>GTK_ACCESSIBLE_ROLE_GROUP</strong> role.</p><p>Starting from GTK 4.12, <strong>Gnome::Gtk4::Grid</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_GENERIC</strong> role.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-grid"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">new-grid</a></h2>
+<p>Creates a new grid widget.</p><pre class="pod-block-code">method new-grid ( --&gt; Gnome::Gtk4::Grid \)
+</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="attach"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">attach</a></h2>
+<p>Adds a widget to the grid.</p><p>The position of <code>$child</code> is determined by <code>$column</code> and <code>$row</code>. The number of “cells” that <code>$child</code> will occupy is determined by <code>$width</code> and <code>$height</code>.</p><pre class="pod-block-code">method attach ( N-Object() $child, Int() $column, Int() $row, Int() $width, Int() $height )
+</pre><ul>
+<li><p>$child; the widget to add.</p></li>
+<li><p>$column; the column number to attach the left side of <code>$child</code> to.</p></li>
+<li><p>$row; the row number to attach the top side of <code>$child</code> to.</p></li>
+<li><p>$width; the number of columns that <code>$child</code> will span.</p></li>
+<li><p>$height; the number of rows that <code>$child</code> will span.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="attach-next-to"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">attach-next-to</a></h2>
+<p>Adds a widget to the grid.</p><p>The widget is placed next to <code>$sibling</code>, on the side determined by <code>$side</code>. When <code>$sibling</code> is undefined, the widget is placed in row (for left or right placement) or column 0 (for top or bottom placement), at the end indicated by <code>$side</code>.</p><p>Attaching widgets labeled `[1]`, `[2]`, `[3]` with ` <code>$sibling</code> == undefined` and ` <code>$side</code> == <code>GTK_POS_LEFT</code>` yields a layout of `[3][2][1]`.</p><pre class="pod-block-code">method attach-next-to ( N-Object() $child, N-Object() $sibling, GtkPositionType $side, Int() $width, Int() $height )
+</pre><ul>
+<li><p>$child; the widget to add.</p></li>
+<li><p>$sibling; the child of <code>$grid</code> that <code>$child</code> will be placed next to, or undefined to place <code>$child</code> at the beginning or end.</p></li>
+<li><p>$side; the side of <code>$sibling</code> that <code>$child</code> is positioned next to.</p></li>
+<li><p>$width; the number of columns that <code>$child</code> will span.</p></li>
+<li><p>$height; the number of rows that <code>$child</code> will span.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-baseline-row"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-baseline-row</a></h2>
+<p>Returns which row defines the global baseline of <code>$grid</code>.</p><pre class="pod-block-code">method get-baseline-row (--&gt; Int )
+</pre><p>Return value; the row index defining the global baseline. </p></section>
+<section name="pod">
+<h2 id="get-child-at"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-child-at</a></h2>
+<p>Gets the child of <code>$grid</code> whose area covers the grid cell at <code>$column</code>, <code>$row</code>.</p><pre class="pod-block-code">method get-child-at ( Int() $column, Int() $row --&gt; N-Object )
+</pre><ul>
+<li><p>$column; the left edge of the cell.</p></li>
+<li><p>$row; the top edge of the cell.</p></li>
+</ul>
+<p>Return value; the child at the given position. </p></section>
+<section name="pod">
+<h2 id="get-column-homogeneous"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-column-homogeneous</a></h2>
+<p>Returns whether all columns of <code>$grid</code> have the same width.</p><pre class="pod-block-code">method get-column-homogeneous (--&gt; Bool )
+</pre><p>Return value; whether all columns of <code>$grid</code> have the same width.. </p></section>
+<section name="pod">
+<h2 id="get-column-spacing"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-column-spacing</a></h2>
+<p>Returns the amount of space between the columns of <code>$grid</code>.</p><pre class="pod-block-code">method get-column-spacing (--&gt; UInt )
+</pre><p>Return value; the column spacing of <code>$grid</code>. </p></section>
+<section name="pod">
+<h2 id="get-row-baseline-position"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-row-baseline-position</a></h2>
+<p>Returns the baseline position of <code>$row</code>.</p><p>See <code>.set-row-baseline-position()</code>.</p><pre class="pod-block-code">method get-row-baseline-position ( Int() $row --&gt; GtkBaselinePosition )
+</pre><ul>
+<li><p>$row; a row index.</p></li>
+</ul>
+<p>Return value; the baseline position of <code>$row</code>. </p></section>
+<section name="pod">
+<h2 id="get-row-homogeneous"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-row-homogeneous</a></h2>
+<p>Returns whether all rows of <code>$grid</code> have the same height.</p><pre class="pod-block-code">method get-row-homogeneous (--&gt; Bool )
+</pre><p>Return value; whether all rows of <code>$grid</code> have the same height.. </p></section>
+<section name="pod">
+<h2 id="get-row-spacing"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">get-row-spacing</a></h2>
+<p>Returns the amount of space between the rows of <code>$grid</code>.</p><pre class="pod-block-code">method get-row-spacing (--&gt; UInt )
+</pre><p>Return value; the row spacing of <code>$grid</code>. </p></section>
+<section name="pod">
+<h2 id="insert-column"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">insert-column</a></h2>
+<p>Inserts a column at the specified position.</p><p>Children which are attached at or to the right of this position are moved one column to the right. Children which span across this position are grown to span the new column.</p><pre class="pod-block-code">method insert-column ( Int() $position )
+</pre><ul>
+<li><p>$position; the position to insert the column at.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="insert-next-to"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">insert-next-to</a></h2>
+<p>Inserts a row or column at the specified position.</p><p>The new row or column is placed next to <code>$sibling</code>, on the side determined by <code>$side</code>. If <code>$side</code> is <code>GTK_POS_TOP</code> or <code>GTK_POS_BOTTOM</code>, a row is inserted. If <code>$side</code> is <code>GTK_POS_LEFT</code> of <code>GTK_POS_RIGHT</code>, a column is inserted.</p><pre class="pod-block-code">method insert-next-to ( N-Object() $sibling, GtkPositionType $side )
+</pre><ul>
+<li><p>$sibling; the child of <code>$grid</code> that the new row or column will be placed next to.</p></li>
+<li><p>$side; the side of <code>$sibling</code> that <code>$child</code> is positioned next to.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="insert-row"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">insert-row</a></h2>
+<p>Inserts a row at the specified position.</p><p>Children which are attached at or below this position are moved one row down. Children which span across this position are grown to span the new row.</p><pre class="pod-block-code">method insert-row ( Int() $position )
+</pre><ul>
+<li><p>$position; the position to insert the row at.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="query-child"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">query-child</a></h2>
+<p>Queries the attach points and spans of <code>$child</code> inside the given <strong>Gnome::Gtk4::Grid</strong>.</p><pre class="pod-block-code">method query-child ( N-Object() $child, Array[Int] $column, Array[Int] $row, Array[Int] $width, Array[Int] $height )
+</pre><ul>
+<li><p>$child; a <strong>Gnome::Gtk4::Widget</strong> child of <code>$grid</code>.</p></li>
+<li><p>$column; (transfer ownership: full) the column used to attach the left side of <code>$child</code>.</p></li>
+<li><p>$row; (transfer ownership: full) the row used to attach the top side of <code>$child</code>.</p></li>
+<li><p>$width; (transfer ownership: full) the number of columns <code>$child</code> spans.</p></li>
+<li><p>$height; (transfer ownership: full) the number of rows <code>$child</code> spans.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="remove"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">remove</a></h2>
+<p>Removes a child from <code>$grid</code>.</p><p>The child must have been added with <code>.attach()</code> or <code>.attach-next-to()</code>.</p><pre class="pod-block-code">method remove ( N-Object() $child )
+</pre><ul>
+<li><p>$child; the child widget to remove.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="remove-column"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">remove-column</a></h2>
+<p>Removes a column from the grid.</p><p>Children that are placed in this column are removed, spanning children that overlap this column have their width reduced by one, and children after the column are moved to the left.</p><pre class="pod-block-code">method remove-column ( Int() $position )
+</pre><ul>
+<li><p>$position; the position of the column to remove.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="remove-row"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">remove-row</a></h2>
+<p>Removes a row from the grid.</p><p>Children that are placed in this row are removed, spanning children that overlap this row have their height reduced by one, and children below the row are moved up.</p><pre class="pod-block-code">method remove-row ( Int() $position )
+</pre><ul>
+<li><p>$position; the position of the row to remove.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-baseline-row"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-baseline-row</a></h2>
+<p>Sets which row defines the global baseline for the entire grid.</p><p>Each row in the grid can have its own local baseline, but only one of those is global, meaning it will be the baseline in the parent of the <code>$grid</code>.</p><pre class="pod-block-code">method set-baseline-row ( Int() $row )
+</pre><ul>
+<li><p>$row; the row index.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-column-homogeneous"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-column-homogeneous</a></h2>
+<p>Sets whether all columns of <code>$grid</code> will have the same width.</p><pre class="pod-block-code">method set-column-homogeneous ( Bool() $homogeneous )
+</pre><ul>
+<li><p>$homogeneous; <code>True</code> to make columns homogeneous.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-column-spacing"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-column-spacing</a></h2>
+<p>Sets the amount of space between columns of <code>$grid</code>.</p><pre class="pod-block-code">method set-column-spacing ( UInt() $spacing )
+</pre><ul>
+<li><p>$spacing; the amount of space to insert between columns.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-row-baseline-position"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-row-baseline-position</a></h2>
+<p>Sets how the baseline should be positioned on <code>$row</code> of the grid, in case that row is assigned more space than is requested.</p><p>The default baseline position is <code>GTK_BASELINE_POSITION_CENTER</code>.</p><pre class="pod-block-code">method set-row-baseline-position ( Int() $row, GtkBaselinePosition $pos )
+</pre><ul>
+<li><p>$row; a row index.</p></li>
+<li><p>$pos; a <code>enumeration GtkBaselinePosition defined in Gnome::Gtk4::T-enums</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-row-homogeneous"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-row-homogeneous</a></h2>
+<p>Sets whether all rows of <code>$grid</code> will have the same height.</p><pre class="pod-block-code">method set-row-homogeneous ( Bool() $homogeneous )
+</pre><ul>
+<li><p>$homogeneous; <code>True</code> to make rows homogeneous.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-row-spacing"><a href="#Gnome::Gtk4::Grid" class="u" title="go to top of document">set-row-spacing</a></h2>
+<p>Sets the amount of space between rows of <code>$grid</code>.</p><pre class="pod-block-code">method set-row-spacing ( UInt() $spacing )
+</pre><ul>
+<li><p>$spacing; the amount of space to insert between rows.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Grid.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:17Z</span></div></footer>
+	</body>
+</html>

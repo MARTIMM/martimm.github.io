@@ -1,0 +1,74 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::FileChooserDialog</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::FileChooserDialog">Gnome::Gtk4::FileChooserDialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Typical_usage">Typical usage</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Setting_up_a_file_chooser_dialog">Setting up a file chooser dialog</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Response_Codes">Response Codes</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-filechooserdialog_This_function_is_not_yet_available">new-filechooserdialog This function is not yet available</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::FileChooserDialog</strong> is a dialog suitable for use with “File Open” or “File Save” commands.</p><div class="image-container inline"><img src="asset_files/images/filechooser.png" width="30%" height="auto" alt="No caption"></div>
+<p>This widget works by putting a <strong>Gnome::Gtk4::FileChooserWidget</strong> inside a <strong>Gnome::Gtk4::Dialog</strong>. It exposes the <strong>Gnome::Gtk4::R-FileChooser</strong> interface, so you can use all of the <strong>Gnome::Gtk4::R-FileChooser</strong> functions on the file chooser dialog as well as those for <strong>Gnome::Gtk4::Dialog</strong>.</p><p>Note that <strong>Gnome::Gtk4::FileChooserDialog</strong> does not have any methods of its own. Instead, you should use the functions that work on a <strong>Gnome::Gtk4::R-FileChooser</strong>.</p><p>If you want to integrate well with the platform you should use the <strong>Gnome::Gtk4::FileChooserNative</strong> API, which will use a platform-specific dialog if available and fall back to <strong>Gnome::Gtk4::FileChooserDialog</strong> otherwise.</p>
+<h3 id="Typical_usage"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">Typical usage</a></h3>
+<p>In the simplest of cases, you can the following code to use <strong>Gnome::Gtk4::FileChooserDialog</strong> to select a file for opening:</p><p>To use a dialog for saving, you can use this:</p>
+<h3 id="Setting_up_a_file_chooser_dialog"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">Setting up a file chooser dialog</a></h3>
+<p>There are various cases in which you may need to use a <strong>Gnome::Gtk4::FileChooserDialog</strong>:</p><ul>
+<li><p>To select a file for opening, use <code>GTK_FILE_CHOOSER_ACTION_OPEN</code>.</p></li>
+<li><p>To save a file for the first time, use <code>GTK_FILE_CHOOSER_ACTION_SAVE</code>, and suggest a name such as “Untitled” with <code>.set-current-name() in class Gnome::Gtk4::R-FileChooser</code>.</p></li>
+<li><p>To save a file under a different name, use <code>GTK_FILE_CHOOSER_ACTION_SAVE</code>, and set the existing file with <code>.set-file() in class Gnome::Gtk4::R-FileChooser</code>.</p></li>
+<li><p>To choose a folder instead of a filem use <code>GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</code>.</p></li>
+</ul>
+<p>In general, you should only cause the file chooser to show a specific folder when it is appropriate to use <code>.set-file() in class Gnome::Gtk4::R-FileChooser</code>, i.e. when you are doing a “Save As” command and you already have a file saved somewhere.</p>
+<h3 id="Response_Codes"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">Response Codes</a></h3>
+<p><strong>Gnome::Gtk4::FileChooserDialog</strong> inherits from <strong>Gnome::Gtk4::Dialog</strong>, so buttons that go in its action area have response codes such as <code>GTK_RESPONSE_ACCEPT</code> and <code>GTK_RESPONSE_CANCEL</code>. For example, you could call <code>.newfilechooserdialog()</code> as follows:</p><p>This will create buttons for “Cancel” and “Open” that use predefined response identifiers from <code>enumeration ResponseType from Gnome::Gtk4::T-dialog</code> . For most dialog boxes you can use your own custom response codes rather than the ones in <code>enumeration ResponseType from Gnome::Gtk4::T-dialog</code> , but <strong>Gnome::Gtk4::FileChooserDialog</strong> assumes that its “accept”-type action, e.g. an “Open” or “Save” button, will have one of the following response codes:</p><ul>
+<li><p><code>GTK_RESPONSE_ACCEPT</code></p></li>
+<li><p><code>GTK_RESPONSE_OK</code></p></li>
+<li><p><code>GTK_RESPONSE_YES</code></p></li>
+<li><p><code>GTK_RESPONSE_APPLY</code></p></li>
+</ul>
+<p>This is because <strong>Gnome::Gtk4::FileChooserDialog</strong> must intercept responses and switch to folders if appropriate, rather than letting the dialog terminate — the implementation uses these known response codes to know which responses can be blocked if appropriate.</p><p>To summarize, make sure you use a predefined response code when you use <strong>Gnome::Gtk4::FileChooserDialog</strong> to ensure proper operation.</p>
+<h3 id="CSS_nodes"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">CSS nodes</a></h3>
+<p><strong>Gnome::Gtk4::FileChooserDialog</strong> has a single CSS node with the name <strong>window</strong> and style class `.filechooser`.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">Class initialization</a></h1>
+<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
+<h2 id="new"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-filechooserdialog_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::FileChooserDialog" class="u" title="go to top of document">new-filechooserdialog This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::FileChooserDialog</strong>.</p><p>This function is analogous to <code>.new-with-buttons() in class Gnome::Gtk4::Dialog</code>.</p><pre class="pod-block-code">method new-filechooserdialog ( Str $title, N-Object() $parent, GtkFileChooserAction $action, Str $first-button-text, … --&gt; Gnome::Gtk4::FileChooserDialog \)
+</pre><ul>
+<li><p>$title; Title of the dialog.</p></li>
+<li><p>$parent; Transient parent of the dialog.</p></li>
+<li><p>$action; Open or save mode for the dialog.</p></li>
+<li><p>$first-button-text; text to go in the first button.</p></li>
+<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/FileChooserDialog.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:04Z</span></div></footer>
+	</body>
+</html>

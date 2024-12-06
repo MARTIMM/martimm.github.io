@@ -1,0 +1,102 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::R-TreeSortable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::R-TreeSortable">Gnome::Gtk4::R-TreeSortable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-sort-column-id">get-sort-column-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#has-default-sort-func">has-default-sort-func</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-sort-func_This_function_is_not_yet_available">set-default-sort-func This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-sort-column-id">set-sort-column-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-sort-func_This_function_is_not_yet_available">set-sort-func This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#sort-column-changed">sort-column-changed</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#sort-column-changed_0">sort-column-changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">Description</a></h1>
+<p>The interface for sortable models used by GtkTreeView</p><p><strong>Gnome::Gtk4::R-TreeSortable</strong> is an interface to be implemented by tree models which support sorting. The <strong>Gnome::Gtk4::TreeView</strong> uses the methods provided by this interface to sort the model.</p></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-sort-column-id"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">get-sort-column-id</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Fills in <code>$sort-column-id</code> and <code>$order</code> with the current sort column and the order. It returns <code>True</code> unless the <code>$sort-column-id</code> is <code>GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID</code> or <code>GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID</code>.</p><pre class="pod-block-code">method get-sort-column-id ( Array[Int] $sort-column-id, GtkSortType $order --&gt; Bool )
+</pre><ul>
+<li><p>$sort-column-id; (transfer ownership: full) The sort column id to be filled in.</p></li>
+<li><p>$order; (transfer ownership: full) The <code>enumeration GtkSortType defined in Gnome::Gtk4::T-enums</code> to be filled in.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the sort column is not one of the special sort column ids.. </p></section>
+<section name="pod">
+<h2 id="has-default-sort-func"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">has-default-sort-func</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if the model has a default sort function. This is used primarily by GtkTreeViewColumns in order to determine if a model can go back to the default state, or not.</p><pre class="pod-block-code">method has-default-sort-func (--&gt; Bool )
+</pre><p>Return value; <code>True</code>, if the model has a default sort function. </p></section>
+<section name="pod">
+<h2 id="set-default-sort-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">set-default-sort-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the default comparison function used when sorting to be <code>$sort-func</code>. If the current sort column id of <code>$sortable</code> is <code>GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID</code>, then the model will sort using this function.</p><p>If <code>$sort-func</code> is undefined, then there will be no default comparison function. This means that once the model has been sorted, it can’t go back to the default state. In this case, when the current sort column id of <code>$sortable</code> is <code>GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID</code>, the model will be unsorted.</p><pre class="pod-block-code">method set-default-sort-func ( &amp;sort-func, gpointer $user-data, … )
+</pre><ul>
+<li><p>&amp;sort-func; The comparison function. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $a, N-Object $b, gpointer $user-data --</code> gint )&gt;.</p></li>
+<li><p>$user-data; User data to pass to <code>$sort-func</code>.</p></li>
+<li><p>destroy; Destroy notifier of <code>$user-data</code>. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-sort-column-id"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">set-sort-column-id</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the current sort column to be <code>$sort-column-id</code>. The <code>$sortable</code> will resort itself to reflect this change, after emitting a <strong>Gnome::Gtk4::R-TreeSortable</strong>::sort-column-changed` signal. <code>$sort-column-id</code> may either be a regular column id, or one of the following special values:</p><ul>
+<li><p><code>GTK_TREE_SORTABLE_DEFAULT_SORT_COLUMN_ID</code>: the default sort function will be used, if it is set</p></li>
+<li><p><code>GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID</code>: no sorting will occur</p></li>
+</ul>
+<pre class="pod-block-code">method set-sort-column-id ( Int() $sort-column-id, GtkSortType $order )
+</pre><ul>
+<li><p>$sort-column-id; the sort column id to set.</p></li>
+<li><p>$order; The sort order of the column.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-sort-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">set-sort-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the comparison function used when sorting to be <code>$sort-func</code>. If the current sort column id of <code>$sortable</code> is the same as <code>$sort-column-id</code>, then the model will sort using this function.</p><pre class="pod-block-code">method set-sort-func ( Int() $sort-column-id, &amp;sort-func, gpointer $user-data, … )
+</pre><ul>
+<li><p>$sort-column-id; the sort column id to set the function for.</p></li>
+<li><p>&amp;sort-func; The comparison function. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $a, N-Object $b, gpointer $user-data --</code> gint )&gt;.</p></li>
+<li><p>$user-data; User data to pass to <code>$sort-func</code>.</p></li>
+<li><p>destroy; Destroy notifier of <code>$user-data</code>. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="sort-column-changed"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">sort-column-changed</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits a <strong>Gnome::Gtk4::R-TreeSortable</strong>::sort-column-changed` signal on <code>$sortable</code>.</p><pre class="pod-block-code">method sort-column-changed ( )
+</pre></section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="sort-column-changed_0"><a href="#Gnome::Gtk4::R-TreeSortable" class="u" title="go to top of document">sort-column-changed</a></h3>
+<p>The <em>sort-column-changed</em> signal is emitted when the sort column or sort order of <code>$sortable</code> is changed. The signal is emitted before the contents of <code>$sortable</code> are resorted.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::TreeSortable :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeSortable</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-TreeSortable.rakudoc</span></div><div>at <span class="time">2024-12-02T20:05:08Z</span></div></footer>
+	</body>
+</html>

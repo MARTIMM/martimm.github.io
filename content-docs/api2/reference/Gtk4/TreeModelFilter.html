@@ -1,0 +1,124 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::TreeModelFilter</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TreeModelFilter">Gnome::Gtk4::TreeModelFilter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-cache">clear-cache</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#convert-child-iter-to-iter">convert-child-iter-to-iter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#convert-child-path-to-path">convert-child-path-to-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#convert-iter-to-child-iter">convert-iter-to-child-iter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#convert-path-to-child-path">convert-path-to-child-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#refilter">refilter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-modify-func_This_function_is_not_yet_available">set-modify-func This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-column">set-visible-column</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-func_This_function_is_not_yet_available">set-visible-func This function is not yet available</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk4::R-TreeModel</strong> which hides parts of an underlying tree model</p><p>A <strong>Gnome::Gtk4::TreeModelFilter</strong> is a tree model which wraps another tree model, and can do the following things:</p><ul>
+<li><p>Filter specific rows, based on data from a “visible column”, a column storing booleans indicating whether the row should be filtered or not, or based on the return value of a “visible function”, which gets a model, iter and user_data and returns a boolean indicating whether the row should be filtered or not.</p></li>
+<li><p>Modify the “appearance” of the model, using a modify function. This is extremely powerful and allows for just changing some values and also for creating a completely different model based on the given child model.</p></li>
+<li><p>Set a different root node, also known as a “virtual root”. You can pass in a <strong>Gnome::Gtk4::N-TreePath</strong> indicating the root node for the filter at construction time.</p></li>
+</ul>
+<p>The basic API is similar to <strong>Gnome::Gtk4::TreeModelSort</strong>. For an example on its usage, see the section on <strong>Gnome::Gtk4::TreeModelSort</strong>.</p><p>When using <strong>Gnome::Gtk4::TreeModelFilter</strong>, it is important to realize that <strong>Gnome::Gtk4::TreeModelFilter</strong> maintains an internal cache of all nodes which are visible in its clients. The cache is likely to be a subtree of the tree exposed by the child model. <strong>Gnome::Gtk4::TreeModelFilter</strong> will not cache the entire child model when unnecessary to not compromise the caching mechanism that is exposed by the reference counting scheme. If the child model implements reference counting, unnecessary signals may not be emitted because of reference counting rule 3, see the <strong>Gnome::Gtk4::R-TreeModel</strong> documentation. (Note that e.g. <strong>Gnome::Gtk4::TreeStore</strong> does not implement reference counting and will always emit all signals, even when the receiving node is not visible).</p><p>Because of this, limitations for possible visible functions do apply. In general, visible functions should only use data or properties from the node for which the visibility state must be determined, its siblings or its parents. Usually, having a dependency on the state of any child node is not possible, unless references are taken on these explicitly. When no such reference exists, no signals may be received for these child nodes (see reference counting rule number 3 in the <strong>Gnome::Gtk4::R-TreeModel</strong> section).</p><p>Determining the visibility state of a given node based on the state of its child nodes is a frequently occurring use case. Therefore, <strong>Gnome::Gtk4::TreeModelFilter</strong> explicitly supports this. For example, when a node does not have any children, you might not want the node to be visible. As soon as the first row is added to the node’s child level (or the last row removed), the node’s visibility should be updated.</p><p>This introduces a dependency from the node on its child nodes. In order to accommodate this, <strong>Gnome::Gtk4::TreeModelFilter</strong> must make sure the necessary signals are received from the child model. This is achieved by building, for all nodes which are exposed as visible nodes to <strong>Gnome::Gtk4::TreeModelFilter</strong>'s clients, the child level (if any) and take a reference on the first node in this level. Furthermore, for every row-inserted, row-changed or row-deleted signal (also these which were not handled because the node was not cached), <strong>Gnome::Gtk4::TreeModelFilter</strong> will check if the visibility state of any parent node has changed.</p><p>Beware, however, that this explicit support is limited to these two cases. For example, if you want a node to be visible only if two nodes in a child’s child level (2 levels deeper) are visible, you are on your own. In this case, either rely on <strong>Gnome::Gtk4::TreeStore</strong> to emit all signals because it does not implement reference counting, or for models that do implement reference counting, obtain references on these child levels yourself.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">Class initialization</a></h1>
+<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
+<h2 id="new"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="clear-cache"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">clear-cache</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This function should almost never be called. It clears the <code>$filter</code> of any cached iterators that haven’t been reffed with gtk_tree_model_ref_node(). This might be useful if the child model being filtered is static (and doesn’t change often) and there has been a lot of unreffed access to nodes. As a side effect of this function, all unreffed iters will be invalid.</p><pre class="pod-block-code">method clear-cache ( )
+</pre></section>
+<section name="pod">
+<h2 id="convert-child-iter-to-iter"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">convert-child-iter-to-iter</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$filter-iter</code> to point to the row in <code>$filter</code> that corresponds to the row pointed at by <code>$child-iter</code>. If <code>$filter-iter</code> was not set, <code>False</code> is returned.</p><pre class="pod-block-code">method convert-child-iter-to-iter ( N-Object $filter-iter, N-Object $child-iter --&gt; Bool )
+</pre><ul>
+<li><p>$filter-iter; An uninitialized <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<li><p>$child-iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to a row on the child model.</p></li>
+</ul>
+<p>Return value; <code>True</code>, if <code>$filter-iter</code> was set, i.e. if <code>$child-iter</code> is a valid iterator pointing to a visible row in child model.. </p></section>
+<section name="pod">
+<h2 id="convert-child-path-to-path"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">convert-child-path-to-path</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Converts <code>$child-path</code> to a path relative to <code>$filter</code>. That is, <code>$child-path</code> points to a path in the child model. The rerturned path will point to the same row in the filtered model. If <code>$child-path</code> isn’t a valid path on the child model or points to a row which is not visible in <code>$filter</code>, then undefined is returned.</p><pre class="pod-block-code">method convert-child-path-to-path ( N-Object $child-path --&gt; N-Object )
+</pre><ul>
+<li><p>$child-path; A <strong>Gnome::Gtk4::N-TreePath</strong> to convert.</p></li>
+</ul>
+<p>Return value; A newly allocated <strong>Gnome::Gtk4::N-TreePath</strong>. </p></section>
+<section name="pod">
+<h2 id="convert-iter-to-child-iter"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">convert-iter-to-child-iter</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$child-iter</code> to point to the row pointed to by <code>$filter-iter</code>.</p><pre class="pod-block-code">method convert-iter-to-child-iter ( N-Object $child-iter, N-Object $filter-iter )
+</pre><ul>
+<li><p>$child-iter; An uninitialized <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<li><p>$filter-iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to a row on <code>$filter</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="convert-path-to-child-path"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">convert-path-to-child-path</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Converts <code>$filter-path</code> to a path on the child model of <code>$filter</code>. That is, <code>$filter-path</code> points to a location in <code>$filter</code>. The returned path will point to the same location in the model not being filtered. If <code>$filter-path</code> does not point to a location in the child model, undefined is returned.</p><pre class="pod-block-code">method convert-path-to-child-path ( N-Object $filter-path --&gt; N-Object )
+</pre><ul>
+<li><p>$filter-path; A <strong>Gnome::Gtk4::N-TreePath</strong> to convert.</p></li>
+</ul>
+<p>Return value; A newly allocated <strong>Gnome::Gtk4::N-TreePath</strong>. </p></section>
+<section name="pod">
+<h2 id="get-model"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">get-model</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a pointer to the child model of <code>$filter</code>.</p><pre class="pod-block-code">method get-model (--&gt; N-Object )
+</pre><p>Return value; A pointer to a <strong>Gnome::Gtk4::R-TreeModel</strong>. </p></section>
+<section name="pod">
+<h2 id="refilter"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">refilter</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits <em>row_changed</em> for each row in the child model, which causes the filter to re-evaluate whether a row is visible or not.</p><pre class="pod-block-code">method refilter ( )
+</pre></section>
+<section name="pod">
+<h2 id="set-modify-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">set-modify-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>With the <code>$n-columns</code> and <code>$types</code> parameters, you give an array of column types for this model (which will be exposed to the parent model/view). The <code>$func</code>, <code>$data</code> and <code>$destroy</code> parameters are for specifying the modify function. The modify function will get called for each data access, the goal of the modify function is to return the data which should be displayed at the location specified using the parameters of the modify function.</p><p>Note that <code>.set-modify-func()</code> can only be called once for a given filter model.</p><pre class="pod-block-code">method set-modify-func ( Int() $n-columns, …, &amp;func, gpointer $data, … )
+</pre><ul>
+<li><p>$n-columns; The number of columns in the filter model..</p></li>
+<li><p>types; The <strong>Gnome::GObject::TreeModelFilter</strong>s of the columns.. Note that each argument must be specified as a type followed by its value!</p></li>
+<li><p>&amp;func; A <strong>Gnome::Gtk4::T-treemodelfilter</strong>. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $iter, N-Object $value, gint $column, gpointer $data )</code>.</p></li>
+<li><p>$data; User data to pass to the modify function.</p></li>
+<li><p>destroy; Destroy notifier of <code>$data</code>. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-visible-column"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">set-visible-column</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$column</code> of the child_model to be the column where <code>$filter</code> should look for visibility information. <code>$columns</code> should be a column of type <code>G_TYPE_BOOLEAN</code>, where <code>True</code> means that a row is visible, and <code>False</code> if not.</p><p>Note that <code>.set-visible-func()</code> or <code>.set-visible-column()</code> can only be called once for a given filter model.</p><pre class="pod-block-code">method set-visible-column ( Int() $column )
+</pre><ul>
+<li><p>$column; A <strong>int</strong> which is the column containing the visible information.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="set-visible-func_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::TreeModelFilter" class="u" title="go to top of document">set-visible-func This function is not yet available</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the visible function used when filtering the <code>$filter</code> to be <code>$func</code>. The function should return <code>True</code> if the given row should be visible and <code>False</code> otherwise.</p><p>If the condition calculated by the function changes over time (e.g. because it depends on some global parameters), you must call <code>.refilter()</code> to keep the visibility information of the model up-to-date.</p><p>Note that <code>$func</code> is called whenever a row is inserted, when it may still be empty. The visible function should therefore take special care of empty rows, like in the example below.</p><p>Note that <code>.set-visible-func()</code> or <code>.set-visible-column()</code> can only be called once for a given filter model.</p><pre class="pod-block-code">method set-visible-func ( &amp;func, gpointer $data, … )
+</pre><ul>
+<li><p>&amp;func; A <strong>Gnome::Gtk4::T-treemodelfilter</strong>, the visible function. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $iter, gpointer $data --</code> gboolean )&gt;.</p></li>
+<li><p>$data; User data to pass to the visible function.</p></li>
+<li><p>destroy; Destroy notifier of <code>$data</code>. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeModelFilter.rakudoc</span></div><div>at <span class="time">2024-12-03T13:32:57Z</span></div></footer>
+	</body>
+</html>

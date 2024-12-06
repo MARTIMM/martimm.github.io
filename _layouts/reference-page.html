@@ -1,0 +1,145 @@
+---
+# Default layout for docs placed in /content-docs/*/reference. This is set in
+# _config.yml as well as the below variables. The reference doc must have an
+# empty 'front matter'.
+
+layout: sidebar
+sidebar_menu: api2-pack-sidebar
+---
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    {% assign url = site.baseurl | append: "/favicon.ico" %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url }}" />
+
+    <!--link rel="stylesheet" href="http://yandex.st/highlightjs/6.2/styles/googlecode.min.css"-->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <!--script src="http://yandex.st/highlightjs/6.2/highlight.min.js">
+    </script-->
+
+    <!--script type="text/javascript">hljs.initHighlightingOnLoad();</script-->
+    <script type="text/javascript">
+    /*
+      // run when page is loaded and ready
+      $(document).ready(function(){
+        // create a table showing coverage of tests etc.
+        var content = "<center><table class='coverage'>";
+        content += "<tr>";
+        content += "<th>Type</th><th>Total</th><th>Tested</th><th>Coverage</th>";
+        content += "</tr><tr><td> Routines </td><td>";
+        content += {{site.data.testCoverage[page.path]["routines"]["subs-total"]}};
+        content += "</td><td>";
+        content += {{site.data.testCoverage[page.path]["routines"]["subs-tested"]}};
+        content += "</td><td>";
+        content += {{site.data.testCoverage[page.path]["routines"]["coverage"]}};
+
+        if (
+          {{ site.data.testCoverage[page.path]["types"]["types-total"] }} != 0
+        ) {
+          content += " %</td></tr><tr><td> Types </td><td>";
+          content += {{site.data.testCoverage[page.path]["types"]["types-total"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["types"]["types-tested"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["types"]["coverage"]}};
+        }
+
+        if (
+          {{ site.data.testCoverage[page.path]["signals"]["sigs-total"] }} != 0
+        ) {
+          content += " %</td></tr><tr><td> Signals </td><td>";
+          content += {{site.data.testCoverage[page.path]["signals"]["sigs-total"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["signals"]["sigs-tested"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["signals"]["coverage"]}};
+        }
+
+        if (
+          {{ site.data.testCoverage[page.path]["properties"]["props-total"] }}
+          != 0
+        ) {
+          content += " %</td></tr><tr><td> Properties </td><td>";
+          content += {{site.data.testCoverage[page.path]["properties"]["props-total"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["properties"]["props-tested"]}};
+          content += "</td><td>";
+          content += {{site.data.testCoverage[page.path]["properties"]["coverage"]}};
+        }
+
+        content += " %</td></tr></table></center>";
+
+        $("#category").append(content);
+
+
+        // create TOC anchor
+        $("#category").append('<a name="toc-table"/>');
+
+        $("h1,h2,h3,h4,h5,h6").each(function(i,item){
+          var tag = $(item).get(0).localName;
+          $(item).attr("id","wow"+i);
+          $(item).attr("class","hx-link");
+
+          var text = $(this).text();
+          if( text != "Interfacing Raku to Gnome GTK+" &
+              text != "TITLE" & text != "SUBTITLE"
+            ) {
+            // create e.g. <a class="newh1" href="#wow1">h1 text</a></br>
+            $("#category").append(
+              '<a class="new' + tag + '" href="#wow' + i + '">' + text +
+              '</a></br>'
+            );
+          }
+          $(this).wrap('<a href="#toc-table"></a>');
+
+          $(".newh1").css("margin-left",0);
+          $(".newh2").css("margin-left",15);
+          $(".newh3").css("margin-left",30);
+          $(".newh4").css("margin-left",45);
+          $(".newh5").css("margin-left",60);
+          $(".newh6").css("margin-left",75);
+        });
+      });
+
+      // trick from https://stackoverflow.com/questions/7173596/changing-the-page-title-with-jquery
+      // Changing title can only be done this way. Normally set to frontmatter
+      // title, _config.yml title, defaults in _config.yml or when nothing is
+      // set to the first H1 on the page.
+
+      // page.title not set on reference pages so pick filename and drop .md
+      var filename = "{{ page.name }}";
+      filename = filename.replace( ".md", "");
+      var title = $(document).prop(
+        'title', "{{ page.part-title }}: " + filename
+      );
+      */
+      
+      function fitHomeToScreen() {
+//console.log("height: " + $(window).height());
+        $(document).getElementById("reference-container").style.height = $(window).height();
+      }
+
+      function setEvent() {
+        window.onresize = fitHomeToScreen; //  $(window).resize
+        document.addEventListener("DOMContentLoaded", fitHomeToScreen);
+        // $(document).ready(function() {...});
+        window.onload = fitHomeToScreen;   //  $(window).onload 
+        window.resize = fitHomeToScreen;   //  $(window).resize 
+      }
+
+      $('document').ready(setEvent);
+      </script>
+  </head>
+  <body id="reference-page">
+    <!--div id="category"></div-->
+
+    <div id="content">
+      {{content}}
+<!--
+      <iframe src="{{site.url}}{{page.url}}" width="100%" height="100%" style="display:block;">
+      </iframe>
+-->
+    </div>
+  </body>
+</html>
