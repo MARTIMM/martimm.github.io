@@ -6,13 +6,11 @@ sidebar_menu: projects-sidebar
 ---
 # Project Documentation
 
-This is a site setup as a main entry point to the documentation of all my projects. The resent projects are libraries or programs written in the **Raku** language, formerly known as **Perl 6**.
+This is a site setup as a main entry point to the documentation of all my projects. The recent projects are libraries or programs written in the **Raku** language, formerly known as **Perl 6**.
 
 Some of them are small and there is not much to tell about. Others are somewhat bigger which nessecitates some documentation for it. Most of the time I keep some reference for the publicly available subs and methods for libraries or options and argument usage for programs.
 
 There are also large projects. These projects not only have references but also have tutorials and examples, well, at least planned to have them 😃.
-
-This site will mainly show links to other projects documentation.
 
 Anyways, have fun!
 
