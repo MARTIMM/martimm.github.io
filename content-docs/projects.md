@@ -25,7 +25,7 @@ Here is a small list of projects I started or want to start or already working o
 
 * **Config::DataLang::Refine**. A small project which helps you seeing your hash data in a different way.
 
-* Gtk version 3 native binding project. It is about building graphical user interfaces to make attractive applications.
+* Gtk version 3 native binding project. It is about building graphical user interfaces to make attractive applications. To use them properly each import must have the `:api<1>` tagged to it. This has become necessary because of the introduction of Gtk4 (see below) and the rewrite of the depending modules.
 
   * **Gnome::Cairo**. Can be used standalone. If you only need this to create pictures, you can perhaps better use **Cairo** of Timo.
   * **Gnome::Gdk3**. Device access.
