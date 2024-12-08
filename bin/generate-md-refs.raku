@@ -10,13 +10,13 @@ use Pod::Load;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = '/home/marcel/Languages/Raku/Projects/';
-constant REFS = PROJECTS ~ 'MARTIMM.github.io/docs/_data/';
+constant REFS = PROJECTS ~ 'MARTIMM.github.io/_data/';
 
 constant XMASS = 'MARTIMM.github.io/doc/XMas/';
-constant XMASD = 'MARTIMM.github.io/docs/content-docs/XMas/';
+constant XMASD = 'MARTIMM.github.io/content-docs/XMas/';
 
 constant API2S = 'gnome-source-skim-tool/gnome-api2/';
-constant API2D = 'MARTIMM.github.io/docs/content-docs/api2/reference/';
+constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
 
 my Hash $source-paths = %(
   :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/doc/'),
@@ -43,7 +43,7 @@ sub MAIN (
 ) {
 #note "$?LINE $source-paths{$key}$raku-doc-name, $destination-paths{$key}";
 
-  chdir('./docs/content-docs');
+  chdir('./content-docs');
 
   my Str ( $source-path, $destination-path);
 
@@ -134,7 +134,7 @@ sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
     next if $f.Str !~~ m/ \. html $/;
     next if $f.Str ~~ /'index.html' $/;
     
-    $f ~~ s/^ '/home/marcel/Languages/Raku/Projects/MARTIMM.github.io/docs' //;
+    $f ~~ s/^ '/home/marcel/Languages/Raku/Projects/MARTIMM.github.io' //;
     my Str() $name = $f.IO.basename.IO.extension('');
 
 #note "$?LINE $name, $f.Str()";
