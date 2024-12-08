@@ -1,0 +1,80 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gsk4::ConicGradientNode</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gsk4::ConicGradientNode">Gnome::Gsk4::ConicGradientNode</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-conicgradientnode">new-conicgradientnode</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-angle">get-angle</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-center">get-center</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-color-stops">get-color-stops</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-color-stops">get-n-color-stops</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-rotation">get-rotation</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">Description</a></h1>
+<p>A render node for a conic gradient.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-conicgradientnode"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">new-conicgradientnode</a></h2>
+<p>Creates a <strong>Gnome::Gsk4::RenderNode</strong> that draws a conic gradient.</p><p>The conic gradient starts around <code>$center</code> in the direction of <code>$rotation</code>. A rotation of 0 means that the gradient points up. Color stops are then added clockwise.</p><pre class="pod-block-code">method new-conicgradientnode ( N-Object $bounds, N-Object $center, Num() $rotation, N-Object $color-stops, Int() $n-color-stops --&gt; Gnome::Gsk4::ConicGradientNode \)
+</pre><ul>
+<li><p>$bounds; the bounds of the node</p></li>
+<li><p>$center; the center of the gradient</p></li>
+<li><p>$rotation; the rotation of the gradient in degrees.</p></li>
+<li><p>$color-stops; a pointer to an array of <strong>Gnome::Gsk4::N-ColorStop</strong> defining the gradient. The offsets of all color stops must be increasing. The first stop's offset must be &gt;= 0 and the last stop's offset must be &lt;= 1.</p></li>
+<li><p>$n-color-stops; the number of elements in <code>$color-stops</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-angle"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">get-angle</a></h2>
+<p>Retrieves the angle for the gradient in radians, normalized in [0, 2 * PI].</p><p>The angle is starting at the top and going clockwise, as expressed in the css specification:</p><pre class="pod-block-code">angle = 90 - C&lt;.get-rotation()&gt;</pre><pre class="pod-block-code">method get-angle (--&gt; Num )
+</pre><p>Return value; the angle for the gradient. </p></section>
+<section name="pod">
+<h2 id="get-center"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">get-center</a></h2>
+<p>Retrieves the center pointer for the gradient.</p><pre class="pod-block-code">method get-center (--&gt; N-Object )
+</pre><p>Return value; the center point for the gradient. </p></section>
+<section name="pod">
+<h2 id="get-color-stops"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">get-color-stops</a></h2>
+<p>Retrieves the color stops in the gradient.</p><pre class="pod-block-code">method get-color-stops ( Array[gsize] $n-stops --&gt; N-Object )
+</pre><ul>
+<li><p>$n-stops; (transfer ownership: full) the number of color stops in the returned array.</p></li>
+</ul>
+<p>Return value; the color stops in the gradient. </p></section>
+<section name="pod">
+<h2 id="get-n-color-stops"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">get-n-color-stops</a></h2>
+<p>Retrieves the number of color stops in the gradient.</p><pre class="pod-block-code">method get-n-color-stops (--&gt; Int )
+</pre><p>Return value; the number of color stops. </p></section>
+<section name="pod">
+<h2 id="get-rotation"><a href="#Gnome::Gsk4::ConicGradientNode" class="u" title="go to top of document">get-rotation</a></h2>
+<p>Retrieves the rotation for the gradient in degrees.</p><pre class="pod-block-code">method get-rotation (--&gt; Num )
+</pre><p>Return value; the rotation for the gradient. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/ConicGradientNode.rakudoc</span></div><div>at <span class="time">2024-12-08T20:01:22Z</span></div></footer>
+	</body>
+</html>
