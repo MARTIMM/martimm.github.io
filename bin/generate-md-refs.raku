@@ -6,7 +6,7 @@ use v6.d;
 use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
 use Pod::Load;
-
+use YAMLish;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = '/home/marcel/Languages/Raku/Projects/';
@@ -15,23 +15,27 @@ constant REFS = PROJECTS ~ 'MARTIMM.github.io/_data/';
 constant XMASS = 'MARTIMM.github.io/doc/XMas/';
 constant XMASD = 'MARTIMM.github.io/content-docs/XMas/';
 
-constant API2S = 'gnome-source-skim-tool/gnome-api2/';
+constant SKIMTOOL = 'gnome-source-skim-tool/';
+constant API2S = SKIMTOOL ~ 'gnome-api2/';
 constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
 
 my Hash $source-paths = %(
   :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/doc/'),
+  :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
 
 my Hash $destination-paths = %(
   :Gtk4Api2(PROJECTS ~ API2D ~ 'Gtk4/'),
+  :Gsk4Api2(PROJECTS ~ API2D ~ 'Gsk4/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
 
 my Hash $sidebar-paths = %(
   :Gtk4Api2(REFS ~ 'api2-ref-gtk4-sidebar.yml'),
+  :Gsk4Api2(REFS ~ 'api2-ref-gsk4-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
@@ -67,8 +71,7 @@ sub MAIN (
     }
   }
 
-  generate-sidebar( $destination-paths{$key}, $sidebar-paths{$key})
-    if $sidebar-paths{$key}:exists;
+  generate-sidebar($key) if $sidebar-paths{$key}:exists;
 }
 
 #-------------------------------------------------------------------------------
@@ -124,21 +127,47 @@ sub generate-html (
 }
 
 #-------------------------------------------------------------------------------
-sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
+sub generate-sidebar( Str $key ) {
+  my Str $destination-path = $destination-paths{$key};
+  my Str $sidebar-path = $sidebar-paths{$key};
+
   my @classes = ();
   my @roles = ();
   my @types = ();
   my @structures = ();
 
+  my Hash $deprecated-data = %();
+  my Str $prefix-name = '';
+  if $key ~~ m/ Api2 / {
+    my Str $path-part = S/ Api2 // with $key;
+    my Str $skimfile = PROJECTS ~ SKIMTOOL ~ 
+                       "/data/SkimToolData/$path-part/repo-object-map.yaml";
+    my Hash $skim-data = load-yaml($skimfile.IO.slurp);
+    for $skim-data.keys -> $key {
+      if ?$skim-data{$key}<deprecated> {
+        my Str $classname = $skim-data{$key}<class-name>;
+        $classname ~~ s/ Gnome '::' <-[:]>+ '::' //;
+        $deprecated-data{$classname} = $skim-data{$key}<deprecated-version> // '';
+      }
+    }
+  }
+
+
   for $destination-path.IO.dir.sort -> $f is copy {
     next if $f.Str !~~ m/ \. html $/;
     next if $f.Str ~~ /'index.html' $/;
-    
+
     $f ~~ s/^ '/home/marcel/Languages/Raku/Projects/MARTIMM.github.io' //;
     my Str() $name = $f.IO.basename.IO.extension('');
 
 #note "$?LINE $name, $f.Str()";
-    my Hash $entry = %( :title($name), :url($f));
+
+    my Str $type = 'normal-object';
+    if $deprecated-data{$name}:exists {
+      $type = 'deprecated-object';
+    }
+
+    my Hash $entry = %( :title($name), :url($f), :$type);
 
     given $name {
       when /^ 'R-' / {
@@ -167,6 +196,7 @@ sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
       for @classes -> $entry {
         $sidebar ~= "   - title: \"$entry<title>\"\n";
         $sidebar ~= "     url: \"$entry<url>\"\n";
+        $sidebar ~= "     type: \"$entry<type>\"\n";
       }
       
       $sidebar ~= "\n";
@@ -180,6 +210,7 @@ sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
       for @roles -> $entry {
         $sidebar ~= "   - title: \"$entry<title>\"\n";
         $sidebar ~= "     url: \"$entry<url>\"\n";
+        $sidebar ~= "     type: \"$entry<type>\"\n";
       }
       
       $sidebar ~= "\n";
@@ -193,6 +224,7 @@ sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
       for @types -> $entry {
         $sidebar ~= "   - title: \"$entry<title>\"\n";
         $sidebar ~= "     url: \"$entry<url>\"\n";
+        $sidebar ~= "     type: \"$entry<type>\"\n";
       }
       
       $sidebar ~= "\n";
@@ -206,6 +238,7 @@ sub generate-sidebar( Str $destination-path, Str $sidebar-path) {
       for @structures -> $entry {
         $sidebar ~= "   - title: \"$entry<title>\"\n";
         $sidebar ~= "     url: \"$entry<url>\"\n";
+        $sidebar ~= "     type: \"$entry<type>\"\n";
       }
       
       $sidebar ~= "\n";
