@@ -52,7 +52,7 @@ has Gnome::Gtk4::Box $!button-row;
 has Gnome::Glib::N-MainLoop $!main-loop;
 ```
 
-The **Gnome::Gtk4::Window** class is inherited but we need to initialize its native object. After the call to `.new-window()` the program continues wit `BUILD()`.
+The **Gnome::Gtk4::Window** class is inherited but we need to initialize its native object. After the call to `.new-window()` the program continues with `BUILD()`.
 ```
 method new ( |c ) {
   self.new-window(|c);
