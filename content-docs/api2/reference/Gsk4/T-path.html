@@ -1,0 +1,86 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gsk4::T-path</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gsk4::T-path">Gnome::Gsk4::T-path</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Bitfields">Bitfields</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#GskPathForeachFlags">GskPathForeachFlags</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Callback_Functions">Callback Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#PathForeachFunc">PathForeachFunc</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Signature">Signature</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Standalone_Functions">Standalone Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#path-parse">path-parse</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">new</a></h2>
+<p>Initialization of a type class is simple and only needed when the standalone functions are used.</p><pre class="pod-block-code">method new ( )</pre></section>
+<section name="pod">
+<h1 id="Bitfields"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">Bitfields</a></h1>
+
+<h2 id="GskPathForeachFlags"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">GskPathForeachFlags</a></h2>
+<p>Flags that can be passed to <code>.foreach()</code> to influence what kinds of operations the path is decomposed into.</p><p>By default, <code>.foreach()</code> will only emit a path with all operations flattened to straight lines to allow for maximum compatibility. The only operations emitted will be <strong>GSK_PATH_MOVE</strong>, <strong>GSK_PATH_LINE</strong> and <strong>GSK_PATH_CLOSE</strong>.</p><ul>
+<li><p><code>GSK_PATH_FOREACH_ALLOW_ONLY_LINES</code>; The default behavior, only allow lines.</p></li>
+<li><p><code>GSK_PATH_FOREACH_ALLOW_QUAD</code>; Allow emission of <strong>GSK_PATH_QUAD</strong> operations</p></li>
+<li><p><code>GSK_PATH_FOREACH_ALLOW_CUBIC</code>; Allow emission of <strong>GSK_PATH_CUBIC</strong> operations.</p></li>
+<li><p><code>GSK_PATH_FOREACH_ALLOW_CONIC</code>; Allow emission of <strong>GSK_PATH_CONIC</strong> operations.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Callback_Functions"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">Callback Functions</a></h1>
+
+<h2 id="PathForeachFunc"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">PathForeachFunc</a></h2>
+
+<h3 id="Signature"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">Signature</a></h3>
+<pre class="pod-block-code">:(  GEnum $op, N-Object $pts, Int() $n-pts, Num() $weight, gpointer $user-data  )
+</pre><ul>
+<li><p>op; The operation</p></li>
+<li><p>pts; The points of the operation</p></li>
+<li><p>n-pts; The number of points</p></li>
+<li><p>weight; The weight for conic curves, or unused if not a conic curve</p></li>
+<li><p>user-data; The user data provided with the function</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Standalone_Functions"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">Standalone Functions</a></h1>
+</section>
+<section name="pod">
+<h2 id="path-parse"><a href="#Gnome::Gsk4::T-path" class="u" title="go to top of document">path-parse</a></h2>
+<p>This is a convenience function that constructs a <strong>Gnome::Gsk4::N-Path</strong> from a serialized form.</p><p>The string is expected to be in (a superset of) [SVG path syntax](https://www.w3.org/TR/SVG11/paths.html#PathData), as e.g. produced by <code>.to-string()</code>.</p><p>A high-level summary of the syntax:</p><ul>
+<li><p><strong>M</strong> x y` Move to `(x, y)`</p></li>
+<li><p><strong>L</strong> x y` Add a line from the current point to `(x, y)`</p></li>
+<li><p><strong>Q</strong> x1 y1 x2 y2` Add a quadratic Bézier from the current point to `(x2, y2)`, with control point `(x1, y1)`</p></li>
+<li><p><strong>C</strong> x1 y1 x2 y2 x3 y3` Add a cubic Bézier from the current point to `(x3, y3)`, with control points `(x1, y1)` and `(x2, y2)`</p></li>
+<li><p><strong>Z</strong> Close the contour by drawing a line back to the start point</p></li>
+<li><p><strong>H</strong> x` Add a horizontal line from the current point to the given x value</p></li>
+<li><p><strong>V</strong> y` Add a vertical line from the current point to the given y value</p></li>
+<li><p><strong>T</strong> x2 y2` Add a quadratic Bézier, using the reflection of the previous segments' control point as control point</p></li>
+<li><p><strong>S</strong> x2 y2 x3 y3` Add a cubic Bézier, using the reflection of the previous segments' second control point as first control point</p></li>
+<li><p><strong>A</strong> rx ry r l s x y` Add an elliptical arc from the current point to `(x, y)` with radii rx and ry. See the SVG documentation for how the other parameters influence the arc.</p></li>
+<li><p><strong>O</strong> x1 y1 x2 y2 w` Add a rational quadratic Bézier from the current point to `(x2, y2)` with control point `(x1, y1)` and weight <strong>w</strong>.</p></li>
+</ul>
+<p>All the commands have lowercase variants that interpret coordinates relative to the current point.</p><p>The <strong>O</strong> command is an extension that is not supported in SVG.</p><pre class="pod-block-code">method path-parse ( Str $string --&gt; N-Object )
+</pre><ul>
+<li><p>$string; a string.</p></li>
+</ul>
+<p>Return value; a new <strong>Gnome::Gsk4::N-Path</strong>, or undefined if <code>$string</code> could not be parsed. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/T-path.rakudoc</span></div><div>at <span class="time">2024-12-17T20:42:14Z</span></div></footer>
+	</body>
+</html>
