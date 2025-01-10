@@ -57,7 +57,8 @@ with my Window $window .= new-window {
   .set-title('My Rectangles');
   .set-size-request( 300, 300);
   .set-child($draw);
-  .show;
+
+  .present;
 }
 ```
 
