@@ -43,14 +43,14 @@ class SH {
 }
 ```
 
-Now we have to set a drwing function which does the drawing in the provided area. The user data and the destroy notifier function are not provided by using `gpointer`s.
+Now we have to set a drawing function which does the drawing in the provided area. The user data and the destroy notifier function are not provided by using `gpointer`s.
 ```
 with my DrawingArea $draw .= new-drawingarea {
   .set-draw-func( &drawit, gpointer, gpointer);
 }
 ```
 
-Put the drawing area in a window and display it using `.show()`.
+Put the drawing area in a window and display it using `.present()`.
 ```
 with my Window $window .= new-window {
   .register-signal( SH.new, 'stopit', 'close-request');
