@@ -11,8 +11,6 @@ This tutoral shows how to use the **Gnome::Gtk4::DrawArea** class. A drawing is 
 
 As always, import the modules and make ourselfes comfortable with a few constants. We are using the **Cairo** module of Timo here.
 ```
-use NativeCall;
-
 use Cairo;
 
 use Gnome::Glib::N-MainLoop:api<2>;
