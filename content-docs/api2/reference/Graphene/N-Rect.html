@@ -1,0 +1,284 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Graphene::N-Rect">Gnome::Graphene::N-Rect</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contains-point">contains-point</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contains-rect">contains-rect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#expand">expand</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#free">free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-area">get-area</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bottom-left">get-bottom-left</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bottom-right">get-bottom-right</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-center">get-center</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-height">get-height</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-top-left">get-top-left</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-top-right">get-top-right</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-vertices">get-vertices</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-width">get-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-x">get-x</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-y">get-y</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init">init</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init-from-rect">init-from-rect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#inset">inset</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#inset-r">inset-r</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#interpolate">interpolate</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intersection">intersection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#normalize">normalize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#normalize-r">normalize-r</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#offset">offset</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#offset-r">offset-r</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#round-extents">round-extents</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#scale">scale</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union">union</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#alloc">alloc</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#zero">zero</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Graphene::N-Rect"><a href="#___top" class="u" title="go to top of document">Gnome::Graphene::N-Rect</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p>The location and size of a rectangle region.</p><p>The width and height of a <strong>Gnome::Graphene::N-Rect</strong> can be negative; for instance, a <strong>Gnome::Graphene::N-Rect</strong> with an origin of [ 0, 0 ] and a size of [ 10, 10 ] is equivalent to a <strong>Gnome::Graphene::N-Rect</strong> with an origin of [ 10, 10 ] and a size of [ -10, -10 ].</p><p>Application code can normalize rectangles using <code>.normalize()</code>; this function will ensure that the width and height of a rectangle are positive values. All functions taking a <strong>Gnome::Graphene::N-Rect</strong> as an argument will internally operate on a normalized copy; all functions returning a <strong>Gnome::Graphene::N-Rect</strong> will always return a normalized rectangle.</p></section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="contains-point"><a href="#___top" class="u" title="go to top of document">contains-point</a></h2>
+<p>Checks whether a <strong>Gnome::Graphene::N-Rect</strong> contains the given coordinates.</p><pre class="pod-block-code">method contains-point ( CArray[N-Point] $p --&gt; gboolean )
+</pre><ul>
+<li><p>$p; a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+<p>Return value; <strong>true</strong> if the rectangle contains the point. </p></section>
+<section name="___top">
+<h2 id="contains-rect"><a href="#___top" class="u" title="go to top of document">contains-rect</a></h2>
+<p>Checks whether a <strong>Gnome::Graphene::N-Rect</strong> fully contains the given rectangle.</p><pre class="pod-block-code">method contains-rect ( CArray[N-Rect] $b --&gt; gboolean )
+</pre><ul>
+<li><p>$b; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+</ul>
+<p>Return value; <strong>true</strong> if the rectangle <code>$a</code> fully contains <code>$b</code>. </p></section>
+<section name="___top">
+<h2 id="equal"><a href="#___top" class="u" title="go to top of document">equal</a></h2>
+<p>Checks whether the two given rectangle are equal.</p><pre class="pod-block-code">method equal ( CArray[N-Rect] $b --&gt; gboolean )
+</pre><ul>
+<li><p>$b; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+</ul>
+<p>Return value; <strong>true</strong> if the rectangles are equal. </p></section>
+<section name="___top">
+<h2 id="expand"><a href="#___top" class="u" title="go to top of document">expand</a></h2>
+<p>Expands a <strong>Gnome::Graphene::N-Rect</strong> to contain the given <strong>Gnome::Graphene::N-Point</strong>.</p><pre class="pod-block-code">method expand ( CArray[N-Point] $p, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$p; a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+<li><p>$res; return location for the expanded rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="free"><a href="#___top" class="u" title="go to top of document">free</a></h2>
+<p>Frees the resources allocated by <code>.alloc()</code>.</p><pre class="pod-block-code">method free ( )
+</pre></section>
+<section name="___top">
+<h2 id="get-area"><a href="#___top" class="u" title="go to top of document">get-area</a></h2>
+<p>Compute the area of given normalized rectangle.</p><pre class="pod-block-code">method get-area (--&gt; Num )
+</pre><p>Return value; the area of the normalized rectangle. </p></section>
+<section name="___top">
+<h2 id="get-bottom-left"><a href="#___top" class="u" title="go to top of document">get-bottom-left</a></h2>
+<p>Retrieves the coordinates of the bottom-left corner of the given rectangle.</p><pre class="pod-block-code">method get-bottom-left ( CArray[N-Point] $p )
+</pre><ul>
+<li><p>$p; return location for a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-bottom-right"><a href="#___top" class="u" title="go to top of document">get-bottom-right</a></h2>
+<p>Retrieves the coordinates of the bottom-right corner of the given rectangle.</p><pre class="pod-block-code">method get-bottom-right ( CArray[N-Point] $p )
+</pre><ul>
+<li><p>$p; return location for a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-center"><a href="#___top" class="u" title="go to top of document">get-center</a></h2>
+<p>Retrieves the coordinates of the center of the given rectangle.</p><pre class="pod-block-code">method get-center ( CArray[N-Point] $p )
+</pre><ul>
+<li><p>$p; return location for a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-height"><a href="#___top" class="u" title="go to top of document">get-height</a></h2>
+<p>Retrieves the normalized height of the given rectangle.</p><pre class="pod-block-code">method get-height (--&gt; Num )
+</pre><p>Return value; the normalized height of the rectangle. </p></section>
+<section name="___top">
+<h2 id="get-top-left"><a href="#___top" class="u" title="go to top of document">get-top-left</a></h2>
+<p>Retrieves the coordinates of the top-left corner of the given rectangle.</p><pre class="pod-block-code">method get-top-left ( CArray[N-Point] $p )
+</pre><ul>
+<li><p>$p; return location for a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-top-right"><a href="#___top" class="u" title="go to top of document">get-top-right</a></h2>
+<p>Retrieves the coordinates of the top-right corner of the given rectangle.</p><pre class="pod-block-code">method get-top-right ( CArray[N-Point] $p )
+</pre><ul>
+<li><p>$p; return location for a <strong>Gnome::Graphene::N-Point</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-vertices"><a href="#___top" class="u" title="go to top of document">get-vertices</a></h2>
+<p>Computes the four vertices of a <strong>Gnome::Graphene::N-Rect</strong>.</p><pre class="pod-block-code">method get-vertices ( CArray[N-Vec2] $vertices )
+</pre><ul>
+<li><p>$vertices; return location for an array of 4 <strong>graphene_vec</strong>2_t.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-width"><a href="#___top" class="u" title="go to top of document">get-width</a></h2>
+<p>Retrieves the normalized width of the given rectangle.</p><pre class="pod-block-code">method get-width (--&gt; Num )
+</pre><p>Return value; the normalized width of the rectangle. </p></section>
+<section name="___top">
+<h2 id="get-x"><a href="#___top" class="u" title="go to top of document">get-x</a></h2>
+<p>Retrieves the normalized X coordinate of the origin of the given rectangle.</p><pre class="pod-block-code">method get-x (--&gt; Num )
+</pre><p>Return value; the normalized X coordinate of the rectangle. </p></section>
+<section name="___top">
+<h2 id="get-y"><a href="#___top" class="u" title="go to top of document">get-y</a></h2>
+<p>Retrieves the normalized Y coordinate of the origin of the given rectangle.</p><pre class="pod-block-code">method get-y (--&gt; Num )
+</pre><p>Return value; the normalized Y coordinate of the rectangle. </p></section>
+<section name="___top">
+<h2 id="init"><a href="#___top" class="u" title="go to top of document">init</a></h2>
+<p>Initializes the given <strong>Gnome::Graphene::N-Rect</strong> with the given values.</p><p>This function will implicitly normalize the <strong>Gnome::Graphene::N-Rect</strong> before returning.</p><pre class="pod-block-code">method init ( Num() $x, Num() $y, Num() $width, Num() $height --&gt; CArray[N-Rect] )
+</pre><ul>
+<li><p>$x; the X coordinate of the <code>$graphene-rect-t</code>.origin.</p></li>
+<li><p>$y; the Y coordinate of the <code>$graphene-rect-t</code>.origin.</p></li>
+<li><p>$width; the width of the <code>$graphene-rect-t</code>.size.</p></li>
+<li><p>$height; the height of the <code>$graphene-rect-t</code>.size.</p></li>
+</ul>
+<p>Return value; the initialized rectangle. </p></section>
+<section name="___top">
+<h2 id="init-from-rect"><a href="#___top" class="u" title="go to top of document">init-from-rect</a></h2>
+<p>Initializes <code>$r</code> using the given <code>$src</code> rectangle.</p><p>This function will implicitly normalize the <strong>Gnome::Graphene::N-Rect</strong> before returning.</p><pre class="pod-block-code">method init-from-rect ( CArray[N-Rect] $src --&gt; CArray[N-Rect] )
+</pre><ul>
+<li><p>$src; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+</ul>
+<p>Return value; the initialized rectangle. </p></section>
+<section name="___top">
+<h2 id="inset"><a href="#___top" class="u" title="go to top of document">inset</a></h2>
+<p>Changes the given rectangle to be smaller, or larger depending on the given inset parameters.</p><p>To create an inset rectangle, use positive <code>$d-x</code> or <code>$d-y</code> values; to create a larger, encompassing rectangle, use negative <code>$d-x</code> or <code>$d-y</code> values.</p><p>The origin of the rectangle is offset by <code>$d-x</code> and <code>$d-y</code>, while the size is adjusted by <strong>(2 * <code>$d-x</code>, 2 * <code>$d-y</code>)</strong>. If <code>$d-x</code> and <code>$d-y</code> are positive values, the size of the rectangle is decreased; if <code>$d-x</code> and <code>$d-y</code> are negative values, the size of the rectangle is increased.</p><p>If the size of the resulting inset rectangle has a negative width or height then the size will be set to zero.</p><pre class="pod-block-code">method inset ( Num() $d-x, Num() $d-y --&gt; CArray[N-Rect] )
+</pre><ul>
+<li><p>$d-x; the horizontal inset.</p></li>
+<li><p>$d-y; the vertical inset.</p></li>
+</ul>
+<p>Return value; the inset rectangle. </p></section>
+<section name="___top">
+<h2 id="inset-r"><a href="#___top" class="u" title="go to top of document">inset-r</a></h2>
+<p>Changes the given rectangle to be smaller, or larger depending on the given inset parameters.</p><p>To create an inset rectangle, use positive <code>$d-x</code> or <code>$d-y</code> values; to create a larger, encompassing rectangle, use negative <code>$d-x</code> or <code>$d-y</code> values.</p><p>The origin of the rectangle is offset by <code>$d-x</code> and <code>$d-y</code>, while the size is adjusted by <strong>(2 * <code>$d-x</code>, 2 * <code>$d-y</code>)</strong>. If <code>$d-x</code> and <code>$d-y</code> are positive values, the size of the rectangle is decreased; if <code>$d-x</code> and <code>$d-y</code> are negative values, the size of the rectangle is increased.</p><p>If the size of the resulting inset rectangle has a negative width or height then the size will be set to zero.</p><pre class="pod-block-code">method inset-r ( Num() $d-x, Num() $d-y, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$d-x; the horizontal inset.</p></li>
+<li><p>$d-y; the vertical inset.</p></li>
+<li><p>$res; return location for the inset rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="interpolate"><a href="#___top" class="u" title="go to top of document">interpolate</a></h2>
+<p>Linearly interpolates the origin and size of the two given rectangles.</p><pre class="pod-block-code">method interpolate ( CArray[N-Rect] $b, Num() $factor, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$b; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+<li><p>$factor; the linear interpolation factor.</p></li>
+<li><p>$res; return location for the interpolated rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="intersection"><a href="#___top" class="u" title="go to top of document">intersection</a></h2>
+<p>Computes the intersection of the two given rectangles.</p><p>![](rectangle-intersection.png)</p><p>The intersection in the image above is the blue outline.</p><p>If the two rectangles do not intersect, <code>$res</code> will contain a degenerate rectangle with origin in (0, 0) and a size of 0.</p><pre class="pod-block-code">method intersection ( CArray[N-Rect] $b, CArray[N-Rect] $res --&gt; gboolean )
+</pre><ul>
+<li><p>$b; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+<li><p>$res; return location for a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+</ul>
+<p>Return value; <strong>true</strong> if the two rectangles intersect. </p></section>
+<section name="___top">
+<h2 id="normalize"><a href="#___top" class="u" title="go to top of document">normalize</a></h2>
+<p>Normalizes the passed rectangle.</p><p>This function ensures that the size of the rectangle is made of positive values, and that the origin is the top-left corner of the rectangle.</p><pre class="pod-block-code">method normalize (--&gt; CArray[N-Rect] )
+</pre><p>Return value; the normalized rectangle. </p></section>
+<section name="___top">
+<h2 id="normalize-r"><a href="#___top" class="u" title="go to top of document">normalize-r</a></h2>
+<p>Normalizes the passed rectangle.</p><p>This function ensures that the size of the rectangle is made of positive values, and that the origin is in the top-left corner of the rectangle.</p><pre class="pod-block-code">method normalize-r ( CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$res; the return location for the normalized rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="offset"><a href="#___top" class="u" title="go to top of document">offset</a></h2>
+<p>Offsets the origin by <code>$d-x</code> and <code>$d-y</code>.</p><p>The size of the rectangle is unchanged.</p><pre class="pod-block-code">method offset ( Num() $d-x, Num() $d-y --&gt; CArray[N-Rect] )
+</pre><ul>
+<li><p>$d-x; the horizontal offset.</p></li>
+<li><p>$d-y; the vertical offset.</p></li>
+</ul>
+<p>Return value; the offset rectangle. </p></section>
+<section name="___top">
+<h2 id="offset-r"><a href="#___top" class="u" title="go to top of document">offset-r</a></h2>
+<p>Offsets the origin of the given rectangle by <code>$d-x</code> and <code>$d-y</code>.</p><p>The size of the rectangle is left unchanged.</p><pre class="pod-block-code">method offset-r ( Num() $d-x, Num() $d-y, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$d-x; the horizontal offset.</p></li>
+<li><p>$d-y; the vertical offset.</p></li>
+<li><p>$res; return location for the offset rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="round-extents"><a href="#___top" class="u" title="go to top of document">round-extents</a></h2>
+<p>Rounds the origin of the given rectangle to its nearest integer value and and recompute the size so that the rectangle is large enough to contain all the conrners of the original rectangle.</p><p>This function is the equivalent of calling <strong>floor</strong> on the coordinates of the origin, and recomputing the size calling <strong>ceil</strong> on the bottom-right coordinates.</p><p>If you want to be sure that the rounded rectangle completely covers the area that was covered by the original rectangle — i.e. you want to cover the area including all its corners — this function will make sure that the size is recomputed taking into account the ceiling of the coordinates of the bottom-right corner. If the difference between the original coordinates and the coordinates of the rounded rectangle is greater than the difference between the original size and and the rounded size, then the move of the origin would not be compensated by a move in the anti-origin, leaving the corners of the original rectangle outside the rounded one.</p><pre class="pod-block-code">method round-extents ( CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$res; return location for the rectangle with rounded extents.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="scale"><a href="#___top" class="u" title="go to top of document">scale</a></h2>
+<p>Scales the size and origin of a rectangle horizontaly by <code>$s-h</code>, and vertically by <code>$s-v</code>. The result <code>$res</code> is normalized.</p><pre class="pod-block-code">method scale ( Num() $s-h, Num() $s-v, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$s-h; horizontal scale factor.</p></li>
+<li><p>$s-v; vertical scale factor.</p></li>
+<li><p>$res; return location for the scaled rectangle.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="union"><a href="#___top" class="u" title="go to top of document">union</a></h2>
+<p>Computes the union of the two given rectangles.</p><p>![](rectangle-union.png)</p><p>The union in the image above is the blue outline.</p><pre class="pod-block-code">method union ( CArray[N-Rect] $b, CArray[N-Rect] $res )
+</pre><ul>
+<li><p>$b; a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+<li><p>$res; return location for a <strong>Gnome::Graphene::N-Rect</strong>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h1 id="Functions"><a href="#___top" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="___top">
+<h2 id="alloc"><a href="#___top" class="u" title="go to top of document">alloc</a></h2>
+<p>Allocates a new <strong>Gnome::Graphene::N-Rect</strong>.</p><p>The contents of the returned rectangle are undefined.</p><pre class="pod-block-code">method alloc (--&gt; CArray[N-Rect] )
+</pre><p>Return value; the newly allocated rectangle. </p></section>
+<section name="___top">
+<h2 id="zero"><a href="#___top" class="u" title="go to top of document">zero</a></h2>
+<p>Returns a degenerate rectangle with origin fixed at (0, 0) and a size of 0, 0.</p><pre class="pod-block-code">method zero (--&gt; CArray[N-Rect] )
+</pre><p>Return value; a fixed rectangle. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-graphene/doc/N-Rect.rakudoc</span></div><div>at <span class="time">2025-01-16T13:17:07Z</span></div></footer>
+	</body>
+</html>
