@@ -1,0 +1,138 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gdk4::R-Paintable">Gnome::Gdk4::R-Paintable</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#compute-concrete-size">compute-concrete-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-image">get-current-image</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags">get-flags</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-intrinsic-aspect-ratio">get-intrinsic-aspect-ratio</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-intrinsic-height">get-intrinsic-height</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-intrinsic-width">get-intrinsic-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate-contents">invalidate-contents</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate-size">invalidate-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#snapshot">snapshot</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-empty">new-empty</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#invalidate-contents_0">invalidate-contents</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#invalidate-size_0">invalidate-size</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gdk4::R-Paintable"><a href="#___top" class="u" title="go to top of document">Gnome::Gdk4::R-Paintable</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gdk4::R-Paintable</strong> is a simple interface used by GTK to represent content that can be painted.</p><p>The content of a <strong>Gnome::Gdk4::R-Paintable</strong> can be painted anywhere at any size without requiring any sort of layout. The interface is inspired by similar concepts elsewhere, such as [ClutterContent](https://developer.gnome.org/clutter/stable/ClutterContent.html), [HTML/CSS Paint Sources](https://www.w3.org/TR/css-images-4/#paint-source), or [SVG Paint Servers](https://www.w3.org/TR/SVG2/pservers.html).</p><p>A <strong>Gnome::Gdk4::R-Paintable</strong> can be snapshot at any time and size using <code>.snapshot()</code>. How the paintable interprets that size and if it scales or centers itself into the given rectangle is implementation defined, though if you are implementing a <strong>Gnome::Gdk4::R-Paintable</strong> and don't know what to do, it is suggested that you scale your paintable ignoring any potential aspect ratio.</p><p>The contents that a <strong>Gnome::Gdk4::R-Paintable</strong> produces may depend on the <strong>GdkSnapshot</strong> passed to it. For example, paintables may decide to use more detailed images on higher resolution screens or when OpenGL is available. A <strong>Gnome::Gdk4::R-Paintable</strong> will however always produce the same output for the same snapshot.</p><p>A <strong>Gnome::Gdk4::R-Paintable</strong> may change its contents, meaning that it will now produce a different output with the same snapshot. Once that happens, it will call <code>.invalidate-contents()</code> which will emit the [signal <code>$GdkPaintable</code>::invalidate-contents] signal. If a paintable is known to never change its contents, it will set the <code>GDK_PAINTABLE_STATIC_CONTENTS</code> flag. If a consumer cannot deal with changing contents, it may call <code>.get-current-image()</code> which will return a static paintable and use that.</p><p>A paintable can report an intrinsic (or preferred) size or aspect ratio it wishes to be rendered at, though it doesn't have to. Consumers of the interface can use this information to layout thepaintable appropriately. Just like the contents, the size of a paintable can change. A paintable will indicate this by calling <code>.invalidate-size()</code> which will emit the [signal <code>$GdkPaintable</code>::invalidate-size] signal. And just like for contents, if a paintable is known to never change its size, it will set the <code>GDK_PAINTABLE_STATIC_SIZE</code> flag.</p><p>Besides API for applications, there are some functions that are only useful for implementing subclasses and should not be used by applications: <code>.invalidate-contents()</code>, <code>.invalidate-size()</code>, <code>.Paintable.new-empty()</code>.</p></section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="compute-concrete-size"><a href="#___top" class="u" title="go to top of document">compute-concrete-size</a></h2>
+<p>Compute a concrete size for the <strong>Gnome::Gdk4::R-Paintable</strong>.</p><p>Applies the sizing algorithm outlined in the [CSS Image spec](https://drafts.csswg.org/css-images-3/#default-sizing) to the given <code>$paintable</code>. See that link for more details.</p><p>It is not necessary to call this function when both <code>$specified-width</code> and <code>$specified-height</code> are known, but it is useful to call this function in GtkWidget:measure implementations to compute the other dimension when only one dimension is given.</p><pre class="pod-block-code">method compute-concrete-size ( Num() $specified-width, Num() $specified-height, Num() $default-width, Num() $default-height, Num() $concrete-width, Num() $concrete-height )
+</pre><ul>
+<li><p>$specified-width; the width <code>$paintable</code> could be drawn into or 0.0 if unknown.</p></li>
+<li><p>$specified-height; the height <code>$paintable</code> could be drawn into or 0.0 if unknown.</p></li>
+<li><p>$default-width; the width <code>$paintable</code> would be drawn into if no other constraints were given.</p></li>
+<li><p>$default-height; the height <code>$paintable</code> would be drawn into if no other constraints were given.</p></li>
+<li><p>$concrete-width; (transfer ownership: full) will be set to the concrete width computed.</p></li>
+<li><p>$concrete-height; (transfer ownership: full) will be set to the concrete height computed.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-current-image"><a href="#___top" class="u" title="go to top of document">get-current-image</a></h2>
+<p>Gets an immutable paintable for the current contents displayed by <code>$paintable</code>.</p><p>This is useful when you want to retain the current state of an animation, for example to take a screenshot of a running animation.</p><p>If the <code>$paintable</code> is already immutable, it will return itself.</p><pre class="pod-block-code">method get-current-image (--&gt; N-Object )
+</pre><p>Return value; An immutable paintable for the current contents of <code>$paintable</code>. </p></section>
+<section name="___top">
+<h2 id="get-flags"><a href="#___top" class="u" title="go to top of document">get-flags</a></h2>
+<p>Get flags for the paintable.</p><p>This is oftentimes useful for optimizations.</p><p>See [flags <code>$Gdk</code>.PaintableFlags] for the flags and what they mean.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
+</pre><p>Return value; The <code>bit field GdkPaintableFlags defined in Gnome::Gdk4::T-paintable</code> for this paintable. </p></section>
+<section name="___top">
+<h2 id="get-intrinsic-aspect-ratio"><a href="#___top" class="u" title="go to top of document">get-intrinsic-aspect-ratio</a></h2>
+<p>Gets the preferred aspect ratio the <code>$paintable</code> would like to be displayed at.</p><p>The aspect ratio is the width divided by the height, so a value of 0.5 means that the <code>$paintable</code> prefers to be displayed twice as high as it is wide. Consumers of this interface can use this to preserve aspect ratio when displaying the paintable.</p><p>This is a purely informational value and does not in any way limit the values that may be passed to <code>.snapshot()</code>.</p><p>Usually when a <code>$paintable</code> returns nonzero values from <code>.get-intrinsic-width()</code> and <code>.get-intrinsic-height()</code> the aspect ratio should conform to those values, though that is not required.</p><p>If the <code>$paintable</code> does not have a preferred aspect ratio, it returns 0. Negative values are never returned.</p><pre class="pod-block-code">method get-intrinsic-aspect-ratio (--&gt; Num )
+</pre><p>Return value; the intrinsic aspect ratio of <code>$paintable</code> or 0 if none.. </p></section>
+<section name="___top">
+<h2 id="get-intrinsic-height"><a href="#___top" class="u" title="go to top of document">get-intrinsic-height</a></h2>
+<p>Gets the preferred height the <code>$paintable</code> would like to be displayed at.</p><p>Consumers of this interface can use this to reserve enough space to draw the paintable.</p><p>This is a purely informational value and does not in any way limit the values that may be passed to <code>.snapshot()</code>.</p><p>If the <code>$paintable</code> does not have a preferred height, it returns 0. Negative values are never returned.</p><pre class="pod-block-code">method get-intrinsic-height (--&gt; Int )
+</pre><p>Return value; the intrinsic height of <code>$paintable</code> or 0 if none.. </p></section>
+<section name="___top">
+<h2 id="get-intrinsic-width"><a href="#___top" class="u" title="go to top of document">get-intrinsic-width</a></h2>
+<p>Gets the preferred width the <code>$paintable</code> would like to be displayed at.</p><p>Consumers of this interface can use this to reserve enough space to draw the paintable.</p><p>This is a purely informational value and does not in any way limit the values that may be passed to <code>.snapshot()</code>.</p><p>If the <code>$paintable</code> does not have a preferred width, it returns 0. Negative values are never returned.</p><pre class="pod-block-code">method get-intrinsic-width (--&gt; Int )
+</pre><p>Return value; the intrinsic width of <code>$paintable</code> or 0 if none.. </p></section>
+<section name="___top">
+<h2 id="invalidate-contents"><a href="#___top" class="u" title="go to top of document">invalidate-contents</a></h2>
+<p>Called by implementations of <strong>Gnome::Gdk4::R-Paintable</strong> to invalidate their contents.</p><p>Unless the contents are invalidated, implementations must guarantee that multiple calls of <code>.snapshot()</code> produce the same output.</p><p>This function will emit the <em>invalidate-contents</em> signal.</p><p>If a <code>$paintable</code> reports the <code>GDK_PAINTABLE_STATIC_CONTENTS</code> flag, it must not call this function.</p><pre class="pod-block-code">method invalidate-contents ( )
+</pre></section>
+<section name="___top">
+<h2 id="invalidate-size"><a href="#___top" class="u" title="go to top of document">invalidate-size</a></h2>
+<p>Called by implementations of <strong>Gnome::Gdk4::R-Paintable</strong> to invalidate their size.</p><p>As long as the size is not invalidated, <code>$paintable</code> must return the same values for its intrinsic width, height and aspect ratio.</p><p>This function will emit the <em>invalidate-size</em> signal.</p><p>If a <code>$paintable</code> reports the <code>GDK_PAINTABLE_STATIC_SIZE</code> flag, it must not call this function.</p><pre class="pod-block-code">method invalidate-size ( )
+</pre></section>
+<section name="___top">
+<h2 id="snapshot"><a href="#___top" class="u" title="go to top of document">snapshot</a></h2>
+<p>Snapshots the given paintable with the given <code>$width</code> and <code>$height</code>.</p><p>The paintable is drawn at the current (0,0) offset of the <code>$snapshot</code>. If <code>$width</code> and <code>$height</code> are not larger than zero, this function will do nothing.</p><pre class="pod-block-code">method snapshot ( N-Object() $snapshot, Num() $width, Num() $height )
+</pre><ul>
+<li><p>$snapshot; a <strong>Gnome::Gdk4::Snapshot</strong> to snapshot to.</p></li>
+<li><p>$width; width to snapshot in.</p></li>
+<li><p>$height; height to snapshot in.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h1 id="Functions"><a href="#___top" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="___top">
+<h2 id="new-empty"><a href="#___top" class="u" title="go to top of document">new-empty</a></h2>
+<p>Returns a paintable that has the given intrinsic size and draws nothing.</p><p>This is often useful for implementing the [vfunc <code>$Gdk</code>.Paintable.get_current_image] virtual function when the paintable is in an incomplete state (like a <strong>Gnome::Gtk4::MediaStream</strong> before receiving the first frame).</p><pre class="pod-block-code">method new-empty ( Int() $intrinsic-width, Int() $intrinsic-height --&gt; N-Object )
+</pre><ul>
+<li><p>$intrinsic-width; The intrinsic width to report. Can be 0 for no width..</p></li>
+<li><p>$intrinsic-height; The intrinsic height to report. Can be 0 for no height..</p></li>
+</ul>
+<p>Return value; a <strong>Gnome::Gdk4::R-Paintable</strong>. </p></section>
+<section name="___top">
+<h1 id="Signals"><a href="#___top" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="invalidate-contents_0"><a href="#___top" class="u" title="go to top of document">invalidate-contents</a></h3>
+<p>Emitted when the contents of the <code>$paintable</code> change.</p><p>Examples for such an event would be videos changing to the next frame or the icon theme for an icon changing.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Paintable :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gdk4::Paintable</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+
+<h3 id="invalidate-size_0"><a href="#___top" class="u" title="go to top of document">invalidate-size</a></h3>
+<p>Emitted when the intrinsic size of the <code>$paintable</code> changes.</p><p>This means the values reported by at least one of <code>.get-intrinsic-width()</code>, <code>.get-intrinsic-height()</code> or <code>.get-intrinsic-aspect-ratio()</code> has changed.</p><p>Examples for such an event would be a paintable displaying the contents of a toplevel surface being resized.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Paintable :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gdk4::Paintable</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/R-Paintable.rakudoc</span></div><div>at <span class="time">2025-01-16T20:36:27Z</span></div></footer>
+	</body>
+</html>
