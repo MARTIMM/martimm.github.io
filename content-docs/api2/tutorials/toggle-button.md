@@ -63,16 +63,17 @@ The rest is simple. Make a **Frame** and place the button in it. Then a **Window
   }
 ```
 
-The widget for the toggle button will be a horizontal **Box** with an **Image** and a **Label**. The **Box** is the returned. _**Note**_ that the images used are an Off and an On led icon from somewhere on my disk. You should find yourself one and place it somewhere, then change the path to it (here: '/home/marcel/Graphics/IconsArchive/Icons/32n/ledIcon/');
+The widget for the toggle button will be a horizontal **Box** with an **Image** and a **Label**. The **Box** is the returned. <ins>_Note that the images used are an Off and an On led icon from somewhere on my disk. You should find yourself a pair of images and place it where the program can read them, then change the path to it (here: '/home/marcel/Graphics/IconsArchive/Icons/32n/ledIcon/')_</ins>;
 ```
   method make-led-text-widget (
     Str:D $purpose, Bool:D $state --> Gnome::Gtk4::Box
   ) {
+    my Str $icons = '/home/marcel/Graphics/IconsArchive/Icons/32n/ledIcon/';
+    my Str $image = $state ?? 'green-on-32.png' !! 'green-off-32.png';
+
     my Gnome::Gtk4::Box $hbox .= new-box( GTK_ORIENTATION_HORIZONTAL, 1);
 
-    my Str $icons = '/home/marcel/Graphics/IconsArchive/Icons/32n/ledIcon/';
     my Image $led-image .= new-image;
-    my Str $image = $state ?? 'green-on-32.png' !! 'green-off-32.png';
     $led-image.set-from-file($icons ~ $image);
     $hbox.append($led-image);
 
