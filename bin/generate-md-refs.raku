@@ -21,21 +21,27 @@ constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
 
 my Hash $source-paths = %(
   :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/doc/'),
+  :Gdk4Api2(PROJECTS ~ API2S ~ 'gnome-gdk4/doc/'),
   :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
+  :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/doc/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
 
 my Hash $destination-paths = %(
   :Gtk4Api2(PROJECTS ~ API2D ~ 'Gtk4/'),
+  :Gdk4Api2(PROJECTS ~ API2D ~ 'Gdk4/'),
   :Gsk4Api2(PROJECTS ~ API2D ~ 'Gsk4/'),
+  :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
 
 my Hash $sidebar-paths = %(
   :Gtk4Api2(REFS ~ 'api2-ref-gtk4-sidebar.yml'),
+  :Gdk4Api2(REFS ~ 'api2-ref-gdk4-sidebar.yml'),
   :Gsk4Api2(REFS ~ 'api2-ref-gsk4-sidebar.yml'),
+  :GrapApi2(REFS ~ 'api2-ref-graphene-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
@@ -142,7 +148,9 @@ sub generate-sidebar( Str $key ) {
     my Str $path-part = S/ Api2 // with $key;
     my Str $skimfile = PROJECTS ~ SKIMTOOL ~ 
                        "/data/SkimToolData/$path-part/repo-object-map.yaml";
-    my Hash $skim-data = load-yaml($skimfile.IO.slurp);
+    my Hash $skim-data = %();
+    $skim-data = load-yaml($skimfile.IO.slurp) if $skimfile.IO.e;
+
     for $skim-data.keys -> $key {
       if ?$skim-data{$key}<deprecated> {
         my Str $classname = $skim-data{$key}<class-name>;
@@ -151,7 +159,6 @@ sub generate-sidebar( Str $key ) {
       }
     }
   }
-
 
   for $destination-path.IO.dir.sort -> $f is copy {
     next if $f.Str !~~ m/ \. html $/;
