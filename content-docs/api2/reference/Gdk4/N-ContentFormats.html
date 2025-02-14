@@ -1,0 +1,176 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk4::N-ContentFormats</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk4::N-ContentFormats">Gnome::Gdk4::N-ContentFormats</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-contentformats">new-contentformats</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-gtype">new-for-gtype</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contain-gtype">contain-gtype</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contain-mime-type">contain-mime-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-gtypes_This_function_is_not_yet_available">get-gtypes This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-mime-types">get-mime-types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#match">match</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#match-gtype">match-gtype</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#match-mime-type">match-mime-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print">print</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union">union</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union-deserialize-gtypes">union-deserialize-gtypes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union-deserialize-mime-types">union-deserialize-mime-types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union-serialize-gtypes">union-serialize-gtypes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#union-serialize-mime-types">union-serialize-mime-types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse">parse</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">Description</a></h1>
+<p>The <strong>Gnome::Gdk4::N-ContentFormats</strong> structure is used to advertise and negotiate the format of content.</p><p>You will encounter <strong>Gnome::Gdk4::N-ContentFormats</strong> when interacting with objects controlling operations that pass data between different widgets, window or application, like <strong>Gnome::Gdk4::Drag</strong>, <strong>Gnome::Gdk4::Drop</strong>, <strong>Gnome::Gdk4::Clipboard</strong> or <strong>Gnome::Gdk4::ContentProvider</strong>.</p><p>GDK supports content in 2 forms: <strong>Gnome::GObject::ContentFormats</strong> and mime type. Using <strong>GTypes</strong> is meant only for in-process content transfers. Mime types are meant to be used for data passing both in-process and out-of-process. The details of how data is passed is described in the documentation of the actual implementations. To transform between the two forms, <strong>Gnome::Gdk4::ContentSerializer</strong> and <strong>Gnome::Gdk4::ContentDeserializer</strong> are used.</p><p>A <strong>Gnome::Gdk4::N-ContentFormats</strong> describes a set of possible formats content can be exchanged in. It is assumed that this set is ordered. <strong>GTypes</strong> are more important than mime types. Order between different <strong>GTypes</strong> or mime types is the order they were added in, most important first. Functions that care about order, such as <code>.union()</code>, will describe in their documentation how they interpret that order, though in general the order of the first argument is considered the primary order of the result, followed by the order of further arguments.</p><p>For debugging purposes, the function <code>.to-string()</code> exists. It will print a comma-separated list of formats from most important to least important.</p><p><strong>Gnome::Gdk4::N-ContentFormats</strong> is an immutable struct. After creation, you cannot change the types it represents. Instead, new <strong>Gnome::Gdk4::N-ContentFormats</strong> have to be created. The <strong>Gnome::Gdk4::N-ContentFormatsBuilder</strong> structure is meant to help in this endeavor.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-contentformats"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">new-contentformats</a></h2>
+<p>Creates a new <strong>Gnome::Gdk4::N-ContentFormats</strong> from an array of mime types.</p><p>The mime types must be valid and different from each other or the behavior of the return value is undefined. If you cannot guarantee this, use <strong>Gnome::Gdk4::N-ContentFormatsBuilder</strong> instead.</p><pre class="pod-block-code">method new-contentformats ( Array[Str] $mime-types, UInt() $n-mime-types --&gt; Gnome::Gdk4::ContentFormats \)
+</pre><ul>
+<li><p>$mime-types; Pointer to an array of mime types.</p></li>
+<li><p>$n-mime-types; number of entries in <code>$mime-types</code>..</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="new-for-gtype"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">new-for-gtype</a></h2>
+<p>Creates a new <strong>Gnome::Gdk4::N-ContentFormats</strong> for a given <strong>Gnome::GObject::ContentFormats</strong>.</p><pre class="pod-block-code">method new-for-gtype ( GType $type --&gt; Gnome::Gdk4::ContentFormats \)
+</pre><ul>
+<li><p>$type; a <strong>Gnome::GObject::ContentFormats</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="contain-gtype"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">contain-gtype</a></h2>
+<p>Checks if a given <strong>Gnome::GObject::ContentFormats</strong> is part of the given <code>$formats</code>.</p><pre class="pod-block-code">method contain-gtype ( GType $type --&gt; Bool )
+</pre><ul>
+<li><p>$type; the <strong>Gnome::GObject::ContentFormats</strong> to search for.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the <strong>Gnome::GObject::ContentFormats</strong> was found. </p></section>
+<section name="pod">
+<h2 id="contain-mime-type"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">contain-mime-type</a></h2>
+<p>Checks if a given mime type is part of the given <code>$formats</code>.</p><pre class="pod-block-code">method contain-mime-type ( Str $mime-type --&gt; Bool )
+</pre><ul>
+<li><p>$mime-type; the mime type to search for.</p></li>
+</ul>
+<p>Return value; <code>True</code> if the mime_type was found. </p></section>
+<section name="pod">
+<h2 id="get-gtypes_This_function_is_not_yet_available"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">get-gtypes This function is not yet available</a></h2>
+<p>Gets the <strong>Gnome::GObject::ContentFormats</strong>s included in <code>$formats</code>.</p><p>Note that <code>$formats</code> may not contain any <strong>Gnome::GObject::ContentFormats</strong>s, in particular when they are empty. In that case undefined will be returned.</p><pre class="pod-block-code">method get-gtypes ( Array[gsize] $n-gtypes )
+</pre><ul>
+<li><p>$n-gtypes; (transfer ownership: full) optional pointer to take the number of <strong>Gnome::GObject::ContentFormats</strong>s contained in the return value.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get-mime-types"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">get-mime-types</a></h2>
+<p>Gets the mime types included in <code>$formats</code>.</p><p>Note that <code>$formats</code> may not contain any mime types, in particular when they are empty. In that case undefined will be returned.</p><pre class="pod-block-code">method get-mime-types ( Array[gsize] $n-mime-types --&gt; Array[Str] )
+</pre><ul>
+<li><p>$n-mime-types; (transfer ownership: full) optional pointer to take the number of mime types contained in the return value.</p></li>
+</ul>
+<p>Return value; interned array strings of mime types included in <code>$formats</code>. </p></section>
+<section name="pod">
+<h2 id="match"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">match</a></h2>
+<p>Checks if <code>$first</code> and <code>$second</code> have any matching formats.</p><pre class="pod-block-code">method match ( N-Object $second --&gt; Bool )
+</pre><ul>
+<li><p>$second; the <strong>Gnome::Gdk4::N-ContentFormats</strong> to intersect with</p></li>
+</ul>
+<p>Return value; <code>True</code> if a matching format was found.. </p></section>
+<section name="pod">
+<h2 id="match-gtype"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">match-gtype</a></h2>
+<p>Finds the first <strong>Gnome::GObject::ContentFormats</strong> from <code>$first</code> that is also contained in <code>$second</code>.</p><p>If no matching <strong>Gnome::GObject::ContentFormats</strong> is found, <code>G_TYPE_INVALID</code> is returned.</p><pre class="pod-block-code">method match-gtype ( N-Object $second --&gt; GType )
+</pre><ul>
+<li><p>$second; the <strong>Gnome::Gdk4::N-ContentFormats</strong> to intersect with</p></li>
+</ul>
+<p>Return value; The first common <strong>Gnome::GObject::ContentFormats</strong> or <code>G_TYPE_INVALID</code> if none.. </p></section>
+<section name="pod">
+<h2 id="match-mime-type"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">match-mime-type</a></h2>
+<p>Finds the first mime type from <code>$first</code> that is also contained in <code>$second</code>.</p><p>If no matching mime type is found, undefined is returned.</p><pre class="pod-block-code">method match-mime-type ( N-Object $second --&gt; Str )
+</pre><ul>
+<li><p>$second; the <strong>Gnome::Gdk4::N-ContentFormats</strong> to intersect with</p></li>
+</ul>
+<p>Return value; The first common mime type or undefined if none. </p></section>
+<section name="pod">
+<h2 id="print"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">print</a></h2>
+<p>Prints the given <code>$formats</code> into a string for human consumption.</p><p>The result of this function can later be parsed with <code>.ContentFormats.parse()</code>.</p><pre class="pod-block-code">method print ( N-Object $string )
+</pre><ul>
+<li><p>$string; a <strong>Gnome::Glib::N-String</strong> to print into</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="ref"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">ref</a></h2>
+<p>Increases the reference count of a <strong>Gnome::Gdk4::N-ContentFormats</strong> by one.</p><pre class="pod-block-code">method ref (--&gt; N-Object )
+</pre><p>Return value; the passed in <strong>Gnome::Gdk4::N-ContentFormats</strong>.. </p></section>
+<section name="pod">
+<h2 id="to-string"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">to-string</a></h2>
+<p>Prints the given <code>$formats</code> into a human-readable string.</p><p>The resulting string can be parsed with <code>.ContentFormats.parse()</code>.</p><p>This is a small wrapper around <code>.print()</code> to help when debugging.</p><pre class="pod-block-code">method to-string (--&gt; Str )
+</pre><p>Return value; a new string. </p></section>
+<section name="pod">
+<h2 id="union"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">union</a></h2>
+<p>Append all missing types from <code>$second</code> to <code>$first</code>, in the order they had in <code>$second</code>.</p><pre class="pod-block-code">method union ( N-Object $second --&gt; N-Object )
+</pre><ul>
+<li><p>$second; the <strong>Gnome::Gdk4::N-ContentFormats</strong> to merge from</p></li>
+</ul>
+<p>Return value; a new <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
+<section name="pod">
+<h2 id="union-deserialize-gtypes"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">union-deserialize-gtypes</a></h2>
+<p>Add GTypes for mime types in <code>$formats</code> for which deserializers are registered.</p><pre class="pod-block-code">method union-deserialize-gtypes (--&gt; N-Object )
+</pre><p>Return value; a new <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
+<section name="pod">
+<h2 id="union-deserialize-mime-types"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">union-deserialize-mime-types</a></h2>
+<p>Add mime types for GTypes in <code>$formats</code> for which deserializers are registered.</p><pre class="pod-block-code">method union-deserialize-mime-types (--&gt; N-Object )
+</pre><p>Return value; a new <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
+<section name="pod">
+<h2 id="union-serialize-gtypes"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">union-serialize-gtypes</a></h2>
+<p>Add GTypes for the mime types in <code>$formats</code> for which serializers are registered.</p><pre class="pod-block-code">method union-serialize-gtypes (--&gt; N-Object )
+</pre><p>Return value; a new <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
+<section name="pod">
+<h2 id="union-serialize-mime-types"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">union-serialize-mime-types</a></h2>
+<p>Add mime types for GTypes in <code>$formats</code> for which serializers are registered.</p><pre class="pod-block-code">method union-serialize-mime-types (--&gt; N-Object )
+</pre><p>Return value; a new <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
+<section name="pod">
+<h2 id="unref"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">unref</a></h2>
+<p>Decreases the reference count of a <strong>Gnome::Gdk4::N-ContentFormats</strong> by one.</p><p>If the resulting reference count is zero, frees the formats.</p><pre class="pod-block-code">method unref ( )
+</pre></section>
+<section name="pod">
+<h1 id="Functions"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="pod">
+<h2 id="parse"><a href="#Gnome::Gdk4::N-ContentFormats" class="u" title="go to top of document">parse</a></h2>
+<p>Parses the given <code>$string</code> into <strong>Gnome::Gdk4::N-ContentFormats</strong> and returns the formats.</p><p>Strings printed via <code>.to-string()</code> can be read in again successfully using this function.</p><p>If <code>$string</code> does not describe valid content formats, undefined is returned.</p><pre class="pod-block-code">method parse ( Str $string --&gt; N-Object )
+</pre><ul>
+<li><p>$string; the string to parse.</p></li>
+</ul>
+<p>Return value; the content formats if <code>$string</code> is valid. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/N-ContentFormats.rakudoc</span></div><div>at <span class="time">2025-01-19T15:43:32Z</span></div></footer>
+	</body>
+</html>
