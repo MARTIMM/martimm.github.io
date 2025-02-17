@@ -64,3 +64,18 @@ In the `:api<1>` version, the instanciation was always done using the `.new()` m
 First a small explanation of how any function name is translated into the raku method name. In the Gtk set of modules, a function name, for example in the **GtkBox** class, `gtk_box_append()` to append an object in the box. The translation is to remove the gtk and class name. Then change remaining underscores in dashes. So the `gtk_box_append()` function is defined as `append()` method.
 
 This will also be done for the contructor functions. for the **GtkBox**, there is a function called `gtk_box_new()`. This would be translated to `new()`. The exception for these kind of functions is that the name will become `new-box()` instead of `new()`. Other constructor names like e.g. `gtk_label_new_with_mnemonic()` in the **GtkLabel** class would not pose a problem. This is translated into `new-with-mnemonic()`.
+
+### Exceptions to the rule
+
+Yes, we need exceptions, we are craving for exceptions. Here they are;
+* Calling `.new()` on any object is possible with the option `:native-object()`. This is used to initiate a class with an object from a calle to a native object, e.g. getting a widget from a grid. Lets say a button;
+  ```
+  my Gnome::Gtk4::Button $button .= new(:native-object($grid.get-child-at(1,1));
+  ```
+  This can be made a bit shorter using coersion. The next line will do exactly the same thing.
+  ```
+  my Gnome::Gtk4::Button() $button = $grid.get-child-at(1,1);
+  ```
+
+* The other exception is for any object inheriting from **Gnome::GObject::Object**. Then it is possible to initialise the class with option `:build-id()`. However, there must be some work done before this can used. Examples will be shown in the tutorials section.
+
