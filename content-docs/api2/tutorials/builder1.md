@@ -134,7 +134,7 @@ my Builder $builder .= new-builder;
 $builder.load-user-interface($ui-file);
 ```
 
-Using the method `.connect-callback-handler()`, we can now connect the callback handlers to the events described in the ui description. A point to note; There must be an id for the object and it must be unique. It is the key into the signal info. There are always three arguments; the id, the object holding the callback method and the event name.
+Using the method `.connect-callback-handler()`, we can now connect the callback handlers to the events described in the ui description. A point to note; There must be an id for the object and it must be unique. It is the key into the signal info. There are always three arguments; the id, the object holding the callback method and the event name. The name of the method is the name specified as the handler in the signal element.
 ```
 $builder.connect-callback-handler( 'MyWindow', $sh, 'close-request');
 ```
