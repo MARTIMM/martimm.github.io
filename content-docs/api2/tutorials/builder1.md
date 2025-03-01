@@ -131,7 +131,7 @@ In the first step we will load the description. It gathers the signal info for l
 ```
 my Str $ui-file = "your-path-to/ui-description.ui";
 my Builder $builder .= new-builder;
-$builder.load-user-interface($ui-file");
+$builder.load-user-interface($ui-file);
 ```
 
 Using the method `.connect-callback-handler()`, we can now connect the callback handlers to the events described in the ui description. A point to note; The are must be an id for the object and must be unique. It is the key into the signal info. There are always three arguments; the id, the object holding the callback method and the event name.
