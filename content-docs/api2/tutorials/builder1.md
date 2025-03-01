@@ -127,7 +127,7 @@ my SH $sh .= new;
 
 This is the new part. It was necessary to add some methods in the **Builder** class which you will not find in the Gnome documentation. These are `.load-user-interface()` and `.connect-callback-handler()`. When there are no signals defined in the user interface description you can get by with a simple statement e.g. `my Builder $builder .= new-from-file($ui-file);`. But when there are signals, you get errors because it can not find the callback handlers.
 
-In the first step we will load the description. It gathers the signal info for later use and removes the signal eements from the description. Then it will feed that description to the **Builder** using `.add-from-string()`.
+In the first step we will load the description. It gathers the signal info for later use and removes the signal elements from the description. Then it will feed that description to the **Builder** using `.add-from-string()`.
 ```
 my Str $ui-file = "your-path-to/ui-description.ui";
 my Builder $builder .= new-builder;
