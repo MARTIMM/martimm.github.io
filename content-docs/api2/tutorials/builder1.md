@@ -1,7 +1,7 @@
 ---
 title: MARTIMM's projects
 layout: sidebar
-nav_menu: default-nav
+nav_menu: api2-nav
 sidebar_menu: api2-tuts-sidebar
 ---
 
@@ -10,13 +10,13 @@ sidebar_menu: api2-tuts-sidebar
 We are now going to make the same window with buttons as we did in the 'Buttons' tutorial with some tweaks added. Also, the setup is totally different. 
 
 ## Cambalache
-There is a user interface building program called [Cambalache](https://gitlab.gnome.org/jpu/cambalache) and there are a few blogs [here](https://blogs.gnome.org/xjuan/2024/06/21/new-cambalache-development-release-0-91-1/). This program is able to save an XML file describing the user interface. This can be read by the **Gnome::Gtk4::Builder** class.
+There is a user interface building program called [Cambalache](https://gitlab.gnome.org/jpu/cambalache)<a href="#notes">¹</a> and there are a few blogs [here](https://blogs.gnome.org/xjuan/2024/06/21/new-cambalache-development-release-0-91-1/). This program is able to save an XML file describing the user interface. This can be read by the **Gnome::Gtk4::Builder** class.
 
 The description made for this tutorial is shown below. It is plain XML so it is easy to read.
 
 A few things are important.
-* The id is a name which can be used to get the native object. This is done by using e.g. `my Window $w .= new(:build-id<MyWindow>);`. Below there are three ids defined for a window and two buttons: `MyWindow`, `HelloButton` and `GoodByeButton`.
-* Signal information has information about the event name and the name of its handler. This name must be the same as the method defined in the class handling the callbacks. Below there are four signals defined, one for the **Window** to cleanup code when a `close-request` is fired. Two `clicked` events for the **Button**s and a `query-tooltip` event for the first button.
+* The id is a name which can be used to get the native object. This is done by using e.g. `my Window $w .= new(:build-id<MyWindow>);`. In the XML showed below, there are three ids defined for a window and two buttons: `MyWindow`, `HelloButton` and `GoodByeButton`.
+* Signal information has information about the event name and the name of its handler. This name must be the same as the method defined in the class handling the callbacks. In the XML, there are four signals defined, one for the **Window** to cleanup code when a `close-request` is fired. Two `clicked` events for the **Button**s and a `query-tooltip` event for the first button.
 
 All other things are handled by the **Builder** to set labels and other properties.
 
@@ -161,13 +161,17 @@ $window.present;
 $main-loop.run;
 ```
 
-The results are shown below, the second picture is taken after clicking the top button.
+The results are shown below, the second picture is taken after clicking the top button. Also when hoovering over the top button, a tooltip text appears.
 
 <div style="display:flex;">
 <img src="asset_files/images/builder1-1.png" /><img src="asset_files/images/builder1-2.png" />
 </div>
 
 
+
+<a name="notes">Notes;</a>
+
+1) Cambalache is for Gtk version 4. Glade is a GUI builder for version 3 or Gtk+.
 
 
 
