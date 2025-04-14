@@ -1,7 +1,7 @@
 ---
 title: MARTIMM's projects
 layout: sidebar
-nav_menu: default-nav
+nav_menu: api2ref-nav
 sidebar_menu: api2-ref-graphene-sidebar
 ---
 
