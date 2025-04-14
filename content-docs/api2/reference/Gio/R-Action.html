@@ -1,0 +1,111 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::R-Action">Gnome::Gio::R-Action</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#activate">activate</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#change-state">change-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-enabled">get-enabled</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-parameter-type">get-parameter-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state">get-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state-hint">get-state-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state-type">get-state-type</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#name-is-valid">name-is-valid</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-detailed-name">parse-detailed-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print-detailed-name">print-detailed-name</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::R-Action"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::R-Action</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::R-Action</strong> represents a single named action.</p><p>The main interface to an action is that it can be activated with <code>.activate()</code>. This results in the 'activate' signal being emitted. An activation has a <strong>Gnome::Glib::N-Variant</strong> parameter (which may be undefined). The correct type for the parameter is determined by a static parameter type (which is given at construction time).</p><p>An action may optionally have a state, in which case the state may be set with <code>.change-state()</code>. This call takes a <strong>Gnome::Glib::N-Variant</strong>. The correct type for the state is determined by a static state type (which is given at construction time).</p><p>The state may have a hint associated with it, specifying its valid range.</p><p><strong>Gnome::Gio::R-Action</strong> is merely the interface to the concept of an action, as described above. Various implementations of actions exist, including <strong>Gnome::Gio::SimpleAction</strong>.</p><p>In all cases, the implementing class is responsible for storing the name of the action, the parameter type, the enabled state, the optional state type and the state and emitting the appropriate signals when these change. The implementor is responsible for filtering calls to <code>.activate()</code> and <code>.change-state()</code> for type safety and for the state being enabled.</p><p>Probably the only useful thing to do with a <strong>Gnome::Gio::R-Action</strong> is to put it inside of a <strong>Gnome::Gio::SimpleActionGroup</strong>.</p></section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="activate"><a href="#___top" class="u" title="go to top of document">activate</a></h2>
+<p>Activates the action. <code>$parameter</code> must be the correct type of parameter for the action (ie: the parameter type given at construction time). If the parameter type was undefined then <code>$parameter</code> must also be undefined.</p><p>If the <code>$parameter</code> GVariant is floating, it is consumed.</p><pre class="pod-block-code">method activate ( N-Object $parameter )
+</pre><ul>
+<li><p>$parameter; the parameter to the activation</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="change-state"><a href="#___top" class="u" title="go to top of document">change-state</a></h2>
+<p>Request for the state of <code>$action</code> to be changed to <code>$value</code>.</p><p>The action must be stateful and <code>$value</code> must be of the correct type. See <code>.get-state-type()</code>.</p><p>This call merely requests a change. The action may refuse to change its state or may change its state to something other than <code>$value</code>. See <code>.get-state-hint()</code>.</p><p>If the <code>$value</code> GVariant is floating, it is consumed.</p><pre class="pod-block-code">method change-state ( N-Object $value )
+</pre><ul>
+<li><p>$value; the new state</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="get-enabled"><a href="#___top" class="u" title="go to top of document">get-enabled</a></h2>
+<p>Checks if <code>$action</code> is currently enabled.</p><p>An action must be enabled in order to be activated or in order to have its state changed from outside callers.</p><pre class="pod-block-code">method get-enabled (--&gt; Bool )
+</pre><p>Return value; whether the action is enabled. </p></section>
+<section name="___top">
+<h2 id="get-name"><a href="#___top" class="u" title="go to top of document">get-name</a></h2>
+<p>Queries the name of <code>$action</code>.</p><pre class="pod-block-code">method get-name (--&gt; Str )
+</pre><p>Return value; the name of the action. </p></section>
+<section name="___top">
+<h2 id="get-parameter-type"><a href="#___top" class="u" title="go to top of document">get-parameter-type</a></h2>
+<p>Queries the type of the parameter that must be given when activating <code>$action</code>.</p><p>When activating the action using <code>.activate()</code>, the <strong>Gnome::Glib::N-Variant</strong> given to that function must be of the type returned by this function.</p><p>In the case that this function returns undefined, you must not give any <strong>Gnome::Glib::N-Variant</strong>, but undefined instead.</p><pre class="pod-block-code">method get-parameter-type (--&gt; N-Object )
+</pre><p>Return value; the parameter type. </p></section>
+<section name="___top">
+<h2 id="get-state"><a href="#___top" class="u" title="go to top of document">get-state</a></h2>
+<p>Queries the current state of <code>$action</code>.</p><p>If the action is not stateful then undefined will be returned. If the action is stateful then the type of the return value is the type given by <code>.get-state-type()</code>.</p><p>The return value (if non-undefined) should be freed with g_variant_unref() when it is no longer required.</p><pre class="pod-block-code">method get-state (--&gt; N-Object )
+</pre><p>Return value; the current state of the action. </p></section>
+<section name="___top">
+<h2 id="get-state-hint"><a href="#___top" class="u" title="go to top of document">get-state-hint</a></h2>
+<p>Requests a hint about the valid range of values for the state of <code>$action</code>.</p><p>If undefined is returned it either means that the action is not stateful or that there is no hint about the valid range of values for the state of the action.</p><p>If a <strong>Gnome::Glib::N-Variant</strong> array is returned then each item in the array is a possible value for the state. If a <strong>Gnome::Glib::N-Variant</strong> pair (ie: two-tuple) is returned then the tuple specifies the inclusive lower and upper bound of valid values for the state.</p><p>In any case, the information is merely a hint. It may be possible to have a state value outside of the hinted range and setting a value within the range may fail.</p><p>The return value (if non-undefined) should be freed with g_variant_unref() when it is no longer required.</p><pre class="pod-block-code">method get-state-hint (--&gt; N-Object )
+</pre><p>Return value; the state range hint. </p></section>
+<section name="___top">
+<h2 id="get-state-type"><a href="#___top" class="u" title="go to top of document">get-state-type</a></h2>
+<p>Queries the type of the state of <code>$action</code>.</p><p>If the action is stateful (e.g. created with g_simple_action_new_stateful()) then this function returns the <strong>Gnome::Glib::N-VariantType</strong> of the state. This is the type of the initial value given as the state. All calls to <code>.change-state()</code> must give a <strong>Gnome::Glib::N-Variant</strong> of this type and <code>.get-state()</code> will return a <strong>Gnome::Glib::N-Variant</strong> of the same type.</p><p>If the action is not stateful (e.g. created with g_simple_action_new()) then this function will return undefined. In that case, <code>.get-state()</code> will return undefined and you must not call <code>.change-state()</code>.</p><pre class="pod-block-code">method get-state-type (--&gt; N-Object )
+</pre><p>Return value; the state type, if the action is stateful. </p></section>
+<section name="___top">
+<h1 id="Functions"><a href="#___top" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="___top">
+<h2 id="name-is-valid"><a href="#___top" class="u" title="go to top of document">name-is-valid</a></h2>
+<p>Checks if <code>$action-name</code> is valid. <code>$action-name</code> is valid if it consists only of alphanumeric characters, plus '-' and '.'. The empty string is not a valid action name.</p><p>It is an error to call this function with a non-utf8 <code>$action-name</code>. <code>$action-name</code> must not be undefined.</p><pre class="pod-block-code">method name-is-valid ( Str $action-name --&gt; Bool )
+</pre><ul>
+<li><p>$action-name; a potential action name.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$action-name</code> is valid. </p></section>
+<section name="___top">
+<h2 id="parse-detailed-name"><a href="#___top" class="u" title="go to top of document">parse-detailed-name</a></h2>
+<p>Parses a detailed action name into its separate name and target components.</p><p>Detailed action names can have three formats.</p><p>The first format is used to represent an action name with no target value and consists of just an action name containing no whitespace nor the characters ':', '(' or ')'. For example: &quot;app.action&quot;.</p><p>The second format is used to represent an action with a target value that is a non-empty string consisting only of alphanumerics, plus '-' and '.'. In that case, the action name and target value are separated by a double colon (&quot;::&quot;). For example: &quot;app.action::target&quot;.</p><p>The third format is used to represent an action with any type of target value, including strings. The target value follows the action name, surrounded in parens. For example: &quot;app.action(42)&quot;. The target value is parsed using g_variant_parse(). If a tuple-typed value is desired, it must be specified in the same way, resulting in two sets of parens, for example: &quot;app.action((1,2,3))&quot;. A string target can be specified this way as well: &quot;app.action('target')&quot;. For strings, this third format must be used if * target value is empty or contains characters other than alphanumerics, '-' and '.'.</p><pre class="pod-block-code">method parse-detailed-name ( Str $detailed-name, Array[Str] $action-name, N-Object $target-value, CArray[N-Error] $err --&gt; Bool )
+</pre><ul>
+<li><p>$detailed-name; a detailed action name.</p></li>
+<li><p>$action-name; (transfer ownership: full) the action name.</p></li>
+<li><p>$target-value; (transfer ownership: full) the target value, or undefined for no target</p></li>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+</ul>
+<p>Return value; <code>True</code> if successful, else <code>False</code> with <code>$error</code> set. </p></section>
+<section name="___top">
+<h2 id="print-detailed-name"><a href="#___top" class="u" title="go to top of document">print-detailed-name</a></h2>
+<p>Formats a detailed action name from <code>$action-name</code> and <code>$target-value</code>.</p><p>It is an error to call this function with an invalid action name.</p><p>This function is the opposite of <code>.parse-detailed-name()</code>. It will produce a string that can be parsed back to the <code>$action-name</code> and <code>$target-value</code> by that function.</p><p>See that function for the types of strings that will be printed by this function.</p><pre class="pod-block-code">method print-detailed-name ( Str $action-name, N-Object $target-value --&gt; Str )
+</pre><ul>
+<li><p>$action-name; a valid action name.</p></li>
+<li><p>$target-value; a <strong>Gnome::Glib::N-Variant</strong> target value, or undefined</p></li>
+</ul>
+<p>Return value; a detailed format string. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-Action.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:45Z</span></div></footer>
+	</body>
+</html>

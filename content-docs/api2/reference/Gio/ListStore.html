@@ -1,0 +1,130 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::ListStore">Gnome::Gio::ListStore</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-liststore">new-liststore</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#find">find</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#find-with-equal-func_This_function_is_not_yet_available">find-with-equal-func This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-sorted_This_function_is_not_yet_available">insert-sorted This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all">remove-all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#sort_This_function_is_not_yet_available">sort This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#splice">splice</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::ListStore"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::ListStore</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::ListStore</strong> is a simple implementation of <strong>Gnome::Gio::R-ListModel</strong> that stores all items in memory.</p><p>It provides insertions, deletions, and lookups in logarithmic time with a fast path for the common case of iterating the list linearly.</p></section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="___top">
+<h2 id="new-liststore"><a href="#___top" class="u" title="go to top of document">new-liststore</a></h2>
+<p>Creates a new <strong>Gnome::Gio::ListStore</strong> with items of type <code>$item-type</code>. <code>$item-type</code> must be a subclass of <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">method new-liststore ( GType $item-type --&gt; Gnome::Gio::ListStore \)
+</pre><ul>
+<li><p>$item-type; the <strong>Gnome::GObject::ListStore</strong> of items in the list.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="append"><a href="#___top" class="u" title="go to top of document">append</a></h2>
+<p>Appends <code>$item</code> to <code>$store</code>. <code>$item</code> must be of type <strong>Gnome::Gio::ListStore</strong>:item-type.</p><p>This function takes a ref on <code>$item</code>.</p><p>Use <code>.splice()</code> to append multiple items at the same time efficiently.</p><pre class="pod-block-code">method append ( gpointer $item )
+</pre><ul>
+<li><p>$item; the new item.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="find"><a href="#___top" class="u" title="go to top of document">find</a></h2>
+<p>Looks up the given <code>$item</code> in the list store by looping over the items until the first occurrence of <code>$item</code>. If <code>$item</code> was not found, then <code>$position</code> will not be set, and this method will return <code>False</code>.</p><p>If you need to compare the two items with a custom comparison function, use <code>.find-with-equal-func()</code> with a custom <strong>Gnome::Glib::T-DoubleIEEE754</strong> instead.</p><pre class="pod-block-code">method find ( gpointer $item, Array[Int] $position --&gt; Bool )
+</pre><ul>
+<li><p>$item; an item.</p></li>
+<li><p>$position; (transfer ownership: full) the first position of <code>$item</code>, if it was found..</p></li>
+</ul>
+<p>Return value; Whether <code>$store</code> contains <code>$item</code>. If it was found, <code>$position</code> will be set to the position where <code>$item</code> occurred for the first time.. </p></section>
+<section name="___top">
+<h2 id="find-with-equal-func_This_function_is_not_yet_available"><a href="#___top" class="u" title="go to top of document">find-with-equal-func This function is not yet available</a></h2>
+<p>Looks up the given <code>$item</code> in the list store by looping over the items and comparing them with <code>$compare-func</code> until the first occurrence of <code>$item</code> which matches. If <code>$item</code> was not found, then <code>$position</code> will not be set, and this method will return <code>False</code>.</p><pre class="pod-block-code">method find-with-equal-func ( gpointer $item, …, Array[Int] $position --&gt; Bool )
+</pre><ul>
+<li><p>$item; an item.</p></li>
+<li><p>equal-func; A custom equality check function. Note that each argument must be specified as a type followed by its value!</p></li>
+<li><p>$position; (transfer ownership: full) the first position of <code>$item</code>, if it was found..</p></li>
+</ul>
+<p>Return value; Whether <code>$store</code> contains <code>$item</code>. If it was found, <code>$position</code> will be set to the position where <code>$item</code> occurred for the first time.. </p></section>
+<section name="___top">
+<h2 id="insert"><a href="#___top" class="u" title="go to top of document">insert</a></h2>
+<p>Inserts <code>$item</code> into <code>$store</code> at <code>$position</code>. <code>$item</code> must be of type <strong>Gnome::Gio::ListStore</strong>:item-type or derived from it. <code>$position</code> must be smaller than the length of the list, or equal to it to append.</p><p>This function takes a ref on <code>$item</code>.</p><p>Use <code>.splice()</code> to insert multiple items at the same time efficiently.</p><pre class="pod-block-code">method insert ( UInt() $position, gpointer $item )
+</pre><ul>
+<li><p>$position; the position at which to insert the new item.</p></li>
+<li><p>$item; the new item.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="insert-sorted_This_function_is_not_yet_available"><a href="#___top" class="u" title="go to top of document">insert-sorted This function is not yet available</a></h2>
+<p>Inserts <code>$item</code> into <code>$store</code> at a position to be determined by the <code>$compare-func</code>.</p><p>The list must already be sorted before calling this function or the result is undefined. Usually you would approach this by only ever inserting items by way of this function.</p><p>This function takes a ref on <code>$item</code>.</p><pre class="pod-block-code">method insert-sorted ( gpointer $item, …, gpointer $user-data --&gt; UInt )
+</pre><ul>
+<li><p>$item; the new item.</p></li>
+<li><p>compare-func; pairwise comparison function for sorting. Note that each argument must be specified as a type followed by its value!</p></li>
+<li><p>$user-data; user data for <code>$compare-func</code>.</p></li>
+</ul>
+<p>Return value; the position at which <code>$item</code> was inserted. </p></section>
+<section name="___top">
+<h2 id="remove"><a href="#___top" class="u" title="go to top of document">remove</a></h2>
+<p>Removes the item from <code>$store</code> that is at <code>$position</code>. <code>$position</code> must be smaller than the current length of the list.</p><p>Use <code>.splice()</code> to remove multiple items at the same time efficiently.</p><pre class="pod-block-code">method remove ( UInt() $position )
+</pre><ul>
+<li><p>$position; the position of the item that is to be removed.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="remove-all"><a href="#___top" class="u" title="go to top of document">remove-all</a></h2>
+<p>Removes all items from <code>$store</code>.</p><pre class="pod-block-code">method remove-all ( )
+</pre></section>
+<section name="___top">
+<h2 id="sort_This_function_is_not_yet_available"><a href="#___top" class="u" title="go to top of document">sort This function is not yet available</a></h2>
+<p>Sort the items in <code>$store</code> according to <code>$compare-func</code>.</p><pre class="pod-block-code">method sort ( …, gpointer $user-data )
+</pre><ul>
+<li><p>compare-func; pairwise comparison function for sorting. Note that each argument must be specified as a type followed by its value!</p></li>
+<li><p>$user-data; user data for <code>$compare-func</code>.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="splice"><a href="#___top" class="u" title="go to top of document">splice</a></h2>
+<p>Changes <code>$store</code> by removing <code>$n-removals</code> items and adding <code>$n-additions</code> items to it. <code>$additions</code> must contain <code>$n-additions</code> items of type <strong>Gnome::Gio::ListStore</strong>:item-type. undefined is not permitted.</p><p>This function is more efficient than <code>.insert()</code> and <code>.remove()</code>, because it only emits <em>items-changed defined in Gnome::Gio::ListStore</em> once for the change.</p><p>This function takes a ref on each item in <code>$additions</code>.</p><p>The parameters <code>$position</code> and <code>$n-removals</code> must be correct (ie: <code>$position</code> + <code>$n-removals</code> must be less than or equal to the length of the list at the time this function is called).</p><pre class="pod-block-code">method splice ( UInt() $position, UInt() $n-removals, Array $additions, UInt() $n-additions )
+</pre><ul>
+<li><p>$position; the position at which to make the change.</p></li>
+<li><p>$n-removals; the number of items to remove.</p></li>
+<li><p>$additions; the items to add.</p></li>
+<li><p>$n-additions; the number of items to add.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/ListStore.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:38Z</span></div></footer>
+	</body>
+</html>

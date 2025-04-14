@@ -1,0 +1,124 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::SimpleAction">Gnome::Gio::SimpleAction</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-simpleaction">new-simpleaction</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-stateful">new-stateful</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-enabled">set-enabled</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-state">set-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-state-hint">set-state-hint</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#change-state">change-state</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::SimpleAction"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::SimpleAction</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gio::SimpleAction</strong> is the obvious simple implementation of the <strong>Gnome::Gio::R-Action</strong> interface. This is the easiest way to create an action for purposes of adding it to a <strong>Gnome::Gio::SimpleActionGroup</strong>.</p><p>See also <strong>GtkAction</strong>.</p></section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="___top">
+<h2 id="new-simpleaction"><a href="#___top" class="u" title="go to top of document">new-simpleaction</a></h2>
+<p>Creates a new action.</p><p>The created action is stateless. See <code>.new-stateful()</code> to create an action that has state.</p><pre class="pod-block-code">method new-simpleaction ( Str $name, CArray[N-VariantType] $parameter-type --&gt; Gnome::Gio::SimpleAction \)
+</pre><ul>
+<li><p>$name; the name of the action.</p></li>
+<li><p>$parameter-type; the type of parameter that will be passed to handlers for the <em>activate</em> signal, or undefined for no parameter.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="new-stateful"><a href="#___top" class="u" title="go to top of document">new-stateful</a></h2>
+<p>Creates a new stateful action.</p><p>All future state values must have the same <strong>Gnome::Glib::N-VariantType</strong> as the initial <code>$state</code>.</p><p>If the <code>$state</code> <strong>Gnome::Glib::N-Variant</strong> is floating, it is consumed.</p><pre class="pod-block-code">method new-stateful ( Str $name, CArray[N-VariantType] $parameter-type, CArray[N-Variant] $state --&gt; Gnome::Gio::SimpleAction \)
+</pre><ul>
+<li><p>$name; the name of the action.</p></li>
+<li><p>$parameter-type; the type of the parameter that will be passed to handlers for the <em>activate</em> signal, or undefined for no parameter.</p></li>
+<li><p>$state; the initial state of the action.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="set-enabled"><a href="#___top" class="u" title="go to top of document">set-enabled</a></h2>
+<p>Sets the action as enabled or not.</p><p>An action must be enabled in order to be activated or in order to have its state changed from outside callers.</p><p>This should only be called by the implementor of the action. Users of the action should not attempt to modify its enabled flag.</p><pre class="pod-block-code">method set-enabled ( Bool() $enabled )
+</pre><ul>
+<li><p>$enabled; whether the action is enabled.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="set-state"><a href="#___top" class="u" title="go to top of document">set-state</a></h2>
+<p>Sets the state of the action.</p><p>This directly updates the 'state' property to the given value.</p><p>This should only be called by the implementor of the action. Users of the action should not attempt to directly modify the 'state' property. Instead, they should call g_action_change_state() to request the change.</p><p>If the <code>$value</code> GVariant is floating, it is consumed.</p><pre class="pod-block-code">method set-state ( CArray[N-Variant] $value )
+</pre><ul>
+<li><p>$value; the new <strong>Gnome::Glib::N-Variant</strong> for the state.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="set-state-hint"><a href="#___top" class="u" title="go to top of document">set-state-hint</a></h2>
+<p>Sets the state hint for the action.</p><p>See g_action_get_state_hint() for more information about action state hints.</p><pre class="pod-block-code">method set-state-hint ( CArray[N-Variant] $state-hint )
+</pre><ul>
+<li><p>$state-hint; a <strong>Gnome::Glib::N-Variant</strong> representing the state hint.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h1 id="Signals"><a href="#___top" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="activate"><a href="#___top" class="u" title="go to top of document">activate</a></h3>
+<p>Indicates that the action was just activated. <code>$parameter</code> will always be of the expected type, i.e. the parameter type specified when the action was created. If an incorrect type is given when activating the action, this signal is not emitted.</p><p>Since GLib 2.40, if no handler is connected to this signal then the default behaviour for boolean-stated actions with a undefined parameter type is to toggle them via the <em>change-state</em> signal. For stateful actions where the state type is equal to the parameter type, the default is to forward them directly to <em>change-state</em>. This should allow almost all users of <strong>Gnome::Gio::SimpleAction</strong> to connect only one handler or the other.</p><pre class="pod-block-code">method handler (
+  N-Object $parameter,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gio::SimpleAction :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$parameter; the parameter to the activation, or undefined if it has no parameter. It is a native <strong>Gnome::Glib::Variant</strong>.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::SimpleAction</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+
+<h3 id="change-state"><a href="#___top" class="u" title="go to top of document">change-state</a></h3>
+<p>Indicates that the action just received a request to change its state. <code>$value</code> will always be of the correct state type, i.e. the type of the initial state passed to <code>.new-stateful()</code>. If an incorrect type is given when requesting to change the state, this signal is not emitted.</p><p>If no handler is connected to this signal then the default behaviour is to call <code>.set-state()</code> to set the state to the requested value. If you connect a signal handler then no default action is taken. If the state should change then you must call <code>.set-state()</code> from the handler.</p><p>An example of a 'change-state' handler:</p><p>The handler need not set the state to the requested value. It could set it to any value at all, or take some other action.</p><pre class="pod-block-code">method handler (
+   $value,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gio::SimpleAction :$_widget,
+  *C&lt;user&gt;-options
+)
+</pre><ul>
+<li><p>$value; the requested value for the state.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::SimpleAction</strong> object.</p></li>
+<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
+<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/SimpleAction.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:49Z</span></div></footer>
+	</body>
+</html>

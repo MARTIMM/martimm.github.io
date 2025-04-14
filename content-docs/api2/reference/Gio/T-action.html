@@ -1,0 +1,65 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::T-action">Gnome::Gio::T-action</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Standalone_Functions">Standalone Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#action-name-is-valid">action-name-is-valid</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#action-parse-detailed-name">action-parse-detailed-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#action-print-detailed-name">action-print-detailed-name</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::T-action"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::T-action</a></h1>
+</section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+<p>Initialization of a type class is simple and only needed when the standalone functions are used.</p><pre class="pod-block-code">method new ( )</pre></section>
+<section name="___top">
+<h1 id="Standalone_Functions"><a href="#___top" class="u" title="go to top of document">Standalone Functions</a></h1>
+</section>
+<section name="___top">
+<h2 id="action-name-is-valid"><a href="#___top" class="u" title="go to top of document">action-name-is-valid</a></h2>
+<p>Checks if <code>$action-name</code> is valid. <code>$action-name</code> is valid if it consists only of alphanumeric characters, plus '-' and '.'. The empty string is not a valid action name.</p><p>It is an error to call this function with a non-utf8 <code>$action-name</code>. <code>$action-name</code> must not be undefined.</p><pre class="pod-block-code">method action-name-is-valid ( Str $action-name --&gt; Bool )
+</pre><ul>
+<li><p>$action-name; a potential action name.</p></li>
+</ul>
+<p>Return value; <code>True</code> if <code>$action-name</code> is valid. </p></section>
+<section name="___top">
+<h2 id="action-parse-detailed-name"><a href="#___top" class="u" title="go to top of document">action-parse-detailed-name</a></h2>
+<p>Parses a detailed action name into its separate name and target components.</p><p>Detailed action names can have three formats.</p><p>The first format is used to represent an action name with no target value and consists of just an action name containing no whitespace nor the characters ':', '(' or ')'. For example: &quot;app.action&quot;.</p><p>The second format is used to represent an action with a target value that is a non-empty string consisting only of alphanumerics, plus '-' and '.'. In that case, the action name and target value are separated by a double colon (&quot;::&quot;). For example: &quot;app.action::target&quot;.</p><p>The third format is used to represent an action with any type of target value, including strings. The target value follows the action name, surrounded in parens. For example: &quot;app.action(42)&quot;. The target value is parsed using g_variant_parse(). If a tuple-typed value is desired, it must be specified in the same way, resulting in two sets of parens, for example: &quot;app.action((1,2,3))&quot;. A string target can be specified this way as well: &quot;app.action('target')&quot;. For strings, this third format must be used if * target value is empty or contains characters other than alphanumerics, '-' and '.'.</p><pre class="pod-block-code">method action-parse-detailed-name ( Str $detailed-name, Array[Str] $action-name, N-Object $target-value, CArray[N-Error] $err --&gt; Bool )
+</pre><ul>
+<li><p>$detailed-name; a detailed action name.</p></li>
+<li><p>$action-name; (transfer ownership: full) the action name.</p></li>
+<li><p>$target-value; (transfer ownership: full) the target value, or undefined for no target</p></li>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+</ul>
+<p>Return value; <code>True</code> if successful, else <code>False</code> with <code>$error</code> set. </p></section>
+<section name="___top">
+<h2 id="action-print-detailed-name"><a href="#___top" class="u" title="go to top of document">action-print-detailed-name</a></h2>
+<p>Formats a detailed action name from <code>$action-name</code> and <code>$target-value</code>.</p><p>It is an error to call this function with an invalid action name.</p><p>This function is the opposite of <code>.parse-detailed-name()</code>. It will produce a string that can be parsed back to the <code>$action-name</code> and <code>$target-value</code> by that function.</p><p>See that function for the types of strings that will be printed by this function.</p><pre class="pod-block-code">method action-print-detailed-name ( Str $action-name, N-Object $target-value --&gt; Str )
+</pre><ul>
+<li><p>$action-name; a valid action name.</p></li>
+<li><p>$target-value; a <strong>Gnome::Glib::N-Variant</strong> target value, or undefined</p></li>
+</ul>
+<p>Return value; a detailed format string. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/T-action.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:52Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,149 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::ApplicationCommandLine">Gnome::Gio::ApplicationCommandLine</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-file-for-arg">create-file-for-arg</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#done">done</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-arguments">get-arguments</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-cwd">get-cwd</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-environ">get-environ</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-exit-status">get-exit-status</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-is-remote">get-is-remote</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-options-dict">get-options-dict</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-platform-data">get-platform-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-stdin">get-stdin</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#getenv">getenv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print_This_function_is_not_yet_available">print This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print-literal">print-literal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#printerr_This_function_is_not_yet_available">printerr This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#printerr-literal">printerr-literal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-exit-status">set-exit-status</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::ApplicationCommandLine"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::ApplicationCommandLine</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::ApplicationCommandLine</strong> represents a command-line invocation of an application.</p><p>It is created by <strong>Gnome::Gio::ApplicationCommandLine</strong> and emitted in the [signal <code>$Gio</code>.Application::command-line] signal and virtual function.</p><p>The class contains the list of arguments that the program was invoked with. It is also possible to query if the commandline invocation was local (ie: the current process is running in direct response to the invocation) or remote (ie: some other process forwarded the commandline to this process).</p><p>The <strong>Gnome::Gio::ApplicationCommandLine</strong> object can provide the <code>$argc</code> and <code>$argv</code> parameters for use with the <strong>OptionContext</strong> command-line parsing API, with the <code>.get-arguments()</code> function. See gapplication-example-cmdline3.c for an example.</p><p>The exit status of the originally-invoked process may be set and messages can be printed to stdout or stderr of that process.</p><p>For remote invocation, the originally-invoked process exits when <code>.done()</code> method is called. This method is also automatically called when the object is disposed.</p><p>The main use for <strong>Gnome::Gio::ApplicationCommandLine</strong> (and the [signal <code>$Gio</code>.Application::command-line] signal) is 'Emacs server' like use cases: You can set the <strong>EDITOR</strong> environment variable to have e.g. git use your favourite editor to edit commit messages, and if you already have an instance of the editor running, the editing will happen in the running instance, instead of opening a new one. An important aspect of this use case is that the process that gets started by git does not return until the editing is done.</p><p>Normally, the commandline is completely handled in the [signal <code>$Gio</code>.Application::command-line] handler. The launching instance exits once the signal handler in the primary instance has returned, and the return value of the signal handler becomes the exit status of the launching instance.</p><p>The complete example can be found here: [gapplication-example-cmdline.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline.c)</p><p>In more complicated cases, the handling of the commandline can be split between the launcher and the primary instance.</p><p>In this example of split commandline handling, options that start with <strong>--local-</strong> are handled locally, all other options are passed to the [signal <code>$Gio</code>.Application::command-line] handler which runs in the primary instance.</p><p>The complete example can be found here: [gapplication-example-cmdline2.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline2.c)</p><p>If handling the commandline requires a lot of work, it may be better to defer it.</p><p>In this example the commandline is not completely handled before the [signal <code>$Gio</code>.Application::command-line] handler returns. Instead, we keep a reference to the <strong>Gnome::Gio::ApplicationCommandLine</strong> object and handle it later (in this example, in an idle). Note that it is necessary to hold the application until you are done with the commandline.</p><p>The complete example can be found here: [gapplication-example-cmdline3.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline3.c)</p></section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="create-file-for-arg"><a href="#___top" class="u" title="go to top of document">create-file-for-arg</a></h2>
+<p>Creates a <strong>Gnome::Gio::File</strong> corresponding to a filename that was given as part of the invocation of <code>$cmdline</code>.</p><p>This differs from g_file_new_for_commandline_arg() in that it resolves relative pathnames using the current working directory of the invoking process rather than the local process.</p><pre class="pod-block-code">method create-file-for-arg ( Str $arg --&gt; N-Object )
+</pre><ul>
+<li><p>$arg; an argument from <code>$cmdline</code>.</p></li>
+</ul>
+<p>Return value; a new <strong>Gnome::Gio::File</strong>. </p></section>
+<section name="___top">
+<h2 id="done"><a href="#___top" class="u" title="go to top of document">done</a></h2>
+<p>Signals that command line processing is completed.</p><p>For remote invocation, it causes the invoking process to terminate.</p><p>For local invocation, it does nothing.</p><p>This method should be called in the [signal <code>$Gio</code>.Application::command-line] handler, after the exit status is set and all messages are printed.</p><p>After this call, <code>.set-exit-status()</code> has no effect. Subsequent calls to this method are no-ops.</p><p>This method is automatically called when the <strong>Gnome::Gio::ApplicationCommandLine</strong> object is disposed — so you can omit the call in non-garbage collected languages.</p><pre class="pod-block-code">method done ( )
+</pre></section>
+<section name="___top">
+<h2 id="get-arguments"><a href="#___top" class="u" title="go to top of document">get-arguments</a></h2>
+<p>Gets the list of arguments that was passed on the command line.</p><p>The strings in the array may contain non-UTF-8 data on UNIX (such as filenames or arguments given in the system locale) but are always in UTF-8 on Windows.</p><p>If you wish to use the return value with <strong>GOptionContext</strong>, you must use g_option_context_parse_strv().</p><p>The return value is undefined-terminated and should be freed using g_strfreev().</p><pre class="pod-block-code">method get-arguments ( Array[Int] $argc --&gt; Array[Str] )
+</pre><ul>
+<li><p>$argc; (transfer ownership: full) the length of the arguments array, or undefined.</p></li>
+</ul>
+<p>Return value; the string array containing the arguments (the argv). </p></section>
+<section name="___top">
+<h2 id="get-cwd"><a href="#___top" class="u" title="go to top of document">get-cwd</a></h2>
+<p>Gets the working directory of the command line invocation. The string may contain non-utf8 data.</p><p>It is possible that the remote application did not send a working directory, so this may be undefined.</p><p>The return value should not be modified or freed and is valid for as long as <code>$cmdline</code> exists.</p><pre class="pod-block-code">method get-cwd (--&gt; Str )
+</pre><p>Return value; the current directory, or undefined. </p></section>
+<section name="___top">
+<h2 id="get-environ"><a href="#___top" class="u" title="go to top of document">get-environ</a></h2>
+<p>Gets the contents of the 'environ' variable of the command line invocation, as would be returned by g_get_environ(), ie as a undefined-terminated list of strings in the form 'NAME=VALUE'. The strings may contain non-utf8 data.</p><p>The remote application usually does not send an environment. Use <code>G_APPLICATION_SEND_ENVIRONMENT</code> to affect that. Even with this flag set it is possible that the environment is still not available (due to invocation messages from other applications).</p><p>The return value should not be modified or freed and is valid for as long as <code>$cmdline</code> exists.</p><p>See <code>.getenv()</code> if you are only interested in the value of a single environment variable.</p><pre class="pod-block-code">method get-environ (--&gt; Array[Str] )
+</pre><p>Return value; the environment strings, or undefined if they were not sent. </p></section>
+<section name="___top">
+<h2 id="get-exit-status"><a href="#___top" class="u" title="go to top of document">get-exit-status</a></h2>
+<p>Gets the exit status of <code>$cmdline</code>. See <code>.set-exit-status()</code> for more information.</p><pre class="pod-block-code">method get-exit-status (--&gt; Int )
+</pre><p>Return value; the exit status. </p></section>
+<section name="___top">
+<h2 id="get-is-remote"><a href="#___top" class="u" title="go to top of document">get-is-remote</a></h2>
+<p>Determines if <code>$cmdline</code> represents a remote invocation.</p><pre class="pod-block-code">method get-is-remote (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the invocation was remote. </p></section>
+<section name="___top">
+<h2 id="get-options-dict"><a href="#___top" class="u" title="go to top of document">get-options-dict</a></h2>
+<p>Gets the options that were passed to g_application_command_line().</p><p>If you did not override local_command_line() then these are the same options that were parsed according to the <strong>GOptionEntrys</strong> added to the application with g_application_add_main_option_entries() and possibly modified from your GApplication::handle-local-options handler.</p><p>If no options were sent then an empty dictionary is returned so that you don't need to check for undefined.</p><p>The data has been passed via an untrusted external process, so the types of all values must be checked before being used.</p><pre class="pod-block-code">method get-options-dict (--&gt; N-Object )
+</pre><p>Return value; a <strong>Gnome::Glib::N-VariantDict</strong> with the options. </p></section>
+<section name="___top">
+<h2 id="get-platform-data"><a href="#___top" class="u" title="go to top of document">get-platform-data</a></h2>
+<p>Gets the platform data associated with the invocation of <code>$cmdline</code>.</p><p>This is a <strong>Gnome::Glib::N-Variant</strong> dictionary containing information about the context in which the invocation occurred. It typically contains information like the current working directory and the startup notification ID.</p><p>It comes from an untrusted external process and hence the types of all values must be validated before being used.</p><p>For local invocation, it will be undefined.</p><pre class="pod-block-code">method get-platform-data (--&gt; N-Object )
+</pre><p>Return value; the platform data, or undefined. </p></section>
+<section name="___top">
+<h2 id="get-stdin"><a href="#___top" class="u" title="go to top of document">get-stdin</a></h2>
+<p>Gets the stdin of the invoking process.</p><p>The <strong>Gnome::Gio::InputStream</strong> can be used to read data passed to the standard input of the invoking process. This doesn't work on all platforms. Presently, it is only available on UNIX when using a D-Bus daemon capable of passing file descriptors. If stdin is not available then undefined will be returned. In the future, support may be expanded to other platforms.</p><p>You must only call this function once per commandline invocation.</p><pre class="pod-block-code">method get-stdin (--&gt; N-Object )
+</pre><p>Return value; a <strong>Gnome::Gio::InputStream</strong> for stdin. </p></section>
+<section name="___top">
+<h2 id="getenv"><a href="#___top" class="u" title="go to top of document">getenv</a></h2>
+<p>Gets the value of a particular environment variable of the command line invocation, as would be returned by g_getenv(). The strings may contain non-utf8 data.</p><p>The remote application usually does not send an environment. Use <code>G_APPLICATION_SEND_ENVIRONMENT</code> to affect that. Even with this flag set it is possible that the environment is still not available (due to invocation messages from other applications).</p><p>The return value should not be modified or freed and is valid for as long as <code>$cmdline</code> exists.</p><pre class="pod-block-code">method getenv ( Str $name --&gt; Str )
+</pre><ul>
+<li><p>$name; the environment variable to get.</p></li>
+</ul>
+<p>Return value; the value of the variable, or undefined if unset or unsent. </p></section>
+<section name="___top">
+<h2 id="print_This_function_is_not_yet_available"><a href="#___top" class="u" title="go to top of document">print This function is not yet available</a></h2>
+<p>Formats a message and prints it using the stdout print handler in the invoking process.</p><p>If <code>$cmdline</code> is a local invocation then this is exactly equivalent to g_print(). If <code>$cmdline</code> is remote then this is equivalent to calling g_print() in the invoking process.</p><pre class="pod-block-code">method print ( Str $format, … )
+</pre><ul>
+<li><p>$format; a printf-style format string.</p></li>
+<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="print-literal"><a href="#___top" class="u" title="go to top of document">print-literal</a></h2>
+<p>Prints a message using the stdout print handler in the invoking process.</p><p>Unlike <code>.print()</code>, <code>$message</code> is not a <strong>printf()</strong>-style format string. Use this function if <code>$message</code> contains text you don't have control over, that could include <strong>printf()</strong> escape sequences.</p><pre class="pod-block-code">method print-literal ( Str $message )
+</pre><ul>
+<li><p>$message; the message.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="printerr_This_function_is_not_yet_available"><a href="#___top" class="u" title="go to top of document">printerr This function is not yet available</a></h2>
+<p>Formats a message and prints it using the stderr print handler in the invoking process.</p><p>If <code>$cmdline</code> is a local invocation then this is exactly equivalent to g_printerr(). If <code>$cmdline</code> is remote then this is equivalent to calling g_printerr() in the invoking process.</p><pre class="pod-block-code">method printerr ( Str $format, … )
+</pre><ul>
+<li><p>$format; a printf-style format string.</p></li>
+<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="printerr-literal"><a href="#___top" class="u" title="go to top of document">printerr-literal</a></h2>
+<p>Prints a message using the stderr print handler in the invoking process.</p><p>Unlike <code>.printerr()</code>, <code>$message</code> is not a <strong>printf()</strong>-style format string. Use this function if <code>$message</code> contains text you don't have control over, that could include <strong>printf()</strong> escape sequences.</p><pre class="pod-block-code">method printerr-literal ( Str $message )
+</pre><ul>
+<li><p>$message; the message.</p></li>
+</ul>
+</section>
+<section name="___top">
+<h2 id="set-exit-status"><a href="#___top" class="u" title="go to top of document">set-exit-status</a></h2>
+<p>Sets the exit status that will be used when the invoking process exits.</p><p>The return value of the <em>command-line defined in Gnome::Gio::ApplicationCommandLine</em> signal is passed to this function when the handler returns. This is the usual way of setting the exit status.</p><p>In the event that you want the remote invocation to continue running and want to decide on the exit status in the future, you can use this call. For the case of a remote invocation, the remote process will typically exit when the last reference is dropped on <code>$cmdline</code>. The exit status of the remote process will be equal to the last value that was set with this function.</p><p>In the case that the commandline invocation is local, the situation is slightly more complicated. If the commandline invocation results in the mainloop running (ie: because the use-count of the application increased to a non-zero value) then the application is considered to have been 'successful' in a certain sense, and the exit status is always zero. If the application use count is zero, though, the exit status of the local <strong>Gnome::Gio::ApplicationCommandLine</strong> is used.</p><p>This method is a no-op if <code>.done()</code> has been called.</p><pre class="pod-block-code">method set-exit-status ( Int() $exit-status )
+</pre><ul>
+<li><p>$exit-status; the exit status.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/ApplicationCommandLine.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:33Z</span></div></footer>
+	</body>
+</html>

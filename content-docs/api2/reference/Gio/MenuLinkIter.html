@@ -1,0 +1,67 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>NO_TITLE</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::MenuLinkIter">Gnome::Gio::MenuLinkIter</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-next">get-next</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-value">get-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#next">next</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Gnome::Gio::MenuLinkIter"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::MenuLinkIter</a></h1>
+
+<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::MenuLinkIter</strong> is an opaque structure type. You must access it using the functions below.</p></section>
+<section name="___top">
+<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<section name="___top">
+<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="___top">
+<h2 id="get-name"><a href="#___top" class="u" title="go to top of document">get-name</a></h2>
+<p>Gets the name of the link at the current iterator position.</p><p>The iterator is not advanced.</p><pre class="pod-block-code">method get-name (--&gt; Str )
+</pre><p>Return value; the type of the link. </p></section>
+<section name="___top">
+<h2 id="get-next"><a href="#___top" class="u" title="go to top of document">get-next</a></h2>
+<p>This function combines <code>.next()</code> with <code>.get-name()</code> and <code>.get-value()</code>.</p><p>First the iterator is advanced to the next (possibly first) link. If that fails, then <code>False</code> is returned and there are no other effects.</p><p>If successful, <code>$out_link</code> and <code>$value</code> are set to the name and <strong>Gnome::Gio::MenuModel</strong> of the link that has just been advanced to. At this point, <code>.get-name()</code> and <code>.get-value()</code> will return the same values again.</p><p>The value returned in <code>$out_link</code> remains valid for as long as the iterator remains at the current position. The value returned in <code>$value</code> must be unreffed using g_object_unref() when it is no longer in use.</p><pre class="pod-block-code">method get-next ( Array[Str] $out-link, N-Object() $value --&gt; Bool )
+</pre><ul>
+<li><p>$out-link; the name of the link.</p></li>
+<li><p>$value; (transfer ownership: full) the linked <strong>Gnome::Gio::MenuModel</strong>.</p></li>
+</ul>
+<p>Return value; <code>True</code> on success, or <code>False</code> if there is no additional link. </p></section>
+<section name="___top">
+<h2 id="get-value"><a href="#___top" class="u" title="go to top of document">get-value</a></h2>
+<p>Gets the linked <strong>Gnome::Gio::MenuModel</strong> at the current iterator position.</p><p>The iterator is not advanced.</p><pre class="pod-block-code">method get-value (--&gt; N-Object )
+</pre><p>Return value; the <strong>Gnome::Gio::MenuModel</strong> that is linked to. </p></section>
+<section name="___top">
+<h2 id="next"><a href="#___top" class="u" title="go to top of document">next</a></h2>
+<p>Attempts to advance the iterator to the next (possibly first) link.</p><p><code>True</code> is returned on success, or <code>False</code> if there are no more links.</p><p>You must call this function when you first acquire the iterator to advance it to the first link (and determine if the first link exists at all).</p><pre class="pod-block-code">method next (--&gt; Bool )
+</pre><p>Return value; <code>True</code> on success, or <code>False</code> when there are no more links. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/MenuLinkIter.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:41Z</span></div></footer>
+	</body>
+</html>
