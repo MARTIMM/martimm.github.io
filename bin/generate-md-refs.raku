@@ -24,6 +24,7 @@ my Hash $source-paths = %(
   :Gdk4Api2(PROJECTS ~ API2S ~ 'gnome-gdk4/doc/'),
   :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
   :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/doc/'),
+  :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/doc/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -33,6 +34,7 @@ my Hash $destination-paths = %(
   :Gdk4Api2(PROJECTS ~ API2D ~ 'Gdk4/'),
   :Gsk4Api2(PROJECTS ~ API2D ~ 'Gsk4/'),
   :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
+  :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
@@ -42,6 +44,7 @@ my Hash $sidebar-paths = %(
   :Gdk4Api2(REFS ~ 'api2-ref-gdk4-sidebar.yml'),
   :Gsk4Api2(REFS ~ 'api2-ref-gsk4-sidebar.yml'),
   :GrapApi2(REFS ~ 'api2-ref-graphene-sidebar.yml'),
+  :GioApi2(REFS ~ 'api2-ref-gio-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
