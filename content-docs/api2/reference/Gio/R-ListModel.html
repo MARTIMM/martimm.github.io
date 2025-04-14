@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>NO_TITLE</title>
+<title>Gnome::Gio::R-ListModel</title>
 <meta charset="UTF-8" />
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
@@ -13,10 +13,9 @@
 
 </head>
 	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::R-ListModel">Gnome::Gio::R-ListModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::R-ListModel">Gnome::Gio::R-ListModel</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-item">get-item</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-type">get-item-type</a></td></tr>
@@ -28,37 +27,35 @@
 </table></div>
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
-<h1 id="Gnome::Gio::R-ListModel"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::R-ListModel</a></h1>
-
-<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::R-ListModel</strong> is an interface that represents a mutable list of <strong>GObjects</strong>. Its main intention is as a model for various widgets in user interfaces, such as list views, but it can also be used as a convenient method of returning lists of data, with support for updates.</p><p>Each object in the list may also report changes in itself via some mechanism (normally the <em>notify defined in Gnome::Gio::ListModel</em> signal). Taken together with the <em>items-changed</em> signal, this provides for a list that can change its membership, and in which the members can change their individual properties.</p><p>A good example would be the list of visible wireless network access points, where each access point can report dynamic properties such as signal strength.</p><p>It is important to note that the <strong>Gnome::Gio::R-ListModel</strong> itself does not report changes to the individual items. It only reports changes to the list membership. If you want to observe changes to the objects themselves then you need to connect signals to the objects that you are interested in.</p><p>All items in a <strong>Gnome::Gio::R-ListModel</strong> are of (or derived from) the same type. <code>.get-item-type()</code> returns that type. The type may be an interface, in which case all objects in the list must implement it.</p><p>The semantics are close to that of an array: <code>.get-n-items()</code> returns the number of items in the list and <code>.get-item()</code> returns an item at a (0-based) position. In order to allow implementations to calculate the list length lazily, you can also iterate over items: starting from 0, repeatedly call <code>.get-item()</code> until it returns undefined.</p><p>An implementation may create objects lazily, but must take care to return the same object for a given position until all references to it are gone.</p><p>On the other side, a consumer is expected only to hold references on objects that are currently &quot;user visible&quot;, in order to facilitate the maximum level of laziness in the implementation of the list and to reduce the required number of signal connections at a given time.</p><p>This interface is intended only to be used from a single thread. The thread in which it is appropriate to use it depends on the particular implementation, but typically it will be from the thread that owns the thread-default main context in effect at the time that the model was created.</p></section>
-<section name="___top">
-<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+<h1 id="Description"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::R-ListModel</strong> is an interface that represents a mutable list of <strong>GObjects</strong>. Its main intention is as a model for various widgets in user interfaces, such as list views, but it can also be used as a convenient method of returning lists of data, with support for updates.</p><p>Each object in the list may also report changes in itself via some mechanism (normally the <em>notify defined in Gnome::Gio::ListModel</em> signal). Taken together with the <em>items-changed</em> signal, this provides for a list that can change its membership, and in which the members can change their individual properties.</p><p>A good example would be the list of visible wireless network access points, where each access point can report dynamic properties such as signal strength.</p><p>It is important to note that the <strong>Gnome::Gio::R-ListModel</strong> itself does not report changes to the individual items. It only reports changes to the list membership. If you want to observe changes to the objects themselves then you need to connect signals to the objects that you are interested in.</p><p>All items in a <strong>Gnome::Gio::R-ListModel</strong> are of (or derived from) the same type. <code>.get-item-type()</code> returns that type. The type may be an interface, in which case all objects in the list must implement it.</p><p>The semantics are close to that of an array: <code>.get-n-items()</code> returns the number of items in the list and <code>.get-item()</code> returns an item at a (0-based) position. In order to allow implementations to calculate the list length lazily, you can also iterate over items: starting from 0, repeatedly call <code>.get-item()</code> until it returns undefined.</p><p>An implementation may create objects lazily, but must take care to return the same object for a given position until all references to it are gone.</p><p>On the other side, a consumer is expected only to hold references on objects that are currently &quot;user visible&quot;, in order to facilitate the maximum level of laziness in the implementation of the list and to reduce the required number of signal connections at a given time.</p><p>This interface is intended only to be used from a single thread. The thread in which it is appropriate to use it depends on the particular implementation, but typically it will be from the thread that owns the thread-default main context in effect at the time that the model was created.</p><p>Over time, it has established itself as good practice for list model implementations to provide properties <strong>item-type</strong> and <strong>n-items</strong> to ease working with them. While it is not required, it is recommended that implementations provide these two properties. They should return the values of <code>.get-item-type()</code>.</p></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Methods</a></h1>
 </section>
-<section name="___top">
-<h2 id="get-item"><a href="#___top" class="u" title="go to top of document">get-item</a></h2>
+<section name="pod">
+<h2 id="get-item"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-item</a></h2>
 <p>Get the item at <code>$position</code>.</p><p>If <code>$position</code> is greater than the number of items in <code>$list</code>, undefined is returned.</p><p>undefined is never returned for an index that is smaller than the length of the list.</p><p>See also: <code>.get-n-items()</code></p><pre class="pod-block-code">method get-item ( UInt() $position --&gt; gpointer )
 </pre><ul>
 <li><p>$position; the position of the item to fetch.</p></li>
 </ul>
 <p>Return value; the item at <code>$position</code>.. </p></section>
-<section name="___top">
-<h2 id="get-item-type"><a href="#___top" class="u" title="go to top of document">get-item-type</a></h2>
+<section name="pod">
+<h2 id="get-item-type"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-item-type</a></h2>
 <p>Gets the type of the items in <code>$list</code>.</p><p>All items returned from <code>.get-item()</code> are of the type returned by this function, or a subtype, or if the type is an interface, they are an implementation of that interface.</p><p>The item type of a <strong>Gnome::Gio::R-ListModel</strong> can not change during the life of the model.</p><pre class="pod-block-code">method get-item-type (--&gt; GType )
 </pre><p>Return value; the <strong>Gnome::GObject::ListModel</strong> of the items contained in <code>$list</code>.. </p></section>
-<section name="___top">
-<h2 id="get-n-items"><a href="#___top" class="u" title="go to top of document">get-n-items</a></h2>
+<section name="pod">
+<h2 id="get-n-items"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-n-items</a></h2>
 <p>Gets the number of items in <code>$list</code>.</p><p>Depending on the model implementation, calling this function may be less efficient than iterating the list with increasing values for <code>$position</code> until <code>.get-item()</code> returns undefined.</p><pre class="pod-block-code">method get-n-items (--&gt; UInt )
 </pre><p>Return value; the number of items in <code>$list</code>.. </p></section>
-<section name="___top">
-<h2 id="get-object"><a href="#___top" class="u" title="go to top of document">get-object</a></h2>
+<section name="pod">
+<h2 id="get-object"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-object</a></h2>
 <p>Get the item at <code>$position</code>.</p><p>If <code>$position</code> is greater than the number of items in <code>$list</code>, undefined is returned.</p><p>undefined is never returned for an index that is smaller than the length of the list.</p><p>This function is meant to be used by language bindings in place of <code>.get-item()</code>.</p><p>See also: <code>.get-n-items()</code></p><pre class="pod-block-code">method get-object ( UInt() $position --&gt; N-Object )
 </pre><ul>
 <li><p>$position; the position of the item to fetch.</p></li>
 </ul>
 <p>Return value; the object at <code>$position</code>.. </p></section>
-<section name="___top">
-<h2 id="items-changed"><a href="#___top" class="u" title="go to top of document">items-changed</a></h2>
+<section name="pod">
+<h2 id="items-changed"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">items-changed</a></h2>
 <p>Emits the <em>items-changed</em> signal on <code>$list</code>.</p><p>This function should only be called by classes implementing <strong>Gnome::Gio::R-ListModel</strong>. It has to be called after the internal representation of <code>$list</code> has been updated, because handlers connected to this signal might query the new state of the list.</p><p>Implementations must only make changes to the model (as visible to its consumer) in places that will not cause problems for that consumer. For models that are driven directly by a write API (such as <strong>Gnome::Gio::ListStore</strong>), changes can be reported in response to uses of that API. For models that represent remote data, changes should only be made from a fresh mainloop dispatch. It is particularly not permitted to make changes in response to a call to the <strong>Gnome::Gio::R-ListModel</strong> consumer API.</p><p>Stated another way: in general, it is assumed that code making a series of accesses to the model via the API, without returning to the mainloop, and without calling other code, will continue to view the same contents of the model.</p><pre class="pod-block-code">method items-changed ( UInt() $position, UInt() $removed, UInt() $added )
 </pre><ul>
 <li><p>$position; the position at which <code>$list</code> changed.</p></li>
@@ -66,10 +63,10 @@
 <li><p>$added; the number of items added.</p></li>
 </ul>
 </section>
-<section name="___top">
-<h1 id="Signals"><a href="#___top" class="u" title="go to top of document">Signals</a></h1>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Signals</a></h1>
 
-<h3 id="items-changed_0"><a href="#___top" class="u" title="go to top of document">items-changed</a></h3>
+<h3 id="items-changed_0"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">items-changed</a></h3>
 <p>This signal is emitted whenever items were added to or removed from <code>$list</code>. At <code>$position</code>, <code>$removed</code> items were removed and <code>$added</code> items were added in their place.</p><p>Note: If <strong>removed != added</strong>, the positions of all later items in the model change.</p><pre class="pod-block-code">method handler (
   guint $position,
   guint $removed,
@@ -89,6 +86,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-ListModel.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:48Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-ListModel.rakudoc</span></div><div>at <span class="time">2025-04-14T15:11:32Z</span></div></footer>
 	</body>
 </html>

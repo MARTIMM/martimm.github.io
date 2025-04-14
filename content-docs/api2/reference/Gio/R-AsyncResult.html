@@ -3,20 +3,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>NO_TITLE</title>
+<title>Gnome::Gio::R-AsyncResult</title>
 <meta charset="UTF-8" />
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::R-AsyncResult">Gnome::Gio::R-AsyncResult</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::R-AsyncResult">Gnome::Gio::R-AsyncResult</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#I/O_Priority">I/O Priority</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-source-object">get-source-object</a></td></tr>
@@ -26,37 +25,35 @@
 </table></div>
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
-<h1 id="Gnome::Gio::R-AsyncResult"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::R-AsyncResult</a></h1>
-
-<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::R-AsyncResult</strong> provides a base class for implementing asynchronous function results.</p><p>Asynchronous operations are broken up into two separate operations which are chained together by a <strong>Gnome::Gio::T-iotypes</strong>. To begin an asynchronous operation, provide a <strong>Gnome::Gio::T-iotypes</strong> to the asynchronous function. This callback will be triggered when the operation has completed, and must be run in a later iteration of the thread-default main context (see <code>.push-thread-default() in class Gnome::Gio::AsyncResult</code>) from where the operation was initiated. It will be passed a <strong>Gnome::Gio::R-AsyncResult</strong> instance filled with the details of the operation's success or failure, the object the asynchronous function was started for and any error codes returned. The asynchronous callback function is then expected to call the corresponding <strong>_finish()</strong> function, passing the object the function was called for, the <strong>Gnome::Gio::R-AsyncResult</strong> instance, and (optionally) an <code>$error</code> to grab any error conditions that may have occurred.</p><p>The <strong>_finish()</strong> function for an operation takes the generic result (of type <strong>Gnome::Gio::R-AsyncResult</strong>) and returns the specific result that the operation in question yields (e.g. a <strong>Gnome::Gio::AsyncResult</strong> for a &quot;enumerate children&quot; operation). If the result or error status of the operation is not needed, there is no need to call the <strong>_finish()</strong> function; GIO will take care of cleaning up the result and error information after the <strong>Gnome::Gio::T-iotypes</strong> returns. You can pass undefined for the <strong>Gnome::Gio::T-iotypes</strong> if you don't need to take any action at all after the operation completes. Applications may also take a reference to the <strong>Gnome::Gio::R-AsyncResult</strong> and call <strong>_finish()</strong> later; however, the <strong>_finish()</strong> function may be called at most once.</p><p>Example of a typical asynchronous operation flow:</p><p>The callback for an asynchronous operation is called only once, and is always called, even in the case of a cancelled operation. On cancellation the result is a <strong>G_IO_ERROR_CANCELLED</strong> error.</p>
-<h3 id="I/O_Priority"><a href="#___top" class="u" title="go to top of document">I/O Priority</a></h3>
+<h1 id="Description"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::R-AsyncResult</strong> provides a base class for implementing asynchronous function results.</p><p>Asynchronous operations are broken up into two separate operations which are chained together by a <strong>Gnome::Gio::T-iotypes</strong>. To begin an asynchronous operation, provide a <strong>Gnome::Gio::T-iotypes</strong> to the asynchronous function. This callback will be triggered when the operation has completed, and must be run in a later iteration of the thread-default main context (see <code>.push-thread-default()</code> in class <code>Gnome::Gio::AsyncResult</code>) from where the operation was initiated. It will be passed a <strong>Gnome::Gio::R-AsyncResult</strong> instance filled with the details of the operation's success or failure, the object the asynchronous function was started for and any error codes returned. The asynchronous callback function is then expected to call the corresponding <strong>_finish</strong>()` function, passing the object the function was called for, the <strong>Gnome::Gio::R-AsyncResult</strong> instance, and (optionally) an <code>$error</code> to grab any error conditions that may have occurred.</p><p>The <strong>_finish</strong>()` function for an operation takes the generic result (of type <strong>Gnome::Gio::R-AsyncResult</strong>) and returns the specific result that the operation in question yields (e.g. a <strong>Gnome::Gio::AsyncResult</strong> for a &quot;enumerate children&quot; operation). If the result or error status of the operation is not needed, there is no need to call the <strong>_finish</strong>()` function; GIO will take care of cleaning up the result and error information after the <strong>Gnome::Gio::T-iotypes</strong> returns. You can pass undefined for the <strong>Gnome::Gio::T-iotypes</strong> if you don't need to take any action at all after the operation completes. Applications may also take a reference to the <strong>Gnome::Gio::R-AsyncResult</strong> and call <strong>_finish</strong>()` later; however, the <strong>_finish</strong>()` function may be called at most once.</p><p>Example of a typical asynchronous operation flow:</p><p>The callback for an asynchronous operation is called only once, and is always called, even in the case of a cancelled operation. On cancellation the result is a <strong>G_IO_ERROR_CANCELLED</strong> error.</p>
+<h3 id="I/O_Priority"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">I/O Priority</a></h3>
 <p>Many I/O-related asynchronous operations have a priority parameter, which is used in certain cases to determine the order in which operations are executed. They are not used to determine system-wide I/O scheduling. Priorities are integers, with lower numbers indicating higher priority. It is recommended to choose priorities between <strong>Gnome::Glib::T-main</strong> and <strong>Gnome::Glib::T-main</strong>, with <strong>Gnome::Glib::T-main</strong> as a default.</p></section>
-<section name="___top">
-<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">Methods</a></h1>
 </section>
-<section name="___top">
-<h2 id="get-source-object"><a href="#___top" class="u" title="go to top of document">get-source-object</a></h2>
+<section name="pod">
+<h2 id="get-source-object"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">get-source-object</a></h2>
 <p>Gets the source object from a <strong>Gnome::Gio::R-AsyncResult</strong>.</p><pre class="pod-block-code">method get-source-object (--&gt; N-Object )
 </pre><p>Return value; a new reference to the source object for the <code>$res</code>, or undefined if there is none.. </p></section>
-<section name="___top">
-<h2 id="get-user-data"><a href="#___top" class="u" title="go to top of document">get-user-data</a></h2>
+<section name="pod">
+<h2 id="get-user-data"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">get-user-data</a></h2>
 <p>Gets the user data from a <strong>Gnome::Gio::R-AsyncResult</strong>.</p><pre class="pod-block-code">method get-user-data (--&gt; gpointer )
 </pre><p>Return value; the user data for <code>$res</code>.. </p></section>
-<section name="___top">
-<h2 id="is-tagged"><a href="#___top" class="u" title="go to top of document">is-tagged</a></h2>
+<section name="pod">
+<h2 id="is-tagged"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">is-tagged</a></h2>
 <p>Checks if <code>$res</code> has the given <code>$source-tag</code> (generally a function pointer indicating the function <code>$res</code> was created by).</p><pre class="pod-block-code">method is-tagged ( gpointer $source-tag --&gt; Bool )
 </pre><ul>
 <li><p>$source-tag; an application-defined tag.</p></li>
 </ul>
 <p>Return value; <code>True</code> if <code>$res</code> has the indicated <code>$source-tag</code>, <code>False</code> if not.. </p></section>
-<section name="___top">
-<h2 id="legacy-propagate-error"><a href="#___top" class="u" title="go to top of document">legacy-propagate-error</a></h2>
+<section name="pod">
+<h2 id="legacy-propagate-error"><a href="#Gnome::Gio::R-AsyncResult" class="u" title="go to top of document">legacy-propagate-error</a></h2>
 <p>If <code>$res</code> is a <strong>Gnome::Gio::SimpleAsyncResult</strong>, this is equivalent to g_simple_async_result_propagate_error(). Otherwise it returns <code>False</code>.</p><p>This can be used for legacy error handling in async *_finish() wrapper functions that traditionally handled <strong>Gnome::Gio::SimpleAsyncResult</strong> error returns themselves rather than calling into the virtual method. This should not be used in new code; <strong>Gnome::Gio::R-AsyncResult</strong> errors that are set by virtual methods should also be extracted by virtual methods, to enable subclasses to chain up correctly.</p><pre class="pod-block-code">method legacy-propagate-error ( CArray[N-Error] $err --&gt; Bool )
 </pre><ul>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
 <p>Return value; <code>True</code> if <code>$error</code> is has been filled in with an error from <code>$res</code>, <code>False</code> if not.. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-AsyncResult.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:47Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-AsyncResult.rakudoc</span></div><div>at <span class="time">2025-04-14T15:11:29Z</span></div></footer>
 	</body>
 </html>

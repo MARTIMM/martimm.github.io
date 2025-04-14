@@ -3,22 +3,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>NO_TITLE</title>
+<title>Gnome::Gio::T-file</title>
 <meta charset="UTF-8" />
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="NO_TITLE">NO_TITLE</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::T-file">Gnome::Gio::T-file</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::Gio::T-file">Gnome::Gio::T-file</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Standalone_Functions">Standalone Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#file-new-build-filenamev">file-new-build-filenamev</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#file-new-for-commandline-arg">file-new-for-commandline-arg</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#file-new-for-commandline-arg-and-cwd">file-new-for-commandline-arg-and-cwd</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#file-new-for-path">file-new-for-path</a></td></tr>
@@ -31,101 +31,106 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#file-parse-name">file-parse-name</a></td></tr>
 </table></div>
 </nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Gnome::Gio::T-file"><a href="#___top" class="u" title="go to top of document">Gnome::Gio::T-file</a></h1>
-</section>
-<section name="___top">
-<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
+<section name="___top"></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">Class initialization</a></h1>
 
-<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+<h2 id="new"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">new</a></h2>
 <p>Initialization of a type class is simple and only needed when the standalone functions are used.</p><pre class="pod-block-code">method new ( )</pre></section>
-<section name="___top">
-<h1 id="Standalone_Functions"><a href="#___top" class="u" title="go to top of document">Standalone Functions</a></h1>
+<section name="pod">
+<h1 id="Standalone_Functions"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">Standalone Functions</a></h1>
 </section>
-<section name="___top">
-<h2 id="file-new-for-commandline-arg"><a href="#___top" class="u" title="go to top of document">file-new-for-commandline-arg</a></h2>
-<p>Creates a <strong>Gnome::Gio::File</strong> with the given argument from the command line. The value of <code>$arg</code> can be either a URI, an absolute path or a relative path resolved relative to the current working directory. This operation never fails, but the returned object might not support any I/O operation if <code>$arg</code> points to a malformed path.</p><p>Note that on Windows, this function expects its argument to be in UTF-8 -- not the system code page. This means that you should not use this function with string from argv as it is passed to main(). g_win32_get_command_line() will return a UTF-8 version of the commandline. <strong>Gnome::Gio::Application</strong> also uses UTF-8 but g_application_command_line_create_file_for_arg() may be more useful for you there. It is also always possible to use this function with <strong>GOptionContext</strong> arguments of type <code>G_OPTION_ARG_FILENAME</code>.</p><pre class="pod-block-code">method file-new-for-commandline-arg ( Str $arg --&gt; N-Object )
+<section name="pod">
+<h2 id="file-new-build-filenamev"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-build-filenamev</a></h2>
+<p>Constructs a <strong>Gnome::Gio::R-File</strong> from a vector of elements using the correct separator for filenames.</p><p>Using this function is equivalent to calling g_build_filenamev(), followed by <code>.new-for-path()</code> on the result.</p><pre class="pod-block-code">method file-new-build-filenamev ( Array[Str] $args --&gt; N-Object )
+</pre><ul>
+<li><p>$args; strings array containing the path elements..</p></li>
+</ul>
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. </p></section>
+<section name="pod">
+<h2 id="file-new-for-commandline-arg"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-for-commandline-arg</a></h2>
+<p>Creates a <strong>Gnome::Gio::R-File</strong> with the given argument from the command line. The value of <code>$arg</code> can be either a URI, an absolute path or a relative path resolved relative to the current working directory. This operation never fails, but the returned object might not support any I/O operation if <code>$arg</code> points to a malformed path.</p><p>Note that on Windows, this function expects its argument to be in UTF-8 -- not the system code page. This means that you should not use this function with string from argv as it is passed to main(). g_win32_get_command_line() will return a UTF-8 version of the commandline. <strong>Gnome::Gio::Application</strong> also uses UTF-8 but g_application_command_line_create_file_for_arg() may be more useful for you there. It is also always possible to use this function with <strong>GOptionContext</strong> arguments of type <code>G_OPTION_ARG_FILENAME</code>.</p><pre class="pod-block-code">method file-new-for-commandline-arg ( Str $arg --&gt; N-Object )
 </pre><ul>
 <li><p>$arg; a command line string.</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-new-for-commandline-arg-and-cwd"><a href="#___top" class="u" title="go to top of document">file-new-for-commandline-arg-and-cwd</a></h2>
-<p>Creates a <strong>Gnome::Gio::File</strong> with the given argument from the command line.</p><p>This function is similar to <code>.new-for-commandline-arg()</code> except that it allows for passing the current working directory as an argument instead of using the current working directory of the process.</p><p>This is useful if the commandline argument was given in a context other than the invocation of the current process.</p><p>See also g_application_command_line_create_file_for_arg().</p><pre class="pod-block-code">method file-new-for-commandline-arg-and-cwd ( Str $arg, Str $cwd --&gt; N-Object )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-new-for-commandline-arg-and-cwd"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-for-commandline-arg-and-cwd</a></h2>
+<p>Creates a <strong>Gnome::Gio::R-File</strong> with the given argument from the command line.</p><p>This function is similar to <code>.new-for-commandline-arg()</code> except that it allows for passing the current working directory as an argument instead of using the current working directory of the process.</p><p>This is useful if the commandline argument was given in a context other than the invocation of the current process.</p><p>See also g_application_command_line_create_file_for_arg().</p><pre class="pod-block-code">method file-new-for-commandline-arg-and-cwd ( Str $arg, Str $cwd --&gt; N-Object )
 </pre><ul>
 <li><p>$arg; a command line string.</p></li>
 <li><p>$cwd; the current working directory of the commandline.</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>. </p></section>
-<section name="___top">
-<h2 id="file-new-for-path"><a href="#___top" class="u" title="go to top of document">file-new-for-path</a></h2>
-<p>Constructs a <strong>Gnome::Gio::File</strong> for a given path. This operation never fails, but the returned object might not support any I/O operation if <code>$path</code> is malformed.</p><pre class="pod-block-code">method file-new-for-path ( Str $path --&gt; N-Object )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. </p></section>
+<section name="pod">
+<h2 id="file-new-for-path"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-for-path</a></h2>
+<p>Constructs a <strong>Gnome::Gio::R-File</strong> for a given path. This operation never fails, but the returned object might not support any I/O operation if <code>$path</code> is malformed.</p><pre class="pod-block-code">method file-new-for-path ( Str $path --&gt; N-Object )
 </pre><ul>
 <li><p>$path; a string containing a relative or absolute path. The string must be encoded in the glib filename encoding..</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong> for the given <code>$path</code>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-new-for-uri"><a href="#___top" class="u" title="go to top of document">file-new-for-uri</a></h2>
-<p>Constructs a <strong>Gnome::Gio::File</strong> for a given URI. This operation never fails, but the returned object might not support any I/O operation if <code>$uri</code> is malformed or if the uri type is not supported.</p><pre class="pod-block-code">method file-new-for-uri ( Str $uri --&gt; N-Object )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong> for the given <code>$path</code>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-new-for-uri"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-for-uri</a></h2>
+<p>Constructs a <strong>Gnome::Gio::R-File</strong> for a given URI. This operation never fails, but the returned object might not support any I/O operation if <code>$uri</code> is malformed or if the uri type is not supported.</p><pre class="pod-block-code">method file-new-for-uri ( Str $uri --&gt; N-Object )
 </pre><ul>
 <li><p>$uri; a UTF-8 string containing a URI.</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong> for the given <code>$uri</code>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-new-tmp"><a href="#___top" class="u" title="go to top of document">file-new-tmp</a></h2>
-<p>Opens a file in the preferred directory for temporary files (as returned by g_get_tmp_dir()) and returns a <strong>Gnome::Gio::File</strong> and <strong>Gnome::Gio::FileIOStream</strong> pointing to it. <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><p>Unlike the other <strong>Gnome::Gio::File</strong> constructors, this will return undefined if a temporary file could not be created.</p><pre class="pod-block-code">method file-new-tmp ( Str $tmpl, N-Object() $iostream, CArray[N-Error] $err --&gt; N-Object )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong> for the given <code>$uri</code>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-new-tmp"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-tmp</a></h2>
+<p>Opens a file in the preferred directory for temporary files (as returned by g_get_tmp_dir()) and returns a <strong>Gnome::Gio::R-File</strong> and <strong>Gnome::Gio::FileIOStream</strong> pointing to it. <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><p>Unlike the other <strong>Gnome::Gio::R-File</strong> constructors, this will return undefined if a temporary file could not be created.</p><pre class="pod-block-code">method file-new-tmp ( Str $tmpl, N-Object() $iostream, CArray[N-Error] $err --&gt; N-Object )
 </pre><ul>
 <li><p>$tmpl; Template for the file name, as in <code>.open-tmp()</code>, or undefined for a default template.</p></li>
 <li><p>$iostream; (transfer ownership: full) on return, a <strong>Gnome::Gio::FileIOStream</strong> for the created file.</p></li>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-new-tmp-async"><a href="#___top" class="u" title="go to top of document">file-new-tmp-async</a></h2>
-<p>Asynchronously opens a file in the preferred directory for temporary files (as returned by g_get_tmp_dir()) as <code>.new-tmp()</code>. <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><pre class="pod-block-code">method file-new-tmp-async ( Str $tmpl, Int() $io-priority, N-Object() $cancellable, &amp;callback, gpointer $user-data )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-new-tmp-async"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-tmp-async</a></h2>
+<p>Asynchronously opens a file in the preferred directory for temporary files (as returned by g_get_tmp_dir()) as <code>.new-tmp()</code>. <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><pre class="pod-block-code">method file-new-tmp-async ( Str $tmpl, Int() $io-priority, N-Object() $cancellable, GAsyncReadyCallback &amp;callback, gpointer $user-data )
 </pre><ul>
 <li><p>$tmpl; Template for the file name, as in <code>.open-tmp()</code>, or undefined for a default template.</p></li>
 <li><p>$io-priority; the I/O priority of the request.</p></li>
 <li><p>$cancellable; optional <strong>Gnome::Gio::Cancellable</strong> object, undefined to ignore.</p></li>
-<li><p>&amp;callback; a <strong>Gnome::Gio::T-iotypes</strong> to call when the request is done. Tthe function must be specified with following signature; <code>:( N-Object $source-object, N-Object $res, gpointer $user-data )</code>.</p></li>
+<li><p>GAsyncReadyCallback &amp;callback; a <strong>Gnome::Gio::T-iotypes</strong> to call when the request is done. The function must be specified with the following signature; <code>:( N-Object $source-object, N-Object $res, gpointer $data )</code>.</p></li>
 <li><p>$user-data; data to pass to <code>$callback</code>.</p></li>
 </ul>
 </section>
-<section name="___top">
-<h2 id="file-new-tmp-dir-async"><a href="#___top" class="u" title="go to top of document">file-new-tmp-dir-async</a></h2>
-<p>Asynchronously creates a directory in the preferred directory for temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp(). <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><pre class="pod-block-code">method file-new-tmp-dir-async ( Str $tmpl, Int() $io-priority, N-Object() $cancellable, &amp;callback, gpointer $user-data )
+<section name="pod">
+<h2 id="file-new-tmp-dir-async"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-tmp-dir-async</a></h2>
+<p>Asynchronously creates a directory in the preferred directory for temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp(). <code>$tmpl</code> should be a string in the GLib file name encoding containing a sequence of six 'X' characters, and containing no directory components. If it is undefined, a default template is used.</p><pre class="pod-block-code">method file-new-tmp-dir-async ( Str $tmpl, Int() $io-priority, N-Object() $cancellable, GAsyncReadyCallback &amp;callback, gpointer $user-data )
 </pre><ul>
 <li><p>$tmpl; Template for the file name, as in g_dir_make_tmp(), or undefined for a default template.</p></li>
 <li><p>$io-priority; the I/O priority of the request.</p></li>
 <li><p>$cancellable; optional <strong>Gnome::Gio::Cancellable</strong> object, undefined to ignore.</p></li>
-<li><p>&amp;callback; a <strong>Gnome::Gio::T-iotypes</strong> to call when the request is done. Tthe function must be specified with following signature; <code>:( N-Object $source-object, N-Object $res, gpointer $user-data )</code>.</p></li>
+<li><p>GAsyncReadyCallback &amp;callback; a <strong>Gnome::Gio::T-iotypes</strong> to call when the request is done. The function must be specified with the following signature; <code>:( N-Object $source-object, N-Object $res, gpointer $data )</code>.</p></li>
 <li><p>$user-data; data to pass to <code>$callback</code>.</p></li>
 </ul>
 </section>
-<section name="___top">
-<h2 id="file-new-tmp-dir-finish"><a href="#___top" class="u" title="go to top of document">file-new-tmp-dir-finish</a></h2>
+<section name="pod">
+<h2 id="file-new-tmp-dir-finish"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-tmp-dir-finish</a></h2>
 <p>Finishes a temporary directory creation started by <code>.new-tmp-dir-async()</code>.</p><pre class="pod-block-code">method file-new-tmp-dir-finish ( N-Object() $result, CArray[N-Error] $err --&gt; N-Object )
 </pre><ul>
 <li><p>$result; a <strong>Gnome::Gio::R-AsyncResult</strong>.</p></li>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-new-tmp-finish"><a href="#___top" class="u" title="go to top of document">file-new-tmp-finish</a></h2>
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-new-tmp-finish"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-new-tmp-finish</a></h2>
 <p>Finishes a temporary file creation started by <code>.new-tmp-async()</code>.</p><pre class="pod-block-code">method file-new-tmp-finish ( N-Object() $result, N-Object() $iostream, CArray[N-Error] $err --&gt; N-Object )
 </pre><ul>
 <li><p>$result; a <strong>Gnome::Gio::R-AsyncResult</strong>.</p></li>
 <li><p>$iostream; (transfer ownership: full) on return, a <strong>Gnome::Gio::FileIOStream</strong> for the created file.</p></li>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>. Free the returned object with g_object_unref().. </p></section>
-<section name="___top">
-<h2 id="file-parse-name"><a href="#___top" class="u" title="go to top of document">file-parse-name</a></h2>
-<p>Constructs a <strong>Gnome::Gio::File</strong> with the given <code>$parse-name</code> (i.e. something given by <code>.get-parse-name()</code>). This operation never fails, but the returned object might not support any I/O operation if the <code>$parse-name</code> cannot be parsed.</p><pre class="pod-block-code">method file-parse-name ( Str $parse-name --&gt; N-Object )
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>. Free the returned object with g_object_unref().. </p></section>
+<section name="pod">
+<h2 id="file-parse-name"><a href="#Gnome::Gio::T-file" class="u" title="go to top of document">file-parse-name</a></h2>
+<p>Constructs a <strong>Gnome::Gio::R-File</strong> with the given <code>$parse-name</code> (i.e. something given by <code>.get-parse-name()</code>). This operation never fails, but the returned object might not support any I/O operation if the <code>$parse-name</code> cannot be parsed.</p><pre class="pod-block-code">method file-parse-name ( Str $parse-name --&gt; N-Object )
 </pre><ul>
 <li><p>$parse-name; a file name or path to be parsed.</p></li>
 </ul>
-<p>Return value; a new <strong>Gnome::Gio::File</strong>.. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/T-file.rakudoc</span></div><div>at <span class="time">2025-04-11T19:03:53Z</span></div></footer>
+<p>Return value; a new <strong>Gnome::Gio::R-File</strong>.. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/T-file.rakudoc</span></div><div>at <span class="time">2025-04-14T15:11:38Z</span></div></footer>
 	</body>
 </html>
