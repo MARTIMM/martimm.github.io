@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
@@ -18,6 +18,8 @@
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -48,17 +50,20 @@
 <h2 id="CSS_nodes"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">CSS nodes</a></h2>
 <p><strong>Gnome::Gtk4::GridView</strong> uses a single CSS node with name <strong>gridview</strong>. Each child uses a single CSS node with name <strong>child</strong>. If the <em>activatable defined in Gnome::Gtk4::ListItem</em> property is set, the corresponding row will have the `.activatable` style class. For rubberband selection, a subnode with name <strong>rubberband</strong> is used.</p>
 <h2 id="Accessibility"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::GridView</strong> uses the <code>GTK_ACCESSIBLE_ROLE_GRID</code> role, and the items use the <code>GTK_ACCESSIBLE_ROLE_GRID_CELL</code> role.</p></section>
+<p><strong>Gnome::Gtk4::GridView</strong> uses the <code>GTK_ACCESSIBLE_ROLE_GRID</code> role, and the items use the <code>GTK_ACCESSIBLE_ROLE_GRID_CELL</code> role.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/GridView.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Class initialization</a></h1>
 
 <h2 id="new"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">new</a></h2>
 
 <h3 id=":native-object"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-gridview"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">new-gridview</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::GridView</strong> that uses the given <code>$factory</code> for mapping items to widgets.</p><p>The function takes ownership of the arguments, so you can write code like</p><pre class="pod-block-code">method new-gridview ( N-Object() $model, N-Object() $factory --&gt; Gnome::Gtk4::GridView \)
+<p>Creates a new <strong>Gnome::Gtk4::GridView</strong> that uses the given <code>$factory</code> for mapping items to widgets.</p><p>The function takes ownership of the arguments, so you can write code like</p><pre class="pod-block-code">method new-gridview ( N-Object() $model, N-Object() $factory --&gt; Gnome::Gtk4::GridView )
 </pre><ul>
 <li><p>$model; (transfer ownership: full) the model to use.</p></li>
 <li><p>$factory; (transfer ownership: full) The factory to populate items with.</p></li>
@@ -99,7 +104,7 @@
 <h2 id="scroll-to"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">scroll-to</a></h2>
 <p>Scrolls to the item at the given position and performs the actions specified in <code>$flags</code>.</p><p>This function works no matter if the gridview is shown or focused. If it isn't, then the changes will take effect once that happens.</p><pre class="pod-block-code">method scroll-to ( UInt() $pos, UInt $flags, N-Object $scroll )
 </pre><ul>
-<li><p>$pos; position of the item.</p></li>
+<li><p>$pos; position of the item. Must be less than the number of items in the view..</p></li>
 <li><p>$flags; actions to perform.</p></li>
 <li><p>$scroll; (transfer ownership: full) details of how to perform the scroll operation or undefined to scroll into view</p></li>
 </ul>
@@ -172,6 +177,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GridView.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:20Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GridView.rakudoc</span></div><div>at <span class="time">2025-04-18T17:54:20Z</span></div></footer>
 	</body>
 </html>

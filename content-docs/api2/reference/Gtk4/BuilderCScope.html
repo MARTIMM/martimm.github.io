@@ -1,0 +1,77 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::BuilderCScope</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::BuilderCScope">Gnome::Gtk4::BuilderCScope</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-buildercscope">new-buildercscope</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-callback-symbol">add-callback-symbol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-callback-symbols_This_function_is_not_yet_available">add-callback-symbols This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-callback-symbol">lookup-callback-symbol</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk4::R-BuilderScope</strong> implementation for the C language.</p><p><strong>Gnome::Gtk4::BuilderCScope</strong> instances use symbols explicitly added to <code>$builder</code> with prior calls to <code>.add-callback-symbol()</code>. If developers want to do that, they are encouraged to create their own scopes for that purpose.</p><p>In the case that symbols are not explicitly added; GTK will uses <strong>GModule</strong>’s introspective features (by opening the module undefined) to look at the application’s symbol table. From here it tries to match the signal function names given in the interface description with symbols in the application.</p><p>Note that unless <code>.add-callback-symbol()</code> is called for all signal callbacks which are referenced by the loaded XML, this functionality will require that <strong>GModule</strong> be supported on the platform.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/BuilderCScope.png" width="70%" height="auto" alt="No caption"></div>
+</section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-buildercscope"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">new-buildercscope</a></h2>
+<p>Creates a new <strong>Gnome::Gtk4::BuilderCScope</strong> object to use with future <strong>Gnome::Gtk4::Builder</strong> instances.</p><p>Calling this function is only necessary if you want to add custom callbacks via <code>.add-callback-symbol()</code>.</p><pre class="pod-block-code">method new-buildercscope ( --&gt; Gnome::Gtk4::BuilderCScope )
+</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="add-callback-symbol"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">add-callback-symbol</a></h2>
+<p>Adds the <code>$callback-symbol</code> to the scope of <code>$builder</code> under the given <code>$callback-name</code>.</p><p>Using this function overrides the behavior of <code>.create-closure()</code> in class <code>Gnome::Gtk4::Builder</code> for any callback symbols that are added. Using this method allows for better encapsulation as it does not require that callback symbols be declared in the global namespace.</p><pre class="pod-block-code">method add-callback-symbol ( Str $callback-name, GCallback &amp;callback-symbol )
+</pre><ul>
+<li><p>$callback-name; The name of the callback, as expected in the XML.</p></li>
+<li><p>GCallback &amp;callback-symbol; The callback pointer. The function must be specified with the following signature; <code>:( )</code>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-callback-symbols_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">add-callback-symbols This function is not yet available</a></h2>
+<p>A convenience function to add many callbacks.</p><p>This is equivalent to calling <code>.add-callback-symbol()</code> for each symbol.</p><pre class="pod-block-code">method add-callback-symbols ( Str $first-callback-name, GCallback &amp;first-callback-symbol, … )
+</pre><ul>
+<li><p>$first-callback-name; The name of the callback, as expected in the XML.</p></li>
+<li><p>GCallback &amp;first-callback-symbol; The callback pointer. The function must be specified with the following signature; <code>:( )</code>.</p></li>
+<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="lookup-callback-symbol"><a href="#Gnome::Gtk4::BuilderCScope" class="u" title="go to top of document">lookup-callback-symbol</a></h2>
+<p>Fetches a symbol previously added with gtk_builder_cscope_add_callback_symbol().</p><pre class="pod-block-code">method lookup-callback-symbol ( Str $callback-name --&gt;  )
+</pre><ul>
+<li><p>$callback-name; The name of the callback.</p></li>
+</ul>
+<p>Return value; The callback symbol in <code>$builder</code> for <code>$callback-name</code>. </p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/BuilderCScope.rakudoc</span></div><div>at <span class="time">2025-04-18T17:53:24Z</span></div></footer>
+	</body>
+</html>

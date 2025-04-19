@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -25,6 +25,8 @@
  <tr class="toc-level-3"><td class="toc-text"><a href="#Selectable_labels">Selectable labels</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#Text_layout">Text layout</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#Links">Links</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -123,24 +125,27 @@ $label.set_markup($text);
 <h3 id="Text_layout"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">Text layout</a></h3>
 <p>A label can contain any number of paragraphs, but will have performance problems if it contains more than a small number. Paragraphs are separated by newlines or other paragraph separators understood by Pango.</p><p>Labels can automatically wrap text if you call <code>.set-wrap()</code>.</p><p><code>.set-justify()</code> sets how the lines in a label align with one another. If you want to set how the label as a whole aligns in its available space, see the <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> properties.</p><p>The <em>width-chars</em> and <em>max-width-chars</em> properties can be used to control the size allocation of ellipsized or wrapped labels. For ellipsizing labels, if either is specified (and less than the actual text size), it is used as the minimum width, and the actual text size is used as the natural width of the label. For wrapping labels, width-chars is used as the minimum width, if specified, and max-width-chars is used as the natural width. Even if max-width-chars specified, wrapping labels will be rewrapped to use all of the available width.</p>
 <h3 id="Links"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">Links</a></h3>
-<p>GTK supports markup for clickable hyperlinks in addition to regular Pango markup. The markup for links is borrowed from HTML, using the `&lt;a&gt;` with “href“, “title“ and “class“ attributes. GTK renders links similar to the way they appear in web browsers, with colored, underlined text. The “title“ attribute is displayed as a tooltip on the link. The “class“ attribute is used as style class on the CSS node for the link.</p><p>An example of inline links looks like this:</p><p>It is possible to implement custom handling for links and their tooltips with the <em>activate-link</em> signal and the <code>.get-current-uri()</code> function.</p></section>
+<p>GTK supports markup for clickable hyperlinks in addition to regular Pango markup. The markup for links is borrowed from HTML, using the `&lt;a&gt;` with “href“, “title“ and “class“ attributes. GTK renders links similar to the way they appear in web browsers, with colored, underlined text. The “title“ attribute is displayed as a tooltip on the link. The “class“ attribute is used as style class on the CSS node for the link.</p><p>An example of inline links looks like this:</p><p>It is possible to implement custom handling for links and their tooltips with the <em>activate-link</em> signal and the <code>.get-current-uri()</code> function.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Label.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">Class initialization</a></h1>
 
 <h2 id="new"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">new</a></h2>
 
 <h3 id=":native-object"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-label"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">new-label</a></h2>
-<p>Creates a new label with the given text inside it.</p><p>You can pass undefined to get an empty label widget.</p><pre class="pod-block-code">method new-label ( Str $str --&gt; Gnome::Gtk4::Label \)
+<p>Creates a new label with the given text inside it.</p><p>You can pass undefined to get an empty label widget.</p><pre class="pod-block-code">method new-label ( Str $str --&gt; Gnome::Gtk4::Label )
 </pre><ul>
 <li><p>$str; The text of the label.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="new-with-mnemonic"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">new-with-mnemonic</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Label</strong>, containing the text in <code>$str</code>.</p><p>If characters in <code>$str</code> are preceded by an underscore, they are underlined. If you need a literal underscore character in a label, use '__' (two underscores). The first underlined character represents a keyboard accelerator called a mnemonic. The mnemonic key can be used to activate another widget, chosen automatically, or explicitly using <code>.set-mnemonic-widget()</code>.</p><p>If <code>.set-mnemonic-widget()</code> is not called, then the first activatable ancestor of the <strong>Gnome::Gtk4::Label</strong> will be chosen as the mnemonic widget. For instance, if the label is inside a button or menu item, the button or menu item will automatically become the mnemonic widget and be activated by the mnemonic.</p><pre class="pod-block-code">method new-with-mnemonic ( Str $str --&gt; Gnome::Gtk4::Label \)
+<p>Creates a new <strong>Gnome::Gtk4::Label</strong>, containing the text in <code>$str</code>.</p><p>If characters in <code>$str</code> are preceded by an underscore, they are underlined. If you need a literal underscore character in a label, use '__' (two underscores). The first underlined character represents a keyboard accelerator called a mnemonic. The mnemonic key can be used to activate another widget, chosen automatically, or explicitly using <code>.set-mnemonic-widget()</code>.</p><p>If <code>.set-mnemonic-widget()</code> is not called, then the first activatable ancestor of the <strong>Gnome::Gtk4::Label</strong> will be chosen as the mnemonic widget. For instance, if the label is inside a button or menu item, the button or menu item will automatically become the mnemonic widget and be activated by the mnemonic.</p><pre class="pod-block-code">method new-with-mnemonic ( Str $str --&gt; Gnome::Gtk4::Label )
 </pre><ul>
 <li><p>$str; The text of the label, with an underscore in front of the mnemonic character.</p></li>
 </ul>
@@ -222,8 +227,8 @@ $label.set_markup($text);
 </pre><p>Return value; <code>True</code> when the label is in single line mode.. </p></section>
 <section name="pod">
 <h2 id="get-tabs"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">get-tabs</a></h2>
-<p>Gets the tabs for <code>$self</code>.</p><p>The returned array will be undefined if “standard” (8-space) tabs are used. Free the return value with <code>.free() in class Gnome::Pango::N-TabArray</code>.</p><pre class="pod-block-code">method get-tabs (--&gt; N-Object )
-</pre><p>Return value; copy of default tab array, or undefined if standard tabs are used; must be freed with <code>.free() in class Gnome::Pango::N-TabArray</code>.. </p></section>
+<p>Gets the tabs for <code>$self</code>.</p><p>The returned array will be undefined if “standard” (8-space) tabs are used. Free the return value with <code>.free()</code> in class <code>Gnome::Pango::N-TabArray</code>.</p><pre class="pod-block-code">method get-tabs (--&gt; N-Object )
+</pre><p>Return value; copy of default tab array, or undefined if standard tabs are used; must be freed with <code>.free()</code> in class <code>Gnome::Pango::N-TabArray</code>.. </p></section>
 <section name="pod">
 <h2 id="get-text"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">get-text</a></h2>
 <p>Fetches the text from a label.</p><p>The returned text is as it appears on screen. This does not include any embedded underlines indicating mnemonics or Pango markup. (See <code>.get-label()</code>)</p><pre class="pod-block-code">method get-text (--&gt; Str )
@@ -287,7 +292,7 @@ $label.set_markup($text);
 </section>
 <section name="pod">
 <h2 id="set-justify"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">set-justify</a></h2>
-<p>Sets the alignment of the lines in the text of the label relative to each other.</p><p><code>GTK_JUSTIFY_LEFT</code> is the default value when the widget is first created with <code>.newlabel()</code>. If you instead want to set the alignment of the label as a whole, use <code>.set-halign() in class Gnome::Gtk4::Widget</code> instead. <code>.set-justify()</code> has no effect on labels containing only a single line.</p><pre class="pod-block-code">method set-justify ( GtkJustification $jtype )
+<p>Sets the alignment of the lines in the text of the label relative to each other.</p><p><code>GTK_JUSTIFY_LEFT</code> is the default value when the widget is first created with <code>.newlabel()</code>. If you instead want to set the alignment of the label as a whole, use <code>.set-halign()</code> in class <code>Gnome::Gtk4::Widget</code> instead. <code>.set-justify()</code> has no effect on labels containing only a single line.</p><pre class="pod-block-code">method set-justify ( GtkJustification $jtype )
 </pre><ul>
 <li><p>$jtype; a <code>enumeration GtkJustification defined in Gnome::Gtk4::T-enums</code>.</p></li>
 </ul>
@@ -399,7 +404,7 @@ $label.set_markup($text);
 </section>
 <section name="pod">
 <h2 id="set-wrap"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">set-wrap</a></h2>
-<p>Toggles line wrapping within the <strong>Gnome::Gtk4::Label</strong> widget.</p><p><code>True</code> makes it break lines if text exceeds the widget’s size. <code>False</code> lets the text get cut off by the edge of the widget if it exceeds the widget size.</p><p>Note that setting line wrapping to <code>True</code> does not make the label wrap at its parent container’s width, because GTK widgets conceptually can’t make their requisition depend on the parent container’s size. For a label that wraps at a specific position, set the label’s width using <code>.set-size-request() in class Gnome::Gtk4::Widget</code>.</p><pre class="pod-block-code">method set-wrap ( Bool() $wrap )
+<p>Toggles line wrapping within the <strong>Gnome::Gtk4::Label</strong> widget.</p><p><code>True</code> makes it break lines if text exceeds the widget’s size. <code>False</code> lets the text get cut off by the edge of the widget if it exceeds the widget size.</p><p>Note that setting line wrapping to <code>True</code> does not make the label wrap at its parent container’s width, because GTK widgets conceptually can’t make their requisition depend on the parent container’s size. For a label that wraps at a specific position, set the label’s width using <code>.set-size-request()</code> in class <code>Gnome::Gtk4::Widget</code>.</p><pre class="pod-block-code">method set-wrap ( Bool() $wrap )
 </pre><ul>
 <li><p>$wrap; the setting.</p></li>
 </ul>
@@ -443,7 +448,7 @@ $label.set_markup($text);
 </ul>
 
 <h3 id="activate-link"><a href="#Gnome::Gtk4::Label" class="u" title="go to top of document">activate-link</a></h3>
-<p>Gets emitted to activate a URI.</p><p>Applications may connect to it to override the default behaviour, which is to call <code>.launch() in class Gnome::Gtk4::FileLauncher</code>.</p><pre class="pod-block-code">method handler (
+<p>Gets emitted to activate a URI.</p><p>Applications may connect to it to override the default behaviour, which is to call <code>.launch()</code> in class <code>Gnome::Gtk4::FileLauncher</code>.</p><pre class="pod-block-code">method handler (
   Str $uri,
   Int :$_handle_id,
   N-GObject :$_native-object,
@@ -509,6 +514,6 @@ $label.set_markup($text);
   &lt;/attributes&gt;
 &lt;/object&gt;
 </pre></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Label.rakudoc</span></div><div>at <span class="time">2024-12-02T20:10:28Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Label.rakudoc</span></div><div>at <span class="time">2025-04-18T17:54:28Z</span></div></footer>
 	</body>
 </html>
