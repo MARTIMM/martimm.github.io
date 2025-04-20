@@ -8,14 +8,16 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Snapshot">Gnome::Gtk4::Snapshot</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -77,7 +79,10 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Snapshot</strong> assists in creating <strong>Gnome::Gsk4::RenderNode</strong>s for widgets.</p><p>It functions in a similar way to a cairo context, and maintains a stack of render nodes and their associated transformations.</p><p>The node at the top of the stack is the one that <strong>gtk_snapshot_append_</strong>…()` functions operate on. Use the <strong>gtk_snapshot_push_</strong>…()` functions and [method <code>$Snapshot</code>.pop] to change the current node.</p><p>The typical way to obtain a <strong>Gnome::Gtk4::Snapshot</strong> object is as an argument to the [vfunc <code>$Gtk</code>.Widget.snapshot] vfunc. If you need to create your own <strong>Gnome::Gtk4::Snapshot</strong>, use <code>.newsnapshot()</code>.</p></section>
+<p><strong>Gnome::Gtk4::Snapshot</strong> assists in creating <strong>Gnome::Gsk4::RenderNode</strong>s for widgets.</p><p>It functions in a similar way to a cairo context, and maintains a stack of render nodes and their associated transformations.</p><p>The node at the top of the stack is the one that <strong>gtk_snapshot_append_</strong>…()` functions operate on. Use the <strong>gtk_snapshot_push_</strong>…()` functions and [method <code>$Snapshot</code>.pop] to change the current node.</p><p>The typical way to obtain a <strong>Gnome::Gtk4::Snapshot</strong> object is as an argument to the [vfunc <code>$Gtk</code>.Widget.snapshot] vfunc. If you need to create your own <strong>Gnome::Gtk4::Snapshot</strong>, use <code>.newsnapshot()</code>.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Snapshot.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -87,7 +92,7 @@
 <p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-snapshot"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">new-snapshot</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Snapshot</strong>.</p><pre class="pod-block-code">method new-snapshot ( --&gt; Gnome::Gtk4::Snapshot \)
+<p>Creates a new <strong>Gnome::Gtk4::Snapshot</strong>.</p><pre class="pod-block-code">method new-snapshot ( --&gt; Gnome::Gtk4::Snapshot )
 </pre></section>
 <section name="pod">
 <h1 id="Methods"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Methods</a></h1>
@@ -129,7 +134,7 @@
 </section>
 <section name="pod">
 <h2 id="append-fill"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-fill</a></h2>
-<p>A convenience method to fill a path with a color.</p><p>See <code>.push-fill()</code> if you need to fill a path with more complex content than a color.</p><pre class="pod-block-code">method append-fill ( N-Object $path, GskFillRule $fill-rule, N-Object $color )
+<p>A convenience method to fill a path with a color.</p><p>See <code>.push-fill()</code>] if you need to fill a path with more complex content than a color.</p><pre class="pod-block-code">method append-fill ( N-Object $path, GskFillRule $fill-rule, N-Object $color )
 </pre><ul>
 <li><p>$path; The path describing the area to fill</p></li>
 <li><p>$fill-rule; The fill rule to use.</p></li>
@@ -227,7 +232,7 @@
 </section>
 <section name="pod">
 <h2 id="append-scaled-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-scaled-texture</a></h2>
-<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>In contrast to <code>.append-texture()</code>, this function provides control about how the filter that is used when scaling.</p><pre class="pod-block-code">method append-scaled-texture ( N-Object() $texture, GskScalingFilter $filter, N-Object $bounds )
+<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>In contrast to <code>.append-texture()</code>], this function provides control about how the filter that is used when scaling.</p><pre class="pod-block-code">method append-scaled-texture ( N-Object() $texture, GskScalingFilter $filter, N-Object $bounds )
 </pre><ul>
 <li><p>$texture; the texture to render.</p></li>
 <li><p>$filter; the filter to use.</p></li>
@@ -236,7 +241,7 @@
 </section>
 <section name="pod">
 <h2 id="append-stroke"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-stroke</a></h2>
-<p>A convenience method to stroke a path with a color.</p><p>See <code>.push-stroke()</code> if you need to stroke a path with more complex content than a color.</p><pre class="pod-block-code">method append-stroke ( N-Object $path, N-Object $stroke, N-Object $color )
+<p>A convenience method to stroke a path with a color.</p><p>See <code>.push-stroke()</code>] if you need to stroke a path with more complex content than a color.</p><pre class="pod-block-code">method append-stroke ( N-Object $path, N-Object $stroke, N-Object $color )
 </pre><ul>
 <li><p>$path; The path describing the area to fill</p></li>
 <li><p>$stroke; The stroke attributes</p></li>
@@ -245,7 +250,7 @@
 </section>
 <section name="pod">
 <h2 id="append-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-texture</a></h2>
-<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>If the texture needs to be scaled to fill <code>$bounds</code>, linear filtering is used. See <code>.append-scaled-texture()</code> if you need other filtering, such as nearest-neighbour.</p><pre class="pod-block-code">method append-texture ( N-Object() $texture, N-Object $bounds )
+<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>If the texture needs to be scaled to fill <code>$bounds</code>, linear filtering is used. See <code>.append-scaled-texture()</code>] if you need other filtering, such as nearest-neighbour.</p><pre class="pod-block-code">method append-texture ( N-Object() $texture, N-Object $bounds )
 </pre><ul>
 <li><p>$texture; the texture to render.</p></li>
 <li><p>$bounds; the bounds for the new node</p></li>
@@ -253,7 +258,7 @@
 </section>
 <section name="pod">
 <h2 id="free-to-node"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">free-to-node</a></h2>
-<p>Returns the node that was constructed by <code>$snapshot</code> and frees <code>$snapshot</code>.</p><p>See also <code>.to-node()</code>.</p><pre class="pod-block-code">method free-to-node (--&gt; N-Object )
+<p>Returns the node that was constructed by <code>$snapshot</code> and frees <code>$snapshot</code>.</p><p>See also <code>.to-node()</code>].</p><pre class="pod-block-code">method free-to-node (--&gt; N-Object )
 </pre><p>Return value; a newly-created <strong>Gnome::Gsk4::RenderNode</strong>. </p></section>
 <section name="pod">
 <h2 id="free-to-paintable"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">free-to-paintable</a></h2>
@@ -264,11 +269,11 @@
 <p>Return value; a newly-created <strong>Gnome::Gdk4::R-Paintable</strong>. </p></section>
 <section name="pod">
 <h2 id="gl-shader-pop-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">gl-shader-pop-texture</a></h2>
-<p>Removes the top element from the stack of render nodes and adds it to the nearest <strong>Gnome::Gsk4::GLShaderNode</strong> below it.</p><p>This must be called the same number of times as the number of textures is needed for the shader in <code>.push-gl-shader()</code>.</p><pre class="pod-block-code">method gl-shader-pop-texture ( )
+<p>Removes the top element from the stack of render nodes and adds it to the nearest <strong>Gnome::Gsk4::GLShaderNode</strong> below it.</p><p>This must be called the same number of times as the number of textures is needed for the shader in <code>.push-gl-shader()</code>].</p><pre class="pod-block-code">method gl-shader-pop-texture ( )
 </pre></section>
 <section name="pod">
 <h2 id="perspective"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">perspective</a></h2>
-<p>Applies a perspective projection transform.</p><p>See <code>.perspective()</code> in class <code>Gnome::Gsk4::N-Transform</code> for a discussion on the details.</p><pre class="pod-block-code">method perspective ( Num() $depth )
+<p>Applies a perspective projection transform.</p><p>See <code>.perspective()</code> in class <strong>Gnome::Gsk4::N-Transform</strong>] for a discussion on the details.</p><pre class="pod-block-code">method perspective ( Num() $depth )
 </pre><ul>
 <li><p>$depth; distance of the z=0 plane.</p></li>
 </ul>
@@ -279,28 +284,28 @@
 </pre></section>
 <section name="pod">
 <h2 id="push-blend"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-blend</a></h2>
-<p>Blends together two images with the given blend mode.</p><p>Until the first call to <code>.pop()</code>, the bottom image for the blend operation will be recorded. After that call, the top image to be blended will be recorded until the second call to <code>.pop()</code>.</p><p>Calling this function requires two subsequent calls to <code>.pop()</code>.</p><pre class="pod-block-code">method push-blend ( GskBlendMode $blend-mode )
+<p>Blends together two images with the given blend mode.</p><p>Until the first call to <code>.pop()</code>], the bottom image for the blend operation will be recorded. After that call, the top image to be blended will be recorded until the second call to <code>.pop()</code>].</p><p>Calling this function requires two subsequent calls to <code>.pop()</code>].</p><pre class="pod-block-code">method push-blend ( GskBlendMode $blend-mode )
 </pre><ul>
 <li><p>$blend-mode; blend mode to use.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-blur"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-blur</a></h2>
-<p>Blurs an image.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-blur ( Num() $radius )
+<p>Blurs an image.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-blur ( Num() $radius )
 </pre><ul>
 <li><p>$radius; the blur radius to use. Must be positive.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-clip"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-clip</a></h2>
-<p>Clips an image to a rectangle.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-clip ( N-Object $bounds )
+<p>Clips an image to a rectangle.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-clip ( N-Object $bounds )
 </pre><ul>
 <li><p>$bounds; the rectangle to clip to</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-color-matrix"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-color-matrix</a></h2>
-<p>Modifies the colors of an image by applying an affine transformation in RGB space.</p><p>In particular, the colors will be transformed by applying</p><pre class="pod-block-code">pixel = transpose(color_matrix) * pixel + color_offset</pre><p>for every pixel. The transformation operates on unpremultiplied colors, with color components ordered R, G, B, A.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-color-matrix ( N-Object $color-matrix, N-Object $color-offset )
+<p>Modifies the colors of an image by applying an affine transformation in RGB space.</p><p>In particular, the colors will be transformed by applying</p><pre class="pod-block-code">pixel = transpose(color_matrix) * pixel + color_offset</pre><p>for every pixel. The transformation operates on unpremultiplied colors, with color components ordered R, G, B, A.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-color-matrix ( N-Object $color-matrix, N-Object $color-offset )
 </pre><ul>
 <li><p>$color-matrix; the color matrix to use</p></li>
 <li><p>$color-offset; the color offset to use</p></li>
@@ -308,7 +313,7 @@
 </section>
 <section name="pod">
 <h2 id="push-cross-fade"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-cross-fade</a></h2>
-<p>Snapshots a cross-fade operation between two images with the given <code>$progress</code>.</p><p>Until the first call to <code>.pop()</code>, the start image will be snapshot. After that call, the end image will be recorded until the second call to <code>.pop()</code>.</p><p>Calling this function requires two subsequent calls to <code>.pop()</code>.</p><pre class="pod-block-code">method push-cross-fade ( Num() $progress )
+<p>Snapshots a cross-fade operation between two images with the given <code>$progress</code>.</p><p>Until the first call to <code>.pop()</code>], the start image will be snapshot. After that call, the end image will be recorded until the second call to <code>.pop()</code>].</p><p>Calling this function requires two subsequent calls to <code>.pop()</code>].</p><pre class="pod-block-code">method push-cross-fade ( Num() $progress )
 </pre><ul>
 <li><p>$progress; progress between 0.0 and 1.0.</p></li>
 </ul>
@@ -323,7 +328,7 @@
 </section>
 <section name="pod">
 <h2 id="push-fill"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-fill</a></h2>
-<p>Fills the area given by <code>$path</code> and <code>$fill-rule</code> with an image and discards everything outside of it.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><p>If you want to fill the path with a color, <code>.append-fill()</code> may be more convenient.</p><pre class="pod-block-code">method push-fill ( N-Object $path, GskFillRule $fill-rule )
+<p>Fills the area given by <code>$path</code> and <code>$fill-rule</code> with an image and discards everything outside of it.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><p>If you want to fill the path with a color, <code>.append-fill()</code>] may be more convenient.</p><pre class="pod-block-code">method push-fill ( N-Object $path, GskFillRule $fill-rule )
 </pre><ul>
 <li><p>$path; The path describing the area to fill</p></li>
 <li><p>$fill-rule; The fill rule to use.</p></li>
@@ -331,7 +336,7 @@
 </section>
 <section name="pod">
 <h2 id="push-gl-shader"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-gl-shader</a></h2>
-<p>Push a <strong>Gnome::Gsk4::GLShaderNode</strong>.</p><p>The node uses the given <strong>Gnome::Gsk4::GLShader</strong> and uniform values Additionally this takes a list of <code>$n-children</code> other nodes which will be passed to the <strong>Gnome::Gsk4::GLShaderNode</strong>.</p><p>The <code>$take-args</code> argument is a block of data to use for uniform arguments, as per types and offsets defined by the <code>$shader</code>. Normally this is generated by <code>.format-args()</code> in class <code>Gnome::Gsk4::GLShader</code> or <strong>Gnome::Gsk4::N-ShaderArgsBuilder</strong> .</p><p>The snapshotter takes ownership of <code>$take-args</code>, so the caller should not free it after this.</p><p>If the renderer doesn't support GL shaders, or if there is any problem when compiling the shader, then the node will draw pink. You should use <code>.compile()</code> in class <code>Gnome::Gsk4::GLShader</code> to ensure the <code>$shader</code> will work for the renderer before using it.</p><p>If the shader requires textures (see <code>.get-n-textures()</code> in class <code>Gnome::Gsk4::GLShader</code>), then it is expected that you call <code>.gl-shader-pop-texture()</code> the number of times that are required. Each of these calls will generate a node that is added as a child to the <strong>Gnome::Gsk4::GLShaderNode</strong>, which in turn will render these offscreen and pass as a texture to the shader.</p><p>Once all textures (if any) are pop:ed, you must call the regular <code>.pop()</code>.</p><p>If you want to use pre-existing textures as input to the shader rather than rendering new ones, use <code>.append-texture()</code> to push a texture node. These will be used directly rather than being re-rendered.</p><p>For details on how to write shaders, see <strong>Gnome::Gsk4::GLShader</strong>.</p><pre class="pod-block-code">method push-gl-shader ( N-Object() $shader, N-Object $bounds, N-Object $take-args )
+<p>Push a <strong>Gnome::Gsk4::GLShaderNode</strong>.</p><p>The node uses the given <strong>Gnome::Gsk4::GLShader</strong> and uniform values Additionally this takes a list of <code>$n-children</code> other nodes which will be passed to the <strong>Gnome::Gsk4::GLShaderNode</strong>.</p><p>The <code>$take-args</code> argument is a block of data to use for uniform arguments, as per types and offsets defined by the <code>$shader</code>. Normally this is generated by <code>.format-args()</code> in class <strong>Gnome::Gsk4::GLShader</strong>] or <strong>Gnome::Gsk4::N-ShaderArgsBuilder</strong> .</p><p>The snapshotter takes ownership of <code>$take-args</code>, so the caller should not free it after this.</p><p>If the renderer doesn't support GL shaders, or if there is any problem when compiling the shader, then the node will draw pink. You should use <code>.compile()</code> in class <strong>Gnome::Gsk4::GLShader</strong>] to ensure the <code>$shader</code> will work for the renderer before using it.</p><p>If the shader requires textures (see <code>.get-n-textures()</code> in class <strong>Gnome::Gsk4::GLShader</strong>]), then it is expected that you call <code>.gl-shader-pop-texture()</code>] the number of times that are required. Each of these calls will generate a node that is added as a child to the <strong>Gnome::Gsk4::GLShaderNode</strong>, which in turn will render these offscreen and pass as a texture to the shader.</p><p>Once all textures (if any) are pop:ed, you must call the regular <code>.pop()</code>].</p><p>If you want to use pre-existing textures as input to the shader rather than rendering new ones, use <code>.append-texture()</code>] to push a texture node. These will be used directly rather than being re-rendered.</p><p>For details on how to write shaders, see <strong>Gnome::Gsk4::GLShader</strong>.</p><pre class="pod-block-code">method push-gl-shader ( N-Object() $shader, N-Object $bounds, N-Object $take-args )
 </pre><ul>
 <li><p>$shader; The code to run.</p></li>
 <li><p>$bounds; the rectangle to render into</p></li>
@@ -340,21 +345,21 @@
 </section>
 <section name="pod">
 <h2 id="push-mask"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-mask</a></h2>
-<p>Until the first call to <code>.pop()</code>, the mask image for the mask operation will be recorded.</p><p>After that call, the source image will be recorded until the second call to <code>.pop()</code>.</p><p>Calling this function requires 2 subsequent calls to <code>.pop()</code>.</p><pre class="pod-block-code">method push-mask ( GskMaskMode $mask-mode )
+<p>Until the first call to <code>.pop()</code>], the mask image for the mask operation will be recorded.</p><p>After that call, the source image will be recorded until the second call to <code>.pop()</code>].</p><p>Calling this function requires 2 subsequent calls to <code>.pop()</code>.</p><pre class="pod-block-code">method push-mask ( GskMaskMode $mask-mode )
 </pre><ul>
 <li><p>$mask-mode; mask mode to use.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-opacity"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-opacity</a></h2>
-<p>Modifies the opacity of an image.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-opacity ( Num() $opacity )
+<p>Modifies the opacity of an image.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-opacity ( Num() $opacity )
 </pre><ul>
 <li><p>$opacity; the opacity to use.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-repeat"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-repeat</a></h2>
-<p>Creates a node that repeats the child node.</p><p>The child is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-repeat ( N-Object $bounds, N-Object $child-bounds )
+<p>Creates a node that repeats the child node.</p><p>The child is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-repeat ( N-Object $bounds, N-Object $child-bounds )
 </pre><ul>
 <li><p>$bounds; the bounds within which to repeat</p></li>
 <li><p>$child-bounds; the bounds of the child or undefined to use the full size of the collected child node</p></li>
@@ -362,14 +367,14 @@
 </section>
 <section name="pod">
 <h2 id="push-rounded-clip"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-rounded-clip</a></h2>
-<p>Clips an image to a rounded rectangle.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-rounded-clip ( N-Object $bounds )
+<p>Clips an image to a rounded rectangle.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-rounded-clip ( N-Object $bounds )
 </pre><ul>
 <li><p>$bounds; the rounded rectangle to clip to</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="push-shadow"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-shadow</a></h2>
-<p>Applies a shadow to an image.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><pre class="pod-block-code">method push-shadow ( N-Object $shadow, Int() $n-shadows )
+<p>Applies a shadow to an image.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><pre class="pod-block-code">method push-shadow ( N-Object $shadow, Int() $n-shadows )
 </pre><ul>
 <li><p>$shadow; the first shadow specification</p></li>
 <li><p>$n-shadows; number of shadow specifications.</p></li>
@@ -377,7 +382,7 @@
 </section>
 <section name="pod">
 <h2 id="push-stroke"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-stroke</a></h2>
-<p>Strokes the given <code>$path</code> with the attributes given by <code>$stroke</code> and an image.</p><p>The image is recorded until the next call to <code>.pop()</code>.</p><p>Note that the strokes are subject to the same transformation as everything else, so uneven scaling will cause horizontal and vertical strokes to have different widths.</p><p>If you want to stroke the path with a color, <code>.append-stroke()</code> may be more convenient.</p><pre class="pod-block-code">method push-stroke ( N-Object $path, N-Object $stroke )
+<p>Strokes the given <code>$path</code> with the attributes given by <code>$stroke</code> and an image.</p><p>The image is recorded until the next call to <code>.pop()</code>].</p><p>Note that the strokes are subject to the same transformation as everything else, so uneven scaling will cause horizontal and vertical strokes to have different widths.</p><p>If you want to stroke the path with a color, <code>.append-stroke()</code>] may be more convenient.</p><pre class="pod-block-code">method push-stroke ( N-Object $path, N-Object $stroke )
 </pre><ul>
 <li><p>$path; The path to stroke</p></li>
 <li><p>$stroke; The stroke attributes</p></li>
@@ -444,14 +449,14 @@
 </pre></section>
 <section name="pod">
 <h2 id="rotate"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">rotate</a></h2>
-<p>Rotates @ <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees in 2D space - or in 3D speak, rotates around the Z axis. The rotation happens around the origin point of (0, 0) in the <code>$snapshot</code>'s current coordinate system.</p><p>To rotate around axes other than the Z axis, use <code>.rotate3d()</code> in class <code>Gnome::Gsk4::N-Transform</code>.</p><pre class="pod-block-code">method rotate ( Num() $angle )
+<p>Rotates @ <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees in 2D space - or in 3D speak, rotates around the Z axis. The rotation happens around the origin point of (0, 0) in the <code>$snapshot</code>'s current coordinate system.</p><p>To rotate around axes other than the Z axis, use <code>.rotate3d()</code> in class <strong>Gnome::Gsk4::N-Transform</strong>].</p><pre class="pod-block-code">method rotate ( Num() $angle )
 </pre><ul>
 <li><p>$angle; the rotation angle, in degrees (clockwise).</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="rotate3d"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">rotate3d</a></h2>
-<p>Rotates <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees around <code>$axis</code>.</p><p>For a rotation in 2D space, use <code>.rotate()</code> in class <code>Gnome::Gsk4::N-Transform</code>.</p><pre class="pod-block-code">method rotate3d ( Num() $angle, N-Object $axis )
+<p>Rotates <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees around <code>$axis</code>.</p><p>For a rotation in 2D space, use <code>.rotate()</code> in class <strong>Gnome::Gsk4::N-Transform</strong>].</p><pre class="pod-block-code">method rotate3d ( Num() $angle, N-Object $axis )
 </pre><ul>
 <li><p>$angle; the rotation angle, in degrees (clockwise).</p></li>
 <li><p>$axis; The rotation axis</p></li>
@@ -459,11 +464,11 @@
 </section>
 <section name="pod">
 <h2 id="save"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">save</a></h2>
-<p>Makes a copy of the current state of <code>$snapshot</code> and saves it on an internal stack.</p><p>When <code>.restore()</code> is called, <code>$snapshot</code> will be restored to the saved state.</p><p>Multiple calls to <code>.save()</code> and <code>.restore()</code> can be nested; each call to <strong>C</strong>&lt;.restore()&gt;` restores the state from the matching paired <strong>C</strong>&lt;.save()&gt;`.</p><p>It is necessary to clear all saved states with corresponding calls to <strong>C</strong>&lt;.restore()&gt;`.</p><pre class="pod-block-code">method save ( )
+<p>Makes a copy of the current state of <code>$snapshot</code> and saves it on an internal stack.</p><p>When <code>.restore()</code>] is called, <code>$snapshot</code> will be restored to the saved state.</p><p>Multiple calls to <code>.save()</code>] and <code>.restore()</code>] can be nested; each call to <strong>C</strong>&lt;.restore()&gt;` restores the state from the matching paired <strong>C</strong>&lt;.save()&gt;`.</p><p>It is necessary to clear all saved states with corresponding calls to <strong>C</strong>&lt;.restore()&gt;`.</p><pre class="pod-block-code">method save ( )
 </pre></section>
 <section name="pod">
 <h2 id="scale"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">scale</a></h2>
-<p>Scales <code>$snapshot</code>'s coordinate system in 2-dimensional space by the given factors.</p><p>Use <code>.scale3d()</code> to scale in all 3 dimensions.</p><pre class="pod-block-code">method scale ( Num() $factor-x, Num() $factor-y )
+<p>Scales <code>$snapshot</code>'s coordinate system in 2-dimensional space by the given factors.</p><p>Use <code>.scale3d()</code>] to scale in all 3 dimensions.</p><pre class="pod-block-code">method scale ( Num() $factor-x, Num() $factor-y )
 </pre><ul>
 <li><p>$factor-x; scaling factor on the X axis.</p></li>
 <li><p>$factor-y; scaling factor on the Y axis.</p></li>
@@ -480,11 +485,11 @@
 </section>
 <section name="pod">
 <h2 id="to-node"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">to-node</a></h2>
-<p>Returns the render node that was constructed by <code>$snapshot</code>.</p><p>Note that this function may return undefined if nothing has been added to the snapshot or if its content does not produce pixels to be rendered.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <code>.unref()</code> in class <code>Gnome::GObject::Object</code>.</p><pre class="pod-block-code">method to-node (--&gt; N-Object )
+<p>Returns the render node that was constructed by <code>$snapshot</code>.</p><p>Note that this function may return undefined if nothing has been added to the snapshot or if its content does not produce pixels to be rendered.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <code>.unref()</code> in class <strong>Gnome::GObject::Object</strong>].</p><pre class="pod-block-code">method to-node (--&gt; N-Object )
 </pre><p>Return value; the constructed <strong>Gnome::Gsk4::RenderNode</strong> or undefined if there are no nodes to render.. </p></section>
 <section name="pod">
 <h2 id="to-paintable"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">to-paintable</a></h2>
-<p>Returns a paintable encapsulating the render node that was constructed by <code>$snapshot</code>.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <code>.unref()</code> in class <code>Gnome::GObject::Object</code>.</p><pre class="pod-block-code">method to-paintable ( N-Object $size --&gt; N-Object )
+<p>Returns a paintable encapsulating the render node that was constructed by <code>$snapshot</code>.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <code>.unref()</code> in class <strong>Gnome::GObject::Object</strong>].</p><pre class="pod-block-code">method to-paintable ( N-Object $size --&gt; N-Object )
 </pre><ul>
 <li><p>$size; The size of the resulting paintable or undefined to use the bounds of the snapshot</p></li>
 </ul>
@@ -517,6 +522,6 @@
 <li><p>$point; the point to translate the snapshot by</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Snapshot.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:47Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Snapshot.rakudoc</span></div><div>at <span class="time">2025-04-20T11:45:26Z</span></div></footer>
 	</body>
 </html>

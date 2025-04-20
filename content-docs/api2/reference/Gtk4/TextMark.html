@@ -16,6 +16,8 @@
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TextMark">Gnome::Gtk4::TextMark</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -31,7 +33,10 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gtk4::TextMark</strong> is a position in a <strong>GtkTextbuffer</strong> that is preserved across modifications.</p><p>You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p><p>A <strong>Gnome::Gtk4::TextMark</strong> is like a bookmark in a text buffer; it preserves a position in the text. You can convert the mark to an iterator using <code>.get-iter-at-mark() in class Gnome::Gtk4::TextBuffer</code>. Unlike iterators, marks remain valid across buffer mutations, because their behavior is defined when text is inserted or deleted. When text containing a mark is deleted, the mark remains in the position originally occupied by the deleted text. When text is inserted at a mark, a mark with “left gravity” will be moved to the beginning of the newly-inserted text, and a mark with “right gravity” will be moved to the end.</p><p>Note that “left” and “right” here refer to logical direction (left is the toward the start of the buffer); in some languages such as Hebrew the logically-leftmost text is not actually on the left when displayed.</p><p>Marks are reference counted, but the reference count only controls the validity of the memory; marks can be deleted from the buffer at any time with <code>.delete-mark() in class Gnome::Gtk4::TextBuffer</code>. Once deleted from the buffer, a mark is essentially useless.</p><p>Marks optionally have names; these can be convenient to avoid passing the <strong>Gnome::Gtk4::TextMark</strong> object around.</p><p>Marks are typically created using the <code>.create-mark() in class Gnome::Gtk4::TextBuffer</code> function.</p></section>
+<p>A <strong>Gnome::Gtk4::TextMark</strong> is a position in a <strong>GtkTextbuffer</strong> that is preserved across modifications.</p><p>You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p><p>A <strong>Gnome::Gtk4::TextMark</strong> is like a bookmark in a text buffer; it preserves a position in the text. You can convert the mark to an iterator using <code>.get-iter-at-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>]. Unlike iterators, marks remain valid across buffer mutations, because their behavior is defined when text is inserted or deleted. When text containing a mark is deleted, the mark remains in the position originally occupied by the deleted text. When text is inserted at a mark, a mark with “left gravity” will be moved to the beginning of the newly-inserted text, and a mark with “right gravity” will be moved to the end.</p><p>Note that “left” and “right” here refer to logical direction (left is the toward the start of the buffer); in some languages such as Hebrew the logically-leftmost text is not actually on the left when displayed.</p><p>Marks are reference counted, but the reference count only controls the validity of the memory; marks can be deleted from the buffer at any time with <code>.delete-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>]. Once deleted from the buffer, a mark is essentially useless.</p><p>Marks optionally have names; these can be convenient to avoid passing the <strong>Gnome::Gtk4::TextMark</strong> object around.</p><p>Marks are typically created using the <code>.create-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>] function.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/TextMark.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -41,7 +46,7 @@
 <p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-textmark"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">new-textmark</a></h2>
-<p>Creates a text mark.</p><p>Add it to a buffer using <code>.add-mark() in class Gnome::Gtk4::TextBuffer</code>. If <code>$name</code> is undefined, the mark is anonymous; otherwise, the mark can be retrieved by name using <code>.get-mark() in class Gnome::Gtk4::TextBuffer</code>. If a mark has left gravity, and text is inserted at the mark’s current location, the mark will be moved to the left of the newly-inserted text. If the mark has right gravity ( <code>$left-gravity</code> = <code>False</code>), the mark will end up on the right of newly-inserted text. The standard left-to-right cursor is a mark with right gravity (when you type, the cursor stays on the right side of the text you’re typing).</p><pre class="pod-block-code">method new-textmark ( Str $name, Bool() $left-gravity --&gt; Gnome::Gtk4::TextMark \)
+<p>Creates a text mark.</p><p>Add it to a buffer using <code>.add-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>]. If <code>$name</code> is undefined, the mark is anonymous; otherwise, the mark can be retrieved by name using <code>.get-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>]. If a mark has left gravity, and text is inserted at the mark’s current location, the mark will be moved to the left of the newly-inserted text. If the mark has right gravity ( <code>$left-gravity</code> = <code>False</code>), the mark will end up on the right of newly-inserted text. The standard left-to-right cursor is a mark with right gravity (when you type, the cursor stays on the right side of the text you’re typing).</p><pre class="pod-block-code">method new-textmark ( Str $name, Bool() $left-gravity --&gt; Gnome::Gtk4::TextMark )
 </pre><ul>
 <li><p>$name; mark name.</p></li>
 <li><p>$left-gravity; whether the mark should have left gravity.</p></li>
@@ -56,7 +61,7 @@
 </pre><p>Return value; the mark’s <strong>Gnome::Gtk4::TextBuffer</strong>. </p></section>
 <section name="pod">
 <h2 id="get-deleted"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">get-deleted</a></h2>
-<p>Returns <code>True</code> if the mark has been removed from its buffer.</p><p>See <code>.add-mark() in class Gnome::Gtk4::TextBuffer</code> for a way to add it to a buffer again.</p><pre class="pod-block-code">method get-deleted (--&gt; Bool )
+<p>Returns <code>True</code> if the mark has been removed from its buffer.</p><p>See <code>.add-mark()</code> in class <strong>Gnome::Gtk4::TextBuffer</strong>] for a way to add it to a buffer again.</p><pre class="pod-block-code">method get-deleted (--&gt; Bool )
 </pre><p>Return value; whether the mark is deleted. </p></section>
 <section name="pod">
 <h2 id="get-left-gravity"><a href="#Gnome::Gtk4::TextMark" class="u" title="go to top of document">get-left-gravity</a></h2>
@@ -77,6 +82,6 @@
 <li><p>$setting; .</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TextMark.rakudoc</span></div><div>at <span class="time">2025-04-18T17:56:48Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TextMark.rakudoc</span></div><div>at <span class="time">2025-04-20T11:46:29Z</span></div></footer>
 	</body>
 </html>

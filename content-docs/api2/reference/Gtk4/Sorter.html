@@ -8,14 +8,16 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Sorter">Gnome::Gtk4::Sorter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -29,7 +31,10 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Sorter</strong> is an object to describe sorting criteria.</p><p>Its primary user is <strong>Gnome::Gtk4::SortListModel</strong></p><p>The model will use a sorter to determine the order in which its items should appear by calling <code>.compare()</code> for pairs of items.</p><p>Sorters may change their sorting behavior through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that the sort order is no longer valid and should be updated by calling <code>.compare()</code> again.</p><p>GTK provides various pre-made sorter implementations for common sorting operations. <strong>Gnome::Gtk4::ColumnView</strong> has built-in support for sorting lists via the <em>sorter defined in Gnome::Gtk4::ColumnViewColumn</em> property, where the user can change the sorting by clicking on list headers.</p><p>Of course, in particular for large lists, it is also possible to subclass <strong>Gnome::Gtk4::Sorter</strong> and provide one's own sorter.</p></section>
+<p><strong>Gnome::Gtk4::Sorter</strong> is an object to describe sorting criteria.</p><p>Its primary user is <strong>Gnome::Gtk4::SortListModel</strong></p><p>The model will use a sorter to determine the order in which its items should appear by calling <code>.compare()</code>] for pairs of items.</p><p>Sorters may change their sorting behavior through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that the sort order is no longer valid and should be updated by calling <code>.compare()</code> again.</p><p>GTK provides various pre-made sorter implementations for common sorting operations. <strong>Gnome::Gtk4::ColumnView</strong> has built-in support for sorting lists via the <em>sorter defined in Gnome::Gtk4::ColumnViewColumn</em> property, where the user can change the sorting by clicking on list headers.</p><p>Of course, in particular for large lists, it is also possible to subclass <strong>Gnome::Gtk4::Sorter</strong> and provide one's own sorter.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Sorter.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -42,14 +47,14 @@
 </section>
 <section name="pod">
 <h2 id="changed"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">changed</a></h2>
-<p>Notifies all users of the sorter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the sorter should then update the sort order via <code>.compare()</code>.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the <code>enumeration SorterChange from Gnome::Gtk4::T-sorter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Sorter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkSorterChange $change )
+<p>Notifies all users of the sorter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the sorter should then update the sort order via <code>.compare()</code>].</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Sorter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkSorterChange $change )
 </pre><ul>
 <li><p>$change; How the sorter changed.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="compare"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">compare</a></h2>
-<p>Compares two given items according to the sort order implemented by the sorter.</p><p>Sorters implement a partial order:</p><p>* It is reflexive, ie a = a * It is antisymmetric, ie if a &lt; b and b &lt; a, then a = b * It is transitive, ie given any 3 items with a ≤ b and b ≤ c, then a ≤ c</p><p>The sorter may signal it conforms to additional constraints via the return value of <code>.get-order()</code>.</p><pre class="pod-block-code">method compare ( gpointer $item1, gpointer $item2 --&gt; GtkOrdering )
+<p>Compares two given items according to the sort order implemented by the sorter.</p><p>Sorters implement a partial order:</p><p>* It is reflexive, ie a = a * It is antisymmetric, ie if a &lt; b and b &lt; a, then a = b * It is transitive, ie given any 3 items with a ≤ b and b ≤ c, then a ≤ c</p><p>The sorter may signal it conforms to additional constraints via the return value of <code>.get-order()</code>].</p><pre class="pod-block-code">method compare ( gpointer $item1, gpointer $item2 --&gt; GtkOrdering )
 </pre><ul>
 <li><p>$item1; first item to compare.</p></li>
 <li><p>$item2; second item to compare.</p></li>
@@ -57,13 +62,13 @@
 <p>Return value; <code>GTK_ORDERING_EQUAL</code> if <code>$item1</code> == <code>$item2</code>, <code>GTK_ORDERING_SMALLER</code> if <code>$item1</code> &lt; <code>$item2</code>, <code>GTK_ORDERING_LARGER</code> if <code>$item1</code> &gt; <code>$item2</code>. </p></section>
 <section name="pod">
 <h2 id="get-order"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">get-order</a></h2>
-<p>Gets the order that <code>$self</code> conforms to.</p><p>See <code>enumeration SorterOrder from Gnome::Gtk4::T-sorter</code> for details of the possible return values.</p><p>This function is intended to allow optimizations.</p><pre class="pod-block-code">method get-order (--&gt; GtkSorterOrder )
+<p>Gets the order that <code>$self</code> conforms to.</p><p>See enumeration <code>SorterOrder</code> from <code>Gnome::Gtk4::T-sorter</code> for details of the possible return values.</p><p>This function is intended to allow optimizations.</p><pre class="pod-block-code">method get-order (--&gt; GtkSorterOrder )
 </pre><p>Return value; The order. </p></section>
 <section name="pod">
 <h1 id="Signals"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="changed_0"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">changed</a></h3>
-<p>Emitted whenever the sorter changed.</p><p>Users of the sorter should then update the sort order again via <code>.compare()</code>.</p><p><strong>Gnome::Gtk4::SortListModel</strong> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the <code>enumeration SorterChange from Gnome::Gtk4::T-sorter</code> documentation for details.</p><pre class="pod-block-code">method handler (
+<p>Emitted whenever the sorter changed.</p><p>Users of the sorter should then update the sort order again via <code>.compare()</code>.</p><p><strong>Gnome::Gtk4::SortListModel</strong> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><pre class="pod-block-code">method handler (
    $change,
   Int :$_handle_id,
   N-GObject :$_native-object,
@@ -78,6 +83,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Sorter.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:47Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Sorter.rakudoc</span></div><div>at <span class="time">2025-04-20T11:45:27Z</span></div></footer>
 	</body>
 </html>

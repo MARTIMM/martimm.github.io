@@ -20,6 +20,8 @@
  <tr class="toc-level-3"><td class="toc-text"><a href="#Menu_models">Menu models</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_Nodes">CSS Nodes</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -46,8 +48,8 @@
 <li><p>&quot;target&quot;: the parameter to use when activating the action</p></li>
 <li><p>&quot;icon&quot; and &quot;verb-icon&quot;: names of icons that may be displayed</p></li>
 <li><p>&quot;submenu-action&quot;: name of an action that may be used to track whether a submenu is open</p></li>
-<li><p>&quot;hidden-when&quot;: a string used to determine when the item will be hidden. Possible values include &quot;action-disabled&quot;, &quot;action-missing&quot;, &quot;macos-menubar&quot;. This is mainly useful for exported menus, see <code>.set-menubar() in class Gnome::Gtk4::Application</code>.</p></li>
-<li><p>&quot;custom&quot;: a string used to match against the ID of a custom child added with <code>.add-child()</code>, <code>.add-child() in class Gnome::Gtk4::PopoverMenuBar</code>, or in the ui file with `&lt;child type=&quot;ID&quot;&gt;`.</p></li>
+<li><p>&quot;hidden-when&quot;: a string used to determine when the item will be hidden. Possible values include &quot;action-disabled&quot;, &quot;action-missing&quot;, &quot;macos-menubar&quot;. This is mainly useful for exported menus, see <code>.set-menubar()</code> in class <code>Gnome::Gtk4::Application</code>.</p></li>
+<li><p>&quot;custom&quot;: a string used to match against the ID of a custom child added with <code>.add-child()</code>, <code>.add-child()</code> in class <code>Gnome::Gtk4::PopoverMenuBar</code>, or in the ui file with `&lt;child type=&quot;ID&quot;&gt;`.</p></li>
 </ul>
 <p>The following attributes are used when constructing sections:</p><ul>
 <li><p>&quot;label&quot;: a user-visible string to use as section heading</p></li>
@@ -58,11 +60,14 @@
 <li><p>&quot;label&quot;: a user-visible string to display</p></li>
 <li><p>&quot;icon&quot;: icon name to display</p></li>
 </ul>
-<p>Menu items will also show accelerators, which are usually associated with actions via <code>.set-accels-for-action() in class Gnome::Gtk4::Application</code>, [method <code>$WidgetClass</code>.add_binding_action] or <code>.add-shortcut() in class Gnome::Gtk4::ShortcutController</code>.</p>
+<p>Menu items will also show accelerators, which are usually associated with actions via <code>.set-accels-for-action()</code> in class <code>Gnome::Gtk4::Application</code>, [method <code>$WidgetClass</code>.add_binding_action] or <code>.add-shortcut()</code> in class <code>Gnome::Gtk4::ShortcutController</code>.</p>
 <h2 id="CSS_Nodes"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">CSS Nodes</a></h2>
 <p><strong>Gnome::Gtk4::PopoverMenu</strong> is just a subclass of <strong>Gnome::Gtk4::Popover</strong> that adds custom content to it, therefore it has the same CSS nodes. It is one of the cases that add a `.menu` style class to the main <strong>popover</strong> node.</p><p>Menu items have nodes with name <strong>button</strong> and class `.model`. If a section display-hint is set, the section gets a node <strong>box</strong> with class <strong>horizontal</strong> plus a class with the same text as the display hint. Note that said box may not be the direct ancestor of the item <strong>button</strong>s. Thus, for example, to style items in an <strong>inline</strong>-buttons` section, select `.inline-buttons button.model`. Other things that may be of interest to style in menus include <strong>label</strong> nodes.</p>
 <h2 id="Accessibility"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::PopoverMenu</strong> uses the <code>GTK_ACCESSIBLE_ROLE_MENU</code> role, and its items use the <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM</code>, <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM_CHECKBOX</code> or <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM_RADIO</code> roles, depending on the action they are connected to.</p></section>
+<p><strong>Gnome::Gtk4::PopoverMenu</strong> uses the <code>GTK_ACCESSIBLE_ROLE_MENU</code> role, and its items use the <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM</code>, <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM_CHECKBOX</code> or <code>GTK_ACCESSIBLE_ROLE_MENU_ITEM_RADIO</code> roles, depending on the action they are connected to.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/PopoverMenu.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -72,14 +77,14 @@
 <p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-from-model"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">new-from-model</a></h2>
-<p>Creates a <strong>Gnome::Gtk4::PopoverMenu</strong> and populates it according to <code>$model</code>.</p><p>The created buttons are connected to actions found in the <strong>Gnome::Gtk4::ApplicationWindow</strong> to which the popover belongs - typically by means of being attached to a widget that is contained within the <strong>Gnome::Gtk4::ApplicationWindow</strong>s widget hierarchy.</p><p>Actions can also be added using <code>.insert-action-group() in class Gnome::Gtk4::Widget</code> on the menus attach widget or on any of its parent widgets.</p><p>This function creates menus with sliding submenus. See <code>.new-from-model-full()</code> for a way to control this.</p><pre class="pod-block-code">method new-from-model ( N-Object() $model --&gt; Gnome::Gtk4::PopoverMenu \)
+<p>Creates a <strong>Gnome::Gtk4::PopoverMenu</strong> and populates it according to <code>$model</code>.</p><p>The created buttons are connected to actions found in the <strong>Gnome::Gtk4::ApplicationWindow</strong> to which the popover belongs - typically by means of being attached to a widget that is contained within the <strong>Gnome::Gtk4::ApplicationWindow</strong>s widget hierarchy.</p><p>Actions can also be added using <code>.insert-action-group()</code> in class <code>Gnome::Gtk4::Widget</code> on the menus attach widget or on any of its parent widgets.</p><p>This function creates menus with sliding submenus. See <code>.new-from-model-full()</code> for a way to control this.</p><pre class="pod-block-code">method new-from-model ( N-Object() $model --&gt; Gnome::Gtk4::PopoverMenu )
 </pre><ul>
 <li><p>$model; a <strong>Gnome::Gio::MenuModel</strong>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="new-from-model-full"><a href="#Gnome::Gtk4::PopoverMenu" class="u" title="go to top of document">new-from-model-full</a></h2>
-<p>Creates a <strong>Gnome::Gtk4::PopoverMenu</strong> and populates it according to <code>$model</code>.</p><p>The created buttons are connected to actions found in the action groups that are accessible from the parent widget. This includes the <strong>Gnome::Gtk4::ApplicationWindow</strong> to which the popover belongs. Actions can also be added using <code>.insert-action-group() in class Gnome::Gtk4::Widget</code> on the parent widget or on any of its parent widgets.</p><pre class="pod-block-code">method new-from-model-full ( N-Object() $model, UInt $flags --&gt; Gnome::Gtk4::PopoverMenu \)
+<p>Creates a <strong>Gnome::Gtk4::PopoverMenu</strong> and populates it according to <code>$model</code>.</p><p>The created buttons are connected to actions found in the action groups that are accessible from the parent widget. This includes the <strong>Gnome::Gtk4::ApplicationWindow</strong> to which the popover belongs. Actions can also be added using <code>.insert-action-group()</code> in class <code>Gnome::Gtk4::Widget</code> on the parent widget or on any of its parent widgets.</p><pre class="pod-block-code">method new-from-model-full ( N-Object() $model, UInt $flags --&gt; Gnome::Gtk4::PopoverMenu )
 </pre><ul>
 <li><p>$model; a <strong>Gnome::Gio::MenuModel</strong>.</p></li>
 <li><p>$flags; flags that affect how the menu is created.</p></li>
@@ -125,6 +130,6 @@
 <li><p>$model; a <strong>Gnome::Gio::MenuModel</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PopoverMenu.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:06Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PopoverMenu.rakudoc</span></div><div>at <span class="time">2025-04-20T11:44:45Z</span></div></footer>
 	</body>
 </html>

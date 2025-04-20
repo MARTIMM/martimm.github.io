@@ -18,6 +18,8 @@
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#Style_Classes">Style Classes</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Custom_styling_in_UI_libraries_and_applications">Custom styling in UI libraries and applications</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -48,11 +50,14 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::StyleContext</strong> stores styling information affecting a widget.</p><p>In order to construct the final style information, <strong>Gnome::Gtk4::StyleContext</strong> queries information from all attached <strong>GtkStyleProviders</strong>. Style providers can be either attached explicitly to the context through <code>.add-provider()</code>, or to the display through <code>.StyleContext.add-provider-for-display()</code>. The resulting style is a combination of all providers’ information in priority order.</p><p>For GTK widgets, any <strong>Gnome::Gtk4::StyleContext</strong> returned by <code>.get-style-context() in class Gnome::Gtk4::Widget</code> will already have a <strong>Gnome::Gdk4::Display</strong> and RTL/LTR information set. The style context will also be updated automatically if any of these settings change on the widget.</p>
+<p><strong>Gnome::Gtk4::StyleContext</strong> stores styling information affecting a widget.</p><p>In order to construct the final style information, <strong>Gnome::Gtk4::StyleContext</strong> queries information from all attached <strong>GtkStyleProviders</strong>. Style providers can be either attached explicitly to the context through <code>.add-provider()</code>], or to the display through <code>.StyleContext.add-provider-for-display()</code>. The resulting style is a combination of all providers’ information in priority order.</p><p>For GTK widgets, any <strong>Gnome::Gtk4::StyleContext</strong> returned by <code>.get-style-context()</code> in class <strong>Gnome::Gtk4::Widget</strong>] will already have a <strong>Gnome::Gdk4::Display</strong> and RTL/LTR information set. The style context will also be updated automatically if any of these settings change on the widget.</p>
 <h3 id="Style_Classes"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Style Classes</a></h3>
 <p>Widgets can add style classes to their context, which can be used to associate different styles by class. The documentation for individual widgets lists which style classes it uses itself, and which style classes may be added by applications to affect their appearance.</p>
 <h2 id="Custom_styling_in_UI_libraries_and_applications"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Custom styling in UI libraries and applications</a></h2>
-<p>If you are developing a library with custom widgets that render differently than standard components, you may need to add a <strong>Gnome::Gtk4::R-StyleProvider</strong> yourself with the <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> priority, either a <strong>Gnome::Gtk4::CssProvider</strong> or a custom object implementing the <strong>Gnome::Gtk4::R-StyleProvider</strong> interface. This way themes may still attempt to style your UI elements in a different way if needed so.</p><p>If you are using custom styling on an applications, you probably want then to make your style information prevail to the theme’s, so you must use a <strong>Gnome::Gtk4::R-StyleProvider</strong> with the <code>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</code> priority, keep in mind that the user settings in <strong>XDG_CONFIG_HOME</strong>/gtk-4.0/gtk.css` will still take precedence over your changes, as it uses the <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code> priority.</p></section>
+<p>If you are developing a library with custom widgets that render differently than standard components, you may need to add a <strong>Gnome::Gtk4::R-StyleProvider</strong> yourself with the <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> priority, either a <strong>Gnome::Gtk4::CssProvider</strong> or a custom object implementing the <strong>Gnome::Gtk4::R-StyleProvider</strong> interface. This way themes may still attempt to style your UI elements in a different way if needed so.</p><p>If you are using custom styling on an applications, you probably want then to make your style information prevail to the theme’s, so you must use a <strong>Gnome::Gtk4::R-StyleProvider</strong> with the <code>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</code> priority, keep in mind that the user settings in <strong>XDG_CONFIG_HOME</strong>/gtk-4.0/gtk.css` will still take precedence over your changes, as it uses the <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code> priority.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/StyleContext.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Class initialization</a></h1>
 <p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
@@ -116,7 +121,7 @@
 </pre><p>Return value; the scale. </p></section>
 <section name="pod">
 <h2 id="get-state"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-state</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the state used for style matching.</p><p>This method should only be used to retrieve the <code>bit field GtkStateFlags defined in Gnome::Gtk4::T-enums</code> to pass to <strong>Gnome::Gtk4::StyleContext</strong> methods, like <code>.get-padding()</code>. If you need to retrieve the current state of a <strong>Gnome::Gtk4::Widget</strong>, use <code>.get-state-flags() in class Gnome::Gtk4::Widget</code>.</p><pre class="pod-block-code">method get-state (--&gt; UInt )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the state used for style matching.</p><p>This method should only be used to retrieve the <code>bit field GtkStateFlags defined in Gnome::Gtk4::T-enums</code> to pass to <strong>Gnome::Gtk4::StyleContext</strong> methods, like <code>.get-padding()</code>]. If you need to retrieve the current state of a <strong>Gnome::Gtk4::Widget</strong>, use <code>.get-state-flags()</code> in class <strong>Gnome::Gtk4::Widget</strong>].</p><pre class="pod-block-code">method get-state (--&gt; UInt )
 </pre><p>Return value; the state flags. </p></section>
 <section name="pod">
 <h2 id="has-class"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">has-class</a></h2>
@@ -149,15 +154,15 @@
 </section>
 <section name="pod">
 <h2 id="restore"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">restore</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Restores <code>$context</code> state to a previous stage.</p><p>See <code>.save()</code>.</p><pre class="pod-block-code">method restore ( )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Restores <code>$context</code> state to a previous stage.</p><p>See <code>.save()</code>].</p><pre class="pod-block-code">method restore ( )
 </pre></section>
 <section name="pod">
 <h2 id="save"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">save</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Saves the <code>$context</code> state.</p><p>This allows temporary modifications done through <code>.add-class()</code>, <code>.remove-class()</code>, <code>.set-state()</code> to be quickly reverted in one go through <code>.restore()</code>.</p><p>The matching call to <code>.restore()</code> must be done before GTK returns to the main loop.</p><pre class="pod-block-code">method save ( )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Saves the <code>$context</code> state.</p><p>This allows temporary modifications done through <code>.add-class()</code>], <code>.remove-class()</code>], <code>.set-state()</code>] to be quickly reverted in one go through <code>.restore()</code>].</p><p>The matching call to <code>.restore()</code>] must be done before GTK returns to the main loop.</p><pre class="pod-block-code">method save ( )
 </pre></section>
 <section name="pod">
 <h2 id="set-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">set-display</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Attaches <code>$context</code> to the given display.</p><p>The display is used to add style information from “global” style providers, such as the display's <strong>Gnome::Gtk4::Settings</strong> instance.</p><p>If you are using a <strong>Gnome::Gtk4::StyleContext</strong> returned from <code>.get-style-context() in class Gnome::Gtk4::Widget</code>, you do not need to call this yourself.</p><pre class="pod-block-code">method set-display ( N-Object() $display )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Attaches <code>$context</code> to the given display.</p><p>The display is used to add style information from “global” style providers, such as the display's <strong>Gnome::Gtk4::Settings</strong> instance.</p><p>If you are using a <strong>Gnome::Gtk4::StyleContext</strong> returned from <code>.get-style-context()</code> in class <strong>Gnome::Gtk4::Widget</strong>], you do not need to call this yourself.</p><pre class="pod-block-code">method set-display ( N-Object() $display )
 </pre><ul>
 <li><p>$display; a <strong>Gnome::Gdk4::Display</strong>.</p></li>
 </ul>
@@ -188,7 +193,7 @@
 </section>
 <section name="pod">
 <h2 id="add-provider-for-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">add-provider-for-display</a></h2>
-<p>Adds a global style provider to <code>$display</code>, which will be used in style construction for all <strong>GtkStyleContexts</strong> under <code>$display</code>.</p><p>GTK uses this to make styling information from <strong>Gnome::Gtk4::Settings</strong> available.</p><p>Note: If both priorities are the same, A <strong>Gnome::Gtk4::R-StyleProvider</strong> added through <code>.add-provider()</code> takes precedence over another added through this function.</p><pre class="pod-block-code">method add-provider-for-display ( N-Object() $display, N-Object() $provider, UInt() $priority )
+<p>Adds a global style provider to <code>$display</code>, which will be used in style construction for all <strong>GtkStyleContexts</strong> under <code>$display</code>.</p><p>GTK uses this to make styling information from <strong>Gnome::Gtk4::Settings</strong> available.</p><p>Note: If both priorities are the same, A <strong>Gnome::Gtk4::R-StyleProvider</strong> added through <code>.add-provider()</code>] takes precedence over another added through this function.</p><pre class="pod-block-code">method add-provider-for-display ( N-Object() $display, N-Object() $provider, UInt() $priority )
 </pre><ul>
 <li><p>$display; a <strong>Gnome::Gdk4::Display</strong>.</p></li>
 <li><p>$provider; a <strong>Gnome::Gtk4::R-StyleProvider</strong>.</p></li>
@@ -203,6 +208,6 @@
 <li><p>$provider; a <strong>Gnome::Gtk4::R-StyleProvider</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StyleContext.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:57Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StyleContext.rakudoc</span></div><div>at <span class="time">2025-04-20T11:45:37Z</span></div></footer>
 	</body>
 </html>

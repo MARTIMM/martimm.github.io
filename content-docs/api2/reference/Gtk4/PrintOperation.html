@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -17,6 +17,8 @@
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#The_high-level_printing_API">The high-level printing API</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -67,9 +69,12 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::PrintOperation</strong> is the high-level, portable printing API.</p><p>It looks a bit different than other GTK dialogs such as the <strong>Gnome::Gtk4::R-FileChooser</strong>, since some platforms don’t expose enough infrastructure to implement a good print dialog. On such platforms, <strong>Gnome::Gtk4::PrintOperation</strong> uses the native print dialog. On platforms which do not provide a native print dialog, GTK uses its own, see <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><p>The typical way to use the high-level printing API is to create a <strong>Gnome::Gtk4::PrintOperation</strong> object with <code>.newprintoperation()</code> when the user selects to print. Then you set some properties on it, e.g. the page size, any <strong>Gnome::Gtk4::PrintSettings</strong> from previous print operations, the number of pages, the current page, etc.</p><p>Then you start the print operation by calling <code>.run()</code>. It will then show a dialog, let the user select a printer and options. When the user finished the dialog, various signals will be emitted on the <strong>Gnome::Gtk4::PrintOperation</strong>, the main one being <em>draw-page</em>, which you are supposed to handle and render the page on the provided <strong>Gnome::Gtk4::PrintContext</strong> using Cairo.</p>
+<p><strong>Gnome::Gtk4::PrintOperation</strong> is the high-level, portable printing API.</p><p>It looks a bit different than other GTK dialogs such as the <strong>Gnome::Gtk4::R-FileChooser</strong>, since some platforms don’t expose enough infrastructure to implement a good print dialog. On such platforms, <strong>Gnome::Gtk4::PrintOperation</strong> uses the native print dialog. On platforms which do not provide a native print dialog, GTK uses its own, see <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><p>The typical way to use the high-level printing API is to create a <strong>Gnome::Gtk4::PrintOperation</strong> object with <code>.newprintoperation()</code> when the user selects to print. Then you set some properties on it, e.g. the page size, any <strong>Gnome::Gtk4::PrintSettings</strong> from previous print operations, the number of pages, the current page, etc.</p><p>Then you start the print operation by calling <code>.run()</code>]. It will then show a dialog, let the user select a printer and options. When the user finished the dialog, various signals will be emitted on the <strong>Gnome::Gtk4::PrintOperation</strong>, the main one being <em>draw-page</em>, which you are supposed to handle and render the page on the provided <strong>Gnome::Gtk4::PrintContext</strong> using Cairo.</p>
 <h2 id="The_high-level_printing_API"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">The high-level printing API</a></h2>
-<p>By default <strong>Gnome::Gtk4::PrintOperation</strong> uses an external application to do print preview. To implement a custom print preview, an application must connect to the preview signal. The functions <code>.render-page() in class Gnome::Gtk4::R-PrintOperationPreview</code>, <code>.end-preview() in class Gnome::Gtk4::R-PrintOperationPreview</code> and <code>.is-selected() in class Gnome::Gtk4::R-PrintOperationPreview</code> are useful when implementing a print preview.</p></section>
+<p>By default <strong>Gnome::Gtk4::PrintOperation</strong> uses an external application to do print preview. To implement a custom print preview, an application must connect to the preview signal. The functions <code>.render-page()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>], <code>.end-preview()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>] and <code>.is-selected()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>] are useful when implementing a print preview.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/PrintOperation.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -79,7 +84,7 @@
 <p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-printoperation"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">new-printoperation</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::PrintOperation</strong>.</p><pre class="pod-block-code">method new-printoperation ( --&gt; Gnome::Gtk4::PrintOperation \)
+<p>Creates a new <strong>Gnome::Gtk4::PrintOperation</strong>.</p><pre class="pod-block-code">method new-printoperation ( --&gt; Gnome::Gtk4::PrintOperation )
 </pre></section>
 <section name="pod">
 <h1 id="Methods"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">Methods</a></h1>
@@ -90,7 +95,7 @@
 </pre></section>
 <section name="pod">
 <h2 id="draw-page-finish"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">draw-page-finish</a></h2>
-<p>Signal that drawing of particular page is complete.</p><p>It is called after completion of page drawing (e.g. drawing in another thread). If <code>.set-defer-drawing()</code> was called before, then this function has to be called by application. Otherwise it is called by GTK itself.</p><pre class="pod-block-code">method draw-page-finish ( )
+<p>Signal that drawing of particular page is complete.</p><p>It is called after completion of page drawing (e.g. drawing in another thread). If <code>.set-defer-drawing()</code>] was called before, then this function has to be called by application. Otherwise it is called by GTK itself.</p><pre class="pod-block-code">method draw-page-finish ( )
 </pre></section>
 <section name="pod">
 <h2 id="get-default-page-setup"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-default-page-setup</a></h2>
@@ -102,7 +107,7 @@
 </pre><p>Return value; whether page setup selection combos are embedded. </p></section>
 <section name="pod">
 <h2 id="get-error"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-error</a></h2>
-<p>Call this when the result of a print operation is <code>GTK_PRINT_OPERATION_RESULT_ERROR</code>.</p><p>It can be called either after <code>.run()</code> returns, or in the <em>done</em> signal handler.</p><p>The returned <strong>Gnome::Glib::N-Error</strong> will contain more details on what went wrong.</p><pre class="pod-block-code">method get-error ( CArray[N-Error] $err )
+<p>Call this when the result of a print operation is <code>GTK_PRINT_OPERATION_RESULT_ERROR</code>.</p><p>It can be called either after <code>.run()</code>] returns, or in the <em>done</em> signal handler.</p><p>The returned <strong>Gnome::Glib::N-Error</strong> will contain more details on what went wrong.</p><pre class="pod-block-code">method get-error ( CArray[N-Error] $err )
 </pre><ul>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
@@ -117,15 +122,15 @@
 </pre><p>Return value; the number of pages that will be printed. </p></section>
 <section name="pod">
 <h2 id="get-print-settings"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-print-settings</a></h2>
-<p>Returns the current print settings.</p><p>Note that the return value is undefined until either <code>.set-print-settings()</code> or <code>.run()</code> have been called.</p><pre class="pod-block-code">method get-print-settings (--&gt; N-Object )
+<p>Returns the current print settings.</p><p>Note that the return value is undefined until either <code>.set-print-settings()</code>] or <code>.run()</code>] have been called.</p><pre class="pod-block-code">method get-print-settings (--&gt; N-Object )
 </pre><p>Return value; the current print settings of <code>$op</code>.. </p></section>
 <section name="pod">
 <h2 id="get-status"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-status</a></h2>
-<p>Returns the status of the print operation.</p><p>Also see <code>.get-status-string()</code>.</p><pre class="pod-block-code">method get-status (--&gt; GtkPrintStatus )
+<p>Returns the status of the print operation.</p><p>Also see <code>.get-status-string()</code>].</p><pre class="pod-block-code">method get-status (--&gt; GtkPrintStatus )
 </pre><p>Return value; the status of the print operation. </p></section>
 <section name="pod">
 <h2 id="get-status-string"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-status-string</a></h2>
-<p>Returns a string representation of the status of the print operation.</p><p>The string is translated and suitable for displaying the print status e.g. in a <strong>Gnome::Gtk4::Statusbar</strong>.</p><p>Use <code>.get-status()</code> to obtain a status value that is suitable for programmatic use.</p><pre class="pod-block-code">method get-status-string (--&gt; Str )
+<p>Returns a string representation of the status of the print operation.</p><p>The string is translated and suitable for displaying the print status e.g. in a <strong>Gnome::Gtk4::Statusbar</strong>.</p><p>Use <code>.get-status()</code>] to obtain a status value that is suitable for programmatic use.</p><pre class="pod-block-code">method get-status-string (--&gt; Str )
 </pre><p>Return value; a string representation of the status of the print operation. </p></section>
 <section name="pod">
 <h2 id="get-support-selection"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">get-support-selection</a></h2>
@@ -143,7 +148,7 @@
 <li><p>$parent; Transient parent of the dialog.</p></li>
 <li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
 </ul>
-<p>Return value; the result of the print operation. A return value of <code>GTK_PRINT_OPERATION_RESULT_APPLY</code> indicates that the printing was completed successfully. In this case, it is a good idea to obtain the used print settings with <code>.get-print-settings()</code> and store them for reuse with the next print operation. A value of <code>GTK_PRINT_OPERATION_RESULT_IN_PROGRESS</code> means the operation is running asynchronously, and will emit the <em>done</em> signal when done.. </p></section>
+<p>Return value; the result of the print operation. A return value of <code>GTK_PRINT_OPERATION_RESULT_APPLY</code> indicates that the printing was completed successfully. In this case, it is a good idea to obtain the used print settings with <code>.get-print-settings()</code>] and store them for reuse with the next print operation. A value of <code>GTK_PRINT_OPERATION_RESULT_IN_PROGRESS</code> means the operation is running asynchronously, and will emit the <em>done</em> signal when done.. </p></section>
 <section name="pod">
 <h2 id="set-allow-async"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-allow-async</a></h2>
 <p>Sets whether <code>.run()</code> may return before the print operation is completed.</p><p>Note that some platforms may not allow asynchronous operation.</p><pre class="pod-block-code">method set-allow-async ( Bool() $allow-async )
@@ -153,7 +158,7 @@
 </section>
 <section name="pod">
 <h2 id="set-current-page"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-current-page</a></h2>
-<p>Sets the current page.</p><p>If this is called before <code>.run()</code>, the user will be able to select to print only the current page.</p><p>Note that this only makes sense for pre-paginated documents.</p><pre class="pod-block-code">method set-current-page ( Int() $current-page )
+<p>Sets the current page.</p><p>If this is called before <code>.run()</code>], the user will be able to select to print only the current page.</p><p>Note that this only makes sense for pre-paginated documents.</p><pre class="pod-block-code">method set-current-page ( Int() $current-page )
 </pre><ul>
 <li><p>$current-page; the current page, 0-based.</p></li>
 </ul>
@@ -167,97 +172,97 @@
 </section>
 <section name="pod">
 <h2 id="set-default-page-setup"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-default-page-setup</a></h2>
-<p>Makes <code>$default-page-setup</code> the default page setup for <code>$op</code>.</p><p>This page setup will be used by <code>.run()</code>, but it can be overridden on a per-page basis by connecting to the <em>request-page-setup</em> signal.</p><pre class="pod-block-code">method set-default-page-setup ( N-Object() $default-page-setup )
+<p>Makes <code>$default-page-setup</code> the default page setup for <code>$op</code>.</p><p>This page setup will be used by <code>.run()</code>], but it can be overridden on a per-page basis by connecting to the <em>request-page-setup</em> signal.</p><pre class="pod-block-code">method set-default-page-setup ( N-Object() $default-page-setup )
 </pre><ul>
 <li><p>$default-page-setup; a <strong>Gnome::Gtk4::PageSetup</strong>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-defer-drawing"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-defer-drawing</a></h2>
-<p>Sets up the <strong>Gnome::Gtk4::PrintOperation</strong> to wait for calling of <code>.draw-page-finish</code> from application.</p><p>This can be used for drawing page in another thread.</p><p>This function must be called in the callback of the <em>draw-page</em> signal.</p><pre class="pod-block-code">method set-defer-drawing ( )
-</pre><p>----EXAMPLE----020</p></section>
+<p>Sets up the <strong>Gnome::Gtk4::PrintOperation</strong> to wait for calling of <code>.draw-page-finish()</code> from application.</p><p>This can be used for drawing page in another thread.</p><p>This function must be called in the callback of the <em>draw-page</em> signal.</p><pre class="pod-block-code">method set-defer-drawing ( )
+</pre></section>
 <section name="pod">
 <h2 id="set-embed-page-setup"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-embed-page-setup</a></h2>
 <p>Embed page size combo box and orientation combo box into page setup page.</p><p>Selected page setup is stored as default page setup in <strong>Gnome::Gtk4::PrintOperation</strong>.</p><pre class="pod-block-code">method set-embed-page-setup ( Bool() $embed )
 </pre><ul>
 <li><p>$embed; <code>True</code> to embed page setup selection in the <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p></li>
 </ul>
-<p>----EXAMPLE----021</p></section>
+</section>
 <section name="pod">
 <h2 id="set-export-filename"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-export-filename</a></h2>
 <p>Sets up the <strong>Gnome::Gtk4::PrintOperation</strong> to generate a file instead of showing the print dialog.</p><p>The intended use of this function is for implementing “Export to PDF” actions. Currently, PDF is the only supported format.</p><p>“Print to PDF” support is independent of this and is done by letting the user pick the “Print to PDF” item from the list of printers in the print dialog.</p><pre class="pod-block-code">method set-export-filename ( Str $filename )
 </pre><ul>
 <li><p>$filename; the filename for the exported file.</p></li>
 </ul>
-<p>----EXAMPLE----022</p></section>
+</section>
 <section name="pod">
 <h2 id="set-has-selection"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-has-selection</a></h2>
-<p>Sets whether there is a selection to print.</p><p>Application has to set number of pages to which the selection will draw by <code>.set-n-pages()</code> in a handler for the <em>begin-print</em> signal.</p><pre class="pod-block-code">method set-has-selection ( Bool() $has-selection )
+<p>Sets whether there is a selection to print.</p><p>Application has to set number of pages to which the selection will draw by <code>.set-n-pages()</code>] in a handler for the <em>begin-print</em> signal.</p><pre class="pod-block-code">method set-has-selection ( Bool() $has-selection )
 </pre><ul>
 <li><p>$has-selection; <code>True</code> indicates that a selection exists.</p></li>
 </ul>
-<p>----EXAMPLE----023</p></section>
+</section>
 <section name="pod">
 <h2 id="set-job-name"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-job-name</a></h2>
 <p>Sets the name of the print job.</p><p>The name is used to identify the job (e.g. in monitoring applications like eggcups).</p><p>If you don’t set a job name, GTK picks a default one by numbering successive print jobs.</p><pre class="pod-block-code">method set-job-name ( Str $job-name )
 </pre><ul>
 <li><p>$job-name; a string that identifies the print job.</p></li>
 </ul>
-<p>----EXAMPLE----024</p></section>
+</section>
 <section name="pod">
 <h2 id="set-n-pages"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-n-pages</a></h2>
-<p>Sets the number of pages in the document.</p><p>This must be set to a positive number before the rendering starts. It may be set in a <em>begin-print</em> signal handler.</p><p>Note that the page numbers passed to the <em>request-page-setup</em> and <em>draw-page</em> signals are 0-based, i.e. if the user chooses to print all pages, the last <em>draw-page</em> signal will be for page <code>$n</code>-pages - 1.</p><pre class="pod-block-code">method set-n-pages ( Int() $n-pages )
+<p>Sets the number of pages in the document.</p><p>This must be set to a positive number before the rendering starts. It may be set in a <em>begin-print</em> signal handler.</p><p>Note that the page numbers passed to the <em>request-page-setup</em> and <em>draw-page</em> signals are 0-based, i.e. if the user chooses to print all pages, the last <em>draw-page</em> signal will be for page <code>$n-pages</code> - 1.</p><pre class="pod-block-code">method set-n-pages ( Int() $n-pages )
 </pre><ul>
 <li><p>$n-pages; the number of pages.</p></li>
 </ul>
-<p>----EXAMPLE----025</p></section>
+</section>
 <section name="pod">
 <h2 id="set-print-settings"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-print-settings</a></h2>
-<p>Sets the print settings for <code>$op</code>.</p><p>This is typically used to re-establish print settings from a previous print operation, see <code>.run()</code>.</p><pre class="pod-block-code">method set-print-settings ( N-Object() $print-settings )
+<p>Sets the print settings for <code>$op</code>.</p><p>This is typically used to re-establish print settings from a previous print operation, see <code>.run()</code>].</p><pre class="pod-block-code">method set-print-settings ( N-Object() $print-settings )
 </pre><ul>
 <li><p>$print-settings; <strong>Gnome::Gtk4::PrintSettings</strong>.</p></li>
 </ul>
-<p>----EXAMPLE----026</p></section>
+</section>
 <section name="pod">
 <h2 id="set-show-progress"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-show-progress</a></h2>
-<p>If <code>$show</code>-progress is <code>True</code>, the print operation will show a progress dialog during the print operation.</p><pre class="pod-block-code">method set-show-progress ( Bool() $show-progress )
+<p>If <code>$show-progress</code> is <code>True</code>, the print operation will show a progress dialog during the print operation.</p><pre class="pod-block-code">method set-show-progress ( Bool() $show-progress )
 </pre><ul>
 <li><p>$show-progress; <code>True</code> to show a progress dialog.</p></li>
 </ul>
-<p>----EXAMPLE----027</p></section>
+</section>
 <section name="pod">
 <h2 id="set-support-selection"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-support-selection</a></h2>
 <p>Sets whether selection is supported by <strong>Gnome::Gtk4::PrintOperation</strong>.</p><pre class="pod-block-code">method set-support-selection ( Bool() $support-selection )
 </pre><ul>
 <li><p>$support-selection; <code>True</code> to support selection.</p></li>
 </ul>
-<p>----EXAMPLE----028</p></section>
+</section>
 <section name="pod">
 <h2 id="set-track-print-status"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-track-print-status</a></h2>
-<p>If track-status is <code>True</code>, the print operation will try to continue report on the status of the print job in the printer queues and printer.</p><p>This can allow your application to show things like “out of paper” issues, and when the print job actually reaches the printer.</p><p>This function is often implemented using some form of polling, so it should not be enabled unless needed.</p><pre class="pod-block-code">method set-track-print-status ( Bool() $track-status )
+<p>If track_status is <code>True</code>, the print operation will try to continue report on the status of the print job in the printer queues and printer.</p><p>This can allow your application to show things like “out of paper” issues, and when the print job actually reaches the printer.</p><p>This function is often implemented using some form of polling, so it should not be enabled unless needed.</p><pre class="pod-block-code">method set-track-print-status ( Bool() $track-status )
 </pre><ul>
 <li><p>$track-status; <code>True</code> to track status after printing.</p></li>
 </ul>
-<p>----EXAMPLE----029</p></section>
+</section>
 <section name="pod">
 <h2 id="set-unit"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-unit</a></h2>
 <p>Sets up the transformation for the cairo context obtained from <strong>Gnome::Gtk4::PrintContext</strong> in such a way that distances are measured in units of <code>$unit</code>.</p><pre class="pod-block-code">method set-unit ( GtkUnit $unit )
 </pre><ul>
 <li><p>$unit; the unit to use.</p></li>
 </ul>
-<p>----EXAMPLE----030</p></section>
+</section>
 <section name="pod">
 <h2 id="set-use-full-page"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">set-use-full-page</a></h2>
-<p>If <code>$full</code>-page is <code>True</code>, the transformation for the cairo context obtained from <strong>Gnome::Gtk4::PrintContext</strong> puts the origin at the top left corner of the page.</p><p>This may not be the top left corner of the sheet, depending on page orientation and the number of pages per sheet). Otherwise, the origin is at the top left corner of the imageable area (i.e. inside the margins).</p><pre class="pod-block-code">method set-use-full-page ( Bool() $full-page )
+<p>If <code>$full-page</code> is <code>True</code>, the transformation for the cairo context obtained from <strong>Gnome::Gtk4::PrintContext</strong> puts the origin at the top left corner of the page.</p><p>This may not be the top left corner of the sheet, depending on page orientation and the number of pages per sheet). Otherwise, the origin is at the top left corner of the imageable area (i.e. inside the margins).</p><pre class="pod-block-code">method set-use-full-page ( Bool() $full-page )
 </pre><ul>
 <li><p>$full-page; <code>True</code> to set up the <strong>Gnome::Gtk4::PrintContext</strong> for the full page.</p></li>
 </ul>
-<p>----EXAMPLE----031</p></section>
+</section>
 <section name="pod">
 <h1 id="Signals"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="begin-print"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">begin-print</a></h3>
-<p>Emitted after the user has finished changing print settings in the dialog, before the actual rendering starts.</p><p>A typical use for <em>begin-print</em> is to use the parameters from the <strong>Gnome::Gtk4::PrintContext</strong> and paginate the document accordingly, and then set the number of pages with <code>.set-n-pages()</code>.</p><pre class="pod-block-code">method handler (
+<p>Emitted after the user has finished changing print settings in the dialog, before the actual rendering starts.</p><p>A typical use for <em>begin-print</em> is to use the parameters from the <strong>Gnome::Gtk4::PrintContext</strong> and paginate the document accordingly, and then set the number of pages with <code>.set-n-pages()</code>].</p><pre class="pod-block-code">method handler (
   N-Object $context,
   Int :$_handle_id,
   N-GObject :$_native-object,
@@ -303,7 +308,7 @@
 </ul>
 
 <h3 id="done"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">done</a></h3>
-<p>Emitted when the print operation run has finished doing everything required for printing. <code>$result</code> gives you information about what happened during the run. If <code>$result</code> is <code>GTK_PRINT_OPERATION_RESULT_ERROR</code> then you can call <code>.get-error()</code> for more information.</p><p>If you enabled print status tracking then <code>.is-finished()</code> may still return <code>False</code> after the <em>done</em> signal was emitted.</p><pre class="pod-block-code">method handler (
+<p>Emitted when the print operation run has finished doing everything required for printing. <code>$result</code> gives you information about what happened during the run. If <code>$result</code> is <code>GTK_PRINT_OPERATION_RESULT_ERROR</code> then you can call <code>.get-error()</code>] for more information.</p><p>If you enabled print status tracking then <code>.is-finished()</code>] may still return <code>False</code> after the <em>done</em> signal was emitted.</p><pre class="pod-block-code">method handler (
    $result,
   Int :$_handle_id,
   N-GObject :$_native-object,
@@ -319,7 +324,7 @@
 </ul>
 
 <h3 id="draw-page"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">draw-page</a></h3>
-<p>Emitted for every page that is printed.</p><p>The signal handler must render the <code>$page-nr</code>'s page onto the cairo context obtained from <code>$context</code> using <code>.get-cairo-context() in class Gnome::Gtk4::PrintContext</code>.</p><p>Use <code>.set-use-full-page()</code> and <code>.set-unit()</code> before starting the print operation to set up the transformation of the cairo context according to your needs.</p><pre class="pod-block-code">method handler (
+<p>Emitted for every page that is printed.</p><p>The signal handler must render the <code>$page-nr</code>'s page onto the cairo context obtained from <code>$context</code> using <code>.get-cairo-context()</code> in class <strong>Gnome::Gtk4::PrintContext</strong>].</p><p>Use <code>.set-use-full-page()</code>] and <code>.set-unit()</code>] before starting the print operation to set up the transformation of the cairo context according to your needs.</p><pre class="pod-block-code">method handler (
   N-Object $context,
   gint $page-nr,
   Int :$_handle_id,
@@ -353,7 +358,7 @@
 </ul>
 
 <h3 id="paginate"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">paginate</a></h3>
-<p>Emitted after the <em>begin-print</em> signal, but before the actual rendering starts.</p><p>It keeps getting emitted until a connected signal handler returns <code>True</code>.</p><p>The <em>paginate</em> signal is intended to be used for paginating a document in small chunks, to avoid blocking the user interface for a long time. The signal handler should update the number of pages using <code>.set-n-pages()</code>, and return <code>True</code> if the document has been completely paginated.</p><p>If you don't need to do pagination in chunks, you can simply do it all in the <em>begin-print</em> handler, and set the number of pages from there.</p><pre class="pod-block-code">method handler (
+<p>Emitted after the <em>begin-print</em> signal, but before the actual rendering starts.</p><p>It keeps getting emitted until a connected signal handler returns <code>True</code>.</p><p>The <em>paginate</em> signal is intended to be used for paginating a document in small chunks, to avoid blocking the user interface for a long time. The signal handler should update the number of pages using <code>.set-n-pages()</code>], and return <code>True</code> if the document has been completely paginated.</p><p>If you don't need to do pagination in chunks, you can simply do it all in the <em>begin-print</em> handler, and set the number of pages from there.</p><pre class="pod-block-code">method handler (
   N-Object $context,
   Int :$_handle_id,
   N-GObject :$_native-object,
@@ -370,7 +375,7 @@
 </ul>
 <p>Return value; <code>True</code> if pagination is complete</p>
 <h3 id="preview"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">preview</a></h3>
-<p>Gets emitted when a preview is requested from the native dialog.</p><p>The default handler for this signal uses an external viewer application to preview.</p><p>To implement a custom print preview, an application must return <code>True</code> from its handler for this signal. In order to use the provided <code>$context</code> for the preview implementation, it must be given a suitable cairo context with <code>.set-cairo-context() in class Gnome::Gtk4::PrintContext</code>.</p><p>The custom preview implementation can use <code>.is-selected() in class Gnome::Gtk4::R-PrintOperationPreview</code> and <code>.render-page() in class Gnome::Gtk4::R-PrintOperationPreview</code> to find pages which are selected for print and render them. The preview must be finished by calling <code>.end-preview() in class Gnome::Gtk4::R-PrintOperationPreview</code> (typically in response to the user clicking a close button).</p><pre class="pod-block-code">method handler (
+<p>Gets emitted when a preview is requested from the native dialog.</p><p>The default handler for this signal uses an external viewer application to preview.</p><p>To implement a custom print preview, an application must return <code>True</code> from its handler for this signal. In order to use the provided <code>$context</code> for the preview implementation, it must be given a suitable cairo context with <code>.set-cairo-context()</code> in class <strong>Gnome::Gtk4::PrintContext</strong>].</p><p>The custom preview implementation can use <code>.is-selected()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>] and <code>.render-page()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>] to find pages which are selected for print and render them. The preview must be finished by calling <code>.end-preview()</code> in class <strong>Gnome::Gtk4::R-PrintOperationPreview</strong>] (typically in response to the user clicking a close button).</p><pre class="pod-block-code">method handler (
   N-Object $preview,
   N-Object $context,
   N-Object $parent,
@@ -411,7 +416,7 @@
 </ul>
 
 <h3 id="status-changed"><a href="#Gnome::Gtk4::PrintOperation" class="u" title="go to top of document">status-changed</a></h3>
-<p>Emitted at between the various phases of the print operation.</p><p>See <code>enumeration PrintStatus from Gnome::Gtk4::T-printoperation</code> for the phases that are being discriminated. Use <code>.get-status()</code> to find out the current status.</p><pre class="pod-block-code">method handler (
+<p>Emitted at between the various phases of the print operation.</p><p>See enumeration <code>PrintStatus</code> from <code>Gnome::Gtk4::T-printoperation</code> for the phases that are being discriminated. Use <code>.get-status()</code>] to find out the current status.</p><pre class="pod-block-code">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::PrintOperation :$_widget,
@@ -444,6 +449,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PrintOperation.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:08Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PrintOperation.rakudoc</span></div><div>at <span class="time">2025-04-20T11:44:46Z</span></div></footer>
 	</body>
 </html>

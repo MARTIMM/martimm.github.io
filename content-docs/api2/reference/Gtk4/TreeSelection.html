@@ -16,6 +16,8 @@
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TreeSelection">Gnome::Gtk4::TreeSelection</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -35,7 +37,7 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#select-range">select-range</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#selected-foreach">selected-foreach</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-mode">set-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-select-function_This_function_is_not_yet_available">set-select-function This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-select-function">set-select-function</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-all">unselect-all</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-iter">unselect-iter</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-path">unselect-path</a></td></tr>
@@ -46,7 +48,10 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Description</a></h1>
-<p>The selection object for GtkTreeView</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is a helper object to manage the selection for a <strong>Gnome::Gtk4::TreeView</strong> widget. The <strong>Gnome::Gtk4::TreeSelection</strong> object is automatically created when a new <strong>Gnome::Gtk4::TreeView</strong> widget is created, and cannot exist independently of this widget. The primary reason the <strong>Gnome::Gtk4::TreeSelection</strong> objects exists is for cleanliness of code and API. That is, there is no conceptual reason all these functions could not be methods on the <strong>Gnome::Gtk4::TreeView</strong> widget instead of a separate function.</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is gotten from a <strong>Gnome::Gtk4::TreeView</strong> by calling gtk_tree_view_get_selection(). It can be manipulated to check the selection status of the tree, as well as select and deselect individual rows. Selection is done completely view side. As a result, multiple views of the same model can have completely different selections. Additionally, you cannot change the selection of a row on the model that is not currently displayed by the view without expanding its parents first.</p><p>One of the important things to remember when monitoring the selection of a view is that the <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal is mostly a hint. That is, it may only emit one signal when a range of rows is selected. Additionally, it may on occasion emit a <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal when nothing has happened (mostly as a result of programmers calling select_row on an already selected row).</p></section>
+<p>The selection object for GtkTreeView</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is a helper object to manage the selection for a <strong>Gnome::Gtk4::TreeView</strong> widget. The <strong>Gnome::Gtk4::TreeSelection</strong> object is automatically created when a new <strong>Gnome::Gtk4::TreeView</strong> widget is created, and cannot exist independently of this widget. The primary reason the <strong>Gnome::Gtk4::TreeSelection</strong> objects exists is for cleanliness of code and API. That is, there is no conceptual reason all these functions could not be methods on the <strong>Gnome::Gtk4::TreeView</strong> widget instead of a separate function.</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is gotten from a <strong>Gnome::Gtk4::TreeView</strong> by calling gtk_tree_view_get_selection(). It can be manipulated to check the selection status of the tree, as well as select and deselect individual rows. Selection is done completely view side. As a result, multiple views of the same model can have completely different selections. Additionally, you cannot change the selection of a row on the model that is not currently displayed by the view without expanding its parents first.</p><p>One of the important things to remember when monitoring the selection of a view is that the <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal is mostly a hint. That is, it may only emit one signal when a range of rows is selected. Additionally, it may on occasion emit a <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal when nothing has happened (mostly as a result of programmers calling select_row on an already selected row).</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/TreeSelection.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Class initialization</a></h1>
 <p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
@@ -134,9 +139,9 @@
 </section>
 <section name="pod">
 <h2 id="selected-foreach"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">selected-foreach</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls a function for each selected node. Note that you cannot modify the tree or selection from within this function. As a result, <code>.get-selected-rows()</code> might be more useful.</p><pre class="pod-block-code">method selected-foreach ( &amp;func, gpointer $data )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls a function for each selected node. Note that you cannot modify the tree or selection from within this function. As a result, <code>.get-selected-rows()</code> might be more useful.</p><pre class="pod-block-code">method selected-foreach ( GtkTreeSelectionForeachFunc &amp;func, gpointer $data )
 </pre><ul>
-<li><p>&amp;func; The function to call for each selected node.. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</code>.</p></li>
+<li><p>GtkTreeSelectionForeachFunc &amp;func; The function to call for each selected node.. The function must be specified with the following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</code>.</p></li>
 <li><p>$data; user data to pass to the function..</p></li>
 </ul>
 </section>
@@ -148,12 +153,12 @@
 </ul>
 </section>
 <section name="pod">
-<h2 id="set-select-function_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">set-select-function This function is not yet available</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the selection function.</p><p>If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return <code>True</code> if the state of the node may be toggled, and <code>False</code> if the state of the node should be left unchanged.</p><pre class="pod-block-code">method set-select-function ( &amp;func, gpointer $data, … )
+<h2 id="set-select-function"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">set-select-function</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the selection function.</p><p>If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return <code>True</code> if the state of the node may be toggled, and <code>False</code> if the state of the node should be left unchanged.</p><pre class="pod-block-code">method set-select-function ( GtkTreeSelectionFunc &amp;func, gpointer $data, GDestroyNotify &amp;destroy )
 </pre><ul>
-<li><p>&amp;func; The selection function. May be undefined. Tthe function must be specified with following signature; <code>:( N-Object $selection, N-Object $model, N-Object $path, gboolean $path-currently-selected, gpointer $data --</code> gboolean )&gt;.</p></li>
+<li><p>GtkTreeSelectionFunc &amp;func; The selection function. May be undefined. The function must be specified with the following signature; <code>:( N-Object $selection, N-Object $model, N-Object $path, gboolean $path-currently-selected, gpointer $data )</code>.</p></li>
 <li><p>$data; The selection function’s data. May be undefined.</p></li>
-<li><p>destroy; The destroy function for user data. May be undefined. Note that each argument must be specified as a type followed by its value!</p></li>
+<li><p>GDestroyNotify &amp;destroy; The destroy function for user data. May be undefined. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -199,6 +204,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeSelection.rakudoc</span></div><div>at <span class="time">2025-04-18T17:56:59Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeSelection.rakudoc</span></div><div>at <span class="time">2025-04-20T11:46:40Z</span></div></footer>
 	</body>
 </html>

@@ -19,6 +19,8 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#Touch_support">Touch support</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -64,13 +66,16 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::ScrolledWindow</strong> is a container that makes its child scrollable.</p><p>It does so using either internally added scrollbars or externally associated adjustments, and optionally draws a frame around the child.</p><p>Widgets with native scrolling support, i.e. those whose classes implement the <strong>Gnome::Gtk4::R-Scrollable</strong> interface, are added directly. For other types of widget, the class <strong>Gnome::Gtk4::Viewport</strong> acts as an adaptor, giving scrollability to other widgets. <code>.set-child()</code> intelligently accounts for whether or not the added child is a <strong>Gnome::Gtk4::R-Scrollable</strong>. If it isn’t, then it wraps the child in a <strong>Gnome::Gtk4::Viewport</strong>. Therefore, you can just add any child widget and not worry about the details.</p><p>If <code>.set-child()</code> has added a <strong>Gnome::Gtk4::Viewport</strong> for you, it will be automatically removed when you unset the child. Unless <em>hscrollbar-policy</em> and <em>vscrollbar-policy</em> are <code>GTK_POLICY_NEVER</code> or <code>GTK_POLICY_EXTERNAL</code>, <strong>Gnome::Gtk4::ScrolledWindow</strong> adds internal <strong>Gnome::Gtk4::Scrollbar</strong> widgets around its child. The scroll position of the child, and if applicable the scrollbars, is controlled by the <em>hadjustment</em> and <em>vadjustment</em> that are associated with the <strong>Gnome::Gtk4::ScrolledWindow</strong>. See the docs on <strong>Gnome::Gtk4::Scrollbar</strong> for the details, but note that the “step_increment” and “page_increment” fields are only effective if the policy causes scrollbars to be present.</p><p>If a <strong>Gnome::Gtk4::ScrolledWindow</strong> doesn’t behave quite as you would like, or doesn’t have exactly the right layout, it’s very possible to set up your own scrolling with <strong>Gnome::Gtk4::Scrollbar</strong> and for example a <strong>Gnome::Gtk4::Grid</strong>.</p>
+<p><strong>Gnome::Gtk4::ScrolledWindow</strong> is a container that makes its child scrollable.</p><p>It does so using either internally added scrollbars or externally associated adjustments, and optionally draws a frame around the child.</p><p>Widgets with native scrolling support, i.e. those whose classes implement the <strong>Gnome::Gtk4::R-Scrollable</strong> interface, are added directly. For other types of widget, the class <strong>Gnome::Gtk4::Viewport</strong> acts as an adaptor, giving scrollability to other widgets. <code>.set-child()</code>] intelligently accounts for whether or not the added child is a <strong>Gnome::Gtk4::R-Scrollable</strong>. If it isn’t, then it wraps the child in a <strong>Gnome::Gtk4::Viewport</strong>. Therefore, you can just add any child widget and not worry about the details.</p><p>If <code>.set-child()</code>] has added a <strong>Gnome::Gtk4::Viewport</strong> for you, it will be automatically removed when you unset the child. Unless <em>hscrollbar-policy</em> and <em>vscrollbar-policy</em> are <code>GTK_POLICY_NEVER</code> or <code>GTK_POLICY_EXTERNAL</code>, <strong>Gnome::Gtk4::ScrolledWindow</strong> adds internal <strong>Gnome::Gtk4::Scrollbar</strong> widgets around its child. The scroll position of the child, and if applicable the scrollbars, is controlled by the <em>hadjustment</em> and <em>vadjustment</em> that are associated with the <strong>Gnome::Gtk4::ScrolledWindow</strong>. See the docs on <strong>Gnome::Gtk4::Scrollbar</strong> for the details, but note that the “step_increment” and “page_increment” fields are only effective if the policy causes scrollbars to be present.</p><p>If a <strong>Gnome::Gtk4::ScrolledWindow</strong> doesn’t behave quite as you would like, or doesn’t have exactly the right layout, it’s very possible to set up your own scrolling with <strong>Gnome::Gtk4::Scrollbar</strong> and for example a <strong>Gnome::Gtk4::Grid</strong>.</p>
 <h2 id="Touch_support"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Touch support</a></h2>
 <p><strong>Gnome::Gtk4::ScrolledWindow</strong> has built-in support for touch devices. When a touchscreen is used, swiping will move the scrolled window, and will expose 'kinetic' behavior. This can be turned off with the <em>kinetic-scrolling</em> property if it is undesired.</p><p><strong>Gnome::Gtk4::ScrolledWindow</strong> also displays visual 'overshoot' indication when the content is pulled beyond the end, and this situation can be captured with the <em>edge-overshot</em> signal.</p><p>If no mouse device is present, the scrollbars will overlaid as narrow, auto-hiding indicators over the content. If traditional scrollbars are desired although no mouse is present, this behaviour can be turned off with the <em>overlay-scrolling</em> property.</p>
 <h2 id="CSS_nodes"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">CSS nodes</a></h2>
 <p><strong>Gnome::Gtk4::ScrolledWindow</strong> has a main CSS node with name scrolledwindow. It gets a .frame style class added when <em>has-frame</em> is <code>True</code>.</p><p>It uses subnodes with names overshoot and undershoot to draw the overflow and underflow indications. These nodes get the .left, .right, .top or .bottom style class added depending on where the indication is drawn.</p><p><strong>Gnome::Gtk4::ScrolledWindow</strong> also sets the positional style classes (.left, .right, .top, .bottom) and style classes related to overlay scrolling (.overlay-indicator, .dragging, .hovering) on its scrollbars.</p><p>If both scrollbars are visible, the area where they meet is drawn with a subnode named junction.</p>
 <h2 id="Accessibility"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Accessibility</a></h2>
-<p>Until GTK 4.10, <strong>Gnome::Gtk4::ScrolledWindow</strong> used the <strong>GTK_ACCESSIBLE_ROLE_GROUP</strong> role.</p><p>Starting from GTK 4.12, <strong>Gnome::Gtk4::ScrolledWindow</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_GENERIC</strong> role.</p></section>
+<p>Until GTK 4.10, <strong>Gnome::Gtk4::ScrolledWindow</strong> used the <strong>GTK_ACCESSIBLE_ROLE_GROUP</strong> role.</p><p>Starting from GTK 4.12, <strong>Gnome::Gtk4::ScrolledWindow</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_GENERIC</strong> role.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/ScrolledWindow.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -80,14 +85,14 @@
 <p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-scrolledwindow"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">new-scrolledwindow</a></h2>
-<p>Creates a new scrolled window.</p><pre class="pod-block-code">method new-scrolledwindow ( --&gt; Gnome::Gtk4::ScrolledWindow \)
+<p>Creates a new scrolled window.</p><pre class="pod-block-code">method new-scrolledwindow ( --&gt; Gnome::Gtk4::ScrolledWindow )
 </pre></section>
 <section name="pod">
 <h1 id="Methods"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">Methods</a></h1>
 </section>
 <section name="pod">
 <h2 id="get-child"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">get-child</a></h2>
-<p>Gets the child widget of <code>$scrolled-window</code>.</p><p>If the scrolled window automatically added a <strong>Gnome::Gtk4::Viewport</strong>, this function will return the viewport widget, and you can retrieve its child using <code>.get-child() in class Gnome::Gtk4::Viewport</code>.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
+<p>Gets the child widget of <code>$scrolled-window</code>.</p><p>If the scrolled window automatically added a <strong>Gnome::Gtk4::Viewport</strong>, this function will return the viewport widget, and you can retrieve its child using <code>.get-child()</code> in class <strong>Gnome::Gtk4::Viewport</strong>].</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
 </pre><p>Return value; the child widget of <code>$scrolled-window</code>. </p></section>
 <section name="pod">
 <h2 id="get-hadjustment"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">get-hadjustment</a></h2>
@@ -131,7 +136,7 @@
 </pre><p>Return value; the current placement value.. </p></section>
 <section name="pod">
 <h2 id="get-policy"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">get-policy</a></h2>
-<p>Retrieves the current policy values for the horizontal and vertical scrollbars.</p><p>See <code>.set-policy()</code>.</p><pre class="pod-block-code">method get-policy ( GtkPolicyType $hscrollbar-policy, GtkPolicyType $vscrollbar-policy )
+<p>Retrieves the current policy values for the horizontal and vertical scrollbars.</p><p>See <code>.set-policy()</code>].</p><pre class="pod-block-code">method get-policy ( GtkPolicyType $hscrollbar-policy, GtkPolicyType $vscrollbar-policy )
 </pre><ul>
 <li><p>$hscrollbar-policy; (transfer ownership: full) location to store the policy for the horizontal scrollbar.</p></li>
 <li><p>$vscrollbar-policy; (transfer ownership: full) location to store the policy for the vertical scrollbar.</p></li>
@@ -218,14 +223,14 @@
 </section>
 <section name="pod">
 <h2 id="set-placement"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">set-placement</a></h2>
-<p>Sets the placement of the contents with respect to the scrollbars for the scrolled window.</p><p>The default is <code>GTK_CORNER_TOP_LEFT</code>, meaning the child is in the top left, with the scrollbars underneath and to the right. Other values in <code>enumeration CornerType from Gnome::Gtk4::T-scrolledwindow</code> are <code>GTK_CORNER_TOP_RIGHT</code>, <code>GTK_CORNER_BOTTOM_LEFT</code>, and <code>GTK_CORNER_BOTTOM_RIGHT</code>.</p><p>See also <code>.get-placement()</code> and <code>.unset-placement()</code>.</p><pre class="pod-block-code">method set-placement ( GtkCornerType $window-placement )
+<p>Sets the placement of the contents with respect to the scrollbars for the scrolled window.</p><p>The default is <code>GTK_CORNER_TOP_LEFT</code>, meaning the child is in the top left, with the scrollbars underneath and to the right. Other values in enumeration <code>CornerType</code> from <code>Gnome::Gtk4::T-scrolledwindow</code> are <code>GTK_CORNER_TOP_RIGHT</code>, <code>GTK_CORNER_BOTTOM_LEFT</code>, and <code>GTK_CORNER_BOTTOM_RIGHT</code>.</p><p>See also <code>.get-placement()</code>] and <code>.unset-placement()</code>].</p><pre class="pod-block-code">method set-placement ( GtkCornerType $window-placement )
 </pre><ul>
 <li><p>$window-placement; position of the child window.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-policy"><a href="#Gnome::Gtk4::ScrolledWindow" class="u" title="go to top of document">set-policy</a></h2>
-<p>Sets the scrollbar policy for the horizontal and vertical scrollbars.</p><p>The policy determines when the scrollbar should appear; it is a value from the <code>enumeration PolicyType from Gnome::Gtk4::T-scrolledwindow</code> enumeration. If <code>GTK_POLICY_ALWAYS</code>, the scrollbar is always present; if <code>GTK_POLICY_NEVER</code>, the scrollbar is never present; if <code>GTK_POLICY_AUTOMATIC</code>, the scrollbar is present only if needed (that is, if the slider part of the bar would be smaller than the trough — the display is larger than the page size).</p><pre class="pod-block-code">method set-policy ( GtkPolicyType $hscrollbar-policy, GtkPolicyType $vscrollbar-policy )
+<p>Sets the scrollbar policy for the horizontal and vertical scrollbars.</p><p>The policy determines when the scrollbar should appear; it is a value from the enumeration <code>PolicyType</code> from <code>Gnome::Gtk4::T-scrolledwindow</code> enumeration. If <code>GTK_POLICY_ALWAYS</code>, the scrollbar is always present; if <code>GTK_POLICY_NEVER</code>, the scrollbar is never present; if <code>GTK_POLICY_AUTOMATIC</code>, the scrollbar is present only if needed (that is, if the slider part of the bar would be smaller than the trough — the display is larger than the page size).</p><pre class="pod-block-code">method set-policy ( GtkPolicyType $hscrollbar-policy, GtkPolicyType $vscrollbar-policy )
 </pre><ul>
 <li><p>$hscrollbar-policy; policy for horizontal bar.</p></li>
 <li><p>$vscrollbar-policy; policy for vertical bar.</p></li>
@@ -326,6 +331,6 @@
 <li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
 </ul>
 <p>Return value; </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ScrolledWindow.rakudoc</span></div><div>at <span class="time">2025-04-18T17:55:34Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ScrolledWindow.rakudoc</span></div><div>at <span class="time">2025-04-20T11:45:13Z</span></div></footer>
 	</body>
 </html>
