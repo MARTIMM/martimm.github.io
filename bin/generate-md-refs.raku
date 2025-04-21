@@ -115,7 +115,17 @@ sub generate-html (
   Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip-existing
 ) {
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
-  my Array $rak = load $raku-doc-path;
+  my Array $rak;
+  try {
+    $rak = load($raku-doc-path);
+
+    CATCH {
+      default {
+        die "Weird error loading pod document from $raku-doc-path",
+             "\nPossibly not existent";
+      }
+    }
+  }
   my Str $filename = "$raku-doc-dest$basename";
   return if $skip-existing and ("$filename.html".IO ~~ :e);
 
