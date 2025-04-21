@@ -9,7 +9,7 @@ use Pod::Load;
 use YAMLish;
 
 #-------------------------------------------------------------------------------
-constant PROJECTS = '/home/marcel/Languages/Raku/Projects/';
+constant PROJECTS = $*HOME ~ '/Languages/Raku/Projects/';
 constant REFS = PROJECTS ~ 'MARTIMM.github.io/_data/';
 
 constant XMASS = 'MARTIMM.github.io/doc/XMas/';
@@ -54,20 +54,17 @@ sub MAIN (
   Str:D $key, Str $raku-doc-name? is copy,
   Bool :skip($skip-existing) = False
 ) {
-#note "$?LINE $source-paths{$key}$raku-doc-name, $destination-paths{$key}";
-
   chdir('./content-docs');
 
   my Str ( $source-path, $destination-path);
 
   if $source-paths{$key}:exists and
-    $raku-doc-name, $destination-paths{$key}:exists
+     $destination-paths{$key}:exists
   {
     $source-path = $source-paths{$key};
     $destination-path = $destination-paths{$key};
-
     if ?$raku-doc-name {
-      $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
+      #$raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
       my Str $source-file = $source-path ~ $raku-doc-name;
       generate-html( $source-file, $destination-path, :!skip-existing);
     }
@@ -167,7 +164,8 @@ sub generate-sidebar( Str $key ) {
     next if $f.Str !~~ m/ \. html $/;
     next if $f.Str ~~ /'index.html' $/;
 
-    $f ~~ s/^ '/home/marcel/Languages/Raku/Projects/MARTIMM.github.io' //;
+my $cwd = $*CWD;
+    $f ~~ s/^ $cwd //;
     my Str() $name = $f.IO.basename.IO.extension('');
 
 #note "$?LINE $name, $f.Str()";
