@@ -64,7 +64,7 @@ sub MAIN (
     $source-path = $source-paths{$key};
     $destination-path = $destination-paths{$key};
     if ?$raku-doc-name {
-      #$raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
+      $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
       my Str $source-file = $source-path ~ $raku-doc-name;
       generate-html( $source-file, $destination-path, :!skip-existing);
     }
@@ -146,6 +146,7 @@ sub generate-html (
 sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
+#note "$?LINE $destination-path\n    $sidebar-path";
 
   my @classes = ();
   my @roles = ();
@@ -170,22 +171,23 @@ sub generate-sidebar( Str $key ) {
     }
   }
 
-  for $destination-path.IO.dir.sort -> $f is copy {
-    next if $f.Str !~~ m/ \. html $/;
-    next if $f.Str ~~ /'index.html' $/;
+  for $destination-path.IO.dir.sort -> $url is copy {
+    next if $url.Str !~~ m/ \. html $/;
+    next if $url.Str ~~ /'index.html' $/;
 
-my $cwd = $*CWD;
-    $f ~~ s/^ $cwd //;
-    my Str() $name = $f.IO.basename.IO.extension('');
-
-#note "$?LINE $name, $f.Str()";
+    my $cwd = $*CWD;
+    $url ~~ s/^ $cwd \/ //;
+    $url = "/content-docs/$url";
+    my Str() $name = S/ \.html $// with $url;
+    $name = $name.IO.basename;
+    note "Sidebar reference of $name: $url";
 
     my Str $type = 'normal-object';
     if $deprecated-data{$name}:exists {
       $type = 'deprecated-object';
     }
 
-    my Hash $entry = %( :title($name), :url($f), :$type);
+    my Hash $entry = %( :title($name), :$url, :$type);
 
     given $name {
       when /^ 'R-' / {
