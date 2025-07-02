@@ -1,6 +1,6 @@
 ---
 title: About MARTIMM's
-nav_menu: about-nav
+nav_menu: default-nav
 sidebar_menu: about-sidebar
 layout: sidebar
 ---
@@ -8,24 +8,45 @@ layout: sidebar
 # Release notes
 
 ## TODO list
-* [x] Special pages for the release of Gtk4 and depending modules (index etc).
-* [ ] New tutorials and 'How to' pages.
-* References to projects.
-  * Api 1
-    * [ ] Gtk3
+* Project documentation.
+  * Gnome Api 1 project
+    * [ ] Move Gtk3 site to this site.
+    * [ ] tutorials and 'How to' pages.
     * [ ] Gdk3
+    * [ ] GdkPixbuf
     * [ ] Gio
-    ...
+    * [ ] Glib
+    * [ ] GObject
+    * [ ] Gtk3
+    * [ ] N
+    * [ ] Cairo
 
-  * Api 2
-    * [ ] Gtk4
-    * [ ] Gdk4
-    * [ ] Gio
-    ...
+  * Gnome Api 2 project
+    * [x] Special pages for the release of Gtk4 and depending modules (index etc).
+    * [x] New [tutorials and 'How to'](../api2/tutorials/index.html) pages.
+    * [x] Gdk4
+    * [ ] GdkPixbuf
+    * [x] Gio
+    * [ ] Glib
+    * [ ] GObject
+    * [x] Graphene
+    * [x] Gsk4
+    * [x] Gtk4
+    * [ ] N
+    * [ ] Pango
+
+  * MongoDB and BSON project
+    * [ ] Move MongoDB site to this site.
+    * [ ] tutorials and 'How to' pages.
 
 ## Notes
 
 Release notes for github pages project https://martimm.github.io
+
+* 2025-sometime 0.8.1
+  * Add a program, `generate-md-refs.raku`, to copy docs from Raku distros to the publishing directories.
+  * Added some tutorials for the Gtk4 implementation.
+  * Added references.
 
 * 2024-12-06 0.8.0
   * There were some problems when deploying the site on github. Moved all docs to top level again and solved some dangling symbolic links.
