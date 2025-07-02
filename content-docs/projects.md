@@ -2,7 +2,7 @@
 title: MARTIMM's projects
 layout: sidebar
 
-nav_menu: project-nav
+nav_menu: default-nav
 sidebar_menu: projects-sidebar
 ---
 
