@@ -308,8 +308,8 @@ After running the program with an angle of 67.4 degrees one gets the following d
 
 * Inheriting from a gnome class. Important to understand is that the class is instantiated using a constructor method of that class. The gnome classes understands only positional arguments so those will go to the native routine, while the named arguments are given to the `BUILD()` submethod. In the code above, `.new-picture()` is called to create a **Picture**.
 * **Gnome::Pango::Layout** is used to get some measures of the provided text. The method `.set-text()` is used to provide the text to the layout. If we use `.set-markup()` instead, you could use some markup in the string as well. Look for the [Pango page](https://docs.gtk.org/Pango/pango_markup.html) to see what is possible. See also a few examples below.
-* **Snapshot** is used to change the coordinate system, add the pango text and put the result in a **Texture**.
-* We have explored one of the ways to use a CSS style sheet to add a border to each box.
+* A **Snapshot** is used to create the rotated text. First change the coordinate system, then add the pango text. After that, the result is taken and stored in a **Texture**. The **Picture** is able to use that texture and makes an image.
+* We have explored one of the ways to use a CSS style sheet to add a border to each box. For larger style sheets, it is more usefule to load it from a file using `.()`.
 
 # Example using .set-markup()
 
