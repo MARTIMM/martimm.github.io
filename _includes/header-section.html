@@ -1,9 +1,12 @@
 <header class="gp-header">
-<!--
-{% assign url = site.baseurl | append: "/content-docs/images/SketchGuru_20181030082640.jpg" %}
-{% assign url = site.baseurl | append: "/content-docs/images/me-4.png" %}
--->
-  {% assign url = site.baseurl | append: "asset_files/images/logo.png" %}
+
+  <!-- We do not need the asset files in all all directories -->
+  {% if file_exists "asset_files/images/logo.png" %}
+    {% assign url = site.baseurl | append: "asset_files/images/logo.png" %}
+  {% else %}
+    {% assign url = site.baseurl | append: "../asset_files/images/logo.png" %}
+  {% endif %}
+
   <div>
     <img class="header-image" src="{{ url }}" />
     <strong class="XL-h1-size">{{ site.description }}</strong>
