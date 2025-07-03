@@ -1,5 +1,5 @@
 ---
-title: MARTIMM's projects
+title: Gnome Gtk api 2
 layout: sidebar
 nav_menu: default-nav
 sidebar_menu: api2-sidebar

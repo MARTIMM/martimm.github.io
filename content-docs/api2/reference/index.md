@@ -25,8 +25,7 @@ Here you can select a distribution from the side bar. The distributions have the
 
 Ideas for later, if ever, are implementing;
 * Gtk3 and Gdk3;
-* Atk;
-* OpenGL or Vulkan;
+* Vulkan;
 
 
 
