@@ -38,7 +38,7 @@ Here is a small list of projects I started or want to start or already working o
 
 * Gtk version 4 native binding project. It is the natural follow up of **Gnome::Gtk3**. Many distibutions have kept the same name. To use them properly each import must have the `:api<2>` tagged to it.
 
-  * Gnome::Cairo. Is not supported anymore. I have made tests where the cairo object is used from the [Cairo](https://raku.land/github:timo/Cairo) distribution of Timo and it works well.
+  * **Gnome::Cairo**. Is not supported anymore. I have made tests where the cairo object is used from the [Cairo](https://raku.land/github:timo/Cairo) distribution of Timo and it works well.
   * **Gnome::Gdk4**. Device access.
   * **Gnome::Gio**. I/O to files, network and dbus etc. Partly implemented because Raku has proper I/O to files and network.
   * **Gnome::Glib**. Basic facilities. Only partly implemented.
@@ -53,3 +53,5 @@ Here is a small list of projects I started or want to start or already working o
 * **Semaphore::ReadersWriters**. A module to protect variables using Semaphores. Access from different threads must be controlled, otherwise unpredictable results can happen or even untraceble crashes.
 * **Tinky::Hash**. Build on **Tinky** of JStowe.
 * **Xml::Actions**. A small project which helps you running through an XML file.
+
+History and development of the Gnome packages can be found [here](gnome-development.html).
