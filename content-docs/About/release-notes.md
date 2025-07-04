@@ -1,7 +1,7 @@
 ---
 title: About MARTIMM's
 nav_menu: default-nav
-sidebar_menu: about-sidebar
+sidebar_menu: home-sidebar
 layout: sidebar
 ---
 
