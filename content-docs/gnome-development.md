@@ -8,7 +8,7 @@ layout: sidebar
 
 There are already a few interfaces made by other fellow programmers such as **GTK::Simple**, **GTK::Simpler** and **GTK::Scintilla**. Why then, would you ask, build another one? There were several reasons to do this, to sum up a few;
 * Learning to handle Raku native interface to C libraries and having example code with the packages mentioned above.
-* I wanted to follow the Gnome documents as closely as possible. This meant that the subroutine names are kept the same as those in the libs, though, the names are shortened to prevent repetions of library and class names in that name.
+* I wanted to follow the Gnome documents as closely as possible. This meant that the subroutine names are kept the same as those in the libs, though, the names are shortened to prevent repetions of library and class names in that name, see below in the history.
 * I wanted to have classes with methods instead of a series of subroutines.
 * I wanted the event handling code in separate classes where the information about specific procedures can be stored.
 * I wanted all possible event handlers available for the user, not just the most used ones.
@@ -21,9 +21,44 @@ There are already a few interfaces made by other fellow programmers such as **GT
 
 ### First attempts
 
-There is already a bit of history for these packages. It started off building the **GTK::Glade** package which soon became too big. So a part was separated into **GTK::V3**. After some time working with the library I felt that the class names were a bit too long and that the words `gtk` and `gdk` were repeated too many times in the class path. E.g. there was **GTK::V3::Gtk::GtkButton** and **GTK::V3::Gdk::GdkScreen** to name a few. So, finally it was split into several other packages named, **Gnome::N** for the native linkup on behalf of any other Gnome module, **Gnome::Glib**, **Gnome::GObject**, **Gnome::Gdk3**, **Gnome::Gtk3** and some others, according to what is shown [on the developers page here](https://developer.gnome.org/references). The classes in these packages are now renamed into e.g. **Gnome::Gtk3::Button**, **Gnome::Gdk3::Screen**, **Gnome::GObject::Object** and **Gnome::Glib::List**. As a side effect the package **GTK::Glade** is also renamed into **Gnome::Gtk3::Glade** to show that it is from Gnome and that it is based on Gtk version 3.
+There is already a bit of history for these packages. It started off building the **GTK::Glade** package which soon became too big. So a part was separated into **GTK::V3**. After some time working with the library I felt that the class names were a bit too long and that the words `gtk` and `gdk` were repeated too many times in the class path. E.g. there was **GTK::V3::Gtk::GtkButton** and **GTK::V3::Gdk::GdkScreen** to name a few. So, finally it was split into several other packages named, **Gnome::N** for the native linkup on behalf of the other Gnome modules, **Gnome::Glib**, **Gnome::GObject**, **Gnome::Gdk3**, **Gnome::Gtk3** and some others, according to what is shown [on the developers page here](https://developer.gnome.org/documentation/).
 
-A later step might be merging some tools from **Gnome::Gtk3::Glade** back to **Gnome::Gtk3** or make other modules. Here, I think for example about moving the testing part of interfaces to **Gnome::T** (I've taken short names like **Gnome::N** so it will not interfere with eventually new names from Gnome in the future). **Gnome::Gtk3::Glade** is definitely not extended and will be obsoleted in the near future.
+The classes in these packages are now renamed into e.g. **Gnome::Gtk3::Button**, **Gnome::Gdk3::Screen**, **Gnome::GObject::Object** and **Gnome::Glib::List**. 
+
+The Raku code of the classes and structures and its documentation are all generated. These files are adjusted and the test programs are created by hand.
+The sources for the generatation are taken from the C *.c and *.h files.
+
+
+### Later stages
+
+There has been a discussion about how to proceed getting and using the info from the `GIR`. For now I decided to go through the XML equivalent and store the necessary data in a YAML file. The generator takes that data and generates the Raku modules in such a way that the info of every constructor, method, or function is stored in a **Hash**. When running the module, the needed calls are bound to the native routines and saved for that run only.
+
+The other angle to take is to directly call methods from the library to bind the the calls to the named routines on the fly. The named routines are only saved while running the program and then forgotten when the program ends.
+
+To compare the pros and cons of the two methods is difficult but boiles down to the following;
+* The first has everything in a **Hash** and does not have to look up the data from the `GIR`. Its pro is that there is no overhead of accessing the `GIR` libraries to get the info. On the contrary however, modules may have missing calls because it might be generated with older `GIR` XML data. Or, the modules may have calls which aren't yet in the users installed libraries.
+* The second has the newest info on that particular system, therefore there are no missing calls or calls not yet available. Though, you have to check the documentation and compare the version with that of the libraries.
+  Anyways, this still needs to be investigated. Maybe better solutions come up when the new **RakuAst** is available. It makes it possible to use macros and evaluation of code whithout the dangers of current methods.
+* Whatever method is choosen, structures, documentation, and tests need to be generated I believe.
+* A third interesting possibility is mentioned. Start out with a package name only. When a module is needed, the package generates one with the necessary code to handle the needed calls. It's a bit of a chicken and egg problem though and needs some deeper thoughts.
+  I think it is a hard problem because of the following;
+  * Suppose the user wants to run
+    ```
+    use Gnome::Gtk4;
+    use Gnome::Gtk4::Label;
+
+    my Gnome::Gtk4::Label $label .= new-label;
+    $label.set-text('text')`.
+    ```
+    1) `use Gnome::Gtk4;` should make all modules available. The question is where? Possible solution would be at `~/.raku`.
+    2) The next import statement would then import the generated `Gnome::Gtk4::Label`. This is already too late! A small test shows that the modules are looked up before it is generated. So at least the (empty with basic code) classes and modules must be delivered and installed.
+    3) The `.new-label()` contructor and the method `.set-text()` can be found in the **Label**** class. So that may be easy to find after a few calls. But where to search for when a method is used from another parent class, e.g. `.set-size-request()`, or when it is inherited, e.g. `.set-orientation()` for a **Box**. That search is even more intensive. This is also the case in the 2nd proposal written above.
+  
+  * No tests can be made for the modules except for the base modules delevered in the package! Because everything from the tests will generate new code and the time you want to save while installing the modules will be taken by the tests.
+
+Thinking it all over, I will keep it like it is now except that there must be a way to see what gnome library version the raku code, tests, and documentation is generated against. Using for example `dnf list gtk4|grep x86_64`.
+
+
 
 ## What are the benefits
 
@@ -31,7 +66,7 @@ When the packages mature, the next points are/become available;
 
 ### Pros
   * The defaults of GTK+ are kept. Therefore, e.g, the buttons are in the proper size. The user may decide to set sizes of windows and widgets but the libraries should not impose this.
-  * Separation of callbacks from other code by having the callbacks defined in classes. Callbacks can then just read/write the data in the classes attributes. Also, data can be provided with named arguments to the `register-signal()` method defined in class **Gnome::GObject::Object**. This method is available to any class inheriting from **Gnome::GObject::Object** which almost every class does.
+  * Separation of callbacks from other code by having the callbacks defined in classes. Callbacks can then just read/write the data in the classes attrib utes. Also, data can be provided with named arguments to the `register-signal()` method defined in class **Gnome::GObject::Object**. This method is available to any class inheriting from **Gnome::GObject::Object** which almost every class does.
   * Building the interface by hand like in the examples and tutorial, is not always necessary. Feeding a saved design from the glade designer program to methods in module **Gnome::Gtk3::Builder** is preferable when building larger user interfaces.
   * No fancy stuff like tapping into channels to run signal handlers.
   * It is possible to create threads where longer runs can be done without crippling the user interface responses and also show the results from there in the gui.
