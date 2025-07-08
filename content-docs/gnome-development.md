@@ -62,30 +62,30 @@ Thinking it all over, I will keep it like it is now except that there must be a 
 
 ## Results
 
-Now that the new `Gnome::Gtk4` and its dependencies are generated, the packages needed to be distinquished from the older `Gnome::Gtk3` and friends. because the packages are generated differently and the use of the classes and structures were changed. This is done by by adding the `:api` tag to the classes and meta data. The older classes got the `:api<1>` tag and the newer `:api<2>`. Using that when installing and when importing the classes made sure you got the right modules.
+Now that the new `Gnome::Gtk4` and its dependencies are generated, the packages needed to be distinquished from the older `Gnome::Gtk3` and friends. Because the packages are generated differently and the use of the classes and structures were changed. This is done by by adding the `:api` tag to the classes and meta data. The older classes got the `:api<1>` tag and the newer classes got `:api<2>`. Using that when installing and when importing the classes makes sure you get the right modules.
 
 # The benefits
 
 When the packages mature, the next points are/become available;
 
 ## Pros
-  * Because all calls are made directly to the native routines in the Gnome libraries, the defaults of GTK are kept.
+  * Because all calls are made directly to the native routines in the Gnome libraries, the defaults of GTK are kept. The native objects returned by constructors are saved and used in method calls under the hood so to speak.
   * Separation of callbacks from other code by forcing the user to define the callbacks in classes. In the case of event handling, data can be provided with named arguments to the `register-signal()` method defined in class **Gnome::GObject::Object**. This method is available to any class inheriting from **Gnome::GObject::Object** which almost every class does except for structures and unions.
   * Building the interface by hand like in the examples and tutorial, is not always necessary. For Gtk+ there is the `Glade designer` which stores its result in an XML file. Feeding this saved design from program to methods in module **Gnome::Gtk3::Builder** is preferable when building larger user interfaces.
     For Gtk4, there is `Cambalache` and one need to use **Gnome::Gtk4::Builder** to use the designed XML data.
   * The eventloop is more commonly used in the Gtk3 version altough it is incouraged to use the **Gnome::Gtk3::Application** where the use of the eventloop becomes invisible. This is more so in Gtk 4 version.
   * It is possible to make use of actions which can trigger events like signal processing does.
   * It is possible to make use of resource files. It is a kind of storage of several items in one file.
-  * It is possible to make use of D-Bus. This is one of the things that makes an application able to interact with the system and other processes as well as the desktop manager. (Not yet implemented in these libraries though)
+  * It is possible to make use of D-Bus. This is one of the things that makes an application able to interact with the system and other processes as well as the desktop manager. (Not yet implemented in these libraries though).
   * Drag and drop will help you to drag documents from a filebrowser into your application as well as moving widgets from one place to another in your GUI.
-    In the Gtk4 version it isn't yet possible to do interprocess dragging. This might be a bug and/or caused by the transition of X11 to Wayland.
-  * Drawing is available with Cairo using the **Gnome::Cairo** package. In the mean time, Gtk4 can make use of Tomo's **Caito** package. It might very well be possible with Gtk3 version too.
+    In the Gtk4 version it isn't yet possible to do interprocess dragging. This might be a bug and/or is caused by the transition of X11 to Wayland.
+  * Drawing is available with Cairo using the **Gnome::Cairo** package. In the mean time, Gtk4 can make use of Timo's **Caito** package. It might very well be possible to use it with Gtk3 (api<1>) version too.
   * Text manipulations are supported using Pango.
 
 
 ## Cons
   * The code base is much larger but I think it gives you greater flexibility.
-  * Code is somewhat slower. That is not a big problem when a user interface is mostly set up and drawn once. Compiling the software takes much time when installing the packages. Raku, however gets faster and is becoming less of a problem. Also, now that the api<2> version is generated, the time to install is also smaller.
+  * Code is somewhat slower. That is not a big problem when a user interface is mostly set up and drawn once. Compiling the software takes much time when installing the packages. Raku, however gets faster and is becoming less of a problem. Also, now that the api<2> version is generated, the time to install is also shorter.
   * When programs are run the first time, it might take some time to compile.
 
 
@@ -95,25 +95,25 @@ It is important to know that not all classes are available or fully implemented.
 
 * [x] **Gnome::Gtk3:api<1>**. Version 3 widget toolkit for graphical interfaces.
 * [x] **Gnome::Gdk3:api<1>**. Version 3 low-level abstraction for the windowing system.
-* [ ] **Gnome::Gtk3:api<2>**. Version 3 widget toolkit for graphical interfaces.
-* [ ] **Gnome::Gdk3:api<2>**. Version 3 low-level abstraction for the windowing system.
 * [x] **Gnome::GdkPixbuf:api<1>**. An image loading library.
 * [x] **Gnome::Gio:api<1>**. File and URI handling. Support of resources for applications and D-Bus communication.
 * [x] **Gnome::GObject:api<1>**. Data structures and utilities for C programs.
 * [x] **Gnome::Glib:api<1>**. C-based object and type system with signals and slots.
 * [x] **Gnome::Cairo:api<1>**. 2D, vector-based drawing for high-quality graphics.
 * [x] **Gnome::N:api<1>**. Used to hold any access specs to the libraries and a map of glib types to raku types. Also there is some debugging possible and an exception class defined. Furthermore, it holds the `TopLevelSupportClass` which keeps the `N-Object` save for all classes inheriting from this class.
-|
-* [x] **Gnome::Gtk4:api<2>**. Version 4 widget toolkit for graphical interfaces.
-* [x] **Gnome::Gdk4:api<2>**. Version 4 low-level abstraction for the windowing system.
-* [x] **Gnome::GdkPixbuf:api<2>**. An image loading library.
-* [x] **Gnome::Gsk4:api<2>**
-* [x] **Gnome::Graphene:api<2>**
-* [x] **Gnome::GObject:api<2>**. Data structures and utilities for C programs.
-* [x] **Gnome::Glib:api<2>**. C-based object and type system with signals and slots.
-* [x] **Gnome::Gio:api<2>**. File and URI handling. Support of resources for applications and D-Bus communication.
-* [x] **Gnome::Pango:api<2>**
-* [x] **Gnome::N:api<2>**. Used to hold any access specs to the libraries and a map of glib types to raku types. Also there is some debugging possible and an exception class defined. Furthermore, it holds the `TopLevelSupportClass` which keeps the `N-Object` save for all classes inheriting from this class. There is also a helper class `GnomeRoutineCaller` which task it is to bind the call to the native routine and save the resulting function for time of the programs existence.
+
+* [ ] **Gnome::Gtk3:api<2>**. Gtk version 3 for api<2>.
+* [ ] **Gnome::Gdk3:api<2>**. Gdk version 3 for api<2>.
+* [x] **Gnome::Gtk4:api<2>**. Gtk version 4 for api<2>.
+* [x] **Gnome::Gsk4:api<2>**. GTK Scene Graph Kit for api<2>.
+* [x] **Gnome::Gdk4:api<2>**. Gdk version 4 for api<2>.
+* [x] **Gnome::GdkPixbuf:api<2>**. GdkPixbuf for api<2>.
+* [x] **Gnome::Graphene:api<2>**. The Graphene package provides a thin layer of types for graphics libraries. Api<2>.
+* [x] **Gnome::GObject:api<2>**. GObject for api<2>.
+* [x] **Gnome::Glib:api<2>**. Glib for api<2>.
+* [x] **Gnome::Gio:api<2>**. Gio for api<2>.
+* [x] **Gnome::Pango:api<2>**. Pango is a library for layout and rendering of text, with an emphasis on internationalization. Api<2>.
+* [x] **Gnome::N:api<2>**. N for api<2>. Additionally, there is also a helper class `GnomeRoutineCaller` which task it is to bind the call to the native routine and save the resulting function during the programs existence.
 
 <!--
 # Site Contents
