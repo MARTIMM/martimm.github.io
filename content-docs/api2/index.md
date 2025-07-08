@@ -13,7 +13,7 @@ Just like its predessor `Gnome::Gtk3`, this repository is a language binding for
 
 All the modules are depending on other Gnome packages like `Gnome::Gio` and `Gnome::Glib` which are named the same as before. All the packages are changed to use a different way to call the native functions from the C-libraries. To prevent any problems like calling a function from the wrong module, the previous implementations are tagged with `:api<1>` and the newest with `:api<2>`. All you have to do is using the proper tag when installing the packages and in the `use` statements.
 
-### Installing the newest implementation
+### Installing implementation
 
 Using zef;
 
@@ -28,25 +28,11 @@ Example to load the `Window` module;
 use Gnome::Gtk4::Window::api<2>;
 ```
 
-### Installing the previous implementation
-
-Using zef;
-
-```
-zef install Gnome::Gtk3:api<1>
-```
-
-### Importing a module in your programs
-
-```
-use Gnome::Gtk3::Window::api<1>;
-```
-
 ## Differences between the api versions
 
-The main differences between the two versions are the following
+The main differences between the two versions, api<1> amd api<2> are the following
 * The naming of the classes is a bit different
-* The instanciation of objects is changed
+* The instantiation of objects is changed
 
 ### Naming of the classes
 
@@ -57,9 +43,9 @@ Gnome has the types `class`, `interface`, `record` or `union` from which classes
 
 There are more types describing simpler structures. These are `constant`, `enumeration`, `bitfield` and `function`. Those are all saved in modules with lowercase names and prefixed with a `T-`. An example module is **Gnome::Gtk4::T-enums**.
 
-### The instanciation of objects
+### The instantiation of objects
 
-In the `:api<1>` version, the instanciation was always done using the `.new()` methods. To cope with all arguments to the native functions, the `.new()` methods had to implement several kinds of named arguments to handle that. So, that is changed in this `:api<2>` version. All of the routines are named after the Gnome native functions and a few are named differently because of clashes with Raku new() method.
+In the `:api<1>` version, the instantiation was always done using the `.new()` methods. To cope with all arguments to the native functions, the `.new()` methods had to implement several kinds of named arguments to handle that. So, that is changed in this `:api<2>` version. All of the routines are named after the Gnome native functions and a few are named differently because of clashes with Raku new() method.
 
 First a small explanation of how any function name is translated into the raku method name. In the Gtk set of modules, a function name, for example in the **GtkBox** class, `gtk_box_append()` to append an object in the box. The translation is to remove the gtk and class name. Then change remaining underscores in dashes. So the `gtk_box_append()` function is defined as `append()` method.
 
@@ -68,14 +54,25 @@ This will also be done for the contructor functions. for the **GtkBox**, there i
 ### Exceptions to the rule
 
 Yes, we need exceptions, we are craving for exceptions. Here they are;
-* Calling `.new()` on any object is possible with the option `:native-object()`. This is used to initiate a class with an object from a calle to a native object, e.g. getting a widget from a grid. Lets say a button;
+* Calling `.new()` on any object is still possible with the option `:native-object()`. This is used to initiate a class with an object from a call to a native object, e.g. getting a widget from a grid. Lets say a button;
   ```
-  my Gnome::Gtk4::Button $button .= new(:native-object($grid.get-child-at(1,1));
+  my Gnome::Gtk4::Button $button .= new(
+    :native-object($grid.get-child-at( 1, 1))
+  );
   ```
   This can be made a bit shorter using coersion. The next line will do exactly the same thing.
   ```
-  my Gnome::Gtk4::Button() $button = $grid.get-child-at(1,1);
+  my Gnome::Gtk4::Button() $button = $grid.get-child-at( 1, 1);
   ```
 
-* The other exception is for any object inheriting from **Gnome::GObject::Object**. Then it is possible to initialise the class with option `:build-id()`. However, there must be some work done before this can used. Examples will be shown in the tutorials section.
+* The second exception is for any object inheriting from **Gnome::GObject::Object**. Then it is possible to initialise the class with option `:build-id()`. However, there must be some work done before this can used. Examples will be shown in the tutorials section.
 
+* The third exception is for structures and unions also have a normal .new() constructor. For example the N-Border structure can be used as;
+  ```
+  use Gnome::Gtk4::T-border:api<2>;
+  
+  my N-Border $border .= new( :left(1), :right(1), :top(1), :bottom(1));
+
+  say "left border is: $border.left()";
+  ```
+  Note that the fields in a structure are mostly directly readable.
