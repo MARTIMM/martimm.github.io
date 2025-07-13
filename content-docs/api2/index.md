@@ -67,7 +67,7 @@ Yes, we need exceptions, we are craving for exceptions. Here they are;
 
 * The second exception is for any object inheriting from **Gnome::GObject::Object**. Then it is possible to initialise the class with option `:build-id()`. However, there must be some work done before this can used. Examples will be shown in the tutorials section.
 
-* The third exception is for structures and unions also have a normal .new() constructor. For example the N-Border structure can be used as;
+* The third exception is for structures and unions. They also have a normal .new() constructor. For example the N-Border structure can be used as;
   ```
   use Gnome::Gtk4::T-border:api<2>;
   
