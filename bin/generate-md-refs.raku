@@ -5,7 +5,7 @@ use v6.d;
 
 use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
-use Pod::Load;
+#use Pod::Load;
 use YAMLish;
 
 #-------------------------------------------------------------------------------
@@ -15,8 +15,11 @@ constant REFS = PROJECTS ~ 'MARTIMM.github.io/_data/';
 constant XMASS = 'MARTIMM.github.io/doc/XMas/';
 constant XMASD = 'MARTIMM.github.io/content-docs/XMas/';
 
+constant API1S = 'gnome-api1/';
+constant API1D = 'MARTIMM.github.io/content-docs/api1/reference/';
+
 constant SKIMTOOL = 'gnome-source-skim-tool/';
-constant API2S = SKIMTOOL ~ 'gnome-api2/';
+constant API2S = SKIMTOOL ~ 'gnome-api2/';  # S source, D destination
 constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
 
 my Hash $source-paths = %(
@@ -25,6 +28,8 @@ my Hash $source-paths = %(
   :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
   :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/doc/'),
   :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/doc/'),
+
+  :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -36,6 +41,8 @@ my Hash $destination-paths = %(
   :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
   :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
 
+  :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
+
   :xmas(PROJECTS ~ XMASD),
 );
 
@@ -45,38 +52,47 @@ my Hash $sidebar-paths = %(
   :Gsk4Api2(REFS ~ 'api2-ref-gsk4-sidebar.yml'),
   :GrapApi2(REFS ~ 'api2-ref-graphene-sidebar.yml'),
   :GioApi2(REFS ~ 'api2-ref-gio-sidebar.yml'),
+
+  :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
 # e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
 #      generate-md-refs.raku Gtk4Api2
 sub MAIN (
-  Str:D $key, Str $raku-doc-name? is copy,
+  Str:D $key, Str $raku-doc-name?,
   Bool :skip($skip-existing) = False
 ) {
+  # Go to Githup Pages root dir
   chdir('./content-docs');
 
-  my Str ( $source-path, $destination-path);
+#  my Str ( $source-path, $destination-path);
 
-  if $source-paths{$key}:exists and
-     $destination-paths{$key}:exists
-  {
-    $source-path = $source-paths{$key};
-    $destination-path = $destination-paths{$key};
+  if $source-paths{$key}:exists and $destination-paths{$key}:exists {
+#    $source-path = $source-paths{$key};
+#    $destination-path = $destination-paths{$key};
     if ?$raku-doc-name {
-      $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
-      my Str $source-file = $source-path ~ $raku-doc-name;
-      generate-html( $source-file, $destination-path, :!skip-existing);
+ #     $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
+ #     my Str $source-file = $source-path ~ $raku-doc-name;
+      #generate-html( $source-file, $destination-path, :$skip-existing)
+      generate-html( $key, $raku-doc-name, :!skip-existing);
     }
 
-    else {
-      for $source-path.IO.dir.sort -> Str() $source-file {
-        generate-html( $source-file, $destination-path, :$skip-existing)
-          if $source-file ~~ m/ rakudoc $/;
-      }
-    }
+#    else {
+#      for $source-path.IO.dir.sort -> Str() $source-file {
+#        #generate-html( $source-file, $destination-path, :$skip-existing)
+#        generate-html( $key, $raku-doc-name, :$skip-existing)
+#          if $source-file ~~ m/ rakudoc $/;
+#      }
+#    }
   }
 
+  else {
+    note "\nNo paths found for key $key\nPossible keys are: ",
+         $source-paths.keys.join(', ');
+  }
+
+note "$?LINE $key $sidebar-paths{$key}";
   generate-sidebar($key) if $sidebar-paths{$key}:exists;
 }
 
@@ -86,7 +102,7 @@ sub USAGE ( ) {
 note Q:to/EOUSAGE/;
 
   This program is a references sidebar generator for Github Pages. It takes
-  a Raku document a generates a HTML file. This is placed at the location
+  a Raku document and generates a HTML file. This is placed at the location
   found in a Hash using the provided key. The same key is also used to find
   the source path of the key.
 
@@ -112,20 +128,39 @@ note Q:to/EOUSAGE/;
 # Read doc and generate HTML and store in $raku-doc-dest
 
 sub generate-html (
-  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip-existing
+#  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip-existing
+  Str $key, Str $doc-name, Bool :$skip-existing
 ) {
+#    $source-path = $source-paths{$key};
+#    $destination-path = $destination-paths{$key};
+  my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
+  if ($raku-doc-path ~ '.rakudoc').IO ~~ :r {
+    $raku-doc-path ~= '.rakudoc';
+  }
+
+  elsif ($raku-doc-path ~ '.rakumod').IO ~~ :r {
+    $raku-doc-path ~= '.rakumod';
+  }
+
+  my Str $raku-doc-dest = $destination-paths{$key};
+  mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
+
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
+note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
+
   my Array $rak;
   try {
     $rak = load($raku-doc-path);
 
     CATCH {
       default {
+        .note;
         die "Weird error loading pod document from $raku-doc-path",
              "\nPossibly not existent";
       }
     }
   }
+
   my Str $filename = "$raku-doc-dest$basename";
   return if $skip-existing and ("$filename.html".IO ~~ :e);
 
@@ -146,7 +181,7 @@ sub generate-html (
 sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
-#note "$?LINE $destination-path\n    $sidebar-path";
+note "$?LINE $destination-path\n    $sidebar-path";
 
   my @classes = ();
   my @roles = ();
@@ -269,4 +304,57 @@ sub generate-sidebar( Str $key ) {
 #note "$?LINE\n$sidebar";
 
   }
+}
+
+#-------------------------------------------------------------------------------
+use MONKEY-SEE-NO-EVAL;
+
+sub load( Str $file where .IO.e --> Array ) {
+#note "slurp $file";
+  my $pod;
+  my $contents = $file.IO.slurp;
+  $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
+  EVAL($contents);
+#  note $pod.WHAT;
+#  note $pod.raku;
+
+  $pod
+}
+
+
+
+
+
+
+
+
+
+
+
+=finish
+
+
+use MONKEY-SEE-NO-EVAL;
+use File::Temp; # For tempdir below
+
+my constant CUPSFS = ::("CompUnit::PrecompilationStore::File" ~ ("System","").first({ ::("CompUnit::PrecompilationStore::File$_") !~~ Failure }));
+sub load( Str $file where .IO.e ) {
+    use nqp;
+    my $cache-path = tempdir;
+    my $precomp-repo = CompUnit::PrecompilationRepository::Default.new(
+            :store(CUPSFS.new(:prefix($cache-path.IO))),
+            );
+    my $handle = $precomp-repo.try-load(
+            CompUnit::PrecompilationDependency::File.new(
+                    :src($file),
+                    :id(CompUnit::PrecompilationId.new-from-string($file)),
+                    :spec(CompUnit::DependencySpecification.new(:short-name($file))),
+                    )
+            );
+    CATCH {
+        default {
+            die .message.Str;
+        }
+    }
+    nqp::atkey($handle.unit, '$=pod')
 }
