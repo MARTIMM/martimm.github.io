@@ -30,7 +30,7 @@ use Gnome::Gtk4::Window::api<2>;
 
 ## Differences between the api versions
 
-The main differences between the two versions, api<1> amd api<2> are the following
+The main differences between the two versions, api<1> and api<2> are the following
 * The naming of the classes is a bit different
 * The instantiation of objects is changed
 
