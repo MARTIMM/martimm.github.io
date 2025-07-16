@@ -1,0 +1,214 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::AccelMap</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::AccelMap">Gnome::Gtk3::AccelMap</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Manipulating_accelerators">Manipulating accelerators</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Saving_and_loading_accelerator_maps">Saving and loading accelerator maps</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Monitoring_changes">Monitoring changes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-entry">add-entry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-filter">add-filter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#change-entry">change-entry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#foreach">foreach</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#foreach-unfiltered">foreach-unfiltered</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get">get</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#load">load</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#load-fd">load-fd</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#load-scanner">load-scanner</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lock-path">lock-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-entry">lookup-entry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#save">save</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#save-fd">save-fd</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unlock-path">unlock-path</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Loadable keyboard accelerator specifications</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Description</a></h1>
+<p>Accelerator maps are used to define runtime configurable accelerators. Functions for manipulating them are usually used by higher level convenience mechanisms like <strong>Gnome::Gtk3::Builder</strong> and are thus considered “low-level”. You’ll want to use them if you’re manually creating menus that should have user-configurable accelerators.</p><p>An accelerator is uniquely defined by:</p><ul>
+<li><p>accelerator path</p></li>
+<li><p>accelerator key</p></li>
+<li><p>accelerator modifiers</p></li>
+</ul>
+<p>The <u>accelerator path</u> must consist of <code>I&lt;“&lt;WINDOWTYPE&gt;/Category1/Category2/.../Action”&gt;</code>, where <code>WINDOWTYPE</code> should be a unique application-specific identifier that corresponds to the kind of window the accelerator is being used in, e.g. “Gimp-Image”, “Abiword-Document” or “Gnumeric-Settings”. The <code>“Category1/.../Action”</code> portion is most appropriately chosen by the action the accelerator triggers, i.e. for accelerators on menu items, choose the item’s menu path, e.g. <code>“File/Save As”</code>, <code>“Image/View/Zoom”</code> or <code>“Edit/Select All”</code>. So a full valid accelerator path may look like: “&lt;Gimp-Toolbox&gt;/File/Dialogs/Tool Options...”.</p><p>All accelerators are stored inside one global <strong>Gnome::Gtk3::AccelMap</strong> that can be obtained using <code>get()</code>.</p>
+<h2 id="Manipulating_accelerators"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Manipulating accelerators</a></h2>
+<p>New accelerators can be added using <code>add-entry()</code>. To search for specific accelerator, use <code>lookup-entry()</code>. Modifications of existing accelerators should be done using <code>change-entry()</code>.</p><p>In order to avoid having some accelerators changed, they can be locked using <code>lock-path()</code>. Unlocking is done using <code>unlock-path()</code>.</p>
+<h2 id="Saving_and_loading_accelerator_maps"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Saving and loading accelerator maps</a></h2>
+<p>Accelerator maps can be saved to and loaded from some external resource. For simple saving and loading from file, <code>save()</code> and <code>load()</code> are provided.</p>
+<h2 id="Monitoring_changes"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Monitoring changes</a></h2>
+<p><strong>Gnome::Gtk3::AccelMap</strong> object is only useful for monitoring changes of accelerators. By connecting to <em>changed</em> signal, one can monitor changes of all accelerators. It is also possible to monitor only single accelerator path by using it as a detail of the <em>changed</em> signal.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::AccelGroup</strong>, <code>Gnome::Gtk3::Widget.set-accel-path()</code>, <code>Gnome::Gtk3::MenuItem-set-accel-path()</code></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::AccelMap;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/AccelMap-Group.svg" width="60%" height="auto" alt="No caption"></div>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">new</a></h2>
+<p>This module is a singleton. The modules <code>new()</code> method throws an exeption. To get an object of this class use the method <code>instance()</code>.</p></section>
+<section name="pod">
+<h2 id="add-entry"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">add-entry</a></h2>
+<p>Registers a new accelerator with the global accelerator map. This function should only be called once per <em>$accel-path</em> with the canonical <em>$accel-key</em> and <em>$accel-mods</em> for this path. To change the accelerator during runtime programatically, use <code>change-entry()</code>.</p><p>Set <em>$accel-key</em> and <em>$accel-mods</em> to 0 to request a removal of the accelerator.</p><pre class="pod-block-code">method add-entry (
+  Str $accel-path, UInt $accel-key, UInt $accel-mods
+)</pre><ul>
+<li><p>$accel-path; valid accelerator path</p></li>
+<li><p>$accel-key; the accelerator key</p></li>
+<li><p>$accel-mods; the accelerator modifiers mask from GdkModifierType to be found in <strong>Gnome::Gdk3::Types</strong>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-filter"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">add-filter</a></h2>
+<p>Adds a filter to the global list of accel path filters.</p><p>Accel map entries whose accel path matches one of the filters are skipped by <code>foreach()</code>.</p><p>This function is intended for GTK+ modules that create their own menus, but don’t want them to be saved into the applications accelerator map dump.</p><pre class="pod-block-code">method add-filter ( Str $filter_pattern )</pre><ul>
+<li><p>$filter_pattern; a pattern (see <strong>Gnome::Gtk3::PatternSpec</strong>)</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="change-entry"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">change-entry</a></h2>
+<p>Changes the <em>$accel-key</em> and <em>$accel-mods</em> currently associated with <em>accel-path</em>. Due to conflicts with other accelerators, a change may not always be possible, <em>$replace</em> indicates whether other accelerators may be deleted to resolve such conflicts. A change will only occur if all conflicts could be resolved (which might not be the case if conflicting accelerators are locked). Successful changes are indicated by a <code>True</code> return value.</p><p>Returns: <code>True</code> if the accelerator could be changed, <code>False</code> otherwise</p><pre class="pod-block-code">method change-entry (
+  Str $accel-path, UInt $accel-key,
+  UInt $accel-mods, Bool $replace
+  --&gt; Bool
+)</pre><ul>
+<li><p>$accel-path; a valid accelerator path</p></li>
+<li><p>$accel-key; the new accelerator key</p></li>
+<li><p>$accel-mods; the new accelerator modifier mask from GdkModifierType to be found in <strong>Gnome::Gdk3::Types</strong>.</p></li>
+<li><p>$replace; <code>True</code> if other accelerators may be deleted upon conflicts</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="foreach"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">foreach</a></h2>
+<p>Loops over the entries in the accelerator map whose accel path doesn’t match any of the filters added with <code>add-filter()</code>, and execute the method in the provided object on each.</p><pre class="pod-block-code">method foreach (
+  Any:D $handler-object, Str:D $handler-name, *%options
+)</pre><ul>
+<li><p>$handler-object; the object wherein the metod is defined</p></li>
+<li><p>$handler-name; method to be executed for each accel map entry which is not filtered out.</p></li>
+<li><p>%options; Optional data passed to the method.</p></li>
+</ul>
+<p>The method receives the following arguments;</p><ul>
+<li><p>Str $accel-path; a valid accelerator path</p></li>
+<li><p>UInt $accel-key; the new accelerator key</p></li>
+<li><p>GdkModifierType $accel-mods; the new accelerator modifier mask found in <strong>Gnome::Gdk3::Types</strong>.</p></li>
+<li><p>Bool $changed; Changed flag of the accelerator (if TRUE, accelerator has changed during runtime and would need to be saved during an accelerator dump).</p></li>
+<li><p>any options provided at the foreach call</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="foreach-unfiltered"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">foreach-unfiltered</a></h2>
+<p>Loops over all entries in the accelerator map, and execute <em>foreach-func</em> on each. The signature of <em>foreach-func</em> is that of <strong>Gnome::Gtk3::AccelMapForeach</strong>, the <em>changed</em> parameter indicates whether this accelerator was changed during runtime (thus, would need saving during an accelerator map dump).</p><pre class="pod-block-code">method foreach-unfiltered (
+  Any:D $handler-object, Str:D $handler-name, *%options
+)</pre><ul>
+<li><p>$handler-object; the object wherein the metod is defined</p></li>
+<li><p>$handler-name; method to be executed for each accel map entry which is not filtered out.</p></li>
+<li><p>%options; Optional data passed to the method.</p></li>
+</ul>
+<p>The method receives the following arguments;</p><ul>
+<li><p>Str $accel-path; a valid accelerator path</p></li>
+<li><p>UInt $accel-key; the new accelerator key</p></li>
+<li><p>GdkModifierType $accel-mods; the new accelerator modifier mask found in <strong>Gnome::Gdk3::Types</strong>.</p></li>
+<li><p>Bool $changed; Changed flag of the accelerator (if TRUE, accelerator has changed during runtime and would need to be saved during an accelerator dump).</p></li>
+<li><p>any options provided at the foreach call</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="get"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">get</a></h2>
+<p>Gets the singleton global <strong>Gnome::Gtk3::AccelMap</strong> object. This object is useful only for notification of changes to the accelerator map via the <em>changed</em> signal; it isn’t a parameter to the other accelerator map functions.</p><p>Returns: the global <strong>Gnome::Gtk3::AccelMap</strong> object</p><pre class="pod-block-code">method get ( --&gt; N-GObject )</pre></section>
+<section name="pod">
+<h2 id="load"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">load</a></h2>
+<p>Parses a file previously saved with <code>save()</code> for accelerator specifications, and propagates them accordingly.</p><pre class="pod-block-code">method load ( Str $file_name )</pre><ul>
+<li><p>$file_name; (type filename): a file containing accelerator specifications, in the GLib file name encoding</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="load-fd"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">load-fd</a></h2>
+<p>Filedescriptor variant of <code>load()</code>.</p><p>Note that the file descriptor will not be closed by this function.</p><pre class="pod-block-code">method load-fd ( Int() $fd )</pre><ul>
+<li><p>$fd; a valid readable file descriptor</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="load-scanner"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">load-scanner</a></h2>
+<p><strong>Gnome::Gio::Scanner</strong> variant of <code>load()</code>.</p><pre class="pod-block-code">method load-scanner ( N-GObject() $scanner )</pre><ul>
+<li><p>$scanner; a <strong>Gnome::Gtk3::Scanner</strong> which has already been provided with an input file</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="lock-path"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">lock-path</a></h2>
+<p>Locks the given accelerator path. If the accelerator map doesn’t yet contain an entry for <em>$accel-path</em>, a new one is created.</p><p>Locking an accelerator path prevents its accelerator from being changed during runtime. A locked accelerator path can be unlocked by <code>unlock-path()</code>. Refer to <code>gtk-accel-map-change-entry()</code> for information about runtime accelerator changes.</p><p>If called more than once, <em>$accel-path</em> remains locked until <code>unlock-path()</code> has been called an equivalent number of times.</p><p>Note that locking of individual accelerator paths is independent from locking the <strong>Gnome::Gtk3::AccelGroup</strong> containing them. For runtime accelerator changes to be possible, both the accelerator path and its <strong>Gnome::Gtk3::AccelGroup</strong> have to be unlocked.</p><pre class="pod-block-code">method lock-path ( Str $accel-path )</pre><ul>
+<li><p>$accel-path; a valid accelerator path</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="lookup-entry"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">lookup-entry</a></h2>
+<p>Looks up the accelerator entry for <em>$accel-path</em> and returns a <code>N-GtkAccelKey</code> structure.</p><p>Returns: A defined <code>N-GtkAccelKey</code> structure if <em>$accel-path</em> is known, undefined otherwise</p><pre class="pod-block-code">method lookup-entry ( Str $accel-path --&gt; N-GtkAccelKey )</pre><ul>
+<li><p>$accel-path; a valid accelerator path</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="save"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">save</a></h2>
+<p>Saves current accelerator specifications (accelerator path, key and modifiers) to <em>file-name</em>. The file is written in a format suitable to be read back in by <code>load()</code>.</p><pre class="pod-block-code">method save ( Str $file_name )</pre><ul>
+<li><p>$file_name; (type filename): the name of the file to contain accelerator specifications, in the GLib file name encoding</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="save-fd"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">save-fd</a></h2>
+<p>Filedescriptor variant of <code>save()</code>.</p><p>Note that the file descriptor will not be closed by this function.</p><pre class="pod-block-code">method save-fd ( Int() $fd )</pre><ul>
+<li><p>$fd; a valid writable file descriptor</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="unlock-path"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">unlock-path</a></h2>
+<p>Undoes the last call to <code>lock-path()</code> on this <em>accel-path</em>. Refer to <code>gtk-accel-map-lock-path()</code> for information about accelerator path locking.</p><pre class="pod-block-code">method unlock-path ( Str $accel-path )</pre><ul>
+<li><p>$accel-path; a valid accelerator path</p></li>
+</ul>
+</section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">Signals</a></h1>
+
+<h2 id="changed"><a href="#Gnome::Gtk3::AccelMap" class="u" title="go to top of document">changed</a></h2>
+<p>Notifies of a change in the global accelerator map. The path is also used as the detail for the signal, so it is possible to connect to changed::`accel_path`.</p><pre class="pod-block-code">method handler (
+  Str $accel_path,
+  UInt $accel_key,
+  UInt #`{ GdkModifierType flags from Gnome::Gdk3::Window } $accel_mods,
+  Gnome::Gtk3::AccelMap :_widget($object),
+  Int :$_handler-id,
+  N-GObject :$_native-object,
+  *%user-options
+)</pre><ul>
+<li><p>$accel_path; the path of the accelerator that changed</p></li>
+<li><p>$accel_key; the key value for the new accelerator</p></li>
+<li><p>$accel_mods; the modifier mask for the new accelerator</p></li>
+<li><p>$object; The instance which registered the signal</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+<li><p>%user-options; A list of named arguments provided at the <code>register-signal()</code> method</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/AccelMap.rakumod</span></div><div>at <span class="time">2025-07-16T18:03:47Z</span></div></footer>
+	</body>
+</html>

@@ -60,7 +60,7 @@ my Hash $sidebar-paths = %(
 # e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
 #      generate-md-refs.raku Gtk4Api2
 sub MAIN (
-  Str:D $key, Str $raku-doc-name?,
+  Str:D $key, Str $raku-doc-name? is copy,
   Bool :skip($skip-existing) = False
 ) {
   # Go to Githup Pages root dir
@@ -69,8 +69,6 @@ sub MAIN (
 #  my Str ( $source-path, $destination-path);
 
   if $source-paths{$key}:exists and $destination-paths{$key}:exists {
-#    $source-path = $source-paths{$key};
-#    $destination-path = $destination-paths{$key};
     if ?$raku-doc-name {
  #     $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
  #     my Str $source-file = $source-path ~ $raku-doc-name;
@@ -78,13 +76,18 @@ sub MAIN (
       generate-html( $key, $raku-doc-name, :!skip-existing);
     }
 
-#    else {
-#      for $source-path.IO.dir.sort -> Str() $source-file {
+    else {
+#    $source-path = $source-paths{$key};
+#    $destination-path = $destination-paths{$key};
+      for $source-paths{$key}.IO.dir.sort -> Str() $source-file {
+#note "$?LINE $source-file.IO.basename().IO.extension('')";
+        $raku-doc-name = $source-file.IO.basename.IO.extension('').Str;
+note "$?LINE $raku-doc-name";
 #        #generate-html( $source-file, $destination-path, :$skip-existing)
-#        generate-html( $key, $raku-doc-name, :$skip-existing)
 #          if $source-file ~~ m/ rakudoc $/;
-#      }
-#    }
+        generate-html( $key, $raku-doc-name, :$skip-existing);
+      }
+    }
   }
 
   else {
@@ -148,18 +151,7 @@ sub generate-html (
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
 note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
 
-  my Array $rak;
-  try {
-    $rak = load($raku-doc-path);
-
-    CATCH {
-      default {
-        .note;
-        die "Weird error loading pod document from $raku-doc-path",
-             "\nPossibly not existent";
-      }
-    }
-  }
+  my Array $rak = load-pod($raku-doc-path);
 
   my Str $filename = "$raku-doc-dest$basename";
   return if $skip-existing and ("$filename.html".IO ~~ :e);
@@ -181,7 +173,6 @@ note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
 sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
-note "$?LINE $destination-path\n    $sidebar-path";
 
   my @classes = ();
   my @roles = ();
@@ -201,7 +192,8 @@ note "$?LINE $destination-path\n    $sidebar-path";
       if ?$skim-data{$key}<deprecated> {
         my Str $classname = $skim-data{$key}<class-name>;
         $classname ~~ s/ Gnome '::' <-[:]>+ '::' //;
-        $deprecated-data{$classname} = $skim-data{$key}<deprecated-version> // '';
+        $deprecated-data{$classname} =
+          $skim-data{$key}<deprecated-version> // '';
       }
     }
   }
@@ -300,23 +292,68 @@ note "$?LINE $destination-path\n    $sidebar-path";
     }
 
     $sidebar-path.IO.spurt($sidebar);
-
-#note "$?LINE\n$sidebar";
-
   }
 }
 
 #-------------------------------------------------------------------------------
 use MONKEY-SEE-NO-EVAL;
 
-sub load( Str $file where .IO.e --> Array ) {
-#note "slurp $file";
+sub load-pod ( Str $file where .IO.e --> Array ) {
   my $pod;
   my $contents = $file.IO.slurp;
+  
+  # Old documentation generator will not be changed. We have to do it here.
+  if $file ~~ m/ 'gnome-api1' / {
+    # Change first =head1 into ==TITLE
+    $contents ~~ s/ '=head1' /=TITLE/;
+
+    # Remove all =comment lines
+    $contents ~~ s:g/^^ '=comment' .*? $$//;
+
+    # Drop everything between '=end pod' and '=begin pod'.
+    $contents ~~ s:g/ '=end pod' .*? '=begin pod'
+                    /=end pod\n=begin pod/;
+
+    # Also from begin of program to first '=begin pod' and
+    # from last '=end pod' to end of program.
+
+    # Change all MD image refs into Pod image refs
+    while $contents ~~ m/ $<md-ref> = [
+                                        '![](' [images | plantuml] \/
+                                        <-[\.]>+ \. [png | svg] ')'
+                                      ]
+                        / {
+      my Str $md-ref = $/<md-ref>.Str;
+      if $md-ref ~~ m/ images / {
+        $md-ref ~~ s/ images /asset_files\/images/;
+        $md-ref ~~ s/ '![](' /=for image :src</;
+        $md-ref ~~ s/ ')' /> :width<30%> :class<inline>/;
+      }
+
+      else {
+        $md-ref ~~ s/ plantuml /asset_files\/images\/plantuml/;
+        $md-ref ~~ s/ '![](' /=for image :src</;
+        $md-ref ~~ s/ ')' /> :width<60%> :class<inline>/;
+      }
+
+      $contents ~~ s/ '![](' [images | plantuml] \/
+                      <-[\.]>+ \. [png | svg] ')'
+                    /$md-ref/;
+    }
+  }
+
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
-  EVAL($contents);
-#  note $pod.WHAT;
-#  note $pod.raku;
+note $contents;
+
+  try {
+    EVAL($contents);
+
+    CATCH {
+      default {
+        .note;
+      }
+    }
+  }
 
   $pod
 }
