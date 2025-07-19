@@ -1,0 +1,245 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Main</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Main">Gnome::Gtk3::Main</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Typical_MAIN_function_for_simple_GTK+_applications">Typical MAIN function for simple GTK+ applications</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#do-event">do-event</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#check-version">check-version</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#device-grab-add">device-grab-add</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#device-grab-remove">device-grab-remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#disable-setlocale">disable-setlocale</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#events-pending">events-pending</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example_updating_the_UI_during_a_long_computation">Example updating the UI during a long computation</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-event">get-current-event</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-event-device">get-current-event-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-event-state">get-current-event-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-event-time">get-current-event-time</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-language">get-default-language</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-event-widget">get-event-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-locale-direction">get-locale-direction</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-option-group">get-option-group</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#grab-add">grab-add</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#grab-get-current">grab-get-current</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#grab-remove">grab-remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init">init</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init-abi-check">init-abi-check</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init-check">init-check</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init-check-abi-check">init-check-abi-check</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init-with-args">init-with-args</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#main">main</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-args">parse-args</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#propagate-event">propagate-event</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#iteration">iteration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#iteration-do">iteration-do</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#level">level</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#quit">quit</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Library initialization, main event loop, and events</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Description</a></h1>
+<p>Before using GTK+, you need to initialize it; initialization connects to the window system display, and parses some standard command line arguments. The <code>gtk_init()</code> macro initializes GTK+. <code>gtk_init()</code> exits the application if errors occur; to avoid this, use <code>gtk_init_check()</code>. <code>gtk_init_check()</code> allows you to recover from a failed GTK+ initialization - you might start up your application in text mode instead.</p><p>However, in these Raku Gnome packages, the initialization takes place automatically as soon as possible. It happens when an object is created which has <strong>Gnome::GObject::Object</strong> as its parent. It calls <code>init_check()</code> to initialize GTK+.</p><p>Like all GUI toolkits, GTK+ uses an event-driven programming model. When the user is doing nothing, GTK+ sits in the “main loop” and waits for input. If the user performs some action - say, a mouse click - then the main loop “wakes up” and delivers an event to GTK+. GTK+ forwards the event to one or more widgets.</p><p>When widgets receive an event, they frequently emit one or more “signals”. Signals notify your program that &quot;something interesting happened&quot; by invoking functions you’ve connected to the signal with <code>register-signal()</code> defined in <strong>Gnome::GObject::Object</strong>. Functions connected to a signal are often termed “callbacks” or &quot;signal handlers&quot;.</p><p>When your callbacks are invoked, you would typically take some action - for example, when an Open button is clicked you might display a <strong>Gnome::Gtk3::FileChooserDialog</strong>. After a callback finishes, GTK+ will return to the main loop and await more user input.</p>
+<h2 id="Typical_MAIN_function_for_simple_GTK+_applications"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Typical MAIN function for simple GTK+ applications</a></h2>
+<pre class="pod-block-code"># Set up signal handlers
+class SigHandlers {
+  …
+}
+
+sub MAIN ( … ) {
+  my Gnome::Gtk3::Window $top-window .= new;
+  $top-window.set-title('My Application Window');
+
+  # Expand $top-window with other GUI elements
+  …
+
+  # Register signal handlers
+  …
+
+  # Show all of the GUI and start event loop
+  $top-window.show-all;
+  Gnome::Gtk3::Main.new.main;
+
+  # Event loop finished, exit program
+}</pre>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Main;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code"># Setup user interface
+…
+# Start main loop
+Gnome::Gtk3::Main.new.main;
+
+# Elsewhere in some exit handler
+method exit ( ) {
+  Gnome::Gtk3::Main.new.quit;
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">new</a></h2>
+<p>Create a GtkMain object.</p><pre class="pod-block-code">submethod BUILD ( )</pre>
+<h2 id="do-event"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">do-event</a></h2>
+<p>Processes a single GDK event.</p><p>This is public only to allow filtering of events between GDK and GTK+. You will not usually need to call this function directly.</p><p>While you should not call this function directly, you might want to know how exactly events are handled. So here is what this function does with the event:</p><p>1. Compress enter/leave notify events. If the event passed build an enter/leave pair together with the next event (peeked from GDK), both events are thrown away. This is to avoid a backlog of (de-)highlighting widgets crossed by the pointer.</p><p>2. Find the widget which got the event. If the widget can’t be determined the event is thrown away unless it belongs to a INCR transaction.</p><p>3. Then the event is pushed onto a stack so you can query the currently handled event with <code>current-event()</code>.</p><p>4. The event is sent to a widget. If a grab is active all events for widgets that are not in the contained in the grab widget are sent to the latter with a few exceptions:</p><ul>
+<li><p>Deletion and destruction events are still sent to the event widget for obvious reasons.</p></li>
+<li><p>Events which directly relate to the visual representation of the event widget.</p></li>
+<li><p>Leave events are delivered to the event widget if there was an enter event delivered to it before without the paired leave event.</p></li>
+<li><p>Drag events are not redirected because it is unclear what the semantics of that would be.</p></li>
+</ul>
+<p>5. After finishing the delivery the event is popped from the event stack.</p><pre class="pod-block-code">method do-event ( N-GdkEvent $event )</pre><ul>
+<li><p>N-GdkEvent $event; An event to process (normally passed by GDK)</p></li>
+</ul>
+
+<h2 id="check-version"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">check-version</a></h2>
+<p>Checks that the GTK+ library in use is compatible with the given version. Generally you would pass in the constants <strong>GTK-MAJOR-VERSION</strong>, <strong>GTK-MINOR-VERSION</strong>, <strong>GTK-MICRO-VERSION</strong> as the three arguments to this function; that produces a check that the library in use is compatible with the version of GTK+ the application or module was compiled against.</p><p>Compatibility is defined by two things: first the version of the running library is newer than the version <em>$required-major</em>.required-minor.<em>$required-micro</em>. Second the running library must be binary compatible with the version <em>$required-major</em>.required-minor.<em>$required-micro</em> (same major version.)</p><p>This function is primarily for GTK+ modules; the module can call this function to check that it wasn’t loaded into an incompatible version of GTK+. However, such a check isn’t completely reliable, since the module may be linked against an old version of GTK+ and calling the old version of <code>gtk-check-version()</code>, but still get loaded into an application using a newer version of GTK+.</p><p>Returns: <code>undefined</code> if the GTK+ library is compatible with the given version, or a string describing the version mismatch. The returned string is owned by GTK+ and should not be modified or freed.</p><pre class="pod-block-code">method check-version (
+  UInt $required_major, UInt $required_minor,
+  UInt $required_micro
+  --&gt; Str
+)</pre><ul>
+<li><p>UInt $required_major; the required major version</p></li>
+<li><p>UInt $required_minor; the required minor version</p></li>
+<li><p>UInt $required_micro; the required micro version</p></li>
+</ul>
+
+<h2 id="device-grab-add"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">device-grab-add</a></h2>
+<p>Adds a GTK+ grab on <em>device</em>, so all the events on <em>device</em> and its associated pointer or keyboard (if any) are delivered to <em>widget</em>. If the <em>block-others</em> parameter is <code>True</code>, any other devices will be unable to interact with <em>widget</em> during the grab.</p><pre class="pod-block-code">method device-grab-add (
+  N-GObject $widget, N-GObject $device, Bool $block_others
+)</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>N-GObject $device; a <strong>Gnome::Gdk3::Device</strong> to grab on.</p></li>
+<li><p>Int $block_others; <code>True</code> to prevent other devices to interact with <em>widget</em>.</p></li>
+</ul>
+
+<h2 id="device-grab-remove"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">device-grab-remove</a></h2>
+<p>Removes a device grab from the given widget.</p><p>You have to pair calls to <code>device-grab-add()</code> and <code>device-grab-remove()</code>.</p><pre class="pod-block-code">method device-grab-remove ( N-GObject $widget, N-GObject $device )</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>N-GObject $device; a <strong>Gnome::Gdk3::Device</strong></p></li>
+</ul>
+
+<h2 id="disable-setlocale"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">disable-setlocale</a></h2>
+<p>Prevents <code>init()</code>, <code>init-check()</code>, <code>init-with-args()</code> and <code>parse-args()</code> from automatically calling `setlocale (LC-ALL, &quot;&quot;)`. You would want to use this function if you wanted to set the locale for your program to something other than the user’s locale, or if you wanted to set different values for different locale categories.</p><p>Most programs should not need to call this function.</p><pre class="pod-block-code">method disable-setlocale ( )</pre>
+<h2 id="events-pending"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">events-pending</a></h2>
+<p>Checks if any events are pending.</p><p>This can be used to update the UI and invoke timeouts etc. while doing some time intensive computation.</p>
+<h3 id="Example_updating_the_UI_during_a_long_computation"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">Example updating the UI during a long computation</a></h3>
+<pre class="pod-block-code"># computation going on …
+
+while ( $main.events-pending ) {
+  $main.iteration;
+}
+
+# … computation continued</pre><p>Returns: <code>True</code> if any events are pending, <code>False</code> otherwise</p><pre class="pod-block-code">method events-pending ( --&gt; Bool )</pre>
+<h2 id="get-current-event"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-current-event</a></h2>
+<p>Obtains a copy of the event currently being processed by GTK+.</p><p>For example, if you are handling a <em>clicked</em> signal, the current event will be the <strong>Gnome::Gdk3::EventButton</strong> that triggered the <em>clicked</em> signal.</p><p>Returns: a copy of the current event, or <code>undefined</code> if there is no current event.</p><pre class="pod-block-code">method get-current-event ( --&gt; N-GdkEvent )</pre>
+<h2 id="get-current-event-device"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-current-event-device</a></h2>
+<p>If there is a current event and it has a device, return that device, otherwise return an invalid object.</p><pre class="pod-block-code">method get-current-event-device ( --&gt; Gnome::Gdk3::Device )</pre>
+<h2 id="get-current-event-state"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-current-event-state</a></h2>
+<p>If there is a current event and it has a state field, place that state field in <em>state</em> and return <code>True</code>, otherwise return <code>False</code>.</p><p>Returns: <code>True</code> if there was a current event and it had a state field</p><pre class="pod-block-code">method get-current-event-state ( GdkModifierType $state --&gt; Bool )</pre><ul>
+<li><p>GdkModifierType $state; (out): a location to store the state of the current event</p></li>
+</ul>
+
+<h2 id="get-current-event-time"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-current-event-time</a></h2>
+<p>If there is a current event and it has a timestamp, return that timestamp, otherwise return <code>GDK-CURRENT-TIME</code>.</p><pre class="pod-block-code">method get-current-event-time ( --&gt; UInt )</pre>
+<h2 id="get-default-language"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-default-language</a></h2>
+<p>Returns the <strong>PangoLanguage</strong> for the default language currently in effect. (Note that this can change over the life of an application.) The default language is derived from the current locale. It determines, for example, whether GTK+ uses the right-to-left or left-to-right text direction.</p><p>This function is equivalent to <code>pango-language-get-default()</code>. See that function for details.</p><p>Returns: the default language as a <strong>PangoLanguage</strong>, must not be freed</p><pre class="pod-block-code">method get-default-language ( --&gt; N-GObject )</pre>
+<h2 id="get-event-widget"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-event-widget</a></h2>
+<p>If <em>$event</em> is <code>undefined</code> or the event was not associated with any widget, returns an invalid object, otherwise returns the widget that received the event originally.</p><p>Returns: the widget that originally received <em>$event</em></p><pre class="pod-block-code">method get-event-widget ( N-GdkEvent $event --&gt; Gnome::Gdk3::Events )</pre><ul>
+<li><p>N-GdkEvent $event; a <strong>Gnome::Gdk3::Events</strong></p></li>
+</ul>
+
+<h2 id="get-locale-direction"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-locale-direction</a></h2>
+<p>Get the direction of the current locale. This is the expected reading direction for text and UI.</p><p>This function depends on the current locale being set with <code>setlocale()</code> and will default to setting the <code>GTK-TEXT-DIR-LTR</code> direction otherwise. <code>GTK-TEXT-DIR-NONE</code> will never be returned.</p><p>GTK+ sets the default text direction according to the locale during <code>init()</code>, and you should normally use <code>Gnome::Gtk3::Widget.get-direction()</code> or <code>Gnome::Gtk3::Widget.get-default-direction()</code> to obtain the current direcion.</p><p>This function is only needed in rare cases when the locale is changed after GTK+ has already been initialized. In this case, you can use it to update the default text direction as follows:</p><p>Returns: the <strong>Gnome::Gtk3::TextDirection</strong> of the current locale</p><pre class="pod-block-code">method get-locale-direction ( --&gt; GtkTextDirection )</pre>
+<h2 id="get-option-group"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">get-option-group</a></h2>
+<p>Returns a <strong>N-GOptionGroup</strong> for the commandline arguments recognized by GTK+ and GDK.</p><p>You should add this group to your <strong>Gnome::Glib::OptionContext</strong> with <code>add-group()</code>, if you are using <code>parse()</code> to parse your commandline arguments.</p><p>Returns: a <strong>N-GOptionGroup</strong> for the commandline arguments recognized by GTK+</p><pre class="pod-block-code">method get-option-group ( Bool $open_default_display --&gt; N-GOptionGroup )</pre><ul>
+<li><p>Bool $open_default_display; whether to open the default display when parsing the commandline arguments</p></li>
+</ul>
+
+<h2 id="grab-add"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">grab-add</a></h2>
+<p>Makes <em>$widget</em> the current grabbed widget.</p><p>This means that interaction with other widgets in the same application is blocked and mouse as well as keyboard events are delivered to this widget.</p><p>If <em>$widget</em> is not sensitive, it is not set as the current grabbed widget and this function does nothing.</p><pre class="pod-block-code">method grab-add ( N-GObject $widget )</pre><ul>
+<li><p>N-GObject $widget; The widget that grabs keyboard and pointer events</p></li>
+</ul>
+
+<h2 id="grab-get-current"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">grab-get-current</a></h2>
+<p>Queries the current grab of the default window group.</p><p>Returns: The widget which currently has the grab or <code>undefined</code> if no grab is active</p><pre class="pod-block-code">method grab-get-current ( --&gt; N-GObject )</pre>
+<h2 id="grab-remove"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">grab-remove</a></h2>
+<p>Removes the grab from the given widget.</p><p>You have to pair calls to <code>grab-add()</code> and <code>grab-remove()</code>.</p><p>If <em>$widget</em> does not have the grab, this function does nothing.</p><pre class="pod-block-code">method grab-remove ( N-GObject $widget )</pre><ul>
+<li><p>N-GObject $widget; The widget which gives up the grab</p></li>
+</ul>
+
+<h2 id="init"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">init</a></h2>
+<p>Call this function before using any other GTK+ functions in your GUI applications. It will initialize everything needed to operate the toolkit and parses some standard command line options.</p><p>There are no arguments to this function because Raku has its commandline arguments in @*ARGS. That array will be adjusted after this call if needed.</p><p>Note that initialization, using <code>init-check()</code>, takes place automatically when <strong>Gnome::GObject::Object</strong> is initialized. That class is inherited by almost all classes.</p><p>This function will terminate your program if it was unable to initialize the windowing system for some reason. If you want your program to fall back to a textual interface you want to call <code>init-check()</code> instead.</p><pre class="pod-block-code">method init ( )</pre>
+<h2 id="init-abi-check"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">init-abi-check</a></h2>
+<pre class="pod-block-code">method init-abi-check ( Int-ptr $argc, CArray[CArray[Str]] $argv, Int $num_checks, size_t $sizeof_GtkWindow, size_t $sizeof_GtkBox )</pre><ul>
+<li><p>Int-ptr $argc;</p></li>
+<li><p>CArray[CArray[Str]] $argv;</p></li>
+<li><p>Int $num_checks;</p></li>
+<li><p>size_t $sizeof_GtkWindow;</p></li>
+<li><p>size_t $sizeof_GtkBox;</p></li>
+</ul>
+
+<h2 id="init-check"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">init-check</a></h2>
+<p>This function does the same work as <code>init()</code> with only a single change: It does not terminate the program if the commandline arguments couldn’t be parsed or the windowing system can’t be initialized. Instead it returns <code>False</code> on failure.</p><p>This way the application can fall back to some other means of communication with the user - for example a curses or command line interface.</p><p>Returns: <code>True</code> if the commandline arguments (if any) were valid and the windowing system has been successfully initialized, <code>False</code> otherwise.</p><pre class="pod-block-code">method init-check ( --&gt; Bool )</pre>
+<h2 id="init-check-abi-check"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">init-check-abi-check</a></h2>
+<pre class="pod-block-code">method init-check-abi-check ( Int-ptr $argc, CArray[CArray[Str]] $argv, Int $num_checks, size_t $sizeof_GtkWindow, size_t $sizeof_GtkBox --&gt; Int )</pre><ul>
+<li><p>Int-ptr $argc;</p></li>
+<li><p>CArray[CArray[Str]] $argv;</p></li>
+<li><p>Int $num_checks;</p></li>
+<li><p>size_t $sizeof_GtkWindow;</p></li>
+<li><p>size_t $sizeof_GtkBox;</p></li>
+</ul>
+
+<h2 id="init-with-args"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">init-with-args</a></h2>
+<p>This function does the same work as <code>init-check()</code>. Additionally, it allows you to add your own commandline options, and it automatically generates nicely formatted `--help` output. Note that your program will be terminated after writing out the help output.</p><p>Returns: <code>True</code> if the commandline arguments (if any) were valid and if the windowing system has been successfully initialized, <code>False</code> otherwise</p><pre class="pod-block-code">method init-with-args ( Int-ptr $argc, CArray[CArray[Str]] $argv, Str $parameter_string, GOptionEntry $entries, Str $translation_domain, N-GError $error --&gt; Int )</pre><ul>
+<li><p>Int-ptr $argc; (inout): Address of the `argc` parameter of your <code>main()</code> function (or 0 if <em>argv</em> is <code>undefined</code>). This will be changed if any arguments were handled.</p></li>
+<li><p>CArray[CArray[Str]] $argv; (array length=argc) (inout) (allow-none): Address of the `argv` parameter of <code>main()</code>, or <code>undefined</code>. Any options understood by GTK+ are stripped before return.</p></li>
+<li><p>Str $parameter_string; (allow-none): a string which is displayed in the first line of `--help` output, after `programname [OPTION...]`</p></li>
+<li><p>GOptionEntry $entries; (array zero-terminated=1): a <code>undefined</code>-terminated array of <strong>GOptionEntrys</strong> describing the options of your program</p></li>
+<li><p>Str $translation_domain; (nullable): a translation domain to use for translating the `--help` output for the options in <em>entries</em> and the <em>parameter-string</em> with <code>gettext()</code>, or <code>undefined</code></p></li>
+<li><p>N-GError $error; a return location for errors</p></li>
+</ul>
+
+<h2 id="main"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">main</a></h2>
+<p>Runs the main loop until <code>quit()</code> is called.</p><p>You can nest calls to <code>main()</code>. In that case <code>quit()</code> will make the innermost invocation of the main loop return.</p><pre class="pod-block-code">method main ( )</pre>
+<h2 id="parse-args"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">parse-args</a></h2>
+<p>Parses command line arguments, and initializes global attributes of GTK+, but does not actually open a connection to a display. (See <code>Gnome::Gdk3::Display.open()</code>, <code>Gnome::Gdk3::Display.get-arg-name()</code>)</p><p>Any arguments used by GTK+ or GDK are removed from the array and <em>argc</em> and <em>argv</em> are updated accordingly.</p><p>There is no need to call this function explicitly if you are using <code>init()</code>, or <code>init-check()</code>.</p><p>Note that many aspects of GTK+ require a display connection to function, so this way of initializing GTK+ is really only useful for specialized use cases.</p><p>Returns: <code>True</code> if initialization succeeded, otherwise <code>False</code></p><pre class="pod-block-code">method parse-args ( Int-ptr $argc, CArray[CArray[Str]] $argv --&gt; Int )</pre><ul>
+<li><p>Int-ptr $argc; (inout): a pointer to the number of command line arguments</p></li>
+<li><p>CArray[CArray[Str]] $argv; (array length=argc) (inout): a pointer to the array of command line arguments</p></li>
+</ul>
+
+<h2 id="propagate-event"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">propagate-event</a></h2>
+<p>Sends an event to a widget, propagating the event to parent widgets if the event remains unhandled.</p><p>Events received by GTK+ from GDK normally begin in <code>do-event()</code>. Depending on the type of event, existence of modal dialogs, grabs, etc., the event may be propagated; if so, this function is used.</p><p><code>propagate-event()</code> calls <code>Gnome::Gtk3::Widget.event()</code> on each widget it decides to send the event to. So <code>widget-event()</code> is the lowest-level function; it simply emits the <em>event</em> and possibly an event-specific signal on a widget. <code>propagate-event()</code> is a bit higher-level, and <code>main-do-event()</code> is the highest level.</p><p>All that said, you most likely don’t want to use any of these functions; synthesizing events is rarely needed. There are almost certainly better ways to achieve your goals. For example, use <code>Gnome::Gdk3::Window.invalidate-rect()</code> or <code>Gnome::Gtk3::Widget.queue-draw()</code> instead of making up expose events.</p><pre class="pod-block-code">method propagate-event ( N-GObject $widget, N-GdkEvent $event )</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>N-GdkEvent $event; an event</p></li>
+</ul>
+
+<h2 id="iteration"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">iteration</a></h2>
+<p>Runs a single iteration of the mainloop.</p><p>If no events are waiting to be processed GTK+ will block until the next event is noticed. If you don’t want to block look at <code>iteration-do()</code> or check if any events are pending with <code>events-pending()</code> first.</p><p>Returns: <code>True</code> if <code>quit()</code> has been called for the innermost mainloop</p><pre class="pod-block-code">method iteration ( --&gt; Bool )</pre>
+<h2 id="iteration-do"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">iteration-do</a></h2>
+<p>Runs a single iteration of the mainloop. If no events are available either return or block depending on the value of <em>blocking</em>.</p><p>Returns: <code>True</code> if <code>quit()</code> has been called for the innermost mainloop</p><pre class="pod-block-code">method iteration-do ( Int $blocking --&gt; Bool )</pre><ul>
+<li><p>Int $blocking; <code>True</code> if you want GTK+ to block if no events are pending</p></li>
+</ul>
+
+<h2 id="level"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">level</a></h2>
+<p>Asks for the current nesting level of the main loop.</p><p>Returns: the nesting level of the current invocation of the main loop</p><pre class="pod-block-code">method level ( --&gt; UInt )</pre>
+<h2 id="quit"><a href="#Gnome::Gtk3::Main" class="u" title="go to top of document">quit</a></h2>
+<p>Makes the innermost invocation of the main loop return when it regains control.</p><pre class="pod-block-code">method quit ( )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Main.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:32Z</span></div></footer>
+	</body>
+</html>

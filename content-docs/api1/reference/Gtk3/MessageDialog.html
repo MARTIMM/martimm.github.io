@@ -1,0 +1,189 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::MessageDialog</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::MessageDialog">Gnome::Gtk3::MessageDialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Gnome::Gtk3::MessageDialog_as_Gnome::Gtk3::Buildable">Gnome::Gtk3::MessageDialog as Gnome::Gtk3::Buildable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkButtonsType">enum GtkButtonsType</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:message">:message</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:markup-message">:markup-message</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gtk_message_dialog_new">gtk_message_dialog_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_message_dialog_]_new_with_markup">[gtk_message_dialog_] new_with_markup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-markup">set-markup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#secondary-text">secondary-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#secondary-markup">secondary-markup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-message-area">get-message-area</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Message_Type">Message Type</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Message_Buttons">Message Buttons</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Text">Text</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Use_Markup">Use Markup</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Secondary_Text">Secondary Text</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Use_Markup_in_secondary">Use Markup in secondary</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Message_area">Message area</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A convenient message window</p><div class="image-container inline"><img src="asset_files/images/messagedialog.png" width="30%" height="auto" alt="No caption"></div>
+
+<h1 id="Description"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::MessageDialog</strong> presents a dialog with some message text. It’s simply a convenience widget; you could construct the equivalent of <strong>Gnome::Gtk3::MessageDialog</strong> from <strong>Gnome::Gtk3::Dialog</strong> without too much effort, but <strong>Gnome::Gtk3::MessageDialog</strong> saves typing.</p><p>One difference from <strong>Gnome::Gtk3::Dialog</strong> is that <strong>Gnome::Gtk3::MessageDialog</strong> sets the <em>skip-taskbar-hint</em> property to <code>1</code>, so that the dialog is hidden from the taskbar by default.</p><p>The easiest way to do a modal message dialog is to use <code>gtk_dialog_run()</code>, though you can also pass in the <code>GTK_DIALOG_MODAL</code> flag, <code>gtk_dialog_run()</code> automatically makes the dialog modal and waits for the user to respond to it. <code>gtk_dialog_run()</code> returns when any dialog button is clicked.</p>
+<h2 id="Gnome::Gtk3::MessageDialog_as_Gnome::Gtk3::Buildable"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document"><strong>Gnome::Gtk3::MessageDialog</strong> as <strong>Gnome::Gtk3::Buildable</strong></a></h2>
+<p>The <strong>Gnome::Gtk3::MessageDialog</strong> implementation of the <strong>Gnome::Gtk3::Buildable</strong> interface exposes the message area as an internal child with the name “message_area”.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::Dialog</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::MessageDialog;
+also is Gnome::Gtk3::Dialog;</pre>
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::MessageDialog:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::MessageDialog;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::MessageDialog class process the options
+  self.bless( :GtkMessageDialog, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkButtonsType"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">enum GtkButtonsType</a></h2>
+<p>Prebuilt sets of buttons for the dialog. If none of these choices are appropriate, simply use <code>GTK_BUTTONS_NONE</code> then call <code>gtk_dialog_add_buttons()</code>.</p><p>Please note that <code>GTK_BUTTONS_OK</code>, <code>GTK_BUTTONS_YES_NO</code> and <code>GTK_BUTTONS_OK_CANCEL</code> are discouraged by the [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).</p><ul>
+<li><p>GTK_BUTTONS_NONE: no buttons at all</p></li>
+<li><p>GTK_BUTTONS_OK: an OK button</p></li>
+<li><p>GTK_BUTTONS_CLOSE: a Close button</p></li>
+<li><p>GTK_BUTTONS_CANCEL: a Cancel button</p></li>
+<li><p>GTK_BUTTONS_YES_NO: Yes and No buttons</p></li>
+<li><p>GTK_BUTTONS_OK_CANCEL: OK and Cancel buttons</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":message"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">:message</a></h3>
+<p>Creates a new message dialog, which is a simple dialog with some text the user may want to see. When the user clicks a button a “response” signal is emitted with response IDs from <strong>Gnome::Gtk3::ResponseType</strong>. See <strong>Gnome::Gtk3::Dialog</strong> for more details.</p><pre class="pod-block-code">multi method new (
+  Str :$message!, N-GObject :$parent?, GtkDialogFlags :$flags?,
+  GtkMessageType :$type?, GtkButtonsType :$buttons?
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>Str $message; a string. XML is converted to proper text.</p></li>
+<li><p>N-GObject $parent; transient parent, or <code>Any</code> for none</p></li>
+<li><p>GtkDialogFlags $flags; flags. Default is GTK_DIALOG_MODAL.</p></li>
+<li><p>GtkMessageType $type; type of message. Default is GTK_MESSAGE_INFO.</p></li>
+<li><p>GtkButtonsType $buttons; set of buttons to use. Default is GTK_BUTTONS_CLOSE.</p></li>
+</ul>
+
+<h3 id=":markup-message"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">:markup-message</a></h3>
+<p>Creates a new message dialog, which is a simple dialog with some text that is marked up with the <a href="https://developer.gnome.org/pygtk/stable/pango-markup-language.html">Pango text markup language</a>. When the user clicks a button a “response” signal is emitted with response IDs from <strong>Gnome::Gtk3::ResponseType</strong>. See <strong>Gnome::Gtk3::Dialog</strong> for more details.</p><pre class="pod-block-code">multi method new (
+  Str :$markup-message!, N-GObject :$parent?, GtkDialogFlags :$flags?,
+  GtkMessageType :$type?, GtkButtonsType :$buttons?
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>Str $markup-message; a string with Pango markup</p></li>
+<li><p>N-GObject $parent; transient parent, or <code>Any</code> for none</p></li>
+<li><p>GtkDialogFlags $flags; flags. Default is GTK_DIALOG_MODAL.</p></li>
+<li><p>GtkMessageType $type; type of message. Default is GTK_MESSAGE_INFO.</p></li>
+<li><p>GtkButtonsType $buttons; set of buttons to use. Default is GTK_BUTTONS_CLOSE.</p></li>
+</ul>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a MessageDialog object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a MessageDialog object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="gtk_message_dialog_new"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">gtk_message_dialog_new</a></h2>
+<p>Creates a new message dialog, which is a simple dialog with some text the user may want to see. When the user clicks a button a “response” signal is emitted with response IDs from <strong>Gnome::Gtk3::ResponseType</strong>. See <strong>Gnome::Gtk3::Dialog</strong> for more details.</p><p>Returns: (transfer none): a new <strong>Gnome::Gtk3::MessageDialog</strong></p><pre class="pod-block-code">method gtk_message_dialog_new (
+  N-GObject $parent, GtkDialogFlags $flags, GtkMessageType $type,
+  GtkButtonsType $buttons, Str $message,
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>N-GObject $parent; (allow-none): transient parent, or <code>Any</code> for none</p></li>
+<li><p>GtkDialogFlags $flags; flags</p></li>
+<li><p>GtkMessageType $type; type of message</p></li>
+<li><p>GtkButtonsType $buttons; set of buttons to use</p></li>
+<li><p>Str $message; A string</p></li>
+</ul>
+
+<h2 id="[gtk_message_dialog_]_new_with_markup"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">[gtk_message_dialog_] new_with_markup</a></h2>
+<p>Creates a new message dialog, which is a simple dialog with some text that is marked up with the [Pango text markup language][PangoMarkupFormat]. When the user clicks a button a “response” signal is emitted with response IDs from <strong>Gnome::Gtk3::ResponseType</strong>. See <strong>Gnome::Gtk3::Dialog</strong> for more details.</p><p>Returns: a new <strong>Gnome::Gtk3::MessageDialog</strong></p><pre class="pod-block-code">method gtk_message_dialog_new_with_markup (
+  N-GObject $parent, GtkDialogFlags $flags, GtkMessageType $type,
+  GtkButtonsType $buttons, Str $message
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>N-GObject $parent; transient parent, or <code>Any</code> for none</p></li>
+<li><p>GtkDialogFlags $flags; flags</p></li>
+<li><p>GtkMessageType $type; type of message</p></li>
+<li><p>GtkButtonsType $buttons; set of buttons to use</p></li>
+<li><p>Str $message; a string</p></li>
+</ul>
+
+<h2 id="set-markup"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">set-markup</a></h2>
+<p>Sets the text of the message dialog to be <em>$str</em>, which is marked up with the <a href="PangoMarkupFormathttps://developer.gnome.org/pygtk/stable/pango-markup-language.html.html">Pango text markup language</a>.</p><pre class="pod-block-code">method set-markup ( Str $str )</pre><ul>
+<li><p>Str $str; markup string</p></li>
+</ul>
+
+<h2 id="secondary-text"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">secondary-text</a></h2>
+<p>Sets the secondary text of the message dialog to be <em>$message</em>.</p><pre class="pod-block-code">method secondary-text ( Str $message )</pre><ul>
+<li><p>Str $message; a string</p></li>
+</ul>
+
+<h2 id="secondary-markup"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">secondary-markup</a></h2>
+<p>Sets the secondary text of the message dialog to be <em>$message</em>, which is marked up with the Pango text markup language.</p><p>Due to an oversight, this function does not escape special XML characters like <code>gtk_message_dialog_new_with_markup()</code> does. Thus, if the arguments may contain special XML characters, you should call some routine to escape it.</p><pre class="pod-block-code">method secondary-markup ( Str $message )</pre><ul>
+<li><p>Str $message; a message</p></li>
+</ul>
+
+<h2 id="get-message-area"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">get-message-area</a></h2>
+<p>Returns the message area of the dialog. This is the box where the dialog’s primary and secondary labels are packed. You can add your own extra content to that box and it will appear below those labels. See <code>.get-content-area()</code> described in the parent class <strong>Gnome::Gtk3::Dialog</strong>.</p><p>Returns: A <strong>Gnome::Gtk3::Box</strong> corresponding to the “message area” in the <em>message_dialog</em>.</p><pre class="pod-block-code">method get-message-area ( --&gt; N-GObject )</pre>
+<h1 id="Properties"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Message_Type"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Message Type</a></h3>
+<p>The type of the message. Widget type: GTK_TYPE_MESSAGE_TYPE</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>message-type</em> is <code>G_TYPE_ENUM</code>.</p>
+<h3 id="Message_Buttons"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Message Buttons</a></h3>
+<p>The buttons shown in the message dialog Default value: False</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>buttons</em> is <code>G_TYPE_ENUM</code>.</p>
+<h3 id="Text"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Text</a></h3>
+<p>The primary text of the message dialog. If the dialog has a secondary text, this will appear as the title.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>text</em> is <code>G_TYPE_STRING</code>.</p>
+<h3 id="Use_Markup"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Use Markup</a></h3>
+<p><code>1</code> if the primary text of the dialog includes Pango markup. See <code>pango_parse_markup()</code>.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>use-markup</em> is <code>G_TYPE_BOOLEAN</code>.</p>
+<h3 id="Secondary_Text"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Secondary Text</a></h3>
+<p>The secondary text of the message dialog.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>secondary-text</em> is <code>G_TYPE_STRING</code>.</p>
+<h3 id="Use_Markup_in_secondary"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Use Markup in secondary</a></h3>
+<p><code>1</code> if the secondary text of the dialog includes Pango markup. See <code>pango_parse_markup()</code>.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>secondary-use-markup</em> is <code>G_TYPE_BOOLEAN</code>.</p>
+<h3 id="Message_area"><a href="#Gnome::Gtk3::MessageDialog" class="u" title="go to top of document">Message area</a></h3>
+<p>The <strong>Gnome::Gtk3::Box</strong> that corresponds to the message area of this dialog. See <code>gtk_message_dialog_get_message_area()</code> for a detailed description of this area. Widget type: GTK_TYPE_WIDGET</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>message-area</em> is <code>G_TYPE_OBJECT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/MessageDialog.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:36Z</span></div></footer>
+	</body>
+</html>
