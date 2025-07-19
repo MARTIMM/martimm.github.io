@@ -30,6 +30,7 @@ my Hash $source-paths = %(
   :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/doc/'),
 
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
+  :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -42,6 +43,7 @@ my Hash $destination-paths = %(
   :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
 
   :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
+  :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
@@ -54,6 +56,7 @@ my Hash $sidebar-paths = %(
   :GioApi2(REFS ~ 'api2-ref-gio-sidebar.yml'),
 
   :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
+  :Gdk3Api1(REFS ~ 'api1-ref-gdk3-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
@@ -73,7 +76,7 @@ sub MAIN (
 
     else {
       for $source-paths{$key}.IO.dir.sort -> Str() $source-file {
-note "$?LINE $source-file";
+#note "$?LINE $source-file";
         next unless ?$source-file and
                      $source-file ~~ m/ '.' [rakudoc | rakumod]/;
 
@@ -319,10 +322,10 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
     # from last '=end pod' to end of program.
     my Int $last-pos = $contents.rindex('=end pod');
     if ?$last-pos {
-       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
-       $contents ~~ s/ $last-code $//;
+      my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
+      $contents ~~ s/ $last-code $//;
+      $contents ~= "=end pod\n";
     }
-    $contents ~= "=end pod\n";
 
     # Also drop everything after =finish, there might be some saved experiments.
     $last-pos = $contents.rindex('=finish');
