@@ -1,0 +1,158 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::ApplicationWindow</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::ApplicationWindow">Gnome::Gtk3::ApplicationWindow</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#A_Gnome::Gtk3::ApplicationWindow_with_a_menubar">A Gnome::Gtk3::ApplicationWindow with a menubar</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Handling_fallback_yourself">Handling fallback yourself</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:application">:application</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-help-overlay">get-help-overlay</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-id">get-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-menubar">get-show-menubar</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-help-overlay">set-help-overlay</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-menubar">set-show-menubar</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_application_window_new">_gtk_application_window_new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#show-menubar">show-menubar</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties_0">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Show_a_menubar:_show-menubar">Show a menubar: show-menubar</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p><strong>Gnome::Gtk3::Window</strong> subclass with <strong>Gnome::Gtk3::Application</strong> support</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::ApplicationWindow</strong> is a <strong>Gnome::Gtk3::Window</strong> subclass that offers some extra functionality for better integration with <strong>Gnome::Gtk3::Application</strong> features. Notably, it can handle both the application menu as well as the menubar. See <code>gtk_application_set_app_menu()</code> and <code>gtk_application_set_menubar()</code>.</p><p>This class implements the <strong>GActionGroup</strong> and <strong>GActionMap</strong> interfaces, to let you add window-specific actions that will be exported by the associated <strong>Gnome::Gtk3::Application</strong>, together with its application-wide actions. Window-specific actions are prefixed with the “win.” prefix and application-wide actions are prefixed with the “app.” prefix. Actions must be addressed with the prefixed name when referring to them from a <strong>GMenuModel</strong>.</p><p>Note that widgets that are placed inside a <strong>Gnome::Gtk3::ApplicationWindow</strong> can also activate these actions, if they implement the <strong>Gnome::Gtk3::Actionable</strong> interface.</p><p>As with <strong>Gnome::Gtk3::Application</strong>, the GDK lock will be acquired when processing actions arriving from other processes and should therefore be held when activating actions locally (if GDK threads are enabled).</p><p>The settings <em>gtk-shell-shows-app-menu</em> and <em>gtk-shell-shows-menubar</em> tell GTK+ whether the desktop environment is showing the application menu and menubar models outside the application as part of the desktop shell. For instance, on OS X, both menus will be displayed remotely; on Windows neither will be. gnome-shell (starting with version 3.4) will display the application menu, but not the menubar.</p><p>If the desktop environment does not display the menubar, then <strong>Gnome::Gtk3::ApplicationWindow</strong> will automatically show a <strong>Gnome::Gtk3::MenuBar</strong> for it. This behaviour can be overridden with the <em>show-menubar</em> property. If the desktop environment does not display the application menu, then it will automatically be included in the menubar or in the windows client-side decorations.</p>
+<h2 id="A_Gnome::Gtk3::ApplicationWindow_with_a_menubar"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">A <strong>Gnome::Gtk3::ApplicationWindow</strong> with a menubar</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Application $app .= new(:app-id(&quot;org.gtk.test&quot;));
+my Str $gui-interface = Q:to/EOMENU/;
+  &lt;interface&gt;
+    &lt;menu id='menubar'&gt;
+      &lt;submenu label='_Edit'&gt;
+        &lt;item label='_Copy' action='win.copy'/&gt;
+        &lt;item label='_Paste' action='win.paste'/&gt;
+      &lt;/submenu&gt;
+    &lt;/menu&gt;
+  &lt;/interface&gt;
+  EOMENU
+
+my Gnome::Gtk3::Builder $builder .= new(:string($gui-interface));
+
+my Gnome::Gio::MenuModel $menubar .= new(:build-id&lt;menubar&gt;);
+$app.set-menubar($menubar);
+
+…
+
+my Gnome::Gtk3::ApplicationWindow $app-window .= new(:application($app));</pre>
+<h2 id="Handling_fallback_yourself"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Handling fallback yourself</a></h2>
+<p>The XML format understood by <strong>Gnome::Gtk3::Builder</strong> for <strong>GMenuModel</strong> consists of a toplevel `&lt;menu&gt;` element, which contains one or more `&lt;item&gt;` elements. Each `&lt;item&gt;` element contains `&lt;attribute&gt;` and `&lt;link&gt;` elements with a mandatory name attribute. `&lt;link&gt;` elements have the same content model as `&lt;menu&gt;`. Instead of `&lt;link name=&quot;submenu&gt;` or `&lt;link name=&quot;section&quot;&gt;`, you can use `&lt;submenu&gt;` or `&lt;section&gt;` elements.</p><p>Attribute values can be translated using gettext, like other <strong>Gnome::Gtk3::Builder</strong> content. `&lt;attribute&gt;` elements can be marked for translation with a `translatable=&quot;yes&quot;` attribute. It is also possible to specify message context and translator comments, using the context and comments attributes. To make use of this, the <strong>Gnome::Gtk3::Builder</strong> must have been given the gettext domain to use.</p><p>The following attributes are used when constructing menu items:</p><ul>
+<li><p>&quot;label&quot;: a user-visible string to display</p></li>
+<li><p>&quot;action&quot;: the prefixed name of the action to trigger</p></li>
+<li><p>&quot;target&quot;: the parameter to use when activating the action</p></li>
+<li><p>&quot;icon&quot; and &quot;verb-icon&quot;: names of icons that may be displayed</p></li>
+<li><p>&quot;submenu-action&quot;: name of an action that may be used to determine if a submenu can be opened</p></li>
+<li><p>&quot;hidden-when&quot;: a string used to determine when the item will be hidden. Possible values include &quot;action-disabled&quot;, &quot;action-missing&quot;, &quot;macos-menubar&quot;.</p></li>
+</ul>
+<p>The following attributes are used when constructing sections:</p><ul>
+<li><p>&quot;label&quot;: a user-visible string to use as section heading</p></li>
+<li><p>&quot;display-hint&quot;: a string used to determine special formatting for the section. Possible values include &quot;horizontal-buttons&quot;.</p></li>
+<li><p>&quot;text-direction&quot;: a string used to determine the <strong>Gnome::Gtk3::TextDirection</strong> to use when &quot;display-hint&quot; is set to &quot;horizontal-buttons&quot;. Possible values include &quot;rtl&quot;, &quot;ltr&quot;, and &quot;none&quot;.</p></li>
+</ul>
+<p>The following attributes are used when constructing submenus:</p><ul>
+<li><p>&quot;label&quot;: a user-visible string to display</p></li>
+<li><p>&quot;icon&quot;: icon name to display</p></li>
+</ul>
+
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::ApplicationWindow;
+also is Gnome::Gtk3::Window;
+
+
+also does Gnome::Gio::ActionMap;</pre>
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::ApplicationWindow:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::ApplicationWindow;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::ApplicationWindow class process the options
+  self.bless( :GtkApplicationWindow, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":application"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">:application</a></h3>
+<p>Create a new <strong>Gnome::Gtk3::ApplicationWindow</strong> based on a <strong>Gnome::Gtk3::Application</strong> object.</p><pre class="pod-block-code">multi method new ( N-GObject :$application! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a ApplicationWindow object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a ApplicationWindow object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="get-help-overlay"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">get-help-overlay</a></h2>
+<p>Gets the <strong>Gnome::Gtk3::ShortcutsWindow</strong> that has been set up with a prior call to <code>set-help-overlay()</code>.</p><p>Returns: the help overlay associated with <em>window</em>, or <code>undefined</code></p><pre class="pod-block-code">method get-help-overlay ( --&gt; N-GObject )</pre>
+<h2 id="get-id"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">get-id</a></h2>
+<p>Returns the unique ID of the window. If the window has not yet been added to a <strong>Gnome::Gtk3::Application</strong>, returns `0`.</p><p>Returns: the unique ID for <em>window</em>, or `0` if the window has not yet been added to a <strong>Gnome::Gtk3::Application</strong></p><pre class="pod-block-code">method get-id ( --&gt; UInt )</pre>
+<h2 id="get-show-menubar"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">get-show-menubar</a></h2>
+<p>Returns whether the window will display a menubar for the app menu and menubar as needed.</p><p>Returns: <code>True</code> if <em>window</em> will display a menubar when needed</p><pre class="pod-block-code">method get-show-menubar ( --&gt; Bool )</pre>
+<h2 id="set-help-overlay"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">set-help-overlay</a></h2>
+<p>Associates a shortcuts window with the application window, and sets up an action name <code>win.show-help-overlay</code> to present it.</p><p>This <em>window</em> takes resposibility for destroying <em>$help-overlay</em>.</p><pre class="pod-block-code">method set-help-overlay ( N-GObject() $help-overlay )</pre><ul>
+<li><p>$help_overlay; a <strong>Gnome::Gtk3::ShortcutsWindow</strong>.</p></li>
+</ul>
+
+<h2 id="set-show-menubar"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">set-show-menubar</a></h2>
+<p>Sets whether the window will display a menubar for the app menu and menubar as needed.</p><pre class="pod-block-code">method set-show-menubar ( Bool $show_menubar )</pre><ul>
+<li><p>$show_menubar; whether to show a menubar when needed</p></li>
+</ul>
+
+<h2 id="_gtk_application_window_new"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">_gtk_application_window_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::ApplicationWindow</strong>.</p><p>Returns: a newly created <strong>Gnome::Gtk3::ApplicationWindow</strong></p><pre class="pod-block-code">method _gtk_application_window_new ( N-GObject $application --&gt; N-GObject )</pre><ul>
+<li><p>$application; a <strong>Gnome::Gtk3::Application</strong></p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Properties</a></h1>
+
+<h2 id="show-menubar"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">show-menubar</a></h2>
+<p>TRUE if the window should show a menubar at the top of the window</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>show-menubar</em> is <code>G_TYPE_BOOLEAN</code>.</p><ul>
+<li><p>Parameter is set on construction of object.</p></li>
+<li><p>Parameter is readable and writable.</p></li>
+<li><p>Default value is TRUE.</p></li>
+</ul>
+
+<h1 id="Properties_0"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>.set-text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.get-property( 'label', $gv);
+$gv.set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Show_a_menubar:_show-menubar"><a href="#Gnome::Gtk3::ApplicationWindow" class="u" title="go to top of document">Show a menubar: show-menubar</a></h3>
+<p>If this property is <code>True</code>, the window will display a menubar that includes the app menu and menubar, unless these are shown by the desktop shell. See <code>gtk-application-set-app-menu()</code> and <code>gtk-application-set-menubar()</code>.</p><p>If <code>False</code>, the window will not display a menubar, regardless * of whether the desktop shell is showing the menus or not. The <strong>Gnome::GObject::Value</strong> type of property <em>show-menubar</em> is <code>G_TYPE_BOOLEAN</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/ApplicationWindow.rakumod</span></div><div>at <span class="time">2025-07-18T18:32:47Z</span></div></footer>
+	</body>
+</html>

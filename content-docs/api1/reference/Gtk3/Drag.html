@@ -1,0 +1,165 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Drag</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Drag">Gnome::Gtk3::Drag</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-with-coordinates">begin-with-coordinates</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#cancel">cancel</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#check-threshold">check-threshold</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#finish">finish</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data">get-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-source-widget">get-source-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#highlight">highlight</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-default">set-icon-default</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-gicon">set-icon-gicon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-name">set-icon-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-pixbuf">set-icon-pixbuf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-surface">set-icon-surface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-widget">set-icon-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unhighlight">unhighlight</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions for controlling drag and drop handling</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">Description</a></h1>
+<p>GTK+ has a rich set of functions for doing inter-process communication via the drag-and-drop metaphor.</p><p>As well as the functions listed here, applications may need to use some facilities provided for [Selections][gtk3-Selections]. Also, the Drag and Drop API makes use of signals in the <strong>Gnome::Gtk3::Widget</strong> class.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Drag;</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">Types</a></h1>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new Drag object.</p><pre class="pod-block-code">multi method new ( )</pre><p>This object does not wrap a native object into this Raku object because it does not need one. Therefore no option like <code>:native-object</code> is needed.</p>
+<h2 id="begin-with-coordinates"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">begin-with-coordinates</a></h2>
+<p>Initiates a drag on the source side. The function only needs to be used when the application is starting drags itself, and is not needed when <code>source_set()</code> is used.</p><p>The <em>event</em> is used to retrieve the timestamp that will be used internally to grab the pointer. If <em>event</em> is <code>undefined</code>, then <code>GDK_CURRENT_TIME</code> will be used. However, you should try to pass a real event in all cases, since that can be used to get information about the drag.</p><p>Generally there are three cases when you want to start a drag by hand by calling this function:</p><p>1. During a <em>button-press-event from Gnome::Gtk3::Widget</em> handler, if you want to start a drag immediately when the user presses the mouse button. Pass the <em>event</em> that you have in your <em>button-press-event from Gnome::Gtk3::Widget</em> handler.</p><p>2. During a <em>motion-notify-event from Gnome::Gtk3::Widget</em> handler, if you want to start a drag when the mouse moves past a certain threshold distance after a button-press. Pass the <em>event</em> that you have in your <em>motion-notify-event from Gnome::Gtk3::Widget</em> handler.</p><p>3. During a timeout handler, if you want to start a drag after the mouse button is held down for some time. Try to save the last event that you got from the mouse, using <code>gdk_event_copy()</code>, and pass it to this function (remember to free the event with <code>gdk_event_free()</code> when you are done). If you really cannot pass a real event, pass <code>undefined</code> instead.</p><p>Returns: the context for this drag</p><pre class="pod-block-code">method begin-with-coordinates ( N-GObject() $widget, GtkTargetList $targets, GdkDragAction $actions, Int() $button, N-GdkEvent $event, Int() $x, Int() $y --&gt; N-GObject )</pre><ul>
+<li><p>$widget; the source widget</p></li>
+<li><p>$targets; The targets (data formats) in which the source can provide the data</p></li>
+<li><p>$actions; A bitmask of the allowed drag actions for this drag</p></li>
+<li><p>$button; The button the user clicked to start the drag</p></li>
+<li><p>$event; The event that triggered the start of the drag, or <code>undefined</code> if none can be obtained.</p></li>
+<li><p>$x; The initial x coordinate to start dragging from, in the coordinate space of <em>widget</em>. If -1 is passed, the coordinates are retrieved from <em>event</em> or the current pointer position</p></li>
+<li><p>$y; The initial y coordinate to start dragging from, in the coordinate space of <em>widget</em>. If -1 is passed, the coordinates are retrieved from <em>event</em> or the current pointer position</p></li>
+</ul>
+
+<h2 id="cancel"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">cancel</a></h2>
+<p>Cancels an ongoing drag operation on the source side.</p><p>If you want to be able to cancel a drag operation in this way, you need to keep a pointer to the drag context, either from an explicit call to <code>begin_with_coordinates()</code>, or by connecting to <em>drag-begin from Gnome::Gtk3::Widget</em>.</p><p>If <em>context</em> does not refer to an ongoing drag operation, this function does nothing.</p><p>If a drag is cancelled in this way, the <em>result</em> argument of <em>drag-failed from Gnome::Gtk3::Widget</em> is set to <em>GTK_DRAG_RESULT_ERROR</em>.</p><pre class="pod-block-code">method cancel ( N-GObject() $context )</pre><ul>
+<li><p>$context; a native <strong>Gnome::Gdk3::DragContext</strong>.</p></li>
+</ul>
+
+<h2 id="check-threshold"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">check-threshold</a></h2>
+<p>Checks to see if a mouse drag starting at (<em>start_x</em>, <em>start_y</em>) and ending at (<em>current_x</em>, <em>current_y</em>) has passed the GTK+ drag threshold, and thus should trigger the beginning of a drag-and-drop operation.</p><p>Returns: <code>True</code> if the drag threshold has been passed.</p><pre class="pod-block-code">method check-threshold ( N-GObject() $widget, Int() $start_x, Int() $start_y, Int() $current_x, Int() $current_y --&gt; Bool )</pre><ul>
+<li><p>$widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>$start_x; X coordinate of start of drag</p></li>
+<li><p>$start_y; Y coordinate of start of drag</p></li>
+<li><p>$current_x; current X coordinate</p></li>
+<li><p>$current_y; current Y coordinate</p></li>
+</ul>
+
+<h2 id="finish"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">finish</a></h2>
+<p>Informs the drag source that the drop is finished, and that the data of the drag will no longer be required.</p><pre class="pod-block-code">method finish ( N-GObject() $context, Bool $success, Bool $del, UInt $time )</pre><ul>
+<li><p>$context; the drag context</p></li>
+<li><p>$success; a flag indicating whether the drop was successful</p></li>
+<li><p>$del; a flag indicating whether the source should delete the original data. (This should be <code>True</code> for a move)</p></li>
+<li><p>$time; the timestamp from the <em>drag-drop from Gnome::Gtk3::Widget</em> signal</p></li>
+</ul>
+
+<h2 id="get-data"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">get-data</a></h2>
+<p>Gets the data associated with a drag. When the data is received or the retrieval fails, GTK+ will emit a <em>drag-data-received from Gnome::Gtk3::Widget</em> signal. Failure of the retrieval is indicated by the length field of the <em>selection_data</em> signal parameter being negative. However, when <code>get_data()</code> is called implicitely because the <code>GTK_DEST_DEFAULT_DROP</code> was set, then the widget will not receive notification of failed drops.</p><pre class="pod-block-code">method get-data (
+  N-GObject() $widget, N-GObject() $context,
+  N-GObject() $target, UInt $time
+)</pre><ul>
+<li><p>$widget; the widget that will receive the <em>drag-data-received from Gnome::Gtk3::Widget</em> signal</p></li>
+<li><p>$context; the drag context, a <strong>Gnome::Gdk3::DragContext</strong>.</p></li>
+<li><p>$target; the target (form of the data) to retrieve, A native <strong>Gnome::Gdk3::Atom</strong>.</p></li>
+<li><p>$time; a timestamp for retrieving the data. This will generally be the time received in a <em>drag-motion from Gnome::Gtk3::Widget</em> or <em>drag-drop from Gnome::Gtk3::Widget</em> signal</p></li>
+</ul>
+
+<h2 id="get-source-widget"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">get-source-widget</a></h2>
+<p>Determines the source widget for a drag.</p><p>Returns: if the drag is occurring within a single application, a pointer to the source widget. Otherwise, <code>undefined</code>.</p><pre class="pod-block-code">method get-source-widget ( N-GObject() $context --&gt; N-GObject )</pre><ul>
+<li><p>$context; a (destination side) drag context</p></li>
+</ul>
+
+<h2 id="highlight"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">highlight</a></h2>
+<p>Highlights a widget as a currently hovered drop target. To end the highlight, call <code>unhighlight()</code>. GTK+ calls this automatically if <code>GTK_DEST_DEFAULT_HIGHLIGHT</code> is set.</p><pre class="pod-block-code">method highlight ( N-GObject() $widget )</pre><ul>
+<li><p>$widget; a widget to highlight</p></li>
+</ul>
+
+<h2 id="set-icon-default"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-default</a></h2>
+<p>Sets the icon for a particular drag to the default icon.</p><pre class="pod-block-code">method set-icon-default ( N-GObject() $context )</pre><ul>
+<li><p>$context; the context for a drag (This must be called with a context for the source side of a drag)</p></li>
+</ul>
+
+<h2 id="set-icon-gicon"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-gicon</a></h2>
+<p>Sets the icon for a given drag from the given <em>icon</em>. See the documentation for <code>set_icon_name()</code> for more details about using icons in drag and drop.</p><pre class="pod-block-code">method set-icon-gicon ( N-GObject() $context, N-GObject() $icon, Int() $hot_x, Int() $hot_y )</pre><ul>
+<li><p>$context; the context for a drag (This must be called with a context for the source side of a drag)</p></li>
+<li><p>$icon; a <strong>Gnome::Gio::Icon</strong></p></li>
+<li><p>$hot_x; the X offset of the hotspot within the icon</p></li>
+<li><p>$hot_y; the Y offset of the hotspot within the icon</p></li>
+</ul>
+
+<h2 id="set-icon-name"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-name</a></h2>
+<p>Sets the icon for a given drag from a named themed icon. See the docs for <strong>Gnome::Gtk3::IconTheme</strong> for more details. Note that the size of the icon depends on the icon theme (the icon is loaded at the symbolic size <strong>Gnome::Gio::TK_ICON_SIZE_DND</strong>), thus <em>hot_x</em> and <em>hot_y</em> have to be used with care.</p><pre class="pod-block-code">method set-icon-name (
+  N-GObject() $context, Str $icon_name, Int() $hot_x, Int() $hot_y
+)</pre><ul>
+<li><p>$context; the context for a drag (This must be called with a context for the source side of a drag)</p></li>
+<li><p>$icon_name; name of icon to use</p></li>
+<li><p>$hot_x; the X offset of the hotspot within the icon</p></li>
+<li><p>$hot_y; the Y offset of the hotspot within the icon</p></li>
+</ul>
+
+<h2 id="set-icon-pixbuf"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-pixbuf</a></h2>
+<p>Sets <em>pixbuf</em> as the icon for a given drag.</p><pre class="pod-block-code">method set-icon-pixbuf (
+  N-GObject() $context, N-GObject() $pixbuf,
+  Int() $hot_x, Int() $hot_y
+)</pre><ul>
+<li><p>$context; the context for a drag (This must be called with a context for the source side of a drag)</p></li>
+<li><p>$pixbuf; the <strong>Gnome::Gdk3::Pixbuf</strong> to use as the drag icon</p></li>
+<li><p>$hot_x; the X offset within <em>widget</em> of the hotspot</p></li>
+<li><p>$hot_y; the Y offset within <em>widget</em> of the hotspot</p></li>
+</ul>
+
+<h2 id="set-icon-surface"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-surface</a></h2>
+<p>Sets <em>surface</em> as the icon for a given drag. GTK+ retains references for the arguments, and will release them when they are no longer needed.</p><p>To position the surface relative to the mouse, use <code>cairo_surface_set_device_offset()</code> on <em>surface</em>. The mouse cursor will be positioned at the (0,0) coordinate of the surface.</p><pre class="pod-block-code">method set-icon-surface ( N-GObject() $context, cairo_surface_t $surface )</pre><ul>
+<li><p>$context; the context for a drag (This must be called with a context for the source side of a drag)</p></li>
+<li><p>$surface; the surface to use as icon</p></li>
+</ul>
+
+<h2 id="set-icon-widget"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">set-icon-widget</a></h2>
+<p>Changes the icon for drag operation to a given widget. GTK+ will not destroy the widget, so if you don’t want it to persist, you should connect to the “drag-end” signal and destroy it yourself.</p><pre class="pod-block-code">method set-icon-widget ( N-GObject() $context, N-GObject() $widget, Int() $hot_x, Int() $hot_y )</pre><ul>
+<li><p>$context; the context for a drag. (This must be called</p></li>
+<li><p>$widget; a widget to use as an icon</p></li>
+<li><p>$hot_x; the X offset within <em>widget</em> of the hotspot</p></li>
+<li><p>$hot_y; the Y offset within <em>widget</em> of the hotspot</p></li>
+</ul>
+
+<h2 id="unhighlight"><a href="#Gnome::Gtk3::Drag" class="u" title="go to top of document">unhighlight</a></h2>
+<p>Removes a highlight set by <code>highlight()</code> from a widget.</p><pre class="pod-block-code">method unhighlight ( N-GObject() $widget )</pre><ul>
+<li><p>$widget; a widget to remove the highlight from</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Drag.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:09Z</span></div></footer>
+	</body>
+</html>

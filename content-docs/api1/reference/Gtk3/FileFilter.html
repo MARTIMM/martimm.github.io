@@ -1,0 +1,148 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::FileFilter</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::FileFilter">Gnome::Gtk3::FileFilter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Gnome::Gtk3::FileFilter_as_Gnome::Gtk3::Buildable">Gnome::Gtk3::FileFilter as Gnome::Gtk3::Buildable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkFileFilterFlags">enum GtkFileFilterFlags</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkFileFilterInfo">class N-GtkFileFilterInfo</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:variant">:variant</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-custom">add-custom</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-mime-type">add-mime-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-pattern">add-pattern</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-pixbuf-formats">add-pixbuf-formats</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#filter">filter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-needed">get-needed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-name">set-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-gvariant">to-gvariant</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_file_filter_new">_gtk_file_filter_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_file_filter_new_from_gvariant">_gtk_file_filter_new_from_gvariant</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A filter for selecting a file subset</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk3::FileFilter</strong> can be used to restrict the files being shown in a <strong>Gnome::Gtk3::FileChooser</strong>. Files can be filtered based on their name (with <code>gtk_file_filter_add_pattern()</code>), on their mime type (with <code>gtk_file_filter_add_mime_type()</code>), or by a custom filter function (with <code>gtk_file_filter_add_custom()</code>).</p><p>Filtering by mime types handles aliasing and subclassing of mime types; e.g. a filter for text/plain also matches a file with mime type application/rtf, since application/rtf is a subclass of text/plain. Note that <strong>Gnome::Gtk3::FileFilter</strong> allows wildcards for the subtype of a mime type, so you can e.g. filter for image/\*.</p><p>Normally, filters are used by adding them to a <strong>Gnome::Gtk3::FileChooser</strong>, see <code>gtk_file_chooser_add_filter()</code>, but it is also possible to manually use a filter on a file with <code>gtk_file_filter_filter()</code>.</p>
+<h2 id="Gnome::Gtk3::FileFilter_as_Gnome::Gtk3::Buildable"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document"><strong>Gnome::Gtk3::FileFilter</strong> as <strong>Gnome::Gtk3::Buildable</strong></a></h2>
+<p>The <strong>Gnome::Gtk3::FileFilter</strong> implementation of the <strong>Gnome::Gtk3::Buildable</strong> interface supports adding rules using the &lt;mime-types&gt;, &lt;patterns&gt; and &lt;applications&gt; elements and listing the rules within. Specifying a &lt;mime-type&gt; or &lt;pattern&gt; has the same effect as calling <code>gtk_file_filter_add_mime_type()</code> or <code>gtk_file_filter_add_pattern()</code>.</p><p>An example of a UI definition fragment specifying <strong>Gnome::Gtk3::FileFilter</strong> rules:</p><pre class="pod-block-code">&lt;object class=&quot;GtkFileFilter&gt;&quot;&gt;
+  &lt;mime-types&gt;
+    &lt;mime-type&gt;text/plain&lt;/mime-type&gt;
+    &lt;mime-type&gt;image/ *&lt;/mime-type&gt;
+  &lt;/mime-types&gt;
+  &lt;patterns&gt;
+    &lt;pattern&gt;*.txt&lt;/pattern&gt;
+    &lt;pattern&gt;*.png&lt;/pattern&gt;
+  &lt;/patterns&gt;
+&lt;/object&gt;</pre>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::FileChooser</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::FileFilter;
+also is Gnome::GObject::InitiallyUnowned;
+also does Gnome::Gtk3::Buildable;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/FileFilter.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Types"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkFileFilterFlags"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">enum GtkFileFilterFlags</a></h2>
+<p>These flags indicate what parts of a <strong>Gnome::Gtk3::FileFilterInfo</strong> struct are filled or need to be filled.</p><ul>
+<li><p>GTK_FILE_FILTER_FILENAME: the filename of the file being tested</p></li>
+<li><p>GTK_FILE_FILTER_URI: the URI for the file being tested</p></li>
+<li><p>GTK_FILE_FILTER_DISPLAY_NAME: the string that will be used to display the file in the file chooser</p></li>
+<li><p>GTK_FILE_FILTER_MIME_TYPE: the mime type of the file</p></li>
+</ul>
+
+<h2 id="class_N-GtkFileFilterInfo"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">class N-GtkFileFilterInfo</a></h2>
+<p>A <strong>N-GtkFileFilterInfo</strong>-struct is used to pass information about the tested file to <code>gtk_file_filter_filter()</code>.</p><ul>
+<li><p><strong>GtkFileFilterFlags</strong> $.contains: Flags indicating which of the following fields need are filled</p></li>
+<li><p>Str $.filename: the filename of the file being tested</p></li>
+<li><p>Str $.uri: the URI for the file being tested</p></li>
+<li><p>Str $.display_name: the string that will be used to display the file in the file chooser</p></li>
+<li><p>Str $.mime_type: the mime type of the file</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new plain object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":variant"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">:variant</a></h3>
+<p>Deserialize a file filter from an a{sv} variant in the format produced by <code>to_gvariant()</code>.</p><pre class="pod-block-code">multi method new ( N-GObject :$variant! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create an object using a native object from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="add-custom"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">add-custom</a></h2>
+<p>Adds rule to a filter that allows files based on a custom callback function. The bitfield <em>needed</em> which is passed in provides information about what sorts of information that the filter function needs; this allows GTK+ to avoid retrieving expensive information when it isn’t needed by the filter.</p><pre class="pod-block-code">method add-custom ( GtkFileFilterFlags $needed, GtkFileFilterFunc $func, Pointer $data, GDestroyNotify $notify )</pre><ul>
+<li><p>$needed; bitfield of flags indicating the information that the custom filter function needs.</p></li>
+<li><p>$func; callback function; if the function returns <code>True</code>, then the file will be displayed.</p></li>
+<li><p>$data; data to pass to <em>func</em></p></li>
+<li><p>$notify; function to call to free <em>data</em> when it is no longer needed.</p></li>
+</ul>
+
+<h2 id="add-mime-type"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">add-mime-type</a></h2>
+<p>Adds a rule allowing a given mime type to <em>filter</em>.</p><pre class="pod-block-code">method add-mime-type ( Str $mime_type )</pre><ul>
+<li><p>$mime_type; name of a MIME type</p></li>
+</ul>
+
+<h2 id="add-pattern"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">add-pattern</a></h2>
+<p>Adds a rule allowing a shell style glob to a filter.</p><pre class="pod-block-code">method add-pattern ( Str $pattern )</pre><ul>
+<li><p>$pattern; a shell style glob</p></li>
+</ul>
+
+<h2 id="add-pixbuf-formats"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">add-pixbuf-formats</a></h2>
+<p>Adds a rule allowing image files in the formats supported by GdkPixbuf.</p><pre class="pod-block-code">method add-pixbuf-formats ( )</pre>
+<h2 id="filter"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">filter</a></h2>
+<p>Tests whether a file should be displayed according to <em>filter</em>. The <strong>Gnome::Gtk3::FileFilterInfo</strong> <em>filter_info</em> should include the fields returned from <code>get_needed()</code>.</p><p>This function will not typically be used by applications; it is intended principally for use in the implementation of <strong>Gnome::Gtk3::FileChooser</strong>.</p><p>Returns: <code>True</code> if the file should be displayed</p><pre class="pod-block-code">method filter ( GtkFileFilterInfo $filter_info --&gt; Bool )</pre><ul>
+<li><p>$filter_info; a <strong>Gnome::Gtk3::FileFilterInfo</strong> containing information about a file.</p></li>
+</ul>
+
+<h2 id="get-name"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">get-name</a></h2>
+<p>Gets the human-readable name for the filter. See <code>set_name()</code>.</p><p>Returns: The human-readable name of the filter, or <code>undefined</code>. This value is owned by GTK+ and must not be modified or freed.</p><pre class="pod-block-code">method get-name ( --&gt; Str )</pre>
+<h2 id="get-needed"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">get-needed</a></h2>
+<p>Gets the fields that need to be filled in for the <strong>Gnome::Gtk3::FileFilterInfo</strong> passed to <code>filter()</code></p><p>This function will not typically be used by applications; it is intended principally for use in the implementation of <strong>Gnome::Gtk3::FileChooser</strong>.</p><p>Returns: bitfield of flags indicating needed fields when calling <code>filter()</code></p><pre class="pod-block-code">method get-needed ( --&gt; GtkFileFilterFlags )</pre>
+<h2 id="set-name"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">set-name</a></h2>
+<p>Sets the human-readable name of the filter; this is the string that will be displayed in the file selector user interface if there is a selectable list of filters.</p><pre class="pod-block-code">method set-name ( Str $name )</pre><ul>
+<li><p>$name; the human-readable-name for the filter, or <code>undefined</code> to remove any existing name.</p></li>
+</ul>
+
+<h2 id="to-gvariant"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">to-gvariant</a></h2>
+<p>Serialize a file filter to an a{sv} variant.</p><p>Returns: a new, floating, <strong>Gnome::Glib::Variant</strong></p><pre class="pod-block-code">method to-gvariant ( --&gt; N-GObject )</pre>
+<h2 id="_gtk_file_filter_new"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">_gtk_file_filter_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::FileFilter</strong> with no rules added to it. Such a filter doesn’t accept any files, so is not particularly useful until you add rules with <code>add_mime_type()</code>, <code>add_pattern()</code>, or <code>add_custom()</code>. To create a filter that accepts any file, use: |[&lt;!-- language=&quot;C&quot; --&gt; GtkFileFilter *filter = <code>new()</code>; add_pattern (filter, &quot;*&quot;); ]|</p><p>Returns: a new <strong>Gnome::Gtk3::FileFilter</strong></p><pre class="pod-block-code">method _gtk_file_filter_new ( --&gt; N-GObject )</pre>
+<h2 id="_gtk_file_filter_new_from_gvariant"><a href="#Gnome::Gtk3::FileFilter" class="u" title="go to top of document">_gtk_file_filter_new_from_gvariant</a></h2>
+<p>Deserialize a file filter from an a{sv} variant in the format produced by <code>to_gvariant()</code>.</p><p>Returns: a new <strong>Gnome::Gtk3::FileFilter</strong> object</p><pre class="pod-block-code">method _gtk_file_filter_new_from_gvariant ( N-GObject() $variant --&gt; N-GObject )</pre><ul>
+<li><p>$variant; an a{sv} <strong>Gnome::Gio::Variant</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/FileFilter.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:21Z</span></div></footer>
+	</body>
+</html>

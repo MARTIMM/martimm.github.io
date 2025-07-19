@@ -1,0 +1,155 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Editable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Editable">Gnome::Gtk3::Editable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy-clipboard">copy-clipboard</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#cut-clipboard">cut-clipboard</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#delete-selection">delete-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#delete-text">delete-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-chars">get-chars</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-editable">get-editable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-position">get-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection-bounds">get-selection-bounds</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-text">insert-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#paste-clipboard">paste-clipboard</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#select-region">select-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-editable">set-editable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-position">set-position</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#delete-text_0">delete-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-text_0">insert-text</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface for text-editing widgets</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">Description</a></h1>
+<p>The <strong>Gnome::Gtk3::Editable</strong> interface is an interface which should be implemented by text editing widgets, such as <strong>Gnome::Gtk3::Entry</strong> and <strong>Gnome::Gtk3::SpinButton</strong>. It contains functions for generically manipulating an editable widget, a large number of action signals used for key bindings, and several signals that an application can connect to to modify the behavior of a widget.</p><p>As an example of the latter usage, by connecting the following handler to <em>insert-text</em>, an application can convert all entry into a widget into uppercase.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::Editable;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="copy-clipboard"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">copy-clipboard</a></h2>
+<p>Copies the contents of the currently selected content in the editable and puts it on the clipboard.</p><pre class="pod-block-code">method copy-clipboard ( )</pre>
+<h2 id="cut-clipboard"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">cut-clipboard</a></h2>
+<p>Removes the contents of the currently selected content in the editable and puts it on the clipboard.</p><pre class="pod-block-code">method cut-clipboard ( )</pre>
+<h2 id="delete-selection"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">delete-selection</a></h2>
+<p>Deletes the currently selected text of the editable. This call doesn’t do anything if there is no selected text.</p><pre class="pod-block-code">method delete-selection ( )</pre>
+<h2 id="delete-text"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">delete-text</a></h2>
+<p>Deletes a sequence of characters. The characters that are deleted are those characters at positions from <em>$start-pos</em> up to, but not including <em>$end-pos</em>. If <em>$end-pos</em> is negative, then the characters deleted are those from <em>$start-pos</em> to the end of the text.</p><p>Note that the positions are specified in characters, not bytes.</p><pre class="pod-block-code">method delete-text ( Int() $start_pos, Int() $end_pos )</pre><ul>
+<li><p>$start_pos; start position</p></li>
+<li><p>$end_pos; end position</p></li>
+</ul>
+
+<h2 id="get-chars"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">get-chars</a></h2>
+<p>Retrieves a sequence of characters. The characters that are retrieved are those characters at positions from <em>$start-pos</em> up to, but not including <em>$end-pos</em>. If <em>$end-pos</em> is negative, then the characters retrieved are those characters from <em>$start-pos</em> to the end of the text.</p><p>Note that positions are specified in characters, not bytes.</p><p>Returns: a pointer to the contents of the widget as a string. This string is allocated by the <strong>Gnome::Gtk3::Editable</strong> implementation and should be freed by the caller.</p><pre class="pod-block-code">method get-chars ( Int() $start_pos, Int() $end_pos --&gt; Str )</pre><ul>
+<li><p>$start_pos; start of text</p></li>
+<li><p>$end_pos; end of text</p></li>
+</ul>
+
+<h2 id="get-editable"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">get-editable</a></h2>
+<p>Retrieves whether <em>editable</em> is editable. See <code>set-editable()</code>.</p><p>Returns: <code>True</code> if <em>editable</em> is editable.</p><pre class="pod-block-code">method get-editable ( --&gt; Bool )</pre>
+<h2 id="get-position"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">get-position</a></h2>
+<p>Retrieves the current position of the cursor relative to the start of the content of the editable.</p><p>Note that this position is in characters, not in bytes.</p><p>Returns: the cursor position</p><pre class="pod-block-code">method get-position ( --&gt; Int )</pre>
+<h2 id="get-selection-bounds"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">get-selection-bounds</a></h2>
+<p>Retrieves the selection bound of the editable. start-pos will be filled with the start of the selection and <em>end-pos</em> with end. If no text was selected both will be identical and <code>False</code> will be returned.</p><p>Note that positions are specified in characters, not bytes.</p><p>Returns: a List with defined values if an area is selected, undefined <code>Int</code> otherwise.</p><pre class="pod-block-code">method get-selection-bounds ( --&gt; List )</pre><p>Returns a List with</p><ul>
+<li><p>Int; location to store the starting position, or <code>undefined</code></p></li>
+<li><p>Int; location to store the end position, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="insert-text"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">insert-text</a></h2>
+<p>Inserts <em>$new-text</em> into the contents of the widget, at position <em>$position</em>.</p><p>Note that the position is in characters, not in bytes. The method returns a new position to point after the newly inserted text.</p><pre class="pod-block-code">method insert-text ( Str $new-text, Int() $position --&gt; Int )</pre><ul>
+<li><p>$new-text; the text to append</p></li>
+<li><p>$position; location of the position text will be inserted at</p></li>
+</ul>
+
+<h2 id="paste-clipboard"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">paste-clipboard</a></h2>
+<p>Pastes the content of the clipboard to the current position of the cursor in the editable.</p><pre class="pod-block-code">method paste-clipboard ( )</pre>
+<h2 id="select-region"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">select-region</a></h2>
+<p>Selects a region of text. The characters that are selected are those characters at positions from <em>$start-pos</em> up to, but not including <em>$end-pos</em>. If <em>$end-pos</em> is negative, then the characters selected are those characters from <em>$start-pos</em> to the end of the text.</p><p>Note that positions are specified in characters, not bytes.</p><pre class="pod-block-code">method select-region ( Int() $start_pos, Int() $end_pos )</pre><ul>
+<li><p>$start_pos; start of region</p></li>
+<li><p>$end_pos; end of region</p></li>
+</ul>
+
+<h2 id="set-editable"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">set-editable</a></h2>
+<p>Determines if the user can edit the text in the editable widget or not.</p><pre class="pod-block-code">method set-editable ( Bool $is_editable )</pre><ul>
+<li><p>Bool $is_editable; <code>True</code> if the user is allowed to edit the text in the widget</p></li>
+</ul>
+
+<h2 id="set-position"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">set-position</a></h2>
+<p>Sets the cursor position in the editable to the given value.</p><p>The cursor is displayed before the character with the given (base 0) index in the contents of the editable. The value must be less than or equal to the number of characters in the editable. A value of -1 indicates that the position should be set after the last character of the editable. Note that <em>position</em> is in characters, not in bytes.</p><pre class="pod-block-code">method set-position ( Int() $position )</pre><ul>
+<li><p>$position; the position of the cursor</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">Signals</a></h1>
+
+<h2 id="changed"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">changed</a></h2>
+<p>The <em>changed</em> signal is emitted at the end of a single user-visible operation on the contents of the <strong>Gnome::Gtk3::Editable</strong>.</p><p>E.g., a paste operation that replaces the contents of the selection will cause only one signal emission (even though it is implemented by first deleting the selection, then inserting the new content, and may cause multiple <em>notify</em>::text signals to be emitted).</p><pre class="pod-block-code">method handler (
+  Gnome::GObject::Object :_widget($editable),
+  Int :$_handler-id,
+  N-GObject :$_native-object,
+  *%user-options
+);</pre><ul>
+<li><p>$editable; the object which received the signal</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+<li><p>%user-options; A list of named arguments provided at the <code>register-signal()</code> method</p></li>
+</ul>
+
+<h2 id="delete-text_0"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">delete-text</a></h2>
+<p>This signal is emitted when text is deleted from the widget by the user. The default handler for this signal will normally be responsible for deleting the text, so by connecting to this signal and then stopping the signal with <code>g-signal-stop-emission()</code> (<em>not yet defined!!</em>), it is possible to modify the range of deleted text, or prevent it from being deleted entirely. The <em>$start-pos</em> and <em>$end-pos</em> parameters are interpreted as for <code>delete-text()</code>.</p><pre class="pod-block-code">method handler (
+  Int $start_pos,
+  Int $end_pos,
+  Gnome::GObject::Object :_widget($editable),
+  Int :$_handler-id,
+  N-GObject :$_native-object,
+  *%user-options
+);</pre><ul>
+<li><p>$editable; the object which received the signal</p></li>
+<li><p>$start_pos; the starting position</p></li>
+<li><p>$end_pos; the end position</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+<li><p>%user-options; A list of named arguments provided at the <code>register-signal()</code> method</p></li>
+</ul>
+
+<h2 id="insert-text_0"><a href="#Gnome::Gtk3::Editable" class="u" title="go to top of document">insert-text</a></h2>
+<p>This signal is emitted when text is inserted into the widget by the user. The default handler for this signal will normally be responsible for inserting the text, so by connecting to this signal and then stopping the signal with <code>g-signal-stop-emission()</code> (<em>not yet defined!!</em>), it is possible to modify the inserted text, or prevent it from being inserted entirely.</p><pre class="pod-block-code">method handler (
+  Str $new_text,
+  Int $new_text_length,
+  CArray[glong] $position,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($editable),
+  Int :$_handler-id,
+  N-GObject :$_native-object,
+  *%user-options
+);</pre><ul>
+<li><p>$editable; the object which received the signal</p></li>
+<li><p>$new_text; the new text to insert</p></li>
+<li><p>$new_text_length; the length of the new text, in bytes, or -1 if new-text is nul-terminated.</p></li>
+<li><p>$position; a pointer to the position in characters, at which to insert the new text. this is an in-outparameter. After the signal emission is finished, it should point after the newly inserted text.</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Editable.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:12Z</span></div></footer>
+	</body>
+</html>

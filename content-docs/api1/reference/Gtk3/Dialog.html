@@ -1,0 +1,271 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Dialog</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Dialog">Gnome::Gtk3::Dialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Gnome::Gtk3::Dialog_as_Gnome::Gtk3::Buildable">Gnome::Gtk3::Dialog as Gnome::Gtk3::Buildable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkDialogFlags">enum GtkDialogFlags</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkResponseType">enum GtkResponseType</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:title,_:parent,_:flags,_:buttons-spec">:title, :parent, :flags, :buttons-spec</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-action-widget">add-action-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-button">add-button</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-buttons">add-buttons</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-content-area">get-content-area</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-header-bar">get-header-bar</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-response-for-widget">get-response-for-widget</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-widget-for-response">get-widget-for-response</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#response">response</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#run">run</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-response">set-default-response</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-response-sensitive">set-response-sensitive</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_dialog_new">_gtk_dialog_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_dialog_new_with_buttons">_gtk_dialog_new_with_buttons</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#close">close</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#response_0">response</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#use-header-bar">use-header-bar</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Create popup windows</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Description</a></h1>
+<p>Dialog boxes are a convenient way to prompt the user for a small amount of input, e.g. to display a message, ask a question, or anything else that does not require extensive effort on the user’s part.</p><p>GTK+ treats a dialog as a window split vertically. The top section is a VBox, and is where widgets such as a <strong>Gnome::Gtk3::Label</strong> or a be packed. The bottom area is known as the “action area”. This is generally used for packing buttons into the dialog which may perform functions such as cancel, ok, or apply.</p><p><strong>Gnome::Gtk3::Dialog</strong> boxes are created with a call to <code>.new()</code> or <code>.new(:$title)</code>. <code>.new(:$title)</code> is recommended; it allows you to set the dialog title, some convenient flags (with <code>:$flags</code>), and add simple buttons (with <code>:$buttons</code>).</p><p>If “dialog” is a newly created dialog, the two primary areas of the window can be accessed through <code>gtk_dialog_get_content_area()</code> and <code>gtk_dialog_get_action_area()</code>, as can be seen from the example below.</p><p>A “modal” dialog (that is, one which freezes the rest of the application from user input), can be created by calling <code>gtk_window_set_modal()</code> on the dialog. Use the <code>GTK_WINDOW()</code> macro to cast the widget returned from <code>gtk_dialog_new()</code> into a <strong>Gnome::Gtk3::Window</strong>. When using <code>gtk_dialog_new_with_buttons()</code> you can also pass the <strong>GTK_DIALOG_MODAL</strong> flag to make a dialog modal.</p><p>If you add buttons to <strong>Gnome::Gtk3::Dialog</strong> using <code>.new(:$buttons)</code>, <code>gtk_dialog_add_button()</code>, <code>gtk_dialog_add_buttons()</code>, or <code>gtk_dialog_add_action_widget()</code>, clicking the button will emit a signal called <em>response</em> with a response ID that you specified. GTK+ will never assign a meaning to positive response IDs; these are entirely user-defined. But for convenience, you can use the response IDs in the <strong>Gnome::Gtk3::ResponseType</strong> enumeration (these all have values less than zero). If a dialog receives a delete event, the <em>response</em> signal will be emitted with a response ID of <strong>GTK_RESPONSE_DELETE_EVENT</strong>.</p><p>If you want to block waiting for a dialog to return before returning control flow to your code, you can call <code>run()</code>. This function enters a recursive main loop and waits for the user to respond to the dialog, returning the response ID corresponding to the button the user clicked.</p><p>For the simple dialog in the following example, in reality you’d probably use <strong>Gnome::Gtk3::MessageDialog</strong> to save yourself some effort. But you’d need to create the dialog contents manually if you had more than a simple message in the dialog.</p><p>An example for simple <strong>Gnome::Gtk3::Dialog</strong> usage:</p><pre class="pod-block-code">method quick-message ( Gnome::Gtk3::Window $parent, Str $message ) {
+
+  my Gnome::Gtk3::Dialog $dialog .= new(
+    :title&lt;Message&gt;, :$parent, :flags(GTK_DIALOG_DESTROY_WITH_PARENT),
+    :button-spec( &quot;Ok&quot;, GTK_RESPONSE_NONE)
+  );
+
+  my $content-area = $dialog.get-content-area;
+  my Gnome::Gtk3::Label $label .= new(:label($message));
+  $dialog.gtk_container_add($label);
+
+  # Show the dialog. After return (Ok pressed) the dialog widget
+  # is destroyed. show-all() must be called, otherwise the message
+  # will not be seen.
+  $dialog.show-all;
+  $dialog.gtk-dialog-run;
+  $dialog.gtk_widget_destroy;
+}</pre>
+<h2 id="Gnome::Gtk3::Dialog_as_Gnome::Gtk3::Buildable"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Gnome::Gtk3::Dialog as Gnome::Gtk3::Buildable</a></h2>
+<p>The <strong>Gnome::Gtk3::Dialog</strong> implementation of the <strong>Gnome::Gtk3::Buildable</strong> interface exposes the <em>vbox</em> and <em>action_area</em> as internal children with the names “vbox” and “action_area”.</p><p><strong>Gnome::Gtk3::Dialog</strong> supports a custom &lt;action-widgets&gt; element, which can contain multiple &lt;action-widget&gt; elements. The “response” attribute specifies a numeric response, and the content of the element is the id of widget (which should be a child of the dialogs <em>action_area</em>). To mark a response as default, set the “default“ attribute of the &lt;action-widget&gt; element to true.</p><p><strong>Gnome::Gtk3::Dialog</strong> supports adding action widgets by specifying “action“ as the “type“ attribute of a &lt;child&gt; element. The widget will be added either to the action area or the headerbar of the dialog, depending on the “use-header-bar“ property. The response id has to be associated with the action widget using the &lt;action-widgets&gt; element.</p><p>An example of a dialog UI definition fragment:</p><pre class="pod-block-code">&lt;object class=&quot;GtkDialog&quot; id=&quot;dialog1&quot;&gt;
+  &lt;child type=&quot;action&quot;&gt;
+    &lt;object class=&quot;GtkButton&quot; id=&quot;button_cancel&quot;/&gt;
+  &lt;/child&gt;
+  &lt;child type=&quot;action&quot;&gt;
+    &lt;object class=&quot;GtkButton&quot; id=&quot;button_ok&quot;&gt;
+      &lt;property name=&quot;can-default&quot;&gt;True&lt;/property&gt;
+    &lt;/object&gt;
+  &lt;/child&gt;
+  &lt;action-widgets&gt;
+    &lt;action-widget response=&quot;cancel&quot;&gt;button_cancel&lt;/action-widget&gt;
+    &lt;action-widget response=&quot;ok&quot; default=&quot;true&quot;&gt;button_ok&lt;/action-widget&gt;
+  &lt;/action-widgets&gt;
+&lt;/object&gt;</pre>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::Window</strong>, <strong>Gnome::Gtk3::Button</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Dialog;
+also is Gnome::Gtk3::Window;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Dialog.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::Dialog:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::Dialog;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::Dialog class process the options
+  self.bless( :GtkDialog, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Dialog $dialog .= new(:build-id&lt;simple-dialog&gt;);
+
+# show the dialog
+my Int $response = $dialog.gtk-dialog-run;
+if $response == GTK_RESPONSE_ACCEPT {
+  …
+}</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkDialogFlags"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">enum GtkDialogFlags</a></h2>
+<p>Flags used to influence dialog construction.</p><ul>
+<li><p>GTK_DIALOG_MODAL: Make the constructed dialog modal, see <code>gtk_window_set_modal()</code></p></li>
+<li><p>GTK_DIALOG_DESTROY_WITH_PARENT: Destroy the dialog when its parent is destroyed, see <code>gtk_window_set_destroy_with_parent()</code></p></li>
+<li><p>GTK_DIALOG_USE_HEADER_BAR: Create dialog with actions in header bar instead of action area. Since 3.12.</p></li>
+</ul>
+
+<h2 id="enum_GtkResponseType"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">enum GtkResponseType</a></h2>
+<p>Predefined values for use as response ids in <code>gtk_dialog_add_button()</code>. All predefined values are negative; GTK+ leaves values of 0 or greater for application-defined response ids.</p><ul>
+<li><p>GTK_RESPONSE_NONE: Returned if an action widget has no response id, or if the dialog gets programmatically hidden or destroyed</p></li>
+<li><p>GTK_RESPONSE_REJECT: Generic response id, not used by GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_ACCEPT: Generic response id, not used by GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_DELETE_EVENT: Returned if the dialog is deleted</p></li>
+<li><p>GTK_RESPONSE_OK: Returned by OK buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_CANCEL: Returned by Cancel buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_CLOSE: Returned by Close buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_YES: Returned by Yes buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_NO: Returned by No buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_APPLY: Returned by Apply buttons in GTK+ dialogs</p></li>
+<li><p>GTK_RESPONSE_HELP: Returned by Help buttons in GTK+ dialogs</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new plain object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":title,_:parent,_:flags,_:buttons-spec"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">:title, :parent, :flags, :buttons-spec</a></h3>
+<p>Creates a new <strong>Gnome::Gtk3::Dialog</strong> with title <em>title</em> (or <code>undefined</code> for the default title; see <code>Gnome::Gtk3::Window.set-title()</code>) and transient parent <em>parent</em> (or <code>undefined</code> for none; see <code>Gnome::Gtk3::Window.set-transient-for()</code>).</p><p>The <em>flags</em> argument can be used to make the dialog modal (<code>GTK-DIALOG-MODAL</code>) and/or to have it destroyed along with its transient parent (<code>GTK-DIALOG-DESTROY-WITH-PARENT</code>). After <em>flags</em>, button text/response ID pairs should be listed.</p><p>Button text can be arbitrary text. A response ID can be any positive number, or one of the values in the <code>GtkResponseType</code> enumeration.</p><p>If the user clicks one of these dialog buttons, <strong>Gnome::Gtk3::Dialog</strong> will emit the <em>response</em> signal with the corresponding response ID. If a <strong>Gnome::Gtk3::Dialog</strong> receives the <em>delete-event</em> signal, it will emit <em>response</em> with a response ID of <code>GTK-RESPONSE-DELETE-EVENT</code>. However, destroying a dialog does not emit the <em>response</em> signal; so be careful relying on <em>response</em> when using the <code>GTK-DIALOG-DESTROY-WITH-PARENT</code> flag. Buttons are from left to right, so the first button in the list will be the leftmost button in the dialog.</p><pre class="pod-block-code">multi method new (
+  Str :$title!, N-Object() :$parent = N-GObject,
+  Int :$flags = 0, List :$buttons-spec
+)</pre><ul>
+<li><p>$title; Title of the dialog, or <code>undefined</code>.</p></li>
+<li><p>$parent; Transient parent of the dialog, or <code>undefined</code>.</p></li>
+<li><p>$flags; GtkDialogFlags from <strong>Gnome::Gtk3::DialogFlags</strong>.</p></li>
+<li><p>$buttons-spec; A list of alternating names and response codes i.e. an <code>Str</code> text for the first button then an <code>Int</code> response ID for first button, then additional buttons if any.</p></li>
+</ul>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Dialog object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a Dialog object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="add-action-widget"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">add-action-widget</a></h2>
+<p>Adds an activatable widget to the action area of a <strong>Gnome::Gtk3::Dialog</strong>, connecting a signal handler that will emit the <em>response</em> signal on the dialog when the widget is activated. The widget is appended to the end of the dialog’s action area.</p><pre class="pod-block-code">method add-action-widget ( N-GObject() $child, Int() $response_id )</pre><ul>
+<li><p>$child; an activatable widget</p></li>
+<li><p>$response_id; response ID for <em>child</em></p></li>
+</ul>
+
+<h2 id="add-button"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">add-button</a></h2>
+<p>Adds a button with the given text and sets things up so that clicking the button will emit the <em>response</em> signal with the given <em>response-id</em>. The button is appended to the end of the dialog’s action area. The button widget is returned, but usually you don’t need it.</p><p>Returns: the <strong>Gnome::Gtk3::Button</strong> widget that was added</p><pre class="pod-block-code">method add-button ( Str() $button_text, Int() $response_id --&gt; N-GObject )</pre><ul>
+<li><p>$button_text; text of button</p></li>
+<li><p>$response_id; response ID for the button</p></li>
+</ul>
+
+<h2 id="add-buttons"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">add-buttons</a></h2>
+<p>Adds more buttons, same as calling <code>add-button()</code> repeatedly. The variable argument list should be <code>undefined</code>-terminated as with <code>gtk-dialog-new-with-buttons()</code>. Each button must have both text and response ID.</p><pre class="pod-block-code">method add-buttons ( Str $first_button_text )</pre><ul>
+<li><p>Str $first_button_text; button text @...: response ID for first button, then more text-response-id pairs</p></li>
+</ul>
+
+<h2 id="get-content-area"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">get-content-area</a></h2>
+<p>Returns the content area of <em>dialog</em>.</p><p>Returns: (type Gtk.Box) : the native object of the content area as <strong>Gnome::Gtk3::Box</strong>.</p><pre class="pod-block-code">method get-content-area ( --&gt; N-GObject )</pre>
+<h2 id="get-header-bar"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">get-header-bar</a></h2>
+<p>Returns the header bar of <em>dialog</em>. Note that the headerbar is only used by the dialog if the <em>use-header-bar</em> property is <code>True</code>.</p><p>Returns: the native object of a header bar</p><pre class="pod-block-code">method get-header-bar ( --&gt; N-GObject )</pre>
+<h2 id="get-response-for-widget"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">get-response-for-widget</a></h2>
+<p>Gets the response id of a widget in the action area of a dialog.</p><p>Returns: the response id of <em>widget</em>, or <code>GTK_RESPONSE_NONE</code> if <em>widget</em> doesn’t have a response id set.</p><pre class="pod-block-code">method get-response-for-widget ( N-GObject() $widget --&gt; Int )</pre><ul>
+<li><p>$widget; a widget in the action area of <em>dialog</em></p></li>
+</ul>
+
+<h2 id="get-widget-for-response"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">get-widget-for-response</a></h2>
+<p>Gets the widget button that uses the given response ID in the action area of a dialog.</p><p>Returns: the <em>widget</em> button that uses the given <em>$response-id</em>, or <code>undefined</code>.</p><pre class="pod-block-code">method get-widget-for-response ( Int() $response_id --&gt; N-GObject )</pre><ul>
+<li><p>$response_id; the response ID used by the <em>dialog</em> widget</p></li>
+</ul>
+
+<h2 id="response"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">response</a></h2>
+<p>Emits the <em>response</em> signal with the given response ID. Used to indicate that the user has responded to the dialog in some way; typically either you or <code>run()</code> will be monitoring the <em>response</em> signal and take appropriate action.</p><pre class="pod-block-code">method response ( Int() $response_id )</pre><ul>
+<li><p>$response_id; response ID</p></li>
+</ul>
+
+<h2 id="run"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">run</a></h2>
+<p>Blocks in a recursive main loop until the <em>dialog</em> either emits the <em>response</em> signal, or is destroyed. If the dialog is destroyed during the call to <code>run()</code>, <code>gtk-dialog-run()</code> returns <strong>Gnome::Gtk3::TK-RESPONSE-NONE</strong>. Otherwise, it returns the response ID from the <em>response</em> signal emission.</p><p>Before entering the recursive main loop, <code>gtk-dialog-run()</code> calls <code>gtk-widget-show()</code> on the dialog for you. Note that you still need to show any children of the dialog yourself.</p><p>During <code>gtk-dialog-run()</code>, the default behavior of <em>delete-event</em> is disabled; if the dialog receives <em>delete-event</em>, it will not be destroyed as windows usually are, and <code>gtk-dialog-run()</code> will return <strong>Gnome::Gtk3::TK-RESPONSE-DELETE-EVENT</strong>. Also, during <code>gtk-dialog-run()</code> the dialog will be modal. You can force <code>gtk-dialog-run()</code> to return at any time by calling <code>gtk-dialog-response()</code> to emit the <em>response</em> signal. Destroying the dialog during <code>gtk-dialog-run()</code> is a very bad idea, because your post-run code won’t know whether the dialog was destroyed or not.</p><p>After <code>gtk-dialog-run()</code> returns, you are responsible for hiding or destroying the dialog if you wish to do so.</p><p>Typical usage of this function might be: |[&lt;!-- language=&quot;C&quot; --&gt; GtkWidget *dialog = <code>gtk-dialog-new()</code>; // Set up dialog...</p><p>int result = gtk-dialog-run (GTK-DIALOG (dialog)); switch (result) { case GTK-RESPONSE-ACCEPT: // <code>do-application-specific-something()</code>; break; default: // <code>do-nothing-since-dialog-was-cancelled()</code>; break; } gtk-widget-destroy (dialog); ]|</p><p>Note that even though the recursive main loop gives the effect of a modal dialog (it prevents the user from interacting with other windows in the same window group while the dialog is run), callbacks such as timeouts, IO channel watches, DND drops, etc, will be triggered during a <code>gtk-dialog-run()</code> call.</p><p>Returns: response ID</p><pre class="pod-block-code">method run ( --&gt; Int )</pre>
+<h2 id="set-default-response"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">set-default-response</a></h2>
+<p>Sets the last widget in the dialog’s action area with the given <em>$response-id</em> as the default widget for the dialog. Pressing “Enter” normally activates the default widget.</p><pre class="pod-block-code">method set-default-response ( Int() $response_id )</pre><ul>
+<li><p>$response_id; a response ID</p></li>
+</ul>
+
+<h2 id="set-response-sensitive"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">set-response-sensitive</a></h2>
+<p>Calls <code>Gnome::Gtk3::Widget.set-sensitive($setting)</code> for each widget in the dialog’s action area with the given <em>$response-id</em>. A convenient way to sensitize/desensitize dialog buttons.</p><pre class="pod-block-code">method set-response-sensitive ( Int() $response_id, Bool $setting )</pre><ul>
+<li><p>$response_id; a response ID</p></li>
+<li><p>$setting; <code>True</code> for sensitive</p></li>
+</ul>
+
+<h2 id="_gtk_dialog_new"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">_gtk_dialog_new</a></h2>
+<p>Creates a new dialog box.</p><p>Widgets should not be packed into this <strong>Gnome::Gtk3::Window</strong> directly, but into the <em>vbox</em> and <em>action-area</em>, as described above.</p><p>Returns: the new dialog as a <strong>Gnome::Gtk3::Widget</strong></p><pre class="pod-block-code">method _gtk_dialog_new ( --&gt; N-GObject )</pre>
+<h2 id="_gtk_dialog_new_with_buttons"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">_gtk_dialog_new_with_buttons</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::Dialog</strong> with title <em>title</em> (or <code>undefined</code> for the default title; see <code>gtk-window-set-title()</code>) and transient parent <em>parent</em> (or <code>undefined</code> for none; see <code>gtk-window-set-transient-for()</code>). The <em>flags</em> argument can be used to make the dialog modal (<strong>Gnome::Gtk3::TK-DIALOG-MODAL</strong>) and/or to have it destroyed along with its transient parent (<strong>Gnome::Gtk3::TK-DIALOG-DESTROY-WITH-PARENT</strong>). After <em>flags</em>, button text/response ID pairs should be listed, with a <code>undefined</code> pointer ending the list. Button text can be arbitrary text. A response ID can be any positive number, or one of the values in the <strong>Gnome::Gtk3::ResponseType</strong> enumeration. If the user clicks one of these dialog buttons, <strong>Gnome::Gtk3::Dialog</strong> will emit the <em>response</em> signal with the corresponding response ID. If a <strong>Gnome::Gtk3::Dialog</strong> receives the <em>delete-event</em> signal, it will emit <em>response</em> with a response ID of <strong>Gnome::Gtk3::TK-RESPONSE-DELETE-EVENT</strong>. However, destroying a dialog does not emit the <em>response</em> signal; so be careful relying on <em>response</em> when using the <strong>Gnome::Gtk3::TK-DIALOG-DESTROY-WITH-PARENT</strong> flag. Buttons are from left to right, so the first button in the list will be the leftmost button in the dialog.</p><p>Here’s a simple example: |[&lt;!-- language=&quot;C&quot; --&gt; GtkWidget *main-app-window; // Window the dialog should show up on GtkWidget *dialog; GtkDialogFlags flags = GTK-DIALOG-MODAL | GTK-DIALOG-DESTROY-WITH-PARENT; dialog = new-with-buttons (&quot;My dialog&quot;, main-app-window, flags, -(&quot;-OK&quot;), GTK-RESPONSE-ACCEPT, -(&quot;-Cancel&quot;), GTK-RESPONSE-REJECT, NULL); ]|</p><p>Returns: a new <strong>Gnome::Gtk3::Dialog</strong></p><pre class="pod-block-code">method _gtk_dialog_new_with_buttons ( Str $title, N-GObject $parent, GtkDialogFlags $flags, Str $first_button_text --&gt; N-GObject )</pre><ul>
+<li><p>Str $title; Title of the dialog, or <code>undefined</code></p></li>
+<li><p>N-GObject $parent; Transient parent of the dialog, or <code>undefined</code></p></li>
+<li><p>GtkDialogFlags $flags; from <strong>Gnome::Gtk3::DialogFlags</strong></p></li>
+<li><p>Str $first_button_text; text to go in first button, or <code>undefined</code> @...: response ID for first button, then additional buttons, ending with <code>undefined</code></p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Signals</a></h1>
+
+<h2 id="close"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">close</a></h2>
+<p>The <em>close</em> signal is a keybinding signal which gets emitted when the user uses a keybinding to close the dialog.</p><p>The default binding for this signal is the Escape key.</p><pre class="pod-block-code">method handler (
+  Gnome::Gtk3::Dialog :_widget($dialog),
+  Int :$_handler-id,
+  N-GObject :$_native-object,
+  *%user-options
+);</pre><ul>
+<li><p>$dialog; The instance which registered the signal</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+<li><p>%user-options; A list of named arguments provided at the <code>register-signal()</code> method</p></li>
+</ul>
+
+<h2 id="response_0"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">response</a></h2>
+<p>Emitted when an action widget is clicked, the dialog receives a delete event, or the application programmer calls <code>response()</code>. On a delete event, the response ID is <strong>Gnome::Gtk3::TK-RESPONSE-DELETE-EVENT</strong>. Otherwise, it depends on which action widget was clicked.</p><pre class="pod-block-code">method handler (
+  Int $response-id,
+  Int :$_handle-id,
+  Gnome::Gtk3::Dialog :_widget($dialog),
+  N-GObject :$_native-object,
+  *%user-options
+);</pre><ul>
+<li><p>$response-id; the response ID</p></li>
+<li><p>$_handler-id; The handler id which is returned from the registration</p></li>
+<li><p>$dialog; the object on which the signal is emitted</p></li>
+<li><p>$_native-object; The native object provided by the caller wrapped in the Raku object.</p></li>
+<li><p>%user-options; A list of named arguments provided at the <code>register-signal()</code> method</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">Properties</a></h1>
+
+<h2 id="use-header-bar"><a href="#Gnome::Gtk3::Dialog" class="u" title="go to top of document">use-header-bar</a></h2>
+<p>Use Header Bar for actions.</p><ul>
+<li><p><strong>Gnome::GObject::Value</strong> type of this property is G_TYPE_INT</p></li>
+<li><p>Parameter is readable and writable.</p></li>
+<li><p>Parameter is set on construction of object.</p></li>
+<li><p>Minimum value is -1.</p></li>
+<li><p>Maximum value is 1.</p></li>
+<li><p>Default value is -1.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Dialog.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:09Z</span></div></footer>
+	</body>
+</html>

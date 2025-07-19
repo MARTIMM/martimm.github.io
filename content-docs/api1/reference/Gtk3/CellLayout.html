@@ -1,0 +1,129 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::CellLayout</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::CellLayout">Gnome::Gtk3::CellLayout</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#GtkCellLayouts_as_GtkBuildable">GtkCellLayouts as GtkBuildable</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkCellLayoutIface">class N-GtkCellLayoutIface</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-attribute">add-attribute</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear">clear</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-attributes">clear-attributes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-area">get-area</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-cells">get-cells</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#pack-end">pack-end</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#pack-start">pack-start</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#reorder">reorder</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-attributes">set-attributes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-cell-data-func">set-cell-data-func</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An interface for packing cells</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::CellLayout</strong> is an interface to be implemented by all objects which want to provide a <strong>Gnome::Gtk3::TreeViewColumn</strong> like API for packing cells, setting attributes and data funcs.</p><p>One of the notable features provided by implementations of GtkCellLayout are attributes. Attributes let you set the properties in flexible ways. They can just be set to constant values like regular properties. But they can also be mapped to a column of the underlying tree model with <code>set-attributes()</code>, which means that the value of the attribute can change from cell to cell as they are rendered by the cell renderer. Finally, it is possible to specify a function with <code>gtk-cell-layout-set-cell-data-func()</code> that is called to determine the value of the attribute for each cell that is rendered.</p>
+<h2 id="GtkCellLayouts_as_GtkBuildable"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">GtkCellLayouts as GtkBuildable</a></h2>
+<p>Implementations of GtkCellLayout which also implement the GtkBuildable interface (<strong>Gnome::Gtk3::CellView</strong>, <strong>Gnome::Gtk3::IconView</strong>, <strong>Gnome::Gtk3::ComboBox</strong>, <strong>Gnome::Gtk3::EntryCompletion</strong>, <strong>Gnome::Gtk3::TreeViewColumn</strong>) accept GtkCellRenderer objects as &lt;child&gt; elements in UI definitions. They support a custom &lt;attributes&gt; element for their children, which can contain multiple &lt;attribute&gt; elements. Each &lt;attribute&gt; element has a name attribute which specifies a property of the cell renderer; the content of the element is the attribute value.</p><p>This is an example of a UI definition fragment specifying attributes:</p><pre class="pod-block-code">&lt;object class=&quot;GtkCellView&quot;&gt;
+  &lt;child&gt;
+    &lt;object class=&quot;GtkCellRendererText&quot;/&gt;
+    &lt;attributes&gt;
+      &lt;attribute name=&quot;text&quot;&gt;0&lt;/attribute&gt;
+    &lt;/attributes&gt;
+  &lt;/child&gt;&quot;
+&lt;/object&gt;</pre><p>Furthermore for implementations of GtkCellLayout that use a <strong>Gnome::Gtk3::CellArea</strong> to lay out cells (all GtkCellLayouts in GTK+ use a GtkCellArea) [cell properties][cell-properties] can also be defined in the format by specifying the custom &lt;cell-packing&gt; attribute which can contain multiple &lt;property&gt; elements defined in the normal way.</p><p>Here is a UI definition fragment specifying cell properties:</p><pre class="pod-block-code">&lt;object class=&quot;GtkTreeViewColumn&quot;&gt;
+  &lt;child&gt;
+    &lt;object class=&quot;GtkCellRendererText&quot;/&gt;
+    &lt;cell-packing&gt;
+      &lt;property name=&quot;align&quot;&gt;True&lt;/property&gt;
+      &lt;property name=&quot;expand&quot;&gt;False&lt;/property&gt;
+    &lt;/cell-packing&gt;
+  &lt;/child&gt;&quot;
+&lt;/object&gt;</pre>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::CellLayout;</pre>
+<h2 id="class_N-GtkCellLayoutIface"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">class N-GtkCellLayoutIface</a></h2>
+<ul>
+<li><p>---pack-start: Packs the cell into the beginning of cell-layout.</p></li>
+<li><p>---pack-end: Adds the cell to the end of cell-layout.</p></li>
+<li><p>---clear: Unsets all the mappings on all renderers on cell-layout and removes all renderers from cell-layout.</p></li>
+<li><p>---add-attribute: Adds an attribute mapping to the list in cell-layout.</p></li>
+<li><p>---set-cell-data-func: Sets the <strong>Gnome::Gtk3::CellLayoutDataFunc</strong> to use for cell-layout.</p></li>
+<li><p>---clear-attributes: Clears all existing attributes previously set with <code>set-attributes()</code>.</p></li>
+<li><p>---reorder: Re-inserts cell at position.</p></li>
+<li><p>---get-cells: Get the cell renderers which have been added to cell-layout.</p></li>
+<li><p>---get-area: Get the underlying <strong>Gnome::Gtk3::CellArea</strong> which might be cell-layout if called on a <strong>Gnome::Gtk3::CellArea</strong> or might be NULL if no <strong>Gnome::Gtk3::CellArea</strong> is used by cell-layout.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="add-attribute"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">add-attribute</a></h2>
+<p>Adds an attribute mapping to the list in <em>cell-layout</em>.</p><p>The <em>column</em> is the column of the model to get a value from, and the <em>attribute</em> is the parameter on <em>cell</em> to be set from the value. So for example if column 2 of the model contains strings, you could have the “text” attribute of a <strong>Gnome::Gtk3::CellRendererText</strong> get its values from column 2.</p><pre class="pod-block-code">method add-attribute ( N-GObject() $cell, Str $attribute, Int $column )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong></p></li>
+<li><p>$attribute; an attribute on the renderer</p></li>
+<li><p>$column; the column position on the model to get the attribute from</p></li>
+</ul>
+
+<h2 id="clear"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">clear</a></h2>
+<p>Unsets all the mappings on all renderers on <em>cell-layout</em> and removes all renderers from <em>cell-layout</em>.</p><pre class="pod-block-code">method clear ( )</pre>
+<h2 id="clear-attributes"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">clear-attributes</a></h2>
+<p>Clears all existing attributes previously set with <code>set-attributes()</code>.</p><pre class="pod-block-code">method clear-attributes ( N-GObject() $cell )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong> to clear the attribute mapping on</p></li>
+</ul>
+
+<h2 id="get-area"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">get-area</a></h2>
+<p>Returns the underlying <strong>Gnome::Gtk3::CellArea</strong> which might be <em>cell-layout</em> if called on a <strong>Gnome::Gtk3::CellArea</strong> or might be <code>undefined</code> if no <strong>Gnome::Gtk3::CellArea</strong> is used by <em>cell-layout</em>.</p><p>Returns: the cell area used by <em>cell-layout</em>, or <code>undefined</code> in case no cell area is used.</p><pre class="pod-block-code">method get-area ( --&gt; N-GObject )</pre>
+<h2 id="get-cells"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">get-cells</a></h2>
+<p>Returns the cell renderers which have been added to <em>cell-layout</em>.</p><p>Returns: a list of cell renderers. The list, but not the renderers has been newly allocated and should be freed with <code>g-list-free()</code> when no longer needed.</p><pre class="pod-block-code">method get-cells ( --&gt; Gnome::Glib::List )</pre>
+<h2 id="pack-end"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">pack-end</a></h2>
+<p>Adds the <em>cell</em> to the end of <em>cell-layout</em>. If <em>expand</em> is <code>False</code>, then the <em>cell</em> is allocated no more space than it needs. Any unused space is divided evenly between cells for which <em>expand</em> is <code>True</code>.</p><p>Note that reusing the same cell renderer is not supported.</p><pre class="pod-block-code">method pack-end ( N-GObject() $cell, Bool $expand )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong></p></li>
+<li><p>$expand; <code>True</code> if <em>cell</em> is to be given extra space allocated to <em>cell-layout</em></p></li>
+</ul>
+
+<h2 id="pack-start"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">pack-start</a></h2>
+<p>Packs the <em>cell</em> into the beginning of <em>cell-layout</em>. If <em>expand</em> is <code>False</code>, then the <em>cell</em> is allocated no more space than it needs. Any unused space is divided evenly between cells for which <em>expand</em> is <code>True</code>.</p><p>Note that reusing the same cell renderer is not supported.</p><pre class="pod-block-code">method pack-start ( N-GObject() $cell, Bool $expand )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong></p></li>
+<li><p>$expand; <code>True</code> if <em>cell</em> is to be given extra space allocated to <em>cell-layout</em></p></li>
+</ul>
+
+<h2 id="reorder"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">reorder</a></h2>
+<p>Re-inserts <em>cell</em> at <em>position</em>.</p><p>Note that <em>cell</em> has already to be packed into <em>cell-layout</em> for this to function properly.</p><pre class="pod-block-code">method reorder ( N-GObject() $cell, Int $position )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong> to reorder</p></li>
+<li><p>$position; new position to insert <em>cell</em> at</p></li>
+</ul>
+
+<h2 id="set-attributes"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">set-attributes</a></h2>
+<p>Sets the attributes in list as the attributes of <em>cell-layout</em>.</p><p>The attributes should be in attribute/column order, as in <code>add-attribute()</code>. All existing attributes are removed, and replaced with the new attributes.</p><pre class="pod-block-code">method set-attributes ( N-GObject() $cell )</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong> @...: a <code>undefined</code>-terminated list of attributes</p></li>
+</ul>
+
+<h2 id="set-cell-data-func"><a href="#Gnome::Gtk3::CellLayout" class="u" title="go to top of document">set-cell-data-func</a></h2>
+<p>Sets the <strong>Gnome::Gtk3::CellLayoutDataFunc</strong> to use for <em>cell-layout</em>.</p><p>This function is used instead of the standard attributes mapping for setting the column value, and should set the value of <em>cell-layout</em>’s cell renderer(s) as appropriate.</p><p><em>func</em> may be <code>undefined</code> to remove a previously set function.</p><pre class="pod-block-code">method set-cell-data-func (
+  N-GObject() $cell, GtkCellLayoutDataFunc $func,
+  Pointer $func_data, GDestroyNotify $destroy
+)</pre><ul>
+<li><p>$cell; a <strong>Gnome::Gtk3::CellRenderer</strong></p></li>
+<li><p>$func; the <strong>Gnome::Gtk3::CellLayoutDataFunc</strong> to use, or <code>undefined</code></p></li>
+<li><p>$func_data; (closure): user data for <em>func</em></p></li>
+<li><p>$destroy; destroy notify for <em>func-data</em></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/CellLayout.rakumod</span></div><div>at <span class="time">2025-07-18T18:32:54Z</span></div></footer>
+	</body>
+</html>

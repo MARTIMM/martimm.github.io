@@ -1,0 +1,100 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::DrawingArea</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::DrawingArea">Gnome::Gtk3::DrawingArea</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Simple_Gnome::Gtk3::DrawingArea_usage">Simple Gnome::Gtk3::DrawingArea usage</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_drawing_area_new">[gtk_] drawing_area_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A widget for custom user interface elements</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Description</a></h1>
+<p>The <strong>Gnome::Gtk3::DrawingArea</strong> widget is used for creating custom user interface elements. It’s essentially a blank widget; you can draw on it. After creating a drawing area, the application may want to connect to:</p><ul>
+<li><p>Mouse and button press signals to respond to input from the user. (Use <code>Gnome::Gtk3::Widget.add_events()</code> to enable events you wish to receive.)</p></li>
+<li><p>The <em>realize</em> signal to take any necessary actions when the widget is instantiated on a particular display. (Create GDK resources in response to this signal.)</p></li>
+<li><p>The <em>size-allocate</em> signal to take any necessary actions when the widget changes size.</p></li>
+<li><p>The <em>draw</em> signal to handle redrawing the contents of the widget.</p></li>
+</ul>
+<p>The following code portion demonstrates using a drawing area to display a circle in the normal widget foreground color.</p><p>Note that GDK automatically clears the exposed area before sending the expose event, and that drawing is implicitly clipped to the exposed area. If you want to have a theme-provided background, you need to call <code>Gnome::Gtk3::StyleContext.render_background()</code> in your <em>draw</em> method.</p>
+<h2 id="Simple_Gnome::Gtk3::DrawingArea_usage"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Simple <strong>Gnome::Gtk3::DrawingArea</strong> usage</a></h2>
+<pre class="pod-block-code">class DA {
+  method draw-callback (
+    cairo_t $cr-no, Gnome::Gtk3::DrawingArea _widget($area) --&gt; gboolean
+  ) {
+    my UInt ( $width, $height);
+    $width = $area.get-allocated-width;
+    $height = $area.get-allocated-height;
+
+    with my Gnome::Cairo $cr .= new(:native-object($cr-no)) {
+      .arc(
+        $width/2.0, $height/2.0, min( $width, $height)/2.0, 0, 2.0 * π
+      );
+      .set-source-rgba( 0, 0, 0.4, 1);
+      .cairo-fill;
+    }
+
+    false;
+  }
+}
+
+with my Gnome::Gtk3::DrawingArea $drawing-area .= new {
+  .set-size-request( 100, 100);
+  .register-signal( DA.new, 'draw-callback', 'draw');
+}</pre><p>Note; <code>false</code> (lowercase!) and <code>gboolean</code> are types set in <strong>Gnome::N::GlibToRakuTypes</strong></p><p>Draw signals are normally delivered when a drawing area first comes on screen, or when it is covered by another window and then uncovered. You can also force an expose event by adding to the “damage region” of the drawing area’s window; <code>Gnome::Gtk3::Widget.queue-draw-area()</code> and <code>Gnome::Gdk3::Window.invalidate-rect()</code> are equally good ways to do this. You’ll then get a draw signal for the invalid region.</p><p>To receive mouse events on a drawing area, you will need to enable them with <code>Gnome::Gtk3::Widget.add-events()</code>. To receive keyboard events, you will need to set the “can-focus” property on the drawing area, and you should probably draw some user-visible indication that the drawing area is focused. Use <code>Gnome::Gtk3::Widget.has-focus()</code> in your expose event handler to decide whether to draw the focus indicator. See <code>Gnome::Gtk3::StyleContext.render-focus()</code> for one way to draw focus.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::Image</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::DrawingArea;
+also is Gnome::Gtk3::Widget;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/DrawingArea.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::DrawingArea:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::DrawingArea;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::DrawingArea class process the options
+  self.bless( :GtkDrawingArea, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new DrawingArea object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h2 id="[gtk_]_drawing_area_new"><a href="#Gnome::Gtk3::DrawingArea" class="u" title="go to top of document">[gtk_] drawing_area_new</a></h2>
+<p>Creates a new drawing area.</p><p>Returns: a new <strong>Gnome::Gtk3::DrawingArea</strong></p><pre class="pod-block-code">method gtk_drawing_area_new ( --&gt; N-GObject )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/DrawingArea.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:11Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,199 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Buildable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Buildable">Gnome::Gtk3::Buildable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-child">add-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#buildable-get-name">buildable-get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#buildable-set-name">buildable-set-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#construct-child">construct-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-finished">custom-finished</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-tag-end">custom-tag-end</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-tag-start">custom-tag-start</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-internal-child">get-internal-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parser-finished">parser-finished</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-buildable-property">set-buildable-property</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#buildable-get-name_0">buildable-get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#buildable-set-name_0">buildable-set-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-child_0">add-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#construct-child_0">construct-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-finished_0">custom-finished</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-tag-end_0">custom-tag-end</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#custom-tag-start_0">custom-tag-start</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-internal-child_0">get-internal-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parser-finished_0">parser-finished</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-buildable-property_0">set-buildable-property</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface for objects that can be built by <strong>Gnome::Gtk3::Builder</strong></p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::Buildable</strong> allows objects to extend and customize their deserialization from <strong>Gnome::Gtk3::Builder</strong> UI descriptions. The interface includes methods for setting names and properties of objects, parsing custom tags and constructing child objects.</p><p>The <strong>Gnome::Gtk3::Buildable</strong> interface is implemented by all widgets and many of the non-widget objects that are provided by GTK+. The main user of this interface is <strong>Gnome::Gtk3::Builder</strong>. There should be very little need for applications to call any of these functions directly.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::Buildable;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="add-child"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">add-child</a></h2>
+<p>Adds a child to <em>buildable</em>. <em>type</em> is an optional string describing how the child should be added.</p><pre class="pod-block-code">method add-child ( N-GObject() $builder, N-GObject() $child, Str $type )</pre><ul>
+<li><p>a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$child; child to add</p></li>
+<li><p>$type; kind of child or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="buildable-get-name"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">buildable-get-name</a></h2>
+<p>Gets the name of the <em>buildable</em> object.</p><p><strong>Gnome::Gtk3::Builder</strong> sets the name based on the [GtkBuilder UI definition][BUILDER-UI] used to construct the <em>buildable</em>.</p><p>Returns: the name set with <code>set-name()</code></p><pre class="pod-block-code">method buildable-get-name ( --&gt; Str )</pre><p><strong>Note:</strong> The method name deviates from the convention in the Raku modules because it would clash with the <code>.get-name()</code> defined in <strong>Gnome::Gtk3::Widget</strong>.</p>
+<h2 id="buildable-set-name"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">buildable-set-name</a></h2>
+<p>Sets the name of the <em>buildable</em> object.</p><pre class="pod-block-code">method buildable-set-name ( Str $name )</pre><ul>
+<li><p>$name; name to set</p></li>
+</ul>
+<p><strong>Note:</strong> The method name deviates from the convention in the Raku modules because it would clash with the <code>.set-name()</code> defined in <strong>Gnome::Gtk3::Widget</strong>.</p>
+<h2 id="construct-child"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">construct-child</a></h2>
+<p>Constructs a child of <em>buildable</em> with the name <em>name</em>.</p><p><strong>Gnome::Gtk3::Builder</strong> calls this function if a “constructor” has been specified in the UI definition.</p><p>Returns: the constructed child</p><pre class="pod-block-code">method construct-child ( N-GObject() $builder, Str $name --&gt; N-GObject )</pre><ul>
+<li><p>$builder; <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$name; name of child to construct</p></li>
+</ul>
+
+<h2 id="custom-finished"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-finished</a></h2>
+<p>This is similar to <code>parser-finished()</code> but is called once for each custom tag handled by the <em>buildable</em>.</p><pre class="pod-block-code">method custom-finished (
+  N-GObject() $builder, N-GObject() $child, Str $tagname,
+  Pointer $data
+)</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$child; child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; the name of the tag</p></li>
+<li><p>$data; user data created in custom-tag-start</p></li>
+</ul>
+
+<h2 id="custom-tag-end"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-tag-end</a></h2>
+<p>This is called at the end of each custom element handled by the buildable.</p><pre class="pod-block-code">method custom-tag-end (
+  N-GObject() $builder, N-GObject() $child, Str $tagname,
+  Pointer $data
+)</pre><ul>
+<li><p>$builder; <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$child; child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; name of tag</p></li>
+<li><p>$data; (type gpointer): user data that will be passed in to parser functions</p></li>
+</ul>
+
+<h2 id="custom-tag-start"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-tag-start</a></h2>
+<p>This is called for each unknown element under &lt;child&gt;.</p><p>Returns: <code>True</code> if a object has a custom implementation, <code>False</code> if it doesn't.</p><pre class="pod-block-code">method custom-tag-start (
+  N-GObject() $builder, N-GObject() $child, Str $tagname,
+  GMarkupParser $parser, Pointer $data --&gt; Bool
+)</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$child; child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; name of tag</p></li>
+<li><p>$parser; a <strong>Gnome::Gtk3::MarkupParser</strong> to fill in</p></li>
+<li><p>$data; return location for user data that will be passed in to parser functions</p></li>
+</ul>
+
+<h2 id="get-internal-child"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">get-internal-child</a></h2>
+<p>Get the internal child called <em>childname</em> of the <em>buildable</em> object.</p><p>Returns: the internal child of the buildable object</p><pre class="pod-block-code">method get-internal-child (
+  N-GObject() $builder, Str $childname --&gt; N-GObject
+)</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$childname; name of child</p></li>
+</ul>
+
+<h2 id="parser-finished"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">parser-finished</a></h2>
+<p>Called when the builder finishes the parsing of a [GtkBuilder UI definition][BUILDER-UI]. Note that this will be called once for each time <code>gtk-builder-add-from-file()</code> or <code>gtk-builder-add-from-string()</code> is called on a builder.</p><pre class="pod-block-code">method parser-finished ( N-GObject() $builder )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+</ul>
+
+<h2 id="set-buildable-property"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">set-buildable-property</a></h2>
+<p>Sets the property name <em>name</em> to <em>value</em> on the <em>buildable</em> object.</p><pre class="pod-block-code">method set-buildable-property (
+  N-GObject() $builder, Str $name, N-GObject() $value
+)</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$name; name of property</p></li>
+<li><p>$value; value of property</p></li>
+</ul>
+
+<h2 id="buildable-get-name_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">buildable-get-name</a></h2>
+<p>Gets the name of the <em>buildable</em> object.</p><p><strong>Gnome::Gtk3::Builder</strong> sets the name based on the <strong>Gnome::Gtk3::Builder</strong> UI definition used to construct the <em>buildable</em>.</p><p>Returns: the name set with <code>buildable-set-name()</code></p><pre class="pod-block-code">method buildable-get-name ( --&gt; Str )</pre>
+<h2 id="buildable-set-name_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">buildable-set-name</a></h2>
+<p>Sets the name of the <em>buildable</em> object.</p><pre class="pod-block-code">method buildable-set-name ( Str $name )</pre><ul>
+<li><p>$name; name to set</p></li>
+</ul>
+
+<h2 id="add-child_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">add-child</a></h2>
+<p>Adds a child to <em>buildable</em>. <em>type</em> is an optional string describing how the child should be added.</p><pre class="pod-block-code">method add-child ( N-GObject $builder, N-GObject $child, Str $type )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$child; child to add</p></li>
+<li><p>$type; kind of child or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="construct-child_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">construct-child</a></h2>
+<p>Constructs a child of <em>buildable</em> with the name <em>name</em>.</p><p><strong>Gnome::Gtk3::Builder</strong> calls this function if a “constructor” has been specified in the UI definition.</p><p>Returns: the constructed child</p><pre class="pod-block-code">method construct-child ( N-GObject $builder, Str $name --&gt; N-GObject )</pre><ul>
+<li><p>$builder; <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$name; name of child to construct</p></li>
+</ul>
+
+<h2 id="custom-finished_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-finished</a></h2>
+<p>This is similar to <code>parser-finished()</code> but is called once for each custom tag handled by the <em>buildable</em>.</p><pre class="pod-block-code">method custom-finished ( N-GObject $builder, N-GObject $child, Str $tagname, Pointer $data )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$child; (allow-none): child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; the name of the tag</p></li>
+<li><p>$data; user data created in custom-tag-start</p></li>
+</ul>
+
+<h2 id="custom-tag-end_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-tag-end</a></h2>
+<p>This is called at the end of each custom element handled by the buildable.</p><pre class="pod-block-code">method custom-tag-end (
+  N-GObject $builder, N-GObject $child,
+  Str $tagname, Pointer $data
+)</pre><ul>
+<li><p>$builder; <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$child; (allow-none): child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; name of tag</p></li>
+<li><p>$data; (type gpointer): user data that will be passed in to parser functions</p></li>
+</ul>
+
+<h2 id="custom-tag-start_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">custom-tag-start</a></h2>
+<p>This is called for each unknown element under &lt;child&gt;.</p><p>Returns: <code>True</code> if a object has a custom implementation, <code>False</code> if it doesn't.</p><pre class="pod-block-code">method custom-tag-start ( N-GObject $builder, N-GObject $child, Str $tagname, GMarkupParser $parser, Pointer $data --&gt; Int )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong> used to construct this object</p></li>
+<li><p>$child; (allow-none): child object or <code>undefined</code> for non-child tags</p></li>
+<li><p>$tagname; name of tag</p></li>
+<li><p>$parser; (out): a <strong>GMarkupParser</strong> to fill in</p></li>
+<li><p>$data; (out): return location for user data that will be passed in to parser functions</p></li>
+</ul>
+
+<h2 id="get-internal-child_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">get-internal-child</a></h2>
+<p>Get the internal child called <em>childname</em> of the <em>buildable</em> object.</p><p>Returns: (transfer none): the internal child of the buildable object</p><pre class="pod-block-code">method get-internal-child ( N-GObject $builder, Str $childname --&gt; N-GObject )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$childname; name of child</p></li>
+</ul>
+
+<h2 id="parser-finished_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">parser-finished</a></h2>
+<p>Called when the builder finishes the parsing of a [<strong>Gnome::Gtk3::Builder</strong> UI definition][BUILDER-UI]. Note that this will be called once for each time <code>gtk-builder-add-from-file()</code> or <code>gtk-builder-add-from-string()</code> is called on a builder.</p><pre class="pod-block-code">method parser-finished ( N-GObject $builder )</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+</ul>
+
+<h2 id="set-buildable-property_0"><a href="#Gnome::Gtk3::Buildable" class="u" title="go to top of document">set-buildable-property</a></h2>
+<p>Sets the property name <em>name</em> to <em>value</em> on the <em>buildable</em> object.</p><pre class="pod-block-code">method set-buildable-property (
+  N-GObject $builder, Str $name, N-GObject $value
+)</pre><ul>
+<li><p>$builder; a <strong>Gnome::Gtk3::Builder</strong></p></li>
+<li><p>$name; name of property</p></li>
+<li><p>$value; value of property</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Buildable.rakumod</span></div><div>at <span class="time">2025-07-18T18:32:51Z</span></div></footer>
+	</body>
+</html>

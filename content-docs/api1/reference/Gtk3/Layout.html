@@ -1,0 +1,144 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Layout</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Layout">Gnome::Gtk3::Layout</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Default,_no_arguments">Default, no arguments</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:hadjustment,_:vadjustment">:hadjustment, :vadjustment</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bin-window">get-bin-window</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-size">get-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move">move</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#put">put</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-size">set-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_layout_new">_gtk_layout_new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Height:_height">Height: height</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Width:_width">Width: width</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Infinite scrollable area containing child widgets and/or custom drawing</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::Layout</strong> is similar to <strong>Gnome::Gtk3::DrawingArea</strong> in that it’s a “blank slate” and doesn’t do anything except paint a blank background by default. It’s different in that it supports scrolling natively due to implementing <strong>Gnome::Gtk3::Scrollable</strong>, and can contain child widgets since it’s a <strong>Gnome::Gtk3::Container</strong>.</p><p>If you just want to draw, a <strong>Gnome::Gtk3::DrawingArea</strong> is a better choice since it has lower overhead. If you just need to position child widgets at specific points, then <strong>Gnome::Gtk3::Fixed</strong> provides that functionality on its own.</p><p>When handling expose events on a <strong>Gnome::Gtk3::Layout</strong>, you must draw to the <strong>Gnome::Gtk3::Window</strong> returned by <code>get-bin-window()</code>, rather than to the one returned by <code>Gnome::Gtk3::Widget.get-window()</code> as you would for a <strong>Gnome::Gtk3::DrawingArea</strong>.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::DrawingArea</strong>, <strong>Gnome::Gtk3::Fixed</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Layout;
+also is Gnome::Gtk3::Container;
+also does Gnome::Gtk3::Scrollable;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Layout.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::Layout:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::Layout;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::Layout class process the options
+  self.bless( :GtkLayout, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Example</a></h2>
+<p>An example where 3 buttons are placed somewhere on a <strong>Gnome::Gtk3::Layout</strong>. In this case a <strong>Gnome::Gtk3::Fixed</strong> would as described above.</p><pre class="pod-block-code">given my Gnome::Gtk3::Layout $l .= new {
+  .set-size( 400, 300);
+  my Gnome::Gtk3::Button $b .= new(:label&lt;Start&gt;);
+  .put( $b, 100, 100);
+  $b .= new(:label&lt;Stop&gt;);
+  .put( $b, 100, 100);
+  .move( $b, 200, 250);
+  $b .= new(:label&lt;Quit&gt;);
+  .put( $b, 300, 150);
+}</pre><p>This displays as;</p><div class="image-container inline"><img src="asset_files/images/Layout.png" width="30%" height="auto" alt="No caption"></div>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="Default,_no_arguments"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Default, no arguments</a></h3>
+<p>Creates a new <strong>Gnome::Gtk3::Layout</strong>. The horizontal and vertical adjustments are set to default values.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":hadjustment,_:vadjustment"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">:hadjustment, :vadjustment</a></h3>
+<p>Creates a new <strong>Gnome::Gtk3::Layout</strong>. Unless you have a specific adjustment you’d like the layout to use for scrolling, pass <code>undefined</code> for <em>$hadjustment</em> and <em>$vadjustment</em>.</p><pre class="pod-block-code">multi method new ( N-GObject :$hadjustment!, N-GObject :$vadjustment! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Layout object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a Layout object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="get-bin-window"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">get-bin-window</a></h2>
+<p>Retrieve the bin window of the layout used for drawing operations.</p><p>Returns: a <strong>Gnome::Gtk3::Window</strong></p><pre class="pod-block-code">method get-bin-window ( --&gt; N-GObject )</pre>
+<h2 id="get-size"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">get-size</a></h2>
+<p>Gets the size that has been set on the layout, and that determines the total extents of the layout’s scrollbar area. See <code>set-size()</code>.</p><pre class="pod-block-code">method get-size ( --&gt; List )</pre><p>The list returns;</p><ul>
+<li><p>UInt width; width set on <em>layout</em>, or <code>undefined</code></p></li>
+<li><p>UInt height; height set on <em>layout</em>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="move"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">move</a></h2>
+<p>Moves a current child of <em>layout</em> to a new position.</p><pre class="pod-block-code">method move ( N-GObject $child_widget, Int() $x, Int() $y )</pre><ul>
+<li><p>N-GObject $child_widget; a current child of <em>layout</em></p></li>
+<li><p>Int() $x; X position to move to</p></li>
+<li><p>Int() $y; Y position to move to</p></li>
+</ul>
+
+<h2 id="put"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">put</a></h2>
+<p>Adds <em>child-widget</em> to <em>layout</em>, at position (<em>x</em>,<em>y</em>). <em>layout</em> becomes the new parent container of <em>child-widget</em>.</p><pre class="pod-block-code">method put ( N-GObject $child_widget, Int() $x, Int() $y )</pre><ul>
+<li><p>N-GObject $child_widget; child widget</p></li>
+<li><p>Int() $x; X position of child widget</p></li>
+<li><p>Int() $y; Y position of child widget</p></li>
+</ul>
+
+<h2 id="set-size"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">set-size</a></h2>
+<p>Sets the size of the scrollable area of the layout.</p><pre class="pod-block-code">method set-size ( UInt $width, UInt $height )</pre><ul>
+<li><p>UInt $width; width of entire scrollable area</p></li>
+<li><p>UInt $height; height of entire scrollable area</p></li>
+</ul>
+
+<h2 id="_gtk_layout_new"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">_gtk_layout_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::Layout</strong>. Unless you have a specific adjustment you’d like the layout to use for scrolling, pass <code>undefined</code> for <em>hadjustment</em> and <em>vadjustment</em>.</p><p>Returns: a new <strong>Gnome::Gtk3::Layout</strong></p><pre class="pod-block-code">method _gtk_layout_new ( N-GObject $hadjustment, N-GObject $vadjustment --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $hadjustment; horizontal scroll adjustment, or <code>undefined</code></p></li>
+<li><p>N-GObject $vadjustment; vertical scroll adjustment, or <code>undefined</code></p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>.set-text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.get-property( 'label', $gv);
+$gv.set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Height:_height"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Height: height</a></h3>
+<p>The <strong>Gnome::GObject::Value</strong> type of property <em>height</em> is <code>G_TYPE_UINT</code>.</p>
+<h3 id="Width:_width"><a href="#Gnome::Gtk3::Layout" class="u" title="go to top of document">Width: width</a></h3>
+<p>The <strong>Gnome::GObject::Value</strong> type of property <em>width</em> is <code>G_TYPE_UINT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Layout.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:28Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Actionable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Actionable">Gnome::Gtk3::Actionable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-action-name">get-action-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-action-target-value">get-action-target-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-action-name">set-action-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-action-target">set-action-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-action-target-value">set-action-target-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-detailed-action-name">set-detailed-action-name</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#action-name">action-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#action-target">action-target</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An interface for widgets that can be associated with actions</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">Description</a></h1>
+<p>This interface provides a convenient way of associating widgets with actions on a <strong>Gnome::Gtk3::ApplicationWindow</strong> or <strong>Gnome::Gtk3::Application</strong>.</p><p>It primarily consists of two properties: <em>action-name</em> and <em>action-target</em>. There are also some convenience APIs for setting these properties.</p><p>The action will be looked up in action groups that are found among the widgets ancestors. Most commonly, these will be the actions with the “win.” or “app.” prefix that are associated with the <strong>Gnome::Gtk3::ApplicationWindow</strong> or <strong>Gnome::Gtk3::Application</strong>, but other action groups that are added with <code>gtk-widget-insert-action-group()</code> will be consulted as well.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::Actionable;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="get-action-name"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">get-action-name</a></h2>
+<p>Gets the action name for <em>actionable</em>.</p><p>See <code>set-action-name()</code> for more information.</p><p>Returns: the action name, or <code>undefined</code> if none is set</p><pre class="pod-block-code">method get-action-name ( --&gt; Str )</pre>
+<h2 id="get-action-target-value"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">get-action-target-value</a></h2>
+<p>Gets the current target value of <em>actionable</em>.</p><p>See <code>set-action-target-value()</code> for more information.</p><p>Returns: the current target value</p><pre class="pod-block-code">method get-action-target-value ( --&gt; N-GObject )</pre>
+<h2 id="set-action-name"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">set-action-name</a></h2>
+<p>Specifies the name of the action with which this widget should be associated. If <em>action-name</em> is <code>undefined</code> then the widget will be unassociated from any previous action.</p><p>Usually this function is used when the widget is located (or will be located) within the hierarchy of a <strong>Gnome::Gtk3::ApplicationWindow</strong>.</p><p>Names are of the form “win.save” or “app.quit” for actions on the containing <strong>Gnome::Gtk3::ApplicationWindow</strong> or its associated <strong>Gnome::Gtk3::Application</strong>, respectively.</p><p>This is the same form used for actions in the <strong>GMenu</strong> associated with the window.</p><pre class="pod-block-code">method set-action-name ( Str $action_name )</pre><ul>
+<li><p>$action_name; an action name, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-action-target"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">set-action-target</a></h2>
+<p>Sets the target of an actionable widget.</p><p>This is a convenience function that calls <code>g-variant-new()</code> for <em>format-string</em> and uses the result to call <code>set-action-target-value()</code>.</p><p>If you are setting a string-valued target and want to set the action name at the same time, you can use <code>gtk-actionable-set-detailed-action-name()</code>.</p><pre class="pod-block-code">method set-action-target ( Str $format_string )</pre><ul>
+<li><p>$format_string; a GVariant format string @...: arguments appropriate for <em>format-string</em></p></li>
+</ul>
+
+<h2 id="set-action-target-value"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">set-action-target-value</a></h2>
+<p>Sets the target value of an actionable widget.</p><p>If <em>$target-value</em> is <code>undefined</code> then the target value is unset.</p><p>The target value has two purposes. First, it is used as the parameter to activation of the action associated with the <strong>Gnome::Gtk3::Actionable</strong> widget. Second, it is used to determine if the widget should be rendered as “active” — the widget is active if the state is equal to the given target.</p><p>Consider the example of associating a set of buttons with a <strong>N-GAction</strong> with string state in a typical “radio button” situation. Each button will be associated with the same action, but with a different target value for that action. Clicking on a particular button will activate the action with the target of that button, which will typically cause the action’s state to change to that value. Since the action’s state is now equal to the target value of the button, the button will now be rendered as active (and the other buttons, with different targets, rendered inactive).</p><pre class="pod-block-code">method set-action-target-value ( N-GObject() $target_value )</pre><ul>
+<li><p>$target_value; a native <strong>Gnome::Glib::Variant</strong> to set as the target value, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-detailed-action-name"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">set-detailed-action-name</a></h2>
+<p>Sets the action-name and associated string target value of an actionable widget.</p><p><em>$detailed-action-name</em> is a string in the format accepted by <code>g-action-parse-detailed-name()</code>.</p><pre class="pod-block-code">method set-detailed-action-name ( Str $detailed_action_name )</pre><ul>
+<li><p>$detailed_action_name; the detailed action name</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">Properties</a></h1>
+
+<h2 id="action-name"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">action-name</a></h2>
+<p>The name of the associated action, like 'app.quit' Default value: Any</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>action-name</em> is <code>G_TYPE_STRING</code>.</p><ul>
+<li><p>Parameter is readable and writable.</p></li>
+<li><p>Default value is undefined.</p></li>
+</ul>
+
+<h2 id="action-target"><a href="#Gnome::Gtk3::Actionable" class="u" title="go to top of document">action-target</a></h2>
+<p>The parameter for action invocations.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>action-target</em> is <code>G_TYPE_VARIANT</code>.</p><ul>
+<li><p>Parameter is readable and writable.</p></li>
+<li><p>Default value is undefined.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Actionable.rakumod</span></div><div>at <span class="time">2025-07-18T18:32:43Z</span></div></footer>
+	</body>
+</html>

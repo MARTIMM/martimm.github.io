@@ -1,0 +1,99 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::CssSection</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::CssSection">Gnome::Gtk3::CssSection</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkCssSectionType">enum GtkCssSectionType</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-end-line">get-end-line</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-end-position">get-end-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-file">get-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-parent">get-parent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-section-type">get-section-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-start-line">get-start-line</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-start-position">get-start-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Defines a part of a CSS document</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Description</a></h1>
+<p>Defines a part of a CSS document. Because sections are nested into one another, you can use <code>get-parent()</code> to get the containing region.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::CssSection;
+also is Gnome::GObject::Boxed;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::CssProvider $css-provider .= new;
+$css-provider.load-from-path('my-style.css');
+
+my Gnome::Gtk3::StyleContext $context .= new;
+$context.add-provider-for-screen(
+  Gnome::Gdk3::Screen.new, $css-provider, GTK_STYLE_PROVIDER_PRIORITY_USER
+);
+
+my Gnome::Gtk3::CssSection $section .= new(
+  :native-object($context.get-section('window')
+);</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkCssSectionType"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">enum GtkCssSectionType</a></h2>
+<p>The different types of sections indicate parts of a CSS document as parsed by GTK’s CSS parser. They are oriented towards the [CSS Grammar](http://www.w3.org/TR/CSS21/grammar.html), but may contain extensions.</p><p>More types might be added in the future as the parser incorporates more features.</p><ul>
+<li><p>GTK-CSS-SECTION-DOCUMENT: The section describes a complete document. This section time is the only one where <code>get-parent()</code> might return <code>undefined</code>.</p></li>
+<li><p>GTK-CSS-SECTION-IMPORT: The section defines an import rule.</p></li>
+<li><p>GTK-CSS-SECTION-COLOR-DEFINITION: The section defines a color. This is a GTK extension to CSS.</p></li>
+<li><p>GTK-CSS-SECTION-BINDING-SET: The section defines a binding set. This is a GTK extension to CSS.</p></li>
+<li><p>GTK-CSS-SECTION-RULESET: The section defines a CSS ruleset.</p></li>
+<li><p>GTK-CSS-SECTION-SELECTOR: The section defines a CSS selector.</p></li>
+<li><p>GTK-CSS-SECTION-DECLARATION: The section defines the declaration of a CSS variable.</p></li>
+<li><p>GTK-CSS-SECTION-VALUE: The section defines the value of a CSS declaration.</p></li>
+<li><p>GTK-CSS-SECTION-KEYFRAMES: The section defines keyframes. See [CSS Animations](http://dev.w3.org/csswg/css3-animations/<strong>keyframes</strong>) for details.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a CssSection object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="get-end-line"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-end-line</a></h2>
+<p>Returns the line in the CSS document where this section end. The line number is 0-indexed, so the first line of the document will return 0. This value may change in future invocations of this function if <em>section</em> is not yet parsed completely. This will for example happen in the GtkCssProvider::parsing-error signal. The end position and line may be identical to the start position and line for sections which failed to parse anything successfully.</p><p>Returns: the line number</p><pre class="pod-block-code">method get-end-line ( --&gt; UInt )</pre>
+<h2 id="get-end-position"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-end-position</a></h2>
+<p>Returns the offset in bytes from the start of the current line returned via <code>get-end-line()</code>. This value may change in future invocations of this function if <em>section</em> is not yet parsed completely. This will for example happen in the GtkCssProvider::parsing-error signal. The end position and line may be identical to the start position and line for sections which failed to parse anything successfully.</p><p>Returns: the offset in bytes from the start of the line.</p><pre class="pod-block-code">method get-end-position ( --&gt; UInt )</pre>
+<h2 id="get-file"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-file</a></h2>
+<p>Gets the file that <em>section</em> was parsed from. If no such file exists, for example because the CSS was loaded via <em>gtk-css-provider-load-from-data</em>(), then <code>undefined</code> is returned.</p><p>Returns: the native <strong>Gnome::Gtk3::File</strong> that <em>section</em> was parsed from or <code>undefined</code> if <em>section</em> was parsed from other data</p><pre class="pod-block-code">method get-file ( --&gt; N-GObject )</pre>
+<h2 id="get-parent"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-parent</a></h2>
+<p>Gets the parent section for the given <em>section</em>. The parent section is the section that contains this <em>section</em>. A special case are sections of type <code>GTK-CSS-SECTION-DOCUMENT</code>. Their parent will either be <code>undefined</code> if they are the original CSS document that was loaded by <code>Gnome::Gtk3::CssProvider.load-from-file()</code> or a section of type <code>GTK-CSS-SECTION-IMPORT</code> if it was loaded with an import rule from a different file.</p><p>Returns: the parent section or <code>undefined</code> if none</p><pre class="pod-block-code">method get-parent ( --&gt; N-GObject )</pre>
+<h2 id="get-section-type"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-section-type</a></h2>
+<p>Gets the type of information that <em>section</em> describes.</p><p>Returns: the type of <em>section</em></p><pre class="pod-block-code">method get-section-type ( --&gt; GtkCssSectionType )</pre>
+<h2 id="get-start-line"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-start-line</a></h2>
+<p>Returns the line in the CSS document where this section starts. The line number is 0-indexed, so the first line of the document will return 0.</p><p>Returns: the line number</p><pre class="pod-block-code">method get-start-line ( --&gt; UInt )</pre>
+<h2 id="get-start-position"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">get-start-position</a></h2>
+<p>Returns the offset in bytes from the start of the current line returned via <code>get-start-line()</code>.</p><p>Returns: the offset in bytes from the start of the line.</p><pre class="pod-block-code">method get-start-position ( --&gt; UInt )</pre>
+<h2 id="ref"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">ref</a></h2>
+<p>Increments the reference count on <em>section</em>.</p><p>Returns: <em>section</em> itself.</p><pre class="pod-block-code">method ref ( --&gt; N-GObject )</pre>
+<h2 id="unref"><a href="#Gnome::Gtk3::CssSection" class="u" title="go to top of document">unref</a></h2>
+<p>Decrements the reference count on <em>section</em>, freeing the structure if the reference count reaches 0.</p><pre class="pod-block-code">method unref ( )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/CssSection.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:08Z</span></div></footer>
+	</body>
+</html>

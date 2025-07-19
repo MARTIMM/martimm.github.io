@@ -1,0 +1,608 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Builder</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Builder">Gnome::Gtk3::Builder</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Gnome::Gtk3::Builder_UI_Definitions">Gnome::Gtk3::Builder UI Definitions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#A_Gnome::Gtk3::Builder_UI_Definition">A Gnome::Gtk3::Builder UI Definition</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkBuilderError">enum GtkBuilderError</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:file">:file</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:string">:string</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:resource">:resource</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-callback-symbol">add-callback-symbol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-callback-symbols">add-callback-symbols</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-from-file">add-from-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-from-resource">add-from-resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-from-string">add-from-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-objects-from-file">add-objects-from-file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-objects-from-resource">add-objects-from-resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-objects-from-string">add-objects-from-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#connect-signals">connect-signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#connect-signals-full">connect-signals-full</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#error-quark">error-quark</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#expose-object">expose-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#extend-with-template">extend-with-template</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-application">get-application</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-object">get-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-objects">get-objects</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-translation-domain">get-translation-domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-type-from-name">get-type-from-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-callback-symbol">lookup-callback-symbol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-application">set-application</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-translation-domain">set-translation-domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#value-from-string">value-from-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#value-from-string-type">value-from-string-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_builder_new">_gtk_builder_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_builder_new_from_file">_gtk_builder_new_from_file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_builder_new_from_resource">_gtk_builder_new_from_resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_builder_new_from_string">_gtk_builder_new_from_string</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#translation-domain">translation-domain</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties_0">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Translation_Domain:_translation-domain">Translation Domain: translation-domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_error_quark">[[gtk_] builder_] error_quark</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_builder_new">[gtk_] builder_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_from_file">[[gtk_] builder_] add_from_file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_from_resource">[[gtk_] builder_] add_from_resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_from_string">[[gtk_] builder_] add_from_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_objects_from_file">[[gtk_] builder_] add_objects_from_file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_objects_from_resource">[[gtk_] builder_] add_objects_from_resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_objects_from_string">[[gtk_] builder_] add_objects_from_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_get_object">[[gtk_] builder_] get_object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_get_objects">[[gtk_] builder_] get_objects</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_expose_object">[[gtk_] builder_] expose_object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_connect_signals">[[gtk_] builder_] connect_signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_connect_signals_full">[[gtk_] builder_] connect_signals_full</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_set_translation_domain">[[gtk_] builder_] set_translation_domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_get_translation_domain">[[gtk_] builder_] get_translation_domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_get_type_from_name">[[gtk_] builder_] get_type_from_name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_value_from_string">[[gtk_] builder_] value_from_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_value_from_string_type">[[gtk_] builder_] value_from_string_type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_new_from_file">[[gtk_] builder_] new_from_file</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_new_from_resource">[[gtk_] builder_] new_from_resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_new_from_string">[[gtk_] builder_] new_from_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_callback_symbol">[[gtk_] builder_] add_callback_symbol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_add_callback_symbols">[[gtk_] builder_] add_callback_symbols</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_lookup_callback_symbol">[[gtk_] builder_] lookup_callback_symbol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_set_application">[[gtk_] builder_] set_application</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_get_application">[[gtk_] builder_] get_application</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_builder_]_extend_with_template">[[gtk_] builder_] extend_with_template</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Propertiet">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties_0">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#translation-domain_0">translation-domain</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Build an interface from an XML UI definition</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk3::Builder</strong> is an auxiliary object that reads textual descriptions of a user interface and instantiates the described objects. To create a <strong>Gnome::Gtk3::Builder</strong> from a user interface description, call <code>.new(:file)</code>, <code>.new(:resource)</code> or <code>.new(:string)</code>.</p><p>In the (unusual) case that you want to add user interface descriptions from multiple sources to the same <strong>Gnome::Gtk3::Builder</strong> you can call <code>.new()</code> to get an empty builder and populate it by (multiple) calls to <code>gtk_builder_add_from_file()</code>, <code>gtk_builder_add_from_resource()</code> or <code>gtk_builder_add_from_string()</code>.</p><p>A <strong>Gnome::Gtk3::Builder</strong> holds a reference to all objects that it has constructed and drops these references when it is finalized. This finalization can cause the destruction of non-widget objects or widgets which are not contained in a toplevel window. For toplevel windows constructed by a builder, it is the responsibility of the user to call <code>gtk_widget_destroy()</code> to get rid of them and all the widgets they contain.</p><p>The function <code>gtk_builder_get_object()</code> can be used to access the widgets in the interface by the names assigned to them (id's) inside the UI description. Toplevel windows returned by these functions will stay around until the user explicitly destroys them with <code>gtk_widget_destroy()</code>. Other widgets will either be part of a larger hierarchy constructed by the builder (in which case you should not have to worry about their lifecycle), or without a parent, in which case they have to be added to some container to make use of them. All widget classes have the ability to be initialized using the named argument <code>.new(:build-id)</code>. This will end up using <code>gtk_builder_get_object()</code>. A builder must be created first and data fed to the builder before you are able to use it.</p><p>The function <code>gtk_builder_connect_signals_full()</code> and variants thereof can be used to connect handlers to the named signals defined in a handler table. The signals can also be handled individualy using <code>.register-signal()</code>.</p>
+<h2 id="Gnome::Gtk3::Builder_UI_Definitions"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Gnome::Gtk3::Builder UI Definitions</a></h2>
+<p><strong>Gnome::Gtk3::Builder</strong> parses textual descriptions of user interfaces which are specified in an XML format which can be roughly described by the RELAX NG schema below. We refer to these descriptions as “<strong>GtkBuilder</strong> UI definitions” or just “UI definitions” if the context is clear.</p><p>It is common to use `.ui` as the filename extension for files containing <strong>Gnome::Gtk3::Builder</strong> UI definitions.</p><p>&lt;!--[RELAX NG Compact Syntax](https://git.gnome.org/browse/gtk+/tree/gtk/gtkbuilder.rnc)--&gt;</p><p>The toplevel element is &lt;interface&gt;. It optionally takes a “domain” attribute, which will make the builder look for translated strings using <code>dgettext()</code> in the domain specified. This can also be done by calling <code>gtk_builder_set_translation_domain()</code> on the builder. Objects are described by &lt;object&gt; elements, which can contain &lt;property&gt; elements to set properties, &lt;signal&gt; elements which connect signals to handlers, and &lt;child&gt; elements, which describe child objects (most often widgets inside a container, but also e.g. actions in an action group, or columns in a tree model). A &lt;child&gt; element contains an &lt;object&gt; element which describes the child object. The target toolkit version(s) are described by &lt;requires&gt; elements, the “lib” attribute specifies the widget library in question (currently the only supported value is “gtk+”) and the “version” attribute specifies the target version in the form “&lt;major&gt;.&lt;minor&gt;”. The builder will error out if the version requirements are not met.</p><p>Typically, the specific kind of object represented by an &lt;object&gt; element is specified by the “class” attribute. If the type has not been loaded yet, GTK+ tries to find the <code>get_type()</code> function from the class name by applying heuristics. This works in most cases, but if necessary, it is possible to specify the name of the <code>get_type()</code> function explictly with the &quot;type-func&quot; attribute. As a special case, <strong>Gnome::Gtk3::Builder</strong> allows to use an object that has been constructed by a <strong>GtkUIManager</strong> in another part of the UI definition by specifying the id of the <strong>GtkUIManager</strong> in the “constructor” attribute and the name of the object in the “id” attribute.</p><p>Objects may be given a name with the “id” attribute, which allows the application to retrieve them from the builder with <code>gtk_builder_get_object()</code> which is also used indirectly when a widget is created using `.new(:$build-id)`. An id is also necessary to use the object as property value in other parts of the UI definition. GTK+ reserves ids starting and ending with ___ (3 underscores) for its own purposes.</p><p>Setting properties of objects is pretty straightforward with the &lt;property&gt; element: the “name” attribute specifies the name of the property, and the content of the element specifies the value. If the “translatable” attribute is set to a true value, GTK+ uses <code>gettext()</code> (or <code>dgettext()</code> if the builder has a translation domain set) to find a translation for the value. This happens before the value is parsed, so it can be used for properties of any type, but it is probably most useful for string properties. It is also possible to specify a context to disambiguate short strings, and comments which may help the translators.</p><p><strong>Gnome::Gtk3::Builder</strong> can parse textual representations for the most common property types: characters, strings, integers, floating-point numbers, booleans (strings like “TRUE”, “t”, “yes”, “y”, “1” are interpreted as <code>1</code>, strings like “FALSE”, “f”, “no”, “n”, “0” are interpreted as <code>0</code>), enumerations (can be specified by their name, nick or integer value), flags (can be specified by their name, nick, integer value, optionally combined with “|”, e.g. “GTK_VISIBLE|GTK_REALIZED”) and colors (in a format understood by <code>gdk_rgba_parse()</code>).</p><p>Objects can be referred to by their name and by default refer to objects declared in the local xml fragment and objects exposed via <code>expose_object()</code>. In general, <strong>Gnome::Gtk3::Builder</strong> allows forward references to objects — declared in the local xml; an object doesn’t have to be constructed before it can be referred to. The exception to this rule is that an object has to be constructed before it can be used as the value of a construct-only property.</p><p>Signal handlers are set up with the &lt;signal&gt; element. The “name” attribute specifies the name of the signal, and the “handler” attribute specifies the function to connect to the signal. The remaining attributes, “after” and “swapped” attributes are ignored by the Raku modules. The &quot;object&quot; field has a meaning in <strong>Gnome::Gtk3::Glade</strong>.</p><p>Sometimes it is necessary to refer to widgets which have implicitly been constructed by GTK+ as part of a composite widget, to set properties on them or to add further children (e.g. the <em>vbox</em> of a <strong>Gnome::Gtk3::Dialog</strong>). This can be achieved by setting the “internal-child” propery of the &lt;child&gt; element to a true value. Note that <strong>Gnome::Gtk3::Builder</strong> still requires an &lt;object&gt; element for the internal child, even if it has already been constructed.</p><p>A number of widgets have different places where a child can be added (e.g. tabs vs. page content in notebooks). This can be reflected in a UI definition by specifying the “type” attribute on a &lt;child&gt;. The possible values for the “type” attribute are described in the sections describing the widget-specific portions of UI definitions.</p>
+<h2 id="A_Gnome::Gtk3::Builder_UI_Definition"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">A Gnome::Gtk3::Builder UI Definition</a></h2>
+<p>Note the class names are e.g. GtkDialog, not Gnome::Gtk3::Dialog. This is because those are the c-source class names of the GTK+ objects.</p><pre class="pod-block-code">&lt;interface&gt;
+  &lt;object class=&quot;GtkDialog&gt;&quot; id=&quot;dialog1&quot;&gt;
+    &lt;child internal-child=&quot;vbox&quot;&gt;
+      &lt;object class=&quot;GtkBox&gt;&quot; id=&quot;vbox1&quot;&gt;
+        &lt;property name=&quot;border-width&quot;&gt;10&lt;/property&gt;
+        &lt;child internal-child=&quot;action_area&quot;&gt;
+          &lt;object class=&quot;GtkButtonBox&gt;&quot; id=&quot;hbuttonbox1&quot;&gt;
+            &lt;property name=&quot;border-width&quot;&gt;20&lt;/property&gt;
+            &lt;child&gt;
+              &lt;object class=&quot;GtkButton&gt;&quot; id=&quot;ok_button&quot;&gt;
+                &lt;property name=&quot;label&quot;&gt;gtk-ok&lt;/property&gt;
+                &lt;property name=&quot;use-stock&quot;&gt;TRUE&lt;/property&gt;
+                &lt;signal name=&quot;clicked&quot; handler=&quot;ok_button_clicked&quot;/&gt;
+              &lt;/object&gt;
+            &lt;/child&gt;
+          &lt;/object&gt;
+        &lt;/child&gt;
+      &lt;/object&gt;
+    &lt;/child&gt;
+  &lt;/object&gt;
+&lt;/interface&gt;</pre><p>To load it and use it do the following (assume above text is in $gui).</p><pre class="pod-block-code">my Gnome::Gtk3::Builder $builder .= new(:string($gui));
+my Gnome::Gtk3::Button $button .= new(:build-id&lt;ok_button&gt;));</pre>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Builder;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Builder.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Example"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Builder $builder .= new;
+my Gnome::Glib::Error $e = $builder.add-from-file($ui-file);
+die $e.message if $e.is-valid;
+
+my Gnome::Gtk3::Button .= new(:build-id&lt;my-glade-button-id&gt;);</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkBuilderError"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">enum GtkBuilderError</a></h2>
+<p>Error codes that identify various errors that can occur while using <strong>Gnome::Gtk3::Builder</strong>.</p><ul>
+<li><p>GTK_BUILDER_ERROR_INVALID_TYPE_FUNCTION: A type-func attribute didn’t name a function that returns a <code>GType</code>.</p></li>
+<li><p>GTK_BUILDER_ERROR_UNHANDLED_TAG: The input contained a tag that <strong>Gnome::Gtk3::Builder</strong> can’t handle.</p></li>
+<li><p>GTK_BUILDER_ERROR_MISSING_ATTRIBUTE: An attribute that is required by <strong>Gnome::Gtk3::Builder</strong> was missing.</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_ATTRIBUTE: <strong>Gnome::Gtk3::Builder</strong> found an attribute that it doesn’t understand.</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_TAG: <strong>Gnome::Gtk3::Builder</strong> found a tag that it doesn’t understand.</p></li>
+<li><p>GTK_BUILDER_ERROR_MISSING_PROPERTY_VALUE: A required property value was missing.</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_VALUE: <strong>Gnome::Gtk3::Builder</strong> couldn’t parse some attribute value.</p></li>
+<li><p>GTK_BUILDER_ERROR_VERSION_MISMATCH: The input file requires a newer version of GTK+.</p></li>
+<li><p>GTK_BUILDER_ERROR_DUPLICATE_ID: An object id occurred twice.</p></li>
+<li><p>GTK_BUILDER_ERROR_OBJECT_TYPE_REFUSED: A specified object type is of the same type or derived from the type of the composite class being extended with builder XML.</p></li>
+<li><p>GTK_BUILDER_ERROR_TEMPLATE_MISMATCH: The wrong type was specified in a composite class’s template XML</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_PROPERTY: The specified property is unknown for the object class.</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_SIGNAL: The specified signal is unknown for the object class.</p></li>
+<li><p>GTK_BUILDER_ERROR_INVALID_ID: An object id is unknown</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create an empty builder. This is only useful if you intend to make multiple calls to <code>add-from-file()</code>, <code>add-from-resource()</code> or <code>add-from-string()</code> in order to merge multiple UI descriptions into a single builder.</p><p>Most users will probably want to use <code>.new(:file)</code>, <code>.new(:resource)</code> or <code>.new(:string)</code>, particularly when there is only one file, resource or string.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">:file</a></h3>
+<p>Create builder object and load gui design. Builds the UI definition from a file. If there is an error opening the file or parsing the description then the program will be aborted. You should only ever attempt to parse user interface descriptions that are shipped as part of your program.</p><pre class="pod-block-code">multi method new ( Str :$file! )</pre>
+<h3 id=":string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">:string</a></h3>
+<p>Same as above but read the design from the string. Builds the user interface described by <em>$string</em> (in the UI definition format). If there is an error parsing <em>string</em> then the program will be aborted. You should not attempt to parse user interface description from untrusted sources.</p><pre class="pod-block-code">multi method new ( Str :$string! )</pre>
+<h3 id=":resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">:resource</a></h3>
+<p>The interface is build using the UI definition from the given resource path. If there is an error locating the resource or parsing the description, then the program will be aborted.</p><pre class="pod-block-code">multi method new ( Str :$resource! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Builder object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-callback-symbol"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-callback-symbol</a></h2>
+<p>Adds the <em>callback-symbol</em> to the scope of <em>builder</em> under the given <em>callback-name</em>.</p><p>Using this function overrides the behavior of <code>connect-signals()</code> for any callback symbols that are added. Using this method allows for better encapsulation as it does not require that callback symbols be declared in the global namespace.</p><pre class="pod-block-code">method add-callback-symbol ( Str $callback_name, GCallback $callback_symbol )</pre><ul>
+<li><p>$callback_name; The name of the callback, as expected in the XML</p></li>
+<li><p>$callback_symbol; (scope async): The callback pointer</p></li>
+</ul>
+
+<h2 id="add-callback-symbols"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-callback-symbols</a></h2>
+<p>A convenience function to add many callbacks instead of calling <code>add-callback-symbol()</code> for each symbol.</p><pre class="pod-block-code">method add-callback-symbols ( Str $first_callback_name, GCallback $first_callback_symbol )</pre><ul>
+<li><p>$first_callback_name; The name of the callback, as expected in the XML</p></li>
+<li><p>$first_callback_symbol; (scope async): The callback pointer @...: A list of callback name and callback symbol pairs terminated with <code>undefined</code></p></li>
+</ul>
+
+<h2 id="add-from-file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-from-file</a></h2>
+<p>Parses a file containing a [GtkBuilder UI definition][BUILDER-UI] and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>new-from-file()</code>.</p><p>If an error occurs, 0 will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong>, <strong>Gnome::Gtk3::-MARKUP-ERROR</strong> or <strong>Gnome::Gtk3::-FILE-ERROR</strong> domain.</p><p>It’s not really reasonable to attempt to handle failures of this call. You should not use this function with untrusted files (ie: files that are not part of your application). Broken <strong>Gnome::Gtk3::Builder</strong> files can easily crash your program, and it’s possible that memory was leaked leading up to the reported failure.</p><p>Returns: An invalid error object on success, Otherwise call <code>.message()</code> on the error object to find out what went wrong.</p><pre class="pod-block-code">method add-from-file ( Str $filename --&gt; Gnome::Glib::Error )</pre><ul>
+<li><p>$filename; the name of the file to parse</p></li>
+</ul>
+
+<h2 id="add-from-resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-from-resource</a></h2>
+<p>Parses a resource file containing a [GtkBuilder UI definition][BUILDER-UI] and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>new-from-resource()</code>.</p><p>Returns: An invalid error object on success, Otherwise call <code>.message()</code> on the error object to find out what went wrong.</p><pre class="pod-block-code">method add-from-resource ( Str $resource_path --&gt; Gnome::Glib::Error )</pre><ul>
+<li><p>$resource_path; the path of the resource file to parse</p></li>
+</ul>
+
+<h2 id="add-from-string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-from-string</a></h2>
+<p>Parses a string containing a [GtkBuilder UI definition][BUILDER-UI] and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>new-from-string()</code>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong>, <strong>Gnome::Gtk3::-MARKUP-ERROR</strong> or <strong>Gnome::Gtk3::-VARIANT-PARSE-ERROR</strong> domain.</p><p>It’s not really reasonable to attempt to handle failures of this call. The only reasonable thing to do when an error is detected is to call <code>g-error()</code>.</p><p>Returns: An invalid error object on success, Otherwise call <code>.message()</code> on the error object to find out what went wrong.</p><pre class="pod-block-code">method add-from-string ( Str $buffer --&gt; Gnome::Glib::Error )</pre><ul>
+<li><p>$buffer; the string to parse</p></li>
+</ul>
+
+<h2 id="add-objects-from-file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-objects-from-file</a></h2>
+<p>Parses a file containing a [GtkBuilder UI definition][BUILDER-UI] building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong>, <strong>Gnome::Gtk3::-MARKUP-ERROR</strong> or <strong>Gnome::Gtk3::-FILE-ERROR</strong> domain.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object-ids</em>.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method add-objects-from-file (
+  Str $filename, CArray[Str] $object_ids, N-GError $error --&gt; UInt )</pre><ul>
+<li><p>$filename; the name of the file to parse</p></li>
+<li><p>$object_ids; (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="add-objects-from-resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-objects-from-resource</a></h2>
+<p>Parses a resource file containing a [GtkBuilder UI definition][BUILDER-UI] building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong>, <strong>Gnome::Gtk3::-MARKUP-ERROR</strong> or <strong>Gnome::Gtk3::-RESOURCE-ERROR</strong> domain.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object-ids</em>.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method add-objects-from-resource (
+  Str $resource_path, CArray[Str] $object_ids, N-GError $error
+  --&gt; UInt
+)</pre><ul>
+<li><p>$resource_path; the path of the resource file to parse</p></li>
+<li><p>$object_ids; (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="add-objects-from-string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">add-objects-from-string</a></h2>
+<p>Parses a string containing a [GtkBuilder UI definition][BUILDER-UI] building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong> or <strong>Gnome::Gtk3::-MARKUP-ERROR</strong> domain.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object-ids</em>.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method add-objects-from-string ( Str $buffer, UInt $length, CArray[Str] $object_ids, N-GError $error --&gt; UInt )</pre><ul>
+<li><p>$buffer; the string to parse</p></li>
+<li><p>$length; the length of <em>buffer</em> (may be -1 if <em>buffer</em> is nul-terminated)</p></li>
+<li><p>$object_ids; (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="connect-signals"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">connect-signals</a></h2>
+<p>This method is a simpler variation of <code>connect-signals-full()</code>. It uses symbols explicitly added to <em>builder</em> with prior calls to <code>gtk-builder-add-callback-symbol()</code>. In the case that symbols are not explicitly added; it uses <strong>Gnome::Gtk3::Module</strong>’s introspective features (by opening the module <code>undefined</code>) to look at the application’s symbol table. From here it tries to match the signal handler names given in the interface description with symbols in the application and connects the signals. Note that this function can only be called once, subsequent calls will do nothing.</p><p>Note that unless <code>gtk-builder-add-callback-symbol()</code> is called for all signal callbacks which are referenced by the loaded XML, this function will require that <strong>Gnome::Gtk3::Module</strong> be supported on the platform.</p><p>If you rely on <strong>Gnome::Gtk3::Module</strong> support to lookup callbacks in the symbol table, the following details should be noted:</p><p>When compiling applications for Windows, you must declare signal callbacks with <strong>Gnome::Gtk3::-MODULE-EXPORT</strong>, or they will not be put in the symbol table. On Linux and Unices, this is not necessary; applications should instead be compiled with the -Wl,--export-dynamic CFLAGS, and linked against gmodule-export-2.0.</p><pre class="pod-block-code">method connect-signals ( Pointer $user_data )</pre><ul>
+<li><p>$user_data; user data to pass back with all signals</p></li>
+</ul>
+
+<h2 id="connect-signals-full"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">connect-signals-full</a></h2>
+<p>This method will process the signal elements from the loaded XML and with the help of the provided $handlers table register each handler to a signal.</p><pre class="pod-block-code">method gtk_builder_connect_signals_full ( Hash $handlers )</pre><ul>
+<li><p>$handlers; a table used to register handlers to process a signal. Each entry in this table has a key which is the name of the handler method. The value is a list of which the first element is the object wherin the method is defined. The rest of the list are optional named attributes and are provided to the method. See also <code>register-signal()</code> in <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+<p>An example where a gui is described in XML. It has a Window with a Button, both having a signal description;</p><pre class="pod-block-code">my Str $ui = q:to/EOUI/;
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;interface&gt;
+      &lt;requires lib=&quot;gtk+&quot; version=&quot;3.20&quot;/&gt;
+
+      &lt;object class=&quot;GtkWindow&quot; id=&quot;top&quot;&gt;
+        &lt;property name=&quot;title&quot;&gt;top window&lt;/property&gt;
+        &lt;signal name=&quot;destroy&quot; handler=&quot;window-quit&quot;/&gt;
+        &lt;child&gt;
+          &lt;object class=&quot;GtkButton&quot; id=&quot;help&quot;&gt;
+            &lt;property name=&quot;label&quot;&gt;Help&lt;/property&gt;
+            &lt;signal name=&quot;clicked&quot; handler=&quot;button-click&quot;/&gt;
+          &lt;/object&gt;
+        &lt;/child&gt;
+      &lt;/object&gt;
+    &lt;/interface&gt;
+    EOUI
+
+# First handler class
+class X {
+  method window-quit ( :$o1, :$o2 ) {
+    # ... do something with options $o1 and $o2 ...
+
+    Gnome::Gtk3::Main.new.gtk-main-quit;
+  }
+}
+
+# Second handler class
+class Y {
+  method button-click ( :$o3, :$o4 ) {
+    # ... do something with options $o3 and $o4 ...
+  }
+}
+
+# Load the user interface description
+my Gnome::Gtk3::Builder $builder .= new(:string($ui));
+my Gnome::Gtk3::Window $w .= new(:build-id&lt;top&gt;);
+
+# It is possible to devide the works over more than one class
+my X $x .= new;
+my Y $y .= new;
+
+# Create the handlers table
+my Hash $handlers = %(
+  :window-quit( $x, :o1&lt;o1&gt;, :o2&lt;o2&gt;),
+  :button-click( $y, :o3&lt;o3&gt;, :o4&lt;o4&gt;)
+);
+
+# Register all signals
+$builder.connect-signals-full($handlers);</pre>
+<h2 id="error-quark"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">error-quark</a></h2>
+<p>Return the domain code of the builder error domain.</p><pre class="pod-block-code">method error-quark ( --&gt; UInt )</pre><p>The following example shows the fields of a returned error when a faulty string is provided in the call.</p><pre class="pod-block-code">my Gnome::Glib::Quark $quark .= new;
+my Gnome::Glib::Error $e = $builder.add-from-string($text);
+is $e.domain, $builder.gtk_builder_error_quark(),
+   &quot;domain code: $e.domain()&quot;;
+is $quark.to-string($e.domain), 'gtk-builder-error-quark',
+   &quot;error domain: $quark.to-string($e.domain())&quot;;</pre>
+<h2 id="expose-object"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">expose-object</a></h2>
+<p>Add <em>object</em> to the <em>builder</em> object pool so it can be referenced just like any other object built by builder.</p><pre class="pod-block-code">method expose-object ( Str $name, N-GObject() $object )</pre><ul>
+<li><p>$name; the name of the object exposed to the builder</p></li>
+<li><p>$object; the object to expose</p></li>
+</ul>
+
+<h2 id="extend-with-template"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">extend-with-template</a></h2>
+<p>Main private entry point for building composite container components from template XML.</p><p>This is exported purely to let gtk-builder-tool validate templates, applications have no need to call this function.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method extend-with-template (
+  N-GObject() $widget, N-GObject() $template_type,
+  Str $buffer, UInt $length, N-GError $error
+  --&gt; UInt
+)</pre><ul>
+<li><p>$widget; the widget that is being extended</p></li>
+<li><p>$template_type; the type that the template is for</p></li>
+<li><p>$buffer; the string to parse</p></li>
+<li><p>$length; the length of <em>buffer</em> (may be -1 if <em>buffer</em> is nul-terminated)</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="get-application"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">get-application</a></h2>
+<p>Gets the <strong>Gnome::Gtk3::Application</strong> associated with the builder.</p><p>The <strong>Gnome::Gtk3::Application</strong> is used for creating action proxies as requested from XML that the builder is loading.</p><p>By default, the builder uses the default application: the one from <code>g-application-get-default()</code>. If you want to use another application for constructing proxies, use <code>set-application()</code>.</p><p>Returns: the application being used by the builder, or <code>undefined</code></p><pre class="pod-block-code">method get-application ( --&gt; N-GObject )</pre>
+<h2 id="get-object"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">get-object</a></h2>
+<p>Gets the object named <em>$name</em>. Note that this function does not increment the reference count of the returned object.</p><p>Returns: the object named <em>$name</em> or <code>undefined</code> if it could not be found in the object tree.</p><pre class="pod-block-code">method get-object ( Str $name --&gt; N-GObject )</pre><ul>
+<li><p>$name; name of object to get</p></li>
+</ul>
+
+<h2 id="get-objects"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">get-objects</a></h2>
+<p>Gets all objects that have been constructed by <em>builder</em>. Note that this function does not increment the reference counts of the returned objects.</p><p>Returns: (element-type GObject) (transfer container): a newly-allocated <strong>Gnome::Gtk3::SList</strong> containing all the objects constructed by the <strong>Gnome::Gtk3::Builder</strong> instance. It should be freed by <code>g-slist-free()</code></p><pre class="pod-block-code">method get-objects ( --&gt; Gnome::Glib::SList )</pre>
+<h2 id="get-translation-domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">get-translation-domain</a></h2>
+<p>Gets the translation domain of <em>builder</em>.</p><p>Returns: the translation domain. This string is owned by the builder object and must not be modified or freed.</p><pre class="pod-block-code">method get-translation-domain ( --&gt; Str )</pre>
+<h2 id="get-type-from-name"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">get-type-from-name</a></h2>
+<p>Looks up a type by name, using the virtual function that <strong>Gnome::Gtk3::Builder</strong> has for that purpose. This is mainly used when implementing the <strong>Gnome::Gtk3::Buildable</strong> interface on a type.</p><p>Returns: the <strong>Gnome::Gtk3::Type</strong> found for <em>$type-name</em> or <strong>Gnome::Gtk3::-TYPE-INVALID</strong> if no type was found</p><pre class="pod-block-code">method get-type-from-name ( Str $type-name --&gt; UInt )</pre><ul>
+<li><p>$type_name; type name to lookup</p></li>
+</ul>
+
+<h2 id="lookup-callback-symbol"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">lookup-callback-symbol</a></h2>
+<p>Fetches a symbol previously added to <em>builder</em> with <code>add-callback-symbols()</code></p><p>This function is intended for possible use in language bindings or for any case that one might be cusomizing signal connections using <code>gtk-builder-connect-signals-full()</code></p><p>Returns: The callback symbol in <em>builder</em> for <em>callback-name</em>, or <code>undefined</code></p><pre class="pod-block-code">method lookup-callback-symbol ( Str $callback_name --&gt; GCallback )</pre><ul>
+<li><p>$callback_name; The name of the callback</p></li>
+</ul>
+
+<h2 id="set-application"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">set-application</a></h2>
+<p>Sets the application associated with <em>builder</em>.</p><p>You only need this function if there is more than one <strong>Gnome::Gtk3::Application</strong> in your process. <em>$application</em> cannot be <code>undefined</code>.</p><pre class="pod-block-code">method set-application ( N-GObject() $application )</pre><ul>
+<li><p>$application; a <strong>Gnome::Gtk3::Application</strong></p></li>
+</ul>
+
+<h2 id="set-translation-domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">set-translation-domain</a></h2>
+<p>Sets the translation domain of <em>builder</em>. See <em>translation-domain</em>.</p><pre class="pod-block-code">method set-translation-domain ( Str $domain )</pre><ul>
+<li><p>$domain; the translation domain or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="value-from-string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">value-from-string</a></h2>
+<p>This function demarshals a value from a string. This function calls <code>g-value-init()</code> on the <em>value</em> argument, so it need not be initialised beforehand.</p><p>This function can handle char, uchar, boolean, int, uint, long, ulong, enum, flags, float, double, string, <strong>Gnome::Gtk3::Color</strong>, <strong>Gnome::Gtk3::RGBA</strong> and <strong>Gnome::Gtk3::Adjustment</strong> type values. Support for <strong>Gnome::Gtk3::Widget</strong> type values is still to come.</p><p>Upon errors <code>False</code> will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong> domain.</p><p>Returns: <code>True</code> on success</p><pre class="pod-block-code">method value-from-string ( GParamSpec $pspec, Str $string, N-GObject $value, N-GError $error --&gt; Bool )</pre><ul>
+<li><p>$pspec; the <strong>Gnome::Gtk3::ParamSpec</strong> for the property</p></li>
+<li><p>$string; the string representation of the value</p></li>
+<li><p>$value; the <strong>Gnome::Gtk3::Value</strong> to store the result in</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="value-from-string-type"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">value-from-string-type</a></h2>
+<p>Like <code>value-from-string()</code>, this function demarshals a value from a string, but takes a <strong>Gnome::Gtk3::Type</strong> instead of <strong>Gnome::Gtk3::ParamSpec</strong>. This function calls <code>g-value-init()</code> on the <em>value</em> argument, so it need not be initialised beforehand.</p><p>Upon errors <code>False</code> will be returned and <em>error</em> will be assigned a <strong>Gnome::Gtk3::Error</strong> from the <strong>Gnome::Gtk3::TK-BUILDER-ERROR</strong> domain.</p><p>Returns: <code>True</code> on success</p><pre class="pod-block-code">method value-from-string-type ( N-GObject $type, Str $string, N-GObject $value, N-GError $error --&gt; Bool )</pre><ul>
+<li><p>$type; the <strong>Gnome::Gtk3::Type</strong> of the value</p></li>
+<li><p>$string; the string representation of the value</p></li>
+<li><p>$value; the <strong>Gnome::Gtk3::Value</strong> to store the result in</p></li>
+<li><p>$error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="_gtk_builder_new"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">_gtk_builder_new</a></h2>
+<p>Creates a new empty builder object.</p><p>This function is only useful if you intend to make multiple calls to <code>add-from-file()</code>, <code>gtk-builder-add-from-resource()</code> or <code>gtk-builder-add-from-string()</code> in order to merge multiple UI descriptions into a single builder.</p><p>Most users will probably want to use <code>gtk-builder-new-from-file()</code>, <code>gtk-builder-new-from-resource()</code> or <code>gtk-builder-new-from-string()</code>.</p><p>Returns: a new (empty) <strong>Gnome::Gtk3::Builder</strong> object</p><pre class="pod-block-code">method _gtk_builder_new ( --&gt; N-GObject )</pre>
+<h2 id="_gtk_builder_new_from_file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">_gtk_builder_new_from_file</a></h2>
+<p>Builds the [GtkBuilder UI definition][BUILDER-UI] in the file <em>filename</em>.</p><p>If there is an error opening the file or parsing the description then the program will be aborted. You should only ever attempt to parse user interface descriptions that are shipped as part of your program.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the described interface</p><pre class="pod-block-code">method _gtk_builder_new_from_file ( Str $filename --&gt; N-GObject )</pre><ul>
+<li><p>$filename; filename of user interface description file</p></li>
+</ul>
+
+<h2 id="_gtk_builder_new_from_resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">_gtk_builder_new_from_resource</a></h2>
+<p>Builds the [GtkBuilder UI definition][BUILDER-UI] at <em>resource-path</em>.</p><p>If there is an error locating the resource or parsing the description, then the program will be aborted.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the described interface</p><pre class="pod-block-code">method _gtk_builder_new_from_resource ( Str $resource_path --&gt; N-GObject )</pre><ul>
+<li><p>$resource_path; a <strong>Gnome::Gtk3::Resource</strong> resource path</p></li>
+</ul>
+
+<h2 id="_gtk_builder_new_from_string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">_gtk_builder_new_from_string</a></h2>
+<p>Builds the user interface described by <em>string</em> (in the [GtkBuilder UI definition][BUILDER-UI] format).</p><p>If <em>string</em> is <code>undefined</code>-terminated, then <em>length</em> should be -1. If <em>length</em> is not -1, then it is the length of <em>string</em>.</p><p>If there is an error parsing <em>string</em> then the program will be aborted. You should not attempt to parse user interface description from untrusted sources.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the interface described by <em>string</em></p><pre class="pod-block-code">method _gtk_builder_new_from_string ( Str $string, Int() $length --&gt; N-GObject )</pre><ul>
+<li><p>$string; a user interface (XML) description</p></li>
+<li><p>$length; the length of <em>string</em>, or -1</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Properties</a></h1>
+
+<h2 id="translation-domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">translation-domain</a></h2>
+<p>The translation domain used by gettext</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>translation-domain</em> is <code>G_TYPE_STRING</code>.</p><ul>
+<li><p>Parameter is readable and writable.</p></li>
+<li><p>Default value is undefined.</p></li>
+</ul>
+
+<h1 id="Properties_0"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>.set-text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.get-property( 'label', $gv);
+$gv.set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Translation_Domain:_translation-domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Translation Domain: translation-domain</a></h3>
+<p>The translation domain used when translating property values that have been marked as translatable in interface descriptions. If the translation domain is <code>undefined</code>, <strong>Gnome::Gtk3::Builder</strong> uses <code>gettext()</code>, otherwise <code>g-dgettext()</code>.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>translation-domain</em> is <code>G_TYPE_STRING</code>.</p>
+<h2 id="[[gtk_]_builder_]_error_quark"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] error_quark</a></h2>
+<p>Return the domain code of the builder error domain.</p><pre class="pod-block-code">method gtk_builder_error_quark ( --&gt; Int )</pre><p>The following example shows the fields of a returned error when a faulty string is provided in the call.</p><pre class="pod-block-code">my Gnome::Glib::Quark $quark .= new;
+my Gnome::Glib::Error $e = $builder.add-from-string($text);
+is $e.domain, $builder.gtk_builder_error_quark(),
+   &quot;domain code: $e.domain()&quot;;
+is $quark.to-string($e.domain), 'gtk-builder-error-quark',
+   &quot;error domain: $quark.to-string($e.domain())&quot;;</pre>
+<h2 id="[gtk_]_builder_new"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[gtk_] builder_new</a></h2>
+<p>Creates a new empty builder object.</p><p>This function is only useful if you intend to make multiple calls to <code>gtk_builder_add_from_file()</code>, <code>gtk_builder_add_from_resource()</code> or <code>gtk_builder_add_from_string()</code> in order to merge multiple UI descriptions into a single builder.</p><p>Most users will probably want to use <code>gtk_builder_new_from_file()</code>, <code>gtk_builder_new_from_resource()</code> or <code>gtk_builder_new_from_string()</code>.</p><p>Returns: a new (empty) <strong>Gnome::Gtk3::Builder</strong> object</p><pre class="pod-block-code">method gtk_builder_new ( --&gt; N-GObject  )</pre>
+<h2 id="[[gtk_]_builder_]_add_from_file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_from_file</a></h2>
+<p>Parses a file containing a UI definition and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>.new(:file)</code>.</p><p>If an error occurs, a valid Gnome::Glib::Error object is returned with an error domain of <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_FILE_ERROR</code>.</p><p>You should not use this function with untrusted files (ie: files that are not part of your application). Broken <strong>Gnome::Gtk3::Builder</strong> files can easily crash your program, and it’s possible that memory was leaked leading up to the reported failure. The only reasonable thing to do when an error is detected is to throw an Exception when necessary.</p><p>Returns: Gnome::Glib::Error. Test <code>.is-valid()</code> of that object to see if there was an error.</p><pre class="pod-block-code">method gtk_builder_add_from_file (
+  Str $filename, N-GObject $error
+  --&gt; Gnome::Glib::Error
+)</pre><ul>
+<li><p>$filename; the name of the file to parse</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_from_resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_from_resource</a></h2>
+<p>Parses a resource file containing a UI definition and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>.new(:resource)</code>.</p><p>If an error occurs, a valid Gnome::Glib::Error object is returned with an error domain of <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_FILE_ERROR</code>. The only reasonable thing to do when an error is detected is to throw an Exception when necessary.</p><p>Returns: Gnome::Glib::Error. Test <code>.is-valid()</code> to see if there was an error.</p><pre class="pod-block-code">method gtk_builder_add_from_resource (
+  Str $resource_path
+  --&gt; Gnome::Glib::Error
+)</pre><ul>
+<li><p>$resource_path; the path of the resource file to parse</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_from_string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_from_string</a></h2>
+<p>Parses a string containing a UI definition and merges it with the current contents of <em>builder</em>.</p><p>Most users will probably want to use <code>.new(:string)</code>.</p><p>If an error occurs, a valid Gnome::Glib::Error object is returned with an error domain of <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_FILE_ERROR</code>. The only reasonable thing to do when an error is detected is to throw an Exception when necessary.</p><p>Returns: Gnome::Glib::Error. Test <code>.is-valid()</code> to see if there was an error.</p><pre class="pod-block-code">method gtk_builder_add_from_string ( Str $buffer --&gt; N-GObject $error )</pre><ul>
+<li><p>$buffer; the string to parse</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_objects_from_file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_objects_from_file</a></h2>
+<p>Parses a file containing a [<strong>Gnome::Gtk3::Builder</strong> UI definition] building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object_ids</em>.</p><p>If an error occurs, a valid Gnome::Glib::Error object is returned with an error domain of <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_FILE_ERROR</code>. The only reasonable thing to do when an error is detected is to throw an Exception when necessary.</p><p>Returns: Gnome::Glib::Error. Test <code>.is-valid()</code> flag to see if there was an error.</p><pre class="pod-block-code">method gtk_builder_add_objects_from_file ( Str $filename, CArray[Str] $object_ids, N-GObject $error --&gt; UInt  )</pre><ul>
+<li><p>$filename; the name of the file to parse</p></li>
+<li><p>$object_ids; (array zero-terminated=1) (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_objects_from_resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_objects_from_resource</a></h2>
+<p>Parses a resource file containing a [<strong>Gnome::Gtk3::Builder</strong> UI definition](https://developer.gnome.org/gtk3/3.24/GtkBuilder.html#BUILDER-UI) building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <code>GError</code> from the <code>GTK_BUILDER_ERROR</code>, <code>G_MARKUP_ERROR</code> or <code>G_RESOURCE_ERROR</code> domain.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object_ids</em>.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method gtk_builder_add_objects_from_resource ( Str $resource_path, CArray[Str] $object_ids, N-GObject $error --&gt; UInt  )</pre><ul>
+<li><p>$resource_path; the path of the resource file to parse</p></li>
+<li><p>$object_ids; (array zero-terminated=1) (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_objects_from_string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_objects_from_string</a></h2>
+<p>Parses a string containing a [<strong>Gnome::Gtk3::Builder</strong> UI definition](https://developer.gnome.org/gtk3/3.24/GtkBuilder.html#BUILDER-UI) building only the requested objects and merges them with the current contents of <em>builder</em>.</p><p>Upon errors 0 will be returned and <em>error</em> will be assigned a <code>GError</code> from the <code>GTK_BUILDER_ERROR</code> or <code>G_MARKUP_ERROR</code> domain.</p><p>If you are adding an object that depends on an object that is not its child (for instance a <strong>Gnome::Gtk3::TreeView</strong> that depends on its <strong>Gnome::Gtk3::TreeModel</strong>), you have to explicitly list all of them in <em>object_ids</em>.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method gtk_builder_add_objects_from_string ( Str $buffer, UInt $length, CArray[Str] $object_ids, N-GObject $error --&gt; UInt  )</pre><ul>
+<li><p>$buffer; the string to parse</p></li>
+<li><p>$length; the length of <em>buffer</em> (may be -1 if <em>buffer</em> is nul-terminated)</p></li>
+<li><p>$object_ids; (array zero-terminated=1) (element-type utf8): nul-terminated array of objects to build</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_get_object"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] get_object</a></h2>
+<p>Gets the object named <em>$name</em>. Note that this function does not increment the reference count of the returned object.</p><p>Returns: the object named <em>$name</em> or undefined if it could not be found in the object tree.</p><pre class="pod-block-code">method gtk_builder_get_object ( Str $name --&gt; N-GObject  )</pre><ul>
+<li><p>$name; name of object to get</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_get_objects"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] get_objects</a></h2>
+<p>Gets all objects that have been constructed by <em>builder</em>. Note that this function does not increment the reference counts of the returned objects.</p><p>Returns: (element-type GObject) (transfer container): a newly-allocated <code>GSList</code> containing all the objects constructed by the <strong>Gnome::Gtk3::Builder</strong> instance. It should be freed by <code>g_slist_free()</code></p><pre class="pod-block-code">method gtk_builder_get_objects ( --&gt; N-GObject  )</pre>
+<h2 id="[[gtk_]_builder_]_expose_object"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] expose_object</a></h2>
+<p>Add <em>object</em> to the <em>builder</em> object pool so it can be referenced just like any other object built by builder.</p><pre class="pod-block-code">method gtk_builder_expose_object ( Str $name, N-GObject $object )</pre><ul>
+<li><p>$name; the name of the object exposed to the builder</p></li>
+<li><p>$object; the object to expose</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_connect_signals"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] connect_signals</a></h2>
+<p>This method is a simpler variation of <code>gtk_builder_connect_signals_full()</code>. It uses symbols explicitly added to <em>builder</em> with prior calls to <code>gtk_builder_add_callback_symbol()</code>. In the case that symbols are not explicitly added; it uses <code>GModule</code>’s introspective features (by opening the module <code>Any</code>) to look at the application’s symbol table. From here it tries to match the signal handler names given in the interface description with symbols in the application and connects the signals. Note that this function can only be called once, subsequent calls will do nothing.</p><p>Note that unless <code>gtk_builder_add_callback_symbol()</code> is called for all signal callbacks which are referenced by the loaded XML, this function will require that <code>GModule</code> be supported on the platform.</p><p>If you rely on <code>GModule</code> support to lookup callbacks in the symbol table, the following details should be noted:</p><p>When compiling applications for Windows, you must declare signal callbacks with <code>G_MODULE_EXPORT</code>, or they will not be put in the symbol table. On Linux and Unices, this is not necessary; applications should instead be compiled with the -Wl,--export-dynamic CFLAGS, and linked against gmodule-export-2.0.</p><pre class="pod-block-code">method gtk_builder_connect_signals ( Pointer $user_data )</pre><ul>
+<li><p>$user_data; user data to pass back with all signals</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_connect_signals_full"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] connect_signals_full</a></h2>
+<p>This method will process the signal elements from the loaded XML and with the help of the provided $handlers table register each handler to a signal.</p><pre class="pod-block-code">method gtk_builder_connect_signals_full ( Hash $handlers )</pre><ul>
+<li><p>$handlers; a table used to register handlers to process a signal. Each entry in this table has a key which is the name of the handler method. The value is a list of which the first element is the object wherin the method is defined. The rest of the list are optional named attributes and are provided to the method. See also <code>register-signal()</code> in <strong>Gnome::GObject::Object</strong>.</p></li>
+</ul>
+<p>An example where a gui is described in XML. It has a Window with a Button, both having a signal description;</p><pre class="pod-block-code">my Str $ui = q:to/EOUI/;
+    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+    &lt;interface&gt;
+      &lt;requires lib=&quot;gtk+&quot; version=&quot;3.20&quot;/&gt;
+
+      &lt;object class=&quot;GtkWindow&quot; id=&quot;top&quot;&gt;
+        &lt;property name=&quot;title&quot;&gt;top window&lt;/property&gt;
+        &lt;signal name=&quot;destroy&quot; handler=&quot;window-quit&quot;/&gt;
+        &lt;child&gt;
+          &lt;object class=&quot;GtkButton&quot; id=&quot;help&quot;&gt;
+            &lt;property name=&quot;label&quot;&gt;Help&lt;/property&gt;
+            &lt;signal name=&quot;clicked&quot; handler=&quot;button-click&quot;/&gt;
+          &lt;/object&gt;
+        &lt;/child&gt;
+      &lt;/object&gt;
+    &lt;/interface&gt;
+    EOUI
+
+# First handler class
+class X {
+  method window-quit ( :$o1, :$o2 ) {
+    # ... do something with options $o1 and $o2 ...
+
+    Gnome::Gtk3::Main.new.gtk-main-quit;
+  }
+}
+
+# Second handler class
+class Y {
+  method button-click ( :$o3, :$o4 ) {
+    # ... do something with options $o3 and $o4 ...
+  }
+}
+
+# Load the user interface description
+my Gnome::Gtk3::Builder $builder .= new(:string($ui));
+my Gnome::Gtk3::Window $w .= new(:build-id&lt;top&gt;);
+
+# It is possible to devide the works over more than one class
+my X $x .= new;
+my Y $y .= new;
+
+# Create the handlers table
+my Hash $handlers = %(
+  :window-quit( $x, :o1&lt;o1&gt;, :o2&lt;o2&gt;),
+  :button-click( $y, :o3&lt;o3&gt;, :o4&lt;o4&gt;)
+);
+
+# Register all signals
+$builder.connect-signals-full($handlers);</pre>
+<h2 id="[[gtk_]_builder_]_set_translation_domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] set_translation_domain</a></h2>
+<p>Sets the translation domain of <em>builder</em>. See prop <code>translation-domain</code>.</p><pre class="pod-block-code">method gtk_builder_set_translation_domain ( Str $domain )</pre><ul>
+<li><p>$domain; (allow-none): the translation domain or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_get_translation_domain"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] get_translation_domain</a></h2>
+<p>Gets the translation domain of <em>builder</em>.</p><p>Returns: the translation domain. This string is owned by the builder object and must not be modified or freed.</p><pre class="pod-block-code">method gtk_builder_get_translation_domain ( --&gt; Str  )</pre>
+<h2 id="[[gtk_]_builder_]_get_type_from_name"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] get_type_from_name</a></h2>
+<p>Looks up a type by name, using the virtual function that <strong>Gnome::Gtk3::Builder</strong> has for that purpose. This is mainly used when implementing the <strong>Gnome::Gtk3::Buildable</strong> interface on a type.</p><p>Returns: the <code>GType</code> found for <em>type_name</em> or <code>G_TYPE_INVALID</code> if no type was found</p><pre class="pod-block-code">method gtk_builder_get_type_from_name ( Str $type_name --&gt; UInt  )</pre><ul>
+<li><p>$type_name; type name to lookup</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_value_from_string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] value_from_string</a></h2>
+<p>This function demarshals a value from a string. This function calls <code>g_value_init()</code> on the <em>value</em> argument, so it need not be initialised beforehand.</p><p>This function can handle char, uchar, boolean, int, uint, long, ulong, enum, flags, float, double, string, <strong>Gnome::Gdk3::Color</strong>, <strong>Gnome::Gdk3::RGBA</strong> and <strong>Gnome::Gtk3::Adjustment</strong> type values. Support for <strong>Gnome::Gtk3::Widget</strong> type values is still to come.</p><p>Upon errors <code>0</code> will be returned and <em>error</em> will be assigned a <code>GError</code> from the <code>GTK_BUILDER_ERROR</code> domain.</p><p>Returns: <code>1</code> on success</p><pre class="pod-block-code">method gtk_builder_value_from_string ( GParamSpec $pspec, Str $string, N-GObject $value, N-GObject $error --&gt; Int  )</pre><ul>
+<li><p>$pspec; the <code>GParamSpec</code> for the property</p></li>
+<li><p>$string; the string representation of the value</p></li>
+<li><p>$value; (out): the <code>GValue</code> to store the result in</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_value_from_string_type"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] value_from_string_type</a></h2>
+<p>Like <code>gtk_builder_value_from_string()</code>, this function demarshals a value from a string, but takes a <code>GType</code> instead of <code>GParamSpec</code>. This function calls <code>g_value_init()</code> on the <em>value</em> argument, so it need not be initialised beforehand.</p><p>Upon errors <code>0</code> will be returned and <em>error</em> will be assigned a <code>GError</code> from the <code>GTK_BUILDER_ERROR</code> domain.</p><p>Returns: <code>1</code> on success</p><pre class="pod-block-code">method gtk_builder_value_from_string_type ( N-GObject $type, Str $string, N-GObject $value, N-GObject $error --&gt; Int  )</pre><ul>
+<li><p>$type; the <code>GType</code> of the value</p></li>
+<li><p>$string; the string representation of the value</p></li>
+<li><p>$value; (out): the <code>GValue</code> to store the result in</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_new_from_file"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] new_from_file</a></h2>
+<p>Builds the [<strong>Gnome::Gtk3::Builder</strong> UI definition](https://developer.gnome.org/gtk3/3.24/GtkBuilder.html#BUILDER-UI) in the file <em>filename</em>.</p><p>If there is an error opening the file or parsing the description then the program will be aborted. You should only ever attempt to parse user interface descriptions that are shipped as part of your program.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the described interface</p><pre class="pod-block-code">method gtk_builder_new_from_file ( Str $filename --&gt; N-GObject  )</pre><ul>
+<li><p>$filename; filename of user interface description file</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_new_from_resource"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] new_from_resource</a></h2>
+<p>Builds the [<strong>Gnome::Gtk3::Builder</strong> UI definition](https://developer.gnome.org/gtk3/3.24/GtkBuilder.html#BUILDER-UI) at <em>resource_path</em>.</p><p>If there is an error locating the resource or parsing the description, then the program will be aborted.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the described interface</p><pre class="pod-block-code">method gtk_builder_new_from_resource ( Str $resource_path --&gt; N-GObject )</pre><ul>
+<li><p>$resource_path; a <code>GResource</code> resource path</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_new_from_string"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] new_from_string</a></h2>
+<p>Builds the user interface described by <em>string</em> (in the [<strong>Gnome::Gtk3::Builder</strong> UI definition](https://developer.gnome.org/gtk3/3.24/GtkBuilder.html#BUILDER-UI) format).</p><p>If <em>string</em> is <code>Any</code>-terminated, then <em>length</em> should be -1. If <em>length</em> is not -1, then it is the length of <em>string</em>.</p><p>If there is an error parsing <em>string</em> then the program will be aborted. You should not attempt to parse user interface description from untrusted sources.</p><p>Returns: a <strong>Gnome::Gtk3::Builder</strong> containing the interface described by <em>string</em></p><pre class="pod-block-code">method gtk_builder_new_from_string ( Str $string, Int $length --&gt; N-GObject  )</pre><ul>
+<li><p>$string; a user interface (XML) description</p></li>
+<li><p>$length; the length of <em>string</em>, or -1</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_callback_symbol"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_callback_symbol</a></h2>
+<p>Adds the <em>callback_symbol</em> to the scope of <em>builder</em> under the given <em>callback_name</em>.</p><p>Using this function overrides the behavior of <code>gtk_builder_connect_signals()</code> for any callback symbols that are added. Using this method allows for better encapsulation as it does not require that callback symbols be declared in the global namespace.</p><pre class="pod-block-code">method gtk_builder_add_callback_symbol ( Str $callback_name, GCallback $callback_symbol )</pre><ul>
+<li><p>$callback_name; The name of the callback, as expected in the XML</p></li>
+<li><p>$callback_symbol; (scope async): The callback pointer</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_add_callback_symbols"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] add_callback_symbols</a></h2>
+<p>A convenience function to add many callbacks instead of calling <code>gtk_builder_add_callback_symbol()</code> for each symbol.</p><pre class="pod-block-code">method gtk_builder_add_callback_symbols ( Str $first_callback_name, GCallback $first_callback_symbol )</pre><ul>
+<li><p>$first_callback_name; The name of the callback, as expected in the XML</p></li>
+<li><p>$first_callback_symbol; (scope async): The callback pointer @...: A list of callback name and callback symbol pairs terminated with <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_lookup_callback_symbol"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] lookup_callback_symbol</a></h2>
+<p>Fetches a symbol previously added to <em>builder</em> with <code>gtk_builder_add_callback_symbols()</code></p><p>This function is intended for possible use in language bindings or for any case that one might be cusomizing signal connections using <code>gtk_builder_connect_signals_full()</code></p><p>Returns: (nullable): The callback symbol in <em>builder</em> for <em>callback_name</em>, or <code>Any</code></p><pre class="pod-block-code">method gtk_builder_lookup_callback_symbol ( Str $callback_name --&gt; GCallback  )</pre><ul>
+<li><p>$callback_name; The name of the callback</p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_set_application"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] set_application</a></h2>
+<p>Sets the application associated with <em>builder</em>.</p><p>You only need this function if there is more than one <code>Application</code> in your process. <em>application</em> cannot be <code>Any</code>.</p><pre class="pod-block-code">method gtk_builder_set_application ( N-GObject $application )</pre><ul>
+<li><p>$application; a <strong>Gnome::Gtk3::Application</strong></p></li>
+</ul>
+
+<h2 id="[[gtk_]_builder_]_get_application"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] get_application</a></h2>
+<p>Gets the <strong>Gnome::Gtk3::Application</strong> associated with the builder.</p><p>The <strong>Gnome::Gtk3::Application</strong> is used for creating action proxies as requested from XML that the builder is loading.</p><p>By default, the builder uses the default application: the one from <code>g_application_get_default()</code>. If you want to use another application for constructing proxies, use <code>gtk_builder_set_application()</code>.</p><p>Returns: (nullable) (transfer none): the application being used by the builder, or <code>Any</code></p><pre class="pod-block-code">method gtk_builder_get_application ( --&gt; N-GObject  )</pre>
+<h2 id="[[gtk_]_builder_]_extend_with_template"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">[[gtk_] builder_] extend_with_template</a></h2>
+<p>Main private entry point for building composite container components from template XML.</p><p>This is exported purely to let gtk-builder-tool validate templates, applications have no need to call this function.</p><p>Returns: A positive value on success, 0 if an error occurred</p><pre class="pod-block-code">method gtk_builder_extend_with_template ( N-GObject $widget, N-GObject $template_type, Str $buffer, UInt $length, N-GObject $error --&gt; UInt  )</pre><ul>
+<li><p>$widget; the widget that is being extended</p></li>
+<li><p>$template_type; the type that the template is for</p></li>
+<li><p>$buffer; the string to parse</p></li>
+<li><p>$length; the length of <em>buffer</em> (may be -1 if <em>buffer</em> is nul-terminated)</p></li>
+<li><p>$error; (allow-none): return location for an error, or <code>Any</code></p></li>
+</ul>
+
+<h1 id="Propertiet"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties_0"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="translation-domain_0"><a href="#Gnome::Gtk3::Builder" class="u" title="go to top of document">translation-domain</a></h3>
+<p>The translation domain used when translating property values that have been marked as translatable in interface descriptions. If the translation domain is <code>Any</code>, <strong>Gnome::Gtk3::Builder</strong> uses <code>gettext()</code>, otherwise <code>g_dgettext()</code>.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>translation-domain</em> is <code>G_TYPE_STRING</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Builder.rakumod</span></div><div>at <span class="time">2025-07-18T18:32:52Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,174 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::ColorChooser</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::ColorChooser">Gnome::Gtk3::ColorChooser</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-palette">add-palette</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#An_Example">An Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-rgba">get-rgba</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-use-alpha">get-use-alpha</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-rgba">set-rgba</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-use-alpha">set-use-alpha</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#color-activated">color-activated</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Color:_rgba">Color: rgba</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Use_alpha:_use-alpha">Use alpha: use-alpha</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface implemented by widgets for choosing colors</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::ColorChooser</strong> is an interface that is implemented by widgets for choosing colors. Depending on the situation, colors may be allowed to have alpha (translucency).</p><p>In GTK+, the main widgets that implement this interface are <strong>Gnome::Gtk3::ColorChooserWidget</strong>, <strong>Gnome::Gtk3::ColorChooserDialog</strong> and <strong>Gnome::Gtk3::ColorButton</strong>.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::ColorChooserDialog</strong>, <strong>Gnome::Gtk3::ColorChooserWidget</strong>, <strong>Gnome::Gtk3::ColorButton</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::ColorChooser;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::ColorChooserDialog $ccdialog .= new(
+  :title('my color dialog')
+);
+
+# Use methods defined in the interface
+note &quot;Green channel: &quot;, $ccdialog.get-rgba($color).green;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="add-palette"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">add-palette</a></h2>
+<p>Adds a palette to the color chooser. If <em>$orientation</em> is horizontal, the colors are grouped in rows, with <em>$colors_per_line</em> colors in each row. If <em>$horizontal</em> is <code>0</code>, the colors are grouped in columns instead.</p><p>The default color palette of <strong>Gnome::Gtk3::ColorChooserWidget</strong> has 27 colors, organized in columns of 3 colors. The default gray palette has 9 grays in a single row.</p><p>The layout of the color chooser widget works best when the palettes have 9-10 columns.</p><p>Calling this function for the first time has the side effect of removing the default color and gray palettes from the color chooser.</p><p>If <em>$colors</em> is undefined, the method removes all previously added palettes.</p><pre class="pod-block-code">method add-palette (
+  GtkOrientation $orientation,
+  Int $colors_per_line, Int $n_colors,
+  Array[Num] $colors
+)</pre><ul>
+<li><p>$orientation; <code>GTK_ORIENTATION_HORIZONTAL</code> if the palette should be displayed in rows, <code>GTK_ORIENTATION_VERTICAL</code> for columns.</p></li>
+<li><p>$colors_per_line; the number of colors to show in each row/column.</p></li>
+<li><p>$n_colors; the total number of elements in @colors.</p></li>
+<li><p>or Array[N-GdkRGBA] $colors; the colors of the palette, or <code>Any</code>.</p></li>
+</ul>
+
+<h3 id="An_Example"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">An Example</a></h3>
+<p>According to the documentation, an array of N-GdkRGBA Structures should be given. Raku however, turns a CArray[N-GdkRGBA] into references to the structure so it becomes an array of pointers. The sub is modified in such a way that either Array[N-GdkRGBA] or Array[Num] can be given. The latter one must always have elems % 4 == 0.</p><pre class="pod-block-code">use NativeCall;
+use Gnome::Gdk3::RGBA:api&lt;1&gt;;
+use Gnome::Gtk3::ColorChooser:api&lt;1&gt;;
+
+my Array $palette = [
+  .0e0, .0e0, .0e0, 1e0, # color1: red, green, blue, opacity
+  .1e0, .0e0, .0e0, 1e0, # color2: ...
+  .2e0, .0e0, .0e0, 1e0,
+  .3e0, .0e0, .0e0, 1e0,
+  .4e0, .0e0, .0e0, 1e0,
+  .5e0, .0e0, .0e0, 1e0,
+  .6e0, .0e0, .0e0, 1e0,
+  .7e0, .0e0, .0e0, 1e0,
+  .8e0, .0e0, .0e0, 1e0,
+  .9e0, .0e0, .0e0, 1e0,
+  .0e0, .0e0, .0e0, 1e0,
+  .0e0, .1e0, .0e0, 1e0,
+  .0e0, .2e0, .0e0, 1e0,
+  .0e0, .3e0, .0e0, 1e0,
+  .0e0, .4e0, .0e0, 1e0,
+  .0e0, .5e0, .0e0, 1e0,
+  .0e0, .6e0, .0e0, 1e0,
+  .0e0, .7e0, .0e0, 1e0,
+  .0e0, .8e0, .0e0, 1e0,
+  .0e0, .9e0, .0e0, 1e0, # color20: ...
+];
+
+my Gnome::Gdk3::RGBA $color .= new(
+  :red(1e0), :green(.0e0), :blue(.0e0), :alpha(1e0)
+);
+
+my Gnome::Gtk3::ColorButton $cb .= new(:$color);
+$cb.add-palette( GTK_ORIENTATION_HORIZONTAL, 10, 20, $palette);</pre><p>Or it can be done like this</p><pre class="pod-block-code">my Array $palette = [];
+for .0, .1 ... .9 -&gt; Num $rgb-gray {
+  $palette.push: N-GdkRGBA.new(
+    :red($rgb-gray), :green($rgb-gray), :blue($rgb-gray), :alpha(1e0)
+  );
+}
+
+my N-GdkRGBA $color .= new(
+  :red(0e0), :green(.0e0), :blue(.0e0), :alpha(1e0)
+);
+my Gnome::Gtk3::ColorButton $cb .= new(:$color);
+$cb.add-palette( GTK_ORIENTATION_HORIZONTAL, 10, 10, $palette);</pre>
+<h2 id="get-rgba"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">get-rgba</a></h2>
+<p>Gets the currently-selected color.</p><pre class="pod-block-code">method get-rgba ( --&gt; N-GObject )</pre><p>Returns a <strong>N-GObject</strong> filled in with the current color.</p><p><strong>Note; Previously, the method returned an Gnome::Gdk3::RGBA native object. This imposes problems with the newly modified class. Because of this it must return a native object of type N-GObject to run properly with other methods. </strong></p>
+<h2 id="get-use-alpha"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">get-use-alpha</a></h2>
+<p>Returns whether the color chooser shows the alpha channel.</p><p>Returns: <code>True</code> if the color chooser uses the alpha channel, <code>False</code> if not</p><pre class="pod-block-code">method get-use-alpha ( --&gt; Bool )</pre>
+<h2 id="set-rgba"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">set-rgba</a></h2>
+<p>Sets the color.</p><pre class="pod-block-code">method set-rgba ( N-GObject() $color )</pre><ul>
+<li><p>$color; the new color</p></li>
+</ul>
+
+<h2 id="set-use-alpha"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">set-use-alpha</a></h2>
+<p>Sets whether or not the color chooser should use the alpha channel.</p><pre class="pod-block-code">method set-use-alpha ( Bool $use_alpha )</pre><ul>
+<li><p>$use_alpha; <code>True</code> if color chooser should use alpha channel, <code>False</code> if not</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>connect-object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>connect-object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="color-activated"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">color-activated</a></h3>
+<p>Emitted when a color is activated from the color chooser. This usually happens when the user clicks a color swatch, or a color is selected and the user presses one of the keys Space, Shift+Space, Return or Enter.</p><pre class="pod-block-code">method handler (
+  N-GObject $color,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($chooser),
+  *%user-options
+);</pre><ul>
+<li><p>$chooser; the object which received the signal</p></li>
+<li><p>$color; the color</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Color:_rgba"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Color: rgba</a></h3>
+<p>The <em>rgba</em> property contains the currently selected color, as a <strong>N-GdkRGBA</strong> struct. The property can be set to change the current selection programmatically.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>rgba</em> is <code>G_TYPE_BOXED</code>.</p>
+<h3 id="Use_alpha:_use-alpha"><a href="#Gnome::Gtk3::ColorChooser" class="u" title="go to top of document">Use alpha: use-alpha</a></h3>
+<p>When <em>use-alpha</em> is <code>True</code>, colors may have alpha (translucency) information. When it is <code>False</code>, the <strong>Gnome::Gdk3::RGBA</strong> struct obtained via the <em>rgba</em> property will be forced to have alpha == 1.</p><p>Implementations are expected to show alpha by rendering the color over a non-uniform background (like a checkerboard pattern).</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>use-alpha</em> is <code>G_TYPE_BOOLEAN</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/ColorChooser.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:02Z</span></div></footer>
+	</body>
+</html>

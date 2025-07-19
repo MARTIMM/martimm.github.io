@@ -1,0 +1,165 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Description</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Description">Description</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Typical_usage">Typical usage</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Setting_up_a_file_chooser_dialog">Setting up a file chooser dialog</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Response_Codes">Response Codes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#multi_method_new_(_GtkFileChooserAction_:$action!_)">multi method new ( GtkFileChooserAction :$action! )</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#multi_method_new_(_N-GObject_:$native-object!_)">multi method new ( N-GObject :$native-object! )</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#multi_method_new_(_Str_:$build-id!_)">multi method new ( Str :$build-id! )</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_file_chooser_dialog_new">[gtk_] file_chooser_dialog_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="subtitle"><p>A file chooser dialog, suitable for “File/Open” or “File/Save” commands</p></div><div class="pod-body">
+<section name="___top"><div class="image-container inline"><img src="asset_files/images/filechooser.png" width="30%" height="auto" alt="No caption"></div>
+<p><em>Gnome::Gtk3::FileChooserDialog</em> is a dialog box suitable for use with “File/Open” or “File/Save as” commands. This widget works by putting a <em>Gnome::Gtk3::FileChooserWidget</em> inside a <em>Gnome::Gtk3::Dialog</em>. It exposes the <em>Gnome::Gtk3::FileChooser</em> interface, so you can use all of the <em>Gnome::Gtk3::FileChooser</em> functions on the file chooser dialog as well as those for <em>Gnome::Gtk3::Dialog</em>.</p><p>Note that <em>Gnome::Gtk3::FileChooserDialog</em> does not have any methods of its own. Instead, you should use the functions that work on a <em>Gnome::Gtk3::FileChooser</em>.</p><p>If you want to integrate well with the platform you should use the <em>Gnome::Gtk3::FileChooserNative</em> API, which will use a platform-specific dialog if available and fall back to <strong>Gnome::Gtk3::FileChooserDialog</strong> otherwise.</p>
+<h2 id="Typical_usage"><a href="#Description" class="u" title="go to top of document">Typical usage</a></h2>
+<p>In the simplest of cases, you can use a <em>Gnome::Gtk3::FileChooserDialog</em> to select a file for opening:</p><pre class="pod-block-code">my Gnome::Gtk3::FileChooserDialog $dialog .= new(
+  :title(&quot;Open File&quot;), :parent($top-window),
+  :action(GTK_FILE_CHOOSER_ACTION_OPEN),
+  :button-spec( [
+      &quot;_Cancel&quot;, GTK_RESPONSE_CANCEL,
+      &quot;_Open&quot;, GTK_RESPONSE_ACCEPT
+    ]
+  )
+);
+
+my $response = $dialog.gtk-dialog-run;
+$dialog.gtk-widget-hide;
+if $response ~~ GTK_RESPONSE_ACCEPT {
+  my Str $file = $dialog.get-filename;
+  note &quot;Opening file $file&quot;;
+}</pre><p>To use a dialog for saving, you can use this:</p><pre class="pod-block-code">my Gnome::Gtk3::FileChooserDialog $dialog .= new(
+  :title(&quot;Open File&quot;), :parent($top-window),
+  :action(GTK_FILE_CHOOSER_ACTION_SAVE),
+  :button-spec( [
+      &quot;_Cancel&quot;, GTK_RESPONSE_CANCEL,
+      &quot;_Open&quot;, GTK_RESPONSE_ACCEPT
+    ]
+  )
+);
+
+$dialog.set-do-overwrite-confirmation(1);
+
+if $user-edited-a-new-document {
+  $dialog.set_current_name(&quot;Untitled document&quot;);
+}
+
+else {
+  $dialog.set_filename($existing-filename);
+}
+
+my $response = $dialog.gtk-dialog-run;
+$dialog.gtk-widget-hide;
+if $response ~~ GTK_RESPONSE_ACCEPT {
+  my Str $file = $dialog.get-filename;
+  note &quot;Saving to file $file&quot;;
+}
+
+$dialog.gtk-widget-destroy;</pre>
+<h2 id="Setting_up_a_file_chooser_dialog"><a href="#Description" class="u" title="go to top of document">Setting up a file chooser dialog</a></h2>
+<p>There are various cases in which you may need to use a <em>Gnome::Gtk3::FileChooserDialog</em>:</p><p>- To select a file for opening. Use <em>GTK_FILE_CHOOSER_ACTION_OPEN</em>.</p><p>- To save a file for the first time. Use <em>GTK_FILE_CHOOSER_ACTION_SAVE</em>, and suggest a name such as “Untitled” with <code>gtk_file_chooser_set_current_name()</code>.</p><p>- To save a file under a different name. Use <em>GTK_FILE_CHOOSER_ACTION_SAVE</em>, and set the existing filename with <code>gtk_file_chooser_set_filename()</code>.</p><p>- To choose a folder instead of a file. Use <em>GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</em>.</p><p>Note that old versions of the file chooser’s documentation suggested using <code>gtk_file_chooser_set_current_folder()</code> in various situations, with the intention of letting the application suggest a reasonable default folder. This is no longer considered to be a good policy, as now the file chooser is able to make good suggestions on its own. In general, you should only cause the file chooser to show a specific folder when it is appropriate to use <code>gtk_file_chooser_set_filename()</code>, i.e. when you are doing a Save As command and you already have a file saved somewhere.</p>
+<h2 id="Response_Codes"><a href="#Description" class="u" title="go to top of document">Response Codes</a></h2>
+<p><em>Gnome::Gtk3::FileChooserDialog</em> inherits from <em>Gnome::Gtk3::Dialog</em>, so buttons that go in its action area have response codes such as <em>GTK_RESPONSE_ACCEPT</em> and <em>GTK_RESPONSE_CANCEL</em>. For example, you could create a dialog window as follows;</p><pre class="pod-block-code">my Gnome::Gtk3::FileChooserDialog $dialog .= new(
+  :title(&quot;Open File&quot;), :parent($top-window),
+  :action(GTK_FILE_CHOOSER_ACTION_OPEN),
+  :button-spec( [
+      &quot;_Cancel&quot;, GTK_RESPONSE_CANCEL,
+      &quot;_Open&quot;, GTK_RESPONSE_ACCEPT
+    ]
+  )
+);</pre><p>This will create buttons for “Cancel” and “Open” that use stock response identifiers from <em>ResponseType</em> from <strong>Gnome::Gtk3::Dialog</strong>. For most dialog boxes you can use your own custom response codes rather than the ones in <em>ResponseType</em>, but <em>Gnome::Gtk3::FileChooserDialog</em> assumes that its “accept”-type action, e.g. an “Open” or “Save” button, will have one of the following response codes:</p><ul>
+<li><p><em>GTK_RESPONSE_ACCEPT</em></p></li>
+<li><p><em>GTK_RESPONSE_OK</em></p></li>
+<li><p><em>GTK_RESPONSE_YES</em></p></li>
+<li><p><em>GTK_RESPONSE_APPLY</em></p></li>
+</ul>
+<p>This is because <em>Gnome::Gtk3::FileChooserDialog</em> must intercept responses and switch to folders if appropriate, rather than letting the dialog terminate — the implementation uses these known response codes to know which responses can be blocked if appropriate.</p><p>To summarize, make sure you use a <em>ResponseType</em> when you use <em>Gnome::Gtk3::FileChooserDialog</em> to ensure proper operation.</p>
+<h2 id="See_Also"><a href="#Description" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::FileChooser</strong>, <strong>Gnome::Gtk3::Dialog</strong>.</p>
+<h1 id="Synopsis"><a href="#Description" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Description" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::FileChooserDialog;
+also is Gnome::Gtk3::Dialog;
+also does Gnome::Gtk3::FileChooser;</pre>
+<h2 id="Example"><a href="#Description" class="u" title="go to top of document">Example</a></h2>
+<p>An example using builder</p><pre class="pod-block-code">use Gnome::Gtk3::Dialog:api&lt;1&gt;;
+use Gnome::Gtk3::FileChooserDialog:api&lt;1&gt;;
+
+my Gnome::Gtk3::FileChooserDialog $fchoose .= new(:build-id&lt;save-dialog&gt;);
+
+# show the dialog
+my Int $response = $fchoose.gtk-dialog-run;
+if $response ~~ GTK_RESPONSE_ACCEPT {
+  ...
+}
+
+# when dialog buttons are pressed hide it again
+$fchoose.hide;</pre>
+<h1 id="Methods"><a href="#Description" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Description" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="multi_method_new_(_GtkFileChooserAction_:$action!_)"><a href="#Description" class="u" title="go to top of document">multi method new ( GtkFileChooserAction :$action! )</a></h3>
+<p>Creates a new file chooser dialog. This function is analogous to <code>Gnome::Gtk3::Dialog.new( :$title, :$parent, :$flags, :$buttons-spec)</code>. This method is called when creating the object using <em>.new(:action(...), ...)</em>.</p><p>Returns: a new native file chooser dialog.</p><p>Since: 2.4</p><pre class="pod-block-code">method gtk_file_chooser_dialog_new (
+  Str $title, N-GObject $parent, GtkFileChooserAction $action,
+  *@buttons-spec
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>Str $title; Title of the dialog, or <code>Any</code>.</p></li>
+<li><p>N-GObject $parent; Transient parent of the dialog, or <code>Any</code>.</p></li>
+<li><p>GtkFileChooserAction $action; Open or save mode for the dialog.</p></li>
+<li><p>*@buttons-spec is a list button specifications. The list has an even number of members of which;</p></li>
+<ul>
+<li><p>Str $button-label to go on the button.</p></li>
+<li><p>$response-code, an Int, GtkResponseType or other enum (with int values) to return for the button. Taking a GtkResponseType will help the chooser dialog make a proper decision if needed. Otherwise, the user can always check codes returned by the dialog to find out what to do next.</p></li>
+</ul>
+</ul>
+<pre class="pod-block-code">multi method new (
+  GtkFileChooserAction :$action!, Str :$title, Gnome::GObject::Object $parent,
+  List :$buttons-spec
+)</pre><p>Create an object using a native object from elsewhere. See also <em>gtk_file_chooser_dialog_new()</em> below.</p>
+<h3 id="multi_method_new_(_N-GObject_:$native-object!_)"><a href="#Description" class="u" title="go to top of document">multi method new ( N-GObject :$native-object! )</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::GObject::Object</strong>.</p>
+<h3 id="multi_method_new_(_Str_:$build-id!_)"><a href="#Description" class="u" title="go to top of document">multi method new ( Str :$build-id! )</a></h3>
+<p>Create an object using a native object from a builder. See also <strong>Gnome::GObject::Object</strong>.</p>
+<h2 id="[gtk_]_file_chooser_dialog_new"><a href="#Description" class="u" title="go to top of document">[gtk_] file_chooser_dialog_new</a></h2>
+<p>Creates a new file chooser dialog. This function is analogous to <code>gtk_dialog_new_with_buttons()</code>. This method is called when creating the object using <em>.new(:action(...), ...)</em>.</p><p>Returns: a new native file chooser dialog.</p><p>Since: 2.4</p><pre class="pod-block-code">method gtk_file_chooser_dialog_new (
+  Str $title, N-GObject $parent, GtkFileChooserAction $action,
+  *@buttons-spec
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>Str $title; Title of the dialog, or <code>Any</code>.</p></li>
+<li><p>N-GObject $parent; Transient parent of the dialog, or <code>Any</code>.</p></li>
+<li><p>GtkFileChooserAction $action; Open or save mode for the dialog.</p></li>
+<li><p>*@buttons-spec is a list button specifications. The list has an even number of members of which;</p></li>
+<ul>
+<li><p>Str $button-label to go on the button.</p></li>
+<li><p>$response-code, an Int, GtkResponseType or other enum (with int values) to return for the button. Taking a GtkResponseType will help the chooser dialog make a proper decision if needed. Otherwise, the user can always check codes returned by the dialog to find out what to do next.</p></li>
+</ul>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/FileChooserDialog.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:19Z</span></div></footer>
+	</body>
+</html>

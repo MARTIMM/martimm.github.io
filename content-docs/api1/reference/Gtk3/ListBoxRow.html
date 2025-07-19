@@ -1,0 +1,100 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::ListBoxRow</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::ListBoxRow">Gnome::Gtk3::ListBoxRow</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_list_box_row_new">[gtk_] list_box_row_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_get_header">[[gtk_] list_box_row_] get_header</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_set_header">[[gtk_] list_box_row_] set_header</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_get_index">[[gtk_] list_box_row_] get_index</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_changed">[[gtk_] list_box_row_] changed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_is_selected">[[gtk_] list_box_row_] is_selected</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_set_selectable">[[gtk_] list_box_row_] set_selectable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_get_selectable">[[gtk_] list_box_row_] get_selectable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_set_activatable">[[gtk_] list_box_row_] set_activatable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_list_box_row_]_get_activatable">[[gtk_] list_box_row_] get_activatable</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">Description</a></h1>
+<p>A row in a Gnome::Gtk3::ListBox.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">See Also</a></h2>
+<p><code>Gnome::Gtk3::ListBox</code></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::ListBoxRow;
+also is Gnome::Gtk3::Bin;
+also does Gnome::Gtk3::Actionable;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code"># Get the listbox from a Glade generated gui. Id is choosen
+# to be 'listboxFromGui'.
+my Gnome::Gtk3::ListBox $lb .= new(:build-id&lt;listboxFromGui&gt;);
+
+my Gnome::Glib::List() $gl = $lb.get-children);
+for ^$gl.g-list-length -&gt; $entry-index {
+  my Gnome::Gtk3::ListBoxRow() $lb-row =
+    $lb.get-row-at-index($entry-index);
+
+  next unless $lb-row.is-selected;
+
+  # This row is selected and has a Grid (just as an example,
+  # it can be anything you've created!!)
+  my Gnome::Gtk3::Grid() $lb-grid = $lb-row.get-child;
+  …
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">new</a></h2>
+<p>Create a new plain object.</p><pre class="pod-block-code">multi method new ( )</pre><p>Create an object using a native object from elsewhere. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="[gtk_]_list_box_row_new"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[gtk_] list_box_row_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::ListBoxRow</strong>, to be used as a child of a <strong>Gnome::Gtk3::ListBox</strong>.</p><p>Returns: a new <strong>Gnome::Gtk3::ListBoxRow</strong></p><p>Since: 3.10</p><pre class="pod-block-code">method gtk_list_box_row_new ( --&gt; N-GObject  )</pre>
+<h2 id="[[gtk_]_list_box_row_]_get_header"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] get_header</a></h2>
+<p>Returns the current header of the <em>row</em>. This can be used in a <strong>Gnome::Gtk3::ListBoxUpdateHeaderFunc</strong> to see if there is a header set already, and if so to update the state of it.</p><p>Returns: (transfer none) (nullable): the current header, or <code>Any</code> if none</p><p>Since: 3.10</p><pre class="pod-block-code">method gtk_list_box_row_get_header ( --&gt; N-GObject  )</pre>
+<h2 id="[[gtk_]_list_box_row_]_set_header"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] set_header</a></h2>
+<p>Sets the current header of the <em>row</em>. This is only allowed to be called from a <strong>Gnome::Gtk3::ListBoxUpdateHeaderFunc</strong>. It will replace any existing header in the row, and be shown in front of the row in the listbox.</p><p>Since: 3.10</p><pre class="pod-block-code">method gtk_list_box_row_set_header ( N-GObject $header )</pre><ul>
+<li><p>N-GObject $header; (allow-none): the header, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="[[gtk_]_list_box_row_]_get_index"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] get_index</a></h2>
+<p>Gets the current index of the <em>row</em> in its <strong>Gnome::Gtk3::ListBox</strong> container.</p><p>Returns: the index of the <em>row</em>, or -1 if the <em>row</em> is not in a listbox</p><p>Since: 3.10</p><pre class="pod-block-code">method gtk_list_box_row_get_index ( --&gt; Int )</pre>
+<h2 id="[[gtk_]_list_box_row_]_changed"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] changed</a></h2>
+<p>Marks <em>row</em> as changed, causing any state that depends on this to be updated. This affects sorting, filtering and headers.</p><p>Note that calls to this method must be in sync with the data used for the row functions. For instance, if the list is mirroring some external data set, and *two* rows changed in the external data set then when you call <code>gtk_list_box_row_changed()</code> on the first row the sort function must only read the new data for the first of the two changed rows, otherwise the resorting of the rows will be wrong.</p><p>This generally means that if you don’t fully control the data model you have to duplicate the data that affects the listbox row functions into the row widgets themselves. Another alternative is to call <code>gtk_list_box_invalidate_sort()</code> on any model change, but that is more expensive.</p><p>Since: 3.10</p><pre class="pod-block-code">method gtk_list_box_row_changed ( )</pre>
+<h2 id="[[gtk_]_list_box_row_]_is_selected"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] is_selected</a></h2>
+<p>Returns whether the child is currently selected in its <strong>Gnome::Gtk3::ListBox</strong> container.</p><p>Returns: <code>1</code> if <em>row</em> is selected</p><p>Since: 3.14</p><pre class="pod-block-code">method gtk_list_box_row_is_selected ( --&gt; Int  )</pre>
+<h2 id="[[gtk_]_list_box_row_]_set_selectable"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] set_selectable</a></h2>
+<p>Set the <em>selectable</em> property for this row.</p><p>Since: 3.14</p><pre class="pod-block-code">method gtk_list_box_row_set_selectable ( Int $selectable )</pre><ul>
+<li><p>Int $selectable; <code>1</code> to mark the row as selectable</p></li>
+</ul>
+
+<h2 id="[[gtk_]_list_box_row_]_get_selectable"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] get_selectable</a></h2>
+<p>Gets the value of the <em>selectable</em> property for this row.</p><p>Returns: <code>1</code> if the row is selectable</p><p>Since: 3.14</p><pre class="pod-block-code">method gtk_list_box_row_get_selectable ( --&gt; Int  )</pre>
+<h2 id="[[gtk_]_list_box_row_]_set_activatable"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] set_activatable</a></h2>
+<p>Set the <em>activatable</em> property for this row.</p><p>Since: 3.14</p><pre class="pod-block-code">method gtk_list_box_row_set_activatable ( Int $activatable )</pre><ul>
+<li><p>Int $activatable; <code>1</code> to mark the row as activatable</p></li>
+</ul>
+
+<h2 id="[[gtk_]_list_box_row_]_get_activatable"><a href="#Gnome::Gtk3::ListBoxRow" class="u" title="go to top of document">[[gtk_] list_box_row_] get_activatable</a></h2>
+<p>Gets the value of the <em>activatable</em> property for this row.</p><p>Returns: <code>1</code> if the row is activatable</p><p>Since: 3.14</p><pre class="pod-block-code">method gtk_list_box_row_get_activatable ( --&gt; Int  )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/ListBoxRow.rakumod</span></div><div>at <span class="time">2025-07-18T18:33:30Z</span></div></footer>
+	</body>
+</html>
