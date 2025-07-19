@@ -1,0 +1,89 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Scrollable</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Scrollable">Gnome::Gtk3::Scrollable</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Creating_a_scrollable_widget">Creating a scrollable widget</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-border">get-border</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-hadjustment">get-hadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-hscroll-policy">get-hscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-vadjustment,_get-vadjustment-rk">get-vadjustment, get-vadjustment-rk</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-vscroll-policy">get-vscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hadjustment">set-hadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hscroll-policy">set-hscroll-policy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-vadjustment">set-vadjustment</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-vscroll-policy">set-vscroll-policy</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An interface for scrollable widgets</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::Scrollable</strong> is an interface that is implemented by widgets with native scrolling ability.</p><p>To implement this interface you should override the <em>hadjustment</em> and <em>vadjustment</em> properties.</p>
+<h2 id="Creating_a_scrollable_widget"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">Creating a scrollable widget</a></h2>
+<p>All scrollable widgets should do the following.</p><ul>
+<li><p>When a parent widget sets the scrollable child widget’s adjustments, the widget should populate the adjustments’ <em>lower</em>, <em>upper</em>, <em>step-increment</em>, <em>page-increment</em> and <em>page-size</em> properties and connect to the <em>value-changed</em> signal.</p></li>
+<li><p>Because its preferred size is the size for a fully expanded widget, the scrollable widget must be able to cope with underallocations. This means that it must accept any value passed to its <strong>Gnome::Gtk3::WidgetClass</strong>.<code>size-allocate()</code> function.</p></li>
+<li><p>When the parent allocates space to the scrollable child widget, the widget should update the adjustments’ properties with new values.</p></li>
+<li><p>When any of the adjustments emits the <em>value-changed</em> signal, the scrollable widget should scroll its contents.</p></li>
+</ul>
+
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::Scrollable;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="get-border"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">get-border</a></h2>
+<p>Returns the size of a non-scrolling border around the outside of the scrollable. An example for this would be treeview headers. GTK+ can use this information to display overlayed graphics, like the overshoot indication, at the right position.</p><p>Returns: Undefined or invalid if <em>border</em> has not been set.</p><pre class="pod-block-code">method get-border ( --&gt; N-GtkBorder )
+method get-border-rk ( --&gt; Gnome::Gtk3::Border )</pre><ul>
+<li><p>N-GObject $border;</p></li>
+</ul>
+
+<h2 id="get-hadjustment"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">get-hadjustment</a></h2>
+<p>Retrieves the <strong>Gnome::Gtk3::Adjustment</strong> used for horizontal scrolling.</p><pre class="pod-block-code">method get-hadjustment ( --&gt; N-GObject )
+method get-hadjustment-rk ( --&gt; Gnome::Gtk3::Adjustment )</pre>
+<h2 id="get-hscroll-policy"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">get-hscroll-policy</a></h2>
+<p>Gets the horizontal <strong>GtkScrollablePolicy</strong> enum value.</p><pre class="pod-block-code">method get-hscroll-policy ( --&gt; GtkScrollablePolicy )</pre>
+<h2 id="get-vadjustment,_get-vadjustment-rk"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">get-vadjustment, get-vadjustment-rk</a></h2>
+<p>Retrieves the <strong>Gnome::Gtk3::Adjustment</strong> used for vertical scrolling.</p><pre class="pod-block-code">method get-vadjustment ( --&gt; N-GObject )
+method get-vadjustment-rk ( --&gt; Gnome::Gtk3::Adjustment )</pre>
+<h2 id="get-vscroll-policy"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">get-vscroll-policy</a></h2>
+<p>Gets the vertical <strong>GtkScrollablePolicy</strong>.</p><pre class="pod-block-code">method get-vscroll-policy ( --&gt; GtkScrollablePolicy )</pre>
+<h2 id="set-hadjustment"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">set-hadjustment</a></h2>
+<p>Sets the horizontal adjustment of the <strong>Gnome::Gtk3::Scrollable</strong>.</p><pre class="pod-block-code">method set-hadjustment ( N-GObject $hadjustment )</pre><ul>
+<li><p>N-GObject $hadjustment; a <strong>Gnome::Gtk3::Adjustment</strong></p></li>
+</ul>
+
+<h2 id="set-hscroll-policy"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">set-hscroll-policy</a></h2>
+<p>Sets the <strong>GtkScrollablePolicy</strong> to determine whether horizontal scrolling should start below the minimum width or below the natural width.</p><pre class="pod-block-code">method set-hscroll-policy ( GtkScrollablePolicy $policy )</pre><ul>
+<li><p>GtkScrollablePolicy $policy; the horizontal <strong>GtkScrollablePolicy</strong>.</p></li>
+</ul>
+
+<h2 id="set-vadjustment"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">set-vadjustment</a></h2>
+<p>Sets the vertical adjustment of the <strong>Gnome::Gtk3::Scrollable</strong>.</p><pre class="pod-block-code">method set-vadjustment ( N-GObject $vadjustment )</pre><ul>
+<li><p>N-GObject $vadjustment; a <strong>Gnome::Gtk3::Adjustment</strong></p></li>
+</ul>
+
+<h2 id="set-vscroll-policy"><a href="#Gnome::Gtk3::Scrollable" class="u" title="go to top of document">set-vscroll-policy</a></h2>
+<p>Sets the <strong>Gnome::Gtk3::ScrollablePolicy</strong> to determine whether vertical scrolling should start below the minimum height or below the natural height.</p><pre class="pod-block-code">method set-vscroll-policy ( GtkScrollablePolicy $policy )</pre><ul>
+<li><p>GtkScrollablePolicy $policy; the vertical <strong>Gnome::Gtk3::ScrollablePolicy</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Scrollable.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:05Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::TargetEntry</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::TargetEntry">Gnome::Gtk3::TargetEntry</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#N-GtkTargetEntry">N-GtkTargetEntry</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:target,_:flags,_:info">:target, :flags, :info</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#free">free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_target_entry_new">_gtk_target_entry_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions for handling target entries</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::TargetEntry;
+also is Gnome::GObject::Boxed;</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="N-GtkTargetEntry"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">N-GtkTargetEntry</a></h2>
+<p>A <code>N-GtkTargetEntry</code> represents a single type of data that can be supplied by a widget in a selection or supplied during drag-and-drop.</p><ul>
+<li><p>Str $.target: a string representation of the target type</p></li>
+<li><p>UInt $.flags: <code>GtkTargetFlags</code> for DND</p></li>
+<li><p>UInt $.info: an application-assigned integer ID which will get passed as a parameter to e.g the <em>selection-get</em> signal. It allows the application to identify the target type without extensive string compares.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":target,_:flags,_:info"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">:target, :flags, :info</a></h3>
+<p>Makes a new <strong>Gnome::Gtk3::TargetEntry</strong>.</p><pre class="pod-block-code">multi method new ( Str :$target!, UInt :$flags!, UInt :$info! )</pre><ul>
+<li><p>Str $target; String identifier for target</p></li>
+<li><p>UInt $flags; Set of flags of enum GtkTargetFlags</p></li>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+</ul>
+
+<h4 id="Example"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">Example</a></h4>
+<p>An example initialization and insertion into a target list.</p><pre class="pod-block-code">my Gnome::Gtk3::TargetEntry $te1 .= new(
+  :target&lt;text/plain&gt;, :flags(GTK_TARGET_SAME_APP), :info(1234)
+);
+…
+my Gnome::Gtk3::TargetList $tl .= new(:targets([ $te1, …]))
+…</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a TargetEntry object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GtkTargetEntry :$native-object! )</pre>
+<h2 id="copy"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">copy</a></h2>
+<p>Makes a copy of a <strong>Gnome::Gtk3::TargetEntry</strong> and its data.</p><p>Returns: a pointer to a copy of <em>data</em>. Free with <code>free()</code></p><pre class="pod-block-code">method copy ( --&gt; N-GtkTargetEntry )</pre>
+<h2 id="free"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">free</a></h2>
+<p>Frees a <strong>Gnome::Gtk3::TargetEntry</strong> returned from <code>new()</code> or <code>gtk-target-entry-copy()</code>.</p><pre class="pod-block-code">method free ( )</pre>
+<h2 id="_gtk_target_entry_new"><a href="#Gnome::Gtk3::TargetEntry" class="u" title="go to top of document">_gtk_target_entry_new</a></h2>
+<p>Makes a new <strong>Gnome::Gtk3::TargetEntry</strong>.</p><p>Returns: a pointer to a new <strong>Gnome::Gtk3::TargetEntry</strong>. Free with <code>free()</code></p><pre class="pod-block-code">method _gtk_target_entry_new ( Str $target, UInt $flags, UInt $info --&gt; GtkTargetEntry )</pre><ul>
+<li><p>Str $target; String identifier for target</p></li>
+<li><p>UInt $flags; Set of flags, see <strong>Gnome::Gtk3::TargetFlags</strong></p></li>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/TargetEntry.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:19Z</span></div></footer>
+	</body>
+</html>

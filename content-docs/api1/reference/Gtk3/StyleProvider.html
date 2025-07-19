@@ -1,0 +1,69 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::StyleProvider</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::StyleProvider">Gnome::Gtk3::StyleProvider</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_GtkStyleProviderIface">class GtkStyleProviderIface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkStyleProviderPriority">enum GtkStyleProviderPriority</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[gtk_]_style_provider_]_get_style_property">[[gtk_] style_provider_] get_style_property</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface to provide style information to <strong>Gnome::Gtk3::StyleContext</strong></p>
+<h1 id="Description"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::StyleProvider</strong> is an interface used to provide style information to a <strong>Gnome::Gtk3::StyleContext</strong>. See <code>gtk_style_context_add_provider()</code> and <code>gtk_style_context_add_provider_for_screen()</code>.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::StyleContext</strong>, <strong>Gnome::Gtk3::CssProvider</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gtk3::StyleProvider;</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="class_GtkStyleProviderIface"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">class GtkStyleProviderIface</a></h2>
+<ul>
+<li><p>___get_style: Gets a set of style information that applies to a widget path.</p></li>
+<li><p>___get_style_property: Gets the value of a widget style property that applies to a widget path.</p></li>
+<li><p>___get_icon_factory: Gets the icon factory that applies to a widget path.</p></li>
+</ul>
+
+<h2 id="enum_GtkStyleProviderPriority"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">enum GtkStyleProviderPriority</a></h2>
+<ul>
+<li><p>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK(1): The priority used for default style information that is used in the absence of themes. Note that this is not very useful for providing default styling for custom style classes - themes are likely to override styling provided at this priority.</p></li>
+<li><p>GTK_STYLE_PROVIDER_PRIORITY_THEME(200): The priority used for style information provided by themes.</p></li>
+<li><p>GTK_STYLE_PROVIDER_PRIORITY_SETTINGS(400): The priority used for style information provided via Gnome::Gtk3::Settings. This priority is higher than GTK_STYLE_PROVIDER_PRIORITY_THEME to let settings override themes.</p></li>
+<li><p>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION(600): A priority that can be used when adding a #GtkStyleProvider for application-specific style information.</p></li>
+<li><p>GTK_STYLE_PROVIDER_PRIORITY_USER(800): The priority used for the style information from `~/.gtk-3.0.css`. You should not use priorities higher than this, to give the user the last word.</p></li>
+</ul>
+
+<h2 id="[[gtk_]_style_provider_]_get_style_property"><a href="#Gnome::Gtk3::StyleProvider" class="u" title="go to top of document">[[gtk_] style_provider_] get_style_property</a></h2>
+<p>Looks up a widget style property as defined by <em>provider</em> for the widget represented by <em>path</em>.</p><p>Returns: <code>1</code> if the property was found and has a value, <code>0</code> otherwise</p><p>Since: 3.0</p><pre class="pod-block-code">method gtk_style_provider_get_style_property (
+  N-GObject $path, GtkStateFlags $state, GParamSpec $pspec,
+  N-GObject $value
+  --&gt; Int
+)</pre><ul>
+<li><p>N-GObject $path; <strong>Gnome::Gtk3::WidgetPath</strong> to query</p></li>
+<li><p>GtkStateFlags $state; state to query the style property for</p></li>
+<li><p>GParamSpec $pspec; The <code>GParamSpec</code> to query</p></li>
+<li><p>N-GObject $value; (out): return location for the property value</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/StyleProvider.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:17Z</span></div></footer>
+	</body>
+</html>

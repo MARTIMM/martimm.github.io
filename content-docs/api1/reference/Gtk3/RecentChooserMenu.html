@@ -1,0 +1,90 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::RecentChooserMenu</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::RecentChooserMenu">Gnome::Gtk3::RecentChooserMenu</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:manager">:manager</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_recent_chooser_menu_new_for_manager">_gtk_recent_chooser_menu_new_for_manager</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-numbers">get-show-numbers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-numbers">set-show-numbers</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Show_Numbers">Show Numbers</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Displays recently used files in a menu</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::RecentChooserMenu</strong> is a widget suitable for displaying recently used files inside a menu. It can be used to set a sub-menu of a <strong>Gnome::Gtk3::MenuItem</strong> using <code>.set-submenu()</code>, or as the menu of a <strong>Gnome::Gtk3::MenuToolButton</strong>.</p><p>Note that <strong>Gnome::Gtk3::RecentChooserMenu</strong> does not have any many methods of its own. Instead, you should use the functions of its role <strong>Gnome::Gtk3::RecentChooser</strong>.</p><p>Note also that <strong>Gnome::Gtk3::RecentChooserMenu</strong> does not support multiple filters, as it has no way to let the user choose between them as the <strong>Gnome::Gtk3::RecentChooserWidget</strong> and <strong>Gnome::Gtk3::RecentChooserDialog</strong> widgets do. Thus using <code>.add_filter()</code> on a <strong>Gnome::Gtk3::RecentChooserMenu</strong> widget will yield the same effects as using <code>.set_filter()</code>, replacing any currently set filter with the supplied filter; <code>.remove_filter()</code> will remove any currently set <strong>Gnome::Gtk3::RecentFilter</strong> object and will unset the current filter; <code>.list_filters()</code> will return a list containing a single <strong>Gnome::Gtk3::RecentFilter</strong> object.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::RecentChooser</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::RecentChooserMenu;
+also is Gnome::Gtk3::Menu;</pre>
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gtk3::RecentChooserMenu:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gtk3::RecentChooserMenu;
+
+submethod new ( |c ) {
+  # let the Gnome::Gtk3::RecentChooserMenu class process the options
+  self.bless( :GtkRecentChooserMenu, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new RecentChooserMenu object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":manager"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">:manager</a></h3>
+<p>Creates a new <strong>Gnome::Gtk3::RecentChooserMenu</strong> widget using <em>$manager</em> as the underlying recently used resources manager.</p><p>This is useful if you have implemented your own recent manager, or if you have a customized instance of a <strong>Gnome::Gtk3::RecentManager</strong> object or if you wish to share a common <strong>Gnome::Gtk3::RecentManager</strong> object among multiple <strong>Gnome::Gtk3::RecentChooser</strong> widgets.</p><pre class="pod-block-code">multi method new ( N-GObject :$manager! )</pre>
+<h2 id="_gtk_recent_chooser_menu_new_for_manager"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">_gtk_recent_chooser_menu_new_for_manager</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::RecentChooserMenu</strong> widget using <em>manager</em> as the underlying recently used resources manager. This is useful if you have implemented your own recent manager, or if you have a customized instance of a <strong>Gnome::Gtk3::RecentManager</strong> object or if you wish to share a common <strong>Gnome::Gtk3::RecentManager</strong> object among multiple <strong>Gnome::Gtk3::RecentChooser</strong> widgets.</p><p>Returns: a new <strong>Gnome::Gtk3::RecentChooserMenu</strong>, bound to <em>manager</em>.</p><pre class="pod-block-code">method _gtk_recent_chooser_menu_new_for_manager ( N-GObject $manager --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $manager; a <strong>Gnome::Gtk3::RecentManager</strong></p></li>
+</ul>
+
+<h2 id="get-show-numbers"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">get-show-numbers</a></h2>
+<p>Returns the value set by <code>set-show-numbers()</code>.</p><p>Returns: <code>True</code> if numbers should be shown.</p><pre class="pod-block-code">method get-show-numbers ( --&gt; Bool )</pre>
+<h2 id="set-show-numbers"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">set-show-numbers</a></h2>
+<p>Sets whether a number should be added to the items of <em>menu</em>. The numbers are shown to provide a unique character for a mnemonic to be used inside the menu item’s label. Only the first ten items get a number to avoid clashes.</p><pre class="pod-block-code">method set-show-numbers ( Bool $show_numbers )</pre><ul>
+<li><p>Int $show_numbers; whether to show numbers</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Show_Numbers"><a href="#Gnome::Gtk3::RecentChooserMenu" class="u" title="go to top of document">Show Numbers</a></h3>
+<p>Whether the first ten items in the menu should be prepended by a number acting as a unique mnemonic.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>show-numbers</em> is <code>G_TYPE_BOOLEAN</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/RecentChooserMenu.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:00Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,98 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::TreeRowReference</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::TreeRowReference">Gnome::Gtk3::TreeRowReference</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkTreeRowReference">class N-GtkTreeRowReference</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_new_proxy">[gtk_] tree_row_reference_new_proxy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_get_path">[gtk_] tree_row_reference_get_path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_get_model">[gtk_] tree_row_reference_get_model</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_valid">[gtk_] tree_row_reference_valid</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_copy">[gtk_] tree_row_reference_copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_free">[gtk_] tree_row_reference_free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_inserted">[gtk_] tree_row_reference_inserted</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_deleted">[gtk_] tree_row_reference_deleted</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_]_tree_row_reference_reordered">[gtk_] tree_row_reference_reordered</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">Description</a></h1>
+<p>A class that keeps a reference to a row in a list or tree. When set, this reference will keep pointing to the node, as long as it exists. Any changes that occur on the list or tree model are propagated, and the path is updated appropriately.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::TreeRowReference;
+also is Gnome::GObject::Boxed;</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="class_N-GtkTreeRowReference"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">class N-GtkTreeRowReference</a></h2>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">new</a></h2>
+<p>Create an object taking the native object from elsewhere.</p><pre class="pod-block-code">multi method new ( N-GtkTreeRowReference :tree-row-reference! )</pre>
+<h2 id="[gtk_]_tree_row_reference_new_proxy"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_new_proxy</a></h2>
+<p>You do not need to use this function.</p><p>Creates a row reference based on <em>path</em>.</p><p>This reference will keep pointing to the node pointed to by <em>path</em>, so long as it exists. If <em>path</em> isn’t a valid path in <em>model</em>, then <code>Any</code> is returned. However, unlike references created with <code>gtk_tree_row_reference_new()</code>, it does not listen to the model for changes. The creator of the row reference must do this explicitly using <code>gtk_tree_row_reference_inserted()</code>, <code>gtk_tree_row_reference_deleted()</code>, <code>gtk_tree_row_reference_reordered()</code>.</p><p>These functions must be called exactly once per proxy when the corresponding signal on the model is emitted. This single call updates all row references for that proxy. Since built-in GTK+ objects like <strong>Gnome::Gtk3::TreeView</strong> already use this mechanism internally, using them as the proxy object will produce unpredictable results. Further more, passing the same object as <em>model</em> and <em>proxy</em> doesn’t work for reasons of internal implementation.</p><p>This type of row reference is primarily meant by structures that need to carefully monitor exactly when a row reference updates itself, and is not generally needed by most applications.</p><p>Returns: a newly allocated <strong>Gnome::Gtk3::TreeRowReference</strong>, or <code>Any</code></p><pre class="pod-block-code">method gtk_tree_row_reference_new_proxy (
+  N-GObject $proxy, N-GObject $model, N-GtkTreePath $path
+  --&gt; N-GtkTreeRowReference
+)</pre><ul>
+<li><p>N-GObject $proxy; a proxy <strong>GObject</strong></p></li>
+<li><p>N-GObject $model; a <strong>Gnome::Gtk3::TreeModel</strong></p></li>
+<li><p>N-GtkTreePath $path; a valid <strong>Gnome::Gtk3::TreePath</strong>-struct to monitor</p></li>
+</ul>
+
+<h2 id="[gtk_]_tree_row_reference_get_path"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_get_path</a></h2>
+<p>Returns a path that the row reference currently points to, or <code>Any</code> if the path pointed to is no longer valid.</p><pre class="pod-block-code">method gtk_tree_row_reference_get_path ( --&gt; Gnome::Gtk3::TreePath )</pre>
+<h2 id="[gtk_]_tree_row_reference_get_model"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_get_model</a></h2>
+<p>Returns the model that the row reference is monitoring.</p><p>Since: 2.8</p><pre class="pod-block-code">method gtk_tree_row_reference_get_model ( --&gt; N-GObject  )</pre>
+<h2 id="[gtk_]_tree_row_reference_valid"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_valid</a></h2>
+<p>Returns <code>1</code> if the reference is defined and refers to a current valid path.</p><pre class="pod-block-code">method gtk_tree_row_reference_valid ( --&gt; Int )</pre>
+<h2 id="[gtk_]_tree_row_reference_copy"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_copy</a></h2>
+<p>Copies a <strong>Gnome::Gtk3::TreeRowReference</strong>.</p><p>Since: 2.2</p><pre class="pod-block-code">method gtk_tree_row_reference_copy ( --&gt; N-GtkTreeRowReference  )</pre>
+<h2 id="[gtk_]_tree_row_reference_free"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_free</a></h2>
+<p>Free’s <em>reference</em>. <em>reference</em> may be <code>Any</code></p><pre class="pod-block-code">method gtk_tree_row_reference_free ( )</pre>
+<h2 id="[gtk_]_tree_row_reference_inserted"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_inserted</a></h2>
+<p>Lets a set of row reference created by <code>gtk_tree_row_reference_new_proxy()</code> know that the model emitted the <em>row-inserted</em> signal.</p><pre class="pod-block-code">method gtk_tree_row_reference_inserted (
+  N-GObject $proxy, N-GtkTreePath $path
+)</pre><ul>
+<li><p>N-GObject $proxy; a <strong>GObject</strong></p></li>
+<li><p>N-GtkTreePath $path; the row position that was inserted</p></li>
+</ul>
+
+<h2 id="[gtk_]_tree_row_reference_deleted"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_deleted</a></h2>
+<p>Lets a set of row reference created by <code>gtk_tree_row_reference_new_proxy()</code> know that the model emitted the <em>row-deleted</em> signal.</p><pre class="pod-block-code">method gtk_tree_row_reference_deleted (
+  N-GObject $proxy, N-GtkTreePath $path
+)</pre><ul>
+<li><p>N-GObject $proxy; a <strong>GObject</strong></p></li>
+<li><p>N-GtkTreePath $path; the path position that was deleted</p></li>
+</ul>
+
+<h2 id="[gtk_]_tree_row_reference_reordered"><a href="#Gnome::Gtk3::TreeRowReference" class="u" title="go to top of document">[gtk_] tree_row_reference_reordered</a></h2>
+<p>Lets a set of row reference created by <code>gtk_tree_row_reference_new_proxy()</code> know that the model emitted the <em>rows-reordered</em> signal.</p><pre class="pod-block-code">method gtk_tree_row_reference_reordered ( N-GObject $proxy, N-GtkTreePath $path, N-GtkTreeIter $iter, Int $new_order )</pre><ul>
+<li><p>N-GObject $proxy; a <strong>GObject</strong></p></li>
+<li><p>N-GtkTreePath $path; the parent path of the reordered signal</p></li>
+<li><p>N-GtkTreeIter $iter; the iter pointing to the parent of the reordered</p></li>
+<li><p>Int $new_order; (array): the new order of rows</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/TreeRowReference.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:31Z</span></div></footer>
+	</body>
+</html>

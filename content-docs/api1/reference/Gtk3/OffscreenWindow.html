@@ -1,0 +1,93 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::OffscreenWindow</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::OffscreenWindow">Gnome::Gtk3::OffscreenWindow</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-pixbuf,_get-pixbuf-rk">get-pixbuf, get-pixbuf-rk</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-surface,_get-surface-rk">get-surface, get-surface-rk</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_offscreen_window_new">_gtk_offscreen_window_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A toplevel to manage offscreen rendering of child widgets</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Description</a></h1>
+<p>GtkOffscreenWindow is strictly intended to be used for obtaining snapshots of widgets that are not part of a normal widget hierarchy. Since <strong>Gnome::Gtk3::OffscreenWindow</strong> is a toplevel widget you cannot obtain snapshots of a full window with it since you cannot pack a toplevel widget in another toplevel.</p><p>The idea is to take a widget and manually set the state of it, add it to a GtkOffscreenWindow and then retrieve the snapshot as a <strong>cairo-surface-t</strong> or <strong>Gnome::Gtk3::Pixbuf</strong>.</p><p>GtkOffscreenWindow derives from <strong>Gnome::Gtk3::Window</strong> only as an implementation detail. Applications should not use any API specific to <strong>Gnome::Gtk3::Window</strong> to operate on this object. It should be treated as a <strong>Gnome::Gtk3::Bin</strong> that has no parent widget.</p><p>When contained offscreen widgets are redrawn, GtkOffscreenWindow will emit a <em>damage-event</em> signal.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::OffscreenWindow;
+also is Gnome::Gtk3::Window;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/OffscreenWindow.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Example"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Example</a></h2>
+<p>An example where a grid with two buttons are rendered and saved in a png and a jpg image file.</p><pre class="pod-block-code"># Setup something to show in an image.
+my Gnome::Gtk3::Button $b1 .= new(:label&lt;Stop&gt;);
+my Gnome::Gtk3::Button $b2 .= new(:label&lt;Start&gt;);
+my Gnome::Gtk3::Grid $g  .= new;
+$g.attach( $b1, 0, 0, 1, 1);
+$g.attach( $b2, 1, 0, 1, 1);
+$ow.add($g);
+$ow.show-all;
+
+# Must process pending events, otherwise nothing is shown! Note,
+# that this is written outside the main event loop in the test program!
+# Otherwise, this is not necessary.
+my Gnome::Gtk3::Main $main .= new;
+while $main.gtk-events-pending() { $main.iteration-do(False); }
+
+# Now we can try to get the contents of the widget. First using
+# a cairo_surface
+my Gnome::Cairo::ImageSurface $image-surface .= new(
+  :native-object($ow.get-surface)
+);
+$image-surface.write_to_png(&quot;OffscreenWindow-surface.png&quot;);
+$image-surface.clear-object;
+
+# Then using a pixbuf
+my Gnome::Gdk3::Pixbuf $pb = $ow.get-pixbuf-rk;
+my Gnome::Glib::Error $e = $pb.savev(
+  &quot;OffscreenWindow-pixbuf.jpg&quot;, 'jpeg', ['quality'], ['100']
+);</pre><p>The result of the png and jpg file;</p><div class="image-container inline"><img src="asset_files/images/OffscreenWindow.png" width="30%" height="auto" alt="No caption"></div>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">new</a></h2>
+<p>This widget can only be created by calling <code>new()</code> without any options. Importing from other widgets using <code>:native-object</code> is not very useful. The glade GUI designer program has the offscreen window widget which can be placed in your design so the <code>:build-id</code> is still possible.</p>
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">default, no options</a></h3>
+<p>Creates a toplevel container widget that is used to retrieve snapshots of widgets without showing them on the screen.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a OffscreenWindow object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="get-pixbuf,_get-pixbuf-rk"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">get-pixbuf, get-pixbuf-rk</a></h2>
+<p>Retrieves a snapshot of the contained widget in the form of a <strong>Gnome::Gdk3::Pixbuf</strong>. This is a new pixbuf with a reference count of 1, and the application should unreference it once it is no longer needed.</p><pre class="pod-block-code">method get-pixbuf ( --&gt; N-GObject )
+method get-pixbuf-rk ( --&gt; Gnome::Gdk3::Pixbuf )</pre>
+<h2 id="get-surface,_get-surface-rk"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">get-surface, get-surface-rk</a></h2>
+<p>Retrieves a snapshot of the contained widget in the form of a <strong>cairo-surface-t</strong>. If you need to keep this around over window resizes then you should add a reference to it.</p><p>Returns: A <strong>cairo-surface-t</strong> pointer to the offscreen surface, or <code>undefined</code>.</p><pre class="pod-block-code">method get-surface ( --&gt; cairo_surface_t )
+method get-surface-rk ( --&gt; Gnome::Cairo::Surface )</pre>
+<h2 id="_gtk_offscreen_window_new"><a href="#Gnome::Gtk3::OffscreenWindow" class="u" title="go to top of document">_gtk_offscreen_window_new</a></h2>
+<p>Creates a toplevel container widget that is used to retrieve snapshots of widgets without showing them on the screen.</p><p>Returns: A pointer to a <strong>Gnome::Gtk3::Widget</strong></p><pre class="pod-block-code">method _gtk_offscreen_window_new ( --&gt; N-GObject )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/OffscreenWindow.rakumod</span></div><div>at <span class="time">2025-07-19T14:12:52Z</span></div></footer>
+	</body>
+</html>

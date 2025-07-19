@@ -1,0 +1,60 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::PopoverMenu</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::PopoverMenu">Gnome::Gtk3::PopoverMenu</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gtk_popover_menu_new">gtk_popover_menu_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_popover_menu_]_open_submenu">[gtk_popover_menu_] open_submenu</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Visible_submenu">Visible submenu</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Popovers to use as menus</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::PopoverMenu</strong> is a subclass of <strong>Gnome::Gtk3::Popover</strong> that treats its children like menus and allows switching between them. It is meant to be used primarily together with <strong>Gnome::Gtk3::ModelButton</strong>, but any widget can be used, such as <strong>Gnome::Gtk3::SpinButton</strong> or <strong>Gnome::Gtk3::Scale</strong>. In this respect, <strong>Gnome::Gtk3::PopoverMenu</strong> is more flexible than popovers that are created from a <strong>GMenuModel</strong> with <code>gtk_popover_new_from_model()</code>. Besides that, GMenu is deprecated.</p><p>Just like normal popovers, <strong>Gnome::Gtk3::PopoverMenu</strong> instances have a single css node called &quot;popover&quot; and get the .menu style class.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::PopoverMenu;
+also is Gnome::Gtk3::Popover;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">new</a></h2>
+<p>Create a new PopoverMenu object.</p><pre class="pod-block-code">multi method new ( )</pre><p>Create a PopoverMenu object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre><p>Create a PopoverMenu object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="gtk_popover_menu_new"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">gtk_popover_menu_new</a></h2>
+<p>Creates a new popover menu.</p><p>Returns: a new <strong>Gnome::Gtk3::PopoverMenu</strong></p><pre class="pod-block-code">method gtk_popover_menu_new ( --&gt; N-GObject )</pre>
+<h2 id="[gtk_popover_menu_]_open_submenu"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">[gtk_popover_menu_] open_submenu</a></h2>
+<p>Opens a submenu of the <em>popover</em>. The <em>name</em> must be one of the names given to the submenus of <em>popover</em> with <em>submenu</em>, or &quot;main&quot; to switch back to the main menu.</p><p><strong>Gnome::Gtk3::ModelButton</strong> will open submenus automatically when the <em>menu-name</em> property is set, so this function is only needed when you are using other kinds of widgets to initiate menu changes.</p><pre class="pod-block-code">method gtk_popover_menu_open_submenu ( Str $name )</pre><ul>
+<li><p>Str $name; the name of the menu to switch to</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Visible_submenu"><a href="#Gnome::Gtk3::PopoverMenu" class="u" title="go to top of document">Visible submenu</a></h3>
+<p>The name of the visible submenu Default value: Any</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>visible-submenu</em> is <code>G_TYPE_STRING</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/PopoverMenu.rakumod</span></div><div>at <span class="time">2025-07-19T14:12:56Z</span></div></footer>
+	</body>
+</html>

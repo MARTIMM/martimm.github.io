@@ -1,0 +1,157 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::RecentFilter</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::RecentFilter">Gnome::Gtk3::RecentFilter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkRecentFilterFlags">enum GtkRecentFilterFlags</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkRecentFilterInfo">class N-GtkRecentFilterInfo</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_recent_filter_new">_gtk_recent_filter_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-name">set-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-mime-type">add-mime-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-pattern">add-pattern</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-pixbuf-formats">add-pixbuf-formats</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-application">add-application</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-group">add-group</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-age">add-age</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-custom">add-custom</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-needed">get-needed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#filter">filter</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A filter for selecting a subset of recently used files</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gtk3::RecentFilter</strong> can be used to restrict the files being shown in a <strong>Gnome::Gtk3::RecentChooser</strong>.</p><p>Files can be filtered based on their name (with <code>add-pattern()</code>), on their mime type (with <code>add-mime-type()</code>), on the application that has registered them (with <code>add-application()</code>), or by a custom filter function (with <code>add-custom()</code>).</p><p>Filtering by mime type handles aliasing and subclassing of mime types; e.g. a filter for text/plain also matches a file with mime type application/rtf, since application/rtf is a subclass of text/plain.</p><p>Note that <strong>Gnome::Gtk3::RecentFilter</strong> allows wildcards for the subtype of a mime type, so you can e.g. filter for image/*.</p><p>Normally, filters are used by adding them to a <strong>Gnome::Gtk3::RecentChooser</strong>, see <code>add_filter()</code>, but it is also possible to manually use a filter on a file with <code>filter()</code>.</p><p>## <strong>Gnome::Gtk3::RecentFilter</strong> as <strong>Gnome::Gtk3::Buildable</strong></p><p>The <strong>Gnome::Gtk3::RecentFilter</strong> implementation of the <strong>Gnome::Gtk3::Buildable</strong> interface supports adding rules using the &lt;mime-types&gt;, &lt;patterns&gt; and &lt;applications&gt; elements and listing the rules within. Specifying a &lt;mime-type&gt;, &lt;pattern&gt; or &lt;application&gt; has the same effect as calling <code>gtk_recent_filter_add_mime_type()</code>, <code>gtk_recent_filter_add_pattern()</code> or <code>gtk_recent_filter_add_application()</code>.</p><p>An example of a UI definition fragment specifying <strong>Gnome::Gtk3::RecentFilter</strong> rules:</p><pre class="pod-block-code">&lt;object class=&quot;GtkRecentFilter&quot;&gt;
+  &lt;mime-types&gt;
+    &lt;mime-type&gt;text/plain&lt;/mime-type&gt;
+    &lt;mime-type&gt;image/png&lt;/mime-type&gt;
+  &lt;/mime-types&gt;
+  &lt;patterns&gt;
+    &lt;pattern&gt;*.txt&lt;/pattern&gt;
+    &lt;pattern&gt;*.png&lt;/pattern&gt;
+  &lt;/patterns&gt;
+  &lt;applications&gt;
+    &lt;application&gt;gimp&lt;/application&gt;
+    &lt;application&gt;gedit&lt;/application&gt;
+    &lt;application&gt;glade&lt;/application&gt;
+  &lt;/applications&gt;
+&lt;/object&gt;</pre>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::RecentFilter;
+also is Gnome::GObject::InitiallyUnowned;
+also does Gnome::Gtk3::Buildable;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/RecentFilter.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Types"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkRecentFilterFlags"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">enum GtkRecentFilterFlags</a></h2>
+<p>These flags indicate what parts of a <strong>N-RecentFilterInfo</strong> struct are filled or need to be filled.</p><ul>
+<li><p>GTK_RECENT_FILTER_URI: the URI of the file being tested</p></li>
+<li><p>GTK_RECENT_FILTER_DISPLAY_NAME: the string that will be used to display the file in the recent chooser</p></li>
+<li><p>GTK_RECENT_FILTER_MIME_TYPE: the mime type of the file</p></li>
+<li><p>GTK_RECENT_FILTER_APPLICATION: the list of applications that have registered the file</p></li>
+<li><p>GTK_RECENT_FILTER_GROUP: the groups to which the file belongs to</p></li>
+<li><p>GTK_RECENT_FILTER_AGE: the number of days elapsed since the file has been registered</p></li>
+</ul>
+
+<h2 id="class_N-GtkRecentFilterInfo"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">class N-GtkRecentFilterInfo</a></h2>
+<p>A <strong>Gnome::Gtk3::RecentFilterInfo</strong> struct is used to pass information about the tested file to <code>filter()</code>.</p><ul>
+<li><p><strong>GFlag</strong> $.contains: ored <strong>GtkRecentFilterFlags</strong> flags to indicate which fields are set.</p></li>
+<li><p>Str $.uri: (nullable): The URI of the file being tested.</p></li>
+<li><p>Str $.display_name: (nullable): The string that will be used to display the file in the recent chooser.</p></li>
+<li><p>Str $.mime_type: (nullable): MIME type of the file.</p></li>
+<li><p>CArray[Str] $.applications: (nullable) (array zero-terminated=1): The list of applications that have registered the file.</p></li>
+<li><p>CArray[Str] $.groups: (nullable) (array zero-terminated=1): The groups to which the file belongs to.</p></li>
+<li><p>Int $.age: The number of days elapsed since the file has been registered.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new RecentFilter object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a RecentFilter object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a RecentFilter object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="_gtk_recent_filter_new"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">_gtk_recent_filter_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::RecentFilter</strong> with no rules added to it. Such filter does not accept any recently used resources, so is not particularly useful until you add rules with <code>gtk_recent_filter_add_pattern()</code>, <code>gtk_recent_filter_add_mime_type()</code>, <code>gtk_recent_filter_add_application()</code>, <code>gtk_recent_filter_add_age()</code>. To create a filter that accepts any recently used resource, use: |[&lt;!-- language=&quot;C&quot; --&gt; <strong>Gnome::Gtk3::RecentFilter</strong> *filter = <code>gtk_recent_filter_new()</code>; gtk_recent_filter_add_pattern (filter, &quot;*&quot;); ]|</p><p>Returns: a new <strong>Gnome::Gtk3::RecentFilter</strong></p><pre class="pod-block-code">method _gtk_recent_filter_new ( --&gt; N-GObject )</pre>
+<h2 id="set-name"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">set-name</a></h2>
+<p>Sets the human-readable name of the filter; this is the string that will be displayed in the recently used resources selector user interface if there is a selectable list of filters.</p><pre class="pod-block-code">method set-name (  Str  $name )</pre><ul>
+<li><p>Str $name; then human readable name of <em>filter</em></p></li>
+</ul>
+
+<h2 id="get-name"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">get-name</a></h2>
+<p>Gets the human-readable name for the filter. See <code>gtk_recent_filter_set_name()</code>.</p><p>Returns: (nullable): the name of the filter, or <code>Any</code>. The returned string is owned by the filter object and should not be freed.</p><pre class="pod-block-code">method get-name ( --&gt;  Str  )</pre>
+<h2 id="add-mime-type"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-mime-type</a></h2>
+<p>Adds a rule that allows resources based on their registered MIME type.</p><pre class="pod-block-code">method add-mime-type (  Str  $mime_type )</pre><ul>
+<li><p>Str $mime_type; a MIME type</p></li>
+</ul>
+
+<h2 id="add-pattern"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-pattern</a></h2>
+<p>Adds a rule that allows resources based on a pattern matching their display name.</p><pre class="pod-block-code">method add-pattern ( Str $pattern )</pre><ul>
+<li><p>Str $pattern; a file pattern</p></li>
+</ul>
+
+<h2 id="add-pixbuf-formats"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-pixbuf-formats</a></h2>
+<p>Adds a rule allowing image files in the formats supported by <strong>Gnome::Gdk3::Pixbuf</strong>.</p><pre class="pod-block-code">method add-pixbuf-formats ( )</pre>
+<h2 id="add-application"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-application</a></h2>
+<p>Adds a rule that allows resources based on the name of the application that has registered them.</p><pre class="pod-block-code">method add-application ( Str $application )</pre><ul>
+<li><p>Str $application; an application name</p></li>
+</ul>
+
+<h2 id="add-group"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-group</a></h2>
+<p>Adds a rule that allows resources based on the name of the group to which they belong</p><pre class="pod-block-code">method add-group ( Str $group )</pre><ul>
+<li><p>Str $group; a group name</p></li>
+</ul>
+
+<h2 id="add-age"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-age</a></h2>
+<p>Adds a rule that allows resources based on their age - that is, the number of days elapsed since they were last modified.</p><pre class="pod-block-code">method add-age ( Int $days )</pre><ul>
+<li><p>Int $days; number of days</p></li>
+</ul>
+
+<h2 id="add-custom"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">add-custom</a></h2>
+<p>Adds a rule to a filter that allows resources based on a custom callback function. The bitfield <em>needed</em> which is passed in provides information about what sorts of information that the filter function needs; this allows GTK+ to avoid retrieving expensive information when it isn’t needed by the filter.</p><pre class="pod-block-code">method add-custom ( GtkRecentFilterFlags $needed, GtkRecentFilterFunc $func, Pointer $data, GDestroyNotify $data_destroy )</pre><ul>
+<li><p>GtkRecentFilterFlags $needed; bitfield of flags indicating the information that the custom filter function needs.</p></li>
+<li><p>GtkRecentFilterFunc $func; callback function; if the function returns <code>1</code>, then the file will be displayed.</p></li>
+<li><p>Pointer $data; data to pass to <em>func</em></p></li>
+<li><p>GDestroyNotify $data_destroy; function to call to free <em>data</em> when it is no longer needed.</p></li>
+</ul>
+
+<h2 id="get-needed"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">get-needed</a></h2>
+<p>Gets the fields that need to be filled in for the <strong>Gnome::Gtk3::RecentFilterInfo</strong> passed to <code>filter()</code> This function will not typically be used by applications; it is intended principally for use in the implementation of <strong>Gnome::Gtk3::RecentChooser</strong>.</p><p>Returns: bitfield of flags indicating needed fields when calling <code>gtk_recent_filter_filter()</code></p><pre class="pod-block-code">method get-needed ( --&gt; GFlag )</pre>
+<h2 id="filter"><a href="#Gnome::Gtk3::RecentFilter" class="u" title="go to top of document">filter</a></h2>
+<p>Tests whether a file should be displayed according to <em>filter</em>. The <strong>Gnome::Gtk3::RecentFilterInfo</strong> <em>$filter_info</em> should include the fields returned from <code>get-needed()</code>, and must set the <code>contains</code> field of <em>$filter_info</em> to indicate which fields have been set. This function will not typically be used by applications; it is intended principally for use in the implementation of <strong>Gnome::Gtk3::RecentChooser</strong>.</p><p>Returns: <code>True</code> if the file should be displayed</p><pre class="pod-block-code">method filter ( N-GtkRecentFilterInfo $filter_info --&gt; Bool )</pre><ul>
+<li><p>N-GtkRecentFilterInfo $filter_info; a <strong>Gnome::Gtk3::RecentFilterInfo</strong> containing information about a recently used resource</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/RecentFilter.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:02Z</span></div></footer>
+	</body>
+</html>

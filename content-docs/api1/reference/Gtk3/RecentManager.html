@@ -1,0 +1,230 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::RecentManager</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::RecentManager">Gnome::Gtk3::RecentManager</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkRecentManagerError">enum GtkRecentManagerError</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkRecentData">class N-GtkRecentData</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkRecentManager">class N-GtkRecentManager</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#no_options">no options</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Head">Head</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#error-quark">error-quark</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_recent_manager_new">_gtk_recent_manager_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default">get-default</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-item">add-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-full">add-full</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-item">remove-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-item">lookup-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#has-item">has-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move-item">move-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-items">get-items</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#purge-items">purge-items</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Filename">Filename</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Size">Size</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Managing recently used files</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk3::RecentManager</strong> provides a facility for adding, removing and looking up recently used files. Each recently used file is identified by its URI, and has meta-data associated to it, like the names and command lines of the applications that have registered it, the number of time each application has registered the same file, the mime type of the file and whether the file should be displayed only by the applications that have registered it.</p><p>The recently used files list is per user.</p><p>The <strong>Gnome::Gtk3::RecentManager</strong> acts like a database of all the recently used files. You can create new <strong>Gnome::Gtk3::RecentManager</strong> objects, but it is more efficient to use the default manager created by GTK+.</p><p>Adding a new recently used file is as simple as:</p><pre class="pod-block-code">my Gnome::Gtk3::RecentManager $manager .= new(:default);
+$manager.add-item('file:///foo/bar.baz');</pre><p>The <strong>Gnome::Gtk3::RecentManager</strong> will try to gather all the needed information from the file itself through GIO.</p><p>Looking up the meta-data associated with a recently used file given its URI requires calling <code>lookup-item()</code>:</p><pre class="pod-block-code">my Gnome::Glib::Error $e;
+my Gnome::Gtk3::RecentInfo $ri;
+my Gnome::Gtk3::RecentManager $manager .= new(:default);
+( $ri, $e ) = $manager.lookup-item('file:///foo/bar.baz');
+if $ri.is-valid {
+  # Use the info object …
+  # free object
+  $ri.clear-object;
+}
+
+else {
+  note $e.message; # or die on it
+  $e.clear-object
+}</pre><p>In order to retrieve the list of recently used files, you can use <code>get-items()</code>, which returns a list of <strong>Gnome::Gtk3::RecentInfo</strong> objects. This list must be freed after use.</p><pre class="pod-block-code">sub clear-list ( Gnome::Glib::List $l is copy ) {
+  my Gnome::Glib::List $lbackup = $l;
+  while $l {
+    my Gnome::Gtk3::RecentInfo $ri .= new(:native-object($l.data));
+    $ri.clear-object;
+    $l .= next;
+  }
+  $lbackup.clear-object;
+}
+
+my Gnome::Glib::List $l = .get-items;
+# use first item of the list for example
+my Gnome::Gtk3::RecentInfo $ri .= new(:native-object($l.data));
+# Use the info object …
+# free the list
+clear-list($l);</pre><p>A <strong>Gnome::Gtk3::RecentManager</strong> is the model used to populate the contents of one, or more <strong>Gnome::Gtk3::RecentChooser</strong> implementations.</p><p>Note that the maximum age of the recently used files list is controllable through the <em>gtk-recent-files-max-age</em> property.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>GBookmarkFile</strong>, <strong>Gnome::Gtk3::Settings</strong>, <strong>Gnome::Gtk3::RecentChooser</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::RecentManager;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/RecentManager.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Types"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkRecentManagerError"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">enum GtkRecentManagerError</a></h2>
+<p>Error codes for <strong>Gnome::Gtk3::RecentManager</strong> operations</p><ul>
+<li><p>GTK_RECENT_MANAGER_ERROR_NOT_FOUND: the URI specified does not exists in the recently used resources list.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_INVALID_URI: the URI specified is not valid.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING: the supplied string is not UTF-8 encoded.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED: no application has registered the specified item.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_READ: failure while reading the recently used resources file.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_WRITE: failure while writing the recently used resources file.</p></li>
+<li><p>GTK_RECENT_MANAGER_ERROR_UNKNOWN: unspecified error.</p></li>
+</ul>
+
+<h2 id="class_N-GtkRecentData"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">class N-GtkRecentData</a></h2>
+<p>Meta-data to be passed to <code>add-full()</code> when registering a recently used resource.</p><ul>
+<li><p>Str $.display_name: a UTF-8 encoded string, containing the name of the recently used resource to be displayed, or <code>Any</code>;</p></li>
+<li><p>Str $.description: a UTF-8 encoded string, containing a short description of the resource, or <code>Any</code>;</p></li>
+<li><p>Str $.mime_type: the MIME type of the resource;</p></li>
+<li><p>Str $.app_name: the name of the application that is registering this recently used resource;</p></li>
+<li><p>Str $.app_exec: command line used to launch this resource; may contain the <code>%f</code> and <code>%u</code> escape characters which will be expanded to the resource file path and URI respectively when the command line is retrieved;</p></li>
+<li><p>CArray[Str] $.groups: (array zero-terminated=1): a vector of strings containing groups names. When initializing, an Array of Str is ok, no need to have a last entry set to Nil;</p></li>
+<li><p>Int $.is_private: whether this resource should be displayed only by the applications that have registered it or not.</p></li>
+</ul>
+
+<h2 id="class_N-GtkRecentManager"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">class N-GtkRecentManager</a></h2>
+<p><strong>Gnome::Gtk3::RecentManager</strong>-struct contains only private data and should be accessed using the provided API.</p>
+<h1 id="Methods"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="no_options"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">no options</a></h3>
+<p>Create a new RecentManager object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<section><fieldset class="RakudocError"><legend>This Block name is not known, could be a typo or missing plugin</legend>
+<h1 id="Head"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">head</a></h1>
+<fieldset class="contents-container"><legend>Contents are</legend>
+<p>:default</p></fieldset>
+
+</fieldset></section>
+<p>Gets a unique instance of <strong>Gnome::Gtk3::RecentManager</strong>, that you can share in your application without caring about memory management.</p><pre class="pod-block-code">multi method new ( :default! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a RecentManager object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a RecentManager object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="error-quark"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">error-quark</a></h2>
+<p>Returns: The error quark used for <em>Gnome::Gtk3::RecentManager</em> errors.</p><pre class="pod-block-code">method error-quark ( --&gt; UInt )</pre>
+<h2 id="_gtk_recent_manager_new"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">_gtk_recent_manager_new</a></h2>
+<p>Creates a new recent manager object. Recent manager objects are used to handle the list of recently used resources. A <strong>Gnome::Gtk3::RecentManager</strong> object monitors the recently used resources list, and emits the “changed” signal each time something inside the list changes. <strong>Gnome::Gtk3::RecentManager</strong> objects are expensive: be sure to create them only when needed. You should use <code>gtk_recent_manager_get_default()</code> instead.</p><p>Returns: A newly created <strong>Gnome::Gtk3::RecentManager</strong> object</p><pre class="pod-block-code">method _gtk_recent_manager_new ( --&gt; N-GObject )</pre>
+<h2 id="get-default"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">get-default</a></h2>
+<p>Gets a unique instance of <strong>Gnome::Gtk3::RecentManager</strong>, that you can share in your application without caring about memory management.</p><p>Returns: A unique <strong>Gnome::Gtk3::RecentManager</strong>. Do not ref or unref it.</p><pre class="pod-block-code">method get-default ( --&gt; N-GObject )</pre>
+<h2 id="add-item"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">add-item</a></h2>
+<p>Adds a new resource, pointed by <em>$uri</em>, into the recently used resources list. This function automatically retrieves some of the needed metadata and setting other metadata to common default values; it then feeds the data to <code>add-full()</code>. See <code>add-full()</code> if you want to explicitly define the metadata for the resource pointed by <em>$uri</em>.</p><p>Returns: <code>True</code> if the new item was successfully added to the recently used resources list</p><pre class="pod-block-code">method add-item (  Str  $uri --&gt; Bool )</pre><ul>
+<li><p>Str $uri; a valid URI</p></li>
+</ul>
+
+<h2 id="add-full"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">add-full</a></h2>
+<p>Adds a new resource, pointed by <em>$uri</em>, into the recently used resources list, using the metadata specified inside the <code>N-GtkRecentData</code>-struct passed in <em>$recent_data</em>. The passed URI will be used to identify this resource inside the list. In order to register the new recently used resource, metadata about the resource must be passed as well as the URI; the metadata is stored in a <code>N-GtkRecentData</code>-struct, which must contain the MIME type of the resource pointed by the URI; the name of the application that is registering the item, and a command line to be used when launching the item.</p><p>Optionally, a <code>N-GtkRecentData</code>-struct might contain a UTF-8 string to be used when viewing the item instead of the last component of the URI; a short description of the item; whether the item should be considered private - that is, should be displayed only by the applications that have registered it.</p><p>Returns: <code>True</code> if the new item was successfully added to the recently used resources list, <code>False</code> otherwise.</p><pre class="pod-block-code">method add-full ( Str $uri, N-GtkRecentData $recent_data --&gt; Bool )</pre><ul>
+<li><p>Str $uri; a valid URI</p></li>
+<li><p>N-GtkRecentData $recent_data; metadata of the resource</p></li>
+</ul>
+
+<h2 id="remove-item"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">remove-item</a></h2>
+<p>Removes a resource pointed by <em>$uri</em> from the recently used resources list handled by a recent manager.</p><p>Returns: An invalid error object if the item pointed by <em>$uri</em> has been successfully removed by the recently used resources list, and a valid one with additional data otherwise.</p><pre class="pod-block-code">method remove-item ( Str  $uri --&gt; Gnome::Glib::Error )</pre><ul>
+<li><p>Str $uri; the URI of the item you wish to remove</p></li>
+</ul>
+
+<h2 id="lookup-item"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">lookup-item</a></h2>
+<p>Searches for a URI inside the recently used resources list, and returns a <strong>Gnome::Gtk3::RecentInfo</strong>-struct containing informations about the resource like its MIME type, or its display name.</p><p>Returns: A list. The first item is a <strong>Gnome::Gtk3::RecentInfo</strong> object containing information about the resource pointed by <em>uri</em>, or it is invalid if the URI was not registered in the recently used resources list. Free it with <code>clear-object()</code>. The second item is a <strong>Gnome::Glib::Error</strong> object which is invalid when the first item in the list is defined. Otherwise the error object shows why it failed.</p><pre class="pod-block-code">method lookup-item (  Str  $uri --&gt; List )</pre><ul>
+<li><p>Str $uri; a URI</p></li>
+</ul>
+<p>The returned list items;</p><ul>
+<li><p><strong>Gnome::Gtk3::RecentInfo</strong>; Recent info object or undefined.</p></li>
+<li><p><strong>Gnome::Glib::Error</strong> $error; A (in)valid error object</p></li>
+</ul>
+
+<h2 id="has-item"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">has-item</a></h2>
+<p>Checks whether there is a recently used resource registered with <em>$uri</em> inside the recent manager.</p><p>Returns: <code>True</code> if the resource was found, <code>False</code> otherwise</p><pre class="pod-block-code">method has-item (  Str  $uri --&gt; Bool )</pre><ul>
+<li><p>Str $uri; a URI</p></li>
+</ul>
+
+<h2 id="move-item"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">move-item</a></h2>
+<p>Changes the location of a recently used resource from <em>$uri</em> to <em>$new_uri</em>. Please note that this function will not affect the resource pointed by the URIs, but only the URI used in the recently used resources list.</p><p>Returns: an invalid error object on success. The error object has information if it fails.</p><pre class="pod-block-code">method move-item (  Str  $uri,  Str  $new_uri --&gt; Gnome::Glib::Error )</pre><ul>
+<li><p>Str $uri; the URI of a recently used resource</p></li>
+<li><p>Str $new_uri; (allow-none): the new URI of the recently used resource, or <code>Any</code> to remove the item pointed by <em>uri</em> in the list</p></li>
+<li><p>N-GError $error; (allow-none): a return location for a <strong>GError</strong>, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="get-items"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">get-items</a></h2>
+<p>Gets the list of recently used resources.</p><p>Returns: (element-type <strong>Gnome::Gtk3::RecentInfo</strong>): a list of newly allocated <strong>Gnome::Gtk3::RecentInfo</strong> objects. Use <code>clear-object()</code> on each item inside the list, and then free the list itself also using <code>clear-object()</code>.</p><pre class="pod-block-code">method get-items ( --&gt; Gnome::Glib::List )</pre>
+<h2 id="purge-items"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">purge-items</a></h2>
+<p>Purges every item from the recently used resources list.</p><p>Returns: the number of items that have been removed from the recently used resources list</p><pre class="pod-block-code">method purge-items ( --&gt; Int )</pre>
+<h1 id="Signals"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>g_signal_connect_object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>g_signal_connect_object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="changed"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">changed</a></h3>
+<p>Emitted when the current recently used resources manager changes its contents, either by calling <code>gtk_recent_manager_add_item()</code> or by another application.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($recent_manager),
+  *%user-options
+);</pre><ul>
+<li><p>$recent_manager; the recent manager</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Filename"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Filename</a></h3>
+<p>The full path to the file to be used to store and read the recently used resources list</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>filename</em> is <code>G_TYPE_STRING</code>.</p>
+<h3 id="Size"><a href="#Gnome::Gtk3::RecentManager" class="u" title="go to top of document">Size</a></h3>
+<p>The size of the recently used resources list.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>size</em> is <code>G_TYPE_INT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/RecentManager.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:03Z</span></div></footer>
+	</body>
+</html>

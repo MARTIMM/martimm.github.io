@@ -1,0 +1,166 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::TargetList</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::TargetList">Gnome::Gtk3::TargetList</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GtkTargetFlags">enum GtkTargetFlags</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GtkTargetPair">class N-GtkTargetPair</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:targets">:targets</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add">add</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-image-targets">add-image-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-rich-text-targets">add-rich-text-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-table">add-table</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-text-targets">add-text-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-uri-targets">add-uri-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#find">find</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#table-free">table-free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#table-from-list">table-from-list</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gtk_target_list_new">_gtk_target_list_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Handling of target lists</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::TargetList;
+also is Gnome::GObject::Boxed;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">Example</a></h2>
+<p>An example of a drag destination specification (an image) which can only accept plain text.</p><pre class="pod-block-code"># Use an image to show where to drop
+my Gnome::Gtk3::Image $image .= new;
+$image.set-from-file('bullseye.jpg');
+
+# Define a drag destination and ise that image for it
+my Gnome::Gtk3::DragDest $destination .= new;
+$destination.set( $image, 0, GDK_ACTION_COPY);
+
+# Specify what the drag destination can handle. Also
+# the source must be in the same application
+my Gnome::Gtk3::TargetList $target-list .= new;
+$target-list.add(
+  Gnome::Gdk3::Atom.new(:intern&lt;text/plain&gt;),
+  GTK_TARGET_SAME_APP, $str-info
+);
+$destination.set-target-list( $widget, $target-list);</pre>
+<h1 id="Types"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GtkTargetFlags"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">enum GtkTargetFlags</a></h2>
+<p>The GtkTargetFlag&gt; enumeration is used to specify constraints on a target entry.</p><ul>
+<li><p>GTK_TARGET_SAME_APP: If this is set, the target will only be selected for drags within a single application.</p></li>
+<li><p>GTK_TARGET_SAME_WIDGET: If this is set, the target will only be selected for drags within a single widget.</p></li>
+<li><p>GTK_TARGET_OTHER_APP: If this is set, the target will not be selected for drags within a single application.</p></li>
+<li><p>GTK_TARGET_OTHER_WIDGET: If this is set, the target will not be selected for drags withing a single widget.</p></li>
+</ul>
+
+<h2 id="class_N-GtkTargetPair"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">class N-GtkTargetPair</a></h2>
+<p>A <strong>N-GtkTargetPair</strong> is used to represent the same information as a table of <strong>N-GtkTargetEntry</strong>, but in an efficient form.</p><ul>
+<li><p>N-GObject $.target: <strong>Gnome::Gtk3::Atom</strong> representation of the target type</p></li>
+<li><p>UInt $.flags: <strong>GtkTargetFlags</strong> for DND</p></li>
+<li><p>UInt $.info: an application-assigned integer ID which will get passed as a parameter to e.g the <em>selection-get</em> signal. It allows the application to identify the target type without extensive string compares.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new empty TargetList object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":targets"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">:targets</a></h3>
+<p>Creates a new TargetList from an array of target entries.</p><pre class="pod-block-code">multi method new ( Array :$targets! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a TargetList object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GtkTargetList :$native-object! )</pre>
+<h2 id="add"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add</a></h2>
+<p>Appends another target to a <strong>Gnome::Gtk3::TargetList</strong>.</p><pre class="pod-block-code">method add ( N-GObject $target, UInt $flags, UInt $info )</pre><ul>
+<li><p>Gnome::Gdk3::Atom $target; the interned atom representing the target</p></li>
+<li><p>UInt $flags; the flags for this target</p></li>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+</ul>
+
+<h2 id="add-image-targets"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add-image-targets</a></h2>
+<p>Appends the image targets supported by <strong>Gnome::Gtk3::SelectionData</strong> to the target list. All targets are added with the same <em>$info</em>. Example targets added are; image/png, image/x-win-bitmap, image/vnd.microsoft.icon, application/ico, image/ico to name a few</p><pre class="pod-block-code">method add-image-targets ( UInt $info, Bool $writable )</pre><ul>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+<li><p>Bool $writable; whether to add only targets for which GTK+ knows how to convert a pixbuf into the format</p></li>
+</ul>
+
+<h2 id="add-rich-text-targets"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add-rich-text-targets</a></h2>
+<p>Appends the rich text targets registered with <code>gtk-text-buffer-register-serialize-format()</code> or <code>gtk-text-buffer-register-deserialize-format()</code> to the target list. All targets are added with the same <em>info</em>.</p><pre class="pod-block-code">method add-rich-text-targets (
+  UInt $info, Bool $deserializable, N-GObject $buffer
+)</pre><ul>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+<li><p>Bool $deserializable; if <code>True</code>, then deserializable rich text formats will be added, serializable formats otherwise.</p></li>
+<li><p>N-GObject $buffer; a <strong>Gnome::Gtk3::TextBuffer</strong>.</p></li>
+</ul>
+
+<h2 id="add-table"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add-table</a></h2>
+<p>Prepends a table of <strong>Gnome::Gtk3::TargetEntry</strong> to a target list.</p><pre class="pod-block-code">method add-table ( Array $targets )</pre><ul>
+<li><p>Array $targets; the table of <strong>Gnome::Gtk3::TargetEntry</strong> target entries</p></li>
+</ul>
+
+<h2 id="add-text-targets"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add-text-targets</a></h2>
+<p>Appends the text targets supported by <strong>Gnome::Gtk3::SelectionData</strong> to the target list. All targets are added with the same <em>info</em>.</p><pre class="pod-block-code">method add-text-targets ( UInt $info )</pre><ul>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+</ul>
+
+<h2 id="add-uri-targets"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">add-uri-targets</a></h2>
+<p>Appends the URI targets supported by <strong>Gnome::Gtk3::SelectionData</strong> to the target list. All targets are added with the same <em>info</em>.</p><pre class="pod-block-code">method add-uri-targets ( UInt $info )</pre><ul>
+<li><p>UInt $info; an ID that will be passed back to the application</p></li>
+</ul>
+
+<h2 id="find"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">find</a></h2>
+<p>Looks up a given target in a <strong>Gnome::Gtk3::TargetList</strong>.</p><pre class="pod-block-code">method find ( Gnome::Gdk3::Atom $target --&gt; List )</pre><ul>
+<li><p>Gnome::Gdk3::Atom $target; an interned atom representing the target to search for</p></li>
+</ul>
+<p>Returns a List where;</p><ul>
+<li><p>Bool $result; The result of <code>find()</code>, <code>True</code> if the target was found, otherwise <code>False</code></p></li>
+<li><p>Int $info; application info for target, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="ref"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">ref</a></h2>
+<p>Increases the reference count of a <strong>Gnome::Gtk3::TargetList</strong> by one.</p><p>Returns: the passed in <strong>Gnome::Gtk3::TargetList</strong>.</p><pre class="pod-block-code">method ref ( --&gt; N-GtkTargetList )</pre>
+<h2 id="remove"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">remove</a></h2>
+<p>Removes a target from a target list.</p><pre class="pod-block-code">method remove ( N-GObject $target )</pre><ul>
+<li><p>Gnome::Gdk3::Atom $target; the interned atom representing the target</p></li>
+</ul>
+
+<h2 id="table-free"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">table-free</a></h2>
+<p>This function frees a target table as returned by <code>target-table-new-from-list()</code>.</p><pre class="pod-block-code">method table-free ( Array $targets )</pre><ul>
+<li><p>GtkTargetEntry $targets; a <strong>Gnome::Gtk3::TargetEntry</strong> array</p></li>
+</ul>
+
+<h2 id="table-from-list"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">table-from-list</a></h2>
+<p>This function creates an <strong>Gnome::Gtk3::TargetEntry</strong> array that contains the same targets as the passed <code>list</code>.</p><p>Returns: the new table as an Array of target entries.</p><pre class="pod-block-code">method table-from-list ( --&gt; Array )</pre>
+<h2 id="unref"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">unref</a></h2>
+<p>Decreases the reference count of a <strong>Gnome::Gtk3::TargetList</strong> by one. If the resulting reference count is zero, frees the list.</p><pre class="pod-block-code">method unref ( )</pre>
+<h2 id="_gtk_target_list_new"><a href="#Gnome::Gtk3::TargetList" class="u" title="go to top of document">_gtk_target_list_new</a></h2>
+<p>Creates a new <strong>Gnome::Gtk3::TargetList</strong> from an array of <strong>Gnome::Gtk3::TargetEntry</strong>.</p><p>Returns: the new <strong>Gnome::Gtk3::TargetList</strong>.</p><pre class="pod-block-code">method _gtk_target_list_new (
+  Gnome::Gtk3::TargetEntry $targets, UInt $ntargets --&gt; N-GtkTargetList
+)</pre><ul>
+<li><p>Gnome::Gtk3::TargetEntry $targets; (array length=ntargets) : Pointer to an array of <strong>Gnome::Gtk3::TargetEntry</strong></p></li>
+<li><p>UInt $ntargets; number of entries in <em>targets</em>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/TargetList.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:19Z</span></div></footer>
+	</body>
+</html>

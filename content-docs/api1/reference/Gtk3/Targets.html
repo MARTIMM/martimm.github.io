@@ -1,0 +1,78 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::Targets</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::Targets">Gnome::Gtk3::Targets</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#include-image">include-image</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#include-rich-text">include-rich-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#include-text">include-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#include-uri">include-uri</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">Description</a></h1>
+<p>This module is mainly used to check out targets for its capabilities.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::Targets;</pre>
+<h2 id="Example"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Targets $t .= new;
+my Array $targets = [
+  Gnome::Gdk3::Atom.new(:intern&lt;text/plain&gt;),
+  Gnome::Gdk3::Atom.new(:intern&lt;image/bmp&gt;),
+];
+
+if $t.include-image( $targets, True) {
+  … we can handle an image …
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new Targets object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h2 id="include-image"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">include-image</a></h2>
+<p>Determines if any of the targets in <em>targets</em> can be used to provide a <strong>Gnome::Gtk3::Pixbuf</strong>.</p><p>Returns: <code>True</code> if <em>targets</em> include a suitable target for images, otherwise <code>False</code>.</p><pre class="pod-block-code">method include-image ( Array $targets, Bool $writable --&gt; Bool )</pre><ul>
+<li><p>Array $targets; an array of <strong>Gnome::Gtk3::Atoms</strong></p></li>
+<li><p>Bool $writable; whether to accept only targets for which GTK+ knows how to convert a pixbuf into the format</p></li>
+</ul>
+
+<h2 id="include-rich-text"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">include-rich-text</a></h2>
+<p>Determines if any of the targets in <em>$targets</em> can be used to provide rich text.</p><p>Returns: <code>True</code> if <em>targets</em> include a suitable target for rich text, otherwise <code>False</code>.</p><pre class="pod-block-code">method include-rich-text ( Array $targets, N-GObject $buffer --&gt; Bool )</pre><ul>
+<li><p>Array $targets; an array of <strong>Gnome::Gtk3::Atoms</strong></p></li>
+<li><p>N-GObject $buffer; a <strong>Gnome::Gtk3::TextBuffer</strong></p></li>
+</ul>
+
+<h2 id="include-text"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">include-text</a></h2>
+<p>Determines if any of the targets in <em>targets</em> can be used to provide text.</p><p>Returns: <code>True</code> if <em>targets</em> include a suitable target for text, otherwise <code>False</code>.</p><pre class="pod-block-code">method include-text ( Array $targets --&gt; Bool )</pre><ul>
+<li><p>Array $targets; an array of <strong>Gnome::Gtk3::Atoms</strong></p></li>
+</ul>
+
+<h2 id="include-uri"><a href="#Gnome::Gtk3::Targets" class="u" title="go to top of document">include-uri</a></h2>
+<p>Determines if any of the targets in <em>targets</em> can be used to provide an uri list.</p><p>Returns: <code>True</code> if <em>targets</em> include a suitable target for uri lists, otherwise <code>False</code>.</p><pre class="pod-block-code">method include-uri ( Array $targets --&gt; Bool )</pre><ul>
+<li><p>Array $targets; an array of <strong>Gnome::Gtk3::Atoms</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/Targets.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:20Z</span></div></footer>
+	</body>
+</html>

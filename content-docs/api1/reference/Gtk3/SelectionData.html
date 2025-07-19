@@ -1,0 +1,251 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::SelectionData</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::SelectionData">Gnome::Gtk3::SelectionData</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-target">add-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-targets">add-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-targets">clear-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#convert">convert</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#free">free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get">get</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data">get-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data-type">get-data-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data-with-length">get-data-with-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-display">get-display</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-format">get-format</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-length">get-length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-pixbuf">get-pixbuf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection">get-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-target">get-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-targets">get-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-text">get-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-uris">get-uris</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set">set</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-pixbuf">set-pixbuf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-text">set-text</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-uris">set-uris</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#owner-set">owner-set</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#owner-set-for-display">owner-set-for-display</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all">remove-all</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions for handling inter-process communication via selections</p>
+<h1 id="Description"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">Description</a></h1>
+<p>The selection mechanism provides the basis for different types of communication between processes. In particular, drag and drop and <strong>Gnome::Gtk3::Clipboard</strong> work via selections. You will very seldom or never need to use most of the functions in this section directly; <strong>Gnome::Gtk3::Clipboard</strong> provides a nicer interface to the same functionality.</p><p>If an application is expected to exchange image data and work on Windows, it is highly advised to support at least &quot;image/bmp&quot; target for the widest possible compatibility with third-party applications. <strong>Gnome::Gtk3::Clipboard</strong> already does that by using <code>gtk-target-list-add-image-targets()</code> and <code>set-pixbuf()</code> or <code>get-pixbuf()</code>, which is one of the reasons why it is advised to use <strong>Gnome::Gtk3::Clipboard</strong>.</p><p>Some of the datatypes defined this section are used in the <strong>Gnome::Gtk3::Clipboard</strong> and drag-and-drop API’s as well. The</p><p><strong>Gnome::Gtk3::TargetList</strong> object represent lists of data types that are supported when sending or receiving data. The <strong>Gnome::Gtk3::SelectionData</strong> object is used to store a chunk of data along with the data type and other associated information.</p>
+<h2 id="See_Also"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gtk3::Widget</strong> - Much of the operation of selections happens via signals for <strong>Gnome::Gtk3::Widget</strong>. In particular, if you are using the functions in this section, you may need to pay attention to <em>selection-get</em>, <em>selection-received</em> and <em>selection-clear-event</em> signals.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::SelectionData;
+also is Gnome::GObject::Boxed;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a SelectionData object using a native object from elsewhere. This data is mostly provided to signal handlers</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-target"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">add-target</a></h2>
+<p>Appends a specified target to the list of supported targets for a given widget and selection.</p><pre class="pod-block-code">method add-target (
+  N-GObject $widget, Gnome::Gdk3::Atom $selection,
+  Gnome::Gdk3::Atom $target, UInt $info
+)</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>Gnome::Gdk3::Atom $selection; the selection</p></li>
+<li><p>Gnome::Gdk3::Atom $target; target to add.</p></li>
+<li><p>UInt $info; A unsigned integer which will be passed back to the application.</p></li>
+</ul>
+
+<h2 id="add-targets"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">add-targets</a></h2>
+<p>Prepends a table of targets to the list of supported targets for a given widget and selection.</p><pre class="pod-block-code">method add-targets (
+  N-GObject $widget, Gnome::Gdk3::Atom $selection,
+  Array[Gnome::Gtk3::TargetEntry] $targets
+)</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>Gnome::Gdk3::Atom $selection; the selection</p></li>
+<li><p>$targets; an array of Gnome::Gtk3::TargetEntry targets to add</p></li>
+</ul>
+
+<h2 id="clear-targets"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">clear-targets</a></h2>
+<p>Remove all targets registered for the given selection for the widget.</p><pre class="pod-block-code">method clear-targets ( N-GObject $widget, Gnome::Gdk3::Atom $selection )</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+<li><p>Gnome::Gdk3::Atom $selection; an atom representing a selection</p></li>
+</ul>
+
+<h2 id="convert"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">convert</a></h2>
+<p>Requests the contents of a selection. When received, a “selection-received” signal will be generated.</p><p>Returns: <code>True</code> if requested succeeded. <code>False</code> if we could not process request. (e.g., there was already a request in process for this widget).</p><pre class="pod-block-code">method convert (
+  N-GObject $widget, Gnome::Gdk3::Atom $selection,
+  Gnome::Gdk3::Atom $target, UInt $time --&gt; Bool
+)</pre><ul>
+<li><p>N-GObject $widget; The widget which acts as requestor</p></li>
+<li><p>Gnome::Gdk3::Atom $selection; Which selection to get</p></li>
+<li><p>Gnome::Gdk3::Atom $target; Form of information desired (e.g., STRING)</p></li>
+<li><p>UInt $time; Time of request (usually of triggering event)</p></li>
+</ul>
+
+<h2 id="copy"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">copy</a></h2>
+<p>Makes a copy of a <strong>Gnome::Gtk3::SelectionData</strong>-struct and its data.</p><p>Returns: a pointer to a copy of <em>data</em>.</p><pre class="pod-block-code">method copy ( N-GObject $data --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $data; a pointer to a <strong>Gnome::Gtk3::SelectionData</strong>-struct.</p></li>
+</ul>
+
+<h2 id="free"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">free</a></h2>
+<p>Frees a <strong>Gnome::Gtk3::SelectionData</strong>-struct returned from <code>copy()</code>.</p><pre class="pod-block-code">method free ( N-GObject $data )</pre><ul>
+<li><p>N-GObject $data; a pointer to a <strong>Gnome::Gtk3::SelectionData</strong>-struct.</p></li>
+</ul>
+
+<h2 id="get"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get</a></h2>
+<p>Raku convenience routine to get data.</p><pre class="pod-block-code">method get (
+  :$data-type! where * ~~ any(Int,Num,Rat,Str,Buf) = Int
+  --&gt; Any
+)</pre><ul>
+<li><p>$data-type; a raku data type which is used to retrieve the data from the selection data structure.</p></li>
+</ul>
+<table class="table is-bordered centered pod-table">	<thead>
+		<tr><th>Data type</th><th>nbr items</th><th>Return value</th></tr>
+	</thead>	<tbody>
+		<tr><td>Int</td><td>1</td><td>integer value</td></tr>
+		<tr><td>Int</td><td>&gt; 1</td><td>an array of integer values</td></tr>
+		<tr><td>Num or Rat</td><td>1</td><td>num value</td></tr>
+		<tr><td>Num or Rat</td><td>&gt; 1</td><td>an array of num values</td></tr>
+		<tr><td>Str</td><td>n</td><td>string</td></tr>
+		<tr><td>Buf</td><td>n</td><td>buffer array</td></tr>
+		<tr><td>*</td><td>0</td><td>undefined</td></tr>
+	</tbody>
+</table>
+
+<h2 id="get-data"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-data</a></h2>
+<p>Retrieves the raw data of the selection.</p><p>Returns: the raw data of the selection.</p><pre class="pod-block-code">method get-data ( --&gt; Pointer )</pre>
+<h2 id="get-data-type"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-data-type</a></h2>
+<p>Retrieves the data type of the selection.</p><p>Returns: the data type of the selection.</p><pre class="pod-block-code">method get-data-type ( --&gt; Gnome::Gdk3::Atom )</pre>
+<h2 id="get-data-with-length"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-data-with-length</a></h2>
+<p>Retrieves the raw data of the selection along with its length.</p><pre class="pod-block-code">method get-data-with-length ( --&gt; List )</pre><p>Returns a List;</p><ul>
+<li><p>Pointer to the raw data of the selection</p></li>
+<li><p>Int length of the data</p></li>
+</ul>
+
+<h2 id="get-display"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-display</a></h2>
+<p>Retrieves the display of the selection.</p><p>Returns: the display of the selection.</p><pre class="pod-block-code">method get-display ( --&gt; N-GObject )</pre>
+<h2 id="get-format"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-format</a></h2>
+<p>Retrieves the format of the selection.</p><p>Returns: the format of the selection.</p><pre class="pod-block-code">method get-format ( --&gt; Int )</pre>
+<h2 id="get-length"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-length</a></h2>
+<p>Retrieves the length of the raw data of the selection.</p><pre class="pod-block-code">method get-length ( --&gt; Int )</pre>
+<h2 id="get-pixbuf"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-pixbuf</a></h2>
+<p>Gets the contents of the selection data as a <strong>Gnome::Gdk3::Pixbuf</strong>.</p><p>Returns: if the selection data contained a recognized image type and it could be converted to a <strong>Gnome::Gdk3::Pixbuf</strong>, a newly allocated pixbuf is returned, otherwise <code>undefined</code>. If the result is non-<code>undefined</code> it must be freed with <code>g-object-unref()</code>.</p><pre class="pod-block-code">method get-pixbuf ( --&gt; Gnome::Gdk3::Pixbuf )</pre>
+<h2 id="get-selection"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-selection</a></h2>
+<p>Retrieves the selection <strong>Gnome::Gtk3::Atom</strong> of the selection data.</p><pre class="pod-block-code">method get-selection ( --&gt; Gnome::Gdk3::Atom )</pre>
+<h2 id="get-target"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-target</a></h2>
+<p>Retrieves the target of the selection.</p><pre class="pod-block-code">method get-target ( --&gt; Gnome::Gdk3::Atom )</pre>
+<h2 id="get-targets"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-targets</a></h2>
+<p>Gets the contents of <em>selection-data</em> as an array of targets. This can be used to interpret the results of getting the standard TARGETS target that is always supplied for any selection.</p><p>Returns: <code>True</code> if <em>selection-data</em> contains a valid array of targets, otherwise <code>False</code>.</p><pre class="pod-block-code">method get-targets (, Gnome::Gdk3::Atom $targets --&gt; Bool )</pre><ul>
+<li><p>Gnome::Gdk3::Atom $targets; (array length=n-atoms) (transfer container): location to store an array of targets. The result stored here must be freed with <code>g-free()</code>.</p></li>
+<li><p>Int $n_atoms; location to store number of items in <em>targets</em>.</p></li>
+</ul>
+
+<h2 id="get-text"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-text</a></h2>
+<p>Gets the contents of the selection data as a UTF-8 string.</p><p>Returns: if the selection data contained a recognized text type and it could be converted to UTF-8, a newly allocated string containing the converted text, otherwise <code>undefined</code>.</p><pre class="pod-block-code">method get-text ( --&gt; Str )</pre>
+<h2 id="get-uris"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">get-uris</a></h2>
+<p>Gets the contents of the selection data as array of URIs.</p><p>Returns: an <strong>Array</strong> if the selection data contains a list of URIs, otherwise empty.</p><pre class="pod-block-code">method get-uris ( --&gt; Array )</pre>
+<h2 id="set"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">set</a></h2>
+<p>Stores new data into a <strong>Gnome::Gtk3::SelectionData</strong> object. Should only be called from a selection handler callback.</p><pre class="pod-block-code">method set (
+  N-GObject $type, $data, Int :$format where * ~~ any(8,16,32) = 32
+)</pre><ul>
+<li><p>N-GObject $type; the type of selection data. A Gnome::Gdk3::Atom</p></li>
+<li><p>$data; data which can be of type Int, Num, Rat, Array[ Int, Num or Rat], Str or Buf.</p></li>
+<li><p>Int() $format; format (number of bits per value). Default set to 32 for numbers and 8 for strings. Only usefull to set to 8 or 16 when integers are small. Num and Rat are always set to 32.</p></li>
+</ul>
+
+<h3 id="Example"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">Example</a></h3>
+<pre class="pod-block-code"># the method to handle a drag-data-get signal on the source widget
+method get (
+  N-GObject $context, N-GObject $selection-data, UInt $info, UInt $time,
+  :_widget($widget)
+) {
+  my Gnome::Gtk3::SelectionData $sd .= new(:native-object($selection-data));
+
+  # check for target name to decide what to provide
+  my Gnome::Gdk3::Atom $atom .= new(:native-object($sd.get-target));
+  if $atom.name eq 'number' {
+    # we provide a 16 bit integer
+    $sd.set( $!targets&lt;number&gt;, $number, :format(16));
+  }
+  …
+}
+
+
+# the method to handle a drag-data-received signal on the
+# destination widget
+method received (
+  N-GObject $context, Int $x, Int $y,
+  N-GObject $data, UInt $info, UInt $time, :_widget($widget)
+) {
+  my Gnome::Gtk3::SelectionData $sd .= new(:native-object($data));
+  my Gnome::Gdk3::Atom $atom .= new(:native-object($sd.get-target));
+  if $atom.name eq 'number' and (my $num = $sd.get).defined {
+      …
+  }
+  …
+}</pre>
+<h2 id="set-pixbuf"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">set-pixbuf</a></h2>
+<p>Sets the contents of the selection from a <strong>Gnome::Gtk3::Pixbuf</strong> The pixbuf is converted to the form determined by selection data target.</p><p>Returns: <code>True</code> if the selection was successfully set, otherwise <code>False</code>.</p><pre class="pod-block-code">method set-pixbuf ( N-GObject $pixbuf --&gt; Bool )</pre><ul>
+<li><p>N-GObject $pixbuf; a <strong>Gnome::Gtk3::Pixbuf</strong></p></li>
+</ul>
+
+<h2 id="set-text"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">set-text</a></h2>
+<p>Sets the contents of the selection from a UTF-8 encoded string. The string is converted to the form determined by <em>selection-data</em> target.</p><p>Returns: <code>True</code> if the selection was successfully set, otherwise <code>False</code>.</p><pre class="pod-block-code">method set-text ( Str $str --&gt; Bool )</pre><ul>
+<li><p>Str $str; a UTF-8 string</p></li>
+<li><p>Int() $len; the length of <em>str</em>, or -1 if <em>str</em> is nul-terminated.</p></li>
+</ul>
+
+<h2 id="set-uris"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">set-uris</a></h2>
+<p>Sets the contents of the selection from a list of URIs. The string is converted to the form determined by <em>selection-data</em>-&gt;target.</p><p>Returns: <code>True</code> if the selection was successfully set, otherwise <code>False</code>.</p><pre class="pod-block-code">method set-uris (, CArray[Str] $uris --&gt; Bool )</pre><ul>
+<li><p>CArray[Str] $uris; a <code>undefined</code>-terminated array of strings holding URIs</p></li>
+</ul>
+
+<h2 id="owner-set"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">owner-set</a></h2>
+<p>Claims ownership of a given selection for a particular widget, or, if <em>widget</em> is <code>undefined</code>, release ownership of the selection.</p><p>Returns: <code>True</code> if the operation succeeded</p><pre class="pod-block-code">method owner-set (
+  N-GObject $widget, Gnome::Gdk3::Atom $selection, UInt $time
+  --&gt; Bool
+)</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong>, or <code>undefined</code>.</p></li>
+<li><p>Gnome::Gdk3::Atom $selection; an interned atom representing the selection to claim</p></li>
+<li><p>UInt $time; timestamp with which to claim the selection</p></li>
+</ul>
+
+<h2 id="owner-set-for-display"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">owner-set-for-display</a></h2>
+<p>Claim ownership of a given selection for a particular widget, or, if <em>widget</em> is <code>undefined</code>, release ownership of the selection.</p><p>Returns: TRUE if the operation succeeded</p><pre class="pod-block-code">method owner-set-for-display ( N-GObject $display, N-GObject $widget, Gnome::Gdk3::Atom $selection, UInt $time --&gt; Bool )</pre><ul>
+<li><p>N-GObject $display; the <strong>Gnome::Gtk3::Display</strong> where the selection is set</p></li>
+<li><p>N-GObject $widget; new selection owner (a <strong>Gnome::Gtk3::Widget</strong>), or <code>undefined</code>.</p></li>
+<li><p>Gnome::Gdk3::Atom $selection; an interned atom representing the selection to claim.</p></li>
+<li><p>UInt $time; timestamp with which to claim the selection</p></li>
+</ul>
+
+<h2 id="remove-all"><a href="#Gnome::Gtk3::SelectionData" class="u" title="go to top of document">remove-all</a></h2>
+<p>Removes all handlers and unsets ownership of all selections for a widget. Called when widget is being destroyed. This function will not generally be called by applications.</p><pre class="pod-block-code">method remove-all ( N-GObject $widget )</pre><ul>
+<li><p>N-GObject $widget; a <strong>Gnome::Gtk3::Widget</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/SelectionData.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:08Z</span></div></footer>
+	</body>
+</html>

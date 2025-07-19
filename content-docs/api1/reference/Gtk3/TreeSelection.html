@@ -1,0 +1,180 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk3::TreeSelection</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk3::TreeSelection">Gnome::Gtk3::TreeSelection</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_set_mode">[gtk_tree_selection_] set_mode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_mode">[gtk_tree_selection_] get_mode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_set_select_function">[gtk_tree_selection_] set_select_function</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_user_data">[gtk_tree_selection_] get_user_data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_tree_view">[gtk_tree_selection_] get_tree_view</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_select_function">[gtk_tree_selection_] get_select_function</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_selected">[gtk_tree_selection_] get_selected</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_get_selected_rows">[gtk_tree_selection_] get_selected_rows</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_count_selected_rows">[gtk_tree_selection_] count_selected_rows</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_selected_foreach">[gtk_tree_selection_] selected_foreach</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_select_path">[gtk_tree_selection_] select_path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_unselect_path">[gtk_tree_selection_] unselect_path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_select_iter">[gtk_tree_selection_] select_iter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_unselect_iter">[gtk_tree_selection_] unselect_iter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_path_is_selected">[gtk_tree_selection_] path_is_selected</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_iter_is_selected">[gtk_tree_selection_] iter_is_selected</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_select_all">[gtk_tree_selection_] select_all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_unselect_all">[gtk_tree_selection_] unselect_all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_select_range">[gtk_tree_selection_] select_range</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[gtk_tree_selection_]_unselect_range">[gtk_tree_selection_] unselect_range</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>The selection object for <strong>Gnome::Gtk3::TreeView</strong></p>
+<h1 id="Description"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Description</a></h1>
+<p>The <strong>Gnome::Gtk3::TreeSelection</strong> object is a helper object to manage the selection for a <strong>Gnome::Gtk3::TreeView</strong> widget. The <strong>Gnome::Gtk3::TreeSelection</strong> object is automatically created when a new <strong>Gnome::Gtk3::TreeView</strong> widget is created, and cannot exist independently of this widget. The primary reason the <strong>Gnome::Gtk3::TreeSelection</strong> objects exists is for cleanliness of code and API. That is, there is no conceptual reason all these functions could not be methods on the <strong>Gnome::Gtk3::TreeView</strong> widget instead of a separate function.</p><p>The <strong>Gnome::Gtk3::TreeSelection</strong> object is gotten from a <strong>Gnome::Gtk3::TreeView</strong> by calling <code>gtk_tree_view_get_selection()</code>. It can be manipulated to check the selection status of the tree, as well as select and deselect individual rows. Selection is done completely view side. As a result, multiple views of the same model can have completely different selections. Additionally, you cannot change the selection of a row on the model that is not currently displayed by the view without expanding its parents first.</p><p>One of the important things to remember when monitoring the selection of a view is that the <em>changed</em> signal is mostly a hint. That is, it may only emit one signal when a range of rows is selected. Additionally, it may on occasion emit a <em>changed</em> signal when nothing has happened (mostly as a result of programmers calling select_row on an already selected row).</p>
+<h1 id="Synopsis"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gtk3::TreeSelection;
+also is Gnome::GObject::Object;</pre>
+<h1 id="Methods"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">new</a></h2>
+<p>Create a new TreeSelection object. The argument must be a valid <strong>Gnome::Gtk3::TreeView</strong> from which the current selection is asked and stored here.</p><pre class="pod-block-code">multi method new ( :$treeview! )</pre><p>Create a TreeSelection object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="[gtk_tree_selection_]_set_mode"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] set_mode</a></h2>
+<p>Sets the selection mode of the <em>selection</em>. If the previous type was <strong>GTK_SELECTION_MULTIPLE</strong>, then the anchor is kept selected, if it was previously selected.</p><pre class="pod-block-code">method gtk_tree_selection_set_mode ( GtkSelectionMode $type )</pre><ul>
+<li><p>GtkSelectionMode $type; The selection mode</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_get_mode"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_mode</a></h2>
+<p>Gets the selection mode for <em>selection</em>. See <code>gtk_tree_selection_set_mode()</code>.</p><p>Returns: the current selection mode</p><pre class="pod-block-code">method gtk_tree_selection_get_mode ( --&gt; GtkSelectionMode )</pre>
+<h2 id="[gtk_tree_selection_]_set_select_function"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] set_select_function</a></h2>
+<p>Sets the selection function.</p><p>If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return <code>1</code> if the state of the node may be toggled, and <code>0</code> if the state of the node should be left unchanged.</p><pre class="pod-block-code">method gtk_tree_selection_set_select_function ( GtkTreeSelectionFunc $func, Pointer $data, GDestroyNotify $destroy )</pre><ul>
+<li><p>GtkTreeSelectionFunc $func; (nullable): The selection function. May be <code>Any</code></p></li>
+<li><p>Pointer $data; The selection function’s data. May be <code>Any</code></p></li>
+<li><p>GDestroyNotify $destroy; The destroy function for user data. May be <code>Any</code></p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_get_user_data"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_user_data</a></h2>
+<p>Returns the user data for the selection function.</p><p>Returns: The user data.</p><pre class="pod-block-code">method gtk_tree_selection_get_user_data ( --&gt; Pointer )</pre>
+<h2 id="[gtk_tree_selection_]_get_tree_view"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_tree_view</a></h2>
+<p>Returns the tree view associated with <em>selection</em>.</p><p>Returns: (transfer none): A <strong>Gnome::Gtk3::TreeView</strong></p><pre class="pod-block-code">method gtk_tree_selection_get_tree_view ( --&gt; N-GObject )</pre>
+<h2 id="[gtk_tree_selection_]_get_select_function"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_select_function</a></h2>
+<p>Returns the current selection function.</p><p>Returns: The function.</p><pre class="pod-block-code">method gtk_tree_selection_get_select_function ( --&gt; GtkTreeSelectionFunc )</pre>
+<h2 id="[gtk_tree_selection_]_get_selected"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_selected</a></h2>
+<p>Sets <em>$iter</em> to the currently selected node if <em>selection</em> is set to <strong>GTK_SELECTION_SINGLE</strong> or <strong>GTK_SELECTION_BROWSE</strong>. <em>$iter</em> may be NULL if you just want to test if <em>selection</em> has any selected nodes. <em>model</em> is filled with the current model as a convenience. This function will not work if you use <em>selection</em> is <strong>GTK_SELECTION_MULTIPLE</strong>.</p><p>Returns: 1, if there is a selected node.</p><pre class="pod-block-code">method gtk_tree_selection_get_selected (
+  N-GObject $model, N-GtkTreeIter $iter --&gt; Int
+)</pre><ul>
+<li><p>N-GObject $model; A pointer to set to the <strong>Gnome::Gtk3::TreeModel</strong>, or undefined.</p></li>
+<li><p>N-GtkTreeIter $iter; The <strong>Gnome::Gtk3::TreeIter</strong>, or undefined.</p></li>
+</ul>
+<p>method gtk_tree_selection_get_selected ( --&gt; List )</p><p>The list will return the status, model and iter. If status is 1, then there is a selected node.</p>
+<h2 id="[gtk_tree_selection_]_get_selected_rows"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] get_selected_rows</a></h2>
+<p>Creates a list of path of all selected rows. Additionally, if you are planning on modifying the model after calling this function, you may want to convert the returned list into a list of <strong>Gnome::Gtk3::TreeRowReferences</strong>. To do this, you can use <code>gtk_tree_row_reference_new()</code>.</p><p>Returns: (element-type <strong>Gnome::Gtk3::TreePath</strong>) (transfer full): A <strong>GList</strong> containing a <strong>Gnome::Gtk3::TreePath</strong> for each selected row.</p><pre class="pod-block-code">method gtk_tree_selection_get_selected_rows ( N-GObject $model --&gt; N-GList )</pre><ul>
+<li><p>N-GObject $model; A pointer to set to the <strong>Gnome::Gtk3::TreeModel</strong>, or <code>Any</code>.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_count_selected_rows"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] count_selected_rows</a></h2>
+<p>Returns the number of rows that have been selected in <em>tree</em>.</p><p>Returns: The number of rows selected.</p><pre class="pod-block-code">method gtk_tree_selection_count_selected_rows ( --&gt; Int )</pre>
+<h2 id="[gtk_tree_selection_]_selected_foreach"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] selected_foreach</a></h2>
+<p>Calls a function for each selected node. Note that you cannot modify the tree or selection from within this function. As a result, <code>gtk_tree_selection_get_selected_rows()</code> might be more useful.</p><pre class="pod-block-code">method gtk_tree_selection_selected_foreach ( GtkTreeSelectionForeachFunc $func, Pointer $data )</pre><ul>
+<li><p>GtkTreeSelectionForeachFunc $func; (scope call): The function to call for each selected node.</p></li>
+<li><p>Pointer $data; user data to pass to the function.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_select_path"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] select_path</a></h2>
+<p>Select the row at <em>path</em>.</p><pre class="pod-block-code">method gtk_tree_selection_select_path ( N-GtkTreePath $path )</pre><ul>
+<li><p>N-GtkTreePath $path; The <strong>Gnome::Gtk3::TreePath</strong> to be selected.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_unselect_path"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] unselect_path</a></h2>
+<p>Unselects the row at <em>path</em>.</p><pre class="pod-block-code">method gtk_tree_selection_unselect_path ( N-GtkTreePath $path )</pre><ul>
+<li><p>N-GtkTreePath $path; The <strong>Gnome::Gtk3::TreePath</strong> to be unselected.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_select_iter"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] select_iter</a></h2>
+<p>Selects the specified iterator.</p><pre class="pod-block-code">method gtk_tree_selection_select_iter ( N-GtkTreeIter $iter )</pre><ul>
+<li><p>N-GtkTreeIter $iter; The <strong>Gnome::Gtk3::TreeIter</strong> to be selected.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_unselect_iter"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] unselect_iter</a></h2>
+<p>Unselects the specified iterator.</p><pre class="pod-block-code">method gtk_tree_selection_unselect_iter ( N-GtkTreeIter $iter )</pre><ul>
+<li><p>N-GtkTreeIter $iter; The <strong>Gnome::Gtk3::TreeIter</strong> to be unselected.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_path_is_selected"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] path_is_selected</a></h2>
+<p>Returns <code>1</code> if the row pointed to by <em>path</em> is currently selected. If <em>path</em> does not point to a valid location, <code>0</code> is returned</p><p>Returns: <code>1</code> if <em>path</em> is selected.</p><pre class="pod-block-code">method gtk_tree_selection_path_is_selected ( N-GtkTreePath $path --&gt; Int )</pre><ul>
+<li><p>N-GtkTreePath $path; A <strong>Gnome::Gtk3::TreePath</strong> to check selection on.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_iter_is_selected"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] iter_is_selected</a></h2>
+<p>Returns <code>1</code> if the row at <em>iter</em> is currently selected.</p><p>Returns: <code>1</code>, if <em>iter</em> is selected</p><pre class="pod-block-code">method gtk_tree_selection_iter_is_selected ( N-GtkTreeIter $iter --&gt; Int )</pre><ul>
+<li><p>N-GtkTreeIter $iter; A valid <strong>Gnome::Gtk3::TreeIter</strong></p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_select_all"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] select_all</a></h2>
+<p>Selects all the nodes. <em>selection</em> must be set to <strong>GTK_SELECTION_MULTIPLE</strong> mode.</p><pre class="pod-block-code">method gtk_tree_selection_select_all ( )</pre>
+<h2 id="[gtk_tree_selection_]_unselect_all"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] unselect_all</a></h2>
+<p>Unselects all the nodes.</p><pre class="pod-block-code">method gtk_tree_selection_unselect_all ( )</pre>
+<h2 id="[gtk_tree_selection_]_select_range"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] select_range</a></h2>
+<p>Selects a range of nodes, determined by <em>start_path</em> and <em>end_path</em> inclusive. <em>selection</em> must be set to <strong>GTK_SELECTION_MULTIPLE</strong> mode.</p><pre class="pod-block-code">method gtk_tree_selection_select_range ( N-GtkTreePath $start_path, N-GtkTreePath $end_path )</pre><ul>
+<li><p>N-GtkTreePath $start_path; The initial node of the range.</p></li>
+<li><p>N-GtkTreePath $end_path; The final node of the range.</p></li>
+</ul>
+
+<h2 id="[gtk_tree_selection_]_unselect_range"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">[gtk_tree_selection_] unselect_range</a></h2>
+<p>Unselects a range of nodes, determined by <em>start_path</em> and <em>end_path</em> inclusive.</p><pre class="pod-block-code">method gtk_tree_selection_unselect_range ( N-GtkTreePath $start_path, N-GtkTreePath $end_path )</pre><ul>
+<li><p>N-GtkTreePath $start_path; The initial node of the range.</p></li>
+<li><p>N-GtkTreePath $end_path; The initial node of the range.</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>g_signal_connect_object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( N-GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, N-GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>g_signal_connect_object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="changed"><a href="#Gnome::Gtk3::TreeSelection" class="u" title="go to top of document">changed</a></h3>
+<p>Emitted whenever the selection has (possibly) changed. Please note that this signal is mostly a hint. It may only be emitted once when a range of rows are selected, and it may occasionally be emitted when nothing has happened.</p><pre class="pod-block-code">method handler (
+  Int :$_handler_id,
+  Gnome::GObject::Object :_widget($treeselection),
+  *%user-options
+);</pre><ul>
+<li><p>$treeselection; the object which received the signal.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gtk3/lib/Gnome/Gtk3/TreeSelection.rakumod</span></div><div>at <span class="time">2025-07-19T14:13:32Z</span></div></footer>
+	</body>
+</html>
