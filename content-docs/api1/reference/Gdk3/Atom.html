@@ -1,0 +1,138 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk3::Atom</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk3::Atom">Gnome::Gdk3::Atom</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkPropMode">enum GdkPropMode</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:intern">:intern</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#property-change">property-change</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#property-delete">property-delete</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#property-get">property-get</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gdk-text-property-to-utf8-list-for-display">gdk-text-property-to-utf8-list-for-display</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#utf8-to-string-target">utf8-to-string-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intern">intern</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intern-static-string">intern-static-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#name">name</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions to manipulate properties on windows</p>
+<h1 id="Description"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">Description</a></h1>
+<p>Each window under X can have any number of associated “properties” attached to it. Properties are arbitrary chunks of data identified by “atom”s. (An “atom” is a numeric index into a string table on the X server. They are used to transfer strings efficiently between clients without having to transfer the entire string.) A property has an associated type, which is also identified using an atom.</p><p>A property has an associated “format”, an integer describing how many bits are in each unit of data inside the property. It must be 8, 16, or 32. When data is transferred between the server and client, if they are of different endianesses it will be byteswapped as necessary according to the format of the property. Note that on the client side, properties of format 32 will be stored with one unit per long, even if a long integer has more than 32 bits on the platform. (This decision was apparently made for Xlib to maintain compatibility with programs that assumed longs were 32 bits, at the expense of programs that knew better.)</p><p>The functions in this section are used to add, remove and change properties on windows, to convert atoms to and from strings and to manipulate some types of data commonly stored in X window properties.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gdk3::Atom;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h1 id="Types"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GdkPropMode"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">enum GdkPropMode</a></h2>
+<p>Describes how existing data is combined with new data when using <code>gdk-property-change()</code>.</p><ul>
+<li><p>GDK-PROP-MODE-REPLACE: the new data replaces the existing data.</p></li>
+<li><p>GDK-PROP-MODE-PREPEND: the new data is prepended to the existing data.</p></li>
+<li><p>GDK-PROP-MODE-APPEND: the new data is appended to the existing data.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":intern"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">:intern</a></h3>
+<p>Finds or creates an atom corresponding to a given string.</p><pre class="pod-block-code">multi method new ( Str :$intern! )</pre><ul>
+<li><p>$intern; a string, the name of the atom.</p></li>
+</ul>
+
+<h3 id=":native-object"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Drag object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="property-change"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">property-change</a></h2>
+<p>Changes the contents of a property on a window.</p><pre class="pod-block-code">method property-change (
+  N-GObject() $window, N-GObject() $property, N-GObject() $type,
+  Int() $format where * ~~ any( 8, 16, 32),
+  GdkPropMode $mode, Str $data
+)</pre><ul>
+<li><p>$window; A Gnome::Gdk3::Window</p></li>
+<li><p>$property; A Gnome::Gdk3::Atom, the property to change</p></li>
+<li><p>$type; A Gnome::Gdk3::Atom, the new type for the property. If mode is GDK_PROP_MODE_PREPEND or GDK_PROP_MODE_APPEND, then this must match the existing type or an error will occur.</p></li>
+<li><p>$format; the new format for the property. If mode is GDK_PROP_MODE_PREPEND or GDK_PROP_MODE_APPEND, then this must match the existing format or an error will occur.</p></li>
+<li><p>$mode; a value describing how the new data is to be combined with the current data.</p></li>
+<li><p>$data; the data.</p></li>
+</ul>
+
+<h2 id="property-delete"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">property-delete</a></h2>
+<p>Deletes a property from a window.</p><pre class="pod-block-code">method property-delete ( N-GObject() $window, N-GObject() $property )</pre><ul>
+<li><p>$window; A Gnome::Gdk3::Window</p></li>
+<li><p>$property; A Gnome::Gdk3::Atom, the property to delete</p></li>
+</ul>
+
+<h2 id="property-get"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">property-get</a></h2>
+<pre class="pod-block-code">method property-get (
+  N-GObject() $window, N-GObject() $property, N-GObject() $type,
+  UInt $offset, UInt $length, Bool $pdelete = False,
+  --&gt; List
+)</pre><ul>
+<li><p>$window; A Gnome::Gdk3::Window</p></li>
+<li><p>$property; A Gnome::Gdk3::Atom, the property to retrieve</p></li>
+<li><p>$type; A Gnome::Gdk3::Atom, the desired property type, or GDK_NONE, if any type of data is acceptable. If this does not match the actual type, then actual_format and actual_length will be filled in, a warning will be printed to stderr and no data will be returned.</p></li>
+<li><p>$offset; the offset into the property at which to begin retrieving data, in 4 byte units.</p></li>
+<li><p>$length; the length of the data to retrieve in bytes. Data is considered to be retrieved in 4 byte chunks, so length will be rounded up to the next highest 4 byte boundary (so be careful not to pass a value that might overflow when rounded up).</p></li>
+<li><p>$pdelete; if TRUE, delete the property after retrieving the data.</p></li>
+</ul>
+<p>Returned List holds</p><ul>
+<li><p>result; TRUE if data was successfully received and stored in data, otherwise FALSE.</p></li>
+<li><p>$actual_property_type; actual type</p></li>
+<li><p>$actual_format; the actual format of the data; either 8, 16 or 32 bits</p></li>
+<li><p>$actual_length; Data returned in the 32 bit format is stored in a long variable, so the actual number of 32 bit elements should be be calculated via actual_length / sizeof(glong) to ensure portability to 64 bit systems.</p></li>
+<li><p>$data;</p></li>
+</ul>
+
+<h2 id="gdk-text-property-to-utf8-list-for-display"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">gdk-text-property-to-utf8-list-for-display</a></h2>
+<p>Converts a text property in the given encoding to a list of UTF-8 strings.</p><pre class="pod-block-code">method gdk-text-property-to-utf8-list-for-display (
+  N-GObject() $display, N-GObject() $encoding,
+  Int() $format where * ~~ any( 8, 16, 32), Str $text
+  --&gt; List
+)</pre><ul>
+<li><p>$display; A Gnome::Gdk3::Display</p></li>
+<li><p>$encoding; A Gnome::Gdk3::Atom, an atom representing the encoding of the text</p></li>
+<li><p>$format; the format of the property</p></li>
+<li><p>$text; the text to convert.</p></li>
+</ul>
+<p>Returns a List of UTF-8 strings</p>
+<h2 id="utf8-to-string-target"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">utf8-to-string-target</a></h2>
+<pre class="pod-block-code">method utf8-to-string-target ( Str $str --&gt; Buf )</pre><ul>
+<li><p>$str; a UTF-8 string</p></li>
+</ul>
+
+<h2 id="intern"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">intern</a></h2>
+<p>Finds or creates an atom corresponding to a given string.</p><p>Returns: the atom corresponding to <em>atom-name</em>.</p><pre class="pod-block-code">method intern ( Str $atom_name, Bool $only_if_exists --&gt; N-GObject )</pre><ul>
+<li><p>$atom_name; a string.</p></li>
+<li><p>$only_if_exists; if <code>True</code>, GDK is allowed to not create a new atom, but just return <code>GDK-NONE</code> if the requested atom doesn’t already exists. Currently, the flag is ignored, since checking the existance of an atom is as expensive as creating it.</p></li>
+</ul>
+
+<h2 id="intern-static-string"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">intern-static-string</a></h2>
+<p>Finds or creates an atom corresponding to a given string.</p><p>Note that this function is identical to <code>intern()</code> except that if a new <strong>Gnome::Gdk3::Atom</strong> is created the string itself is used rather than a copy. This saves memory, but can only be used if the string will always exist. It can be used with statically allocated strings in the main program, but not with statically allocated memory in dynamically loaded modules, if you expect to ever unload the module again (e.g. do not use this function in GTK+ theme engines).</p><p>Returns: the atom corresponding to <em>atom-name</em></p><pre class="pod-block-code">method intern-static-string ( Str $atom_name --&gt; N-GObject )</pre><ul>
+<li><p>$atom_name; a static string</p></li>
+</ul>
+
+<h2 id="name"><a href="#Gnome::Gdk3::Atom" class="u" title="go to top of document">name</a></h2>
+<p>Determines the string corresponding to an atom.</p><p>Returns: a newly-allocated string containing the string corresponding to <em>atom</em>.</p><pre class="pod-block-code">method name ( --&gt; Str )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gdk3/lib/Gnome/Gdk3/Atom.rakumod</span></div><div>at <span class="time">2025-07-19T18:16:35Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,1086 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk3::Window</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk3::Window">Gnome::Gdk3::Window</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Composited_Windows">Composited Windows</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Offscreen_Windows">Offscreen Windows</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Testing">Testing</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkAnchorHints">enum GdkAnchorHints</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkFullscreenMode">enum GdkFullscreenMode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkGravity">enum GdkGravity</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWMDecoration">enum GdkWMDecoration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWMFunction">enum GdkWMFunction</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWindowAttributesType">enum GdkWindowAttributesType</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWindowEdge">enum GdkWindowEdge</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWindowHints">enum GdkWindowHints</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWindowType">enum GdkWindowType</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkWindowWindowClass">enum GdkWindowWindowClass</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GdkGeometry">class N-GdkGeometry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GdkWindowAttr">class N-GdkWindowAttr</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-filter">add-filter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#beep">beep</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-draw-frame">begin-draw-frame</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-move-drag">begin-move-drag</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-move-drag-for-device">begin-move-drag-for-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-resize-drag">begin-resize-drag</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-resize-drag-for-device">begin-resize-drag-for-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#constrain-size">constrain-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#coords-from-parent">coords-from-parent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#coords-to-parent">coords-to-parent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-gl-context">create-gl-context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-similar-image-surface">create-similar-image-surface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-similar-surface">create-similar-surface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#deiconify">deiconify</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#destroy">destroy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#end-draw-frame">end-draw-frame</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ensure-native">ensure-native</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#focus">focus</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#freeze-updates">freeze-updates</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#fullscreen">fullscreen</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#fullscreen-on-monitor">fullscreen-on-monitor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#geometry-changed">geometry-changed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-accept-focus">get-accept-focus</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-children">get-children</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-children-with-user-data">get-children-with-user-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-clip-region">get-clip-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-cursor">get-cursor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-decorations">get-decorations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-root-window">get-default-root-window</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-device-cursor">get-device-cursor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-device-events">get-device-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-device-position">get-device-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-device-position-double">get-device-position-double</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-display">get-display</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-drag-protocol">get-drag-protocol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-effective-parent">get-effective-parent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-effective-toplevel">get-effective-toplevel</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-event-compression">get-event-compression</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-events">get-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus-on-map">get-focus-on-map</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-frame-clock">get-frame-clock</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-frame-extents">get-frame-extents</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-fullscreen-mode">get-fullscreen-mode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-geometry">get-geometry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-group">get-group</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-height">get-height</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-modal-hint">get-modal-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-origin">get-origin</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-parent">get-parent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-pass-through">get-pass-through</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-position">get-position</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-root-coords">get-root-coords</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-root-origin">get-root-origin</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-scale-factor">get-scale-factor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-screen">get-screen</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-source-events">get-source-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state">get-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-support-multidevice">get-support-multidevice</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-toplevel">get-toplevel</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-type-hint">get-type-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-update-area">get-update-area</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-user-data">get-user-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-region">get-visible-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-visual">get-visual</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-width">get-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-window-type">get-window-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#has-native">has-native</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#hide">hide</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#iconify">iconify</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#input-shape-combine-region">input-shape-combine-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate-maybe-recurse">invalidate-maybe-recurse</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate-rect">invalidate-rect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate-region">invalidate-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-destroyed">is-destroyed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-input-only">is-input-only</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-shaped">is-shaped</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-viewable">is-viewable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-visible">is-visible</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lower">lower</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#mark-paint-from-clip">mark-paint-from-clip</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#maximize">maximize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#merge-child-input-shapes">merge-child-input-shapes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#merge-child-shapes">merge-child-shapes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move">move</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move-region">move-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move-resize">move-resize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#move-to-rect">move-to-rect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#offscreen-window-get-embedder">offscreen-window-get-embedder</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#offscreen-window-get-surface">offscreen-window-get-surface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#offscreen-window-set-embedder">offscreen-window-set-embedder</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#peek-children">peek-children</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#raise">raise</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#register-dnd">register-dnd</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-filter">remove-filter</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#reparent">reparent</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#resize">resize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#restack">restack</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#scroll">scroll</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-accept-focus">set-accept-focus</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-child-input-shapes">set-child-input-shapes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-child-shapes">set-child-shapes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-cursor">set-cursor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-decorations">set-decorations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-device-cursor">set-device-cursor</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-device-events">set-device-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-event-compression">set-event-compression</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-events">set-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-focus-on-map">set-focus-on-map</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-fullscreen-mode">set-fullscreen-mode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-functions">set-functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-geometry-hints">set-geometry-hints</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-group">set-group</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-list">set-icon-list</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-name">set-icon-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-invalidate-handler">set-invalidate-handler</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-keep-above">set-keep-above</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-keep-below">set-keep-below</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-modal-hint">set-modal-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-opacity">set-opacity</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-opaque-region">set-opaque-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-override-redirect">set-override-redirect</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-pass-through">set-pass-through</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-role">set-role</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-shadow-width">set-shadow-width</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-skip-pager-hint">set-skip-pager-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-skip-taskbar-hint">set-skip-taskbar-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-source-events">set-source-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-startup-id">set-startup-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-support-multidevice">set-support-multidevice</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-title">set-title</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-transient-for">set-transient-for</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-type-hint">set-type-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-urgency-hint">set-urgency-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-user-data">set-user-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#shape-combine-region">shape-combine-region</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#show">show</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#show-unraised">show-unraised</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#show-window-menu">show-window-menu</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#stick">stick</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#test-render-sync">test-render-sync</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#test-simulate-button">test-simulate-button</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#test-simulate-key">test-simulate-key</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#thaw-updates">thaw-updates</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unfullscreen">unfullscreen</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unmaximize">unmaximize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unstick">unstick</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#withdraw">withdraw</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_gdk_window_new">_gdk_window_new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#create-surface">create-surface</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Cursor:_cursor">Cursor: cursor</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Onscreen display areas in the target window system</p>
+<h1 id="Description"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gdk3::Window</strong> is a (usually) rectangular region on the screen. It’s a low-level object, used to implement high-level objects such as <strong>Gnome::Gtk3::Widget</strong> and <strong>Gnome::Gtk3::Window</strong> on the GTK+ level. A <strong>Gnome::Gtk3::Window</strong> is a toplevel window, the thing a user might think of as a “window” with a titlebar and so on; a <strong>Gnome::Gtk3::Window</strong> may contain many <strong>Gnome::Gdk3::Windows</strong>. For example, each <strong>Gnome::Gtk3::Button</strong> has a <strong>Gnome::Gdk3::Window</strong> associated with it.</p>
+<h2 id="Composited_Windows"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Composited Windows</a></h2>
+<p>Normally, the windowing system takes care of rendering the contents of a child window onto its parent window. This mechanism can be intercepted by calling <code>gdk_window_set_composited()</code> on the child window. For a “composited” window it is the responsibility of the application to render the window contents at the right spot.</p>
+<h2 id="Offscreen_Windows"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Offscreen Windows</a></h2>
+<p>Offscreen windows are more general than composited windows, since they allow not only to modify the rendering of the child window onto its parent, but also to apply coordinate transformations.</p><p>To integrate an offscreen window into a window hierarchy, one has to call <code>gdk_offscreen_window_set_embedder()</code> and handle a number of signals. The <em>pick-embedded-child</em> signal on the embedder window is used to select an offscreen child at given coordinates, and the <em>to-embedder</em> and <em>from-embedder</em> signals on the offscreen window are used to translate coordinates between the embedder and the offscreen window.</p><p>For rendering an offscreen window onto its embedder, the contents of the offscreen window are available as a surface, via <code>gdk_offscreen_window_get_surface()</code>.</p>
+<h2 id="Testing"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Testing</a></h2>
+<p>Some routines are added to this module for GUI testing. They were in a separate C file but could be included here. These are test utilities to test some of the events generated by mouse and keyboard. This set of routines will not be of much use for the GUI developer. However, for interface testing, this module is may be of use. A package which will be using this, is in development and is called <strong>Gnome::T</strong>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gdk3::Window;
+also is Gnome::GObject::Object;</pre>
+<h1 id="Types"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GdkAnchorHints"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkAnchorHints</a></h2>
+<p>Positioning hints for aligning a window relative to a rectangle.</p><p>These hints determine how the window should be positioned in the case that the window would fall off-screen if placed in its ideal position.</p><p>For example, <code>GDK_ANCHOR_FLIP_X</code> will replace <code>GDK_GRAVITY_NORTH_WEST</code> with <code>GDK_GRAVITY_NORTH_EAST</code> and vice versa if the window extends beyond the left or right edges of the monitor.</p><p>If <code>GDK_ANCHOR_SLIDE_X</code> is set, the window can be shifted horizontally to fit on-screen. If <code>GDK_ANCHOR_RESIZE_X</code> is set, the window can be shrunken horizontally to fit.</p><p>In general, when multiple flags are set, flipping should take precedence over sliding, which should take precedence over resizing.</p><p>Stability: Unstable</p><ul>
+<li><p>GDK_ANCHOR_FLIP_X: allow flipping anchors horizontally</p></li>
+<li><p>GDK_ANCHOR_FLIP_Y: allow flipping anchors vertically</p></li>
+<li><p>GDK_ANCHOR_SLIDE_X: allow sliding window horizontally</p></li>
+<li><p>GDK_ANCHOR_SLIDE_Y: allow sliding window vertically</p></li>
+<li><p>GDK_ANCHOR_RESIZE_X: allow resizing window horizontally</p></li>
+<li><p>GDK_ANCHOR_RESIZE_Y: allow resizing window vertically</p></li>
+<li><p>GDK_ANCHOR_FLIP: allow flipping anchors on both axes</p></li>
+<li><p>GDK_ANCHOR_SLIDE: allow sliding window on both axes</p></li>
+<li><p>GDK_ANCHOR_RESIZE: allow resizing window on both axes</p></li>
+</ul>
+
+<h2 id="enum_GdkFullscreenMode"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkFullscreenMode</a></h2>
+<p>Indicates which monitor (in a multi-head setup) a window should span over when in fullscreen mode.</p><ul>
+<li><p>GDK_FULLSCREEN_ON_CURRENT_MONITOR: Fullscreen on current monitor only.</p></li>
+<li><p>GDK_FULLSCREEN_ON_ALL_MONITORS: Span across all monitors when fullscreen.</p></li>
+</ul>
+
+<h2 id="enum_GdkGravity"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkGravity</a></h2>
+<p>Defines the reference point of a window and the meaning of coordinates passed to <code>gtk_window_move()</code>. See <code>gtk_window_move()</code> and the &quot;implementation notes&quot; section of the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec) specification for more details.</p><ul>
+<li><p>GDK_GRAVITY_NORTH_WEST: the reference point is at the top left corner.</p></li>
+<li><p>GDK_GRAVITY_NORTH: the reference point is in the middle of the top edge.</p></li>
+<li><p>GDK_GRAVITY_NORTH_EAST: the reference point is at the top right corner.</p></li>
+<li><p>GDK_GRAVITY_WEST: the reference point is at the middle of the left edge.</p></li>
+<li><p>GDK_GRAVITY_CENTER: the reference point is at the center of the window.</p></li>
+<li><p>GDK_GRAVITY_EAST: the reference point is at the middle of the right edge.</p></li>
+<li><p>GDK_GRAVITY_SOUTH_WEST: the reference point is at the lower left corner.</p></li>
+<li><p>GDK_GRAVITY_SOUTH: the reference point is at the middle of the lower edge.</p></li>
+<li><p>GDK_GRAVITY_SOUTH_EAST: the reference point is at the lower right corner.</p></li>
+<li><p>GDK_GRAVITY_STATIC: the reference point is at the top left corner of the window itself, ignoring window manager decorations.</p></li>
+</ul>
+
+<h2 id="enum_GdkWMDecoration"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWMDecoration</a></h2>
+<p>These are hints originally defined by the Motif toolkit. The window manager can use them when determining how to decorate the window. The hint must be set before mapping the window.</p><ul>
+<li><p>GDK_DECOR_ALL: all decorations should be applied.</p></li>
+<li><p>GDK_DECOR_BORDER: a frame should be drawn around the window.</p></li>
+<li><p>GDK_DECOR_RESIZEH: the frame should have resize handles.</p></li>
+<li><p>GDK_DECOR_TITLE: a titlebar should be placed above the window.</p></li>
+<li><p>GDK_DECOR_MENU: a button for opening a menu should be included.</p></li>
+<li><p>GDK_DECOR_MINIMIZE: a minimize button should be included.</p></li>
+<li><p>GDK_DECOR_MAXIMIZE: a maximize button should be included.</p></li>
+</ul>
+
+<h2 id="enum_GdkWMFunction"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWMFunction</a></h2>
+<p>These are hints originally defined by the Motif toolkit. The window manager can use them when determining the functions to offer for the window. The hint must be set before mapping the window.</p><ul>
+<li><p>GDK_FUNC_ALL: all functions should be offered.</p></li>
+<li><p>GDK_FUNC_RESIZE: the window should be resizable.</p></li>
+<li><p>GDK_FUNC_MOVE: the window should be movable.</p></li>
+<li><p>GDK_FUNC_MINIMIZE: the window should be minimizable.</p></li>
+<li><p>GDK_FUNC_MAXIMIZE: the window should be maximizable.</p></li>
+<li><p>GDK_FUNC_CLOSE: the window should be closable.</p></li>
+</ul>
+
+<h2 id="enum_GdkWindowAttributesType"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWindowAttributesType</a></h2>
+<p>Used to indicate which fields in the <strong>Gnome::Gdk3::WindowAttr</strong> struct should be honored. For example, if you filled in the “cursor” and “x” fields of <strong>Gnome::Gdk3::WindowAttr</strong>, pass “<em>GDK_WA_X</em> | <em>GDK_WA_CURSOR</em>” to <code>new()</code>. Fields in <strong>Gnome::Gdk3::WindowAttr</strong> not covered by a bit in this enum are required; for example, the <em>width</em>/<em>height</em>, <em>wclass</em>, and <em>window_type</em> fields are required, they have no corresponding flag in <strong>Gnome::Gdk3::WindowAttributesType</strong>.</p><ul>
+<li><p>GDK_WA_TITLE: Honor the title field</p></li>
+<li><p>GDK_WA_X: Honor the X coordinate field</p></li>
+<li><p>GDK_WA_Y: Honor the Y coordinate field</p></li>
+<li><p>GDK_WA_CURSOR: Honor the cursor field</p></li>
+<li><p>GDK_WA_VISUAL: Honor the visual field</p></li>
+<li><p>GDK_WA_WMCLASS: Honor the wmclass_class and wmclass_name fields</p></li>
+<li><p>GDK_WA_NOREDIR: Honor the override_redirect field</p></li>
+<li><p>GDK_WA_TYPE_HINT: Honor the type_hint field</p></li>
+</ul>
+
+<h2 id="enum_GdkWindowEdge"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWindowEdge</a></h2>
+<p>Determines a window edge or corner.</p><ul>
+<li><p>GDK_WINDOW_EDGE_NORTH_WEST: the top left corner.</p></li>
+<li><p>GDK_WINDOW_EDGE_NORTH: the top edge.</p></li>
+<li><p>GDK_WINDOW_EDGE_NORTH_EAST: the top right corner.</p></li>
+<li><p>GDK_WINDOW_EDGE_WEST: the left edge.</p></li>
+<li><p>GDK_WINDOW_EDGE_EAST: the right edge.</p></li>
+<li><p>GDK_WINDOW_EDGE_SOUTH_WEST: the lower left corner.</p></li>
+<li><p>GDK_WINDOW_EDGE_SOUTH: the lower edge.</p></li>
+<li><p>GDK_WINDOW_EDGE_SOUTH_EAST: the lower right corner.</p></li>
+</ul>
+
+<h2 id="enum_GdkWindowHints"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWindowHints</a></h2>
+<p>Used to indicate which fields of a <strong>Gnome::Gdk3::Geometry</strong> struct should be paid attention to. Also, the presence/absence of <em>GDK_HINT_POS</em>, <em>GDK_HINT_USER_POS</em>, and <em>GDK_HINT_USER_SIZE</em> is significant, though they don't directly refer to <strong>Gnome::Gdk3::Geometry</strong> fields. <em>GDK_HINT_USER_POS</em> will be set automatically by <strong>Gnome::Gdk3::Window</strong> if you call <code>gtk_window_move()</code>. <em>GDK_HINT_USER_POS</em> and <em>GDK_HINT_USER_SIZE</em> should be set if the user specified a size/position using a --geometry command-line argument; <code>gtk_window_parse_geometry()</code> automatically sets these flags.</p><ul>
+<li><p>GDK_HINT_POS: indicates that the program has positioned the window</p></li>
+<li><p>GDK_HINT_MIN_SIZE: min size fields are set</p></li>
+<li><p>GDK_HINT_MAX_SIZE: max size fields are set</p></li>
+<li><p>GDK_HINT_BASE_SIZE: base size fields are set</p></li>
+<li><p>GDK_HINT_ASPECT: aspect ratio fields are set</p></li>
+<li><p>GDK_HINT_RESIZE_INC: resize increment fields are set</p></li>
+<li><p>GDK_HINT_WIN_GRAVITY: window gravity field is set</p></li>
+<li><p>GDK_HINT_USER_POS: indicates that the window’s position was explicitly set by the user</p></li>
+<li><p>GDK_HINT_USER_SIZE: indicates that the window’s size was explicitly set by the user</p></li>
+</ul>
+
+<h2 id="enum_GdkWindowType"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWindowType</a></h2>
+<p>Describes the kind of window.</p><ul>
+<li><p>GDK_WINDOW_ROOT: root window; this window has no parent, covers the entire screen, and is created by the window system</p></li>
+<li><p>GDK_WINDOW_TOPLEVEL: toplevel window (used to implement <strong>Gnome::Gdk3::Window</strong>)</p></li>
+<li><p>GDK_WINDOW_CHILD: child window (used to implement e.g. <strong>Gnome::Gdk3::Entry</strong>)</p></li>
+<li><p>GDK_WINDOW_TEMP: override redirect temporary window (used to implement <strong>Gnome::Gdk3::Menu</strong>)</p></li>
+<li><p>GDK_WINDOW_FOREIGN: foreign window (see <code>foreign_new()</code>)</p></li>
+<li><p>GDK_WINDOW_OFFSCREEN: offscreen window (see [Offscreen Windows][OFFSCREEN-WINDOWS]). Since 2.18</p></li>
+<li><p>GDK_WINDOW_SUBSURFACE: subsurface-based window; This window is visually tied to a toplevel, and is moved/stacked with it. Currently this window type is only implemented in Wayland. Since 3.14</p></li>
+</ul>
+
+<h2 id="enum_GdkWindowWindowClass"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">enum GdkWindowWindowClass</a></h2>
+<p><em>GDK_INPUT_OUTPUT</em> windows are the standard kind of window you might expect. Such windows receive events and are also displayed on screen. <em>GDK_INPUT_ONLY</em> windows are invisible; they are usually placed above other windows in order to trap or filter the events. You can’t draw on <em>GDK_INPUT_ONLY</em> windows.</p><ul>
+<li><p>GDK_INPUT_OUTPUT: window for graphics and events</p></li>
+<li><p>GDK_INPUT_ONLY: window for events only</p></li>
+</ul>
+
+<h2 id="class_N-GdkGeometry"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">class N-GdkGeometry</a></h2>
+<p>The <strong>Gnome::Gdk3::Geometry</strong> struct gives the window manager information about a window’s geometry constraints. Normally you would set these on the GTK+ level using <code>gtk_window_set_geometry_hints()</code>. <strong>Gnome::Gdk3::Window</strong> then sets the hints on the <strong>Gnome::Gdk3::Window</strong> it creates.</p><p><code>set_geometry_hints()</code> expects the hints to be fully valid already and simply passes them to the window manager; in contrast, <code>gtk_window_set_geometry_hints()</code> performs some interpretation. For example, <strong>Gnome::Gdk3::Window</strong> will apply the hints to the geometry widget instead of the toplevel window, if you set a geometry widget. Also, the <em>min_width</em>/<em>min_height</em>/<em>max_width</em>/<em>max_height</em> fields may be set to -1, and <strong>Gnome::Gdk3::Window</strong> will substitute the size request of the window or geometry widget. If the minimum size hint is not provided, <strong>Gnome::Gdk3::Window</strong> will use its requisition as the minimum size. If the minimum size is provided and a geometry widget is set, <strong>Gnome::Gdk3::Window</strong> will take the minimum size as the minimum size of the geometry widget rather than the entire window. The base size is treated similarly.</p><p>The canonical use-case for <code>gtk_window_set_geometry_hints()</code> is to get a terminal widget to resize properly. Here, the terminal text area should be the geometry widget; <strong>Gnome::Gdk3::Window</strong> will then automatically set the base size to the size of other widgets in the terminal window, such as the menubar and scrollbar. Then, the <em>width_inc</em> and <em>height_inc</em> fields should be set to the size of one character in the terminal. Finally, the base size should be set to the size of one character. The net effect is that the minimum size of the terminal will have a 1x1 character terminal area, and only terminal sizes on the “character grid” will be allowed.</p><p>Here’s an example of how the terminal example would be implemented, assuming a terminal area widget called “terminal” and a toplevel window “toplevel”:</p><p>The other useful fields are the <em>min_aspect</em> and <em>max_aspect</em> fields; these contain a width/height ratio as a floating point number. If a geometry widget is set, the aspect applies to the geometry widget rather than the entire window. The most common use of these hints is probably to set <em>min_aspect</em> and <em>max_aspect</em> to the same value, thus forcing the window to keep a constant aspect ratio.</p><ul>
+<li><p><code>Int()</code> $.min_width: minimum width of window (or -1 to use requisition, with <strong>Gnome::Gdk3::Window</strong> only)</p></li>
+<li><p><code>Int()</code> $.min_height: minimum height of window (or -1 to use requisition, with <strong>Gnome::Gdk3::Window</strong> only)</p></li>
+<li><p><code>Int()</code> $.max_width: maximum width of window (or -1 to use requisition, with <strong>Gnome::Gdk3::Window</strong> only)</p></li>
+<li><p><code>Int()</code> $.max_height: maximum height of window (or -1 to use requisition, with <strong>Gnome::Gdk3::Window</strong> only)</p></li>
+<li><p><code>Int()</code> $.base_width: allowed window widths are <em>base_width</em> + <em>width_inc</em> * N where N is any integer (-1 allowed with <strong>Gnome::Gdk3::Window</strong>)</p></li>
+<li><p><code>Int()</code> $.base_height: allowed window widths are <em>base_height</em> + <em>height_inc</em> * N where N is any integer (-1 allowed with <strong>Gnome::Gdk3::Window</strong>)</p></li>
+<li><p><code>Int()</code> $.width_inc: width resize increment</p></li>
+<li><p><code>Int()</code> $.height_inc: height resize increment</p></li>
+<li><p><code>Num()</code> $.min_aspect: minimum width/height ratio</p></li>
+<li><p><code>Num()</code> $.max_aspect: maximum width/height ratio</p></li>
+<li><p>GdkGravity $.win_gravity: window gravity, see <code>gtk_window_set_gravity()</code></p></li>
+</ul>
+
+<h2 id="class_N-GdkWindowAttr"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">class N-GdkWindowAttr</a></h2>
+<p>Attributes to use for a newly-created window.</p><ul>
+<li><p>Str $.title: title of the window (for toplevel windows)</p></li>
+<li><p><code>Int()</code> $.event_mask: event mask (see <code>set_events()</code>)</p></li>
+<li><p><code>Int()</code> $.x: X coordinate relative to parent window (see <code>move()</code>)</p></li>
+<li><p><code>Int()</code> $.y: Y coordinate relative to parent window (see <code>move()</code>)</p></li>
+<li><p><code>Int()</code> $.width: width of window</p></li>
+<li><p><code>Int()</code> $.height: height of window</p></li>
+<li><p>GdkWindowWindowClass $.wclass: <strong>Gnome::Gdk3::DK_INPUT_OUTPUT</strong> (normal window) or <strong>Gnome::Gdk3::DK_INPUT_ONLY</strong> (invisible window that receives events)</p></li>
+<li><p>N-GObject $.visual: <strong>Gnome::Gdk3::Visual</strong> for window</p></li>
+<li><p>GdkWindowType $.window_type: type of window</p></li>
+<li><p>N-GObject $.cursor: cursor for the window (see <code>set_cursor()</code>)</p></li>
+<li><p>Str $.wmclass_name: don’t use (see <code>gtk_window_set_wmclass()</code>)</p></li>
+<li><p>Str $.wmclass_class: don’t use (see <code>gtk_window_set_wmclass()</code>)</p></li>
+<li><p>Bool $.override_redirect: <code>True</code> to bypass the window manager</p></li>
+<li><p>GdkWindowTypeHint $.type_hint: a hint of the function of the window</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">new</a></h2>
+
+<h2 id="add-filter"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">add-filter</a></h2>
+<p>Adds an event filter to <em>window</em>, allowing you to intercept events before they reach GDK. This is a low-level operation and makes it easy to break GDK and/or GTK+, so you have to know what you're doing. Pass <code>undefined</code> for <em>window</em> to get all events for all windows, instead of events for a specific window.</p><p>If you are interested in X GenericEvents, bear in mind that <code>XGetEventData()</code> has been already called on the event, and <code>XFreeEventData()</code> must not be called within <em>function</em>.</p><pre class="pod-block-code">method add-filter ( GdkFilterFunc $function, Pointer $data )</pre><ul>
+<li><p>$function; filter callback</p></li>
+<li><p>$data; data to pass to filter callback</p></li>
+</ul>
+
+<h2 id="beep"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">beep</a></h2>
+<p>Emits a short beep associated to <em>window</em> in the appropriate display, if supported. Otherwise, emits a short beep on the display just as <code>Gnome::Gdk3::Display.beep()</code>.</p><pre class="pod-block-code">method beep ( )</pre>
+<h2 id="begin-draw-frame"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">begin-draw-frame</a></h2>
+<p>Indicates that you are beginning the process of redrawing <em>region</em> on <em>window</em>, and provides you with a <strong>Gnome::Gdk3::DrawingContext</strong>.</p><p>If <em>window</em> is a top level <strong>Gnome::Gdk3::Window</strong>, backed by a native window implementation, a backing store (offscreen buffer) large enough to contain <em>region</em> will be created. The backing store will be initialized with the background color or background surface for <em>window</em>. Then, all drawing operations performed on <em>window</em> will be diverted to the backing store. When you call <code>end_frame()</code>, the contents of the backing store will be copied to <em>window</em>, making it visible on screen. Only the part of <em>window</em> contained in <em>region</em> will be modified; that is, drawing operations are clipped to <em>region</em>.</p><p>The net result of all this is to remove flicker, because the user sees the finished product appear all at once when you call <code>end_draw_frame()</code>. If you draw to <em>window</em> directly without calling <code>begin_draw_frame()</code>, the user may see flicker as individual drawing operations are performed in sequence.</p><p>When using GTK+, the widget system automatically places calls to <code>begin_draw_frame()</code> and <code>end_draw_frame()</code> around emissions of the `GtkWidget::draw` signal. That is, if you’re drawing the contents of the widget yourself, you can assume that the widget has a cleared background, is already set as the clip region, and already has a backing store. Therefore in most cases, application code in GTK does not need to call <code>begin_draw_frame()</code> explicitly.</p><p>Returns: a <strong>Gnome::Gdk3::DrawingContext</strong> context that should be used to draw the contents of the window; the returned context is owned by GDK.</p><pre class="pod-block-code">method begin-draw-frame ( cairo_region_t $region --&gt; N-GObject )</pre><ul>
+<li><p>$region; a Cairo region</p></li>
+</ul>
+
+<h2 id="begin-move-drag"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">begin-move-drag</a></h2>
+<p>Begins a window move operation (for a toplevel window).</p><p>This function assumes that the drag is controlled by the client pointer device, use <code>begin_move_drag_for_device()</code> to begin a drag with a different device.</p><pre class="pod-block-code">method begin-move-drag (
+  Int() $button, Int() $root_x, Int() $root_y, UInt $timestamp
+)</pre><ul>
+<li><p>$button; the button being used to drag, or 0 for a keyboard-initiated drag</p></li>
+<li><p>$root_x; root window X coordinate of mouse click that began the drag</p></li>
+<li><p>$root_y; root window Y coordinate of mouse click that began the drag</p></li>
+<li><p>$timestamp; timestamp of mouse click that began the drag</p></li>
+</ul>
+
+<h2 id="begin-move-drag-for-device"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">begin-move-drag-for-device</a></h2>
+<p>Begins a window move operation (for a toplevel window). You might use this function to implement a “window move grip,” for example. The function works best with window managers that support the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec) but has a fallback implementation for other window managers.</p><pre class="pod-block-code">method begin-move-drag-for-device (
+  N-GObject() $device, Int() $button,
+  Int() $root_x, Int() $root_y, UInt $timestamp
+)</pre><ul>
+<li><p>$device; the device used for the operation</p></li>
+<li><p>$button; the button being used to drag, or 0 for a keyboard-initiated drag</p></li>
+<li><p>$root_x; root window X coordinate of mouse click that began the drag</p></li>
+<li><p>$root_y; root window Y coordinate of mouse click that began the drag</p></li>
+<li><p>$timestamp; timestamp of mouse click that began the drag</p></li>
+</ul>
+
+<h2 id="begin-resize-drag"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">begin-resize-drag</a></h2>
+<p>Begins a window resize operation (for a toplevel window).</p><p>This function assumes that the drag is controlled by the client pointer device, use <code>begin_resize_drag_for_device()</code> to begin a drag with a different device.</p><pre class="pod-block-code">method begin-resize-drag (
+  GdkWindowEdge $edge, Int() $button,
+  Int() $root_x, Int() $root_y, UInt $timestamp
+)</pre><ul>
+<li><p>$edge; the edge or corner from which the drag is started</p></li>
+<li><p>$button; the button being used to drag, or 0 for a keyboard-initiated drag</p></li>
+<li><p>$root_x; root window X coordinate of mouse click that began the drag</p></li>
+<li><p>$root_y; root window Y coordinate of mouse click that began the drag</p></li>
+<li><p>$timestamp; timestamp of mouse click that began the drag (use <code>gdk_event_get_time()</code>)</p></li>
+</ul>
+
+<h2 id="begin-resize-drag-for-device"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">begin-resize-drag-for-device</a></h2>
+<p>Begins a window resize operation (for a toplevel window). You might use this function to implement a “window resize grip,” for example; in fact <strong>Gnome::Gdk3::Statusbar</strong> uses it. The function works best with window managers that support the [Extended Window Manager Hints](http://www.freedesktop.org/Standards/wm-spec) but has a fallback implementation for other window managers.</p><pre class="pod-block-code">method begin-resize-drag-for-device (
+  GdkWindowEdge $edge, N-GObject() $device, Int() $button,
+  Int() $root_x, Int() $root_y, UInt $timestamp
+)</pre><ul>
+<li><p>$edge; the edge or corner from which the drag is started</p></li>
+<li><p>$device; the device used for the operation</p></li>
+<li><p>$button; the button being used to drag, or 0 for a keyboard-initiated drag</p></li>
+<li><p>$root_x; root window X coordinate of mouse click that began the drag</p></li>
+<li><p>$root_y; root window Y coordinate of mouse click that began the drag</p></li>
+<li><p>$timestamp; timestamp of mouse click that began the drag (use <code>gdk_event_get_time()</code>)</p></li>
+</ul>
+
+<h2 id="constrain-size"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">constrain-size</a></h2>
+<p>Constrains a desired width and height according to a set of geometry hints (such as minimum and maximum size).</p><pre class="pod-block-code">method constrain-size (
+  N-GdkGeometry $geometry, GdkWindowHints $flags,
+  Int() $width, Int() $height
+)</pre><ul>
+<li><p>$geometry; a <strong>Gnome::Gdk3::Geometry</strong> structure</p></li>
+<li><p>$flags; a mask indicating what portions of <em>geometry</em> are set</p></li>
+<li><p>$width; desired width of window</p></li>
+<li><p>$height; desired height of the window</p></li>
+<li><p>$new_width; location to store resulting width</p></li>
+<li><p>$new_height; location to store resulting height</p></li>
+</ul>
+
+<h2 id="coords-from-parent"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">coords-from-parent</a></h2>
+<p>Transforms window coordinates from a parent window to a child window, where the parent window is the normal parent as returned by <code>get_parent()</code> for normal windows, and the window's embedder as returned by <code>gdk_offscreen_window_get_embedder()</code> for offscreen windows.</p><p>For normal windows, calling this function is equivalent to subtracting the return values of <code>get_position()</code> from the parent coordinates. For offscreen windows however (which can be arbitrarily transformed), this function calls the GdkWindow::from-embedder: signal to translate the coordinates.</p><p>You should always use this function when writing generic code that walks down a window hierarchy.</p><p>See also: <code>coords_to_parent()</code></p><pre class="pod-block-code">method coords-from-parent (
+  Num() $parent_x, Num() $parent_y, Num() $x, Num() $y
+)</pre><ul>
+<li><p>$parent_x; X coordinate in parent’s coordinate system</p></li>
+<li><p>$parent_y; Y coordinate in parent’s coordinate system</p></li>
+<li><p>$x; return location for X coordinate in child’s coordinate system</p></li>
+<li><p>$y; return location for Y coordinate in child’s coordinate system</p></li>
+</ul>
+
+<h2 id="coords-to-parent"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">coords-to-parent</a></h2>
+<p>Transforms window coordinates from a child window to its parent window, where the parent window is the normal parent as returned by <code>get_parent()</code> for normal windows, and the window's embedder as returned by <code>gdk_offscreen_window_get_embedder()</code> for offscreen windows.</p><p>For normal windows, calling this function is equivalent to adding the return values of <code>get_position()</code> to the child coordinates. For offscreen windows however (which can be arbitrarily transformed), this function calls the GdkWindow::to-embedder: signal to translate the coordinates.</p><p>You should always use this function when writing generic code that walks up a window hierarchy.</p><p>See also: <code>coords_from_parent()</code></p><pre class="pod-block-code">method coords-to-parent (
+  Num() $x, Num() $y, Num() $parent_x, Num() $parent_y
+)</pre><ul>
+<li><p>$x; X coordinate in child’s coordinate system</p></li>
+<li><p>$y; Y coordinate in child’s coordinate system</p></li>
+<li><p>$parent_x; return location for X coordinate in parent’s coordinate system, or <code>undefined</code></p></li>
+<li><p>$parent_y; return location for Y coordinate in parent’s coordinate system, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="create-gl-context"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">create-gl-context</a></h2>
+<p>Creates a new <strong>Gnome::Gdk3::GLContext</strong> matching the framebuffer format to the visual of the <strong>Gnome::Gdk3::Window</strong>. The context is disconnected from any particular window or surface.</p><p>If the creation of the <strong>Gnome::Gdk3::GLContext</strong> failed, <em>error</em> will be set.</p><p>Before using the returned <strong>Gnome::Gdk3::GLContext</strong>, you will need to call <code>gdk_gl_context_make_current()</code> or <code>gdk_gl_context_realize()</code>.</p><pre class="pod-block-code">method create-gl-context ( --&gt; List )</pre><p>The returned list holds</p><ul>
+<li><p>an error object. This object is valid when there is an error.</p></li>
+<li><p>a native <strong>Gnome::Gdk3::GLContext</strong>. The object is invalid on error.</p></li>
+</ul>
+
+<h2 id="create-similar-image-surface"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">create-similar-image-surface</a></h2>
+<p>Create a new image surface that is efficient to draw on the given <em>window</em>.</p><p>Initially the surface contents are all 0 (transparent if contents have transparency, black otherwise.)</p><p>The <em>width</em> and <em>height</em> of the new surface are not affected by the scaling factor of the <em>window</em>, or by the <em>scale</em> argument; they are the size of the surface in device pixels. If you wish to create an image surface capable of holding the contents of <em>window</em> you can use:</p><p>Note that unlike <code>cairo_surface_create_similar_image()</code>, the new surface's device scale is set to <em>scale</em>, or to the scale factor of <em>window</em> if <em>scale</em> is 0.</p><p>Returns: a pointer to the newly allocated surface. The caller owns the surface and should call <code>cairo_surface_destroy()</code> when done with it.</p><p>This function always returns a valid pointer, but it will return a pointer to a “nil” surface if <em>other</em> is already in an error state or any other error occurs.</p><pre class="pod-block-code">method create-similar-image-surface (
+  cairo_format_t $format, Int() $width, Int() $height, Int() $scale
+  --&gt; cairo_surface_t
+)</pre><ul>
+<li><p>$format; (type int): the format for the new surface</p></li>
+<li><p>$width; width of the new surface</p></li>
+<li><p>$height; height of the new surface</p></li>
+<li><p>$scale; the scale of the new surface, or 0 to use same as <em>window</em></p></li>
+</ul>
+
+<h2 id="create-similar-surface"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">create-similar-surface</a></h2>
+<p>Create a new surface that is as compatible as possible with the given <em>window</em>. For example the new surface will have the same fallback resolution and font options as <em>window</em>. Generally, the new surface will also use the same backend as <em>window</em>, unless that is not possible for some reason. The type of the returned surface may be examined with <code>cairo_surface_get_type()</code>.</p><p>Initially the surface contents are all 0 (transparent if contents have transparency, black otherwise.)</p><p>Returns: a pointer to the newly allocated surface. The caller owns the surface and should call <code>cairo_surface_destroy()</code> when done with it.</p><p>This function always returns a valid pointer, but it will return a pointer to a “nil” surface if <em>other</em> is already in an error state or any other error occurs.</p><pre class="pod-block-code">method create-similar-surface (
+  cairo_content_t $content, Int() $width, Int() $height
+  --&gt; cairo_surface_t
+)</pre><ul>
+<li><p>$content; the content for the new surface</p></li>
+<li><p>$width; width of the new surface</p></li>
+<li><p>$height; height of the new surface</p></li>
+</ul>
+
+<h2 id="deiconify"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">deiconify</a></h2>
+<p>Attempt to deiconify (unminimize) <em>window</em>. On X11 the window manager may choose to ignore the request to deiconify. When using GTK+, use <code>gtk_window_deiconify()</code> instead of the <strong>Gnome::Gdk3::Window</strong> variant. Or better yet, you probably want to use <code>gtk_window_present_with_time()</code>, which raises the window, focuses it, unminimizes it, and puts it on the current desktop.</p><pre class="pod-block-code">method deiconify ( )</pre>
+<h2 id="destroy"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">destroy</a></h2>
+<p>Destroys the window system resources associated with <em>window</em> and decrements <em>window</em>'s reference count. The window system resources for all children of <em>window</em> are also destroyed, but the children’s reference counts are not decremented.</p><p>Note that a window will not be destroyed automatically when its reference count reaches zero. You must call this function yourself before that happens.</p><p>After this call the object becomes invalid and its native object lost.</p><pre class="pod-block-code">method destroy ( )</pre>
+<h2 id="end-draw-frame"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">end-draw-frame</a></h2>
+<p>Indicates that the drawing of the contents of <em>window</em> started with <code>begin-draw-frame()</code> has been completed.</p><p>This function will take care of destroying the <strong>Gnome::Gdk3::DrawingContext</strong>.</p><p>It is an error to call this function without a matching <code>begin-draw-frame()</code> first.</p><pre class="pod-block-code">method end-draw-frame ( N-GObject() $context )</pre><ul>
+<li><p>$context; the <strong>Gnome::Gdk3::DrawingContext</strong> created by <code>begin_draw_frame()</code></p></li>
+</ul>
+
+<h2 id="ensure-native"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">ensure-native</a></h2>
+<p>Tries to ensure that there is a window-system native window for this GdkWindow. This may fail in some situations, returning <code>False</code>.</p><p>Offscreen window and children of them can never have native windows.</p><p>Some backends may not support native child windows.</p><p>Returns: <code>True</code> if the window has a native window, <code>False</code> otherwise</p><pre class="pod-block-code">method ensure-native ( --&gt; Bool )</pre>
+<h2 id="focus"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">focus</a></h2>
+<p>Sets keyboard focus to <em>window</em>. In most cases, <code>Gnome::Gtk3::Window.present-with-time()</code> should be used on a <strong>Gnome::Gtk3::Window</strong>, rather than calling this function.</p><pre class="pod-block-code">method focus ( UInt $timestamp )</pre><ul>
+<li><p>$timestamp; timestamp of the event triggering the window focus</p></li>
+</ul>
+
+<h2 id="freeze-updates"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">freeze-updates</a></h2>
+<p>Temporarily freezes a window such that it won’t receive expose events. The window will begin receiving expose events again when <code>thaw_updates()</code> is called. If <code>freeze_updates()</code> has been called more than once, <code>thaw_updates()</code> must be called an equal number of times to begin processing exposes.</p><pre class="pod-block-code">method freeze-updates ( )</pre>
+<h2 id="fullscreen"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">fullscreen</a></h2>
+<p>Moves the window into fullscreen mode. This means the window covers the entire screen and is above any panels or task bars.</p><p>If the window was already fullscreen, then this function does nothing.</p><p>On X11, asks the window manager to put <em>window</em> in a fullscreen state, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “fullscreen”; so you can’t rely on the fullscreenification actually happening. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><pre class="pod-block-code">method fullscreen ( )</pre>
+<h2 id="fullscreen-on-monitor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">fullscreen-on-monitor</a></h2>
+<p>Moves the window into fullscreen mode on the given monitor. This means the window covers the entire screen and is above any panels or task bars.</p><p>If the window was already fullscreen, then this function does nothing.</p><pre class="pod-block-code">method fullscreen-on-monitor ( Int() $monitor )</pre><ul>
+<li><p>$monitor; Which monitor to display fullscreen on.</p></li>
+</ul>
+
+<h2 id="geometry-changed"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">geometry-changed</a></h2>
+<p>This function informs GDK that the geometry of an embedded offscreen window has changed. This is necessary for GDK to keep track of which offscreen window the pointer is in.</p><pre class="pod-block-code">method geometry-changed ( )</pre>
+<h2 id="get-accept-focus"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-accept-focus</a></h2>
+<p>Determines whether or not the desktop environment shuld be hinted that the window does not want to receive input focus.</p><p>Returns: whether or not the window should receive input focus.</p><pre class="pod-block-code">method get-accept-focus ( --&gt; Bool )</pre>
+<h2 id="get-children"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-children</a></h2>
+<p>Gets the list of children of <em>window</em> known to GDK. This function only returns children created via GDK, so for example it’s useless when used with the root window; it only returns windows an application created itself.</p><p>The returned list must be freed, but the elements in the list need not be.</p><p>Returns: (transfer container) (element-type GdkWindow): list of child windows inside <em>window</em></p><pre class="pod-block-code">method get-children ( --&gt; N-GList )</pre>
+<h2 id="get-children-with-user-data"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-children-with-user-data</a></h2>
+<p>Gets the list of children of <em>window</em> known to GDK with a particular <em>user_data</em> set on it.</p><p>The returned list must be freed, but the elements in the list need not be.</p><p>The list is returned in (relative) stacking order, i.e. the lowest window is first.</p><p>Returns: (transfer container) (element-type GdkWindow): list of child windows inside <em>window</em></p><pre class="pod-block-code">method get-children-with-user-data ( Pointer $user_data --&gt; N-GList )</pre><ul>
+<li><p>$user_data; user data to look for</p></li>
+</ul>
+
+<h2 id="get-clip-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-clip-region</a></h2>
+<p>Computes the region of a window that potentially can be written to by drawing primitives. This region may not take into account other factors such as if the window is obscured by other windows, but no area outside of this region will be affected by drawing primitives.</p><p>Returns: a <strong>cairo_region_t</strong>. This must be freed with <code>cairo_region_destroy()</code> when you are done.</p><pre class="pod-block-code">method get-clip-region ( --&gt; cairo_region_t )</pre>
+<h2 id="get-cursor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-cursor</a></h2>
+<p>Retrieves a <strong>Gnome::Gdk3::Cursor</strong> pointer for the cursor currently set on the specified <strong>Gnome::Gdk3::Window</strong>, or <code>undefined</code>. If the return value is <code>undefined</code> then there is no custom cursor set on the specified window, and it is using the cursor for its parent window.</p><p>Returns: a <strong>Gnome::Gdk3::Cursor</strong>, or <code>undefined</code>. The returned object is owned by the <strong>Gnome::Gdk3::Window</strong> and should not be unreferenced directly. Use <code>set_cursor()</code> to unset the cursor of the window</p><pre class="pod-block-code">method get-cursor ( --&gt; N-GObject )</pre>
+<h2 id="get-decorations"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-decorations</a></h2>
+<p>Returns the decorations set on the GdkWindow with <code>set-decorations()</code>. Returns -1 if no decorations were set. The returned value is a mask with bits from <code>GdkWMDecoration</code> enumeration.</p><pre class="pod-block-code">method get-decorations ( --&gt; Int )</pre>
+<h2 id="get-default-root-window"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-default-root-window</a></h2>
+<p>Obtains the root window (parent all other windows are inside) for the default display and screen.</p><p>Returns: the default root window</p><pre class="pod-block-code">method get-default-root-window ( --&gt; N-GObject )</pre>
+<h2 id="get-device-cursor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-device-cursor</a></h2>
+<p>Retrieves a <strong>Gnome::Gdk3::Cursor</strong> pointer for the <em>device</em> currently set on the specified <strong>Gnome::Gdk3::Window</strong>, or <code>undefined</code>. If the return value is <code>undefined</code> then there is no custom cursor set on the specified window, and it is using the cursor for its parent window.</p><p>Returns: a <strong>Gnome::Gdk3::Cursor</strong>, or <code>undefined</code>. The returned object is owned by the <strong>Gnome::Gdk3::Window</strong> and should not be unreferenced directly. Use <code>set_cursor()</code> to unset the cursor of the window</p><pre class="pod-block-code">method get-device-cursor ( N-GObject() $device --&gt; N-GObject )</pre><ul>
+<li><p>$device; a master, pointer <strong>Gnome::Gdk3::Device</strong>.</p></li>
+</ul>
+
+<h2 id="get-device-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-device-events</a></h2>
+<p>Returns the event mask for <em>window</em> corresponding to an specific device.</p><p>Returns: device event mask for <em>window</em></p><pre class="pod-block-code">method get-device-events ( N-GObject() $device --&gt; GdkEventMask )</pre><ul>
+<li><p>$device; a <strong>Gnome::Gdk3::Device</strong>.</p></li>
+</ul>
+
+<h2 id="get-device-position"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-device-position</a></h2>
+<p>Obtains the current device position and modifier state. The position is given in coordinates relative to the upper left corner of <em>window</em>.</p><p>Use <code>get_device_position_double()</code> if you need subpixel precision.</p><p>Returns: The window underneath <em>device</em> (as with <code>gdk_device_get_window_at_position()</code>), or <code>undefined</code> if the window is not known to GDK.</p><pre class="pod-block-code">method get-device-position (
+  N-GObject() $device, GdkModifierType $mask --&gt; N-GObject
+)</pre><ul>
+<li><p>$device; pointer <strong>Gnome::Gdk3::Device</strong> to query to.</p></li>
+<li><p>$x; return location for the X coordinate of <em>device</em>, or <code>undefined</code>.</p></li>
+<li><p>$y; return location for the Y coordinate of <em>device</em>, or <code>undefined</code>.</p></li>
+<li><p>$mask; return location for the modifier mask, or <code>undefined</code>.</p></li>
+</ul>
+
+<h2 id="get-device-position-double"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-device-position-double</a></h2>
+<p>Obtains the current device position in doubles and modifier state. The position is given in coordinates relative to the upper left corner of <em>window</em>.</p><p>Returns: The window underneath <em>device</em> (as with <code>gdk_device_get_window_at_position()</code>), or <code>undefined</code> if the window is not known to GDK.</p><pre class="pod-block-code">method get-device-position-double (
+  N-GObject() $device, Num() $x, Num() $y, GdkModifierType $mask
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>$device; pointer <strong>Gnome::Gdk3::Device</strong> to query to.</p></li>
+<li><p>$x; return location for the X coordinate of <em>device</em>, or <code>undefined</code>.</p></li>
+<li><p>$y; return location for the Y coordinate of <em>device</em>, or <code>undefined</code>.</p></li>
+<li><p>$mask; return location for the modifier mask, or <code>undefined</code>.</p></li>
+</ul>
+
+<h2 id="get-display"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-display</a></h2>
+<p>Gets the <strong>Gnome::Gdk3::Display</strong> associated with a <strong>Gnome::Gdk3::Window</strong>.</p><p>Returns: the <strong>Gnome::Gdk3::Display</strong> associated with <em>window</em></p><pre class="pod-block-code">method get-display ( --&gt; N-GObject )</pre>
+<h2 id="get-drag-protocol"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-drag-protocol</a></h2>
+<p>Finds out the DND protocol supported by a window.</p><p>Returns: the supported DND protocol.</p><pre class="pod-block-code">method get-drag-protocol ( N-GObject() $target --&gt; GdkDragProtocol )</pre><ul>
+<li><p>$target; location of the window where the drop should happen. This may be <em>window</em> or a proxy window, or <code>undefined</code> if <em>window</em> does not support Drag and Drop.</p></li>
+</ul>
+
+<h2 id="get-effective-parent"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-effective-parent</a></h2>
+<p>Obtains the parent of <em>window</em>, as known to GDK. Works like <code>get_parent()</code> for normal windows, but returns the window’s embedder for offscreen windows.</p><p>See also: <code>gdk_offscreen_window_get_embedder()</code></p><p>Returns: effective parent of <em>window</em></p><pre class="pod-block-code">method get-effective-parent ( --&gt; N-GObject )</pre>
+<h2 id="get-effective-toplevel"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-effective-toplevel</a></h2>
+<p>Gets the toplevel window that’s an ancestor of <em>window</em>.</p><p>Works like <code>get_toplevel()</code>, but treats an offscreen window's embedder as its parent, using <code>get_effective_parent()</code>.</p><p>See also: <code>gdk_offscreen_window_get_embedder()</code></p><p>Returns: the effective toplevel window containing <em>window</em></p><pre class="pod-block-code">method get-effective-toplevel ( --&gt; N-GObject )</pre>
+<h2 id="get-event-compression"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-event-compression</a></h2>
+<p>Get the current event compression setting for this window.</p><p>Returns: <code>True</code> if motion events will be compressed</p><pre class="pod-block-code">method get-event-compression ( --&gt; Bool )</pre>
+<h2 id="get-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-events</a></h2>
+<p>Gets the event mask for <em>window</em> for all master input devices. See <code>set_events()</code>.</p><p>Returns: event mask for <em>window</em></p><pre class="pod-block-code">method get-events ( --&gt; GdkEventMask )</pre>
+<h2 id="get-focus-on-map"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-focus-on-map</a></h2>
+<p>Determines whether or not the desktop environment should be hinted that the window does not want to receive input focus when it is mapped.</p><p>Returns: whether or not the window wants to receive input focus when it is mapped.</p><pre class="pod-block-code">method get-focus-on-map ( --&gt; Bool )</pre>
+<h2 id="get-frame-clock"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-frame-clock</a></h2>
+<p>Gets the frame clock for the window. The frame clock for a window never changes unless the window is reparented to a new toplevel window.</p><p>Returns: the frame clock</p><pre class="pod-block-code">method get-frame-clock ( --&gt; N-GObject )</pre>
+<h2 id="get-frame-extents"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-frame-extents</a></h2>
+<p>Obtains the bounding box of the window, including window manager titlebar/borders if any. The frame position is given in root window coordinates. To get the position of the window itself (rather than the frame) in root window coordinates, use <code>get_origin()</code>.</p><pre class="pod-block-code">method get-frame-extents ( N-GObject() $rect )</pre><ul>
+<li><p>$rect; rectangle to fill with bounding box of the window frame</p></li>
+</ul>
+
+<h2 id="get-fullscreen-mode"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-fullscreen-mode</a></h2>
+<p>Obtains the <strong>Gnome::Gdk3::FullscreenMode</strong> of the <em>window</em>.</p><p>Returns: The <strong>Gnome::Gdk3::FullscreenMode</strong> applied to the window when fullscreen.</p><pre class="pod-block-code">method get-fullscreen-mode ( --&gt; GdkFullscreenMode )</pre>
+<h2 id="get-geometry"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-geometry</a></h2>
+<p>Any of the return location arguments to this function may be <code>undefined</code>, if you aren’t interested in getting the value of that field.</p><p>The X and Y coordinates returned are relative to the parent window of <em>window</em>, which for toplevels usually means relative to the window decorations (titlebar, etc.) rather than relative to the root window (screen-size background window).</p><p>On the X11 platform, the geometry is obtained from the X server, so reflects the latest position of <em>window</em>; this may be out-of-sync with the position of <em>window</em> delivered in the most-recently-processed <strong>Gnome::Gdk3::EventConfigure</strong>. <code>get_position()</code> in contrast gets the position from the most recent configure event.</p><p>Note: If <em>window</em> is not a toplevel, it is much better to call <code>get_position()</code>, <code>get_width()</code> and <code>get_height()</code> instead, because it avoids the roundtrip to the X server and because these functions support the full 32-bit coordinate space, whereas <code>get_geometry()</code> is restricted to the 16-bit coordinates of X11.</p><pre class="pod-block-code">method get-geometry ( --&gt; List )</pre><p>The List returns</p><ul>
+<li><p>Int; X coordinate of window (relative to its parent)</p></li>
+<li><p>Int; Y coordinate of window (relative to its parent)</p></li>
+<li><p>Int; width of window</p></li>
+<li><p>Int; height of window</p></li>
+</ul>
+
+<h2 id="get-group"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-group</a></h2>
+<p>Returns the group leader window for <em>window</em>. See <code>set_group()</code>.</p><p>Returns: the group leader window for <em>window</em></p><pre class="pod-block-code">method get-group ( --&gt; N-GObject )</pre>
+<h2 id="get-height"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-height</a></h2>
+<p>Returns the height of the given <em>window</em>.</p><p>On the X11 platform the returned size is the size reported in the most-recently-processed configure event, rather than the current size on the X server.</p><p>Returns: The height of <em>window</em></p><pre class="pod-block-code">method get-height ( --&gt; Int )</pre>
+<h2 id="get-modal-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-modal-hint</a></h2>
+<p>Determines whether or not the window manager is hinted that <em>window</em> has modal behaviour.</p><p>Returns: whether or not the window has the modal hint set.</p><pre class="pod-block-code">method get-modal-hint ( --&gt; Bool )</pre>
+<h2 id="get-origin"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-origin</a></h2>
+<p>Obtains the position of a window in root window coordinates. (Compare with <code>get_position()</code> and <code>get_geometry()</code> which return the position of a window relative to its parent window.)</p><p>Returns: not meaningful, ignore</p><pre class="pod-block-code">method get-origin ( --&gt; Int )</pre><ul>
+<li><p>$x; return location for X coordinate</p></li>
+<li><p>$y; return location for Y coordinate</p></li>
+</ul>
+
+<h2 id="get-parent"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-parent</a></h2>
+<p>Obtains the parent of <em>window</em>, as known to GDK. Does not query the X server; thus this returns the parent as passed to <code>new()</code>, not the actual parent. This should never matter unless you’re using Xlib calls mixed with GDK calls on the X11 platform. It may also matter for toplevel windows, because the window manager may choose to reparent them.</p><p>Note that you should use <code>get_effective_parent()</code> when writing generic code that walks up a window hierarchy, because <code>get_parent()</code> will most likely not do what you expect if there are offscreen windows in the hierarchy.</p><p>Returns: parent of <em>window</em></p><pre class="pod-block-code">method get-parent ( --&gt; N-GObject )</pre>
+<h2 id="get-pass-through"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-pass-through</a></h2>
+<p>Returns whether input to the window is passed through to the window below.</p><p>See <code>set_pass_through()</code> for details</p><pre class="pod-block-code">method get-pass-through ( --&gt; Bool )</pre>
+<h2 id="get-position"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-position</a></h2>
+<p>Obtains the position of the window as reported in the most-recently-processed <strong>Gnome::Gdk3::EventConfigure</strong>. Contrast with <code>get_geometry()</code> which queries the X server for the current window position, regardless of which events have been received or processed.</p><p>The position coordinates are relative to the window’s parent window.</p><pre class="pod-block-code">method get-position ( )</pre><ul>
+<li><p>$x; X coordinate of window</p></li>
+<li><p>$y; Y coordinate of window</p></li>
+</ul>
+
+<h2 id="get-root-coords"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-root-coords</a></h2>
+<p>Obtains the position of a window position in root window coordinates. This is similar to <code>get_origin()</code> but allows you to pass in any position in the window, not just the origin.</p><pre class="pod-block-code">method get-root-coords ( Int() $x, Int() $y )</pre><ul>
+<li><p>$x; X coordinate in window</p></li>
+<li><p>$y; Y coordinate in window</p></li>
+<li><p>$root_x; return location for X coordinate</p></li>
+<li><p>$root_y; return location for Y coordinate</p></li>
+</ul>
+
+<h2 id="get-root-origin"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-root-origin</a></h2>
+<p>Obtains the top-left corner of the window manager frame in root window coordinates.</p><pre class="pod-block-code">method get-root-origin ( )</pre><ul>
+<li><p>$x; return location for X position of window frame</p></li>
+<li><p>$y; return location for Y position of window frame</p></li>
+</ul>
+
+<h2 id="get-scale-factor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-scale-factor</a></h2>
+<p>Returns the internal scale factor that maps from window coordiantes to the actual device pixels. On traditional systems this is 1, but on very high density outputs this can be a higher value (often 2).</p><p>A higher value means that drawing is automatically scaled up to a higher resolution, so any code doing drawing will automatically look nicer. However, if you are supplying pixel-based data the scale value can be used to determine whether to use a pixel resource with higher resolution data.</p><p>The scale of a window may change during runtime, if this happens a configure event will be sent to the toplevel window.</p><p>Returns: the scale factor</p><pre class="pod-block-code">method get-scale-factor ( --&gt; Int )</pre>
+<h2 id="get-screen"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-screen</a></h2>
+<p>Gets the <strong>Gnome::Gdk3::Screen</strong> associated with a <strong>Gnome::Gdk3::Window</strong>.</p><p>Returns: the <strong>Gnome::Gdk3::Screen</strong> associated with <em>window</em></p><pre class="pod-block-code">method get-screen ( --&gt; N-GObject )</pre>
+<h2 id="get-source-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-source-events</a></h2>
+<p>Returns the event mask for <em>window</em> corresponding to the device class specified by <em>source</em>.</p><p>Returns: source event mask for <em>window</em></p><pre class="pod-block-code">method get-source-events ( GdkInputSource $source --&gt; GdkEventMask )</pre><ul>
+<li><p>$source; a <strong>Gnome::Gdk3::InputSource</strong> to define the source class.</p></li>
+</ul>
+
+<h2 id="get-state"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-state</a></h2>
+<p>Gets the bitwise OR of the currently active window state flags, from the <strong>Gnome::Gdk3::WindowState</strong> enumeration.</p><p>Returns: window state bitfield</p><pre class="pod-block-code">method get-state ( --&gt; GdkWindowState )</pre>
+<h2 id="get-support-multidevice"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-support-multidevice</a></h2>
+<p>Returns <code>True</code> if the window is aware of the existence of multiple devices.</p><p>Returns: <code>True</code> if the window handles multidevice features.</p><pre class="pod-block-code">method get-support-multidevice ( --&gt; Bool )</pre>
+<h2 id="get-toplevel"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-toplevel</a></h2>
+<p>Gets the toplevel window that’s an ancestor of <em>window</em>.</p><p>Any window type but <code>GDK_WINDOW_CHILD</code> is considered a toplevel window, as is a <code>GDK_WINDOW_CHILD</code> window that has a root window as parent.</p><p>Note that you should use <code>get_effective_toplevel()</code> when you want to get to a window’s toplevel as seen on screen, because <code>get_toplevel()</code> will most likely not do what you expect if there are offscreen windows in the hierarchy.</p><p>Returns: the toplevel window containing <em>window</em></p><pre class="pod-block-code">method get-toplevel ( --&gt; N-GObject )</pre>
+<h2 id="get-type-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-type-hint</a></h2>
+<p>This function returns the type hint set for a window.</p><p>Returns: The type hint set for <em>window</em></p><pre class="pod-block-code">method get-type-hint ( --&gt; GdkWindowTypeHint )</pre>
+<h2 id="get-update-area"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-update-area</a></h2>
+<p>Transfers ownership of the update area from <em>window</em> to the caller of the function. That is, after calling this function, <em>window</em> will no longer have an invalid/dirty region; the update area is removed from <em>window</em> and handed to you. If a window has no update area, <code>get_update_area()</code> returns <code>undefined</code>. You are responsible for calling <code>cairo_region_destroy()</code> on the returned region if it’s non-<code>undefined</code>.</p><p>Returns: the update area for <em>window</em></p><pre class="pod-block-code">method get-update-area ( --&gt; cairo_region_t )</pre>
+<h2 id="get-user-data"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-user-data</a></h2>
+<p>Retrieves the user data for <em>window</em>, which is normally the widget that <em>window</em> belongs to. See <code>set_user_data()</code>.</p><pre class="pod-block-code">method get-user-data ( Pointer $data )</pre><ul>
+<li><p>$data; return location for user data</p></li>
+</ul>
+
+<h2 id="get-visible-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-visible-region</a></h2>
+<p>Computes the region of the <em>window</em> that is potentially visible. This does not necessarily take into account if the window is obscured by other windows, but no area outside of this region is visible.</p><p>Returns: a <strong>cairo_region_t</strong>. This must be freed with <code>cairo_region_destroy()</code> when you are done.</p><pre class="pod-block-code">method get-visible-region ( --&gt; cairo_region_t )</pre>
+<h2 id="get-visual"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-visual</a></h2>
+<p>Gets the <strong>Gnome::Gdk3::Visual</strong> describing the pixel format of <em>window</em>.</p><p>Returns: a native <strong>Gnome::Gdk3::Visual</strong></p><pre class="pod-block-code">method get-visual ( --&gt; N-GObject )</pre>
+<h2 id="get-width"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-width</a></h2>
+<p>Returns the width of the given <em>window</em>.</p><p>On the X11 platform the returned size is the size reported in the most-recently-processed configure event, rather than the current size on the X server.</p><p>Returns: The width of <em>window</em></p><pre class="pod-block-code">method get-width ( --&gt; Int )</pre>
+<h2 id="get-window-type"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">get-window-type</a></h2>
+<p>Gets the type of the window. See <strong>Gnome::Gdk3::WindowType</strong>.</p><p>Returns: type of window</p><pre class="pod-block-code">method get-window-type ( --&gt; GdkWindowType )</pre>
+<h2 id="has-native"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">has-native</a></h2>
+<p>Checks whether the window has a native window or not. Note that you can use <code>ensure_native()</code> if a native window is needed.</p><p>Returns: <code>True</code> if the <em>window</em> has a native window, <code>False</code> otherwise.</p><pre class="pod-block-code">method has-native ( --&gt; Bool )</pre>
+<h2 id="hide"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">hide</a></h2>
+<p>For toplevel windows, withdraws them, so they will no longer be known to the window manager; for all windows, unmaps them, so they won’t be displayed. Normally done automatically as part of <code>gtk_widget_hide()</code>.</p><pre class="pod-block-code">method hide ( )</pre>
+<h2 id="iconify"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">iconify</a></h2>
+<p>Asks to iconify (minimize) <em>window</em>. The window manager may choose to ignore the request, but normally will honor it. Using <code>gtk_window_iconify()</code> is preferred, if you have a <strong>Gnome::Gdk3::Window</strong> widget.</p><p>This function only makes sense when <em>window</em> is a toplevel window.</p><pre class="pod-block-code">method iconify ( )</pre>
+<h2 id="input-shape-combine-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">input-shape-combine-region</a></h2>
+<p>Like <code>shape_combine_region()</code>, but the shape applies only to event handling. Mouse events which happen while the pointer position corresponds to an unset bit in the mask will be passed on the window below <em>window</em>.</p><p>An input shape is typically used with RGBA windows. The alpha channel of the window defines which pixels are invisible and allows for nicely antialiased borders, and the input shape controls where the window is “clickable”.</p><p>On the X11 platform, this requires version 1.1 of the shape extension.</p><p>On the Win32 platform, this functionality is not present and the function does nothing.</p><pre class="pod-block-code">method input-shape-combine-region ( cairo_region_t $shape_region, Int() $offset_x, Int() $offset_y )</pre><ul>
+<li><p>$shape_region; region of window to be non-transparent</p></li>
+<li><p>$offset_x; X position of <em>shape_region</em> in <em>window</em> coordinates</p></li>
+<li><p>$offset_y; Y position of <em>shape_region</em> in <em>window</em> coordinates</p></li>
+</ul>
+
+<h2 id="invalidate-maybe-recurse"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">invalidate-maybe-recurse</a></h2>
+<p>Adds <em>region</em> to the update area for <em>window</em>. The update area is the region that needs to be redrawn, or “dirty region.” The call <code>process_updates()</code> sends one or more expose events to the window, which together cover the entire update area. An application would normally redraw the contents of <em>window</em> in response to those expose events.</p><p>GDK will call <code>process_all_updates()</code> on your behalf whenever your program returns to the main loop and becomes idle, so normally there’s no need to do that manually, you just need to invalidate regions that you know should be redrawn.</p><p>The <em>child_func</em> parameter controls whether the region of each child window that intersects <em>region</em> will also be invalidated. Only children for which <em>child_func</em> returns <strong>TRUE</strong> will have the area invalidated.</p><pre class="pod-block-code">method invalidate-maybe-recurse ( cairo_region_t $region, GdkWindowChildFunc $child_func, Pointer $user_data )</pre><ul>
+<li><p>$region; a <strong>cairo_region_t</strong></p></li>
+<li><p>$child_func; (scope call) : function to use to decide if to recurse to a child, <code>undefined</code> means never recurse.</p></li>
+<li><p>$user_data; data passed to <em>child_func</em></p></li>
+</ul>
+
+<h2 id="invalidate-rect"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">invalidate-rect</a></h2>
+<p>A convenience wrapper around <code>invalidate_region()</code> which invalidates a rectangular region. See <code>invalidate_region()</code> for details.</p><pre class="pod-block-code">method invalidate-rect ( N-GObject() $rect, Bool $invalidate_children )</pre><ul>
+<li><p>$rect; rectangle to invalidate or <code>undefined</code> to invalidate the whole window</p></li>
+<li><p>$invalidate_children; whether to also invalidate child windows</p></li>
+</ul>
+
+<h2 id="invalidate-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">invalidate-region</a></h2>
+<p>Adds <em>region</em> to the update area for <em>window</em>. The update area is the region that needs to be redrawn, or “dirty region.” The call <code>process_updates()</code> sends one or more expose events to the window, which together cover the entire update area. An application would normally redraw the contents of <em>window</em> in response to those expose events.</p><p>GDK will call <code>process_all_updates()</code> on your behalf whenever your program returns to the main loop and becomes idle, so normally there’s no need to do that manually, you just need to invalidate regions that you know should be redrawn.</p><p>The <em>invalidate_children</em> parameter controls whether the region of each child window that intersects <em>region</em> will also be invalidated. If <code>False</code>, then the update area for child windows will remain unaffected. See invalidate_maybe_recurse if you need fine grained control over which children are invalidated.</p><pre class="pod-block-code">method invalidate-region ( cairo_region_t $region, Bool $invalidate_children )</pre><ul>
+<li><p>$region; a <strong>cairo_region_t</strong></p></li>
+<li><p>$invalidate_children; <code>True</code> to also invalidate child windows</p></li>
+</ul>
+
+<h2 id="is-destroyed"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">is-destroyed</a></h2>
+<p>Check to see if a window is destroyed..</p><p>Returns: <code>True</code> if the window is destroyed</p><pre class="pod-block-code">method is-destroyed ( --&gt; Bool )</pre>
+<h2 id="is-input-only"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">is-input-only</a></h2>
+<p>Determines whether or not the window is an input only window.</p><p>Returns: <code>True</code> if <em>window</em> is input only</p><pre class="pod-block-code">method is-input-only ( --&gt; Bool )</pre>
+<h2 id="is-shaped"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">is-shaped</a></h2>
+<p>Determines whether or not the window is shaped.</p><p>Returns: <code>True</code> if <em>window</em> is shaped</p><pre class="pod-block-code">method is-shaped ( --&gt; Bool )</pre>
+<h2 id="is-viewable"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">is-viewable</a></h2>
+<p>Check if the window and all ancestors of the window are mapped. (This is not necessarily &quot;viewable&quot; in the X sense, since we only check as far as we have GDK window parents, not to the root window.)</p><p>Returns: <code>True</code> if the window is viewable</p><pre class="pod-block-code">method is-viewable ( --&gt; Bool )</pre>
+<h2 id="is-visible"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">is-visible</a></h2>
+<p>Checks whether the window has been mapped (with <code>show()</code> or <code>show_unraised()</code>).</p><p>Returns: <code>True</code> if the window is mapped</p><pre class="pod-block-code">method is-visible ( --&gt; Bool )</pre>
+<h2 id="lower"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">lower</a></h2>
+<p>Lowers <em>window</em> to the bottom of the Z-order (stacking order), so that other windows with the same parent window appear above <em>window</em>. This is true whether or not the other windows are visible.</p><p>If <em>window</em> is a toplevel, the window manager may choose to deny the request to move the window in the Z-order, <code>lower()</code> only requests the restack, does not guarantee it.</p><p>Note that <code>show()</code> raises the window again, so don’t call this function before <code>show()</code>. (Try <code>show_unraised()</code>.)</p><pre class="pod-block-code">method lower ( )</pre>
+<h2 id="mark-paint-from-clip"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">mark-paint-from-clip</a></h2>
+<p>If you call this during a paint (e.g. between <code>begin_paint_region()</code> and <code>end_paint()</code> then GDK will mark the current clip region of the window as being drawn. This is required when mixing GL rendering via <code>gdk_cairo_draw_from_gl()</code> and cairo rendering, as otherwise GDK has no way of knowing when something paints over the GL-drawn regions.</p><p>This is typically called automatically by GTK+ and you don't need to care about this.</p><pre class="pod-block-code">method mark-paint-from-clip ( cairo_t $cr )</pre><ul>
+<li><p>$cr; a <strong>cairo_t</strong></p></li>
+</ul>
+
+<h2 id="maximize"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">maximize</a></h2>
+<p>Maximizes the window. If the window was already maximized, then this function does nothing.</p><p>On X11, asks the window manager to maximize <em>window</em>, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “maximized”; so you can’t rely on the maximization actually happening. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><p>On Windows, reliably maximizes the window.</p><pre class="pod-block-code">method maximize ( )</pre>
+<h2 id="merge-child-input-shapes"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">merge-child-input-shapes</a></h2>
+<p>Merges the input shape masks for any child windows into the input shape mask for <em>window</em>. i.e. the union of all input masks for <em>window</em> and its children will become the new input mask for <em>window</em>. See <code>input_shape_combine_region()</code>.</p><p>This function is distinct from <code>set_child_input_shapes()</code> because it includes <em>window</em>’s input shape mask in the set of shapes to be merged.</p><pre class="pod-block-code">method merge-child-input-shapes ( )</pre>
+<h2 id="merge-child-shapes"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">merge-child-shapes</a></h2>
+<p>Merges the shape masks for any child windows into the shape mask for <em>window</em>. i.e. the union of all masks for <em>window</em> and its children will become the new mask for <em>window</em>. See <code>shape_combine_region()</code>.</p><p>This function is distinct from <code>set_child_shapes()</code> because it includes <em>window</em>’s shape mask in the set of shapes to be merged.</p><pre class="pod-block-code">method merge-child-shapes ( )</pre>
+<h2 id="move"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">move</a></h2>
+<p>Repositions a window relative to its parent window. For toplevel windows, window managers may ignore or modify the move; you should probably use <code>gtk_window_move()</code> on a <strong>Gnome::Gdk3::Window</strong> widget anyway, instead of using GDK functions. For child windows, the move will reliably succeed.</p><p>If you’re also planning to resize the window, use <code>move_resize()</code> to both move and resize simultaneously, for a nicer visual effect.</p><pre class="pod-block-code">method move ( Int() $x, Int() $y )</pre><ul>
+<li><p>$x; X coordinate relative to window’s parent</p></li>
+<li><p>$y; Y coordinate relative to window’s parent</p></li>
+</ul>
+
+<h2 id="move-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">move-region</a></h2>
+<p>Move the part of <em>window</em> indicated by <em>region</em> by <em>dy</em> pixels in the Y direction and <em>dx</em> pixels in the X direction. The portions of <em>region</em> that not covered by the new position of <em>region</em> are invalidated.</p><p>Child windows are not moved.</p><pre class="pod-block-code">method move-region ( cairo_region_t $region, Int() $dx, Int() $dy )</pre><ul>
+<li><p>$region; The <strong>cairo_region_t</strong> to move</p></li>
+<li><p>$dx; Amount to move in the X direction</p></li>
+<li><p>$dy; Amount to move in the Y direction</p></li>
+</ul>
+
+<h2 id="move-resize"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">move-resize</a></h2>
+<p>Equivalent to calling <code>move()</code> and <code>resize()</code>, except that both operations are performed at once, avoiding strange visual effects. (i.e. the user may be able to see the window first move, then resize, if you don’t use <code>move_resize()</code>.)</p><pre class="pod-block-code">method move-resize ( Int() $x, Int() $y, Int() $width, Int() $height )</pre><ul>
+<li><p>$x; new X position relative to window’s parent</p></li>
+<li><p>$y; new Y position relative to window’s parent</p></li>
+<li><p>$width; new width</p></li>
+<li><p>$height; new height</p></li>
+</ul>
+
+<h2 id="move-to-rect"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">move-to-rect</a></h2>
+<p>Moves <em>window</em> to <em>rect</em>, aligning their anchor points.</p><p><em>rect</em> is relative to the top-left corner of the window that <em>window</em> is transient for. <em>rect_anchor</em> and <em>window_anchor</em> determine anchor points on <em>rect</em> and <em>window</em> to pin together. <em>rect</em>'s anchor point can optionally be offset by <em>rect_anchor_dx</em> and <em>rect_anchor_dy</em>, which is equivalent to offsetting the position of <em>window</em>.</p><p><em>anchor_hints</em> determines how <em>window</em> will be moved if the anchor points cause it to move off-screen. For example, <code>GDK_ANCHOR_FLIP_X</code> will replace <code>GDK_GRAVITY_NORTH_WEST</code> with <code>GDK_GRAVITY_NORTH_EAST</code> and vice versa if <em>window</em> extends beyond the left or right edges of the monitor.</p><p>Connect to the <em>moved-to-rect</em> signal to find out how it was actually positioned.</p><pre class="pod-block-code">method move-to-rect (
+  N-GdkRectangle $rect, GdkGravity $rect_anchor,
+  GdkGravity $window_anchor, GdkAnchorHints $anchor_hints,
+  Int() $rect_anchor_dx, Int() $rect_anchor_dy
+)</pre><ul>
+<li><p>$rect; the destination rectangle to align <em>window</em> with</p></li>
+<li><p>$rect_anchor; the point on <em>rect</em> to align with <em>window</em>'s anchor point</p></li>
+<li><p>$window_anchor; the point on <em>window</em> to align with <em>rect</em>'s anchor point</p></li>
+<li><p>$anchor_hints; positioning hints to use when limited on space</p></li>
+<li><p>$rect_anchor_dx; horizontal offset to shift <em>window</em>, i.e. <em>rect</em>'s anchor point</p></li>
+<li><p>$rect_anchor_dy; vertical offset to shift <em>window</em>, i.e. <em>rect</em>'s anchor point</p></li>
+</ul>
+
+<h2 id="offscreen-window-get-embedder"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">offscreen-window-get-embedder</a></h2>
+<p>Gets the window that window is embedded in.</p><pre class="pod-block-code">method gdk-offscreen-window-get-embedder ( --&gt; N-GObject )</pre>
+<h2 id="offscreen-window-get-surface"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">offscreen-window-get-surface</a></h2>
+<p>Gets the offscreen surface that an offscreen window renders into. If you need to keep this around over window resizes, you need to add a reference to it.</p><pre class="pod-block-code">method offscreen-window-get-surface ( --&gt; cairo_surface_t )</pre>
+<h2 id="offscreen-window-set-embedder"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">offscreen-window-set-embedder</a></h2>
+<p>Sets window to be embedded in embedder.</p><p>To fully embed an offscreen window, in addition to calling this function, it is also necessary to handle the “pick-embedded-child” signal on the embedder and the “to-embedder” and “from-embedder” signals on window .</p><pre class="pod-block-code">method offscreen-window-set-embedder ( N-GObject() $embedder )</pre><ul>
+<li><p>$embedder;</p></li>
+</ul>
+
+<h2 id="peek-children"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">peek-children</a></h2>
+<p>Like <code>get_children()</code>, but does not copy the list of children, so the list does not need to be freed.</p><p>Returns: (element-type GdkWindow): a reference to the list of child windows in <em>window</em></p><pre class="pod-block-code">method peek-children ( --&gt; N-GList )</pre>
+<h2 id="raise"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">raise</a></h2>
+<p>Raises <em>window</em> to the top of the Z-order (stacking order), so that other windows with the same parent window appear below <em>window</em>. This is true whether or not the windows are visible.</p><p>If <em>window</em> is a toplevel, the window manager may choose to deny the request to move the window in the Z-order, <code>raise()</code> only requests the restack, does not guarantee it.</p><pre class="pod-block-code">method raise ( )</pre>
+<h2 id="register-dnd"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">register-dnd</a></h2>
+<p>Registers a window as a potential drop destination.</p><pre class="pod-block-code">method register-dnd ( )</pre>
+<h2 id="remove-filter"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">remove-filter</a></h2>
+<p>Remove a filter previously added with <code>add_filter()</code>.</p><pre class="pod-block-code">method remove-filter ( GdkFilterFunc $function, Pointer $data )</pre><ul>
+<li><p>$function; previously-added filter function</p></li>
+<li><p>$data; user data for previously-added filter function</p></li>
+</ul>
+
+<h2 id="reparent"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">reparent</a></h2>
+<p>Reparents <em>window</em> into the given <em>new_parent</em>. The window being reparented will be unmapped as a side effect.</p><pre class="pod-block-code">method reparent ( N-GObject() $new_parent, Int() $x, Int() $y )</pre><ul>
+<li><p>$new_parent; new parent to move <em>window</em> into</p></li>
+<li><p>$x; X location inside the new parent</p></li>
+<li><p>$y; Y location inside the new parent</p></li>
+</ul>
+
+<h2 id="resize"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">resize</a></h2>
+<p>Resizes <em>window</em>; for toplevel windows, asks the window manager to resize the window. The window manager may not allow the resize. When using GTK+, use <code>gtk_window_resize()</code> instead of this low-level GDK function.</p><p>Windows may not be resized below 1x1.</p><p>If you’re also planning to move the window, use <code>move_resize()</code> to both move and resize simultaneously, for a nicer visual effect.</p><pre class="pod-block-code">method resize ( Int() $width, Int() $height )</pre><ul>
+<li><p>$width; new width of the window</p></li>
+<li><p>$height; new height of the window</p></li>
+</ul>
+
+<h2 id="restack"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">restack</a></h2>
+<p>Changes the position of <em>window</em> in the Z-order (stacking order), so that it is above <em>sibling</em> (if <em>above</em> is <code>True</code>) or below <em>sibling</em> (if <em>above</em> is <code>False</code>).</p><p>If <em>sibling</em> is <code>undefined</code>, then this either raises (if <em>above</em> is <code>True</code>) or lowers the window.</p><p>If <em>window</em> is a toplevel, the window manager may choose to deny the request to move the window in the Z-order, <code>restack()</code> only requests the restack, does not guarantee it.</p><pre class="pod-block-code">method restack ( N-GObject() $sibling, Bool $above )</pre><ul>
+<li><p>$sibling; a <strong>Gnome::Gdk3::Window</strong> that is a sibling of <em>window</em>, or <code>undefined</code></p></li>
+<li><p>$above; a boolean</p></li>
+</ul>
+
+<h2 id="scroll"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">scroll</a></h2>
+<p>Scroll the contents of <em>window</em>, both pixels and children, by the given amount. <em>window</em> itself does not move. Portions of the window that the scroll operation brings in from offscreen areas are invalidated. The invalidated region may be bigger than what would strictly be necessary.</p><p>For X11, a minimum area will be invalidated if the window has no subwindows, or if the edges of the window’s parent do not extend beyond the edges of the window. In other cases, a multi-step process is used to scroll the window which may produce temporary visual artifacts and unnecessary invalidations.</p><pre class="pod-block-code">method scroll ( Int() $dx, Int() $dy )</pre><ul>
+<li><p>$dx; Amount to scroll in the X direction</p></li>
+<li><p>$dy; Amount to scroll in the Y direction</p></li>
+</ul>
+
+<h2 id="set-accept-focus"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-accept-focus</a></h2>
+<p>Setting <em>accept_focus</em> to <code>False</code> hints the desktop environment that the window doesn’t want to receive input focus.</p><p>On X, it is the responsibility of the window manager to interpret this hint. ICCCM-compliant window manager usually respect it.</p><pre class="pod-block-code">method set-accept-focus ( Bool $accept_focus )</pre><ul>
+<li><p>$accept_focus; <code>True</code> if the window should receive input focus</p></li>
+</ul>
+
+<h2 id="set-child-input-shapes"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-child-input-shapes</a></h2>
+<p>Sets the input shape mask of <em>window</em> to the union of input shape masks for all children of <em>window</em>, ignoring the input shape mask of <em>window</em> itself. Contrast with <code>merge_child_input_shapes()</code> which includes the input shape mask of <em>window</em> in the masks to be merged.</p><pre class="pod-block-code">method set-child-input-shapes ( )</pre>
+<h2 id="set-child-shapes"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-child-shapes</a></h2>
+<p>Sets the shape mask of <em>window</em> to the union of shape masks for all children of <em>window</em>, ignoring the shape mask of <em>window</em> itself. Contrast with <code>merge_child_shapes()</code> which includes the shape mask of <em>window</em> in the masks to be merged.</p><pre class="pod-block-code">method set-child-shapes ( )</pre>
+<h2 id="set-cursor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-cursor</a></h2>
+<p>Sets the default mouse pointer for a <strong>Gnome::Gdk3::Window</strong>.</p><p>Note that <em>cursor</em> must be for the same display as <em>window</em>.</p><p>Use <code>gdk_cursor_new_for_display()</code> or <code>gdk_cursor_new_from_pixbuf()</code> to create the cursor. To make the cursor invisible, use <code>GDK_BLANK_CURSOR</code>. Passing <code>undefined</code> for the <em>cursor</em> argument to <code>set_cursor()</code> means that <em>window</em> will use the cursor of its parent window. Most windows should use this default.</p><pre class="pod-block-code">method set-cursor ( N-GObject() $cursor )</pre><ul>
+<li><p>$cursor; a <strong>Gnome;:Gdk3::Cursor</strong></p></li>
+</ul>
+
+<h2 id="set-decorations"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-decorations</a></h2>
+<p>“Decorations” are the features the window manager adds to a toplevel <strong>Gnome::Gdk3::Window</strong>. This function sets the traditional Motif window manager hints that tell the window manager which decorations you would like your window to have. Usually you should use <code>Gnome::Gtk3::Window.set_decorated()</code> on a <strong>Gnome::Gdk3::Window</strong> instead of using the GDK function directly.</p><p>The <em>$decorations</em> argument is the logical OR of the fields in the <code>GdkWMDecoration</code> enumeration. If <code>GDK_DECOR_ALL</code> is included in the mask, the other bits indicate which decorations should be turned off. If <code>GDK_DECOR_ALL</code> is not included, then the other bits indicate which decorations should be turned on.</p><p>Most window managers honor a decorations hint of 0 to disable all decorations, but very few honor all possible combinations of bits.</p><pre class="pod-block-code">method set-decorations ( Int $decorations )</pre><ul>
+<li><p>$decorations; decoration hint mask</p></li>
+</ul>
+
+<h2 id="set-device-cursor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-device-cursor</a></h2>
+<p>Sets a specific <strong>Gnome::Gdk3::Cursor</strong> for a given device when it gets inside <em>window</em>. Use <code>gdk_cursor_new_for_display()</code> or <code>gdk_cursor_new_from_pixbuf()</code> to create the cursor. To make the cursor invisible, use <code>GDK_BLANK_CURSOR</code>. Passing <code>undefined</code> for the <em>cursor</em> argument to <code>set_cursor()</code> means that <em>window</em> will use the cursor of its parent window. Most windows should use this default.</p><pre class="pod-block-code">method set-device-cursor ( N-GObject() $device, N-GObject() $cursor )</pre><ul>
+<li><p>$device; a master, pointer <strong>Gnome::Gdk3::Device</strong></p></li>
+<li><p>$cursor; a <strong>Gnome::Gdk3::Cursor</strong></p></li>
+</ul>
+
+<h2 id="set-device-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-device-events</a></h2>
+<p>Sets the event mask for a given device (Normally a floating device, not attached to any visible pointer) to <em>window</em>. For example, an event mask including <strong>Gnome::Gdk3::DK_BUTTON_PRESS_MASK</strong> means the window should report button press events. The event mask is the bitwise OR of values from the <strong>Gnome::Gdk3::EventMask</strong> enumeration.</p><p>See the [input handling overview][event-masks] for details.</p><pre class="pod-block-code">method set-device-events ( N-GObject() $device, GdkEventMask $event_mask )</pre><ul>
+<li><p>$device; <strong>Gnome::Gdk3::Device</strong> to enable events for.</p></li>
+<li><p>$event_mask; event mask for <em>window</em></p></li>
+</ul>
+
+<h2 id="set-event-compression"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-event-compression</a></h2>
+<p>Determines whether or not extra unprocessed motion events in the event queue can be discarded. If <code>True</code> only the most recent event will be delivered.</p><p>Some types of applications, e.g. paint programs, need to see all motion events and will benefit from turning off event compression.</p><p>By default, event compression is enabled.</p><pre class="pod-block-code">method set-event-compression ( Bool $event_compression )</pre><ul>
+<li><p>$event_compression; <code>True</code> if motion events should be compressed</p></li>
+</ul>
+
+<h2 id="set-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-events</a></h2>
+<p>The event mask for a window determines which events will be reported for that window from all master input devices. For example, an event mask including <strong>Gnome::Gdk3::DK_BUTTON_PRESS_MASK</strong> means the window should report button press events. The event mask is the bitwise OR of values from the <strong>Gnome::Gdk3::EventMask</strong> enumeration.</p><p>See the [input handling overview][event-masks] for details.</p><pre class="pod-block-code">method set-events ( GdkEventMask $event_mask )</pre><ul>
+<li><p>$event_mask; event mask for <em>window</em></p></li>
+</ul>
+
+<h2 id="set-focus-on-map"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-focus-on-map</a></h2>
+<p>Setting <em>focus_on_map</em> to <code>False</code> hints the desktop environment that the window doesn’t want to receive input focus when it is mapped. focus_on_map should be turned off for windows that aren’t triggered interactively (such as popups from network activity).</p><p>On X, it is the responsibility of the window manager to interpret this hint. Window managers following the freedesktop.org window manager extension specification should respect it.</p><pre class="pod-block-code">method set-focus-on-map ( Bool $focus_on_map )</pre><ul>
+<li><p>$focus_on_map; <code>True</code> if the window should receive input focus when mapped</p></li>
+</ul>
+
+<h2 id="set-fullscreen-mode"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-fullscreen-mode</a></h2>
+<p>Specifies whether the <em>window</em> should span over all monitors (in a multi-head setup) or only the current monitor when in fullscreen mode.</p><p>The <em>mode</em> argument is from the <strong>Gnome::Gdk3::FullscreenMode</strong> enumeration. If <strong>Gnome::Gdk3::DK_FULLSCREEN_ON_ALL_MONITORS</strong> is specified, the fullscreen <em>window</em> will span over all monitors from the <strong>Gnome::Gdk3::Screen</strong>.</p><p>On X11, searches through the list of monitors from the <strong>Gnome::Gdk3::Screen</strong> the ones which delimit the 4 edges of the entire <strong>Gnome::Gdk3::Screen</strong> and will ask the window manager to span the <em>window</em> over these monitors.</p><p>If the XINERAMA extension is not available or not usable, this function has no effect.</p><p>Not all window managers support this, so you can’t rely on the fullscreen window to span over the multiple monitors when <strong>Gnome::Gdk3::DK_FULLSCREEN_ON_ALL_MONITORS</strong> is specified.</p><pre class="pod-block-code">method set-fullscreen-mode ( GdkFullscreenMode $mode )</pre><ul>
+<li><p>$mode; fullscreen mode</p></li>
+</ul>
+
+<h2 id="set-functions"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-functions</a></h2>
+<p>Sets hints about the window management functions to make available via buttons on the window frame.</p><p>On the X backend, this function sets the traditional Motif window manager hint for this purpose. However, few window managers do anything reliable or interesting with this hint. Many ignore it entirely.</p><p>The <em>functions</em> argument is the logical OR of values from the <strong>Gnome::Gdk3::WMFunction</strong> enumeration. If the bitmask includes <strong>Gnome::Gdk3::DK_FUNC_ALL</strong>, then the other bits indicate which functions to disable; if it doesn’t include <strong>Gnome::Gdk3::DK_FUNC_ALL</strong>, it indicates which functions to enable.</p><pre class="pod-block-code">method set-functions ( GdkWMFunction $functions )</pre><ul>
+<li><p>$functions; bitmask of operations to allow on <em>window</em></p></li>
+</ul>
+
+<h2 id="set-geometry-hints"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-geometry-hints</a></h2>
+<p>Sets the geometry hints for <em>window</em>. Hints flagged in <em>geom_mask</em> are set, hints not flagged in <em>geom_mask</em> are unset. To unset all hints, use a <em>geom_mask</em> of 0 and a <em>geometry</em> of <code>undefined</code>.</p><p>This function provides hints to the windowing system about acceptable sizes for a toplevel window. The purpose of this is to constrain user resizing, but the windowing system will typically (but is not required to) also constrain the current size of the window to the provided values and constrain programatic resizing via <code>resize()</code> or <code>move_resize()</code>.</p><p>Note that on X11, this effect has no effect on windows of type <code>GDK_WINDOW_TEMP</code> or windows where override redirect has been turned on via <code>set_override_redirect()</code> since these windows are not resizable by the user.</p><p>Since you can’t count on the windowing system doing the constraints for programmatic resizes, you should generally call <code>constrain_size()</code> yourself to determine appropriate sizes.</p><pre class="pod-block-code">method set-geometry-hints (
+  N-GdkGeometry $geometry, GdkWindowHints $geom_mask
+)</pre><ul>
+<li><p>$geometry; geometry hints</p></li>
+<li><p>$geom_mask; bitmask indicating fields of <em>geometry</em> to pay attention to</p></li>
+</ul>
+
+<h2 id="set-group"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-group</a></h2>
+<p>Sets the group leader window for <em>window</em>. By default, GDK sets the group leader for all toplevel windows to a global window implicitly created by GDK. With this function you can override this default.</p><p>The group leader window allows the window manager to distinguish all windows that belong to a single application. It may for example allow users to minimize/unminimize all windows belonging to an application at once. You should only set a non-default group window if your application pretends to be multiple applications.</p><pre class="pod-block-code">method set-group ( N-GObject() $leader )</pre><ul>
+<li><p>$leader; group leader window, or <code>undefined</code> to restore the default group leader window</p></li>
+</ul>
+
+<h2 id="set-icon-list"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-icon-list</a></h2>
+<p>Sets a list of icons for the window. One of these will be used to represent the window when it has been iconified. The icon is usually shown in an icon box or some sort of task bar. Which icon size is shown depends on the window manager. The window manager can scale the icon but setting several size icons can give better image quality since the window manager may only need to scale the icon by a small amount or not at all.</p><p>Note that some platforms don't support window icons.</p><pre class="pod-block-code">method set-icon-list ( N-GList $pixbufs )</pre><ul>
+<li><p>$pixbufs; (element-type GdkPixbuf): A list of pixbufs, of different sizes.</p></li>
+</ul>
+
+<h2 id="set-icon-name"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-icon-name</a></h2>
+<p>Windows may have a name used while minimized, distinct from the name they display in their titlebar. Most of the time this is a bad idea from a user interface standpoint. But you can set such a name with this function, if you like.</p><p>After calling this with a non-<code>undefined</code> <em>name</em>, calls to <code>set_title()</code> will not update the icon title.</p><p>Using <code>undefined</code> for <em>name</em> unsets the icon title; further calls to <code>set_title()</code> will again update the icon title as well.</p><p>Note that some platforms don't support window icons.</p><pre class="pod-block-code">method set-icon-name ( Str $name )</pre><ul>
+<li><p>$name; name of window while iconified (minimized)</p></li>
+</ul>
+
+<h2 id="set-invalidate-handler"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-invalidate-handler</a></h2>
+<p>Registers an invalidate handler for a specific window. This will get called whenever a region in the window or its children is invalidated.</p><p>This can be used to record the invalidated region, which is useful if you are keeping an offscreen copy of some region and want to keep it up to date. You can also modify the invalidated region in case you’re doing some effect where e.g. a child widget appears in multiple places.</p><pre class="pod-block-code">method set-invalidate-handler ( GdkWindowInvalidateHandlerFunc $handler )</pre><ul>
+<li><p>$handler; a <strong>Gnome::Gdk3::WindowInvalidateHandlerFunc</strong> callback function</p></li>
+</ul>
+
+<h2 id="set-keep-above"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-keep-above</a></h2>
+<p>Set if <em>window</em> must be kept above other windows. If the window was already above, then this function does nothing.</p><p>On X11, asks the window manager to keep <em>window</em> above, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “keep above”; so you can’t rely on the window being kept above. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><pre class="pod-block-code">method set-keep-above ( Bool $setting )</pre><ul>
+<li><p>$setting; whether to keep <em>window</em> above other windows</p></li>
+</ul>
+
+<h2 id="set-keep-below"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-keep-below</a></h2>
+<p>Set if <em>window</em> must be kept below other windows. If the window was already below, then this function does nothing.</p><p>On X11, asks the window manager to keep <em>window</em> below, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “keep below”; so you can’t rely on the window being kept below. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><pre class="pod-block-code">method set-keep-below ( Bool $setting )</pre><ul>
+<li><p>$setting; whether to keep <em>window</em> below other windows</p></li>
+</ul>
+
+<h2 id="set-modal-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-modal-hint</a></h2>
+<p>The application can use this hint to tell the window manager that a certain window has modal behaviour. The window manager can use this information to handle modal windows in a special way.</p><p>You should only use this on windows for which you have previously called <code>set_transient_for()</code></p><pre class="pod-block-code">method set-modal-hint ( Bool $modal )</pre><ul>
+<li><p>$modal; <code>True</code> if the window is modal, <code>False</code> otherwise.</p></li>
+</ul>
+
+<h2 id="set-opacity"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-opacity</a></h2>
+<p>Set <em>window</em> to render as partially transparent, with opacity 0 being fully transparent and 1 fully opaque. (Values of the opacity parameter are clamped to the [0,1] range.)</p><p>For toplevel windows this depends on support from the windowing system that may not always be there. For instance, On X11, this works only on X screens with a compositing manager running. On Wayland, there is no per-window opacity value that the compositor would apply. Instead, use `set_opaque_region (window, NULL)` to tell the compositor that the entire window is (potentially) non-opaque, and draw your content with alpha, or use <code>gtk_widget_set_opacity()</code> to set an overall opacity for your widgets.</p><p>For child windows this function only works for non-native windows.</p><p>For setting up per-pixel alpha topelevels, see <code>gdk_screen_get_rgba_visual()</code>, and for non-toplevels, see <code>set_composited()</code>.</p><p>Support for non-toplevel windows was added in 3.8.</p><pre class="pod-block-code">method set-opacity ( Num() $opacity )</pre><ul>
+<li><p>$opacity; opacity</p></li>
+</ul>
+
+<h2 id="set-opaque-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-opaque-region</a></h2>
+<p>For optimisation purposes, compositing window managers may like to not draw obscured regions of windows, or turn off blending during for these regions. With RGB windows with no transparency, this is just the shape of the window, but with ARGB32 windows, the compositor does not know what regions of the window are transparent or not.</p><p>This function only works for toplevel windows.</p><p>GTK+ will update this property automatically if the <em>window</em> background is opaque, as we know where the opaque regions are. If your window background is not opaque, please update this property in your <em>style-updated</em> handler.</p><pre class="pod-block-code">method set-opaque-region ( cairo_region_t $region )</pre><ul>
+<li><p>$region; a region, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-override-redirect"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-override-redirect</a></h2>
+<p>An override redirect window is not under the control of the window manager. This means it won’t have a titlebar, won’t be minimizable, etc. - it will be entirely under the control of the application. The window manager can’t see the override redirect window at all.</p><p>Override redirect should only be used for short-lived temporary windows, such as popup menus. <strong>Gnome::Gdk3::Menu</strong> uses an override redirect window in its implementation, for example.</p><pre class="pod-block-code">method set-override-redirect ( Bool $override_redirect )</pre><ul>
+<li><p>$override_redirect; <code>True</code> if window should be override redirect</p></li>
+</ul>
+
+<h2 id="set-pass-through"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-pass-through</a></h2>
+<p>Sets whether input to the window is passed through to the window below.</p><p>The default value of this is <code>False</code>, which means that pointer events that happen inside the window are send first to the window, but if the event is not selected by the event mask then the event is sent to the parent window, and so on up the hierarchy.</p><p>If <em>pass_through</em> is <code>True</code> then such pointer events happen as if the window wasn't there at all, and thus will be sent first to any windows below <em>window</em>. This is useful if the window is used in a transparent fashion. In the terminology of the web this would be called &quot;pointer-events: none&quot;.</p><p>Note that a window with <em>pass_through</em> <code>True</code> can still have a subwindow without pass through, so you can get events on a subset of a window. And in that cases you would get the in-between related events such as the pointer enter/leave events on its way to the destination window.</p><pre class="pod-block-code">method set-pass-through ( Bool $pass_through )</pre><ul>
+<li><p>$pass_through; a boolean</p></li>
+</ul>
+
+<h2 id="set-role"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-role</a></h2>
+<p>When using GTK+, typically you should use <code>gtk_window_set_role()</code> instead of this low-level function.</p><p>The window manager and session manager use a window’s role to distinguish it from other kinds of window in the same application. When an application is restarted after being saved in a previous session, all windows with the same title and role are treated as interchangeable. So if you have two windows with the same title that should be distinguished for session management purposes, you should set the role on those windows. It doesn’t matter what string you use for the role, as long as you have a different role for each non-interchangeable kind of window.</p><pre class="pod-block-code">method set-role ( Str $role )</pre><ul>
+<li><p>$role; a string indicating its role</p></li>
+</ul>
+
+<h2 id="set-shadow-width"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-shadow-width</a></h2>
+<p>Newer GTK+ windows using client-side decorations use extra geometry around their frames for effects like shadows and invisible borders. Window managers that want to maximize windows or snap to edges need to know where the extents of the actual frame lie, so that users don’t feel like windows are snapping against random invisible edges.</p><p>Note that this property is automatically updated by GTK+, so this function should only be used by applications which do not use GTK+ to create toplevel windows.</p><pre class="pod-block-code">method set-shadow-width (
+  Int() $left, Int() $right, Int() $top, Int() $bottom
+)</pre><ul>
+<li><p>$left; The left extent</p></li>
+<li><p>$right; The right extent</p></li>
+<li><p>$top; The top extent</p></li>
+<li><p>$bottom; The bottom extent</p></li>
+</ul>
+
+<h2 id="set-skip-pager-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-skip-pager-hint</a></h2>
+<p>Toggles whether a window should appear in a pager (workspace switcher, or other desktop utility program that displays a small thumbnail representation of the windows on the desktop). If a window’s semantic type as specified with <code>set_type_hint()</code> already fully describes the window, this function should not be called in addition, instead you should allow the window to be treated according to standard policy for its semantic type.</p><pre class="pod-block-code">method set-skip-pager-hint ( Bool $skips_pager )</pre><ul>
+<li><p>$skips_pager; <code>True</code> to skip the pager</p></li>
+</ul>
+
+<h2 id="set-skip-taskbar-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-skip-taskbar-hint</a></h2>
+<p>Toggles whether a window should appear in a task list or window list. If a window’s semantic type as specified with <code>set_type_hint()</code> already fully describes the window, this function should not be called in addition, instead you should allow the window to be treated according to standard policy for its semantic type.</p><pre class="pod-block-code">method set-skip-taskbar-hint ( Bool $skips_taskbar )</pre><ul>
+<li><p>$skips_taskbar; <code>True</code> to skip the taskbar</p></li>
+</ul>
+
+<h2 id="set-source-events"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-source-events</a></h2>
+<p>Sets the event mask for any floating device (i.e. not attached to any visible pointer) that has the source defined as <em>source</em>. This event mask will be applied both to currently existing, newly added devices after this call, and devices being attached/detached.</p><pre class="pod-block-code">method set-source-events ( GdkInputSource $source, GdkEventMask $event_mask )</pre><ul>
+<li><p>$source; a <strong>Gnome::Gdk3::InputSource</strong> to define the source class.</p></li>
+<li><p>$event_mask; event mask for <em>window</em></p></li>
+</ul>
+
+<h2 id="set-startup-id"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-startup-id</a></h2>
+<p>When using GTK+, typically you should use <code>gtk_window_set_startup_id()</code> instead of this low-level function.</p><pre class="pod-block-code">method set-startup-id ( Str $startup_id )</pre><ul>
+<li><p>$startup_id; a string with startup-notification identifier</p></li>
+</ul>
+
+<h2 id="set-support-multidevice"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-support-multidevice</a></h2>
+<p>This function will enable multidevice features in <em>window</em>.</p><p>Multidevice aware windows will need to handle properly multiple, per device enter/leave events, device grabs and grab ownerships.</p><pre class="pod-block-code">method set-support-multidevice ( Bool $support_multidevice )</pre><ul>
+<li><p>$support_multidevice; <code>True</code> to enable multidevice support in <em>window</em>.</p></li>
+</ul>
+
+<h2 id="set-title"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-title</a></h2>
+<p>Sets the title of a toplevel window, to be displayed in the titlebar. If you haven’t explicitly set the icon name for the window (using <code>set_icon_name()</code>), the icon name will be set to <em>title</em> as well. <em>title</em> must be in UTF-8 encoding (as with all user-readable strings in GDK/GTK+). <em>title</em> may not be <code>undefined</code>.</p><pre class="pod-block-code">method set-title ( Str $title )</pre><ul>
+<li><p>$title; title of <em>window</em></p></li>
+</ul>
+
+<h2 id="set-transient-for"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-transient-for</a></h2>
+<p>Indicates to the window manager that <em>window</em> is a transient dialog associated with the application window <em>parent</em>. This allows the window manager to do things like center <em>window</em> on <em>parent</em> and keep <em>window</em> above <em>parent</em>.</p><p>See <code>gtk_window_set_transient_for()</code> if you’re using <strong>Gnome::Gdk3::Window</strong> or <strong>Gnome::Gdk3::Dialog</strong>.</p><pre class="pod-block-code">method set-transient-for ( N-GObject() $parent )</pre><ul>
+<li><p>$parent; another toplevel <strong>Gnome::Gdk3::Window</strong></p></li>
+</ul>
+
+<h2 id="set-type-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-type-hint</a></h2>
+<p>The application can use this call to provide a hint to the window manager about the functionality of a window. The window manager can use this information when determining the decoration and behaviour of the window.</p><p>The hint must be set before the window is mapped.</p><pre class="pod-block-code">method set-type-hint ( GdkWindowTypeHint $hint )</pre><ul>
+<li><p>$hint; A hint of the function this window will have</p></li>
+</ul>
+
+<h2 id="set-urgency-hint"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-urgency-hint</a></h2>
+<p>Toggles whether a window needs the user's urgent attention.</p><pre class="pod-block-code">method set-urgency-hint ( Bool $urgent )</pre><ul>
+<li><p>$urgent; <code>True</code> if the window is urgent</p></li>
+</ul>
+
+<h2 id="set-user-data"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">set-user-data</a></h2>
+<p>For most purposes this function is deprecated in favor of <code>g_object_set_data()</code>. However, for historical reasons GTK+ stores the <strong>Gnome::Gdk3::Widget</strong> that owns a <strong>Gnome::Gdk3::Window</strong> as user data on the <strong>Gnome::Gdk3::Window</strong>. So, custom widget implementations should use this function for that. If GTK+ receives an event for a <strong>Gnome::Gdk3::Window</strong>, and the user data for the window is non-<code>undefined</code>, GTK+ will assume the user data is a <strong>Gnome::Gdk3::Widget</strong>, and forward the event to that widget.</p><pre class="pod-block-code">method set-user-data ( Pointer $user_data )</pre><ul>
+<li><p>$user_data; (type GObject.Object): user data</p></li>
+</ul>
+
+<h2 id="shape-combine-region"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">shape-combine-region</a></h2>
+<p>Makes pixels in <em>window</em> outside <em>shape_region</em> be transparent, so that the window may be nonrectangular.</p><p>If <em>shape_region</em> is <code>undefined</code>, the shape will be unset, so the whole window will be opaque again. <em>offset_x</em> and <em>offset_y</em> are ignored if <em>shape_region</em> is <code>undefined</code>.</p><p>On the X11 platform, this uses an X server extension which is widely available on most common platforms, but not available on very old X servers, and occasionally the implementation will be buggy. On servers without the shape extension, this function will do nothing.</p><p>This function works on both toplevel and child windows.</p><pre class="pod-block-code">method shape-combine-region ( cairo_region_t $shape_region, Int() $offset_x, Int() $offset_y )</pre><ul>
+<li><p>$shape_region; region of window to be non-transparent</p></li>
+<li><p>$offset_x; X position of <em>shape_region</em> in <em>window</em> coordinates</p></li>
+<li><p>$offset_y; Y position of <em>shape_region</em> in <em>window</em> coordinates</p></li>
+</ul>
+
+<h2 id="show"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">show</a></h2>
+<p>Like <code>show_unraised()</code>, but also raises the window to the top of the window stack (moves the window to the front of the Z-order).</p><p>This function maps a window so it’s visible onscreen. Its opposite is <code>hide()</code>.</p><p>When implementing a <strong>Gnome::Gdk3::Widget</strong>, you should call this function on the widget's <strong>Gnome::Gdk3::Window</strong> as part of the “map” method.</p><pre class="pod-block-code">method show ( )</pre>
+<h2 id="show-unraised"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">show-unraised</a></h2>
+<p>Shows a <strong>Gnome::Gdk3::Window</strong> onscreen, but does not modify its stacking order. In contrast, <code>show()</code> will raise the window to the top of the window stack.</p><p>On the X11 platform, in Xlib terms, this function calls <code>XMapWindow()</code> (it also updates some internal GDK state, which means that you can’t really use <code>XMapWindow()</code> directly on a GDK window).</p><pre class="pod-block-code">method show-unraised ( )</pre>
+<h2 id="show-window-menu"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">show-window-menu</a></h2>
+<p>Asks the windowing system to show the window menu. The window menu is the menu shown when right-clicking the titlebar on traditional windows managed by the window manager. This is useful for windows using client-side decorations, activating it with a right-click on the window decorations.</p><p>Returns: <code>True</code> if the window menu was shown and <code>False</code> otherwise.</p><pre class="pod-block-code">method show-window-menu ( GdkEvent $event --&gt; Bool )</pre><ul>
+<li><p>$event; a <strong>Gnome::Gdk3::Event</strong> to show the menu for</p></li>
+</ul>
+
+<h2 id="stick"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">stick</a></h2>
+<p>“Pins” a window such that it’s on all workspaces and does not scroll with viewports, for window managers that have scrollable viewports. (When using <strong>Gnome::Gdk3::Window</strong>, <code>gtk_window_stick()</code> may be more useful.)</p><p>On the X11 platform, this function depends on window manager support, so may have no effect with many window managers. However, GDK will do the best it can to convince the window manager to stick the window. For window managers that don’t support this operation, there’s nothing you can do to force it to happen.</p><pre class="pod-block-code">method stick ( )</pre>
+<h2 id="test-render-sync"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">test-render-sync</a></h2>
+<p>Retrieves a pixel from window to force the windowing system to carry out any pending rendering commands.</p><p>This function is intended to be used to synchronize with rendering pipelines, to benchmark windowing system rendering operations.</p><pre class="pod-block-code">method test-render-sync ( )</pre>
+<h2 id="test-simulate-button"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">test-simulate-button</a></h2>
+<p>This function is intended to be used in GTK+ test programs. It will warp the mouse pointer to the given (x ,y ) coordinates within window and simulate a button press or release event. Because the mouse pointer needs to be warped to the target location, use of this function outside of test programs that run in their own virtual windowing system (e.g. Xvfb) is not recommended.</p><p>Also, gdk_test_simulate_button() is a fairly low level function, for most testing purposes, gtk_test_widget_click() is the right function to call which will generate a button press event followed by its accompanying button release event.</p><pre class="pod-block-code">method test-simulate-button (
+  Int() $x, Int() $y, UInt() $button,
+  GdkModifierType modifiers, GdkEventType $button_pressrelease
+  --&gt; Bool
+)</pre><ul>
+<li><p>$x; x coordinate within window for the button event</p></li>
+<li><p>$y; y coordinate within window for the button event</p></li>
+<li><p>$button; Number of the pointer button for the event, usually 1, 2 or 3</p></li>
+<li><p>modifiers; Keyboard modifiers the event is setup with</p></li>
+<li><p>$button_pressrelease; either GDK_BUTTON_PRESS or GDK_BUTTON_RELEASE</p></li>
+</ul>
+
+<h2 id="test-simulate-key"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">test-simulate-key</a></h2>
+<p>This function is intended to be used in GTK+ test programs. If (x ,y ) are &gt; (-1,-1), it will warp the mouse pointer to the given (x ,y ) coordinates within window and simulate a key press or release event.</p><p>When the mouse pointer is warped to the target location, use of this function outside of test programs that run in their own virtual windowing system (e.g. Xvfb) is not recommended. If (x ,y ) are passed as (-1,-1), the mouse pointer will not be warped and window origin will be used as mouse pointer location for the event.</p><p>Also, gdk_test_simulate_key() is a fairly low level function, for most testing purposes, gtk_test_widget_send_key() is the right function to call which will generate a key press event followed by its accompanying key release event.</p><pre class="pod-block-code">method test-simulate-key (
+  Int() $x, Int() $y, UInt $keyval,
+  GdkModifierType $modifiers, GdkEventType $key_pressrelease
+  --&gt; Bool
+)</pre><ul>
+<li><p>$x; x coordinate within window for the key event</p></li>
+<li><p>$y; y coordinate within window for the key event</p></li>
+<li><p>$keyval; A GDK keyboard value from <strong>Gnome::Gdk3::Keysyms</strong></p></li>
+<li><p>$modifiers; Keyboard modifiers the event is setup with</p></li>
+<li><p>$key_pressrelease; either GDK_KEY_PRESS or GDK_KEY_RELEASE</p></li>
+</ul>
+
+<h2 id="thaw-updates"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">thaw-updates</a></h2>
+<p>Thaws a window frozen with <code>freeze_updates()</code>.</p><pre class="pod-block-code">method thaw-updates ( )</pre>
+<h2 id="unfullscreen"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">unfullscreen</a></h2>
+<p>Moves the window out of fullscreen mode. If the window was not fullscreen, does nothing.</p><p>On X11, asks the window manager to move <em>window</em> out of the fullscreen state, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “fullscreen”; so you can’t rely on the unfullscreenification actually happening. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><pre class="pod-block-code">method unfullscreen ( )</pre>
+<h2 id="unmaximize"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">unmaximize</a></h2>
+<p>Unmaximizes the window. If the window wasn’t maximized, then this function does nothing.</p><p>On X11, asks the window manager to unmaximize <em>window</em>, if the window manager supports this operation. Not all window managers support this, and some deliberately ignore it or don’t have a concept of “maximized”; so you can’t rely on the unmaximization actually happening. But it will happen with most standard window managers, and GDK makes a best effort to get it to happen.</p><p>On Windows, reliably unmaximizes the window.</p><pre class="pod-block-code">method unmaximize ( )</pre>
+<h2 id="unstick"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">unstick</a></h2>
+<p>Reverse operation for <code>stick()</code>; see <code>stick()</code>, and <code>gtk_window_unstick()</code>.</p><pre class="pod-block-code">method unstick ( )</pre>
+<h2 id="withdraw"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">withdraw</a></h2>
+<p>Withdraws a window (unmaps it and asks the window manager to forget about it). This function is not really useful as <code>hide()</code> automatically withdraws toplevel windows before hiding them.</p><pre class="pod-block-code">method withdraw ( )</pre>
+<h2 id="_gdk_window_new"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">_gdk_window_new</a></h2>
+<p>Creates a new <strong>Gnome::Gdk3::Window</strong> using the attributes from <em>attributes</em>. See <strong>Gnome::Gdk3::WindowAttr</strong> and <strong>Gnome::Gdk3::WindowAttributesType</strong> for more details. Note: to use this on displays other than the default display, <em>parent</em> must be specified.</p><p>Returns: the new <strong>Gnome::Gdk3::Window</strong></p><pre class="pod-block-code">method _gdk_window_new (
+  N-GdkWindowAttr $attributes, Int() $attributes_mask --&gt; N-GObject
+)</pre><ul>
+<li><p>$attributes; attributes of the new window</p></li>
+<li><p>$attributes_mask; (type N-GdkWindowAttributesType): mask indicating which fields in <em>attributes</em> are valid</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>connect-object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>connect-object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="create-surface"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">create-surface</a></h3>
+<p>The <em>create-surface</em> signal is emitted when an offscreen window needs its surface (re)created, which happens either when the window is first drawn to, or when the window is being resized. The first signal handler that returns a non-<code>undefined</code> surface will stop any further signal emission, and its surface will be used.</p><p>Note that it is not possible to access the window's previous surface from within any callback of this signal. Calling <code>gdk_offscreen_window_get_surface()</code> will lead to a crash.</p><p>Returns: the newly created <strong>cairo_surface_t</strong> for the offscreen window</p><pre class="pod-block-code">method handler (
+  Int $width,
+  Int $height,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($window),
+  *%user-options
+  --&gt; Unknown type CAIRO_GOBJECT_TYPE_SURFACE
+);</pre><ul>
+<li><p>$window; the offscreen window on which the signal is emitted</p></li>
+<li><p>$width; the width of the offscreen surface to create</p></li>
+<li><p>$height; the height of the offscreen surface to create</p></li>
+<li><p>$_handle_id; the registered event handler id</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>.set-text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.get-property( 'label', $gv);
+$gv.set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Cursor:_cursor"><a href="#Gnome::Gdk3::Window" class="u" title="go to top of document">Cursor: cursor</a></h3>
+<p>The mouse pointer for a <strong>Gnome::Gdk3::Window</strong>. See <code>set_cursor()</code> and <code>get_cursor()</code> for details.</p><pre class="pod-block-code">Widget type: GDK_TYPE_CURSOR</pre><p>The <strong>Gnome::GObject::Value</strong> type of property <em>cursor</em> is <code>G_TYPE_OBJECT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gdk3/lib/Gnome/Gdk3/Window.rakumod</span></div><div>at <span class="time">2025-07-19T20:42:40Z</span></div></footer>
+	</body>
+</html>

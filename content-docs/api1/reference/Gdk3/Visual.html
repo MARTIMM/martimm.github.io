@@ -1,0 +1,89 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk3::Visual</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk3::Visual">Gnome::Gdk3::Visual</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkVisualType">enum GdkVisualType</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-blue-pixel-details">get-blue-pixel-details</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-depth">get-depth</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-green-pixel-details">get-green-pixel-details</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-red-pixel-details">get-red-pixel-details</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-screen">get-screen</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-visual-type">get-visual-type</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Low-level display hardware information</p>
+<h1 id="Description"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::Gdk3::Visual</strong> describes a particular video hardware display format. It includes information about the number of bits used for each color, the way the bits are translated into an RGB value for display, and the way the bits are stored in memory. For example, a piece of display hardware might support 24-bit color, 16-bit color, or 8-bit color; meaning 24/16/8-bit pixel sizes. For a given pixel size, pixels can be in different formats; for example the “red” element of an RGB pixel may be in the top 8 bits of the pixel, or may be in the lower 4 bits.</p><p>There are several standard visuals. The visual returned by <code>gdk-screen-get-system-visual()</code> is the system’s default visual, and the visual returned by <code>gdk-screen-get-rgba-visual()</code> should be used for creating windows with an alpha channel.</p><p>A number of functions are provided for determining the “best” available visual. For the purposes of making this determination, higher bit depths are considered better, and for visuals of the same bit depth, <code>GDK-VISUAL-PSEUDO-COLOR</code> is preferred at 8bpp, otherwise, the visual types are ranked in the order of(highest to lowest) <code>GDK-VISUAL-DIRECT-COLOR</code>, <code>GDK-VISUAL-TRUE-COLOR</code>, <code>GDK-VISUAL-PSEUDO-COLOR</code>, <code>GDK-VISUAL-STATIC-COLOR</code>, <code>GDK-VISUAL-GRAYSCALE</code>, then <code>GDK-VISUAL-STATIC-GRAY</code>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gdk3::Visual;
+also is Gnome::GObject::Object;</pre>
+<h1 id="Types"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GdkVisualType"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">enum GdkVisualType</a></h2>
+<p>A set of values that describe the manner in which the pixel values for a visual are converted into RGB values for display.</p><ul>
+<li><p>GDK-VISUAL-STATIC-GRAY: Each pixel value indexes a grayscale value directly.</p></li>
+<li><p>GDK-VISUAL-GRAYSCALE: Each pixel is an index into a color map that maps pixel values into grayscale values. The color map can be changed by an application.</p></li>
+<li><p>GDK-VISUAL-STATIC-COLOR: Each pixel value is an index into a predefined, unmodifiable color map that maps pixel values into RGB values.</p></li>
+<li><p>GDK-VISUAL-PSEUDO-COLOR: Each pixel is an index into a color map that maps pixel values into rgb values. The color map can be changed by an application.</p></li>
+<li><p>GDK-VISUAL-TRUE-COLOR: Each pixel value directly contains red, green, and blue components. Use <code>get-red-pixel-details()</code>, etc, to obtain information about how the components are assembled into a pixel value.</p></li>
+<li><p>GDK-VISUAL-DIRECT-COLOR: Each pixel value contains red, green, and blue components as for <code>GDK-VISUAL-TRUE-COLOR</code>, but the components are mapped via a color table into the final output table instead of being converted directly.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Visual object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="get-blue-pixel-details"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-blue-pixel-details</a></h2>
+<p>Obtains values that are needed to calculate blue pixel values in TrueColor and DirectColor. The “mask” is the significant bits within the pixel. The “shift” is the number of bits left we must shift a primary for it to be in position (according to the &quot;mask&quot;). Finally, &quot;precision&quot; refers to how much precision the pixel value contains for a particular primary.</p><pre class="pod-block-code">method get-blue-pixel-details ( --&gt; List )</pre><p>List returns the following;</p><ul>
+<li><p>UInt mask;</p></li>
+<li><p>Int shift;</p></li>
+<li><p>Int precision;</p></li>
+</ul>
+
+<h2 id="get-depth"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-depth</a></h2>
+<p>Returns the bit depth of this visual.</p><pre class="pod-block-code">method get-depth ( --&gt; Int )</pre>
+<h2 id="get-green-pixel-details"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-green-pixel-details</a></h2>
+<p>Obtains values that are needed to calculate green pixel values in TrueColor and DirectColor. The “mask” is the significant bits within the pixel. The “shift” is the number of bits left we must shift a primary for it to be in position (according to the &quot;mask&quot;). Finally, &quot;precision&quot; refers to how much precision the pixel value contains for a particular primary.</p><pre class="pod-block-code">method get-green-pixel-details ( --&gt; List )</pre><p>List returns the following;</p><ul>
+<li><p>UInt mask;</p></li>
+<li><p>Int shift;</p></li>
+<li><p>Int precision;</p></li>
+</ul>
+
+<h2 id="get-red-pixel-details"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-red-pixel-details</a></h2>
+<p>Obtains values that are needed to calculate red pixel values in TrueColor and DirectColor. The “mask” is the significant bits within the pixel. The “shift” is the number of bits left we must shift a primary for it to be in position (according to the &quot;mask&quot;). Finally, &quot;precision&quot; refers to how much precision the pixel value contains for a particular primary.</p><pre class="pod-block-code">method get-red-pixel-details ( --&gt; List )</pre><p>List returns the following;</p><ul>
+<li><p>UInt mask;</p></li>
+<li><p>Int shift;</p></li>
+<li><p>Int precision;</p></li>
+</ul>
+
+<h2 id="get-screen"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-screen</a></h2>
+<p>Gets the screen to which this visual belongs</p><pre class="pod-block-code">method get-screen ( --&gt; N-GObject )</pre>
+<h2 id="get-visual-type"><a href="#Gnome::Gdk3::Visual" class="u" title="go to top of document">get-visual-type</a></h2>
+<p>Returns the type of visual this is (PseudoColor, TrueColor, etc).</p><p>Returns: A <strong>Gnome::Gdk3::VisualType</strong> stating the type of <em>visual</em>.</p><pre class="pod-block-code">method get-visual-type ( --&gt; GdkVisualType )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gdk3/lib/Gnome/Gdk3/Visual.rakumod</span></div><div>at <span class="time">2025-07-19T20:42:38Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,290 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk3::DragContext</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk3::DragContext">Gnome::Gdk3::DragContext</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkDragAction">enum GdkDragAction</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkDragCancelReason">enum GdkDragCancelReason</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enum_GdkDragProtocol">enum GdkDragProtocol</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:window,_:targets">:window, :targets</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:window,_:targets,_:device">:window, :targets, :device</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:window,_:targets,_:device,_:x,_:y">:window, :targets, :device, :x, :y</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#abort">abort</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin">begin</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-for-device">begin-for-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#begin-from-point">begin-from-point</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-actions">get-actions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-dest-window">get-dest-window</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-device">get-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-drag-window">get-drag-window</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-protocol">get-protocol</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected-action">get-selected-action</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-source-window">get-source-window</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-suggested-action">get-suggested-action</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#list-targets">list-targets</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#manage-dnd">manage-dnd</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-device">set-device</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-hotspot">set-hotspot</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#drop">drop</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#drop-done">drop-done</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#drop-succeeded">drop-succeeded</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#find-window-for-screen">find-window-for-screen</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gdk-drop-finish">gdk-drop-finish</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gdk-drop-reply">gdk-drop-reply</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection">get-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#motion">motion</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#status">status</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions for controlling lower level drag and drop handling</p>
+<h1 id="Description"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Description</a></h1>
+<p>These functions provide a low level interface for drag and drop. The X backend of GDK supports both the Xdnd and Motif drag and drop protocols transparently, the Win32 backend supports the WM-DROPFILES protocol.</p><p>GTK+ provides a higher level abstraction based on top of these functions, and so they are not normally needed in GTK+ applications.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gdk3::DragContext;
+also is Gnome::GObject::Object;</pre>
+<h1 id="See_Also"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">See Also</a></h1>
+<ul>
+<li><p>Gnome::Gdk3::Atom</p></li>
+<li><p>Gnome::Gtk3::DragDest</p></li>
+<li><p>Gnome::Gtk3::DragSource</p></li>
+<li><p>Gnome::Gtk3::SelectionData</p></li>
+<li><p>Gnome::Gtk3::TargetEntry</p></li>
+<li><p>Gnome::Gtk3::TargetList</p></li>
+</ul>
+
+<h1 id="Types"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="enum_GdkDragAction"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">enum GdkDragAction</a></h2>
+<p>Used in <strong>Gnome::Gdk3::DragContext</strong> to indicate what the destination should do with the dropped data.</p><ul>
+<li><p>GDK_ACTION_NONE: (=0) in some methods used to terminate or refuse action. Can only be used on its own. Combined (ored) with other values for an action mask is obviously not very helpful.</p></li>
+<li><p>GDK-ACTION-COPY: Copy the data.</p></li>
+<li><p>GDK-ACTION-MOVE: Move the data, i.e. first copy it, then delete it from the source using the DELETE target of the X selection protocol.</p></li>
+<li><p>GDK-ACTION-LINK: Add a link to the data. Note that this is only useful if source and destination agree on what it means.</p></li>
+<li><p>GDK-ACTION-PRIVATE: Special action which tells the source that the destination will do something that the source doesn’t understand.</p></li>
+<li><p>GDK-ACTION-ASK: Ask the user what to do with the data.</p></li>
+</ul>
+
+<h2 id="enum_GdkDragCancelReason"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">enum GdkDragCancelReason</a></h2>
+<p>Used in <strong>Gnome::Gdk3::DragContext</strong> to the reason of a cancelled DND operation.</p><ul>
+<li><p>GDK-DRAG-CANCEL-NO-TARGET: There is no suitable drop target.</p></li>
+<li><p>GDK-DRAG-CANCEL-USER-CANCELLED: Drag cancelled by the user</p></li>
+<li><p>GDK-DRAG-CANCEL-ERROR: Unspecified error.</p></li>
+</ul>
+
+<h2 id="enum_GdkDragProtocol"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">enum GdkDragProtocol</a></h2>
+<p>Used here to indicate the protocol according to which DND is done.</p><ul>
+<li><p>GDK-DRAG-PROTO-NONE: no protocol.</p></li>
+<li><p>GDK-DRAG-PROTO-MOTIF: The Motif DND protocol. No longer supported</p></li>
+<li><p>GDK-DRAG-PROTO-XDND: The Xdnd protocol.</p></li>
+<li><p>GDK-DRAG-PROTO-ROOTWIN: An extension to the Xdnd protocol for unclaimed root window drops.</p></li>
+<li><p>GDK-DRAG-PROTO-WIN32-DROPFILES: The simple WM-DROPFILES protocol.</p></li>
+<li><p>GDK-DRAG-PROTO-OLE2: The complex OLE2 DND protocol (not implemented).</p></li>
+<li><p>GDK-DRAG-PROTO-LOCAL: Intra-application DND.</p></li>
+<li><p>GDK-DRAG-PROTO-WAYLAND: Wayland DND protocol.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":window,_:targets"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">:window, :targets</a></h3>
+<p>Starts a drag and creates a new drag context for it. This function assumes that the drag is controlled by the client pointer device, use <code>new(:$window, :$targets, :$device)</code> to begin a drag with a different device.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">multi method new ( :$window!, :$targets! )</pre><ul>
+<li><p>N-GObject $window; the source window for this drag</p></li>
+<li><p>N-GList $targets; the offered targets, as list of native Gnome::Gdk3::Atom.</p></li>
+</ul>
+
+<h3 id=":window,_:targets,_:device"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">:window, :targets, :device</a></h3>
+<p>Starts a drag with a different device and creates a new drag context for it.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">multi method new ( :$window!, :$targets!, :$device! )</pre><ul>
+<li><p>N-GObject $window; the source window for this drag</p></li>
+<li><p>N-GObject $device; the device that controls this drag</p></li>
+<li><p>N-GList $targets; the offered targets, as list of native Gnome::Gdk3::Atom.</p></li>
+</ul>
+
+<h3 id=":window,_:targets,_:device,_:x,_:y"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">:window, :targets, :device, :x, :y</a></h3>
+<p>Starts a drag with a different device and creates a new drag context for it.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">multi method new (
+  :$window!, :$targets!, :$device!, Int() $x, Int() $y
+)</pre><ul>
+<li><p>N-GObject $window; the source window for this drag</p></li>
+<li><p>N-GObject $device; the device that controls this drag</p></li>
+<li><p>N-GList $targets; the offered targets, as list of native Gnome::Gdk3::Atom.</p></li>
+<li><p>Int() $x; the x coordinate where the drag nominally started</p></li>
+<li><p>Int() $y; the y coordinate where the drag nominally started</p></li>
+</ul>
+
+<h3 id=":native-object"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Drag object using a native object from elsewhere. This is the most used way to initialize this object because you will get the context when a signal arrives and calls a handler for it.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h4 id="Example"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">Example</a></h4>
+<p>An example of a handler to process the <code>drag-motion</code> event.</p><pre class="pod-block-code">method motion (
+  N-GObject $context, Int $x, Int $y, UInt $time
+  --&gt; Bool
+) {
+  …
+  my Gnome::Gdk3::DragContext $drag-context .= new(
+    :native-object($context)
+  );
+  $drag-context.status( GDK_ACTION_COPY, $time);
+  …
+}</pre>
+<h2 id="abort"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">abort</a></h2>
+<p>Aborts a drag without dropping.</p><p>This function is called by the drag source.</p><p>This function does not need to be called in managed drag and drop operations.</p><pre class="pod-block-code">method abort ( UInt $time )</pre><ul>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+
+<h2 id="begin"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">begin</a></h2>
+<p>Starts a drag and creates a new drag context for it. This function assumes that the drag is controlled by the client pointer device, use <code>begin_for_device()</code> to begin a drag with a different device.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">method begin ( N-GObject() $window, N-GList $targets --&gt; N-GObject )</pre><ul>
+<li><p>$window;</p></li>
+<li><p>$targets;</p></li>
+</ul>
+
+<h2 id="begin-for-device"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">begin-for-device</a></h2>
+<p>Starts a drag and creates a new drag context for it.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">method begin-for-device (
+  N-GObject() $window, N-GObject() $device, N-GList $targets
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>$window;</p></li>
+<li><p>$device;</p></li>
+<li><p>$targets;</p></li>
+</ul>
+
+<h2 id="begin-from-point"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">begin-from-point</a></h2>
+<p>Starts a drag and creates a new drag context for it.</p><p>This function is called by the drag source.</p><pre class="pod-block-code">method begin-from-point (
+  N-GObject() $window, N-GObject() $device, N-GList $targets,
+  Int() $x_root, Int() $y_root
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>$window;</p></li>
+<li><p>$device;</p></li>
+<li><p>$targets;</p></li>
+<li><p>$x_root;</p></li>
+<li><p>$y_root;</p></li>
+</ul>
+
+<h2 id="get-actions"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-actions</a></h2>
+<p>Determines the bitmask of actions proposed by the source if <code>get-suggested-action()</code> returns <code>GDK-ACTION-ASK</code>.</p><p>Returns: the <code>GdkDragAction</code> flags</p><pre class="pod-block-code">method get-actions ( --&gt; Int )</pre>
+<h2 id="get-dest-window"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-dest-window</a></h2>
+<p>Returns the destination window for the DND operation, a <strong>Gnome::Gdk3::Window</strong></p><pre class="pod-block-code">method get-dest-window ( --&gt; Gnome::Gdk3::Window )</pre>
+<h2 id="get-device"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-device</a></h2>
+<p>Returns the <strong>Gnome::Gdk3::Device</strong> associated to the drag context.</p><pre class="pod-block-code">method get-device ( --&gt; Gnome::Gdk3::Device )</pre>
+<h2 id="get-drag-window"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-drag-window</a></h2>
+<p>Returns the window on which the drag icon should be rendered during the drag operation. Note that the window may not be available until the drag operation has begun. GDK will move the window in accordance with the ongoing drag operation. The window is owned by <em>context</em> and will be destroyed when the drag operation is over.</p><p>Returns: the drag window, or <code>undefined</code></p><pre class="pod-block-code">method get-drag-window ( --&gt; Gnome::Gdk3::Window )</pre>
+<h2 id="get-protocol"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-protocol</a></h2>
+<p>Returns the drag protocol that is used by this context.</p><p>Returns: the drag protocol</p><pre class="pod-block-code">method get-protocol ( --&gt; GdkDragProtocol )</pre>
+<h2 id="get-selected-action"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-selected-action</a></h2>
+<p>Determines the action chosen by the drag destination.</p><p>Returns: a <code>GdkDragAction</code> enum value.</p><pre class="pod-block-code">method get-selected-action ( --&gt; GdkDragAction )</pre>
+<h2 id="get-source-window"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-source-window</a></h2>
+<p>Returns the <strong>Gnome::Gdk3::Window</strong> where the DND operation started.</p><pre class="pod-block-code">method get-source-window ( --&gt; Gnome::Gdk3::Window )</pre>
+<h2 id="get-suggested-action"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-suggested-action</a></h2>
+<p>Determines the suggested drag action of the context.</p><p>Returns: a <code>GdkDragAction</code> value</p><pre class="pod-block-code">method get-suggested-action ( --&gt; GdkDragAction )</pre>
+<h2 id="list-targets"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">list-targets</a></h2>
+<p>Retrieves the list of targets of the context.</p><p>Returns: (element-type Gnome::Gdk3::Atom): a <strong>Gnome::Glib::List</strong> of targets</p><pre class="pod-block-code">method list-targets ( --&gt; Gnome::Glib::List )</pre>
+<h2 id="manage-dnd"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">manage-dnd</a></h2>
+<p>Requests the drag and drop operation to be managed by <em>context</em>. When a drag and drop operation becomes managed, the <strong>Gnome::Gdk3::DragContext</strong> will internally handle all input and source-side <strong>Gnome::Gdk3::EventDND</strong> events as required by the windowing system.</p><p>Once the drag and drop operation is managed, the drag context will emit the following signals:</p><ul>
+<li><p>The <em>action-changed</em> signal whenever the final action to be performed by the drag and drop operation changes.</p></li>
+<li><p>The <em>drop-performed</em> signal after the user performs the drag and drop gesture (typically by releasing the mouse button).</p></li>
+<li><p>The <em>dnd-finished</em> signal after the drag and drop operation concludes (after all <strong>Gnome::Gdk3::Selection</strong> transfers happen).</p></li>
+<li><p>The <em>cancel</em> signal if the drag and drop operation is finished but doesn't happen over an accepting destination, or is cancelled through other means.</p></li>
+</ul>
+<p>Returns: <strong>TRUE</strong> if the drag and drop operation is managed.</p><pre class="pod-block-code">method manage-dnd ( N-GObject() $ipc_window, GdkDragAction $actions --&gt; Bool )</pre><ul>
+<li><p>$ipc_window; Window to use for IPC messaging/events</p></li>
+<li><p>$actions; the actions supported by the drag source</p></li>
+</ul>
+
+<h2 id="set-device"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">set-device</a></h2>
+<p>Associates a <strong>Gnome::Gdk3::Device</strong> to <em>context</em>, so all Drag and Drop events for <em>context</em> are emitted as if they came from this device.</p><pre class="pod-block-code">method set-device ( N-GObject() $device )</pre><ul>
+<li><p>$device; a <strong>Gnome::Gdk3::Device</strong></p></li>
+</ul>
+
+<h2 id="set-hotspot"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">set-hotspot</a></h2>
+<p>Sets the position of the drag window that will be kept under the cursor hotspot. Initially, the hotspot is at the top left corner of the drag window.</p><pre class="pod-block-code">method set-hotspot ( Int() $hot_x, Int() $hot_y )</pre><ul>
+<li><p>$hot_x; x coordinate of the drag window hotspot</p></li>
+<li><p>$hot_y; y coordinate of the drag window hotspot</p></li>
+</ul>
+
+<h2 id="drop"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">drop</a></h2>
+<p>Drops on the current destination.</p><p>This function is called by the drag source.</p><p>This function does not need to be called in managed drag and drop operations.</p><pre class="pod-block-code">method drop ( UInt $time )</pre><ul>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+
+<h2 id="drop-done"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">drop-done</a></h2>
+<p>Inform GDK if the drop ended successfully. Passing <code>False</code> for <em>$success</em> may trigger a drag cancellation animation.</p><p>This function is called by the drag source, and should be the last call before dropping the reference to the <em>context</em>.</p><p>The <strong>Gnome::Gdk3::DragContext</strong> will only take the first <code>drop-done()</code> call as effective, if this function is called multiple times, all subsequent calls will be ignored.</p><pre class="pod-block-code">method drop-done ( Bool $success )</pre><ul>
+<li><p>$success; whether the drag was ultimatively successful</p></li>
+</ul>
+
+<h2 id="drop-succeeded"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">drop-succeeded</a></h2>
+<p>Returns whether the dropped data has been successfully transferred. This function is intended to be used while handling a <code>GDK-DROP-FINISHED</code> event, its return value is meaningless at other times.</p><p>Returns: <code>True</code> if the drop was successful.</p><pre class="pod-block-code">method drop-succeeded ( --&gt; Bool )</pre>
+<h2 id="find-window-for-screen"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">find-window-for-screen</a></h2>
+<p>Finds the destination window and DND protocol to use at the given pointer position.</p><p>This function is called by the drag source to obtain the <em>dest-window</em> and <em>protocol</em> parameters for <code>motion()</code>.</p><pre class="pod-block-code">method find-window-for-screen (
+  N-GObject() $drag_window, N-GObject() $screen,
+  Int() $x_root, Int() $y_root, N-GObject() $dest_window,
+  GdkDragProtocol $protocol
+)</pre><ul>
+<li><p>$drag_window; a window which may be at the pointer position, but should be ignored, since it is put up by the drag source as an icon</p></li>
+<li><p>$screen; the screen where the destination window is sought</p></li>
+<li><p>$x_root; the x position of the pointer in root coordinates</p></li>
+<li><p>$y_root; the y position of the pointer in root coordinates</p></li>
+<li><p>$dest_window; location to store the destination window in</p></li>
+<li><p>$protocol; location to store the DND protocol in</p></li>
+</ul>
+
+<h2 id="gdk-drop-finish"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">gdk-drop-finish</a></h2>
+<p>Ends the drag operation after a drop.</p><p>This function is called by the drag destination.</p><pre class="pod-block-code">method gdk-drop-finish ( Bool $success, UInt $time )</pre><ul>
+<li><p>$success; <code>True</code> if the data was successfully received</p></li>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+
+<h2 id="gdk-drop-reply"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">gdk-drop-reply</a></h2>
+<p>Accepts or rejects a drop.</p><p>This function is called by the drag destination in response to a drop initiated by the drag source.</p><pre class="pod-block-code">method gdk-drop-reply ( Bool $accepted, UInt $time )</pre><ul>
+<li><p>$accepted; <code>True</code> if the drop is accepted</p></li>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+
+<h2 id="get-selection"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">get-selection</a></h2>
+<p>Returns the selection atom for the current source window.</p><p>Returns: the selection atom, or <code>GDK-NONE</code></p><pre class="pod-block-code">method get-selection ( --&gt; Gnome::Gdk3::Atom )</pre>
+<h2 id="motion"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">motion</a></h2>
+<p>Updates the drag context when the pointer moves or the set of actions changes.</p><p>This function is called by the drag source.</p><p>This function does not need to be called in managed drag and drop operations.</p><p>Returns:</p><pre class="pod-block-code">method motion (
+  N-GObject() $dest_window, GdkDragProtocol $protocol,
+  Int() $x_root, Int() $y_root, GdkDragAction $suggested_action,
+  GdkDragAction $possible_actions, UInt $time
+  --&gt; Bool
+)</pre><ul>
+<li><p>$dest_window; the new destination window, obtained by <code>find-window()</code></p></li>
+<li><p>$protocol; the DND protocol in use, obtained by <code>find-window()</code></p></li>
+<li><p>$x_root; the x position of the pointer in root coordinates</p></li>
+<li><p>$y_root; the y position of the pointer in root coordinates</p></li>
+<li><p>$suggested_action; the suggested action</p></li>
+<li><p>$possible_actions; the possible actions</p></li>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+
+<h2 id="status"><a href="#Gnome::Gdk3::DragContext" class="u" title="go to top of document">status</a></h2>
+<p>Selects one of the actions offered by the drag source.</p><p>This function is called by the drag destination in response to <code>motion()</code> called by the drag source.</p><pre class="pod-block-code">method status ( GdkDragAction $action, UInt $time )</pre><ul>
+<li><p>$action; the selected action which will be taken when a drop happens, or GDK_ACTION_NONE to indicate that a drop will not be accepted</p></li>
+<li><p>$time; the timestamp for this operation</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gdk3/lib/Gnome/Gdk3/DragContext.rakumod</span></div><div>at <span class="time">2025-07-19T18:16:37Z</span></div></footer>
+	</body>
+</html>

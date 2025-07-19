@@ -1,0 +1,130 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk3::Rgba</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk3::Rgba">Gnome::Gdk3::Rgba</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#N-GdkRGBA">N-GdkRGBA</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:red,_:green,_:blue,_:alpha">:red, :green, :blue, :alpha</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:rgba">:rgba</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#alpha">alpha</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#blue">blue</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#gdk_rgba_free">gdk_rgba_free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#green">green</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#hash">hash</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse">parse</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#red">red</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>RGBA colors</p>
+<h1 id="Description"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gdk3::RGBA</strong> is a convenient way to pass rgba colors around. It’s based on cairo’s way to deal with colors and mirrors its behavior. All values are in the range from 0.0 to 1.0 inclusive. So the color (0.0, 0.0, 0.0, 0.0) represents transparent black and (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will be clamped to this range when drawing.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gdk3::RGBA;
+also is Gnome::GObject::Boxed;</pre>
+<h2 id="Example"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gdk3::RGBA $color .= new(
+  :red(.5e0), :green(.5e0), :blue(.5e0), :alpha(.5e0)
+);</pre>
+<h1 id="Types"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="N-GdkRGBA"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">N-GdkRGBA</a></h2>
+<p>N-GdkRGBA is a convenient way to pass rgba colors around. It’s based on cairo’s way to deal with colors and mirrors its behavior. All values are in the range from 0.0 to 1.0 inclusive. So the color (0.0, 0.0, 0.0, 0.0) represents transparent black and (1.0, 1.0, 1.0, 1.0) is opaque white. Other values will be clamped to this range when drawing.</p><p>The colors originally where <strong>Num</strong> type but they can now also be <strong>Int</strong>, <strong>Rat</strong>, <strong>Str</strong> or <strong>Num</strong> as long as they represent a number between 0 and 1.</p><ul>
+<li><p>$.red; The intensity of the red channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.green; The intensity of the green channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.blue; The intensity of the blue channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.alpha; The opacity of the color from 0.0 for completely translucent to 1.0 for opaque</p></li>
+</ul>
+<pre class="pod-block-code">my N-GdkRGBA $c .= new( :red(1), :green(1), :blue(0.5), :alpha(0.99));</pre>
+<h1 id="Methods"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":red,_:green,_:blue,_:alpha"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">:red, :green, :blue, :alpha</a></h3>
+<p>Create a new object using colors and transparency values. Their ranges are from 0 to 1. All values are optional and are set to 1e0 by default.</p><pre class="pod-block-code">multi method new (
+  Num() :$red, Num() :$green, Num() :$blue, Num() :$alpha
+)</pre><ul>
+<li><p>$.red; The intensity of the red channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.green; The intensity of the green channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.blue; The intensity of the blue channel from 0.0 to 1.0 inclusive</p></li>
+<li><p>$.alpha; The opacity of the color from 0.0 for completely translucent to 1.0 for opaque</p></li>
+</ul>
+
+<h3 id=":rgba"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">:rgba</a></h3>
+<p>Create an object using a string which is parsed with <code>parse()</code>. If parsing fails, the color is set to opaque white.</p><pre class="pod-block-code">multi method new ( Str :$rgba! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="alpha"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">alpha</a></h2>
+<p>Set the alpha transparency to a new value if provided. Returns original or newly set value.</p><pre class="pod-block-code">method alpha ( Num $c? --&gt; Num )</pre>
+<h2 id="blue"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">blue</a></h2>
+<p>Set the blue color to a new value if provided. Returns original or newly set color value.</p><pre class="pod-block-code">method blue ( Num $c? --&gt; Num )</pre>
+<h2 id="copy"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">copy</a></h2>
+<p>Makes a copy of a <strong>Gnome::Gdk3::RGBA</strong>.</p><p>Returns: A newly allocated <strong>Gnome::Gdk3::RGBA</strong>, with the same contents as this <em>rgba</em> object</p><pre class="pod-block-code">method copy ( --&gt; N-GObject )</pre><ul>
+<li><p>N-GdkRGBA $rgba; a <strong>Gnome::Gdk3::RGBA</strong></p></li>
+</ul>
+
+<h2 id="gdk_rgba_free"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">gdk_rgba_free</a></h2>
+<p>Frees a <strong>Gnome::Gdk3::RGBA</strong> created with <code>gdk_rgba_copy()</code></p><p>Since: 3.0</p><pre class="pod-block-code">method gdk_rgba_free ( N-GObject $rgba )</pre><ul>
+<li><p>N-GObject $rgba; a <strong>Gnome::Gdk3::RGBA</strong></p></li>
+</ul>
+
+<h2 id="equal"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">equal</a></h2>
+<p>Compare native RGBA color with a given one.</p><p>Returns: <code>True</code> if the two colors compare equal</p><pre class="pod-block-code">method equal ( N-GObject() $compare-with --&gt; Bool )</pre><ul>
+<li><p>$compare-with; another <strong>Gnome::Gdk3::RGBA</strong> object</p></li>
+</ul>
+
+<h2 id="green"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">green</a></h2>
+<p>Set the green color to a new value if provided. Returns original or newly set color value.</p><pre class="pod-block-code">method green ( Num $c? --&gt; Num )</pre>
+<h2 id="hash"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">hash</a></h2>
+<p>A method that stores <strong>Gnome::Gdk3::RGBA</strong> objects in a hash or to return a value. Note that the original GTK function only returns a <code>UInt</code> value and does not provide a hash table storage facility.</p><pre class="pod-block-code">multi method hash ( N-GObject() $p --&gt; UInt )
+
+multi method hash ( UInt $key --&gt; N-GObject )</pre><ul>
+<li><p>$p; a <strong>Gnome::Gdk3::RGBA</strong> value to store</p></li>
+<li><p>$key; a key to return a previously stored <strong>N-GdkRGBA</strong> value</p></li>
+</ul>
+
+<h2 id="parse"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">parse</a></h2>
+<p>Parses a textual representation of a color and set / overwrite the values in the <em>red</em>, <em>green</em>, <em>blue</em> and <em>alpha</em> fields in this <strong>Gnome::Gdk3::RGBA</strong> object.</p><p>The string can be either one of:</p><ul>
+<li><p>A standard name (Taken from the X11 rgb.txt file).</p></li>
+<li><p>A hexadecimal value in the form <strong>#rgb</strong>, <strong>#rrggbb</strong>, <strong>#rrrgggbbb</strong> or <strong>#rrrrggggbbbb</strong>.</p></li>
+<li><p>A RGB color in the form <strong>rgb(r,g,b)</strong> (In this case the color will have full opacity).</p></li>
+<li><p>A RGBA color in the form <strong>rgba(r,g,b,a)</strong>.</p></li>
+</ul>
+<p>Where “r”, “g”, “b” and “a” are respectively the red, green, blue and alpha color values. In the last two cases, r g and b are either integers in the range 0 to 255 or precentage values in the range 0% to 100%, and a is a floating point value in the range 0 to 1.</p><p>Returns: <code>True</code> if the parsing succeeded</p><pre class="pod-block-code">method parse ( Str $spec --&gt; Bool )</pre><ul>
+<li><p>Str $spec; the string specifying the color</p></li>
+</ul>
+
+<h2 id="red"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">red</a></h2>
+<p>Set the red color to a new value if provided. Returns original or newly set color value.</p><pre class="pod-block-code">method red ( Num() $c? --&gt; Num )</pre>
+<h2 id="to-string"><a href="#Gnome::Gdk3::Rgba" class="u" title="go to top of document">to-string</a></h2>
+<p>Returns a textual specification of this rgba object in the form <strong>rgb(r,g,b)</strong> or <strong>rgba(r,g,b,a)</strong>, where <code>r</code>, <code>g</code>, <code>b</code> and <code>a</code> represent the red, green, blue and alpha values respectively. r, g, and b are represented as integers in the range 0 to 255, and a is represented as floating point value in the range 0 to 1.</p><p>These string forms are string forms those supported by the CSS3 colors module, and can be parsed by <code>parse()</code>.</p><p>Note that this string representation may lose some precision, since r, g and b are represented as 8-bit integers. If this is a concern, you should use a different representation.</p><p>Returns: A newly allocated text string</p><pre class="pod-block-code">method to-string ( --&gt; Str )</pre><ul>
+<li><p>N-GObject $rgba; a native <strong>Gnome::Gdk3::RGBA</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gdk3/lib/Gnome/Gdk3/RGBA.rakumod</span></div><div>at <span class="time">2025-07-19T20:42:36Z</span></div></footer>
+	</body>
+</html>
