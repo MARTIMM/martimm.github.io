@@ -61,31 +61,28 @@ my Hash $sidebar-paths = %(
 #      generate-md-refs.raku Gtk4Api2
 sub MAIN (
   Str:D $key, Str $raku-doc-name? is copy,
-  Bool :skip($skip-existing) = False
+  Bool :skip($skip) = False
 ) {
   # Go to Githup Pages root dir
   chdir('./content-docs');
 
-#  my Str ( $source-path, $destination-path);
-
   if $source-paths{$key}:exists and $destination-paths{$key}:exists {
     if ?$raku-doc-name {
- #     $raku-doc-name ~= '.rakudoc' unless $raku-doc-name ~~ m/ rakudoc $/;
- #     my Str $source-file = $source-path ~ $raku-doc-name;
-      #generate-html( $source-file, $destination-path, :$skip-existing)
       generate-html( $key, $raku-doc-name, :!skip-existing);
     }
 
     else {
-#    $source-path = $source-paths{$key};
-#    $destination-path = $destination-paths{$key};
       for $source-paths{$key}.IO.dir.sort -> Str() $source-file {
-#note "$?LINE $source-file.IO.basename().IO.extension('')";
+note "$?LINE $source-file";
+        next unless ?$source-file and
+                     $source-file ~~ m/ '.' [rakudoc | rakumod]/;
+
+        # Skip Misc module
+        next if $source-file ~~ m/ Misc /;
+
         $raku-doc-name = $source-file.IO.basename.IO.extension('').Str;
-note "$?LINE $raku-doc-name";
-#        #generate-html( $source-file, $destination-path, :$skip-existing)
-#          if $source-file ~~ m/ rakudoc $/;
-        generate-html( $key, $raku-doc-name, :$skip-existing);
+#note "$?LINE $raku-doc-name";
+        generate-html( $key, $raku-doc-name, :$skip);
       }
     }
   }
@@ -95,7 +92,6 @@ note "$?LINE $raku-doc-name";
          $source-paths.keys.join(', ');
   }
 
-note "$?LINE $key $sidebar-paths{$key}";
   generate-sidebar($key) if $sidebar-paths{$key}:exists;
 }
 
@@ -121,8 +117,7 @@ note Q:to/EOUSAGE/;
     raku-doc-name       Document holding rakudoc text
 
   Options:
-    skip-existing       Skip generating documents which have
-                        been processed before
+    skip                Skip previously generated documents
 
   EOUSAGE
 }
@@ -131,11 +126,9 @@ note Q:to/EOUSAGE/;
 # Read doc and generate HTML and store in $raku-doc-dest
 
 sub generate-html (
-#  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip-existing
-  Str $key, Str $doc-name, Bool :$skip-existing
+#  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip
+  Str $key, Str $doc-name, Bool :$skip
 ) {
-#    $source-path = $source-paths{$key};
-#    $destination-path = $destination-paths{$key};
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
   if ($raku-doc-path ~ '.rakudoc').IO ~~ :r {
     $raku-doc-path ~= '.rakudoc';
@@ -149,21 +142,23 @@ sub generate-html (
   mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
 
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
-note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
+#note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
 
-  my Array $rak = load-pod($raku-doc-path);
 
   my Str $filename = "$raku-doc-dest$basename";
-  return if $skip-existing and ("$filename.html".IO ~~ :e);
+  return if ($skip and ("$filename.html".IO ~~ :e));
+  
+  my Array $rak = load-pod($raku-doc-path);
+
+  note "\nProcessing $doc-name";
 
   my Pod::To::HTML2 $pr .= new;
-#  my RakuDoc::To::HTML $pr .= new;
   $pr.pod-file.path = $raku-doc-path;
   $pr.process-pod($rak);
   $pr.no-toc = True if $raku-doc-path ~~ m/ XMas /;
   $pr.no-glossary = True;
   $pr.no-footnotes = True;
-#  $pr.title-target($basename.Str);
+
   "$filename.html".IO.spurt: "---\n---\n" ~ $pr.source-wrap(:$filename);
 
   note "Generated {$filename.IO.basename}.html";
@@ -207,7 +202,7 @@ sub generate-sidebar( Str $key ) {
     $url = "/content-docs/$url";
     my Str() $name = S/ \.html $// with $url;
     $name = $name.IO.basename;
-    note "Sidebar reference of $name: $url";
+#note "$?LINE Sidebar reference of $name: $url";
 
     my Str $type = 'normal-object';
     if $deprecated-data{$name}:exists {
@@ -304,18 +299,40 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
   
   # Old documentation generator will not be changed. We have to do it here.
   if $file ~~ m/ 'gnome-api1' / {
-    # Change first =head1 into ==TITLE
+    # Change first =head1 into =TITLE
     $contents ~~ s/ '=head1' /=TITLE/;
 
     # Remove all =comment lines
     $contents ~~ s:g/^^ '=comment' .*? $$//;
 
+    # To prevent loading code, all code must be removed before evalling. 
+    # Because we keep all code in the same environment without
+    # cleaning up, clashes with new loaded modules will occur.
+
     # Drop everything between '=end pod' and '=begin pod'.
-    $contents ~~ s:g/ '=end pod' .*? '=begin pod'
+    $contents ~~ s:g/ '=' end \s pod .*? '=' begin \s pod
                     /=end pod\n=begin pod/;
 
     # Also from begin of program to first '=begin pod' and
+#    $contents ~~ s/^ .*? '=' begin \s pod/=begin pod\n/;
+
     # from last '=end pod' to end of program.
+    my Int $last-pos = $contents.rindex('=end pod');
+    if ?$last-pos {
+       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
+       $contents ~~ s/ $last-code $//;
+    }
+    $contents ~= "=end pod\n";
+
+    # Also drop everything after =finish, there might be some saved experiments.
+    $last-pos = $contents.rindex('=finish');
+    if ?$last-pos {
+       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
+       $contents ~~ s/ $last-code $//;
+    }
+
+    # Remove the end and start pod blocks to turn it into one pod block
+    $contents ~~ s:g/ '=end pod' "\n" '=begin pod' "\n" //;
 
     # Change all MD image refs into Pod image refs
     while $contents ~~ m/ $<md-ref> = [
@@ -343,7 +360,9 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
   }
 
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
-note $contents;
+  my Proc $p = shell "cat > /tmp/mod-doc.txt", :in;
+  $p.in.spurt($contents);
+  $p.in.close;
 
   try {
     EVAL($contents);
@@ -358,40 +377,3 @@ note $contents;
   $pod
 }
 
-
-
-
-
-
-
-
-
-
-
-=finish
-
-
-use MONKEY-SEE-NO-EVAL;
-use File::Temp; # For tempdir below
-
-my constant CUPSFS = ::("CompUnit::PrecompilationStore::File" ~ ("System","").first({ ::("CompUnit::PrecompilationStore::File$_") !~~ Failure }));
-sub load( Str $file where .IO.e ) {
-    use nqp;
-    my $cache-path = tempdir;
-    my $precomp-repo = CompUnit::PrecompilationRepository::Default.new(
-            :store(CUPSFS.new(:prefix($cache-path.IO))),
-            );
-    my $handle = $precomp-repo.try-load(
-            CompUnit::PrecompilationDependency::File.new(
-                    :src($file),
-                    :id(CompUnit::PrecompilationId.new-from-string($file)),
-                    :spec(CompUnit::DependencySpecification.new(:short-name($file))),
-                    )
-            );
-    CATCH {
-        default {
-            die .message.Str;
-        }
-    }
-    nqp::atkey($handle.unit, '$=pod')
-}
