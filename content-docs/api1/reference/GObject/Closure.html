@@ -1,0 +1,243 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::GObject::Closure</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::GObject::Closure">Gnome::GObject::Closure</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:handler-object,_:handler-name">:handler-object, :handler-name</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-finalize-notifier">add-finalize-notifier</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-invalidate-notifier">add-invalidate-notifier</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-marshal-guards">add-marshal-guards</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-cclosure-marshal-generic">g-cclosure-marshal-generic</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-cclosure-marshal-generic-va">g-cclosure-marshal-generic-va</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-signal-type-cclosure-new">g-signal-type-cclosure-new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invalidate">invalidate</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#invoke">invoke</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-finalize-notifier">remove-finalize-notifier</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-invalidate-notifier">remove-invalidate-notifier</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-marshal">set-marshal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-meta-marshal">set-meta-marshal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#sink">sink</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-cclosure-new">g-cclosure-new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-cclosure-new-swap">g-cclosure-new-swap</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_closure_new_simple">_g_closure_new_simple</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Functions as first-class objects</p>
+<h1 id="Description"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Description</a></h1>
+<p>A <strong>Gnome::GObject::Closure</strong> represents a callback supplied by the programmer. It will generally comprise a function of some kind and a marshaller used to call it. It is the responsibility of the marshaller to convert the arguments for the invocation from <strong>Gnome::GObject::Values</strong> into a suitable form, perform the callback on the converted arguments, and transform the return value back into a <strong>Gnome::GObject::Value</strong>.</p><p><strong>Note</strong>: This module is kept very simple because Raku does not need an implementation of a closure in C, which Raku can do that very neatly. So this closure is only created to provide a callback which is needed in some cases. The other items provided in the C closure class like controlling the marshaller, providing data to the closure, the destroy function for that data, etcetera, is not supported by the Raku module.</p>
+<h1 id="Synopsis"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::GObject::Closure;
+also is Gnome::GObject::Boxed;</pre>
+<h2 id="Example"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Example</a></h2>
+<p>The following example is translated from <a href="https://github.com/bstpierre/gtk-examples/blob/master/c/accel.c">the example here</a>. It shows an empty window where you can type two control commands <code>&lt;ctrl&gt;A </code> and <code>&lt;ctrl&gt;&lt;shift&gt;C </code>. The first shows a message on the console and the second stops the program.</p><pre class="pod-block-code">use v6;
+
+use Gnome::GObject::Closure:api&lt;1&gt;;
+
+use Gnome::Gtk3::Window:api&lt;1&gt;;
+use Gnome::Gtk3::Main:api&lt;1&gt;;
+use Gnome::Gtk3::AccelGroup:api&lt;1&gt;;
+
+use Gnome::Gdk3::Types:api&lt;1&gt;;
+use Gnome::Gdk3::Keysyms:api&lt;1&gt;;
+
+
+class CTest {
+  method accelerator-pressed ( Str :$arg1 ) {
+    note &quot;accelerator pressed, user argument = '$arg1'&quot;;
+  }
+
+  method stop-test ( ) {
+    note &quot;program stopped&quot;;
+    Gnome::Gtk3::Main.new.quit;
+  }
+}
+
+my CTest $ctest .= new;
+
+
+with my Gnome::Gtk3::AccelGroup $accel-group .= new {
+  .connect(
+    GDK_KEY_A, GDK_CONTROL_MASK, 0,
+    Gnome::GObject::Closure.new(
+      :handler-object($ctest), :handler-name&lt;accelerator-pressed&gt;,
+      :handler-opts(:arg1&lt;'foo'&gt;)
+    )
+  );
+
+  .connect(
+    GDK_KEY_C, GDK_CONTROL_MASK +| GDK_SHIFT_MASK, 0,
+    Gnome::GObject::Closure.new(
+      :handler-object($ctest), :handler-name&lt;stop-test&gt;
+    )
+  );
+}
+
+with my Gnome::Gtk3::Window $window .= new {
+  .add-accel-group($accel-group);
+  .register-signal( $ctest, 'stop-test', 'destroy');
+  .show;
+}
+
+Gnome::Gtk3::Main.new.main;</pre>
+<h1 id="Types"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Types</a></h1>
+
+<h1 id="Methods"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":handler-object,_:handler-name"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">:handler-object, :handler-name</a></h3>
+<p>Create a new Closure object. Minimizing the Closure to only setting of a callback method. The <code>$handler-name</code> is the method which is defined in the user object <code>$handler-object</code>. Optionally the user can provide some arguments to the handler.</p><pre class="pod-block-code">multi method new (
+  Any:D :$handler-object!, Str:D :$handler-name!,
+  :%handler-opts
+)</pre>
+<h3 id=":native-object"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Closure object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-finalize-notifier"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">add-finalize-notifier</a></h2>
+<p>Registers a finalization notifier which will be called when the reference count of <em>closure</em> goes down to 0. Multiple finalization notifiers on a single closure are invoked in unspecified order. If a single call to <code>unref()</code> results in the closure being both invalidated and finalized, then the invalidate notifiers will be run before the finalize notifiers.</p><pre class="pod-block-code">method add-finalize-notifier ( Pointer $notify_data, GClosureNotify $notify_func )</pre><ul>
+<li><p>Pointer $notify_data; (closure notify-func): data to pass to <em>notify-func</em></p></li>
+<li><p>GClosureNotify $notify_func; the callback function to register</p></li>
+</ul>
+
+<h2 id="add-invalidate-notifier"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">add-invalidate-notifier</a></h2>
+<p>Registers an invalidation notifier which will be called when the <em>closure</em> is invalidated with <code>invalidate()</code>. Invalidation notifiers are invoked before finalization notifiers, in an unspecified order.</p><pre class="pod-block-code">method add-invalidate-notifier ( Pointer $notify_data, GClosureNotify $notify_func )</pre><ul>
+<li><p>Pointer $notify_data; (closure notify-func): data to pass to <em>notify-func</em></p></li>
+<li><p>GClosureNotify $notify_func; the callback function to register</p></li>
+</ul>
+
+<h2 id="add-marshal-guards"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">add-marshal-guards</a></h2>
+<p>Adds a pair of notifiers which get invoked before and after the closure callback, respectively. This is typically used to protect the extra arguments for the duration of the callback. See <code>g-object-watch-closure()</code> for an example of marshal guards.</p><pre class="pod-block-code">method add-marshal-guards ( Pointer $pre_marshal_data, GClosureNotify $pre_marshal_notify, Pointer $post_marshal_data, GClosureNotify $post_marshal_notify )</pre><ul>
+<li><p>Pointer $pre_marshal_data; (closure pre-marshal-notify): data to pass to <em>pre-marshal-notify</em></p></li>
+<li><p>GClosureNotify $pre_marshal_notify; a function to call before the closure callback</p></li>
+<li><p>Pointer $post_marshal_data; (closure post-marshal-notify): data to pass to <em>post-marshal-notify</em></p></li>
+<li><p>GClosureNotify $post_marshal_notify; a function to call after the closure callback</p></li>
+</ul>
+
+<h2 id="g-cclosure-marshal-generic"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">g-cclosure-marshal-generic</a></h2>
+<p>A generic marshaller function implemented via [libffi](http://sourceware.org/libffi/).</p><p>Normally this function is not passed explicitly to <code>g-signal-new()</code>, but used automatically by GLib when specifying a <code>undefined</code> marshaller.</p><pre class="pod-block-code">method g-cclosure-marshal-generic ( N-GObject $return_gvalue, UInt $n_param_values, N-GObject $param_values, Pointer $invocation_hint, Pointer $marshal_data )</pre><ul>
+<li><p>N-GObject $return_gvalue; A <strong>Gnome::GObject::Value</strong> to store the return value. May be <code>undefined</code> if the callback of closure doesn't return a value.</p></li>
+<li><p>UInt $n_param_values; The length of the <em>param-values</em> array.</p></li>
+<li><p>N-GObject $param_values; An array of <strong>Gnome::GObject::Values</strong> holding the arguments on which to invoke the callback of closure.</p></li>
+<li><p>Pointer $invocation_hint; The invocation hint given as the last argument to <code>invoke()</code>.</p></li>
+<li><p>Pointer $marshal_data; Additional data specified when registering the marshaller, see <code>set-marshal()</code> and <code>g-closure-set-meta-marshal()</code></p></li>
+</ul>
+
+<h2 id="g-cclosure-marshal-generic-va"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">g-cclosure-marshal-generic-va</a></h2>
+<p>A generic <strong>Gnome::GObject::VaClosureMarshal</strong> function implemented via [libffi](http://sourceware.org/libffi/).</p><pre class="pod-block-code">method g-cclosure-marshal-generic-va ( N-GObject $return_value, Pointer $instance, va_list $args_list, Pointer $marshal_data, Int() $n_params, N-GObject $param_types )</pre><ul>
+<li><p>N-GObject $return_value; a <strong>Gnome::GObject::Value</strong> to store the return value. May be <code>undefined</code> if the callback of <em>closure</em> doesn't return a value.</p></li>
+<li><p>Pointer $instance; (type GObject.TypeInstance): the instance on which the closure is invoked.</p></li>
+<li><p>va_list $args_list; va-list of arguments to be passed to the closure.</p></li>
+<li><p>Pointer $marshal_data; additional data specified when registering the marshaller, see <code>set-marshal()</code> and <code>g-closure-set-meta-marshal()</code></p></li>
+<li><p>Int() $n_params; the length of the <em>param-types</em> array</p></li>
+<li><p>N-GObject $param_types; (array length=n-params): the <strong>Gnome::GObject::Type</strong> of each argument from <em>args-list</em>.</p></li>
+</ul>
+
+<h2 id="g-signal-type-cclosure-new"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">g-signal-type-cclosure-new</a></h2>
+<p>Creates a new closure which invokes the function found at the offset <em>struct-offset</em> in the class structure of the interface or classed type identified by <em>itype</em>.</p><p>Returns: a floating reference to a new <strong>Gnome::GObject::CClosure</strong></p><pre class="pod-block-code">method g-signal-type-cclosure-new ( N-GObject $itype, UInt $struct_offset --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $itype; the <strong>Gnome::GObject::Type</strong> identifier of an interface or classed type</p></li>
+<li><p>UInt $struct_offset; the offset of the member function of <em>itype</em>'s class structure which is to be invoked by the new closure</p></li>
+</ul>
+
+<h2 id="invalidate"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">invalidate</a></h2>
+<p>Sets a flag on the closure to indicate that its calling environment has become invalid, and thus causes any future invocations of <code>invoke()</code> on this <em>closure</em> to be ignored. Also, invalidation notifiers installed on the closure will be called at this point. Note that unless you are holding a reference to the closure yourself, the invalidation notifiers may unref the closure and cause it to be destroyed, so if you need to access the closure after calling <code>g-closure-invalidate()</code>, make sure that you've previously called <code>g-closure-ref()</code>.</p><p>Note that <code>g-closure-invalidate()</code> will also be called when the reference count of a closure drops to zero (unless it has already been invalidated before).</p><pre class="pod-block-code">method invalidate ( )</pre>
+<h2 id="invoke"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">invoke</a></h2>
+<p>Invokes the closure, i.e. executes the callback represented by the <em>closure</em>.</p><pre class="pod-block-code">method invoke (  $GValue /*out*/ *return_value, UInt $n_param_values, N-GObject $param_values, Pointer $invocation_hint )</pre><ul>
+<li><p>$GValue /*out*/ *return_value; a <strong>Gnome::GObject::Value</strong> to store the return value. May be <code>undefined</code> if the callback of <em>closure</em> doesn't return a value.</p></li>
+<li><p>UInt $n_param_values; the length of the <em>param-values</em> array</p></li>
+<li><p>N-GObject $param_values; (array length=n-param-values): an array of <strong>Gnome::GObject::Values</strong> holding the arguments on which to invoke the callback of <em>closure</em></p></li>
+<li><p>Pointer $invocation_hint; a context-dependent invocation hint</p></li>
+</ul>
+
+<h2 id="ref"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">ref</a></h2>
+<p>Increments the reference count on a closure to force it staying alive while the caller holds a pointer to it.</p><p>Returns: The <em>closure</em> passed in, for convenience</p><pre class="pod-block-code">method ref ( --&gt; N-GObject )</pre>
+<h2 id="remove-finalize-notifier"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">remove-finalize-notifier</a></h2>
+<p>Removes a finalization notifier.</p><p>Notice that notifiers are automatically removed after they are run.</p><pre class="pod-block-code">method remove-finalize-notifier ( Pointer $notify_data, GClosureNotify $notify_func )</pre><ul>
+<li><p>Pointer $notify_data; data which was passed to <code>add-finalize-notifier()</code> when registering <em>notify-func</em></p></li>
+<li><p>GClosureNotify $notify_func; the callback function to remove</p></li>
+</ul>
+
+<h2 id="remove-invalidate-notifier"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">remove-invalidate-notifier</a></h2>
+<p>Removes an invalidation notifier.</p><p>Notice that notifiers are automatically removed after they are run.</p><pre class="pod-block-code">method remove-invalidate-notifier ( Pointer $notify_data, GClosureNotify $notify_func )</pre><ul>
+<li><p>Pointer $notify_data; data which was passed to <code>add-invalidate-notifier()</code> when registering <em>notify-func</em></p></li>
+<li><p>GClosureNotify $notify_func; the callback function to remove</p></li>
+</ul>
+
+<h2 id="set-marshal"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">set-marshal</a></h2>
+<p>Sets the marshaller of <em>closure</em>. The `marshal-data` of <em>marshal</em> provides a way for a meta marshaller to provide additional information to the marshaller. (See <code>set-meta-marshal()</code>.) For GObject's C predefined marshallers (the g-cclosure-marshal-*() functions), what it provides is a callback function to use instead of <em>closure</em>-&gt;callback.</p><pre class="pod-block-code">method set-marshal ( GClosureMarshal $marshal )</pre><ul>
+<li><p>GClosureMarshal $marshal; a <strong>Gnome::GObject::ClosureMarshal</strong> function</p></li>
+</ul>
+
+<h2 id="set-meta-marshal"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">set-meta-marshal</a></h2>
+<p>Sets the meta marshaller of <em>closure</em>. A meta marshaller wraps <em>closure</em>-&gt;marshal and modifies the way it is called in some fashion. The most common use of this facility is for C callbacks. The same marshallers (generated by [glib-genmarshal][glib-genmarshal]), are used everywhere, but the way that we get the callback function differs. In most cases we want to use <em>closure</em>-&gt;callback, but in other cases we want to use some different technique to retrieve the callback function.</p><p>For example, class closures for signals (see <code>g-signal-type-cclosure-new()</code>) retrieve the callback function from a fixed offset in the class structure. The meta marshaller retrieves the right callback and passes it to the marshaller as the <em>marshal-data</em> argument.</p><pre class="pod-block-code">method set-meta-marshal ( Pointer $marshal_data, GClosureMarshal $meta_marshal )</pre><ul>
+<li><p>Pointer $marshal_data; (closure meta-marshal): context-dependent data to pass to <em>meta-marshal</em></p></li>
+<li><p>GClosureMarshal $meta_marshal; a <strong>Gnome::GObject::ClosureMarshal</strong> function</p></li>
+</ul>
+
+<h2 id="sink"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">sink</a></h2>
+<p>Takes over the initial ownership of a closure. Each closure is initially created in a &quot;floating&quot; state, which means that the initial reference count is not owned by any caller. <code>sink()</code> checks to see if the object is still floating, and if so, unsets the floating state and decreases the reference count. If the closure is not floating, <code>g-closure-sink()</code> does nothing. The reason for the existence of the floating state is to prevent cumbersome code sequences like:</p><pre class="pod-block-code">closure = g_cclosure_new (cb_func, cb_data);
+g_source_set_closure (source, closure);
+g_closure_unref (closure); // XXX GObject doesn't really need this
+
+Because C&lt;g-source-set-closure()&gt; (and similar functions) take ownership of the initial reference count, if it is unowned, we instead can write:
+
+g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));</pre><p>Generally, this function is used together with <code>g-closure-ref()</code>. Ane example of storing a closure for later notification looks like:</p><pre class="pod-block-code">static GClosure *notify_closure = NULL;
+void
+foo_notify_set_closure (GClosure *closure)
+{
+  if (notify_closure)
+    g_closure_unref (notify_closure);
+  notify_closure = closure;
+  if (notify_closure)
+    {
+      g_closure_ref (notify_closure);
+      g_closure_sink (notify_closure);
+    }
+}</pre><p>Because <code>g-closure-sink()</code> may decrement the reference count of a closure (if it hasn't been called on <em>closure</em> yet) just like <code>g-closure-unref()</code>, <code>g-closure-ref()</code> should be called prior to this function.</p><pre class="pod-block-code">method sink ( )</pre>
+<h2 id="unref"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">unref</a></h2>
+<p>Decrements the reference count of a closure after it was previously incremented by the same caller. If no other callers are using the closure, then the closure will be destroyed and freed.</p><pre class="pod-block-code">method unref ( )</pre>
+<h2 id="g-cclosure-new"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">g-cclosure-new</a></h2>
+<p>Creates a new closure which invokes <em>callback-func</em> with <em>user-data</em> as the last parameter.</p><p><em>destroy-data</em> will be called as a finalize notifier on the <strong>Gnome::GObject::Closure</strong>.</p><p>Returns: a floating reference to a new <strong>Gnome::GObject::CClosure</strong></p><pre class="pod-block-code">method g-cclosure-new ( GCallback $callback_func, Pointer $user_data, GClosureNotify $destroy_data --&gt; N-GObject )</pre><ul>
+<li><p>GCallback $callback_func; the function to invoke</p></li>
+<li><p>Pointer $user_data; (closure callback-func): user data to pass to <em>callback-func</em></p></li>
+<li><p>GClosureNotify $destroy_data; destroy notify to be called when <em>user-data</em> is no longer used</p></li>
+</ul>
+
+<h2 id="g-cclosure-new-swap"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">g-cclosure-new-swap</a></h2>
+<p>Creates a new closure which invokes <em>callback-func</em> with <em>user-data</em> as the first parameter.</p><p><em>destroy-data</em> will be called as a finalize notifier on the <strong>Gnome::GObject::Closure</strong>.</p><p>Returns: a floating reference to a new <strong>Gnome::GObject::CClosure</strong></p><pre class="pod-block-code">method g-cclosure-new-swap ( GCallback $callback_func, Pointer $user_data, GClosureNotify $destroy_data --&gt; N-GObject )</pre><ul>
+<li><p>GCallback $callback_func; the function to invoke</p></li>
+<li><p>Pointer $user_data; (closure callback-func): user data to pass to <em>callback-func</em></p></li>
+<li><p>GClosureNotify $destroy_data; destroy notify to be called when <em>user-data</em> is no longer used</p></li>
+</ul>
+
+<h2 id="_g_closure_new_simple"><a href="#Gnome::GObject::Closure" class="u" title="go to top of document">_g_closure_new_simple</a></h2>
+<p>Allocates a struct of the given size and initializes the initial part as a <strong>Gnome::GObject::Closure</strong>. This function is mainly useful when implementing new types of closures.</p><p>Returns: a floating reference to a new <strong>Gnome::GObject::Closure</strong></p><pre class="pod-block-code">method _g_closure_new_simple ( UInt $sizeof_closure, Pointer $data --&gt; N-GObject )</pre><ul>
+<li><p>UInt $sizeof_closure; the size of the structure to allocate, must be at least `sizeof (GClosure)`</p></li>
+<li><p>Pointer $data; data to store in the <em>data</em> field of the newly allocated <strong>Gnome::GObject::Closure</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gobject/lib/Gnome/GObject/Closure.rakumod</span></div><div>at <span class="time">2025-07-20T19:36:57Z</span></div></footer>
+	</body>
+</html>
