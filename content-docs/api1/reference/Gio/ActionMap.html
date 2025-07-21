@@ -1,0 +1,72 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::ActionMap</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::ActionMap">Gnome::Gio::ActionMap</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-action">add-action</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-action-entries">add-action-entries</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-action">lookup-action</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-action">remove-action</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface for action containers</p>
+<h1 id="Description"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">Description</a></h1>
+<p>The Gnome::Gio::ActionMap interface is implemented by <strong>Gnome::Gio::ActionGroup</strong> implementations that operate by containing a number of named <strong>Gnome::Gio::Action</strong> instances, such as <strong>Gnome::Gio::SimpleActionGroup</strong>.</p><p>One useful application of this interface is to map the names of actions from various action groups to unique, prefixed names (e.g. by prepending &quot;app.&quot; or &quot;win.&quot;). This is the motivation for the 'Map' part of the interface name.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gio::ActionMap;</pre>
+<h1 id="Methods"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="add-action"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">add-action</a></h2>
+<p>Adds an action to the action map. If the action map already contains an action with the same name as <em>$action</em> then the old action is dropped from the action map. The action map takes its own reference on <em>$action</em>.</p><pre class="pod-block-code">method add-action ( N-GObject $action )</pre><ul>
+<li><p>N-GObject $action; an action object</p></li>
+</ul>
+
+<h2 id="add-action-entries"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">add-action-entries</a></h2>
+<p>A convenience function for creating multiple SimpleAction instances and adding them to this action map. The method will never call the native subroutine but will perform the necessary steps to add the action and register <code>activate</code> and <code>change-state</code> signals. Each entry in the Array is a Hash with the following keys;</p><ul>
+<li><p>Str :name; the name of the action. This must be defined.</p></li>
+<li><p>Any :activate-handler-object; handler class object. If undefined, :activate will be ignored.</p></li>
+<li><p>Str :activate; the callback method defined in <code>activate-handler-object</code> to connect to the &quot;activate&quot; signal of the action. this can be undefined for stateful actions, in which case the default handler is used. For boolean-stated actions with no parameter, this behaves like a toggle. For other state types (and parameter type equal to the state type) this will be a function that just calls change_state (which you should provide).</p></li>
+<li><p>Hash :activate-data; additional data to the <code>.register-signal()</code>. May be undefined</p></li>
+<li><p>Str :parameter-type; the type of the parameter that must be passed to the activate function for this action, given as a single GVariant type string (or undefined for no parameter)</p></li>
+<li><p>Str :state; the initial state for this action, given in Variant text format. The state is parsed with no extra type information, so type tags must be added to the string if they are necessary. Stateless actions should not define this key. For more information look for <a href="https://developer.gnome.org/glib/stable/gvariant-text.html">GVariant Text Format</a>.</p></li>
+<li><p>Any :change-state-handler-object; handler class object. If undefined, :change_state will be ignored.</p></li>
+<li><p>Str :change-state the callback method defined in <code>change-state-handler-object</code> to connect to the &quot;change-state&quot; signal of the action. All stateful actions should provide a handler here; stateless actions should not.</p></li>
+<li><p>Hash :change-state-data; additional data to the <code>.register-signal()</code>. May be undefined</p></li>
+</ul>
+<p>This Hash will mimic the original structure GActionEntry close enough while being more flexible for Raku users.</p><pre class="pod-block-code">method add-action-entries ( Array $entries )</pre><ul>
+<li><p>Array $entries; an array of hashes</p></li>
+</ul>
+
+<h2 id="lookup-action"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">lookup-action</a></h2>
+<p>Looks up the action with the name <em>$action_name</em> in action map. If no such action exists, returns an invalid object.</p><p>Returns: a Gnome::Gio::SimpleAction object</p><pre class="pod-block-code">method lookup-action (
+  Str $action_name --&gt; Gnome::Gio::SimpleAction
+)</pre><ul>
+<li><p>Str $action_name; the name of an action</p></li>
+</ul>
+
+<h2 id="remove-action"><a href="#Gnome::Gio::ActionMap" class="u" title="go to top of document">remove-action</a></h2>
+<p>Removes the named action from the action map. If no action of this name is found in the map then nothing happens.</p><pre class="pod-block-code">method remove-action ( Str $action_name )</pre><ul>
+<li><p>Str $action_name; the name of the action</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/ActionMap.rakumod</span></div><div>at <span class="time">2025-07-20T13:46:29Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,93 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::Icon</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Icon">Gnome::Gio::Icon</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GIconIface">class N-GIconIface</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#deserialize">deserialize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#hash">hash</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#serialize">serialize</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_icon_new_for_string">_g_icon_new_for_string</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Interface for icons</p>
+<h1 id="Description"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::Icon</strong> is a very minimal interface for icons. It provides functions for checking the equality of two icons, hashing of icons and serializing an icon to and from strings.</p><p><strong>Gnome::Gio::Icon</strong> does not provide the actual pixmap for the icon as this is out of GIO's scope, however implementations of <strong>Gnome::Gio::Icon</strong> may contain the name of an icon (see <strong>Gnome::Gio::ThemedIcon</strong>), or the path to an icon (see <strong>Gnome::Gio::LoadableIcon</strong>).</p><p>To check if two <strong>Gnome::Gio::Icons</strong> are equal, see <code>equal()</code>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gio::Icon;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Icon.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="class_N-GIconIface"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">class N-GIconIface</a></h2>
+<p>GIconIface is used to implement GIcon types for various different systems. See <strong>Gnome::Gio::ThemedIcon</strong> and <strong>Gnome::Gio::LoadableIcon</strong> for examples of how to implement this interface.</p><ul>
+<li><p>$.g-iface: The parent interface.</p></li>
+<li><p>A hash for a given <strong>Gnome::Gio::Icon</strong>.</p></li>
+<li><p>Checks if two <strong>Gnome::Gio::Icons</strong> are equal.</p></li>
+<li><p>Serializes a <strong>Gnome::Gio::Icon</strong> into tokens. The tokens must not contain any whitespace. Don't implement if the <strong>Gnome::Gio::Icon</strong> can't be serialized (Since 2.20).</p></li>
+<li><p>Constructs a <strong>Gnome::Gio::Icon</strong> from tokens. Set the <strong>Gnome::Gio::Error</strong> if the tokens are malformed. Don't implement if the <strong>Gnome::Gio::Icon</strong> can't be serialized (Since 2.20).</p></li>
+<li><p>Serializes a <strong>Gnome::Gio::Icon</strong> into a <strong>Gnome::Gio::Variant</strong>. Since: 2.38</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="deserialize"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">deserialize</a></h2>
+<p>Deserializes a <strong>Gnome::Gio::Icon</strong> previously serialized using <code>serialize()</code>.</p><p>Returns: a <strong>Gnome::Gio::Icon</strong>, or <code>undefined</code> when deserialization fails.</p><pre class="pod-block-code">method deserialize ( N-GObject $value --&gt; N-GObject )</pre><ul>
+<li><p>$value; a <strong>Gnome::Glib::Variant</strong> created with <code>serialize()</code></p></li>
+</ul>
+
+<h2 id="equal"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">equal</a></h2>
+<p>Checks if two icons are equal.</p><p>Returns: <code>True</code> if the icon is equal to <em>$icon</em>. <code>False</code> otherwise.</p><pre class="pod-block-code">method equal ( N-GObject $icon --&gt; Bool )</pre><ul>
+<li><p>$icon; pointer to the other <strong>Gnome::Gio::Icon</strong>.</p></li>
+</ul>
+
+<h2 id="hash"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">hash</a></h2>
+<p>Gets a hash for an icon.</p><p>Virtual: hash</p><p>Returns: a <strong>guint</strong> containing a hash for the <em>icon</em>, suitable for use in a <strong>Gnome::Gio::HashTable</strong> or similar data structure.</p><pre class="pod-block-code">method hash ( Pointer $icon --&gt; UInt )</pre><ul>
+<li><p>$icon; <strong>gconstpointer</strong> to an icon object.</p></li>
+</ul>
+
+<h2 id="serialize"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">serialize</a></h2>
+<p>Serializes a <strong>Gnome::Gio::Icon</strong> into a <strong>Gnome::Glib::Variant</strong>. An equivalent <strong>Gnome::Gio::Icon</strong> can be retrieved back by calling <code>deserialize()</code> on the returned value. As serialization will avoid using raw icon data when possible, it only makes sense to transfer the <strong>Gnome::Glib::Variant</strong> between processes on the same machine, (as opposed to over the network), and within the same file system namespace.</p><p>Returns: a <strong>Gnome::Glib::Variant</strong>, or <code>undefined</code> when serialization fails.</p><pre class="pod-block-code">method serialize ( --&gt; N-GObject )</pre>
+<h2 id="to-string"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">to-string</a></h2>
+<p>Generates a textual representation of this <em>icon</em> that can be used for serialization such as when passing an <em>icon</em> to a different process or saving it to persistent storage. Use <code>Some-Icon-Child.new(:string)</code> to get this <em>icon</em> back from the returned string.</p><p>The encoding of the returned string is proprietary to <strong>Gnome::Gio::Icon</strong> except in the following two cases</p><ul>
+<li><p>If the icon is a <strong>Gnome::Gio::FileIcon</strong>, the returned string is a native path (such as `/path/to/my icon.png`) without escaping if the <strong>Gnome::Gio::File</strong> for this icon is a native file. If the file is not native, the returned string is the result of <code>.get-uri()</code> (such as `sftp://path/to/my<code>20icon</code>.png`).</p></li>
+<li><p>If <em>icon</em> is a <strong>Gnome::Gio::ThemedIcon</strong> with exactly one name and no fallbacks, the encoding is simply the name (such as `network-server`).</p></li>
+</ul>
+<p>Returns: A UTF8 string or <code>undefined</code> if <em>icon</em> can't be serialized.</p><pre class="pod-block-code">method to-string ( --&gt; Str )</pre>
+<h3 id="Example"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">Example</a></h3>
+<pre class="pod-block-code">my Gnome::Gio::File $file .= new(:path&lt;LICENSE&gt;);
+my Gnome::Gio::FileIcon $fi .= new(:$file);
+my Str $fstring = $fi.to-string;
+…
+my Gnome::Gio::FileIcon $fi2 .= new(:string($fstring));</pre>
+<h2 id="_g_icon_new_for_string"><a href="#Gnome::Gio::Icon" class="u" title="go to top of document">_g_icon_new_for_string</a></h2>
+<p>Generate a <strong>Gnome::Gio::Icon</strong> instance from <em>str</em>. This function can fail if <em>str</em> is not valid - see <code>to-string()</code> for discussion.</p><p>If your application or library provides one or more <strong>Gnome::Gio::Icon</strong> implementations you need to ensure that each <strong>Gnome::Glib::Type</strong> is registered with the type system prior to calling <code>g-icon-new-for-string()</code>.</p><p>Returns: An object implementing the <strong>Gnome::Gio::Icon</strong> interface or <code>undefined</code> if <em>error</em> is set.</p><pre class="pod-block-code">method _g_icon_new_for_string ( Str $str, N-GError $error --&gt; N-GObject )</pre><ul>
+<li><p>$str; A string obtained via <code>to-string()</code>.</p></li>
+<li><p>$error; Return location for error.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/Icon.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:01Z</span></div></footer>
+	</body>
+</html>

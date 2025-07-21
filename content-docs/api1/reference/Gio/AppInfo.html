@@ -1,0 +1,337 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::AppInfo</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::AppInfo">Gnome::Gio::AppInfo</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Note">Note</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GAppLaunchContext">class N-GAppLaunchContext</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:command-line,_:application-name,_:flags">:command-line, :application-name, :flags</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-supports-type">add-supports-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#can-delete">can-delete</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#can-remove-supports-type">can-remove-supports-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#delete">delete</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup">dup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-all">get-all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-all-for-type">get-all-for-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-commandline">get-commandline</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-for-type">get-default-for-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-for-uri-scheme">get-default-for-uri-scheme</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-description">get-description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-display-name">get-display-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-executable">get-executable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-fallback-for-type">get-fallback-for-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon">get-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-id">get-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-recommended-for-type">get-recommended-for-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-supported-types">get-supported-types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch">launch</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-default-for-uri">launch-default-for-uri</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-default-for-uri-async">launch-default-for-uri-async</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-default-for-uri-finish">launch-default-for-uri-finish</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-uris">launch-uris</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-uris-async">launch-uris-async</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#launch-uris-finish">launch-uris-finish</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-supports-type">remove-supports-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#reset-type-associations">reset-type-associations</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-as-default-for-extension">set-as-default-for-extension</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-as-default-for-type">set-as-default-for-type</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example_0">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-as-last-used-for-type">set-as-last-used-for-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#should-show">should-show</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#supports-files">supports-files</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#supports-uris">supports-uris</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-from-commandline">create-from-commandline</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#launch-failed">launch-failed</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#launched">launched</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Application information and launch contexts</p>
+<h1 id="Description"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::AppInfo</strong> and <strong>Gnome::Gio::AppLaunchContext</strong> are used for describing and launching applications installed on the system.</p><p>As of GLib 2.20, URIs will always be converted to POSIX paths (using <code>Gnome::Gio::File.get-path()</code>) when using <code>launch()</code> even if the application requested a URI and not a POSIX path. For example, for a desktop-file based application with the <code>Exec</code> key <code>totem %U</code> and a single URI, <code>sftp://foo/file.avi</code>, then <code>/home/user/.gvfs/sftp</code> on <code>foo/file.avi</code> will be passed. This will only work if a set of suitable GIO extensions (such as gvfs 2.26 compiled with FUSE support), is available and operational; if this is not the case, the URI will be passed unmodified to the application. Some URIs, such as `mailto:`, of course cannot be mapped to a POSIX path (in gvfs there's no FUSE mount for it); such URIs will be passed unmodified to the application.</p>
+<h2 id="See_Also"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gio::AppInfoMonitor</strong> and <strong>Gnome::Gio::AppLaunchContext</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::AppInfo;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/AppInfo.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Note"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Note</a></h2>
+<p><strong>Gnome::Gio::AppInfo</strong> is defined as an interface in the Gnome libraries and therefore should be defined as a Raku role. However, the Gtk modules like <strong>Gnome::Gtk3::AppChooser </strong> returns <strong>Gnome::Gio::AppInfo</strong> objects as if they are class objects. The only one which use the module as an interface, is GDesktopAppInfo which will not be implemented for the time being. When it does, it will inherit it as a class.</p>
+<h2 id="Example"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Example</a></h2>
+<p>Below code will work when both `cdda://sr0/Track 1.wav` and `/home/user/.gvfs/cdda on sr0/Track 1.wav` is passed to the application. It should be noted that it's generally not safe for applications to rely on the format of a particular URIs. Different launcher applications (e.g. file managers) may have different ideas of what a given URI means.</p><pre class="pod-block-code">my Gnome::Gio::File $file .= new(
+  :commandline-arg($uri-from-commandline)
+);
+
+# you might compare $uri with $uri-from-commandline
+# to see that they are equal;
+my Str $uri = $file.get-uri;
+
+if ( $file.has-uri-scheme('cdda') ) {
+    … do something special with uri …
+}
+
+$file.clear-object;</pre>
+<h2 id="class_N-GAppLaunchContext"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">class N-GAppLaunchContext</a></h2>
+<p>Integrating the launch with the launching application. This is used to handle for instance startup notification and launching the new application on the same screen as the launching window.</p>
+<h1 id="Methods"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":command-line,_:application-name,_:flags"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">:command-line, :application-name, :flags</a></h3>
+<p>Create a new <strong>Gnome::Gio::AppInfo</strong> object. Note that for commandline, the quoting rules of the Exec key of the freedesktop.org Desktop Entry Specification are applied. For example, if the commandline contains percent-encoded URIs, the percent-character must be doubled in order to prevent it from being swallowed by Exec key unquoting. See the specification for exact quoting rules.</p><pre class="pod-block-code">multi method new (
+  Str :$command-line!, Str :$application-name!,
+  UInt :$flags = G_APP_INFO_CREATE_NONE
+)</pre>
+<h3 id=":native-object"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a <strong>Gnome::Gio::AppInfo</strong> object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-supports-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">add-supports-type</a></h2>
+<p>Adds a content type to the application information to indicate the application is capable of opening files with the given content type.</p><p>Returns <code>True</code> if successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method add-supports-type ( Str $content-type --&gt; Bool )</pre><ul>
+<li><p>Str $content-type; a string.</p></li>
+</ul>
+
+<h2 id="can-delete"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">can-delete</a></h2>
+<p>Obtains the information whether the <strong>Gnome::Gio::AppInfo</strong> can be deleted. See <code>delete()</code>.</p><p>Returns: <code>True</code> if <em>appinfo</em> can be deleted</p><pre class="pod-block-code">method can-delete ( --&gt; Bool )</pre>
+<h2 id="can-remove-supports-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">can-remove-supports-type</a></h2>
+<p>Checks if a supported content type can be removed from an application.</p><p>Returns: <code>True</code> if it is possible to remove supported content types from a given <em>appinfo</em>, <code>False</code> if not.</p><pre class="pod-block-code">method can-remove-supports-type ( --&gt; Bool )</pre>
+<h2 id="delete"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">delete</a></h2>
+<p>Tries to delete a <strong>Gnome::Gio::AppInfo</strong>.</p><p>On some platforms, there may be a difference between user-defined <strong>Gnome::Gio::AppInfos</strong> which can be deleted, and system-wide ones which cannot. See <code>can-delete()</code>.</p><p>Returns: <code>True</code> if <em>appinfo</em> has been deleted</p><pre class="pod-block-code">method delete ( --&gt; Bool )</pre>
+<h2 id="dup"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">dup</a></h2>
+<p>Creates a duplicate of a <strong>Gnome::Gio::AppInfo</strong>.</p><p>Returns: a duplicate of <em>appinfo</em>.</p><pre class="pod-block-code">method dup ( --&gt; N-GObject )</pre>
+<h2 id="equal"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">equal</a></h2>
+<p>Checks if two <strong>Gnome::Gio::AppInfo</strong>s are equal.</p><p>Note that the check &lt;emphasis&gt;may not&lt;/emphasis&gt; compare each individual field, and only does an identity check. In case detecting changes in the contents is needed, program code must additionally compare relevant fields.</p><p>Returns: <code>True</code> if <em>appinfo1</em> is equal to <em>appinfo2</em>. <code>False</code> otherwise.</p><pre class="pod-block-code">method equal ( N-GObject $appinfo2 --&gt; Bool )</pre><ul>
+<li><p>N-GObject $appinfo2; the second <strong>Gnome::Gio::AppInfo</strong>.</p></li>
+</ul>
+
+<h2 id="get-all"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-all</a></h2>
+<p>Gets a list of all of the applications currently registered on this system.</p><p>For desktop files, this includes applications that have NoDisplay=true set or are excluded from display by means of OnlyShowIn or NotShowIn. See <code>.should-show()</code>. The returned list does not include applications which have the Hidden key set.</p><p>Returns a newly allocated list of references to <strong>Gnome::Gio::AppInfo</strong>s.</p><pre class="pod-block-code">method get-all ( --&gt; Gnome::Glib::List )</pre>
+<h2 id="get-all-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-all-for-type</a></h2>
+<p>Gets a list of all <strong>Gnome::Gio::AppInfo</strong>s for a given content type, including the recommended and fallback GAppInfos. See <code>.get-recommended-for-type()</code> and <code>get-fallback-for-type()</code>.</p><pre class="pod-block-code">method get-all-for-type ( Str $content-type --&gt; Gnome::Glib::List )</pre><ul>
+<li><p>Str $content-type;</p></li>
+</ul>
+
+<h2 id="get-commandline"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-commandline</a></h2>
+<p>Gets the commandline with which the application will be started.</p><p>Returns: (type filename): a string containing the <em>appinfo</em>'s commandline, or <code>undefined</code> if this information is not available</p><pre class="pod-block-code">method get-commandline ( --&gt; Str )</pre>
+<h2 id="get-default-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-default-for-type</a></h2>
+<p>Gets the default <strong>Gnome::Gio::AppInfo</strong> for a given content type.</p><pre class="pod-block-code">method get-default-for-type (
+  Str $content-type, Bool $must_support_uris
+  --&gt; N-GObject
+)</pre><ul>
+<li><p>Str $content-type;</p></li>
+<li><p>Bool $must_support_uris;</p></li>
+</ul>
+
+<h2 id="get-default-for-uri-scheme"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-default-for-uri-scheme</a></h2>
+<p>Gets the default application for handling URIs with the given URI scheme. A URI scheme is the initial part of the URI, up to but not including the ':', e.g. &quot;http&quot;, &quot;ftp&quot; or &quot;sip&quot;.</p><pre class="pod-block-code">method get-default-for-uri-scheme ( Str $uri_scheme --&gt; N-GObject )</pre><ul>
+<li><p>Str $uri_scheme;</p></li>
+</ul>
+
+<h2 id="get-description"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-description</a></h2>
+<p>Gets a human-readable description of an installed application.</p><p>Returns: a string containing a description of the application <em>appinfo</em>, or <code>undefined</code> if none.</p><pre class="pod-block-code">method get-description ( --&gt; Str )</pre>
+<h2 id="get-display-name"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-display-name</a></h2>
+<p>Gets the display name of the application. The display name is often more descriptive to the user than the name itself.</p><p>Returns: the display name of the application for <em>appinfo</em>, or the name if no display name is available.</p><pre class="pod-block-code">method get-display-name ( --&gt; Str )</pre>
+<h2 id="get-executable"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-executable</a></h2>
+<p>Gets the executable's name for the installed application.</p><p>Returns: (type filename): a string containing the <em>appinfo</em>'s application binaries name</p><pre class="pod-block-code">method get-executable ( --&gt; Str )</pre>
+<h2 id="get-fallback-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-fallback-for-type</a></h2>
+<p>Gets a list of fallback <strong>Gnome::Gio::AppInfo</strong>s for a given content type, i.e. those applications which claim to support the given content type by MIME type subclassing and not directly.</p><pre class="pod-block-code">method get-fallback-for-type ( Str $content-type --&gt; Gnome::Glib::List )</pre><ul>
+<li><p>Str $content-type;</p></li>
+</ul>
+
+<h2 id="get-icon"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-icon</a></h2>
+<p>Gets the icon for the application.</p><p>Returns: the default <strong>Gnome::Gio::Icon</strong> for <em>appinfo</em> or <code>undefined</code> if there is no default icon.</p><pre class="pod-block-code">method get-icon ( --&gt; N-GObject )</pre>
+<h2 id="get-id"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-id</a></h2>
+<p>Gets the ID of an application. An id is a string that identifies the application. The exact format of the id is platform dependent. For instance, on Unix this is the desktop file id from the xdg menu specification.</p><p>Note that the returned ID may be <code>undefined</code>, depending on how the <em>appinfo</em> has been constructed.</p><p>Returns: a string containing the application's ID.</p><pre class="pod-block-code">method get-id ( --&gt; Str )</pre>
+<h2 id="get-name"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-name</a></h2>
+<p>Gets the installed name of the application.</p><p>Returns: the name of the application for <em>appinfo</em>.</p><pre class="pod-block-code">method get-name ( --&gt; Str )</pre>
+<h2 id="get-recommended-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-recommended-for-type</a></h2>
+<p>Gets a list of recommended <strong>Gnome::Gio::AppInfo</strong>s for a given content type, i.e. those applications which claim to support the given content type exactly, and not by MIME type subclassing. Note that the first application of the list is the last used one, i.e. the last one for which <code>set_as_last_used_for_type()</code> has been called.</p><pre class="pod-block-code">method get-recommended-for-type ( Str $content-type --&gt; Gnome::Glib::List )</pre><ul>
+<li><p>Str $content-type;</p></li>
+</ul>
+
+<h2 id="get-supported-types"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">get-supported-types</a></h2>
+<p>Retrieves the list of content types that <em>app-info</em> claims to support. If this information is not provided by the environment, this function will return <code>undefined</code>. This function does not take in consideration associations added with <code>add-supports-type()</code>, but only those exported directly by the application.</p><p>Returns: a list of content types.</p><pre class="pod-block-code">method get-supported-types ( --&gt; Array )</pre>
+<h2 id="launch"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch</a></h2>
+<p>Launches the application. Passes <em>f@iles</em> to the launched application as arguments, using the optional <em>$context</em> to get information about the details of the launcher (like what screen it is on). On error, <em>error</em> will be set accordingly.</p><p>To launch the application without arguments pass an empty <em>@files</em> list.</p><p>Note that even if the launch is successful the application launched can fail to start if it runs into problems during startup. There is no way to detect this.</p><p>The launched application inherits the environment of the launching process, but it can be modified with <code>Gnome::Gio::AppLaunchContext.setenv()</code> and <code>Gnome::Gio::AppLaunchContext.unsetenv()</code>.</p><p>On UNIX, this function sets the `GIO-LAUNCHED-DESKTOP-FILE` environment variable with the path of the launched desktop file and `GIO-LAUNCHED-DESKTOP-FILE-PID` to the process id of the launched process. This can be used to ignore `GIO-LAUNCHED-DESKTOP-FILE`, should it be inherited by further processes. The `DISPLAY` and `DESKTOP-STARTUP-ID` environment variables are also set, based on information provided in <em>context</em>.</p><p>Returns <code>True</code> if the launch was successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method launch (
+  @files, N-GObject $context --&gt; Bool
+)</pre><ul>
+<li><p>Str @files; list of filenames</p></li>
+<li><p>N-GObject $context; a native <strong>Gnome::Gio::AppLaunchContext</strong> or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="launch-default-for-uri"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-default-for-uri</a></h2>
+<p>Utility function that launches the default application registered to handle the specified uri. Synchronous I/O is done on the uri to detect the type of the file if required.</p><p>The D-Bus–activated applications don't have to be started if your application terminates too soon after this function. To prevent this, use <code>launch-default-for-uri-async()</code> instead.</p><p>Returns <code>True</code> if the launch was successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method launch-default-for-uri (
+  Str $uri, N-GObject $context --&gt; Bool
+)</pre><ul>
+<li><p>Str $uri; the uri to show</p></li>
+<li><p>N-GObject $context; an optional <strong>Gnome::Gio::AppLaunchContext</strong></p></li>
+<li><p>N-GError $error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+<p><strong>Note</strong> There are situations where a <code>False</code> value is returned but the error object was not set. <code>False</code> is returned correctly in those cases and there is really something wrong but the function doesn't reveal what.</p>
+<h2 id="launch-default-for-uri-async"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-default-for-uri-async</a></h2>
+<p>Async version of <code>launch-default-for-uri()</code>.</p><p>This version is useful if you are interested in receiving error information in the case where the application is sandboxed and the portal may present an application chooser dialog to the user.</p><p>This is also useful if you want to be sure that the D-Bus–activated applications are really started before termination and if you are interested in receiving error information from their activation.</p><pre class="pod-block-code">method launch-default-for-uri-async ( Str $uri, GAppLaunchContext $context, GCancellable $cancellable, GAsyncReadyCallback $callback, Pointer $user_data )</pre><ul>
+<li><p>Str $uri; the uri to show</p></li>
+<li><p>GAppLaunchContext $context; an optional <strong>Gnome::Gio::AppLaunchContext</strong></p></li>
+<li><p>GCancellable $cancellable; a <strong>Gnome::Gio::Cancellable</strong></p></li>
+<li><p>GAsyncReadyCallback $callback; a <strong>Gnome::Gio::AsyncReadyCallback</strong> to call when the request is done</p></li>
+<li><p>Pointer $user_data; data to pass to <em>callback</em></p></li>
+</ul>
+
+<h2 id="launch-default-for-uri-finish"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-default-for-uri-finish</a></h2>
+<p>Finishes an asynchronous launch-default-for-uri operation.</p><p>Returns: <code>True</code> if the launch was successful, <code>False</code> if <em>error</em> is set</p><pre class="pod-block-code">method launch-default-for-uri-finish ( GAsyncResult $result, N-GError $error --&gt; Bool )</pre><ul>
+<li><p>GAsyncResult $result; a <strong>Gnome::Gio::AsyncResult</strong></p></li>
+<li><p>N-GError $error; return location for an error, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="launch-uris"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-uris</a></h2>
+<p>Launches the application. This passes the <em>uris</em> to the launched application as arguments, using the optional <em>context</em> to get information about the details of the launcher (like what screen it is on). On error, <em>error</em> will be set accordingly.</p><p>To launch the application without arguments pass a <code>undefined</code> <em>uris</em> list.</p><p>Note that even if the launch is successful the application launched can fail to start if it runs into problems during startup. There is no way to detect this.</p><p>Returns <code>True</code> if the launch was successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method launch-uris ( @uris, N-GObject $context --&gt; Bool )</pre><ul>
+<li><p>Str @uris; an array containing URIs to launch.</p></li>
+<li><p>N-GObject $context; a <strong>Gnome::Gio::AppLaunchContext</strong> or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="launch-uris-async"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-uris-async</a></h2>
+<p>Async version of <code>launch-uris()</code>.</p><p>The <em>callback</em> is invoked immediately after the application launch, but it waits for activation in case of D-Bus–activated applications and also provides extended error information for sandboxed applications, see notes for <code>g-app-info-launch-default-for-uri-async()</code>.</p><pre class="pod-block-code">method launch-uris-async ( N-GList $uris, GAppLaunchContext $context, GCancellable $cancellable, GAsyncReadyCallback $callback, Pointer $user_data )</pre><ul>
+<li><p>N-GList $uris; (element-type utf8): a <strong>Gnome::Gio::List</strong> containing URIs to launch.</p></li>
+<li><p>GAppLaunchContext $context; a <strong>Gnome::Gio::AppLaunchContext</strong> or <code>undefined</code></p></li>
+<li><p>GCancellable $cancellable; a <strong>Gnome::Gio::Cancellable</strong></p></li>
+<li><p>GAsyncReadyCallback $callback; a <strong>Gnome::Gio::AsyncReadyCallback</strong> to call when the request is done</p></li>
+<li><p>Pointer $user_data; data to pass to <em>callback</em></p></li>
+</ul>
+
+<h2 id="launch-uris-finish"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-uris-finish</a></h2>
+<p>Finishes a <code>launch-uris-async()</code> operation.</p><p>Returns: <code>True</code> on successful launch, <code>False</code> otherwise.</p><pre class="pod-block-code">method launch-uris-finish ( GAsyncResult $result, N-GError $error --&gt; Bool )</pre><ul>
+<li><p>GAsyncResult $result; a <strong>Gnome::Gio::AsyncResult</strong></p></li>
+<li><p>N-GError $error; a <strong>Gnome::Gio::Error</strong></p></li>
+</ul>
+
+<h2 id="remove-supports-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">remove-supports-type</a></h2>
+<p>Removes a supported type from an application, if possible.</p><p>Returns: <code>True</code> on success, <code>False</code> on error.</p><pre class="pod-block-code">method remove-supports-type ( Str $content-type --&gt; Bool )</pre><p>Returns <code>True</code> if successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><ul>
+<li><p>Str $content-type; a string.</p></li>
+</ul>
+
+<h2 id="reset-type-associations"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">reset-type-associations</a></h2>
+<p>Removes all changes to the type associations done by <code>.set_as_default_for_type()</code>, <code>.set_as_default_for_extension()</code>, <code>.add_supports_type()</code> or <code>.remove_supports_type()</code>.</p><pre class="pod-block-code">method reset-type-associations ( Str $content-type )</pre><ul>
+<li><p>Str $content-type;</p></li>
+</ul>
+
+<h2 id="set-as-default-for-extension"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">set-as-default-for-extension</a></h2>
+<p>Sets the application as the default handler for the given file extension.</p><p>Returns: <code>True</code> on success, <code>False</code> on error. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method set-as-default-for-extension ( Str $extension --&gt; Bool )</pre><ul>
+<li><p>Str $extension; a string containing the file extension (without the dot).</p></li>
+</ul>
+
+<h2 id="set-as-default-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">set-as-default-for-type</a></h2>
+<p>Sets the application as the default handler for a given type.</p><p>Sets the <code>$.last-error</code> attribute which will be invalid on successful launch, valid otherwise and the error object must be checked for the error. Check the <code>.message()</code> of this object to see what happened.</p><pre class="pod-block-code">method set-as-default-for-type ( Str $content-type --&gt; Bool )</pre>
+<h3 id="Example_0"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Example</a></h3>
+<p>This example shows how to set the default command of a jpeg image to the execution of <code>ls -m</code>, a unix directory list command.</p><pre class="pod-block-code">$ai .= new( :command-line('ls -m'), :application-name('ls'));
+die $ai.last-error.message
+  unless $ai.set-as-default-for-type('image/jpeg');</pre><ul>
+<li><p>Str $content-type; the content type.</p></li>
+</ul>
+
+<h2 id="set-as-last-used-for-type"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">set-as-last-used-for-type</a></h2>
+<p>Sets the application as the last used application for a given type. This will make the application appear as first in the list returned by <code>get-recommended-for-type()</code>, regardless of the default application for that content type.</p><p>Returns <code>True</code> if successful, <code>False</code> if an error is set. When False, Check the error attribute <code>$.last-error</code> for failures.</p><pre class="pod-block-code">method set-as-last-used-for-type ( Str $content-type --&gt; Bool )</pre><ul>
+<li><p>Str $content-type; the content type.</p></li>
+</ul>
+
+<h2 id="should-show"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">should-show</a></h2>
+<p>Checks if the application info should be shown in menus that list available applications.</p><p>Returns: <code>True</code> if the <em>appinfo</em> should be shown, <code>False</code> otherwise.</p><pre class="pod-block-code">method should-show ( --&gt; Bool )</pre>
+<h2 id="supports-files"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">supports-files</a></h2>
+<p>Checks if the application accepts files as arguments.</p><p>Returns: <code>True</code> if the <em>appinfo</em> supports files.</p><pre class="pod-block-code">method supports-files ( --&gt; Bool )</pre>
+<h2 id="supports-uris"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">supports-uris</a></h2>
+<p>Checks if the application supports reading files and directories from URIs.</p><p>Returns: <code>True</code> if the <em>appinfo</em> supports URIs.</p><pre class="pod-block-code">method supports-uris ( --&gt; Bool )</pre>
+<h2 id="create-from-commandline"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">create-from-commandline</a></h2>
+<pre class="pod-block-code">method create-from-commandline ( Str $commandline, Str $application_name, UInt $flags --&gt; N-GObject )</pre><ul>
+<li><p>Str $commandline;</p></li>
+<li><p>Str $application_name;</p></li>
+<li><p>UInt $flags; a mask with bits from GAppInfoCreateFlags.</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>connect-object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>connect-object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="changed"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">changed</a></h3>
+<pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($appinfo),
+  *%user-options
+);</pre><ul>
+<li><p>$appinfo;</p></li>
+<li><p>$_handle_id; the registered event handler id</p></li>
+</ul>
+
+<h3 id="launch-failed"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launch-failed</a></h3>
+<pre class="pod-block-code">method handler (
+  Str $str,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($appinfo),
+  *%user-options
+);</pre><ul>
+<li><p>$appinfo;</p></li>
+<li><p>$str;</p></li>
+<li><p>$_handle_id; the registered event handler id</p></li>
+</ul>
+
+<h3 id="launched"><a href="#Gnome::Gio::AppInfo" class="u" title="go to top of document">launched</a></h3>
+<pre class="pod-block-code">method handler (
+  N-GObject g_type_app_info,
+  N-GObject g_type_variant,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($appinfo),
+  *%user-options
+);</pre><ul>
+<li><p>$appinfo;</p></li>
+<li><p>$unknown type g_type_app_info;</p></li>
+<li><p>$unknown type g_type_variant;</p></li>
+<li><p>$_handle_id; the registered event handler id</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/AppInfo.rakumod</span></div><div>at <span class="time">2025-07-20T10:56:53Z</span></div></footer>
+	</body>
+</html>

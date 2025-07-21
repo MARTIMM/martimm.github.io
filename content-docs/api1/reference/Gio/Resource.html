@@ -1,0 +1,167 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::Resource</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Resource">Gnome::Gio::Resource</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GResource">class N-GResource</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:load">:load</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g_resource_ref">g_resource_ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g_resource_unref">g_resource_unref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#enumerate-children">enumerate-children</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#error-quark">error-quark</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-info">get-info</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-data">lookup-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#register">register</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unregister">unregister</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-static-resource-fini">g-static-resource-fini</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-static-resource-get-resource">g-static-resource-get-resource</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#g-static-resource-init">g-static-resource-init</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-info_0">get-info</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#load">load</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-data_0">lookup-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#open-stream">open-stream</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_resource_new_from_data">_g_resource_new_from_data</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Resource framework</p>
+<h1 id="Description"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">Description</a></h1>
+<p>Applications and libraries often contain binary or textual data that is really part of the application, rather than user data. For instance <strong>Gnome::Gtk3::Builder</strong> .ui files, splashscreen images, <strong>Gnome::Gio::Menu</strong> markup XML, CSS files, icons, etc. These are often shipped as files in 'some-data-dir/app-name', or manually included as literal strings in the code.</p><p>The <strong>Gnome::Gio::Resource</strong> API and the <code>glib-compile-resources</code> program provide a convenient and efficient alternative to this which has some nice properties. You maintain the files as normal files, so it is easy to edit them, but during the build the files are combined into a binary bundle.</p><p>Resource files can also be marked as compressed. Such files will be included in the resource bundle in a compressed form, but will be automatically uncompressed when the resource is used. This is very useful e.g. for larger text files that are parsed once (or rarely) and then thrown away.</p><p>Resource files can also be marked to be preprocessed, by setting the value of the `preprocess` attribute to a comma-separated list of preprocessing options. The only options currently supported are:</p><ul>
+<li><p><code>xml-stripblanks</code> which will use the xmllint command to strip ignorable whitespace from the XML file. For this to work, the `XMLLINT` environment variable must be set to the full path to the xmllint executable, or <code>xmllint</code> must be in the `PATH`; otherwise the preprocessing step is skipped.</p></li>
+<li><p><code>to-pixdata</code> which will use the <code>gdk-pixbuf-pixdata</code> command to convert images to the <strong>Gnome::Gdk3::Pixdata</strong> format, which allows you to create pixbufs directly using the data inside the resource file, rather than an (uncompressed) copy if it. For this, the <code>gdk-pixbuf-pixdata</code> program must be in the PATH, or the <code>GDK_PIXBUF_PIXDATA</code> environment variable must be set to the full path to the <code>gdk-pixbuf-pixdata</code> executable; otherwise the resource compiler will abort.</p></li>
+</ul>
+<p>Resource files will be exported in the N-GResource namespace using the combination of the given `prefix` and the filename from the `file` element. The `alias` attribute can be used to alter the filename to expose them at a different location in the resource namespace. Typically, this is used to include files from a different source directory without exposing the source directory in the resource namespace, as in the example below.</p><p>Resource bundles are created by the glib-compile-resources program which takes an XML file that describes the bundle, and a set of files that the XML references. These are combined into a binary resource bundle.</p><p>An example resource description:</p><pre class="pod-block-code">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;gresources&gt;
+  &lt;gresource prefix=&quot;/org/gtk/Example&quot;&gt;
+    &lt;file&gt;data/splashscreen.png&lt;/file&gt;
+    &lt;file compressed=&quot;true&quot;&gt;dialog.ui&lt;/file&gt;
+    &lt;file preprocess=&quot;xml-stripblanks&quot;&gt;menumarkup.xml&lt;/file&gt;
+    &lt;file alias=&quot;example.css&quot;&gt;data/example.css&lt;/file&gt;
+  &lt;/gresource&gt;
+&lt;/gresources&gt;</pre><p>This will create a resource bundle with the following files:</p><pre class="pod-block-code">/org/gtk/Example/data/splashscreen.png
+/org/gtk/Example/dialog.ui
+/org/gtk/Example/menumarkup.xml
+/org/gtk/Example/example.css</pre><p>You can then use <code>glib-compile-resources</code> to compile the XML to a binary bundle that you can load with <code>new(:load)</code>.</p><p>Once a <strong>Gnome::Gio::Resource</strong> has been created and registered all the data in it can be accessed globally in the process by using API calls like</p><p><code>g_resources_lookup_data()</code> to get a direct pointer to the data. You can also use URIs like &quot;resource:///org/gtk/Example/data/splashscreen.png&quot; with <strong>Gnome::Gio::File</strong> to access the resource data.</p><p>Some higher-level APIs, such as <strong>Gnome::Gtk3::Application</strong>, will automatically load resources from certain well-known paths in the resource namespace as a convenience. See the documentation for those APIs for details.</p><p>There are two forms of the generated source, the default version uses the compiler support for constructor and destructor functions (where available) to automatically create and register the <strong>Gnome::Gio::Resource</strong> on startup or library load time. If you pass `--manual-register`, two functions to register/unregister the resource are created instead. This requires an explicit initialization call in your application/library, but it works on all platforms, even on the minor ones where constructors are not supported. (Constructor support is available for at least Win32, Mac OS and Linux.)</p><p>Note that resource data can point directly into the data segment of e.g. a library, so if you are unloading libraries during runtime you need to be very careful with keeping around pointers to data from a resource, as this goes away when the library is unloaded. However, in practice this is not generally a problem, since most resource accesses are for your own resources, and resource data is often used once, during parsing, and then released.</p><p>When debugging a program or testing a change to an installed version, it is often useful to be able to replace resources in the program or library, without recompiling, for debugging or quick hacking and testing purposes. Since GLib 2.50, it is possible to use the `G_RESOURCE_OVERLAYS` environment variable to selectively overlay resources with replacements from the filesystem. It is a <code>G_SEARCHPATH_SEPARATOR</code>-separated list of substitutions to perform during resource lookups.</p><p>A substitution has the form</p><pre class="pod-block-code">/org/gtk/libgtk=/home/desrt/gtk-overlay</pre><p>The part before the `=` is the resource subpath for which the overlay applies. The part after is a filesystem path which contains files and subdirectories as you would like to be loaded as resources with the equivalent names.</p><p>In the example above, if an application tried to load a resource with the resource path `/org/gtk/libgtk/ui/gtkdialog.ui` then N-GResource would check the filesystem path `/home/desrt/gtk-overlay/ui/gtkdialog.ui`. If a file was found there, it would be used instead. This is an overlay, not an outright replacement, which means that if a file is not found at that path, the built-in version will be used instead. Whiteouts are not currently supported.</p><p>Substitutions must start with a slash, and must not contain a trailing slash before the '='. The path after the slash should ideally be absolute, but this is not strictly required. It is possible to overlay the location of a single resource with an individual file.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::Resource;
+also is Gnome::GObject::Boxed;</pre>
+<h1 id="Types"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="class_N-GResource"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">class N-GResource</a></h2>
+<p>Native object to hold a resource bundle</p>
+<h1 id="Methods"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":load"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">:load</a></h3>
+<p>Loads a binary resource bundle and creates a <strong>Gnome::Gio::Resource</strong> representation of it, allowing you to query it for data.</p><p>If you want to use this resource in the global resource namespace you need to register it with <code>register()</code>.</p><p>If <em>filename</em> is empty or the data in it is corrupt, an exception is thrown with a message about the reason.</p><pre class="pod-block-code">multi method new ( :load! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Resource object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="g_resource_ref"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">g_resource_ref</a></h2>
+<p>Atomically increments the reference count of <em>resource</em> by one. This function is MT-safe and may be called from any thread.</p><p>Returns: The passed in <strong>N-GResource</strong></p><p>Since: 2.32</p><pre class="pod-block-code">method g_resource_ref ( --&gt; N-GResource )</pre>
+<h2 id="g_resource_unref"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">g_resource_unref</a></h2>
+<p>Atomically decrements the reference count of <em>resource</em> by one. If the reference count drops to 0, all memory allocated by the resource is released. This function is MT-safe and may be called from any thread.</p><p>Since: 2.32</p><pre class="pod-block-code">method g_resource_unref ( )</pre>
+<h2 id="enumerate-children"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">enumerate-children</a></h2>
+<p>Returns all the names of children at the specified <em>$path</em> in the resource.</p><p>If <em>$path</em> is invalid or does not exist in the <strong>Gnome::Gio::Resource</strong>, <code>G-RESOURCE-ERROR-NOT-FOUND</code> will be returned.</p><p>Returns: a List</p><pre class="pod-block-code">method enumerate-children ( Str $path --&gt; List )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+</ul>
+<p>The returned list contains;</p><ul>
+<li><p>Gnome::Glib::Error; a error object. When <em>$path</em> is invalid or does not exist in the resource, this object is valid and the message will show the reason.</p></li>
+<li><p>Array; when there are children at the specified path, they will be stored in this array. <strong>Note that there might be a bug in the C-library. Whatever (correct) path is used, there are no children returned</strong>.</p></li>
+</ul>
+
+<h2 id="error-quark"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">error-quark</a></h2>
+<p>Gets the <strong>Gnome::Gio::Resource</strong> Error Quark.</p><p>Returns: a <strong>GQuark</strong></p><pre class="pod-block-code">method error-quark ( --&gt; UInt )</pre>
+<h2 id="get-info"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">get-info</a></h2>
+<p>Looks for a file at the specified <em>path</em> in the set of globally registered resources and if found returns information about it.</p><p><em>lookup-flags</em> controls the behaviour of the lookup.</p><p>Returns: <code>True</code> if the file was found. <code>False</code> if there were errors</p><pre class="pod-block-code">method get-info ( Str $path, GResourceLookupFlags $lookup_flags, UInt $size, UInt $flags, N-GError $error --&gt; Int )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+<li><p>GResourceLookupFlags $lookup_flags; A <strong>GResourceLookupFlags</strong></p></li>
+<li><p>UInt $size; (out) (optional): a location to place the length of the contents of the file, or <code>undefined</code> if the length is not needed</p></li>
+<li><p>UInt $flags; (out) (optional): a location to place the <strong>GResourceFlags</strong> about the file, or <code>undefined</code> if the flags are not needed</p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="lookup-data"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">lookup-data</a></h2>
+<p>Looks for a file at the specified <em>path</em> in the set of globally registered resources and returns a <strong>GBytes</strong> that lets you directly access the data in memory.</p><p>The data is always followed by a zero byte, so you can safely use the data as a C string. However, that byte is not included in the size of the GBytes.</p><p>For uncompressed resource files this is a pointer directly into the resource bundle, which is typically in some readonly data section in the program binary. For compressed files we allocate memory on the heap and automatically uncompress the data.</p><p><em>lookup-flags</em> controls the behaviour of the lookup.</p><p>Returns: (transfer full): <strong>GBytes</strong> or <code>undefined</code> on error. Free the returned object with <code>g-bytes-unref()</code></p><pre class="pod-block-code">method lookup-data ( Str $path, GResourceLookupFlags $lookup_flags, N-GError $error --&gt; N-GObject )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+<li><p>GResourceLookupFlags $lookup_flags; A <strong>GResourceLookupFlags</strong></p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="register"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">register</a></h2>
+<p>Registers the resource with the process-global set of resources. Once a resource is registered the files in it can be accessed with the global resource lookup functions like <code>lookup-data()</code>.</p><pre class="pod-block-code">method register ( )</pre>
+<h2 id="unregister"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">unregister</a></h2>
+<p>Unregisters the resource from the process-global set of resources.</p><pre class="pod-block-code">method unregister ( )</pre>
+<h2 id="g-static-resource-fini"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">g-static-resource-fini</a></h2>
+<p>Finalized a N-GResource initialized by <code>g-static-resource-init()</code>.</p><p>This is normally used by code generated by [glib-compile-resources][glib-compile-resources] and is not typically used by other code.</p><pre class="pod-block-code">method g-static-resource-fini ( GStaticResource $static_resource )</pre><ul>
+<li><p>GStaticResource $static_resource; pointer to a static <strong>GStaticResource</strong></p></li>
+</ul>
+
+<h2 id="g-static-resource-get-resource"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">g-static-resource-get-resource</a></h2>
+<p>Gets the N-GResource that was registered by a call to <code>g-static-resource-init()</code>.</p><p>This is normally used by code generated by [glib-compile-resources][glib-compile-resources] and is not typically used by other code.</p><p>Returns: (transfer none): a <strong>Gnome::Gio::Resource</strong></p><pre class="pod-block-code">method g-static-resource-get-resource ( GStaticResource $static_resource --&gt; N-GResource )</pre><ul>
+<li><p>GStaticResource $static_resource; pointer to a static <strong>GStaticResource</strong></p></li>
+</ul>
+
+<h2 id="g-static-resource-init"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">g-static-resource-init</a></h2>
+<p>Initializes a N-GResource from static data using a GStaticResource.</p><p>This is normally used by code generated by [glib-compile-resources][glib-compile-resources] and is not typically used by other code.</p><pre class="pod-block-code">method g-static-resource-init ( GStaticResource $static_resource )</pre><ul>
+<li><p>GStaticResource $static_resource; pointer to a static <strong>GStaticResource</strong></p></li>
+</ul>
+
+<h2 id="get-info_0"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">get-info</a></h2>
+<p>Looks for a file at the specified <em>path</em> in the resource and if found returns information about it.</p><p><em>lookup-flags</em> controls the behaviour of the lookup.</p><p>Returns: <code>True</code> if the file was found. <code>False</code> if there were errors</p><pre class="pod-block-code">method get-info ( Str $path, GResourceLookupFlags $lookup_flags, UInt $size, UInt $flags, N-GError $error --&gt; Int )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+<li><p>GResourceLookupFlags $lookup_flags; A <strong>GResourceLookupFlags</strong></p></li>
+<li><p>UInt $size; (out) (optional): a location to place the length of the contents of the file, or <code>undefined</code> if the length is not needed</p></li>
+<li><p>UInt $flags; (out) (optional): a location to place the flags about the file, or <code>undefined</code> if the length is not needed</p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="load"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">load</a></h2>
+<p>Loads a binary resource bundle and creates a <strong>Gnome::Gio::Resource</strong> representation of it, allowing you to query it for data.</p><p>If you want to use this resource in the global resource namespace you need to register it with <code>register()</code>.</p><p>If <em>filename</em> is empty or the data in it is corrupt, <code>G-RESOURCE-ERROR-INTERNAL</code> will be returned. If <em>filename</em> doesn’t exist, or there is an error in reading it, an error from <code>g-mapped-file-new()</code> will be returned.</p><p>Returns: (transfer full): a new <strong>Gnome::Gio::Resource</strong>, or <code>undefined</code> on error</p><pre class="pod-block-code">method load ( Str $filename, N-GError $error --&gt; N-GResource )</pre><ul>
+<li><p>Str $filename; (type filename): the path of a filename to load, in the GLib filename encoding</p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="lookup-data_0"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">lookup-data</a></h2>
+<p>Looks for a file at the specified <em>path</em> in the resource and returns a <strong>GBytes</strong> that lets you directly access the data in memory.</p><p>The data is always followed by a zero byte, so you can safely use the data as a C string. However, that byte is not included in the size of the GBytes.</p><p>For uncompressed resource files this is a pointer directly into the resource bundle, which is typically in some readonly data section in the program binary. For compressed files we allocate memory on the heap and automatically uncompress the data.</p><p><em>lookup-flags</em> controls the behaviour of the lookup.</p><p>Returns: (transfer full): <strong>GBytes</strong> or <code>undefined</code> on error. Free the returned object with <code>g-bytes-unref()</code></p><pre class="pod-block-code">method lookup-data ( Str $path, GResourceLookupFlags $lookup_flags, N-GError $error --&gt; N-GObject )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+<li><p>GResourceLookupFlags $lookup_flags; A <strong>GResourceLookupFlags</strong></p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="open-stream"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">open-stream</a></h2>
+<p>Looks for a file at the specified <em>path</em> in the resource and returns a <strong>GInputStream</strong> that lets you read the data.</p><p><em>lookup-flags</em> controls the behaviour of the lookup.</p><p>Returns: (transfer full): <strong>GInputStream</strong> or <code>undefined</code> on error. Free the returned object with <code>g-object-unref()</code></p><pre class="pod-block-code">method open-stream ( Str $path, GResourceLookupFlags $lookup_flags, N-GError $error --&gt; GInputStream )</pre><ul>
+<li><p>Str $path; A pathname inside the resource</p></li>
+<li><p>GResourceLookupFlags $lookup_flags; A <strong>GResourceLookupFlags</strong></p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="_g_resource_new_from_data"><a href="#Gnome::Gio::Resource" class="u" title="go to top of document">_g_resource_new_from_data</a></h2>
+<p>Creates a N-GResource from a reference to the binary resource bundle. This will keep a reference to <em>data</em> while the resource lives, so the data should not be modified or freed.</p><p>If you want to use this resource in the global resource namespace you need to register it with <code>register()</code>.</p><p>Note: <em>data</em> must be backed by memory that is at least pointer aligned. Otherwise this function will internally create a copy of the memory since GLib 2.56, or in older versions fail and exit the process.</p><p>If <em>data</em> is empty or corrupt, <code>G-RESOURCE-ERROR-INTERNAL</code> will be returned.</p><p>Returns: (transfer full): a new <strong>Gnome::Gio::Resource</strong>, or <code>undefined</code> on error</p><pre class="pod-block-code">method _g_resource_new_from_data ( N-GObject $data, N-GError $error --&gt; N-GResource )</pre><ul>
+<li><p>N-GObject $data; A <strong>GBytes</strong></p></li>
+<li><p>N-GError $error; return location for a <strong>GError</strong>, or <code>undefined</code></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/Resource.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:06Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::MenuAttributeIter</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::MenuAttributeIter">Gnome::Gio::MenuAttributeIter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-iter-get-name">attribute-iter-get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-iter-get-next">attribute-iter-get-next</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-iter-get-value">attribute-iter-get-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-iter-next">attribute-iter-next</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An iterator for attributes</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::MenuAttributeIter;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/MenuModel.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Methods"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Menu object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="attribute-iter-get-name"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">attribute-iter-get-name</a></h2>
+<p>Gets the name of the attribute at the current iterator position, as a string.</p><p>The iterator is not advanced.</p><p>Returns: the name of the attribute</p><pre class="pod-block-code">method attribute-iter-get-name ( --&gt; Str )</pre>
+<h2 id="attribute-iter-get-next"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">attribute-iter-get-next</a></h2>
+<p>This function combines <code>attribute-iter-next()</code> with <code>attribute-iter-get-name()</code> and <code>attribute-iter-get-value()</code>.</p><p>First the iterator is advanced to the next (possibly first) attribute. If that fails, then <code>False</code> is returned and there are no other effects.</p><p>If successful, <em>name</em> and <em>value</em> are set to the name and value of the attribute that has just been advanced to. At this point,<code>attribute-iter-get-name()</code> and <code>attribute-iter-get-value()</code> will return the same values again.</p><p>The value returned in <em>name</em> remains valid for as long as the iterator remains at the current position. The value returned in <em>value</em> must be unreffed using <code>g-variant-unref()</code> when it is no longer in use.</p><p>Returns: <code>True</code> on success, or <code>False</code> if there is no additional attribute</p><pre class="pod-block-code">method attribute-iter-get-next (
+  CArray[Str] $out_name, N-GObject $value
+  --&gt; Int
+)</pre><ul>
+<li><p>CArray[Str] $out_name; (out) (optional) (transfer none): the type of the attribute</p></li>
+<li><p>N-GObject $value; (out) (optional) (transfer full): the attribute value</p></li>
+</ul>
+
+<h2 id="attribute-iter-get-value"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">attribute-iter-get-value</a></h2>
+<p>Gets the value of the attribute at the current iterator position.</p><p>The iterator is not advanced.</p><p>Returns: (transfer full): the value of the current attribute</p><pre class="pod-block-code">method attribute-iter-get-value ( --&gt; N-GObject )</pre>
+<h2 id="attribute-iter-next"><a href="#Gnome::Gio::MenuAttributeIter" class="u" title="go to top of document">attribute-iter-next</a></h2>
+<p>Attempts to advance the iterator to the next (possibly first) attribute.</p><p><code>True</code> is returned on success, or <code>False</code> if there are no more attributes.</p><p>You must call this function when you first acquire the iterator to advance it to the first attribute (and determine if the first attribute exists at all).</p><p>Returns: <code>True</code> on success, or <code>False</code> when there are no more attributes</p><pre class="pod-block-code">method attribute-iter-next ( --&gt; Int )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/MenuAttributeIter.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:03Z</span></div></footer>
+	</body>
+</html>

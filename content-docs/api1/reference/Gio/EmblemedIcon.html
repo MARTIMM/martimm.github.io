@@ -1,0 +1,100 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::EmblemedIcon</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::EmblemedIcon">Gnome::Gio::EmblemedIcon</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:icon,_:emblem">:icon, :emblem</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:string">:string</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-emblem">add-emblem</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-emblems">clear-emblems</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-emblems,_get-emblems-rk">get-emblems, get-emblems-rk</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon">get-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_emblemed_icon_new">_g_emblemed_icon_new</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#The_base_GIcon:_gicon">The base GIcon: gicon</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Icon with emblems</p>
+<h1 id="Description"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Description</a></h1>
+<p><em>include</em>: gio/gio.h</p><p><strong>Gnome::Gio::EmblemedIcon</strong> is an implementation of <strong>Gnome::Gio::Icon</strong> that supports adding an emblem to an icon. Adding multiple emblems to an icon is ensured via <code>add-emblem()</code>.</p><p>Note that <strong>Gnome::Gio::EmblemedIcon</strong> allows no control over the position of the emblems. See also <strong>Gnome::Gio::Emblem</strong> for more information.</p>
+<h2 id="See_Also"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>Gnome::Gio::Icon</strong>, <strong>Gnome::Gio::LoadableIcon</strong>, <strong>Gnome::Gio::ThemedIcon</strong>, <strong>Gnome::Gio::Emblem</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gio::EmblemedIcon;
+also is Gnome::GObject::Object;
+also does Gnome::Gio::Icon;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/EmblemedIcon.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Methods"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":icon,_:emblem"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">:icon, :emblem</a></h3>
+<p>Create a new EmblemedIcon object.</p><pre class="pod-block-code">multi method new ( N-GObject :$icon!, N-GObject :$emblem! )</pre><ul>
+<li><p>N-GObject $icon; an object containing the icon.</p></li>
+<li><p>UInt $origin; a GEmblemOrigin enum defining the emblem's origin</p></li>
+</ul>
+
+<h3 id=":string"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">:string</a></h3>
+<p>Generate a <strong>Gnome::Gio::FileIcon</strong> instance from a string. This function can fail if the string is not valid - see <code>Gnome::Gio::Icon.to-string()</code> for discussion. When it fails, the error object in the attribute <code>$.last-error</code> will be set.</p><pre class="pod-block-code">method new ( Str :$string! )</pre><ul>
+<li><p>Str $string; A string obtained via <code>Gnome::Gio::Icon.to-string()</code>.</p></li>
+</ul>
+
+<h3 id=":native-object"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a EmblemedIcon object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-emblem"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">add-emblem</a></h2>
+<p>Adds <em>emblem</em> to the <strong>Gnome::Gio::List</strong> of <strong>Gnome::Gio::Emblems</strong>.</p><pre class="pod-block-code">method add-emblem ( N-GObject $emblem )</pre><ul>
+<li><p>N-GObject $emblem; a <strong>Gnome::Gio::Emblem</strong></p></li>
+</ul>
+
+<h2 id="clear-emblems"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">clear-emblems</a></h2>
+<p>Removes all the emblems from <em>icon</em>.</p><pre class="pod-block-code">method clear-emblems ( )</pre>
+<h2 id="get-emblems,_get-emblems-rk"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">get-emblems, get-emblems-rk</a></h2>
+<p>Gets the list a <strong>Gnome::Glib::List</strong> of emblems for the <em>icon</em>.</p><pre class="pod-block-code">method get-emblems ( --&gt; N-GList )
+method get-emblems-rk ( --&gt; Gnome::Glib::List )</pre>
+<h2 id="get-icon"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">get-icon</a></h2>
+<p>Gets the main icon for <em>emblemed</em>.</p><pre class="pod-block-code">method get-icon ( --&gt; N-GObject )
+method get-icon-rk ( --&gt; Gnome::Gio::EmblemedIcon )</pre>
+<h2 id="_g_emblemed_icon_new"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">_g_emblemed_icon_new</a></h2>
+<p>Creates a new emblemed icon for <em>icon</em> with the emblem <em>emblem</em>.</p><p>Returns: (type GEmblemedIcon): a new <strong>Gnome::Gio::Icon</strong></p><pre class="pod-block-code">method _g_emblemed_icon_new ( N-GObject $icon, N-GObject $emblem --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $icon; a <strong>Gnome::Gio::Icon</strong></p></li>
+<li><p>N-GObject $emblem; a <strong>Gnome::Gio::Emblem</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>.set-text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.get-property( 'label', $gv);
+$gv.set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="The_base_GIcon:_gicon"><a href="#Gnome::Gio::EmblemedIcon" class="u" title="go to top of document">The base GIcon: gicon</a></h3>
+<p>The GIcon to attach emblems to Widget type: G-TYPE-ICON</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>gicon</em> is <code>G_TYPE_OBJECT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/EmblemedIcon.rakumod</span></div><div>at <span class="time">2025-07-20T10:56:57Z</span></div></footer>
+	</body>
+</html>

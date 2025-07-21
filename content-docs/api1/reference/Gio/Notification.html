@@ -1,0 +1,118 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::Notification</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Notification">Gnome::Gio::Notification</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:title">:title</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-button">add-button</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-button-with-target">add-button-with-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-button-with-target-value">add-button-with-target-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-body">set-body</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-action">set-default-action</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-action-and-target">set-default-action-and-target</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-action-and-target-value">set-default-action-and-target-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon">set-icon</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-priority">set-priority</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-title">set-title</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_notification_new">_g_notification_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>User Notifications (pop up messages)</p>
+<h1 id="Description"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::Notification</strong> is a mechanism for creating a notification to be shown to the user -- typically as a pop-up notification presented by the desktop environment shell.</p><p>The key difference between <strong>Gnome::Gio::Notification</strong> and other similar APIs is that, if supported by the desktop environment, notifications sent with <strong>Gnome::Gio::Notification</strong> will persist after the application has exited, and even across system reboots.</p><p>Since the user may click on a notification while the application is not running, applications using <strong>Gnome::Gio::Notification</strong> should be able to be started as a D-Bus service, using <strong>Gnome::Gio::Application</strong>.</p><p>User interaction with a notification (either the default action, or buttons) must be associated with actions on the application (ie: &quot;app.&quot; actions). It is not possible to route user interaction through the notification itself, because the object will not exist if the application is autostarted as a result of a notification being clicked.</p><p>A notification can be sent with <code>g-application-send-notification()</code>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::Notification;
+also is Gnome::GObject::Object;</pre>
+<h1 id="Methods"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":title"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">:title</a></h3>
+<p>Creates a new <strong>Gnome::Gio::Notification</strong> with <em>$title</em> as its title.</p><p>After populating the notification with more details, it can be sent to the desktop shell with <code>Gnome::Gio::Application.send-notification()</code>. Changing any properties after this call will not have any effect until resending the notification.</p><pre class="pod-block-code">multi method new ( Str :$title! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Notification object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="add-button"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">add-button</a></h2>
+<p>Adds a button to the notification that activates the action in <em>$detailed-action</em> when clicked. That action must be an application-wide action (starting with &quot;app.&quot;). If <em>detailed-action</em> contains a target, the action will be activated with that target as its parameter.</p><p>See <code>Gnome::Gio::Action.parse-detailed-name()</code> for a description of the format for <em>$detailed-action</em>.</p><pre class="pod-block-code">method add-button ( Str $label, Str $detailed_action )</pre><ul>
+<li><p>Str $label; label of the button</p></li>
+<li><p>Str $detailed_action; a detailed action name</p></li>
+</ul>
+
+<h2 id="add-button-with-target"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">add-button-with-target</a></h2>
+<p>Adds a button to the notification that activates <em>action</em> when clicked. <em>action</em> must be an application-wide action (it must start with &quot;app.&quot;).</p><p>If <em>target-format</em> is given, it is used to collect remaining positional parameters into a <strong>Gnome::Gio::Variant</strong> instance, similar to <code>g-variant-new()</code>. <em>action</em> will be activated with that <strong>Gnome::Gio::Variant</strong> as its parameter.</p><pre class="pod-block-code">method add-button-with-target ( Str $label, Str $action, Str $target_format )</pre><ul>
+<li><p>Str $label; label of the button</p></li>
+<li><p>Str $action; an action name</p></li>
+<li><p>Str $target_format; a <strong>Gnome::Gio::Variant</strong> format string, or <code>undefined</code> @...: positional parameters, as determined by <em>target-format</em></p></li>
+</ul>
+
+<h2 id="add-button-with-target-value"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">add-button-with-target-value</a></h2>
+<p>Adds a button to the notification that activates <em>action</em> when clicked. <em>action</em> must be an application-wide action (it must start with &quot;app.&quot;).</p><p>If <em>target</em> is non-<code>undefined</code>, <em>action</em> will be activated with <em>target</em> as its parameter.</p><pre class="pod-block-code">method add-button-with-target-value ( Str $label, Str $action, N-GObject $target )</pre><ul>
+<li><p>Str $label; label of the button</p></li>
+<li><p>Str $action; an action name</p></li>
+<li><p>N-GObject $target; a <strong>Gnome::Gio::Variant</strong> to use as <em>action</em>'s parameter, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-body"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-body</a></h2>
+<p>Sets the body of the notification to <em>body</em>.</p><pre class="pod-block-code">method set-body ( Str $body )</pre><ul>
+<li><p>Str $body; the new body for the notification, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-default-action"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-default-action</a></h2>
+<p>Sets the default action of the notification to <em>detailed-action</em>. This action is activated when the notification is clicked on.</p><p>The action in <em>detailed-action</em> must be an application-wide action (it must start with &quot;app.&quot;). If <em>detailed-action</em> contains a target, the given action will be activated with that target as its parameter. See <code>g-action-parse-detailed-name()</code> for a description of the format for <em>detailed-action</em>.</p><p>When no default action is set, the application that the notification was sent on is activated.</p><pre class="pod-block-code">method set-default-action ( Str $detailed_action )</pre><ul>
+<li><p>Str $detailed_action; a detailed action name</p></li>
+</ul>
+
+<h2 id="set-default-action-and-target"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-default-action-and-target</a></h2>
+<p>Sets the default action of the notification to <em>action</em>. This action is activated when the notification is clicked on. It must be an application-wide action (it must start with &quot;app.&quot;).</p><p>If <em>target-format</em> is given, it is used to collect remaining positional parameters into a <strong>Gnome::Gio::Variant</strong> instance, similar to <code>g-variant-new()</code>. <em>action</em> will be activated with that <strong>Gnome::Gio::Variant</strong> as its parameter.</p><p>When no default action is set, the application that the notification was sent on is activated.</p><pre class="pod-block-code">method set-default-action-and-target ( Str $action, Str $target_format )</pre><ul>
+<li><p>Str $action; an action name</p></li>
+<li><p>Str $target_format; a <strong>Gnome::Gio::Variant</strong> format string, or <code>undefined</code> @...: positional parameters, as determined by <em>target-format</em></p></li>
+</ul>
+
+<h2 id="set-default-action-and-target-value"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-default-action-and-target-value</a></h2>
+<p>Sets the default action of the notification to <em>action</em>. This action is activated when the notification is clicked on. It must be an application-wide action (start with &quot;app.&quot;).</p><p>If <em>target</em> is non-<code>undefined</code>, <em>action</em> will be activated with <em>target</em> as its parameter.</p><p>When no default action is set, the application that the notification was sent on is activated.</p><pre class="pod-block-code">method set-default-action-and-target-value ( Str $action, N-GObject $target )</pre><ul>
+<li><p>Str $action; an action name</p></li>
+<li><p>N-GObject $target; a <strong>Gnome::Gio::Variant</strong> to use as <em>action</em>'s parameter, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="set-icon"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-icon</a></h2>
+<p>Sets the icon of the notification to <em>icon</em>.</p><pre class="pod-block-code">method set-icon ( GIcon $icon )</pre><ul>
+<li><p>GIcon $icon; the icon to be shown in the notification, as a <strong>Gnome::Gio::Icon</strong></p></li>
+</ul>
+
+<h2 id="set-priority"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-priority</a></h2>
+<p>Sets the priority of the notification to <em>priority</em>. See <strong>Gnome::Gio::NotificationPriority</strong> for possible values.</p><pre class="pod-block-code">method set-priority ( GNotificationPriority $priority )</pre><ul>
+<li><p>GNotificationPriority $priority; a <strong>Gnome::Gio::NotificationPriority</strong></p></li>
+</ul>
+
+<h2 id="set-title"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">set-title</a></h2>
+<p>Sets the title of the notification to <em>title</em>.</p><pre class="pod-block-code">method set-title ( Str $title )</pre><ul>
+<li><p>Str $title; the new title for the notification</p></li>
+</ul>
+
+<h2 id="_g_notification_new"><a href="#Gnome::Gio::Notification" class="u" title="go to top of document">_g_notification_new</a></h2>
+<p>Creates a new <strong>Gnome::Gio::Notification</strong> with <em>title</em> as its title.</p><p>After populating the notification with more details, it can be sent to the desktop shell with <code>g-application-send-notification()</code>. Changing any properties after this call will not have any effect until resending the notification.</p><p>Returns: a new <strong>Gnome::Gio::Notification</strong> instance</p><pre class="pod-block-code">method _g_notification_new ( Str $title --&gt; N-GObject )</pre><ul>
+<li><p>Str $title; the title of the notification</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/Notification.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:05Z</span></div></footer>
+	</body>
+</html>

@@ -1,0 +1,183 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::MenuModel</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::MenuModel">Gnome::Gio::MenuModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#An_example_menu">An example menu</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Stateless">Stateless</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Boolean_State">Boolean State</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#String_Parameter_and_State">String Parameter and State</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Constants">Constants</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-attribute">get-item-attribute</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-attribute-value">get-item-attribute-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-link">get-item-link</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-items">get-n-items</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-mutable">is-mutable</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#items-changed">items-changed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#iterate-item-attributes">iterate-item-attributes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#iterate-item-links">iterate-item-links</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#First_method">First method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Second_method">Second method</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_signals">Supported signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#items-changed_0">items-changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An abstract class representing the contents of a menu</p>
+<h1 id="Description"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::MenuModel</strong> represents the contents of a menu -- an ordered list of menu items. The items are associated with actions, which can be activated through them. Items can be grouped in sections, and may have submenus associated with them. Both items and sections usually have some representation data, such as labels or icons. The type of the associated action (ie whether it is stateful, and what kind of state it has) can influence the representation of the item.</p><p>The conceptual model of menus in <strong>Gnome::Gio::MenuModel</strong> is hierarchical: sections and submenus are again represented by <strong>Gnome::Gio::MenuModel</strong>s. Menus themselves do not define their own roles. Rather, the role of a particular <strong>Gnome::Gio::MenuModel</strong> is defined by the item that references it (or, in the case of the 'root' menu, is defined by the context in which it is used).</p><p>As an example, consider the visible portions of this menu:</p>
+<h2 id="An_example_menu"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">An example menu</a></h2>
+<div class="image-container inline"><img src="asset_files/images/menu-example.png" width="30%" height="auto" alt="No caption"></div>
+<p>There are 8 &quot;menus&quot; visible in the screenshot: one menubar, two submenus and 5 sections:</p><ul>
+<li><p>the toplevel menubar (containing 4 items)</p></li>
+<li><p>the View submenu (containing 3 sections)</p></li>
+<li><p>the first section of the View submenu (containing 2 items)</p></li>
+<li><p>the second section of the View submenu (containing 1 item)</p></li>
+<li><p>the final section of the View submenu (containing 1 item)</p></li>
+<li><p>the Highlight Mode submenu (containing 2 sections)</p></li>
+<li><p>the Sources section (containing 2 items)</p></li>
+<li><p>the Markup section (containing 2 items)</p></li>
+</ul>
+<p>The example illustrates the conceptual connection between these 8 menus. Each large block in the figure represents a menu and the smaller blocks within the large block represent items in that menu. Some items contain references to other menus.</p><div class="image-container inline"><img src="asset_files/images/menu-model.png" width="30%" height="auto" alt="No caption"></div>
+<p>Notice that the separators visible in the example appear nowhere in the menu model. This is because separators are not explicitly represented in the menu model. Instead, a separator is inserted between any two non-empty sections of a menu. Section items can have labels just like any other item. In that case, a display system may show a section header instead of a separator.</p><p>The motivation for this abstract model of application controls is that modern user interfaces tend to make these controls available outside the application. Examples include global menus, jumplists, dash boards, etc. To support such uses, it is necessary to 'export' information about actions and their representation in menus, which is exactly what the <strong>GActionGroup</strong> exporter and the <strong>Gnome::Gio::MenuModel</strong> exporter do for <strong>GActionGroup</strong> and <strong>Gnome::Gio::MenuModel</strong>. The client-side counterparts to make use of the exported information are <strong>GDBusActionGroup</strong> and <strong>GDBusMenuModel</strong>.</p><p>The API of <strong>Gnome::Gio::MenuModel</strong> is very generic, with iterators for the attributes and links of an item, see <code>g_menu_model_iterate_item_attributes()</code> and <code>g_menu_model_iterate_item_links()</code>. The 'standard' attributes and link types have predefined names: <code>G_MENU_ATTRIBUTE_LABEL</code>, <code>G_MENU_ATTRIBUTE_ACTION</code>, <code>G_MENU_ATTRIBUTE_TARGET</code>, <code>G_MENU_LINK_SECTION</code> and <code>G_MENU_LINK_SUBMENU</code>.</p><p>Items in a <strong>Gnome::Gio::MenuModel</strong> represent active controls if they refer to an action that can get activated when the user interacts with the menu item. The reference to the action is encoded by the string id in the <code>G_MENU_ATTRIBUTE_ACTION</code> attribute. An action id uniquely identifies an action in an action group. Which action group(s) provide actions depends on the context in which the menu model is used. E.g. when the model is exported as the application menu of a <strong>Gnome::Gtk3::Application</strong>, actions can be application-wide or window-specific (and thus come from two different action groups). By convention, the application-wide actions have names that start with &quot;app.&quot;, while the names of window-specific actions start with &quot;win.&quot;.</p><p>While a wide variety of stateful actions is possible, the following is the minimum that is expected to be supported by all users of exported menu information:</p><ul>
+<li><p>an action with no parameter type and no state</p></li>
+<li><p>an action with no parameter type and boolean state</p></li>
+<li><p>an action with string parameter type and string state</p></li>
+</ul>
+
+<h2 id="Stateless"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Stateless</a></h2>
+<p>A stateless action typically corresponds to an ordinary menu item. Selecting such a menu item will activate the action (with no parameter).</p>
+<h2 id="Boolean_State"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Boolean State</a></h2>
+<p>An action with a boolean state will most typically be used with a &quot;toggle&quot; or &quot;switch&quot; menu item. The state can be set directly, but activating the action (with no parameter) results in the state being toggled.</p><p>Selecting a toggle menu item will activate the action. The menu item should be rendered as &quot;checked&quot; when the state is true.</p>
+<h2 id="String_Parameter_and_State"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">String Parameter and State</a></h2>
+<p>Actions with string parameters and state will most typically be used to represent an enumerated choice over the items available for a group of radio menu items. Activating the action with a string parameter is equivalent to setting that parameter as the state.</p><p>Radio menu items, in addition to being associated with the action, will have a target value. Selecting that menu item will result in activation of the action with the target value as the parameter. The menu item should be rendered as &quot;selected&quot; when the state of the action is equal to the target value of the menu item.</p>
+<h2 id="See_Also"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">See Also</a></h2>
+<p><strong>GActionGroup</strong></p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::MenuModel;
+also is Gnome::GObject::Object;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/MenuModel.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Constants"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Constants</a></h1>
+<ul>
+<li><p><code>G_MENU_ATTRIBUTE_ACTION</code> = &quot;action&quot;; The menu item attribute which holds the action name of the item. Action names are namespaced with an identifier for the action group in which the action resides. For example, &quot;win.&quot; for window-specific actions and &quot;app.&quot; for application-wide actions.</p><p>See also <code>get_item_attribute()</code> and <code>Gnome::Gio::MenuItem.set_attribute()</code>.</p></li>
+<li><p><code>G_MENU_ATTRIBUTE_ACTION_NAMESPACE</code> = &quot;action-namespace&quot;; The menu item attribute that holds the namespace for all action names in menus that are linked from this item.</p></li>
+<li><p><code>G_MENU_ATTRIBUTE_TARGET</code> = &quot;target&quot;; The menu item attribute which holds the target with which the item's action will be activated.</p><p>See also <code>Gnome::Gio::MenuItem.set_action_and_target()</code>.</p></li>
+<li><p><code>G_MENU_ATTRIBUTE_LABEL</code> = &quot;label&quot;; The menu item attribute which holds the label of the item.</p></li>
+<li><p><code>G_MENU_ATTRIBUTE_ICON</code> = &quot;icon&quot;; The menu item attribute which holds the icon of the item.</p><p>This attribute is intended only to represent 'noun' icons such as favicons for a webpage, or application icons. It should not be used for 'verbs' (ie: stock icons).</p></li>
+<li><p><code>G_MENU_LINK_SECTION</code> = &quot;section&quot;; The name of the link that associates a menu item with a section. The linked menu will usually be shown in place of the menu item, using the item's label as a header.</p><p>See also <code>Gnome::Gio::MenuItem.set_link()</code>.</p></li>
+<li><p><code>G_MENU_LINK_SUBMENU</code> = &quot;submenu&quot;; The name of the link that associates a menu item with a submenu.</p><p>See also <code>Gnome::Gio::MenuItem.set_link()</code>.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">new</a></h2>
+<p>Create an object using a native object from elsewhere. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre><p>Create an object using a native object from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="get-item-attribute"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-attribute</a></h2>
+<p>Queries item at position <em>item-index</em> in <em>model</em> for the attribute specified by <em>attribute</em>.</p><p>If the attribute exists and matches the <strong>GVariantType</strong> corresponding to <em>format-string</em> then <em>format-string</em> is used to deconstruct the value into the positional parameters and <code>True</code> is returned.</p><p>If the attribute does not exist, or it does exist but has the wrong type, then the positional parameters are ignored and <code>False</code> is returned.</p><p>This function is a mix of <code>get-item-attribute-value()</code> and <code>g-variant-get()</code>, followed by a <code>g-variant-unref()</code>. As such, <em>format-string</em> must make a complete copy of the data (since the <strong>GVariant</strong> may go away after the call to <code>g-variant-unref()</code>). In particular, no '&amp;' characters are allowed in <em>format-string</em>.</p><p>Returns: <code>True</code> if the named attribute was found with the expected type</p><pre class="pod-block-code">method get-item-attribute ( Int $item_index, Str $attribute, Str $format_string --&gt; Int )</pre><ul>
+<li><p>Int $item_index; the index of the item</p></li>
+<li><p>Str $attribute; the attribute to query</p></li>
+<li><p>Str $format_string; a <strong>GVariant</strong> format string @...: positional parameters, as per <em>format-string</em></p></li>
+</ul>
+
+<h2 id="get-item-attribute-value"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-attribute-value</a></h2>
+<p>Queries the item at position <em>item-index</em> in <em>model</em> for the attribute specified by <em>attribute</em>.</p><p>If <em>expected-type</em> is non-<code>undefined</code> then it specifies the expected type of the attribute. If it is <code>undefined</code> then any type will be accepted.</p><p>If the attribute exists and matches <em>expected-type</em> (or if the expected type is unspecified) then the value is returned.</p><p>If the attribute does not exist, or does not match the expected type then <code>undefined</code> is returned.</p><p>Returns: (transfer full): the value of the attribute</p><pre class="pod-block-code">method get-item-attribute-value ( Int $item_index, Str $attribute, N-GObject $expected_type --&gt; N-GObject )</pre><ul>
+<li><p>Int $item_index; the index of the item</p></li>
+<li><p>Str $attribute; the attribute to query</p></li>
+<li><p>N-GObject $expected_type; (nullable): the expected type of the attribute, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="get-item-link"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-link</a></h2>
+<p>Queries the item at position <em>item-index</em> in <em>model</em> for the link specified by <em>link</em>.</p><p>If the link exists, the linked <strong>Gnome::Gio::MenuModel</strong> is returned. If the link does not exist, <code>undefined</code> is returned.</p><p>Returns: (transfer full): the linked <strong>Gnome::Gio::MenuModel</strong>, or <code>undefined</code></p><pre class="pod-block-code">method get-item-link ( Int $item_index, Str $link --&gt; N-GObject )</pre><ul>
+<li><p>Int $item_index; the index of the item</p></li>
+<li><p>Str $link; the link to query</p></li>
+</ul>
+
+<h2 id="get-n-items"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-n-items</a></h2>
+<p>Query the number of items in <em>model</em>.</p><pre class="pod-block-code">method get-n-items ( --&gt; Int )</pre>
+<h2 id="is-mutable"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">is-mutable</a></h2>
+<p>Queries if <em>model</em> is mutable.</p><p>An immutable <strong>Gnome::Gio::MenuModel</strong> will never emit the <em>items-changed</em> signal. Consumers of the model may make optimisations accordingly.</p><p>Returns: <code>True</code> if the model is mutable (ie: &quot;items-changed&quot; may be emitted).</p><pre class="pod-block-code">method is-mutable ( --&gt; Bool )</pre>
+<h2 id="items-changed"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">items-changed</a></h2>
+<p>Requests emission of the <em>items-changed</em> signal on <em>model</em>.</p><p>This function should never be called except by <strong>Gnome::Gio::MenuModel</strong> subclasses. Any other calls to this function will very likely lead to a violation of the interface of the model.</p><p>The implementation should update its internal representation of the menu before emitting the signal. The implementation should further expect to receive queries about the new state of the menu (and particularly added menu items) while signal handlers are running.</p><p>The implementation must dispatch this call directly from a mainloop entry and not in response to calls -- particularly those from the <strong>Gnome::Gio::MenuModel</strong> API. Said another way: the menu must not change while user code is running without returning to the mainloop.</p><pre class="pod-block-code">method items-changed ( Int $position, Int $removed, Int $added )</pre><ul>
+<li><p>Int $position; the position of the change</p></li>
+<li><p>Int $removed; the number of items removed</p></li>
+<li><p>Int $added; the number of items added</p></li>
+</ul>
+
+<h2 id="iterate-item-attributes"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">iterate-item-attributes</a></h2>
+<p>Creates a <strong>Gnome::Gio::MenuLinkIter</strong> to iterate over the attributes of the item at position <em>$item-index</em> in <em>model</em>. You must free the iterator with <code>clear-object()</code> when you are done.</p><p>Returns: a new <strong>Gnome::Gio::MenuLinkIter</strong></p><pre class="pod-block-code">method iterate-item-attributes (
+  Int $item_index --&gt; Gnome::Gio::MenuLinkIter
+)</pre><ul>
+<li><p>Int $item_index; the index of the item</p></li>
+</ul>
+
+<h2 id="iterate-item-links"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">iterate-item-links</a></h2>
+<p>Creates a <strong>Gnome::Gio::MenuLinkIter</strong> to iterate over the links of the item at position <em>item-index</em> in <em>model</em>. You must free the iterator with <code>clear-object()</code> when you are done.</p><p>Returns: a new <strong>Gnome::Gio::MenuLinkIter</strong></p><pre class="pod-block-code">method iterate-item-links (
+  Int $item_index --&gt; Gnome::Gio::MenuLinkIter
+)</pre><ul>
+<li><p>Int $item_index; the index of the item</p></li>
+</ul>
+
+<h1 id="Signals"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Signals</a></h1>
+<p>There are two ways to connect to a signal. The first option you have is to use <code>register-signal()</code> from <strong>Gnome::GObject::Object</strong>. The second option is to use <code>connect-object()</code> directly from <strong>Gnome::GObject::Signal</strong>.</p>
+<h2 id="First_method"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">First method</a></h2>
+<p>The positional arguments of the signal handler are all obligatory as well as their types. The named attributes <code>:$widget</code> and user data are optional.</p><pre class="pod-block-code"># handler method
+method mouse-event ( GdkEvent $event, :$widget ) { ... }
+
+# connect a signal on window object
+my Gnome::Gtk3::Window $w .= new( ... );
+$w.register-signal( self, 'mouse-event', 'button-press-event');</pre>
+<h2 id="Second_method"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Second method</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Window $w .= new( ... );
+my Callable $handler = sub (
+  N-GObject $native, GdkEvent $event, OpaquePointer $data
+) {
+  ...
+}
+
+$w.connect-object( 'button-press-event', $handler);</pre><p>Also here, the types of positional arguments in the signal handler are important. This is because both methods <code>register-signal()</code> and <code>connect-object()</code> are using the signatures of the handler routines to setup the native call interface.</p>
+<h2 id="Supported_signals"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Supported signals</a></h2>
+
+<h3 id="items-changed_0"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">items-changed</a></h3>
+<p>Emitted when a change has occured to the menu.</p><p>The only changes that can occur to a menu is that items are removed or added. Items may not change (except by being removed and added back in the same location). This signal is capable of describing both of those changes (at the same time).</p><p>The signal means that starting at the index <em>position</em>, <em>removed</em> items were removed and <em>added</em> items were added in their place. If <em>removed</em> is zero then only items were added. If <em>added</em> is zero then only items were removed.</p><p>As an example, if the menu contains items a, b, c, d (in that order) and the signal (2, 1, 3) occurs then the new composition of the menu will be a, b, -, -, -, d (with each - representing some new item).</p><p>Signal handlers may query the model (particularly the added items) and expect to see the results of the modification that is being reported. The signal is emitted after the modification.</p><pre class="pod-block-code">method handler (
+  Int $position,
+  Int $removed,
+  Int $added,
+  Int :$_handle_id,
+  Gnome::GObject::Object :_widget($model),
+  *%user-options
+);</pre><ul>
+<li><p>$model; the <strong>Gnome::Gio::MenuModel</strong> that is changing</p></li>
+<li><p>$position; the position of the change</p></li>
+<li><p>$removed; the number of items removed</p></li>
+<li><p>$added; the number of items added</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/MenuModel.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:05Z</span></div></footer>
+	</body>
+</html>

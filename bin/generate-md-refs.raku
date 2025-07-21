@@ -31,6 +31,7 @@ my Hash $source-paths = %(
 
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
+  :GioApi1(PROJECTS ~ API1S ~ 'gnome-gio/lib/Gnome/Gio/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -44,6 +45,7 @@ my Hash $destination-paths = %(
 
   :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
+  :GioApi1(PROJECTS ~ API1D ~ 'Gio/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
@@ -57,21 +59,21 @@ my Hash $sidebar-paths = %(
 
   :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
   :Gdk3Api1(REFS ~ 'api1-ref-gdk3-sidebar.yml'),
+  :GioApi1(REFS ~ 'api1-ref-gio-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
 # e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
 #      generate-md-refs.raku Gtk4Api2
 sub MAIN (
-  Str:D $key, Str $raku-doc-name? is copy,
-  Bool :skip($skip) = False
+  Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False
 ) {
   # Go to Githup Pages root dir
   chdir('./content-docs');
 
   if $source-paths{$key}:exists and $destination-paths{$key}:exists {
     if ?$raku-doc-name {
-      generate-html( $key, $raku-doc-name, :!skip-existing);
+      generate-html( $key, $raku-doc-name, :!skip);
     }
 
     else {
@@ -129,7 +131,6 @@ note Q:to/EOUSAGE/;
 # Read doc and generate HTML and store in $raku-doc-dest
 
 sub generate-html (
-#  Str $raku-doc-path, Str $raku-doc-dest, Bool :$skip
   Str $key, Str $doc-name, Bool :$skip
 ) {
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
@@ -312,6 +313,13 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
     # Because we keep all code in the same environment without
     # cleaning up, clashes with new loaded modules will occur.
 
+    # Drop everything after =finish, there might be some saved experiments.
+    my Int $last-pos = $contents.index('=finish');
+    if ?$last-pos {
+       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
+       $contents ~~ s/ $last-code $//;
+    }
+
     # Drop everything between '=end pod' and '=begin pod'.
     $contents ~~ s:g/ '=' end \s pod .*? '=' begin \s pod
                     /=end pod\n=begin pod/;
@@ -320,18 +328,11 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
 #    $contents ~~ s/^ .*? '=' begin \s pod/=begin pod\n/;
 
     # from last '=end pod' to end of program.
-    my Int $last-pos = $contents.rindex('=end pod');
+    $last-pos = $contents.rindex('=end pod');
     if ?$last-pos {
       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
       $contents ~~ s/ $last-code $//;
       $contents ~= "=end pod\n";
-    }
-
-    # Also drop everything after =finish, there might be some saved experiments.
-    $last-pos = $contents.rindex('=finish');
-    if ?$last-pos {
-       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
-       $contents ~~ s/ $last-code $//;
     }
 
     # Remove the end and start pod blocks to turn it into one pod block

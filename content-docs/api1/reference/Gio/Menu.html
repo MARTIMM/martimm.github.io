@@ -1,0 +1,168 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::Menu</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Menu">Gnome::Gio::Menu</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Inheriting_this_class">Inheriting this class</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:build-id">:build-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append-item">append-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append-section">append-section</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append-submenu">append-submenu</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#freeze">freeze</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-item">insert-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-section">insert-section</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-submenu">insert-submenu</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prepend">prepend</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prepend-item">prepend-item</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prepend-section">prepend-section</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prepend-submenu">prepend-submenu</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all">remove-all</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_menu_new">_g_menu_new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A simple implementation of N-GObject</p>
+<h1 id="Description"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::Menu</strong> is a simple implementation of <strong>Gnome::Gio::MenuModel</strong>. You populate a <strong>Gnome::Gio::Menu</strong> by adding <strong>Gnome::Gio::MenuItem</strong> instances to it.</p><p>There are some convenience functions to allow you to directly add items (avoiding <strong>Gnome::Gio::MenuItem</strong>) for the common cases. To add a regular item, use <code>insert()</code>. To add a section, use <code>insert-section()</code>. To add a submenu, use <code>insert-submenu()</code>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Gio::Menu;
+also is Gnome::Gio::MenuModel;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/MenuModel.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Inheriting_this_class"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Inheriting this class</a></h2>
+<p>Inheriting is done in a special way in that it needs a call from new() to get the native object created by the class you are inheriting from.</p><pre class="pod-block-code">use Gnome::Gio::Menu:api&lt;1&gt;;
+
+unit class MyGuiClass;
+also is Gnome::Gio::Menu;
+
+submethod new ( |c ) {
+  # let the Gnome::Gio::Menu class process the options
+  self.bless( :N-GObject, |c);
+}
+
+submethod BUILD ( ... ) {
+  ...
+}</pre>
+<h1 id="Methods"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new Menu object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":native-object"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Menu object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h3 id=":build-id"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">:build-id</a></h3>
+<p>Create a Menu object using a native object returned from a builder. See also <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">multi method new ( Str :$build-id! )</pre>
+<h2 id="append"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">append</a></h2>
+<p>Convenience function for appending a normal menu item to the end of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new()</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method append ( Str $label, Str $detailed_action )</pre><ul>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>Str $detailed_action;the detailed action string, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="append-item"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">append-item</a></h2>
+<p>Appends <em>$item</em> to the end of <em>menu</em>. See <code>insert-item()</code> for more information.</p><pre class="pod-block-code">method append-item ( N-GObject $item )</pre><ul>
+<li><p>N-GObject $item; a <strong>Gnome::Gio::MenuItem</strong> to append</p></li>
+</ul>
+
+<h2 id="append-section"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">append-section</a></h2>
+<p>Convenience function for appending a section menu item to the end of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem(:section)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method append-section ( Str $label, N-GObject $section )</pre><ul>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $section; a <strong>Gnome::Gio::MenuModel</strong> with the items of the section</p></li>
+</ul>
+
+<h2 id="append-submenu"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">append-submenu</a></h2>
+<p>Convenience function for appending a submenu menu item to the end of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem(:submenu)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method append-submenu ( Str $label, N-GObject $submenu )</pre><ul>
+<li><p>Str $label; (nullable): the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $submenu; a <strong>Gnome::Gio::MenuModel</strong> with the items of the submenu</p></li>
+</ul>
+
+<h2 id="freeze"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">freeze</a></h2>
+<p>Marks <em>menu</em> as frozen.</p><p>After the menu is frozen, it is an error to attempt to make any changes to it. In effect this means that the <strong>Gnome::Gio::Menu</strong> API must no longer be used.</p><p>This function causes <code>model-is-mutable()</code> to begin returning <code>False</code>, which has some positive performance implications.</p><pre class="pod-block-code">method freeze ( )</pre>
+<h2 id="insert"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">insert</a></h2>
+<p>Convenience function for inserting a normal menu item into <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new()</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method insert ( Int $position, Str $label, Str $detailed_action )</pre><ul>
+<li><p>Int $position; the position at which to insert the item</p></li>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>Str $detailed_action; the detailed action string, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="insert-item"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">insert-item</a></h2>
+<p>Inserts <em>$item</em> into <em>menu</em>.</p><p>The &quot;insertion&quot; is actually done by copying all of the attribute and link values of <em>item</em> and using them to form a new item within <em>menu</em>. As such, <em>item</em> itself is not really inserted, but rather, a menu item that is exactly the same as the one presently described by <em>item</em>.</p><p>This means that <em>item</em> is essentially useless after the insertion occurs. Any changes you make to it are ignored unless it is inserted again (at which point its updated values will be copied).</p><p>You should probably just free <em>item</em> once you're done.</p><p>There are many convenience functions to take care of common cases. See <code>insert()</code>, <code>insert-section()</code> and <code>insert-submenu()</code> as well as &quot;prepend&quot; and &quot;append&quot; variants of each of these functions.</p><pre class="pod-block-code">method insert-item ( Int $position, N-GObject $item )</pre><ul>
+<li><p>Int $position; the position at which to insert the item</p></li>
+<li><p>N-GObject $item; the <strong>Gnome::Gio::MenuItem</strong> to insert</p></li>
+</ul>
+
+<h2 id="insert-section"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">insert-section</a></h2>
+<p>Convenience function for inserting a section menu item into <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new(:section)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method insert-section ( Int $position, Str $label, N-GObject $section )</pre><ul>
+<li><p>Int $position; the position at which to insert the item</p></li>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $section; a <strong>Gnome::Gio::MenuModel</strong> with the items of the section</p></li>
+</ul>
+
+<h2 id="insert-submenu"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">insert-submenu</a></h2>
+<p>Convenience function for inserting a submenu menu item into <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new(:submenu)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method insert-submenu ( Int $position, Str $label, N-GObject $submenu )</pre><ul>
+<li><p>Int $position; the position at which to insert the item</p></li>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $submenu; a <strong>Gnome::Gio::MenuModel</strong> with the items of the submenu</p></li>
+</ul>
+
+<h2 id="prepend"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">prepend</a></h2>
+<p>Convenience function for prepending a normal menu item to the start of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new()</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method prepend ( Str $label, Str $detailed_action )</pre><ul>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>Str $detailed_action; the detailed action string, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="prepend-item"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">prepend-item</a></h2>
+<p>Prepends <em>item</em> to the start of <em>menu</em>.</p><p>See <code>insert-item()</code> for more information.</p><pre class="pod-block-code">method prepend-item ( N-GObject $item )</pre><ul>
+<li><p>N-GObject $item; a <strong>Gnome::Gio::MenuItem</strong> to prepend</p></li>
+</ul>
+
+<h2 id="prepend-section"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">prepend-section</a></h2>
+<p>Convenience function for prepending a section menu item to the start of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new(:section)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method prepend-section ( Str $label, N-GObject $section )</pre><ul>
+<li><p>Str $label; (nullable): the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $section; a <strong>Gnome::Gio::MenuModel</strong> with the items of the section</p></li>
+</ul>
+
+<h2 id="prepend-submenu"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">prepend-submenu</a></h2>
+<p>Convenience function for prepending a submenu menu item to the start of <em>menu</em>. Combine <code>Gnome::Gio::MenuItem.new(:submenu)</code> and <code>insert-item()</code> for a more flexible alternative.</p><pre class="pod-block-code">method prepend-submenu ( Str $label, N-GObject $submenu )</pre><ul>
+<li><p>Str $label; the section label, or <code>undefined</code></p></li>
+<li><p>N-GObject $submenu; a <strong>Gnome::Gio::MenuModel</strong> with the items of the submenu</p></li>
+</ul>
+
+<h2 id="remove"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">remove</a></h2>
+<p>Removes an item from the menu.</p><p><em>$position</em> gives the index of the item to remove.</p><p>It is an error if position is not in range the range from 0 to one less than the number of items in the menu.</p><p>It is not possible to remove items by identity since items are added to the menu simply by copying their links and attributes (ie: identity of the item itself is not preserved).</p><pre class="pod-block-code">method remove ( Int $position )</pre><ul>
+<li><p>Int $position; the position of the item to remove</p></li>
+</ul>
+
+<h2 id="remove-all"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">remove-all</a></h2>
+<p>Removes all items in the menu.</p><pre class="pod-block-code">method remove-all ( )</pre>
+<h2 id="_g_menu_new"><a href="#Gnome::Gio::Menu" class="u" title="go to top of document">_g_menu_new</a></h2>
+<p>Creates a new <strong>Gnome::Gio::Menu</strong>.</p><p>The new menu has no items.</p><p>Returns: a new <strong>Gnome::Gio::Menu</strong></p><pre class="pod-block-code">method _g_menu_new ( --&gt; N-GObject )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/Menu.rakumod</span></div><div>at <span class="time">2025-07-20T10:57:02Z</span></div></footer>
+	</body>
+</html>

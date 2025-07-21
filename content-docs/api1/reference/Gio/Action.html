@@ -1,0 +1,116 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gio::Action</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Action">Gnome::Gio::Action</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#activate">activate</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#change-state">change-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-enabled">get-enabled</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-parameter-type">get-parameter-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state">get-state</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state-hint">get-state-hint</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-state-type">get-state-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#name-is-valid">name-is-valid</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-detailed-name">parse-detailed-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print-detailed-name">print-detailed-name</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Properties">Properties</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Supported_properties">Supported properties</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Action_Name">Action Name</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Parameter_Type">Parameter Type</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Enabled">Enabled</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#State_Type">State Type</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#State">State</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>An action interface</p>
+<h1 id="Description"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gio::Action</strong> represents a single named action.</p><p>The main interface to an action is that it can be activated with <code>activate()</code>. This results in the 'activate' signal being emitted.</p><p>An action may optionally have a state, in which case the state may be set with <code>change-state()</code>. This call takes a <strong>N-GObject</strong>. The correct type for the state is determined by a static state type (which is given at construction time).</p><p>The state may have a hint associated with it, specifying its valid range.</p><p><strong>Gnome::Gio::Action</strong> is merely the interface to the concept of an action, as described above. Various implementations of actions exist, including <strong>GSimpleAction</strong>.</p><p>In all cases, the implementing class is responsible for storing the name of the action, the parameter type, the enabled state, the optional state type and the state and emitting the appropriate signals when these change. The implementor is responsible for filtering calls to <code>activate()</code> and <code>change-state()</code> for type safety and for the state being enabled.</p><p>Probably the only useful thing to do with a <strong>Gnome::Gio::Action</strong> is to put it inside of a <strong>GSimpleActionGroup</strong>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit role Gnome::Gio::Action;</pre>
+<h1 id="Methods"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="activate"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">activate</a></h2>
+<p>Activates the action. <em>$parameter</em> must be the correct type of parameter for the action (ie: the parameter type given at construction time). If the parameter type was undefined then <em>$parameter</em> must also be undefined. If the <em>$parameter</em> GVariant is floating, it is consumed.</p><pre class="pod-block-code">method activate ( N-GObject $parameter )</pre><ul>
+<li><p>N-GObject $parameter; the parameter to the activation</p></li>
+</ul>
+
+<h2 id="change-state"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">change-state</a></h2>
+<p>Request for the state of this action to be changed to <em>$value</em>. The action must be stateful and <em>value</em> must be of the correct type. See <code>get-state-type()</code>. This call merely requests a change. The action may refuse to change its state or may change its state to something other than <em>value</em>. See <code>get-state-hint()</code>.</p><pre class="pod-block-code">method change-state ( N-GObject $value )</pre><ul>
+<li><p>N-GObject $value; the new state</p></li>
+</ul>
+
+<h2 id="get-enabled"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-enabled</a></h2>
+<p>Checks if this action is currently enabled. An action must be enabled in order to be activated or in order to have its state changed from outside callers.</p><p>Returns: whether the action is enabled</p><pre class="pod-block-code">method get-enabled ( --&gt; Bool )</pre>
+<h2 id="get-name"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-name</a></h2>
+<p>Queries the name of this action.</p><p>Returns: the name of the action.</p><pre class="pod-block-code">method get-name ( --&gt;  Str  )</pre>
+<h2 id="get-parameter-type"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-parameter-type</a></h2>
+<p>Queries the type of the parameter that must be given when activating this action. When activating the action using <code>activate()</code>, the <strong>N-GObject</strong> given to that function must be of the type returned by this function. In the case that this function returns undefined, you must not give any <strong>N-GObject</strong>, but undefined instead.</p><p>Returns: the parameter type.</p><pre class="pod-block-code">method get-parameter-type ( --&gt; Gnome::Glib::VariantType )</pre>
+<h2 id="get-state"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-state</a></h2>
+<p>Queries the current state of this action. If the action is not stateful then undefined will be returned. If the action is stateful then the type of the return value is the type given by <code>get-state-type()</code>. The return value (if not undefined) should be freed with <code>clear-object()</code> when it is no longer required.</p><p>Returns: the current state of the action.</p><pre class="pod-block-code">method get-state ( --&gt; Gnome::Glib::Variant )</pre>
+<h2 id="get-state-hint"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-state-hint</a></h2>
+<p>Requests a hint about the valid range of values for the state of this action. If an undefined value is returned, it either means that the action is not stateful or that there is no hint about the valid range of values for the state of the action.</p><p>The returned value, if defined, should be freed with <code>clear-object()</code> when it is no longer required.</p><p>Returns: the state range hint, an undefined, array or tuple Variant.</p><pre class="pod-block-code">method get-state-hint ( --&gt; Gnome::Glib::Variant )</pre>
+<h2 id="get-state-type"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">get-state-type</a></h2>
+<p>Queries the type of the state of this action. If the action is stateful, then this function returns the <strong>Gnome::Glib::VariantType</strong> of the state. This is the type of the initial value given as the state. All calls to <code>change-state()</code> must give a <strong>N-GObject</strong> of this type and <code>get-state()</code> will return a <strong>N-GObject</strong> of the same type. If the action is not stateful, then this function will return an undefined type. In that case, <code>get-state()</code> will return undefined and you must not call <code>change-state()</code>.</p><p>Returns: the state type, if the action is stateful</p><pre class="pod-block-code">method get-state-type ( --&gt; Gnome::Glib::VariantType )</pre>
+<h2 id="name-is-valid"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">name-is-valid</a></h2>
+<p>Checks if <em>$action_name</em> is valid. <em>$action_name</em> is valid if it consists only of alphanumeric characters, plus '-' and '.'. The empty string is not a valid action name. It is an error to call this function with a non-utf8 <em>action_name</em>.</p><p>Returns: <code>True</code> if <em>action_name</em> is valid</p><pre class="pod-block-code">method name-is-valid (  Str  $action_name --&gt; Bool )</pre><ul>
+<li><p>Str $action_name; an potential action name</p></li>
+</ul>
+
+<h2 id="parse-detailed-name"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">parse-detailed-name</a></h2>
+<p>Parses a detailed action name into its separate name and target components. Detailed action names can have three formats.</p><p>The first format is used to represent an action name with no target value and consists of just an action name containing no whitespace or the characters ':', '(' or ')'. For example: <em>app.action</em>.</p><p>The second format is used to represent an action with a target value that is a non-empty string consisting only of alphanumerics, plus '-' and '.'. In that case, the action name and target value are separated by a double colon (&quot;::&quot;). For example: <em>app.action::target</em>.</p><p>The third format is used to represent an action with any type of target value, including strings. The target value follows the action name, surrounded in parens. For example: <em>app.action(42)</em>.</p><p>The target value is parsed using <code>parse()</code> from <strong>Gnome::Glib::Variant</strong>. If a tuple-typed value is desired, it must be specified in the same way, resulting in two sets of parens, for example: <em>app.action((1,2,3))</em>. A string target can be specified this way as well: <em>app.action('target')</em>. For strings, this third format must be used if the target value is empty or contains characters other than alphanumerics, '-' and '.'.</p><p>Returns: A List</p><pre class="pod-block-code">method parse-detailed-name ( Str $detailed_name --&gt; List )</pre><ul>
+<li><p>Str $detailed_name; a detailed action name</p></li>
+</ul>
+<p>The returned List contains;</p><ul>
+<li><p>Str $action_name; the action name</p></li>
+<li><p>Gnome::Glib::Variant $target_value; the target value, or an undefined type for no target</p></li>
+<li><p>Gnome::Glib::Error which is invalid if call returns successfull or is valid with an error message and code explaining the cause.</p></li>
+</ul>
+
+<h2 id="print-detailed-name"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">print-detailed-name</a></h2>
+<p>Formats a detailed action name from <em>$action_name</em> and <em>$target_value</em>. It is an error to call this function with an invalid action name. This function is the opposite of <code>parse-detailed-name()</code>. It will produce a string that can be parsed back to the <em>$action_name</em> and <em>$target_value</em> by that function. See that function for the types of strings that will be printed by this function.</p><p>Returns: a detailed format string</p><pre class="pod-block-code">method print-detailed-name (
+  Str $action_name, N-GObject $target_value
+  --&gt; Str
+)</pre><ul>
+<li><p>Str $action_name; a valid action name</p></li>
+<li><p>N-GObject $target_value; a <strong>N-GObject</strong> target value, or undefined</p></li>
+</ul>
+
+<h1 id="Properties"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Properties</a></h1>
+<p>An example of using a string type property of a <strong>Gnome::Gtk3::Label</strong> object. This is just showing how to set/read a property, not that it is the best way to do it. This is because a) The class initialization often provides some options to set some of the properties and b) the classes provide many methods to modify just those properties. In the case below one can use <strong>new(:label('my text label'))</strong> or <strong>gtk_label_set_text('my text label')</strong>.</p><pre class="pod-block-code">my Gnome::Gtk3::Label $label .= new;
+my Gnome::GObject::Value $gv .= new(:init(G_TYPE_STRING));
+$label.g-object-get-property( 'label', $gv);
+$gv.g-value-set-string('my text label');</pre>
+<h2 id="Supported_properties"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Supported properties</a></h2>
+
+<h3 id="Action_Name"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Action Name</a></h3>
+<p>The name of the action. This is mostly meaningful for identifying the action once it has been added to a <strong>GActionGroup</strong>. It is immutable.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>name</em> is <code>G_TYPE_STRING</code>.</p>
+<h3 id="Parameter_Type"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Parameter Type</a></h3>
+<p>The type of the parameter that must be given when activating the action. This is immutable, and may be <code>Any</code> if no parameter is needed when activating the action.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>parameter-type</em> is <code>G_TYPE_BOXED</code>.</p>
+<h3 id="Enabled"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">Enabled</a></h3>
+<p>If this action is currently enabled.</p><p>If the action is disabled then calls to <code>g_action_activate()</code> and <code>g_action_change_state()</code> have no effect.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>enabled</em> is <code>G_TYPE_BOOLEAN</code>.</p>
+<h3 id="State_Type"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">State Type</a></h3>
+<p>The <strong>N-GObject</strong> of the state that the action has, or <code>Any</code> if the action is stateless. This is immutable.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>state-type</em> is <code>G_TYPE_BOXED</code>.</p>
+<h3 id="State"><a href="#Gnome::Gio::Action" class="u" title="go to top of document">State</a></h3>
+<p>The state of the action, or <code>Any</code> if the action is stateless.</p><p>The <strong>Gnome::GObject::Value</strong> type of property <em>state</em> is <code>G_TYPE_VARIANT</code>.</p></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-gio/lib/Gnome/Gio/Action.rakumod</span></div><div>at <span class="time">2025-07-20T10:56:48Z</span></div></footer>
+	</body>
+</html>
