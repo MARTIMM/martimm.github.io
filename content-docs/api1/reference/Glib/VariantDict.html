@@ -1,0 +1,136 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::VariantDict</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::VariantDict">Gnome::Glib::VariantDict</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default_no_options">default no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:variant">:variant</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear">clear</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#contains">contains</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#end">end</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#init">init</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#insert-value">insert-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup">lookup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-value">lookup-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new_0">new</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Glib::VariantDict</strong> is a mutable interface to GVariant dictionaries.</p><p>It can be used for doing a sequence of dictionary lookups in an efficient way on an existing GVariant dictionary or it can be used to construct new dictionaries with a hashtable-like interface. It can also be used for taking existing dictionaries and modifying them in order to create new ones.</p><p><strong>Gnome::Glib::VariantDict</strong> can only be used with G_VARIANT_TYPE_VARDICT dictionaries.</p><p><code>end()</code> is used to convert the <strong>Gnome::Glib::VariantDict</strong> back into a dictionary-type <strong>Gnome::Glib::Variant</strong>. You must call <code>clear-object()</code> afterwards.</p>
+<h3 id="Example"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">Example</a></h3>
+<pre class="pod-block-code">my Gnome::Glib::VariantDict $vd .= new(
+  :variant(
+    Gnome::Glib::Variant.new(:parse(Q:q/{ 'width': &lt;350&gt;, 'height': &lt;200&gt;}/))
+  )
+);
+
+$vd.insert-value( 'depth', Gnome::Glib::Variant.new(:parse('-40')));
+say $vd.lookup-value( 'width', 'i').get-int32;  # 350
+$vd.remove('width');
+
+my Gnome::Glib::Variant $v .= new(:native-object($vd.end));
+$vd.clear-object;
+say 'dict: ' ~ $v.print(False); # dict: {'height': &lt;200&gt;, 'vd01': &lt;-40&gt;}</pre>
+<h2 id="See_Also"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">See Also</a></h2>
+<ul>
+<li><p><a href="Variant.html.html">Variants</a></p></li>
+<li><p><a href="VariantType.html.html">Variant types</a></p></li>
+<li><p><a href="VariantType.html.html">Gnome::Glib::VariantType</a></p></li>
+<li><p><a href="https://developer.gnome.org/glib/stable/gvariant-format-strings.html">Variant format strings</a></p></li>
+<li><p><a href="https://developer.gnome.org/glib/stable/gvariant-text.html">Variant text format</a></p></li>
+</ul>
+
+<h1 id="Synopsis"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::VariantDict;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h1 id="Methods"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default_no_options"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">default no options</a></h3>
+
+<h3 id=":variant"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">:variant</a></h3>
+
+<h2 id="clear"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">clear</a></h2>
+<p>Releases all memory associated with a <strong>Gnome::Glib::VariantDict</strong> without freeing the <strong>Gnome::Glib::VariantDict</strong> structure itself. It typically only makes sense to do this on a stack-allocated <strong>Gnome::Glib::VariantDict</strong> if you want to abort building the value part-way through. This function need not be called if you call <code>g_variant_dict_end()</code> and it also doesn't need to be called on dicts allocated with g_variant_dict_new (see <code>clear-object()</code> for that). It is valid to call this function on either an initialised <strong>Gnome::Glib::VariantDict</strong> or one that was previously cleared by an earlier call to <code>g_variant_dict_clear()</code> but it is not valid to call this function on uninitialised memory.</p><pre class="pod-block-code">method clear ( )</pre>
+<h2 id="contains"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">contains</a></h2>
+<p>Checks if <em>$key</em> exists in <em>dict</em>.</p><p>Returns: <code>True</code> if <em>$key</em> is in <em>dict</em></p><pre class="pod-block-code">method contains ( Str $key --&gt; Bool )</pre><ul>
+<li><p>Str $key; the key to lookup in the dictionary</p></li>
+</ul>
+
+<h2 id="end"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">end</a></h2>
+<p>Returns the current value of <em>dict</em> as a <strong>Gnome::Glib::VariantDict</strong> of type <code>G_VARIANT_TYPE_VARDICT</code>, clearing it in the process. It is not permissible to use <em>dict</em> in any way after this call except for <code>clear-object()</code>, <code>clear()</code></p><p>Returns: a new <strong>Gnome::Glib::Variant</strong> of type <code>G_VARIANT_TYPE_VARDICT</code>.</p><pre class="pod-block-code">method end ( --&gt; N-GObject )</pre>
+<h2 id="init"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">init</a></h2>
+<p>Initialises a <strong>Gnome::Glib::VariantDict</strong> structure. If <em>from_asv</em> is given, it is used to initialise the dictionary. This function completely ignores the previous contents of <em>dict</em>. On one hand this means that it is valid to pass in completely uninitialised memory. On the other hand, this means that if you are initialising over top of an existing <strong>Gnome::Glib::VariantDict</strong> you need to first call <code>g_variant_dict_clear()</code> in order to avoid leaking memory. You must not call <code>g_variant_dict_ref()</code> or <code>g_variant_dict_unref()</code> on a <strong>Gnome::Glib::VariantDict</strong> that was initialised with this function. If you ever pass a reference to a <strong>Gnome::Glib::VariantDict</strong> outside of the control of your own code then you should assume that the person receiving that reference may try to use reference counting; you should use <code>g_variant_dict_new()</code> instead of this function.</p><pre class="pod-block-code">method init ( N-GObject $from_asv )</pre><ul>
+<li><p>N-GObject $from_asv; (nullable): the initial value for <em>dict</em></p></li>
+</ul>
+
+<h2 id="insert"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">insert</a></h2>
+<p>Inserts a value into a <strong>Gnome::Glib::VariantDict</strong>.</p><pre class="pod-block-code">method insert ( Str $key, Str $string )</pre><ul>
+<li><p>Str $key; the key to insert a value for</p></li>
+<li><p>Str $string; a <strong>Gnome::Glib::VariantDict</strong> varargs string</p></li>
+</ul>
+
+<h2 id="insert-value"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">insert-value</a></h2>
+<p>Inserts (or replaces) a key in a <strong>Gnome::Glib::VariantDict</strong>. <em>value</em> is consumed if it is floating.</p><pre class="pod-block-code">method insert-value ( Str $key, N-GObject $value )</pre><ul>
+<li><p>Str $key; the key to insert a value for</p></li>
+<li><p>N-GObject $value; the value to insert</p></li>
+</ul>
+
+<h2 id="lookup"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">lookup</a></h2>
+<p>Looks up a value in a <strong>Gnome::Glib::VariantDict</strong>. This function is a wrapper around <code>g_variant_dict_lookup_value()</code> and <code>g_variant_get()</code>. In the case that <code>Any</code> would have been returned, this function returns <code>0</code>. Otherwise, it unpacks the returned value and returns <code>1</code>. <em>format_string</em> determines the C types that are used for unpacking the values and also determines if the values are copied or borrowed, see the section on [GVariant format strings][gvariant-format-strings-pointers].</p><p>Returns: <code>True</code> if a value was unpacked</p><pre class="pod-block-code">method lookup ( Str $key, Str $format_string --&gt; Bool )</pre><ul>
+<li><p>Str $key; the key to lookup in the dictionary</p></li>
+<li><p>Str $string; a GVariant string @...: the arguments to unpack the value into</p></li>
+</ul>
+
+<h2 id="lookup-value"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">lookup-value</a></h2>
+<p>Looks up a value in a <strong>Gnome::Glib::VariantDict</strong>. If <em>$key</em> is not found in <em>dictionary</em>, an invalid <strong>Gnome::Glib::Variant</strong> is returned. The <em>$expected_type</em> string specifies what type of value is expected. If the value associated with <em>$key</em> has a different type then an invalid <strong>Gnome::Glib::Variant</strong> is returned. If the key is found and the value has the correct type, it is returned. If <em>$expected_type</em> was specified then any valid return value will have this type.</p><p>Returns: the value of the dictionary key, or undefined</p><pre class="pod-block-code">method lookup-value (
+  Str $key, N-GObject $expected_type --&gt; Gnome::Glib::Variant
+)</pre><ul>
+<li><p>Str $key; the key to lookup in the dictionary</p></li>
+<li><p>N-GObject $expected_type; a <strong>GVariantType</strong>, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="remove"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">remove</a></h2>
+<p>Removes a key and its associated value from a <strong>Gnome::Glib::VariantDict</strong>.</p><p>Returns: <code>True</code> if the key was found and removed</p><pre class="pod-block-code">method remove ( Str $key --&gt; Bool )</pre><ul>
+<li><p>Str $key; the key to remove</p></li>
+</ul>
+
+<h2 id="ref"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">ref</a></h2>
+<p>Increases the reference count. Don't call this on stack-allocated <strong>Gnome::Glib::VariantDict</strong> instances or bad things will happen.</p><p>Returns: a new reference</p><pre class="pod-block-code">method ref ( --&gt; N-GObject )</pre>
+<h2 id="unref"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">unref</a></h2>
+<p>Decreases the reference count. In the event that there are no more references, releases all memory associated with the <strong>Gnome::Glib::VariantDict</strong>. Don't call this on stack-allocated <strong>Gnome::Glib::VariantDict</strong> instances or bad things will happen.</p><pre class="pod-block-code">method unref ( )</pre>
+<h2 id="new_0"><a href="#Gnome::Glib::VariantDict" class="u" title="go to top of document">new</a></h2>
+<p>Allocates and initialises a new <strong>Gnome::Glib::VariantDict</strong>. You should call <code>clear-object()</code> on the return value when it is no longer needed. The memory will not be automatically freed by any other call. In some cases it may be easier to place a <strong>Gnome::Glib::VariantDict</strong> directly on the stack of the calling function and initialise it with <code>g_variant_dict_init()</code>. This is particularly useful when you are using <strong>Gnome::Glib::VariantDict</strong> to construct a <strong>Gnome::Glib::VariantDict</strong>.</p><p>Returns: a <strong>Gnome::Glib::VariantDict</strong></p><pre class="pod-block-code">method new ( N-GObject $from_asv --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject from_asv; the GVariant with which to initialise the dictionary.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/VariantDict.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:57Z</span></div></footer>
+	</body>
+</html>

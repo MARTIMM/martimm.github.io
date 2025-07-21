@@ -1,0 +1,81 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::Quark</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::Quark">Gnome::Glib::Quark</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#from-static-string">from-static-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#from-string">from-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intern-static-string">intern-static-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#intern-string">intern-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#try-string">try-string</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Quark - a 2-way association between a string and a unique integer identifier</p>
+<h1 id="Description"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">Description</a></h1>
+<p>Quarks are associations between strings and integer identifiers or a <em>GQuark</em>. Given either the string or the <em>GQuark</em> identifier it is possible to retrieve the other.</p><p>Quarks are used for example to specify error domains, see also <em>Gnome::Glib::Error</em>.</p><p>To create a new quark from a string, use <code>from-string()</code>.</p><p>To find the string corresponding to a given <em>GQuark</em>, use <code>to-string()</code>.</p><p>To find the <em>GQuark</em> corresponding to a given string, use <code>try-string()</code>.</p>
+<h1 id="Synopsis"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::Quark;</pre>
+<h2 id="Example"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">use Test;
+use Gnome::Glib::Quark:api&lt;1&gt;;
+
+my Gnome::Glib::Quark $quark .= new;
+my UInt $q = $quark.try-string('my string'); # 0
+
+$q = $quark.from-string('my 2nd string');
+$quark.to-string($q);                        # 'my 2nd string'</pre>
+<h2 id="new"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new quark object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h2 id="from-static-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">from-static-string</a></h2>
+<p>Gets the <strong>Gnome::Gio::Quark</strong> identifying the given (static) string. If the string does not currently have an associated <strong>Gnome::Gio::Quark</strong>, a new <strong>Gnome::Gio::Quark</strong> is created, linked to the given string.</p><p>Note that this function is identical to <code>from_string()</code> except that if a new <strong>Gnome::Gio::Quark</strong> is created the string itself is used rather than a copy. This saves memory, but can only be used if the string will continue to exist until the program terminates. It can be used with statically allocated strings in the main program, but not with statically allocated memory in dynamically loaded modules, if you expect to ever unload the module again (e.g. do not use this function in GTK+ theme engines).</p><p>This function must not be used before library constructors have finished running. In particular, this means it cannot be used to initialize global variables in C++.</p><p>Returns: the <strong>Gnome::Gio::Quark</strong> identifying the string, or 0 if <em>string</em> is <code>undefined</code></p><pre class="pod-block-code">method from-static-string ( Str $string --&gt; UInt )</pre><ul>
+<li><p>$string; a string</p></li>
+</ul>
+
+<h2 id="from-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">from-string</a></h2>
+<p>Gets the <em>GQuark</em> identifying the given string. If the string does not currently have an associated <em>GQuark</em>, a new <em>GQuark</em> is created, using a copy of the string.</p><p>Returns: the <em>GQuark</em> identifying the string, or 0 if <em>$string</em> is undefined</p><pre class="pod-block-code">method from-string ( Str $string --&gt; GQuark )</pre><ul>
+<li><p>Str $string: a string</p></li>
+</ul>
+
+<h2 id="intern-static-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">intern-static-string</a></h2>
+<p>Returns a canonical representation for <em>string</em>. Interned strings can be compared for equality by comparing the pointers, instead of using <code>strcmp()</code>. <code>g_intern_static_string()</code> does not copy the string, therefore <em>string</em> must not be freed or modified.</p><p>This function must not be used before library constructors have finished running. In particular, this means it cannot be used to initialize global variables in C++.</p><p>Returns: a canonical representation for the string</p><pre class="pod-block-code">method intern-static-string ( Str $string --&gt; Str )</pre><ul>
+<li><p>$string; a static string</p></li>
+</ul>
+
+<h2 id="intern-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">intern-string</a></h2>
+<p>Returns a canonical representation for <em>string</em>. Interned strings can be compared for equality by comparing the pointers, instead of using <code>strcmp()</code>.</p><p>This function must not be used before library constructors have finished running. In particular, this means it cannot be used to initialize global variables in C++.</p><p>Returns: a canonical representation for the string</p><pre class="pod-block-code">method intern-string ( Str $string --&gt; Str )</pre><ul>
+<li><p>$string; a string</p></li>
+</ul>
+
+<h2 id="to-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">to-string</a></h2>
+<p>Gets the string associated with the given GQuark.</p><pre class="pod-block-code">method to-string ( GQuark $quark --&gt; Str  )</pre>
+<h2 id="try-string"><a href="#Gnome::Glib::Quark" class="u" title="go to top of document">try-string</a></h2>
+<p>Gets the <em>GQuark</em> associated with the given string, or 0 if string is undefined or it has no associated <em>GQuark</em>.</p><p>If you want the GQuark to be created if it doesn't already exist, use <code>g_quark_from_string()</code> or <code>g_quark_from_static_string()</code>.</p><p>Returns: the <em>GQuark</em> associated with the string, or 0 if <em>$string</em> is undefined or there is no <em>GQuark</em> associated with it.</p><pre class="pod-block-code">method try-string ( Str $string --&gt; GQuark )</pre><ul>
+<li><p>Str $string: a string</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/Quark.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:53Z</span></div></footer>
+	</body>
+</html>

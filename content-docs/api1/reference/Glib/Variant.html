@@ -1,0 +1,655 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::Variant</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::Variant">Gnome::Glib::Variant</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Memory_Use">Memory Use</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Serialised_Data_Memory">Serialised Data Memory</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Type_Information_Cache">Type Information Cache</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Buffer_Management_Memory">Buffer Management Memory</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Summary">Summary</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#GVariantClass">GVariantClass</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:array">:array</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:boolean">:boolean</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:byte">:byte</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:byte-string">:byte-string</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:byte-string-array">:byte-string-array</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:dict">:dict</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Example_0">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:double">:double</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:int16">:int16</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:int32">:int32</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:int64">:int64</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:string">:string</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:strv">:strv</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Examplf">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:tuple">:tuple</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Examplg">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:uint16">:uint16</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:uint32">:uint32</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:uint64">:uint64</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:variant">:variant</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Examplh">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:type-string,_:parse">:type-string, :parse</a></td></tr>
+ <tr class="toc-level-4"><td class="toc-text"><a href="#Exampli">Example</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:type-string,_:value">:type-string, :value</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#byteswap">byteswap</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#check-format-string">check-format-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#classify">classify</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#compare">compare</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup-bytestring">dup-bytestring</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup-bytestring-array">dup-bytestring-array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup-objv">dup-objv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup-string">dup-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dup-strv">dup-strv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get">get</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-boolean">get-boolean</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-byte">get-byte</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bytestring">get-bytestring</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-bytestring-array">get-bytestring-array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-child-value">get-child-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data">get-data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-data-as-bytes">get-data-as-bytes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-double">get-double</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-fixed-array">get-fixed-array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-handle">get-handle</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-int16">get-int16</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-int32">get-int32</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-int64">get-int64</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-maybe">get-maybe</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-normal-form">get-normal-form</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-objv">get-objv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-size">get-size</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-string">get-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-strv">get-strv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-type">get-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-type-string">get-type-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-uint16">get-uint16</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-uint32">get-uint32</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-uint64">get-uint64</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-va">get-va</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-variant">get-variant</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#hash">hash</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-container">is-container</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-floating">is-floating</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-normal-form">is-normal-form</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-object-path">is-object-path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-of-type">is-of-type</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-signature">is-signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup">lookup</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-value">lookup-value</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#n-children">n-children</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse">parse</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-error-print-context">parse-error-print-context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#parse-error-quark">parse-error-quark</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print">print</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#print-string">print-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref-sink">ref-sink</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#store">store</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#take-ref">take-ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new">_g_variant_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_array">_g_variant_new_array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_boolean">_g_variant_new_boolean</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_byte">_g_variant_new_byte</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_bytestring">_g_variant_new_bytestring</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_bytestring_array">_g_variant_new_bytestring_array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#dict-entry">dict-entry</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_double">_g_variant_new_double</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_fixed_array">_g_variant_new_fixed_array</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_from_bytes">_g_variant_new_from_bytes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_from_data">_g_variant_new_from_data</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_handle">_g_variant_new_handle</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_int16">_g_variant_new_int16</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_int32">_g_variant_new_int32</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_int64">_g_variant_new_int64</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_maybe">_g_variant_new_maybe</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_object_path">_g_variant_new_object_path</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_objv">_g_variant_new_objv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_parsed">_g_variant_new_parsed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_parsed_va">_g_variant_new_parsed_va</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_printf">_g_variant_new_printf</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_signature">_g_variant_new_signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_string">_g_variant_new_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_strv">_g_variant_new_strv</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_take_string">_g_variant_new_take_string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_tuple">_g_variant_new_tuple</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_uint16">_g_variant_new_uint16</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_uint32">_g_variant_new_uint32</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_uint64">_g_variant_new_uint64</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_va">_g_variant_new_va</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_variant_new_variant">_g_variant_new_variant</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Strongly typed value datatype</p>
+<h1 id="Description"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Glib::Variant</strong> is a variant datatype; it can contain one or more values along with information about the type of the values.</p><p>A <strong>Gnome::Glib::Variant</strong> may contain simple types, like an integer, or a boolean value; or complex types, like an array of two strings, or a dictionary of key value pairs. A <strong>Gnome::Glib::Variant</strong> is also immutable: once it's been created neither its type nor its content can be modified further.</p><p><strong>Gnome::Glib::Variant</strong> is useful whenever data needs to be serialized, for example when sending method parameters in DBus, or when saving settings using <strong>Gnome::Glib::Settings</strong>.</p><p>When creating a new <strong>Gnome::Glib::Variant</strong>, you pass the data you want to store in it along with a string representing the type of data you wish to pass to it.</p><p>For instance, if you want to create a <strong>Gnome::Glib::Variant</strong> holding an integer value you can use:</p><pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(
+  :type-string&lt;u&gt;, :value(42)
+);</pre><p>The string &quot;u&quot; in the first argument tells <strong>Gnome::Glib::Variant</strong> that the data passed to the constructor (40) is going to be an unsigned 32 bit integer.</p><p>As an alternative you can write</p><pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(:parse('-42'));</pre><p>where the default used type is a signed 32 bit integer. To use an other integer type, write the type with it.</p><pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(:parse('uint64 42'));</pre><p>More advanced examples of <strong>Gnome::Glib::Variant</strong> in use can be found in documentation for GVariant format strings.</p><p>The range of possible values is determined by the type.</p><p>The type system used by <strong>Gnome::Glib::Variant</strong> is <strong>Gnome::Glib::VariantType</strong>.</p><p><strong>Gnome::Glib::Variant</strong> instances always have a type and a value (which are given at construction time). The type and value of a <strong>Gnome::Glib::Variant</strong> instance can never change other than by the <strong>Gnome::Glib::Variant</strong> itself being destroyed. A <strong>Gnome::Glib::Variant</strong> cannot contain a pointer.</p><p><strong>Gnome::Glib::Variant</strong> is completely threadsafe. A <strong>Gnome::Glib::Variant</strong> instance can be concurrently accessed in any way from any number of threads without problems.</p><p><strong>Gnome::Glib::Variant</strong> is heavily optimised for dealing with data in serialised form. It works particularly well with data located in memory-mapped files. It can perform nearly all deserialisation operations in a small constant time, usually touching only a single memory page. Serialised <strong>Gnome::Glib::Variant</strong> data can also be sent over the network.</p><p><strong>Gnome::Glib::Variant</strong> is largely compatible with D-Bus. Almost all types of <strong>Gnome::Glib::Variant</strong> instances can be sent over D-Bus. See <strong>Gnome::Glib::VariantType</strong> for exceptions. (However, <strong>Gnome::Glib::Variant</strong>'s serialisation format is not the same as the serialisation format of a D-Bus message body: use <strong>GDBusMessage</strong>, in the gio library, for those.)</p><p>For space-efficiency, the <strong>Gnome::Glib::Variant</strong> serialisation format does not automatically include the variant's length, type or endianness, which must either be implied from context (such as knowledge that a particular file format always contains a little-endian <code>G_VARIANT_TYPE_VARIANT</code> which occupies the whole length of the file) or supplied out-of-band (for instance, a length, type and/or endianness indicator could be placed at the beginning of a file, network message or network stream).</p><p>A <strong>Gnome::Glib::Variant</strong>'s size is limited mainly by any lower level operating system constraints, such as the number of bits in <strong>gsize</strong>. For example, it is reasonable to have a 2GB file mapped into memory with <strong>GMappedFile</strong>, and call <code>g_variant_new_from_data()</code> on it.</p><p>For convenience to C programmers, <strong>Gnome::Glib::Variant</strong> features powerful varargs-based value construction and destruction. This feature is designed to be embedded in other libraries.</p>
+<h2 id="Memory_Use"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Memory Use</a></h2>
+<p><strong>Gnome::Glib::Variant</strong> tries to be quite efficient with respect to memory use. This section gives a rough idea of how much memory is used by the current implementation. The information here is subject to change in the future.</p><p>The memory allocated by <strong>Gnome::Glib::Variant</strong> can be grouped into 4 broad purposes: memory for serialised data, memory for the type information cache, buffer management memory and memory for the <strong>Gnome::Glib::Variant</strong> structure itself.</p>
+<h3 id="Serialised_Data_Memory"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Serialised Data Memory</a></h3>
+<p>This is the memory that is used for storing GVariant data in serialised form. This is what would be sent over the network or what would end up on disk, not counting any indicator of the endianness, or of the length or type of the top-level variant.</p><p>The amount of memory required to store a boolean is 1 byte. 16, 32 and 64 bit integers and double precision floating point numbers use their &quot;natural&quot; size. Strings (including object path and signature strings) are stored with a nul terminator, and as such use the length of the string plus 1 byte.</p><p>Maybe types use no space at all to represent the null value and use the same amount of space (sometimes plus one byte) as the equivalent non-maybe-typed value to represent the non-null case.</p><p>Arrays use the amount of space required to store each of their members, concatenated. Additionally, if the items stored in an array are not of a fixed-size (ie: strings, other arrays, etc) then an additional framing offset is stored for each item. The size of this offset is either 1, 2 or 4 bytes depending on the overall size of the container. Additionally, extra padding bytes are added as required for alignment of child values.</p><p>Tuples (including dictionary entries) use the amount of space required to store each of their members, concatenated, plus one framing offset (as per arrays) for each non-fixed-sized item in the tuple, except for the last one. Additionally, extra padding bytes are added as required for alignment of child values.</p><p>Variants use the same amount of space as the item inside of the variant, plus 1 byte, plus the length of the type string for the item inside the variant.</p><p>As an example, consider a dictionary mapping strings to variants. In the case that the dictionary is empty, 0 bytes are required for the serialisation.</p><p>If we add an item &quot;width&quot; that maps to the int32 value of 500 then we will use 4 byte to store the int32 (so 6 for the variant containing it) and 6 bytes for the string. The variant must be aligned to 8 after the 6 bytes of the string, so that's 2 extra bytes. 6 (string) + 2 (padding) + 6 (variant) is 14 bytes used for the dictionary entry. An additional 1 byte is added to the array as a framing offset making a total of 15 bytes.</p><p>If we add another entry, &quot;title&quot; that maps to a nullable string that happens to have a value of null, then we use 0 bytes for the null value (and 3 bytes for the variant to contain it along with its type string) plus 6 bytes for the string. Again, we need 2 padding bytes. That makes a total of 6 + 2 + 3 = 11 bytes.</p><p>We now require extra padding between the two items in the array. After the 14 bytes of the first item, that's 2 bytes required. We now require 2 framing offsets for an extra two bytes. 14 + 2 + 11 + 2 = 29 bytes to encode the entire two-item dictionary.</p>
+<h3 id="Type_Information_Cache"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Type Information Cache</a></h3>
+<p>For each GVariant type that currently exists in the program a type information structure is kept in the type information cache. The type information structure is required for rapid deserialisation.</p><p>Continuing with the above example, if a <strong>Gnome::Glib::Variant</strong> exists with the type &quot;a{sv}&quot; then a type information struct will exist for &quot;a{sv}&quot;, &quot;{sv}&quot;, &quot;s&quot;, and &quot;v&quot;. Multiple uses of the same type will share the same type information. Additionally, all single-digit types are stored in read-only static memory and do not contribute to the writable memory footprint of a program using <strong>Gnome::Glib::Variant</strong>.</p><p>Aside from the type information structures stored in read-only memory, there are two forms of type information. One is used for container types where there is a single element type: arrays and maybe types. The other is used for container types where there are multiple element types: tuples and dictionary entries.</p><p>Array type info structures are 6 * sizeof (void *), plus the memory required to store the type string itself. This means that on 32-bit systems, the cache entry for &quot;a{sv}&quot; would require 30 bytes of memory (plus malloc overhead).</p><p>Tuple type info structures are 6 * sizeof (void *), plus 4 * sizeof (void *) for each item in the tuple, plus the memory required to store the type string itself. A 2-item tuple, for example, would have a type information structure that consumed writable memory in the size of 14 * sizeof (void *) (plus type string) This means that on 32-bit systems, the cache entry for &quot;{sv}&quot; would require 61 bytes of memory (plus malloc overhead).</p><p>This means that in total, for our &quot;a{sv}&quot; example, 91 bytes of type information would be allocated.</p><p>The type information cache, additionally, uses a <strong>GHashTable</strong> to store and lookup the cached items and stores a pointer to this hash table in static storage. The hash table is freed when there are zero items in the type cache.</p><p>Although these sizes may seem large it is important to remember that a program will probably only have a very small number of different types of values in it and that only one type information structure is required for many different values of the same type.</p>
+<h3 id="Buffer_Management_Memory"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Buffer Management Memory</a></h3>
+<p><strong>Gnome::Glib::Variant</strong> uses an internal buffer management structure to deal with the various different possible sources of serialised data that it uses. The buffer is responsible for ensuring that the correct call is made when the data is no longer in use by <strong>Gnome::Glib::Variant</strong>. This may involve a <code>g_free()</code> or a <code>g_slice_free()</code> or even <code>g_mapped_file_unref()</code>.</p><p>One buffer management structure is used for each chunk of serialised data. The size of the buffer management structure is 4 * (void *). On 32-bit systems, that's 16 bytes.</p><p>## GVariant structure</p><p>The size of a <strong>Gnome::Glib::Variant</strong> structure is 6 * (void *). On 32-bit systems, that's 24 bytes.</p><p><strong>Gnome::Glib::Variant</strong> structures only exist if they are explicitly created with API calls. For example, if a <strong>Gnome::Glib::Variant</strong> is constructed out of serialised data for the example given above (with the dictionary) then although there are 9 individual values that comprise the entire dictionary (two keys, two values, two variants containing the values, two dictionary entries, plus the dictionary itself), only 1 <strong>Gnome::Glib::Variant</strong> instance exists -- the one referring to the dictionary.</p><p>If calls are made to start accessing the other values then <strong>Gnome::Glib::Variant</strong> instances will exist for those values only for as long as they are in use (ie: until you call <code>g_variant_unref()</code>). The type information is shared. The serialised data and the buffer management structure for that serialised data is shared by the child.</p>
+<h3 id="Summary"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Summary</a></h3>
+<p>To put the entire example together, for our dictionary mapping strings to variants (with two entries, as given above), we are using 91 bytes of memory for type information, 29 bytes of memory for the serialised data, 16 bytes for buffer management and 24 bytes for the <strong>Gnome::Glib::Variant</strong> instance, or a total of 160 bytes, plus malloc overhead. If we were to use <code>g_variant_get_child_value()</code> to access the two dictionary entries, we would use an additional 48 bytes. If we were to have other dictionaries of the same type, we would use more memory for the serialised data and buffer management for those dictionaries, but the type information would be shared.</p>
+<h2 id="See_Also"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">See Also</a></h2>
+<p>[Gnome::Glib::VariantType](VariantType.html), [variant format strings](https://developer.gnome.org/glib/stable/gvariant-format-strings.html), [variant text format](https://developer.gnome.org/glib/stable/gvariant-text.html).</p><ul>
+<li><p><a href="VariantDict.html.html">Variant dictionaries</a></p></li>
+<li><p><a href="VariantType.html.html">Variant types</a></p></li>
+<li><p><a href="https://developer.gnome.org/glib/stable/gvariant-format-strings.html">Variant format strings</a></p></li>
+<li><p><a href="https://developer.gnome.org/glib/stable/gvariant-text.html">Variant text format</a></p></li>
+</ul>
+
+<h1 id="Synopsis"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::Variant;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h1 id="Types"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="GVariantClass"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">GVariantClass</a></h2>
+<p>The range of possible top-level types of GVariant instances.</p><ul>
+<li><p>G_VARIANT_CLASS_BOOLEAN; The GVariant is a boolean.</p></li>
+<li><p>G_VARIANT_CLASS_BYTE; The GVariant is a byte.</p></li>
+<li><p>G_VARIANT_CLASS_INT16; The GVariant is a signed 16 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_UINT16; The GVariant is an unsigned 16 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_INT32; The GVariant is a signed 32 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_UINT32; The GVariant is an unsigned 32 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_INT64; The GVariant is a signed 64 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_UINT64; The GVariant is an unsigned 64 bit integer.</p></li>
+<li><p>G_VARIANT_CLASS_HANDLE; The GVariant is a file handle index.</p></li>
+<li><p>G_VARIANT_CLASS_DOUBLE; The GVariant is a double precision floating point value.</p></li>
+<li><p>G_VARIANT_CLASS_STRING; The GVariant is a normal string.</p></li>
+<li><p>G_VARIANT_CLASS_OBJECT_PATH; The GVariant is a D-Bus object path string.</p></li>
+<li><p>G_VARIANT_CLASS_SIGNATURE; The GVariant is a D-Bus signature string.</p></li>
+<li><p>G_VARIANT_CLASS_VARIANT; The GVariant is a variant.</p></li>
+<li><p>G_VARIANT_CLASS_MAYBE; The GVariant is a maybe-typed value.</p></li>
+<li><p>G_VARIANT_CLASS_ARRAY; The GVariant is an array.</p></li>
+<li><p>G_VARIANT_CLASS_TUPLE; The GVariant is a tuple.</p></li>
+<li><p>G_VARIANT_CLASS_DICT_ENTRY; The GVariant is a dictionary entry.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:array</a></h3>
+<p>Create a new Variant object. The type of the array elements is taken from the first element.</p><pre class="pod-block-code">multi method new ( Array :$array! )</pre>
+<h4 id="Example"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<p>Create a Variant array type containing integers;</p><pre class="pod-block-code">my Array $array = [];
+for 40, 41, 42 -&gt; $value {
+  $array.push: Gnome::Glib::Variant.new( :type-string&lt;i&gt;, :$value);
+}
+my Gnome::Glib::Variant $v .= new(:$array);
+say $v.get-type-string;      # ai</pre>
+<h3 id=":boolean"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:boolean</a></h3>
+<p>Creates a new boolean Variant -- either <code>True</code> or <code>False</code>. Note that the value in the variant is stored as an integer. Its type becomes 'b'.</p><pre class="pod-block-code">multi method new ( Bool :$boolean! )</pre>
+<h3 id=":byte"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:byte</a></h3>
+<p>Creates a new byte Variant. Its type becomes 'y'.</p><pre class="pod-block-code">multi method new ( Int :$byte! )</pre>
+<h3 id=":byte-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:byte-string</a></h3>
+<p>Creates a new byte-string Variant. Its type becomes 'ay' which is essentially an array of bytes. This can be an ascii type of string which does not have to be UTF complient.</p><pre class="pod-block-code">multi method new ( Str :$byte-string! )</pre>
+<h3 id=":byte-string-array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:byte-string-array</a></h3>
+<p>Creates a new byte-string-array Variant. Its type becomes 'aay'. which is essentially an array of an array of bytes.</p><pre class="pod-block-code">multi method new ( Array :$byte-string-array! )</pre>
+<h3 id=":dict"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:dict</a></h3>
+<p>Creates a new dictionary Variant. Its type becomes '{}'.</p><pre class="pod-block-code">multi method new ( List :$dict! )</pre><p>The List <code>$dict</code> has two values, a <em>key</em> and a <em>value</em> and must both be valid <strong>Gnome::Glib::Variant</strong> objects. <em>key</em> must be a value of a basic type (ie: not a container). It will mostly be a string (variant type 's').</p>
+<h4 id="Example_0"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(
+  :dict(
+    Gnome::Glib::Variant.new(:parse&lt;width&gt;),
+    Gnome::Glib::Variant.new(:parse&lt;200&gt;)
+  )
+);
+
+say $v.print; #</pre>
+<h3 id=":double"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:double</a></h3>
+<p>Creates a new double Variant. Its type becomes 'd'.</p><pre class="pod-block-code">multi method new ( Num :$double! )</pre>
+<h3 id=":int16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:int16</a></h3>
+<p>Creates a new int16 Variant. Its type becomes 'n'.</p><pre class="pod-block-code">multi method new ( Int :$int16! )</pre>
+<h3 id=":int32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:int32</a></h3>
+<p>Creates a new int32 Variant. Its type becomes 'i'.</p><pre class="pod-block-code">multi method new ( Int :$int32! )</pre>
+<h3 id=":int64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:int64</a></h3>
+<p>Creates a new int64 Variant. Its type becomes 'x'.</p><pre class="pod-block-code">multi method new ( Int :$int64! )</pre>
+<h3 id=":string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:string</a></h3>
+<p>Creates a new string Variant. Its type becomes 's'.</p><pre class="pod-block-code">multi method new ( Str :$string! )</pre>
+<h3 id=":strv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:strv</a></h3>
+<p>Creates a new string array Variant. Its type becomes 'as'.</p><pre class="pod-block-code">multi method new ( Array :$strv! )</pre>
+<h4 id="Examplf"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(:string-array([&lt;abc def ghi αβ ⓒ™⅔&gt;]));
+say $v.get-type-string; #    as</pre>
+<h3 id=":tuple"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:tuple</a></h3>
+<p>Creates a new tuple Variant. Its type becomes ''.</p><pre class="pod-block-code">multi method new ( Array :$tuple! )</pre>
+<h4 id="Examplg"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<pre class="pod-block-code">my Array $tuple = [];
+$tuple.push: Gnome::Glib::Variant.new( :type-string&lt;i&gt;, :value(40));
+$tuple.push: Gnome::Glib::Variant.new( :type-string&lt;s&gt;, :value&lt;fourtyone&gt;);
+$tuple.push: Gnome::Glib::Variant.new( :type-string&lt;x&gt;, :value(42));
+my Gnome::Glib::Variant $v .= new(:$tuple);
+say $v.get-type-string; #    (isx)</pre>
+<h3 id=":uint16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:uint16</a></h3>
+<p>Creates a new uint16 Variant. Its type becomes 'q'.</p><pre class="pod-block-code">multi method new ( UInt :$uint16! )</pre>
+<h3 id=":uint32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:uint32</a></h3>
+<p>Creates a new uint32 Variant. Its type becomes 'u'.</p><pre class="pod-block-code">multi method new ( UInt :$uint32! )</pre>
+<h3 id=":uint64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:uint64</a></h3>
+<p>Creates a new uint64 Variant. Its type becomes 't'.</p><pre class="pod-block-code">multi method new ( UInt :$uint64! )</pre>
+<h3 id=":variant"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:variant</a></h3>
+<p>Creates a new variant Variant. Its type becomes 'v'.</p><pre class="pod-block-code">multi method new ( N-GObject :$variant! )</pre>
+<h4 id="Examplh"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(
+  :variant(Gnome::Glib::Variant.new( :type-string&lt;i&gt;, :value(40)))
+);
+say $v.get-type-string; #    v</pre>
+<h3 id=":type-string,_:parse"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:type-string, :parse</a></h3>
+<p>Create a new Variant object by parsing the type and data provided in strings. The format of the parse string is <a href="https://developer.gnome.org/glib/stable/gvariant-text.html">described here</a>.</p><pre class="pod-block-code">multi method new ( Str :$type-string?, Str :$parse! )</pre>
+<h4 id="Exampli"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">Example</a></h4>
+<p>Create a Variant tuple containing a string, an unsigned integer and a boolean (Note the lowercase 'true'!);</p><pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(
+  :type-string&lt;(sub)&gt;, :parse('(&quot;abc&quot;,20,true)')
+);</pre><p>Because the values in the :parse string take the default types you can also leave out the type string;</p><pre class="pod-block-code">my Gnome::Glib::Variant $v .= new(:parse('(&quot;abc&quot;,20,true)'));</pre>
+<h3 id=":type-string,_:value"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:type-string, :value</a></h3>
+<p>Create a new Variant object by parsing the type and a provided value. The type strings are simple like (unsigned) integer ('u' or 'i') but no arrays ('a') etc.</p><pre class="pod-block-code">multi method new ( Str :$type-string!, Any :$value! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Variant object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelClassSupport</strong>.</p><pre class="pod-block-code">multi method new ( N-GObject :$native-object! )</pre>
+<h2 id="byteswap"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">byteswap</a></h2>
+<p>Performs a byteswapping operation on the contents of <em>value</em>. The result is that all multi-byte numeric data contained in <em>value</em> is byteswapped. That includes 16, 32, and 64bit signed and unsigned integers as well as file handles and double precision floating point values. This function is an identity mapping on any value that does not contain multi-byte numeric data. That include strings, booleans, bytes and containers containing only these things (recursively). The returned value is always in normal form and is marked as trusted.</p><p>Returns: (transfer full): the byteswapped form of <em>value</em></p><pre class="pod-block-code">method byteswap ( --&gt; N-GObject )</pre>
+<h2 id="check-format-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">check-format-string</a></h2>
+<p>Checks if calling <code>g_variant_get()</code> with <em>format_string</em> on <em>value</em> would be valid from a type-compatibility standpoint. <em>format_string</em> is assumed to be a valid format string (from a syntactic standpoint). If <em>copy_only</em> is <code>1</code> then this function additionally checks that it would be safe to call <code>g_variant_unref()</code> on <em>value</em> immediately after the call to <code>g_variant_get()</code> without invalidating the result. This is only possible if deep copies are made (ie: there are no pointers to the data inside of the soon-to-be-freed <strong>N-GObject</strong> instance). If this check fails then a <code>g_critical()</code> is printed and <code>0</code> is returned. This function is meant to be used by functions that wish to provide varargs accessors to <strong>N-GObject</strong> values of uncertain values (eg: <code>g_variant_lookup()</code> or <code>g_menu_model_get_item_attribute()</code>).</p><p>Returns: <code>1</code> if <em>format_string</em> is safe to use</p><pre class="pod-block-code">method check-format-string (  Str  $format_string, Int $copy_only --&gt; Int )</pre><ul>
+<li><p>Str $format_string; a valid <strong>N-GObject</strong> format string</p></li>
+<li><p>Int $copy_only; <code>1</code> to ensure the format string makes deep copies</p></li>
+</ul>
+
+<h2 id="classify"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">classify</a></h2>
+<p>Classifies <em>value</em> according to its top-level type.</p><p>Returns: the <strong>GVariantClass</strong> of <em>value</em></p><pre class="pod-block-code">method classify ( --&gt; GVariantClass )</pre>
+<h2 id="compare"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">compare</a></h2>
+<p>Compares <em>one</em> and <em>two</em>. The types of <em>one</em> and <em>two</em> are <strong>gconstpointer</strong> only to allow use of this function with <strong>GTree</strong>, <strong>GPtrArray</strong>, etc. They must each be a <strong>N-GObject</strong>. Comparison is only defined for basic types (ie: booleans, numbers, strings). For booleans, <code>0</code> is less than <code>1</code>. Numbers are ordered in the usual way. Strings are in ASCII lexographical order. It is a programmer error to attempt to compare container values or two values that have types that are not exactly equal. For example, you cannot compare a 32-bit signed integer with a 32-bit unsigned integer. Also note that this function is not particularly well-behaved when it comes to comparison of doubles; in particular, the handling of incomparable values (ie: NaN) is undefined. If you only require an equality comparison, <code>g_variant_equal()</code> is more general.</p><p>Returns: negative value if a &lt; b; zero if a = b; positive value if a &gt; b.</p><pre class="pod-block-code">method compare ( Pointer $one, Pointer $two --&gt; Int )</pre><ul>
+<li><p>Pointer $one; (type GVariant): a basic-typed <strong>N-GObject</strong> instance</p></li>
+<li><p>Pointer $two; (type GVariant): a <strong>N-GObject</strong> instance of the same type</p></li>
+</ul>
+
+<h2 id="dup-bytestring"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dup-bytestring</a></h2>
+<p>Similar to <code>g_variant_get_bytestring()</code> except that instead of returning a constant string, the string is duplicated. The return value must be freed using <code>g_free()</code>.</p><p>Returns: (transfer full) (array zero-terminated=1 length=length) (element-type guint8): a newly allocated string</p><pre class="pod-block-code">method dup-bytestring ( UInt $length --&gt;  Str  )</pre><ul>
+<li><p>UInt $length; (out) (optional) (default NULL): a pointer to a <strong>gsize</strong>, to store the length (not including the nul terminator)</p></li>
+</ul>
+
+<h2 id="dup-bytestring-array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dup-bytestring-array</a></h2>
+<p>Gets the contents of an array of array of bytes <strong>N-GObject</strong>. This call makes a deep copy; the return result should be released with <code>g_strfreev()</code>. If <em>length</em> is non-<code>Any</code> then the number of elements in the result is stored there. In any case, the resulting array will be <code>Any</code>-terminated. For an empty array, <em>length</em> will be set to 0 and a pointer to a <code>Any</code> pointer will be returned.</p><p>Returns: (array length=length) (transfer full): an array of strings</p><pre class="pod-block-code">method dup-bytestring-array ( UInt $length --&gt;  CArray[Str]  )</pre><ul>
+<li><p>UInt $length; (out) (optional): the length of the result, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="dup-objv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dup-objv</a></h2>
+<p>Gets the contents of an array of object paths <strong>N-GObject</strong>. This call makes a deep copy; the return result should be released with <code>g_strfreev()</code>. If <em>length</em> is non-<code>Any</code> then the number of elements in the result is stored there. In any case, the resulting array will be <code>Any</code>-terminated. For an empty array, <em>length</em> will be set to 0 and a pointer to a <code>Any</code> pointer will be returned.</p><p>Returns: (array length=length zero-terminated=1) (transfer full): an array of strings</p><pre class="pod-block-code">method dup-objv ( UInt $length --&gt;  CArray[Str]  )</pre><ul>
+<li><p>UInt $length; (out) (optional): the length of the result, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="dup-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dup-string</a></h2>
+<p>Similar to <code>g_variant_get_string()</code> except that instead of returning a constant string, the string is duplicated. The string will always be UTF-8 encoded. The return value must be freed using <code>g_free()</code>.</p><p>Returns: (transfer full): a newly allocated string, UTF-8 encoded</p><pre class="pod-block-code">method dup-string ( UInt $length --&gt;  Str  )</pre><ul>
+<li><p>UInt $length; (out): a pointer to a <strong>gsize</strong>, to store the length</p></li>
+</ul>
+
+<h2 id="dup-strv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dup-strv</a></h2>
+<p>Gets the contents of an array of strings <strong>N-GObject</strong>. This call makes a deep copy; the return result should be released with <code>g_strfreev()</code>. If <em>length</em> is non-<code>Any</code> then the number of elements in the result is stored there. In any case, the resulting array will be <code>Any</code>-terminated. For an empty array, <em>length</em> will be set to 0 and a pointer to a <code>Any</code> pointer will be returned.</p><p>Returns: (array length=length zero-terminated=1) (transfer full): an array of strings</p><pre class="pod-block-code">method dup-strv ( UInt $length --&gt;  CArray[Str]  )</pre><ul>
+<li><p>UInt $length; (out) (optional): the length of the result, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="equal"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">equal</a></h2>
+<p>Checks if <em>one</em> and <em>two</em> have the same type and value. The types of <em>one</em> and <em>two</em> are <strong>gconstpointer</strong> only to allow use of this function with <strong>GHashTable</strong>. They must each be a <strong>N-GObject</strong>.</p><p>Returns: <code>1</code> if <em>one</em> and <em>two</em> are equal</p><pre class="pod-block-code">method equal ( Pointer $one, Pointer $two --&gt; Int )</pre><ul>
+<li><p>Pointer $one; (type GVariant): a <strong>N-GObject</strong> instance</p></li>
+<li><p>Pointer $two; (type GVariant): a <strong>N-GObject</strong> instance</p></li>
+</ul>
+
+<h2 id="get"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get</a></h2>
+<p>Deconstructs a <strong>N-GObject</strong> instance. Think of this function as an analogue to <code>scanf()</code>. The arguments that are expected by this function are entirely determined by <em>format_string</em>. <em>format_string</em> also restricts the permissible types of <em>value</em>. It is an error to give a value with an incompatible type. See the section on GVariant format strings. Please note that the syntax of the format string is very likely to be extended in the future. <em>format_string</em> determines the C types that are used for unpacking the values and also determines if the values are copied or borrowed</p><pre class="pod-block-code">method get (  Str  $format_string )</pre><ul>
+<li><p>Str $format_string; a <strong>N-GObject</strong> format string @...: arguments, as per <em>format_string</em></p></li>
+</ul>
+
+<h2 id="get-boolean"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-boolean</a></h2>
+<p>Returns the boolean value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_BOOLEAN</code>.</p><p>Returns: <code>True</code> or <code>False</code></p><pre class="pod-block-code">method get-boolean ( --&gt; Bool )</pre>
+<h2 id="get-byte"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-byte</a></h2>
+<p>Returns the byte value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_BYTE</code>.</p><p>Returns: a <strong>guint8</strong></p><pre class="pod-block-code">method get-byte ( --&gt; UInt )</pre>
+<h2 id="get-bytestring"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-bytestring</a></h2>
+<p>Returns the string value of a <strong>N-GObject</strong> instance with an array-of-bytes type. The string has no particular encoding.</p><pre class="pod-block-code">method get-bytestring ( --&gt;  Str  )</pre>
+<h2 id="get-bytestring-array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-bytestring-array</a></h2>
+<p>Gets the contents of an array of array of bytes <strong>N-GObject</strong>.</p><pre class="pod-block-code">method get-bytestring-array ( --&gt;  Array[Str]  )</pre>
+<h2 id="get-child"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-child</a></h2>
+<p>Reads a child item out of a container <strong>N-GObject</strong> instance and deconstructs it according to <em>format_string</em>. This call is essentially a combination of <code>g_variant_get_child_value()</code> and <code>g_variant_get()</code>. <em>format_string</em> determines the C types that are used for unpacking the values and also determines if the values are copied or borrowed, see the section on [GVariant format strings][gvariant-format-strings-pointers].</p><pre class="pod-block-code">method get-child ( UInt $index_,  Str  $format_string )</pre><ul>
+<li><p>UInt $index_; the index of the child to deconstruct</p></li>
+<li><p>Str $format_string; a <strong>N-GObject</strong> format string @...: arguments, as per <em>format_string</em></p></li>
+</ul>
+
+<h2 id="get-child-value"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-child-value</a></h2>
+<pre class="pod-block-code">method get-child-value ( UInt $index_ --&gt; N-GObject )</pre><ul>
+<li><p>UInt $index_;</p></li>
+</ul>
+
+<h2 id="get-data"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-data</a></h2>
+<pre class="pod-block-code">method get-data ( --&gt; Pointer )</pre>
+<h2 id="get-data-as-bytes"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-data-as-bytes</a></h2>
+<pre class="pod-block-code">method get-data-as-bytes ( --&gt; N-GBytes )</pre>
+<h2 id="get-double"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-double</a></h2>
+<p>Returns the double precision floating point value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_DOUBLE</code>.</p><p>Returns: a <strong>gdouble</strong></p><pre class="pod-block-code">method get-double ( --&gt; Num )</pre>
+<h2 id="get-fixed-array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-fixed-array</a></h2>
+<p>Provides access to the serialised data for an array of fixed-sized items. <em>value</em> must be an array with fixed-sized elements. Numeric types are fixed-size, as are tuples containing only other fixed-sized types. <em>element_size</em> must be the size of a single element in the array, as given by the section on [serialized data memory][gvariant-serialised-data-memory]. In particular, arrays of these fixed-sized types can be interpreted as an array of the given C type, with <em>element_size</em> set to the size the appropriate type: - <code>G_VARIANT_TYPE_INT16</code> (etc.): <strong>gint16</strong> (etc.) - <code>G_VARIANT_TYPE_BOOLEAN</code>: <strong>guchar</strong> (not <strong>gboolean</strong>!) - <code>G_VARIANT_TYPE_BYTE</code>: <strong>guint8</strong> - <code>G_VARIANT_TYPE_HANDLE</code>: <strong>guint32</strong> - <code>G_VARIANT_TYPE_DOUBLE</code>: <strong>gdouble</strong> For example, if calling this function for an array of 32-bit integers, you might say `sizeof(gint32)`. This value isn't used except for the purpose of a double-check that the form of the serialised data matches the caller's expectation. <em>n_elements</em>, which must be non-<code>Any</code>, is set equal to the number of items in the array.</p><p>Returns: (array length=n_elements) (transfer none): a pointer to the fixed array</p><pre class="pod-block-code">method get-fixed-array ( UInt $n_elements, UInt $element_size --&gt; Pointer )</pre><ul>
+<li><p>UInt $n_elements; (out): a pointer to the location to store the number of items</p></li>
+<li><p>UInt $element_size; the size of each element</p></li>
+</ul>
+
+<h2 id="get-handle"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-handle</a></h2>
+<p>Returns the 32-bit signed integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_HANDLE</code>. By convention, handles are indexes into an array of file descriptors that are sent alongside a D-Bus message. If you're not interacting with D-Bus, you probably don't need them.</p><p>Returns: a <strong>gint32</strong></p><pre class="pod-block-code">method get-handle ( --&gt; Int )</pre>
+<h2 id="get-int16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-int16</a></h2>
+<p>Returns the 16-bit signed integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_INT16</code>.</p><p>Returns: a <strong>gint16</strong></p><pre class="pod-block-code">method get-int16 ( --&gt; Int )</pre>
+<h2 id="get-int32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-int32</a></h2>
+<p>Returns the 32-bit signed integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_INT32</code>.</p><p>Returns: a <strong>gint32</strong></p><pre class="pod-block-code">method get-int32 ( --&gt; Int )</pre>
+<h2 id="get-int64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-int64</a></h2>
+<p>Returns the 64-bit signed integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_INT64</code>.</p><p>Returns: a <strong>gint64</strong></p><pre class="pod-block-code">method get-int64 ( --&gt; Int )</pre>
+<h2 id="get-maybe"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-maybe</a></h2>
+<p>Given a maybe-typed <strong>N-GObject</strong> instance, extract its value. If the value is Nothing, then this function returns <code>Any</code>.</p><p>Returns: (nullable) (transfer full): the contents of <em>value</em>, or <code>Any</code></p><pre class="pod-block-code">method get-maybe ( --&gt; N-GObject )</pre>
+<h2 id="get-normal-form"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-normal-form</a></h2>
+<p>Gets a <strong>N-GObject</strong> instance that has the same value as <em>value</em> and is trusted to be in normal form. If <em>value</em> is already trusted to be in normal form then a new reference to <em>value</em> is returned. If <em>value</em> is not already trusted, then it is scanned to check if it is in normal form. If it is found to be in normal form then it is marked as trusted and a new reference to it is returned. If <em>value</em> is found not to be in normal form then a new trusted <strong>N-GObject</strong> is created with the same value as <em>value</em>. It makes sense to call this function if you've received <strong>N-GObject</strong> data from untrusted sources and you want to ensure your serialised output is definitely in normal form. If <em>value</em> is already in normal form, a new reference will be returned (which will be floating if <em>value</em> is floating). If it is not in normal form, the newly created <strong>N-GObject</strong> will be returned with a single non-floating reference. Typically, <code>g_variant_take_ref()</code> should be called on the return value from this function to guarantee ownership of a single non-floating reference to it.</p><p>Returns: (transfer full): a trusted <strong>N-GObject</strong></p><pre class="pod-block-code">method get-normal-form ( --&gt; N-GObject )</pre>
+<h2 id="get-objv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-objv</a></h2>
+<p>Gets the contents of an array of object paths <strong>N-GObject</strong>. This call makes a shallow copy; the return result should be released with <code>g_free()</code>, but the individual strings must not be modified. If <em>length</em> is non-<code>Any</code> then the number of elements in the result is stored there. In any case, the resulting array will be <code>Any</code>-terminated. For an empty array, <em>length</em> will be set to 0 and a pointer to a <code>Any</code> pointer will be returned.</p><p>Returns: (array length=length zero-terminated=1) (transfer container): an array of constant strings</p><pre class="pod-block-code">method get-objv ( UInt $length --&gt;  CArray[Str]  )</pre><ul>
+<li><p>UInt $length; (out) (optional): the length of the result, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="get-size"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-size</a></h2>
+<pre class="pod-block-code">method get-size ( --&gt; UInt )</pre>
+<h2 id="get-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-string</a></h2>
+<p>Returns the string value of a <strong>N-GObject</strong> instance with a string type.</p><pre class="pod-block-code">method get-string ( --&gt;  Str  )</pre>
+<h2 id="get-strv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-strv</a></h2>
+<p>Gets the contents of an array of strings <strong>N-GObject</strong>. This call makes a shallow copy.</p><pre class="pod-block-code">method get-strv ( --&gt; Array[Str]  )</pre>
+<h2 id="get-type"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-type</a></h2>
+<p>Determines the type of <em>value</em>. The return value is valid for the lifetime of <em>value</em> and must not be freed.</p><p>Returns: a <strong>GVariantType</strong></p><pre class="pod-block-code">method get-type ( --&gt; Gnome::Glib::Variant )</pre>
+<h2 id="get-type-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-type-string</a></h2>
+<p>Returns the type string of <em>value</em>. Unlike the result of calling <code>g_variant_type_peek_string()</code>, this string is nul-terminated. This string belongs to <strong>N-GObject</strong> and must not be freed.</p><p>Returns: the type string for the type of <em>value</em></p><pre class="pod-block-code">method get-type-string ( --&gt;  Str  )</pre>
+<h2 id="get-uint16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-uint16</a></h2>
+<p>Returns the 16-bit unsigned integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_UINT16</code>.</p><p>Returns: a <strong>guint16</strong></p><pre class="pod-block-code">method get-uint16 ( --&gt; UInt )</pre>
+<h2 id="get-uint32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-uint32</a></h2>
+<p>Returns the 32-bit unsigned integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_UINT32</code>.</p><p>Returns: a <strong>guint32</strong></p><pre class="pod-block-code">method get-uint32 ( --&gt; UInt )</pre>
+<h2 id="get-uint64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-uint64</a></h2>
+<p>Returns the 64-bit unsigned integer value of <em>value</em>. It is an error to call this function with a <em>value</em> of any type other than <code>G_VARIANT_TYPE_UINT64</code>.</p><p>Returns: a <strong>guint64</strong></p><pre class="pod-block-code">method get-uint64 ( --&gt; UInt )</pre>
+<h2 id="get-va"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-va</a></h2>
+<p>This function is intended to be used by libraries based on <strong>N-GObject</strong> that want to provide <code>g_variant_get()</code>-like functionality to their users. The API is more general than <code>g_variant_get()</code> to allow a wider range of possible uses. <em>format_string</em> must still point to a valid format string, but it only need to be nul-terminated if <em>endptr</em> is <code>Any</code>. If <em>endptr</em> is non-<code>Any</code> then it is updated to point to the first character past the end of the format string. <em>app</em> is a pointer to a <strong>va_list</strong>. The arguments, according to <em>format_string</em>, are collected from this <strong>va_list</strong> and the list is left pointing to the argument following the last. These two generalisations allow mixing of multiple calls to <code>g_variant_new_va()</code> and <code>g_variant_get_va()</code> within a single actual varargs call by the user. <em>format_string</em> determines the C types that are used for unpacking the values and also determines if the values are copied or borrowed, see the section on [GVariant format strings][gvariant-format-strings-pointers].</p><pre class="pod-block-code">method get-va (  Str  $format_string,  CArray[Str]  $endptr, va_list $app )</pre><ul>
+<li><p>Str $format_string; a string that is prefixed with a format string</p></li>
+<li><p>CArray[Str] $endptr; (nullable) (default NULL): location to store the end pointer, or <code>Any</code></p></li>
+<li><p>va_list $app; a pointer to a <strong>va_list</strong></p></li>
+</ul>
+
+<h2 id="get-variant"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">get-variant</a></h2>
+<p>Unboxes <em>value</em>. The result is the <strong>Gnome::Glib::Variant</strong> that was contained in <em>value</em>.</p><p>Returns: the item contained in the variant</p><pre class="pod-block-code">method get-variant ( --&gt; Gnome::Glib::Variant )</pre>
+<h2 id="hash"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">hash</a></h2>
+<p>Generates a hash value for a <strong>N-GObject</strong> instance. The output of this function is guaranteed to be the same for a given value only per-process. It may change between different processor architectures or even different versions of GLib. Do not use this function as a basis for building protocols or file formats. The type of <em>value</em> is <strong>gconstpointer</strong> only to allow use of this function with <strong>GHashTable</strong>. <em>value</em> must be a <strong>N-GObject</strong>.</p><p>Returns: a hash value corresponding to <em>value</em></p><pre class="pod-block-code">method hash ( Pointer $value --&gt; UInt )</pre><ul>
+<li><p>Pointer $value; (type GVariant): a basic <strong>N-GObject</strong> value as a <strong>gconstpointer</strong></p></li>
+</ul>
+
+<h2 id="is-container"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-container</a></h2>
+<p>Checks if <em>value</em> is a container.</p><p>Returns: <code>1</code> if <em>value</em> is a container</p><pre class="pod-block-code">method is-container ( --&gt; Int )</pre>
+<h2 id="is-floating"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-floating</a></h2>
+<pre class="pod-block-code">method is-floating ( --&gt; Int )</pre>
+<h2 id="is-normal-form"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-normal-form</a></h2>
+<pre class="pod-block-code">method is-normal-form ( --&gt; Int )</pre>
+<h2 id="is-object-path"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-object-path</a></h2>
+<p>Determines if a given string is a valid D-Bus object path. You should ensure that a string is a valid D-Bus object path before passing it to <code>g_variant_new_object_path()</code>. A valid object path starts with `/` followed by zero or more sequences of characters separated by `/` characters. Each sequence must contain only the characters `[A-Z][a-z][0-9]_`. No sequence (including the one following the final `/` character) may be empty.</p><p>Returns: <code>1</code> if <em>string</em> is a D-Bus object path</p><pre class="pod-block-code">method is-object-path (  Str  $string --&gt; Int )</pre><ul>
+<li><p>Str $string; a normal C nul-terminated string</p></li>
+</ul>
+
+<h2 id="is-of-type"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-of-type</a></h2>
+<p>Checks if a value has a type matching the provided type.</p><p>Returns: <code>True</code> if the type of <em>value</em> matches <em>type</em></p><pre class="pod-block-code">method is-of-type ( N-GObject $type --&gt; Bool )</pre><ul>
+<li><p>N-GObject $type; a <strong>GVariantType</strong></p></li>
+</ul>
+
+<h2 id="is-signature"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">is-signature</a></h2>
+<p>Determines if a given string is a valid D-Bus type signature. You should ensure that a string is a valid D-Bus type signature before passing it to <code>g_variant_new_signature()</code>. D-Bus type signatures consist of zero or more definite <strong>GVariantType</strong> strings in sequence.</p><p>Returns: <code>1</code> if <em>string</em> is a D-Bus type signature</p><pre class="pod-block-code">method is-signature (  Str  $string --&gt; Int )</pre><ul>
+<li><p>Str $string; a normal C nul-terminated string</p></li>
+</ul>
+
+<h2 id="lookup"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">lookup</a></h2>
+<p>Looks up a value in a dictionary <strong>N-GObject</strong>. This function is a wrapper around <code>g_variant_lookup_value()</code> and <code>g_variant_get()</code>. In the case that <code>Any</code> would have been returned, this function returns <code>0</code>. Otherwise, it unpacks the returned value and returns <code>1</code>. <em>format_string</em> determines the C types that are used for unpacking the values and also determines if the values are copied or borrowed, see the section on [GVariant format strings][gvariant-format-strings-pointers]. This function is currently implemented with a linear scan. If you plan to do many lookups then <strong>N-GObjectDict</strong> may be more efficient.</p><p>Returns: <code>1</code> if a value was unpacked</p><pre class="pod-block-code">method lookup (  Str  $key,  Str  $format_string --&gt; Int )</pre><ul>
+<li><p>Str $key; the key to lookup in the dictionary</p></li>
+<li><p>Str $format_string; a GVariant format string @...: the arguments to unpack the value into</p></li>
+</ul>
+
+<h2 id="lookup-value"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">lookup-value</a></h2>
+<p>Looks up a value in a dictionary <strong>N-GObject</strong>. This function works with dictionaries of the type a{s*} (and equally well with type a{o*}, but we only further discuss the string case for sake of clarity). In the event that <em>dictionary</em> has the type a{sv}, the <em>expected_type</em> string specifies what type of value is expected to be inside of the variant. If the value inside the variant has a different type then undefined is returned. In the event that <em>dictionary</em> has a value type other than v then <em>expected_type</em> must directly match the value type and it is used to unpack the value directly or an error occurs. In either case, if <em>key</em> is not found in <em>dictionary</em>, <code>Any</code> is returned. If the key is found and the value has the correct type, it is returned. If <em>expected_type</em> was specified then any non-<code>Any</code> return value will have this type. This function is currently implemented with a linear scan. If you plan to do many lookups then <strong>N-GObjectDict</strong> may be more efficient.</p><p>Returns: (transfer full): the value of the dictionary key, or <code>Any</code></p><pre class="pod-block-code">method lookup-value (  Str  $key, N-GObject $expected_type --&gt; N-GObject )</pre><ul>
+<li><p>Str $key; the key to lookup in the dictionary</p></li>
+<li><p>N-GObject $expected_type; (nullable): a <strong>GVariantType</strong>, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="n-children"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">n-children</a></h2>
+<pre class="pod-block-code">method n-children ( --&gt; UInt )</pre>
+<h2 id="parse"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">parse</a></h2>
+<p>Parses a GVariant from a text representation.</p><p>In the event that the parsing is successful, the resulting GVariant is returned.</p><p>In case of any error, NULL will be returned. If error is non-NULL then it will be set to reflect the error that occurred.</p><p>There may be implementation specific restrictions on deeply nested values, which would result in a G_VARIANT_PARSE_ERROR_RECURSION error. GVariant is guaranteed to handle nesting up to at least 64 levels.</p><pre class="pod-block-code">method g_variant_parse ( Str $type-string, Str $text --&gt; List )</pre><ul>
+<li><p>Str $type-string; String like it is used to create a Gnome::Glib::VariantType. May be undefined.</p></li>
+<li><p>Str $text; Textual representation of data.</p></li>
+</ul>
+<p>The returned List has members</p><ul>
+<li><p>N-GObject object. A native variant object</p></li>
+<li><p>Gnome::Glib::Error. The error object. Test for <code>.is-valid() ~~ False</code> to see if parsing went ok and that the variant object is defined.</p></li>
+</ul>
+
+<h2 id="parse-error-print-context"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">parse-error-print-context</a></h2>
+<pre class="pod-block-code">method parse-error-print-context ( N-GError $error,  Str  $source_str --&gt;  Str  )</pre><ul>
+<li><p>N-GError $error;</p></li>
+<li><p>Str $source_str;</p></li>
+</ul>
+
+<h2 id="parse-error-quark"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">parse-error-quark</a></h2>
+<p>Error domain for GVariant text format parsing. Specific error codes are not currently defined for this domain. See GError for information on error</p><pre class="pod-block-code">method parse-error-quark ( --&gt; UInt )</pre>
+<h2 id="print"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">print</a></h2>
+<p>Pretty-prints <em>value</em> in the format understood by <code>parse()</code>. If <em>$type_annotate</em> is <code>True</code>, then type information is included in the output.</p><p>Returns: a newly-allocated string holding the result.</p><pre class="pod-block-code">method print ( Bool $type_annotate = False --&gt; Str )</pre><ul>
+<li><p>Int $type_annotate; <code>True</code> if type information should be included in the output</p></li>
+</ul>
+
+<h2 id="print-string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">print-string</a></h2>
+<p>Behaves as <code>g_variant_print()</code>, but operates on a <strong>GString</strong>. If <em>string</em> is non-<code>Any</code> then it is appended to and returned. Else, a new empty <strong>GString</strong> is allocated and it is returned.</p><p>Returns: a <strong>GString</strong> containing the string</p><pre class="pod-block-code">method print-string ( N-GObject $string, Int $type_annotate --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $string; (nullable) (default NULL): a <strong>GString</strong>, or <code>Any</code></p></li>
+<li><p>Int $type_annotate; <code>1</code> if type information should be included in the output</p></li>
+</ul>
+
+<h2 id="ref-sink"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">ref-sink</a></h2>
+<pre class="pod-block-code">method ref-sink ( --&gt; N-GObject )</pre>
+<h2 id="store"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">store</a></h2>
+<pre class="pod-block-code">method store ( Pointer $data )</pre><ul>
+<li><p>Pointer $data;</p></li>
+</ul>
+
+<h2 id="take-ref"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">take-ref</a></h2>
+<pre class="pod-block-code">method take-ref ( --&gt; N-GObject )</pre>
+<h2 id="_g_variant_new"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new</a></h2>
+<pre class="pod-block-code">method _g_variant_new (  Str  $format_string --&gt; N-GObject )</pre><ul>
+<li><p>Str $format_string;</p></li>
+</ul>
+
+<h2 id="_g_variant_new_array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_array</a></h2>
+<p>Creates a new <strong>N-GObject</strong> array from <em>children</em>. <em>child_type</em> must be non-<code>Any</code> if <em>n_children</em> is zero. Otherwise, the child type is determined by inspecting the first element of the <em>children</em> array. If <em>child_type</em> is non-<code>Any</code> then it must be a definite type. The items of the array are taken from the <em>children</em> array. No entry in the <em>children</em> array may be <code>Any</code>. All items in the array must have the same type, which must be the same as <em>child_type</em>, if given. If the <em>children</em> are floating references (see <code>g_variant_ref_sink()</code>), the new instance takes ownership of them as if via <code>g_variant_ref_sink()</code>.</p><p>Returns: (transfer none): a floating reference to a new <strong>N-GObject</strong> array</p><pre class="pod-block-code">method _g_variant_new_array ( N-GObject $child_type,  $GVariant * const *children, UInt $n_children --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $child_type; (nullable): the element type of the new array</p></li>
+<li><p>$GVariant * const *children; (nullable) (array length=n_children): an array of <strong>N-GObject</strong> pointers, the children</p></li>
+<li><p>UInt $n_children; the length of <em>children</em></p></li>
+</ul>
+
+<h2 id="_g_variant_new_boolean"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_boolean</a></h2>
+<p>Creates a new boolean <strong>N-GObject</strong> instance -- either <code>1</code> or <code>0</code>.</p><p>Returns: (transfer none): a floating reference to a new boolean <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_boolean ( Int $value --&gt; N-GObject )</pre><ul>
+<li><p>Int $value; a <strong>gboolean</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_byte"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_byte</a></h2>
+<p>Creates a new byte <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new byte <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_byte ( UInt $value --&gt; N-GObject )</pre><ul>
+<li><p>UInt $value; a <strong>guint8</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_bytestring"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_bytestring</a></h2>
+<p>Creates an array-of-bytes <strong>N-GObject</strong> with the contents of <em>string</em>. This function is just like <code>g_variant_new_string()</code> except that the string need not be valid UTF-8. The nul terminator character at the end of the string is stored in the array.</p><p>Returns: (transfer none): a floating reference to a new bytestring <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_bytestring (  Str  $string --&gt; N-GObject )</pre><ul>
+<li><p>Str $string; (array zero-terminated=1) (element-type guint8): a normal nul-terminated string in no particular encoding</p></li>
+</ul>
+
+<h2 id="_g_variant_new_bytestring_array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_bytestring_array</a></h2>
+<p>Constructs an array of bytestring <strong>N-GObject</strong> from the given array of strings. If <em>length</em> is -1 then <em>strv</em> is <code>Any</code>-terminated.</p><p>Returns: (transfer none): a new floating <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_bytestring_array (  CArray[Str]  $strv, Int $length --&gt; N-GObject )</pre><ul>
+<li><p>CArray[Str] $strv; (array length=length): an array of strings</p></li>
+<li><p>Int $length; the length of <em>strv</em>, or -1</p></li>
+</ul>
+
+<h2 id="dict-entry"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">dict-entry</a></h2>
+<p>Creates a new dictionary entry <strong>Gnome::Glib::VariantDict</strong>. <em>key</em> and <em>value</em> must be defined. <em>key</em> must be a value of a basic type (ie: not a container).</p><p>Returns: a floating reference to a new dictionary entry <strong>Gnome::Glib::VariantDict</strong></p><pre class="pod-block-code">method _g_variant_new_dict_entry ( N-GObject $key, N-GObject $value --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $value; a <strong>Gnome::Glib::VariantDict</strong>, the value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_double"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_double</a></h2>
+<p>Creates a new double <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new double <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_double ( Num $value --&gt; N-GObject )</pre><ul>
+<li><p>Num $value; a <strong>gdouble</strong> floating point value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_fixed_array"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_fixed_array</a></h2>
+<p>Constructs a new array <strong>N-GObject</strong> instance, where the elements are of <em>element_type</em> type. <em>elements</em> must be an array with fixed-sized elements. Numeric types are fixed-size as are tuples containing only other fixed-sized types. <em>element_size</em> must be the size of a single element in the array. For example, if calling this function for an array of 32-bit integers, you might say sizeof(gint32). This value isn't used except for the purpose of a double-check that the form of the serialised data matches the caller's expectation. <em>n_elements</em> must be the length of the <em>elements</em> array.</p><p>Returns: (transfer none): a floating reference to a new array <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_fixed_array ( N-GObject $element_type, Pointer $elements, UInt $n_elements, UInt $element_size --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $element_type; the <strong>GVariantType</strong> of each element</p></li>
+<li><p>Pointer $elements; a pointer to the fixed array of contiguous elements</p></li>
+<li><p>UInt $n_elements; the number of elements</p></li>
+<li><p>UInt $element_size; the size of each element</p></li>
+</ul>
+
+<h2 id="_g_variant_new_from_bytes"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_from_bytes</a></h2>
+<pre class="pod-block-code">method _g_variant_new_from_bytes ( N-GObject $type, N-GBytes $bytes, Int $trusted --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $type;</p></li>
+<li><p>N-GObject $bytes;</p></li>
+<li><p>Int $trusted;</p></li>
+</ul>
+
+<h2 id="_g_variant_new_from_data"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_from_data</a></h2>
+<p>Creates a new <strong>N-GObject</strong> instance from serialised data. <em>type</em> is the type of <strong>N-GObject</strong> instance that will be constructed. The interpretation of <em>data</em> depends on knowing the type. <em>data</em> is not modified by this function and must remain valid with an unchanging value until such a time as <em>notify</em> is called with <em>user_data</em>. If the contents of <em>data</em> change before that time then the result is undefined. If <em>data</em> is trusted to be serialised data in normal form then <em>trusted</em> should be <code>1</code>. This applies to serialised data created within this process or read from a trusted location on the disk (such as a file installed in /usr/lib alongside your application). You should set trusted to <code>0</code> if <em>data</em> is read from the network, a file in the user's home directory, etc. If <em>data</em> was not stored in this machine's native endianness, any multi-byte numeric values in the returned variant will also be in non-native endianness. <code>g_variant_byteswap()</code> can be used to recover the original values. <em>notify</em> will be called with <em>user_data</em> when <em>data</em> is no longer needed. The exact time of this call is unspecified and might even be before this function returns. Note: <em>data</em> must be backed by memory that is aligned appropriately for the <em>type</em> being loaded. Otherwise this function will internally create a copy of the memory (since GLib 2.60) or (in older versions) fail and exit the process.</p><p>Returns: (transfer none): a new floating <strong>N-GObject</strong> of type <em>type</em></p><pre class="pod-block-code">method _g_variant_new_from_data ( N-GObject $type, Pointer $data, UInt $size, Int $trusted, GDestroyNotify $notify, Pointer $user_data --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $type; a definite <strong>GVariantType</strong></p></li>
+<li><p>Pointer $data; (array length=size) (element-type guint8): the serialised data</p></li>
+<li><p>UInt $size; the size of <em>data</em></p></li>
+<li><p>Int $trusted; <code>1</code> if <em>data</em> is definitely in normal form</p></li>
+<li><p>GDestroyNotify $notify; (scope async): function to call when <em>data</em> is no longer needed</p></li>
+<li><p>Pointer $user_data; data for <em>notify</em></p></li>
+</ul>
+
+<h2 id="_g_variant_new_handle"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_handle</a></h2>
+<p>Creates a new handle <strong>N-GObject</strong> instance. By convention, handles are indexes into an array of file descriptors that are sent alongside a D-Bus message. If you're not interacting with D-Bus, you probably don't need them.</p><p>Returns: (transfer none): a floating reference to a new handle <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_handle ( Int $value --&gt; N-GObject )</pre><ul>
+<li><p>Int $value; a <strong>gint32</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_int16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_int16</a></h2>
+<p>Creates a new int16 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new int16 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_int16 ( Int $value --&gt; N-GObject )</pre><ul>
+<li><p>Int $value; a <strong>gint16</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_int32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_int32</a></h2>
+<p>Creates a new int32 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new int32 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_int32 ( Int $value --&gt; N-GObject )</pre><ul>
+<li><p>Int $value; a <strong>gint32</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_int64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_int64</a></h2>
+<p>Creates a new int64 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new int64 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_int64 ( Int $value --&gt; N-GObject )</pre><ul>
+<li><p>Int $value; a <strong>gint64</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_maybe"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_maybe</a></h2>
+<p>Depending on if <em>child</em> is <code>Any</code>, either wraps <em>child</em> inside of a maybe container or creates a Nothing instance for the given <em>type</em>. At least one of <em>child_type</em> and <em>child</em> must be non-<code>Any</code>. If <em>child_type</em> is non-<code>Any</code> then it must be a definite type. If they are both non-<code>Any</code> then <em>child_type</em> must be the type of <em>child</em>. If <em>child</em> is a floating reference (see <code>g_variant_ref_sink()</code>), the new instance takes ownership of <em>child</em>.</p><p>Returns: (transfer none): a floating reference to a new <strong>N-GObject</strong> maybe instance</p><pre class="pod-block-code">method _g_variant_new_maybe ( N-GObject $child_type, N-GObject $child --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $child_type; (nullable): the <strong>GVariantType</strong> of the child, or <code>Any</code></p></li>
+<li><p>N-GObject $child; (nullable): the child value, or <code>Any</code></p></li>
+</ul>
+
+<h2 id="_g_variant_new_object_path"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_object_path</a></h2>
+<p>Creates a D-Bus object path <strong>N-GObject</strong> with the contents of <em>string</em>. <em>string</em> must be a valid D-Bus object path. Use <code>g_variant_is_object_path()</code> if you're not sure.</p><p>Returns: (transfer none): a floating reference to a new object path <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_object_path (  Str  $object_path --&gt; N-GObject )</pre><ul>
+<li><p>Str $object_path; a normal C nul-terminated string</p></li>
+</ul>
+
+<h2 id="_g_variant_new_objv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_objv</a></h2>
+<p>Constructs an array of object paths <strong>N-GObject</strong> from the given array of strings. Each string must be a valid <strong>N-GObject</strong> object path; see <code>g_variant_is_object_path()</code>. If <em>length</em> is -1 then <em>strv</em> is <code>Any</code>-terminated.</p><p>Returns: (transfer none): a new floating <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_objv (  CArray[Str]  $strv, Int $length --&gt; N-GObject )</pre><ul>
+<li><p>CArray[Str] $strv; (array length=length) (element-type utf8): an array of strings</p></li>
+<li><p>Int $length; the length of <em>strv</em>, or -1</p></li>
+</ul>
+
+<h2 id="_g_variant_new_parsed"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_parsed</a></h2>
+<pre class="pod-block-code">method _g_variant_new_parsed (  Str  $format --&gt; N-GObject )</pre><ul>
+<li><p>Str $format;</p></li>
+</ul>
+
+<h2 id="_g_variant_new_parsed_va"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_parsed_va</a></h2>
+<pre class="pod-block-code">method _g_variant_new_parsed_va (  Str  $format, va_list $app --&gt; N-GObject )</pre><ul>
+<li><p>Str $format;</p></li>
+<li><p>va_list $app;</p></li>
+</ul>
+
+<h2 id="_g_variant_new_printf"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_printf</a></h2>
+<p>Creates a string-type GVariant using printf formatting. This is similar to calling <code>g_strdup_printf()</code> and then <code>g_variant_new_string()</code> but it saves a temporary variable and an unnecessary copy.</p><p>Returns: (transfer none): a floating reference to a new string <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_printf (  Str  $format_string,  $2 --&gt; N-GObject )</pre><ul>
+<li><p>Str $format_string; a printf-style format string @...: arguments for <em>format_string</em></p></li>
+<li><p>$2;</p></li>
+</ul>
+
+<h2 id="_g_variant_new_signature"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_signature</a></h2>
+<p>Creates a D-Bus type signature <strong>N-GObject</strong> with the contents of <em>string</em>. <em>string</em> must be a valid D-Bus type signature. Use <code>g_variant_is_signature()</code> if you're not sure.</p><p>Returns: (transfer none): a floating reference to a new signature <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_signature (  Str  $signature --&gt; N-GObject )</pre><ul>
+<li><p>Str $signature; a normal C nul-terminated string</p></li>
+</ul>
+
+<h2 id="_g_variant_new_string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_string</a></h2>
+<p>Creates a string <strong>N-GObject</strong> with the contents of <em>string</em>. <em>string</em> must be valid UTF-8, and must not be <code>Any</code>. To encode potentially-<code>Any</code> strings, use <code>g_variant_new()</code> with `ms` as the [format string][gvariant-format-strings-maybe-types].</p><p>Returns: (transfer none): a floating reference to a new string <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_string (  Str  $string --&gt; N-GObject )</pre><ul>
+<li><p>Str $string; a normal UTF-8 nul-terminated string</p></li>
+</ul>
+
+<h2 id="_g_variant_new_strv"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_strv</a></h2>
+<p>Constructs an array of strings <strong>N-GObject</strong> from the given array of strings. If <em>length</em> is -1 then <em>strv</em> is <code>Any</code>-terminated.</p><p>Returns: (transfer none): a new floating <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_strv (  CArray[Str]  $strv, Int $length --&gt; N-GObject )</pre><ul>
+<li><p>CArray[Str] $strv; (array length=length) (element-type utf8): an array of strings</p></li>
+<li><p>Int $length; the length of <em>strv</em>, or -1</p></li>
+</ul>
+
+<h2 id="_g_variant_new_take_string"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_take_string</a></h2>
+<p>Creates a string <strong>N-GObject</strong> with the contents of <em>string</em>. <em>string</em> must be valid UTF-8, and must not be <code>Any</code>. To encode potentially-<code>Any</code> strings, use this with <code>g_variant_new_maybe()</code>. This function consumes <em>string</em>. <code>g_free()</code> will be called on <em>string</em> when it is no longer required. You must not modify or access <em>string</em> in any other way after passing it to this function. It is even possible that <em>string</em> is immediately freed.</p><p>Returns: (transfer none): a floating reference to a new string <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_take_string (  Str  $string --&gt; N-GObject )</pre><ul>
+<li><p>Str $string; a normal UTF-8 nul-terminated string</p></li>
+</ul>
+
+<h2 id="_g_variant_new_tuple"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_tuple</a></h2>
+<p>Creates a new tuple <strong>N-GObject</strong> out of the items in <em>children</em>. The type is determined from the types of <em>children</em>. No entry in the <em>children</em> array may be <code>Any</code>. If <em>n_children</em> is 0 then the unit tuple is constructed. If the <em>children</em> are floating references (see <code>g_variant_ref_sink()</code>), the new instance takes ownership of them as if via <code>g_variant_ref_sink()</code>.</p><p>Returns: (transfer none): a floating reference to a new <strong>N-GObject</strong> tuple</p><pre class="pod-block-code">method _g_variant_new_tuple (  $GVariant * const *children, UInt $n_children --&gt; N-GObject )</pre><ul>
+<li><p>$GVariant * const *children; (array length=n_children): the items to make the tuple out of</p></li>
+<li><p>UInt $n_children; the length of <em>children</em></p></li>
+</ul>
+
+<h2 id="_g_variant_new_uint16"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_uint16</a></h2>
+<p>Creates a new uint16 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new uint16 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_uint16 ( UInt $value --&gt; N-GObject )</pre><ul>
+<li><p>UInt $value; a <strong>guint16</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_uint32"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_uint32</a></h2>
+<p>Creates a new uint32 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new uint32 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_uint32 ( UInt $value --&gt; N-GObject )</pre><ul>
+<li><p>UInt $value; a <strong>guint32</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_uint64"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_uint64</a></h2>
+<p>Creates a new uint64 <strong>N-GObject</strong> instance.</p><p>Returns: (transfer none): a floating reference to a new uint64 <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_uint64 ( UInt $value --&gt; N-GObject )</pre><ul>
+<li><p>UInt $value; a <strong>guint64</strong> value</p></li>
+</ul>
+
+<h2 id="_g_variant_new_va"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_va</a></h2>
+<p>This function is intended to be used by libraries based on <strong>N-GObject</strong> that want to provide <code>g_variant_new()</code>-like functionality to their users. The API is more general than <code>g_variant_new()</code> to allow a wider range of possible uses. <em>format_string</em> must still point to a valid format string, but it only needs to be nul-terminated if <em>endptr</em> is <code>Any</code>. If <em>endptr</em> is non-<code>Any</code> then it is updated to point to the first character past the end of the format string. <em>app</em> is a pointer to a <strong>va_list</strong>. The arguments, according to <em>format_string</em>, are collected from this <strong>va_list</strong> and the list is left pointing to the argument following the last. Note that the arguments in <em>app</em> must be of the correct width for their types specified in <em>format_string</em> when collected into the <strong>va_list</strong>. See the [GVariant varargs documentation][gvariant-varargs]. These two generalisations allow mixing of multiple calls to <code>g_variant_new_va()</code> and <code>g_variant_get_va()</code> within a single actual varargs call by the user. The return value will be floating if it was a newly created GVariant instance (for example, if the format string was &quot;(ii)&quot;). In the case that the format_string was '*', '?', 'r', or a format starting with '@' then the collected <strong>N-GObject</strong> pointer will be returned unmodified, without adding any additional references. In order to behave correctly in all cases it is necessary for the calling function to <code>g_variant_ref_sink()</code> the return result before returning control to the user that originally provided the pointer. At this point, the caller will have their own full reference to the result. This can also be done by adding the result to a container, or by passing it to another <code>g_variant_new()</code> call.</p><p>Returns: a new, usually floating, <strong>N-GObject</strong></p><pre class="pod-block-code">method _g_variant_new_va (  Str  $format_string,  CArray[Str]  $endptr, va_list $app --&gt; N-GObject )</pre><ul>
+<li><p>Str $format_string; a string that is prefixed with a format string</p></li>
+<li><p>CArray[Str] $endptr; (nullable) (default NULL): location to store the end pointer, or <code>Any</code></p></li>
+<li><p>va_list $app; a pointer to a <strong>va_list</strong></p></li>
+</ul>
+
+<h2 id="_g_variant_new_variant"><a href="#Gnome::Glib::Variant" class="u" title="go to top of document">_g_variant_new_variant</a></h2>
+<p>Boxes <em>value</em>. The result is a <strong>N-GObject</strong> instance representing a variant containing the original value. If <em>child</em> is a floating reference (see <code>g_variant_ref_sink()</code>), the new instance takes ownership of <em>child</em>.</p><p>Returns: (transfer none): a floating reference to a new variant <strong>N-GObject</strong> instance</p><pre class="pod-block-code">method _g_variant_new_variant ( --&gt; N-GObject )</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/Variant.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:56Z</span></div></footer>
+	</body>
+</html>

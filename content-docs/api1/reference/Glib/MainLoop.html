@@ -1,0 +1,163 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::MainLoop</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::MainLoop">Gnome::Glib::MainLoop</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Constants">Constants</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:context">:context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-context">get-context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-running">is-running</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new_0">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#quit">quit</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#run">run</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#timeout-add">timeout-add</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#timeout-add-full">timeout-add-full</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#timeout-add-seconds">timeout-add-seconds</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#timeout-add-seconds-full">timeout-add-seconds-full</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>The Main Event Loop — manages all available sources of events</p>
+<h1 id="Description"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Description</a></h1>
+<p>Note that this is a low level module, please take a look at <strong>Gnome::Gtk3::Main</strong> first.</p><p>The main event loop manages all the available sources of events for GLib and GTK+ applications. These events can come from any number of different types of sources such as file descriptors (plain files, pipes or sockets) and timeouts.</p><p>To allow multiple independent sets of sources to be handled in different threads, each source is associated with a <em>MainContext</em>. A <em>MainContext</em> can only be running in a single thread, but sources can be added to it and removed from it from other threads. All functions which operate on a <em>MainContext</em> or a built-in N-GSource are thread-safe. Contexts are described by <strong>Gnome::Gio::MainContext</strong></p><p>Each event source is assigned a priority. The default priority, G_PRIORITY_DEFAULT, is 0. Values less than 0 denote higher priorities. Values greater than 0 denote lower priorities. Events from high priority sources are always processed before events from lower priority sources.</p><p>The <em>MainLoop</em> data type represents a main event loop. A <em>MainLoop</em> is created with <code>new()</code> or <code>new(:context)</code>. After adding the initial event sources, <code>run()</code> is called. This continuously checks for new events from each of the event sources and dispatches them. Finally, the processing of an event from one of the sources leading to a call to <code>quit()</code> will exit the main loop, and <code>run()</code> returns.</p><p>It is possible to create new instances of <em>MainLoop</em> recursively. This is often used in GTK+ applications when showing modal dialog boxes. Note that event sources are associated with a particular <em>MainContext</em>, and will be checked and dispatched for all main loops associated with that <em>MainContext</em>.</p><p>GTK+ contains wrappers of some of these functions, e.g. gtk_main(), gtk_main_quit() and gtk_events_pending().</p>
+<h1 id="Synopsis"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::MainLoop;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h1 id="Types"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="Constants"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Constants</a></h2>
+<ul>
+<li><p>G_PRIORITY_HIGH; Use this for high priority event sources. It is not used within GLib or GTK+.</p></li>
+<li><p>G_PRIORITY_DEFAULT; Use this for default priority event sources. In GLib this priority is used when adding timeout functions with g_timeout_add(). In GDK this priority is used for events from the X server.</p></li>
+<li><p>G_PRIORITY_HIGH_IDLE; Use this for high priority idle functions. GTK+ uses G_PRIORITY_HIGH_IDLE + 10 for resizing operations, and G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is done to ensure that any pending resizes are processed before any pending redraws, so that widgets are not redrawn twice unnecessarily.)</p></li>
+<li><p>G_PRIORITY_DEFAULT_IDLE; Use this for default priority idle functions. In GLib this priority is used when adding idle functions with g_idle_add().</p></li>
+<li><p>G_PRIORITY_LOW; Use this for very low priority background tasks. It is not used within GLib or GTK+.</p></li>
+<li><p>G_SOURCE_REMOVE; Use this macro as the return value of a callback handler to leave the GSource in the main loop.</p></li>
+<li><p>G_SOURCE_CONTINUE; Use this macro as the return value of a callback handler to remove the GSource from the main loop.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new Main object depending on the default context.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":context"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">:context</a></h3>
+<p>Create a new Main object depending on provided context.</p><pre class="pod-block-code">multi method new ( :context! )</pre>
+<h2 id="get-context"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">get-context</a></h2>
+<p>Returns the <strong>Gnome::Glib::MainContext</strong> of <em>loop</em>.</p><pre class="pod-block-code">method get-context ( --&gt; Gnome::Glib::MainContext )</pre>
+<h2 id="is-running"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">is-running</a></h2>
+<p>Checks to see if the main loop is currently being run via <code>run()</code>.</p><p>Returns: <code>True</code> if the mainloop is currently being run.</p><pre class="pod-block-code">method is-running ( --&gt; Bool )</pre>
+<h2 id="new_0"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">new</a></h2>
+<p>Creates a new <strong>Gnome::Glib::MainLoop</strong> structure.</p><p>Returns: a new <strong>Gnome::Glib::MainLoop</strong>.</p><pre class="pod-block-code">method new ( N-GObject $context, Int $is_running --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $context; (nullable): a <strong>Gnome::Glib::MainContext</strong> (if <code>undefined</code>, the default context will be used).</p></li>
+<li><p>Int $is_running; set to <code>True</code> to indicate that the loop is running. This is not very important since calling <code>run()</code> will set this to <code>True</code> anyway.</p></li>
+</ul>
+
+<h2 id="quit"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">quit</a></h2>
+<p>Stops a <strong>Gnome::Glib::MainLoop</strong> from running. Any calls to <code>run()</code> for the loop will return.</p><p>Note that sources that have already been dispatched when <code>quit()</code> is called will still be executed.</p><pre class="pod-block-code">method quit ( )</pre>
+<h2 id="ref"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">ref</a></h2>
+<p>Increases the reference count on a <strong>Gnome::Glib::MainLoop</strong> object by one.</p><p>Returns: <em>loop</em></p><pre class="pod-block-code">method ref ( N-GObject $loop --&gt; N-GObject )</pre><ul>
+<li><p>N-GObject $loop; a <strong>Gnome::Glib::MainLoop</strong></p></li>
+</ul>
+
+<h2 id="run"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">run</a></h2>
+<p>Runs a main loop until <code>quit()</code> is called on the loop. If this is called for the thread of the loop's <strong>Gnome::Glib::MainContext</strong>, it will process events from the loop, otherwise it will simply wait.</p><pre class="pod-block-code">method run ( )</pre>
+<h2 id="timeout-add"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">timeout-add</a></h2>
+<p>Sets a function to be called at regular intervals, with the default priority, <code>G_PRIORITY_DEFAULT</code>. The function is called repeatedly until it returns <code>G_SOURCE_REMOVE</code>, at which point the timeout is automatically destroyed and the function will not be called again. The first call to the function will be at the end of the first <em>$interval</em>.</p><p>Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given interval (it does not try to 'catch up' time lost in delays).</p><p>This internally creates a main loop source using <code>g-timeout-source-new()</code> and attaches it to the global <strong>Gnome::Glib::MainContext</strong> using <code>Gnome::Glib::Source.attach()</code>, so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context.</p><p>The interval given is in terms of monotonic time, not wall clock time. See <code>g-get-monotonic-time()</code>.</p><p>Returns: the ID (greater than 0) of the event source.</p><pre class="pod-block-code">method timeout-add (
+  UInt $interval,
+  Any:D $handler-object, Str:D $handler-name,
+  *%handler-data
+  --&gt; UInt
+)</pre><ul>
+<li><p>UInt $interval; the time between calls to the function, in milliseconds (1/1000ths of a second).</p></li>
+<li><p>$handler-object; the user object where the handler method is defined.</p></li>
+<li><p>$handler-name; the name of the method</p></li>
+<li><p>%handler-data; collection of named arguments in the call to <code>timeout-add</code>.</p></li>
+</ul>
+<p>The handler signature is simple, just accept any named argument provided in the call to <code>timeout-add()</code> and return an integer which can be one of <code>G_SOURCE_CONTINUE</code> or <code>G_SOURCE_REMOVE</code> to continue the events or to stop it respectively.</p><p>A simple example taken from the tests;</p><pre class="pod-block-code">class Timeout {
+  method tom-poes-do-something ( Str :$task, :$loop --&gt; Int ) {
+    state Int $count = 2;
+    say &quot;Tom Poes, please $task $count times&quot;;
+    if $count++ &gt;= 5 {
+      $loop.quit;
+      G_SOURCE_REMOVE
+    }
+
+    else {
+      G_SOURCE_CONTINUE
+    }
+  }
+}
+
+my Gnome::Glib::MainLoop $loop .= new;
+
+my Timeout $to .= new;
+$loop.timeout-add( 1000, $to, 'tom-poes-do-something', :task&lt;jump&gt;, :$loop);
+$loop.run;</pre><p>The method <code>tom-poes-do-something()</code> is called every 1000 ms and stops when the <code>$count</code> reaches 5. The user data is provided in <code>$task</code> and <code>$loop</code>. <code>$loop</code> is used to stop the event loop after which <code>G_SOURCE_REMOVE</code> is returned to flag that the timeout structure must be destroyed and that no more calls to the handler are expected.</p>
+<h2 id="timeout-add-full"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">timeout-add-full</a></h2>
+<p>Sets a function to be called at regular intervals, with the given priority. The function is called repeatedly until it returns <code>False</code>, at which point the timeout is automatically destroyed and the function will not be called again. The <em>notify</em> function is called when the timeout is destroyed. The first call to the function will be at the end of the first <em>interval</em>.</p><p>Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given interval (it does not try to 'catch up' time lost in delays).</p><p>See [memory management of sources][mainloop-memory-management] for details on how to handle the return value and memory management of <em>data</em>.</p><p>This internally creates a main loop source using <code>source-new()</code> and attaches it to the global <strong>Gnome::Glib::MainContext</strong> using <code>g-source-attach()</code>, so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context.</p><p>The interval given is in terms of monotonic time, not wall clock time. See <code>g-get-monotonic-time()</code>.</p><p>Returns: the ID (greater than 0) of the event source.</p><pre class="pod-block-code">method timeout-add-full (
+  Int $priority, UInt $interval, GSourceFunc $function,
+  Pointer $data, GDestroyNotify $notify
+  --&gt; UInt
+)</pre><ul>
+<li><p>Int $priority; the priority of the timeout source. Typically this will be in the range between <strong>Gnome::Glib::-PRIORITY-DEFAULT</strong> and <strong>Gnome::Glib::-PRIORITY-HIGH</strong>.</p></li>
+<li><p>UInt $interval; the time between calls to the function, in milliseconds (1/1000ths of a second)</p></li>
+<li><p>GSourceFunc $function; function to call</p></li>
+<li><p>Pointer $data; data to pass to <em>function</em></p></li>
+<li><p>GDestroyNotify $notify; function to call when the timeout is removed, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="timeout-add-seconds"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">timeout-add-seconds</a></h2>
+<p>Sets a function to be called at regular intervals with the default priority, <strong>Gnome::Glib::-PRIORITY-DEFAULT</strong>. The function is called repeatedly until it returns <code>False</code>, at which point the timeout is automatically destroyed and the function will not be called again.</p><p>This internally creates a main loop source using <code>source-new-seconds()</code> and attaches it to the main loop context using <code>g-source-attach()</code>. You can do these steps manually if you need greater control. Also see <code>g-timeout-add-seconds-full()</code>.</p><p>Note that the first call of the timer may not be precise for timeouts of one second. If you need finer precision and have such a timeout, you may want to use <code>g-timeout-add()</code> instead.</p><p>See [memory management of sources][mainloop-memory-management] for details on how to handle the return value and memory management of <em>data</em>.</p><p>The interval given is in terms of monotonic time, not wall clock time. See <code>g-get-monotonic-time()</code>.</p><p>Returns: the ID (greater than 0) of the event source.</p><pre class="pod-block-code">method timeout-add-seconds (
+  UInt $interval, GSourceFunc $function, Pointer $data
+  --&gt; UInt
+)</pre><ul>
+<li><p>UInt $interval; the time between calls to the function, in seconds</p></li>
+<li><p>GSourceFunc $function; function to call</p></li>
+<li><p>Pointer $data; data to pass to <em>function</em></p></li>
+</ul>
+
+<h2 id="timeout-add-seconds-full"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">timeout-add-seconds-full</a></h2>
+<p>Sets a function to be called at regular intervals, with <em>priority</em>. The function is called repeatedly until it returns <code>False</code>, at which point the timeout is automatically destroyed and the function will not be called again.</p><p>Unlike <code>add()</code>, this function operates at whole second granularity. The initial starting point of the timer is determined by the implementation and the implementation is expected to group multiple timers together so that they fire all at the same time. To allow this grouping, the <em>interval</em> to the first timer is rounded and can deviate up to one second from the specified interval. Subsequent timer iterations will generally run at the specified interval.</p><p>Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given <em>interval</em></p><p>See [memory management of sources][mainloop-memory-management] for details on how to handle the return value and memory management of <em>data</em>.</p><p>If you want timing more precise than whole seconds, use <code>g-timeout-add()</code> instead.</p><p>The grouping of timers to fire at the same time results in a more power and CPU efficient behavior so if your timer is in multiples of seconds and you don't require the first timer exactly one second from now, the use of <code>g-timeout-add-seconds()</code> is preferred over <code>g-timeout-add()</code>.</p><p>This internally creates a main loop source using <code>g-timeout-source-new-seconds()</code> and attaches it to the main loop context using <code>g-source-attach()</code>. You can do these steps manually if you need greater control.</p><p>The interval given is in terms of monotonic time, not wall clock time. See <code>g-get-monotonic-time()</code>.</p><p>Returns: the ID (greater than 0) of the event source.</p><pre class="pod-block-code">method timeout-add-seconds-full (
+  Int $priority, UInt $interval, GSourceFunc $function,
+  Pointer $data, GDestroyNotify $notify
+  --&gt; UInt
+)</pre><ul>
+<li><p>Int $priority; the priority of the timeout source. Typically this will be in the range between <strong>Gnome::Glib::-PRIORITY-DEFAULT</strong> and <strong>Gnome::Glib::-PRIORITY-HIGH</strong>.</p></li>
+<li><p>UInt $interval; the time between calls to the function, in seconds</p></li>
+<li><p>GSourceFunc $function; function to call</p></li>
+<li><p>Pointer $data; data to pass to <em>function</em></p></li>
+<li><p>GDestroyNotify $notify; function to call when the timeout is removed, or <code>undefined</code></p></li>
+</ul>
+
+<h2 id="unref"><a href="#Gnome::Glib::MainLoop" class="u" title="go to top of document">unref</a></h2>
+<p>Decreases the reference count on a <strong>Gnome::Glib::MainLoop</strong> object by one. If the result is zero, free the loop and free all associated memory.</p><pre class="pod-block-code">method unref ( N-GObject $loop )</pre><ul>
+<li><p>N-GObject $loop; a <strong>Gnome::Glib::MainLoop</strong></p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/MainLoop.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:53Z</span></div></footer>
+	</body>
+</html>

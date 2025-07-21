@@ -1,0 +1,200 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::Error</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::Error">Gnome::Glib::Error</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GError;">class N-GError;</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:domain,_:code,_:error-message">:domain, :code, :error-message</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_clear_error">[g_] clear_error</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#code">code</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#domain">domain</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#domain-register">domain-register</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#domain-register-static">domain-register-static</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#message">message</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#matches">matches</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prefix-error">prefix-error</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prefix-error-literal">prefix-error-literal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_propagate_error">[g_] propagate_error</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_propagate_prefixed_error">[g_] propagate_prefixed_error</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set_error">set_error</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-error-literal">set-error-literal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#_g_error_new">_g_error_new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new_literal">new_literal</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new_valist">new_valist</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>A system for reporting errors</p>
+<h1 id="Description"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Description</a></h1>
+<p>GLib provides a standard method of reporting errors from a called method to the calling code. Methods that can fail return an <code>N-GError</code> object. On error, a defined <code>N-GError</code> instance will be returned to the caller. After handling the error, the error object must be freed using <code>clear-object()</code>.</p><p>The <code>N-GError</code> object contains three fields: <em>domain</em> indicates the module the error-reporting function is located in, <em>code</em> indicates the specific error that occurred, and <em>message</em> is a user-readable error message with as many details as possible. Several functions are provided to deal with an error received from a called function: <code>matches()</code> returns <code>True</code> if the error matches a given domain and code. To display an error to the user, simply call the <code>message()</code> method, perhaps along with additional context known only to the calling function.</p><p>This class is greatly simplified because in Raku one can use Exception classes to throw any errors. It exists mainly to handle errors coming from other methods in the Gio, Glib, Gtk and Gdk libraries.</p><p>Error domains and codes are conventionally named as follows:</p><ul>
+<li><p>The error domain is called <em>NAMESPACE</em>_<em>MODULE</em>_ERROR. For instance glib file utilities uses G_FILE_ERROR.</p></li>
+<li><p>The quark function for the error domain is called &lt;namespace&gt;_&lt;module&gt;_error_quark</p></li>
+<li><p>The error codes are in an enumeration called &lt;Namespace&gt;&lt;Module&gt;Error, for example <code>GFileError</code>.</p></li>
+<li><p>Members of the error code enumeration are called &lt;NAMESPACE&gt;_&lt;MODULE&gt;_ERROR_&lt;CODE&gt;</p></li>
+<li><p>If there's a &quot;generic&quot; or &quot;unknown&quot; error code for unrecoverable errors it doesn't make sense to distinguish with specific codes, it should be called &lt;NAMESPACE&gt;_&lt;MODULE&gt;_ERROR_FAILED, for example <code>G_SPAWN_ERROR_FAILED</code>. In the case of error code enumerations that may be extended in future releases, you should generally not handle this error code explicitly, but should instead treat any unrecognized error code as equivalent to FAILED.</p></li>
+</ul>
+
+<h1 id="Synopsis"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::Error;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h2 id="Uml_Diagram"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Error.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h2 id="Example"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Example</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk3::Builder $builder .= new;
+
+# Try to read non existing file
+my Gnome::Glib::Error $e = $builder.add-from-file('x.glade');
+die $e.message if $e.is-valid;</pre>
+<h1 id="Types"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="class_N-GError;"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">class N-GError;</a></h2>
+<ul>
+<li><p>has GQuark $.domain; The set domain.</p></li>
+<li><p>has Int $.code; The set error code.</p></li>
+<li><p>has Str $.message; The error message.</p></li>
+</ul>
+
+<h1 id="Methods"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":domain,_:code,_:error-message"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">:domain, :code, :error-message</a></h3>
+<p>Create a new Error object. A domain, which is a string must be converted to an unsigned integer with one of the Quark conversion methods. See <strong>Gnome::Glib::Quark</strong>.</p><pre class="pod-block-code">multi method new ( GQuark :$domain!, Int :$code!, Str :$error-message! )</pre>
+<h3 id=":native-object"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a new Error object using an other native error object.</p><pre class="pod-block-code">multi method new ( N-GError() :$native-object! )</pre>
+<h2 id="[g_]_clear_error"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">[g_] clear_error</a></h2>
+<p>Calls <code>g_error_free()</code> on the native object and sets it to <code>Any</code>.</p><pre class="pod-block-code">method g_clear_error ( )</pre>
+<h2 id="code"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">code</a></h2>
+<p>Return the error code of the error. Returns <code>Int</code> if object is invalid.</p><pre class="pod-block-code">method code ( --&gt; Int )</pre>
+<h2 id="copy"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">copy</a></h2>
+<p>Makes a copy of the native error object.</p><pre class="pod-block-code"># create or get the error object from somewhere
+my Gnome::Glib::Error $e = …;
+
+# later on, you can copy the error if needed and create a second object
+my Gnome::Glib::Error() $e2 = $e.copy;</pre><p>Returns: a new <code>N-GError</code></p><pre class="pod-block-code">method copy ( --&gt; N-GError )</pre>
+<h2 id="domain"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">domain</a></h2>
+<p>Get the domain code from the error object. Use <code>to-string()</code> from <em>Gnome::Glib::Quark</em> to get the domain text representation of it. Returns <code>UInt</code> if object is invalid.</p><pre class="pod-block-code">method domain ( --&gt; GQuark )</pre>
+<h2 id="domain-register"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">domain-register</a></h2>
+<p>This function registers an extended <code>N-GError</code> domain. <em>$error_type_name</em> will be duplicated.</p><p><em>$error_type_init</em> receives a native initialized <strong>Gnome::Glib::Error</strong> and should then initialize the private data.</p><p><em>error_type_copy</em> is a function that receives both original and a copy <strong>Gnome::Glib::Error</strong> and should copy the fields of the private error data. The standard <strong>Gnome::Glib::Error</strong> fields are already handled.</p><p><em>$error_type_clear</em> receives the pointer to the error, and it should free the fields of the private error data. It should not free the struct itself though.</p><p>Normally, it is better to use <code>G_DEFINE_EXTENDED_ERROR()</code>, as it already takes care of passing valid information to this function.</p><p>Returns: <strong>Gnome::Glib::Quark</strong> representing the error domain</p><pre class="pod-block-code">method domain-register (
+  Str $error_type_name, UInt $error_type_private_size,
+  N-GError() $error_type_init, N-GError() $error_type_copy,
+  N-GError() $error_type_clear
+  --&gt; UInt
+)</pre><ul>
+<li><p>$error_type_name; string to create a <strong>Gnome::Glib::Quark</strong> from</p></li>
+<li><p>$error_type_private_size; size of the private error data in bytes</p></li>
+<li><p>$error_type_init; function initializing fields of the private error data</p></li>
+<li><p>$error_type_copy; function copying fields of the private error data</p></li>
+<li><p>$error_type_clear; function freeing fields of the private error data</p></li>
+</ul>
+
+<h2 id="domain-register-static"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">domain-register-static</a></h2>
+<p>This function registers an extended <strong>Gnome::Glib::Error</strong> domain.</p><p><em>error_type_name</em> should not be freed. <em>error_type_private_size</em> must be greater than 0.</p><p><em>error_type_init</em> receives an initialized <strong>Gnome::Glib::Error</strong> and should then initialize the private data.</p><p><em>error_type_copy</em> is a function that receives both original and a copy <strong>Gnome::Glib::Error</strong> and should copy the fields of the private error data. The standard <strong>Gnome::Glib::Error</strong> fields are already handled.</p><p><em>error_type_clear</em> receives the pointer to the error, and it should free the fields of the private error data. It should not free the struct itself though.</p><p>Normally, it is better to use <code>G_DEFINE_EXTENDED_ERROR()</code>, as it already takes care of passing valid information to this function.</p><p>Returns: <strong>Gnome::Glib::Quark</strong> representing the error domain</p><pre class="pod-block-code">method domain-register-static ( Str $error_type_name, UInt $error_type_private_size, N-GError $error_type_init, N-GError $error_type_copy, N-GError $error_type_clear --&gt; UInt )</pre><ul>
+<li><p>$error_type_name; static string to create a <strong>Gnome::Glib::Quark</strong> from</p></li>
+<li><p>$error_type_private_size; size of the private error data in bytes</p></li>
+<li><p>$error_type_init; function initializing fields of the private error data</p></li>
+<li><p>$error_type_copy; function copying fields of the private error data</p></li>
+<li><p>$error_type_clear; function freeing fields of the private error data</p></li>
+</ul>
+
+<h2 id="message"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">message</a></h2>
+<p>Return the error message in the error object. Returns <code>Str</code> if object is invalid.</p><pre class="pod-block-code">method message ( --&gt; Str )</pre>
+<h2 id="matches"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">matches</a></h2>
+<p>Returns <code>1</code> if Gnome::Glib::Error&gt; matches <em>$domain</em> and <em>$code</em>, <code>0</code> otherwise. In particular, when <em>error</em> is <code>Any</code>, <code>0</code> will be returned.</p><pre class="pod-block-code">method matches ( GQuark $domain, Int $code --&gt; Bool )</pre><ul>
+<li><p>$domain; an error domain</p></li>
+<li><p>$code; an error code</p></li>
+</ul>
+
+<h2 id="prefix-error"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">prefix-error</a></h2>
+<p>Formats a string according to <em>format</em> and prefix it to an existing error message. If <em>err</em> is <code>undefined</code> (ie: no error variable) then do nothing.</p><p>If *<em>err</em> is <code>undefined</code> (ie: an error variable is present but there is no error condition) then also do nothing.</p><pre class="pod-block-code">method prefix-error ( Str $format )</pre><ul>
+<li><p>$format; <code>printf()</code>-style format string @...: arguments to <em>format</em></p></li>
+<li><p>$3;</p></li>
+</ul>
+
+<h2 id="prefix-error-literal"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">prefix-error-literal</a></h2>
+<p>Prefix <code>$prefix</code> to an existing error message. This error must be a valid error to work, nothing will be done otherwise.</p><pre class="pod-block-code">method prefix_error-literal ( Str $prefix )</pre><ul>
+<li><p>$prefix; a string to prefix the error. The message of this error is modified. If you want to keep the original message, make a copy first.</p></li>
+</ul>
+
+<h2 id="[g_]_propagate_error"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">[g_] propagate_error</a></h2>
+<p>If <em>dest</em> is <code>Any</code>, free <em>src</em>; otherwise, moves <em>src</em> into <em>dest</em>. The error variable <em>dest</em> points to must be <code>Any</code>.</p><p><em>src</em> must be defined.</p><p>Note that <em>src</em> is no longer valid after this call. If you want to keep using the same GError*, you need to set it to <code>Any</code> after calling this function on it.</p><pre class="pod-block-code">method g_propagate_error ( N-GObject $src )</pre><ul>
+<li><p>N-GObject $src; (transfer full): error to move into the return location</p></li>
+</ul>
+
+<h2 id="[g_]_propagate_prefixed_error"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">[g_] propagate_prefixed_error</a></h2>
+<p>If <em>dest</em> is <code>Any</code>, free <em>src</em>; otherwise, moves <em>src</em> into *<em>dest</em>. *<em>dest</em> must be <code>Any</code>. After the move, add a prefix as with <code>g_prefix_error()</code>.</p><p>Since: 2.16</p><pre class="pod-block-code">method g_propagate_prefixed_error ( N-GObject $src, Str $format,  $4 )</pre><ul>
+<li><p>N-GObject $src; error to move into the return location</p></li>
+<li><p>Str $format; <code>printf()</code>-style format string @...: arguments to <em>format</em></p></li>
+<li><p>$4;</p></li>
+</ul>
+
+<h2 id="set_error"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">set_error</a></h2>
+<p>Does nothing if <em>err</em> is <code>Any</code>; if <em>err</em> is non-<code>Any</code>, then <em>err</em> must be <code>Any</code>. A new <code>N-GError</code> is created and assigned to <em>err</em>. <em>message</em> is like in <code>g_error_new()</code> filtered from percent characters. For these strings please use <code>g_set_error_literal()</code>.</p><pre class="pod-block-code">method g_set_error ( UInt $domain, Int $code, Str $error-message --&gt; Int)</pre><ul>
+<li><p>UInt $domain; error domain</p></li>
+<li><p>Int $code; error code</p></li>
+<li><p>Str $error-message</p></li>
+</ul>
+
+<h2 id="set-error-literal"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">set-error-literal</a></h2>
+<p>Does nothing if <em>err</em> is <code>undefined</code>; if <em>err</em> is non-<code>undefined</code>, then *<em>err</em> must be <code>undefined</code>. A new <strong>Gnome::Glib::Error</strong> is created and assigned to *<em>err</em>. Unlike <code>g_set_error()</code>, <em>message</em> is not a <code>printf()</code>-style format string. Use this function if <em>message</em> contains text you don't have control over, that could include <code>printf()</code> escape sequences.</p><pre class="pod-block-code">method set-error-literal ( GQuark $domain, Int() $code, Str $message )</pre><ul>
+<li><p>$domain; error domain</p></li>
+<li><p>$code; error code</p></li>
+<li><p>$message; error message</p></li>
+</ul>
+
+<h2 id="_g_error_new"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">_g_error_new</a></h2>
+<p>Creates a new <code>N-GError</code> with the given <em>domain</em>, <em>code</em> and a <em>error-message</em>. Originally the message is a printf like string followed with variables to be substituted in the format string. This can be easily solved in Raku and is therefore simplified here. A warning; every percent character is substituted with the text 'percent-filtered-out' to prevent crashes in the C function. If needed please use <code>g_error_new_literal()</code>.</p><p>Returns: a new <code>N-GError</code></p><pre class="pod-block-code">method g_error_new ( UInt $domain, Int $code, Str $format --&gt; N-GError)</pre><ul>
+<li><p>N-GObject $domain; error domain</p></li>
+<li><p>Int $code; error code</p></li>
+<li><p>Str $error-message; the message</p></li>
+</ul>
+
+<h2 id="new_literal"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">new_literal</a></h2>
+<p>Creates a new <code>N-GError</code>.</p><pre class="pod-block-code">method g_error_new_literal (
+  UInt $domain, Int $code, Str $message --&gt; N-GError
+)</pre><ul>
+<li><p>UInt $domain; error domain</p></li>
+<li><p>Int $code; error code</p></li>
+<li><p>Str $message; error message</p></li>
+</ul>
+
+<h2 id="new_valist"><a href="#Gnome::Glib::Error" class="u" title="go to top of document">new_valist</a></h2>
+<p>Creates a new <code>N-GError</code> with the given <em>domain</em> and <em>code</em>, and a message formatted with <em>format</em>.</p><p>Returns: a new <code>N-GError</code></p><pre class="pod-block-code">method new_valist (
+  N-GObject $domain, Int $code, Str $format,
+  $va_list args G_GNUC_PRINTF3,  $0 --&gt; N-GObject
+)</pre><ul>
+<li><p>N-GObject $domain; error domain</p></li>
+<li><p>Int $code; error code</p></li>
+<li><p>Str $format; <code>printf()</code>-style format for error message</p></li>
+<li><p>$va_list args G_GNUC_PRINTF3; <code>va_list</code> of parameters for the message format</p></li>
+<li><p>$0;</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/Error.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:51Z</span></div></footer>
+	</body>
+</html>

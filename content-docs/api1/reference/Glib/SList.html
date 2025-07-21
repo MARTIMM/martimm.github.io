@@ -1,0 +1,119 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Glib::SList</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Glib::SList">Gnome::Glib::SList</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Synopsis">Synopsis</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Types">Types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#class_N-GSList">class N-GSList</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#default,_no_options">default, no options</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_free">[g_] slist_free</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_reverse">[g_] slist_reverse</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_copy">[g_] slist_copy</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_nth">[g_] slist_nth</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_last">[g_] slist_last</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[g_]_slist_length">[g_] slist_length</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#[[g_]_slist_]_nth_data">[[g_] slist_] nth_data</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top"><p>Linked lists that can be iterated in one direction</p>
+<h1 id="Description"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Description</a></h1>
+<p>The <code>N-GSList</code> structure and its associated functions provide a standard singly-linked list data structure.</p><p>Each element in the list contains a piece of data, together with a pointer which links to the next element in the list. Using this pointer it is possible to move through the list in one direction only (unlike the double-linked lists, which allow movement in both directions).</p><p>Note that most of the <code>N-GSList</code> functions expect to be passed a pointer to the first element in the list. The functions which insert elements set the new start of the list, which may have changed.</p><p>To free the entire list, use <code>clear-gslist()</code>.</p><p>Many methods are not needed in simple Raku use. Most of the time you get a list from a method to process. For example, retrieving information from a widget path, See the example below.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/SList.svg" width="60%" height="auto" alt="No caption"></div>
+
+<h1 id="Synopsis"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Synopsis</a></h1>
+
+<h2 id="Declaration"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Declaration</a></h2>
+<pre class="pod-block-code">unit class Gnome::Glib::SList;
+also is Gnome::N::TopLevelClassSupport;</pre>
+<h2 id="Example"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Example</a></h2>
+<p>This example shows how to get and show some information from a widget path.</p><pre class="pod-block-code"># Build a gui; a button in a grid
+my Gnome::Gtk3::Window $w .= new;
+$w.set-name('top-level-window');
+
+my Gnome::Gtk3::Grid $g .= new();
+$w.add($g);
+
+my Gnome::Gtk3::Button $b1 .= new(:label&lt;Start&gt;);
+$g.grid-attach( $b1, 0, 0, 1, 1);
+
+# Get class names of the button in the widget path
+my Gnome::Gtk3::WidgetPath $wp .= new(:native-object($b1.get-path));
+my Gnome::Glib::SList $l .= new(:native-object($wp.iter-list-classes(2)));
+is $l.slist-length, 1, 'list contains one class';
+is $l.nth-data-str(0), 'text-button', &quot;class is a 'text-button'&quot;;</pre>
+<h1 id="Types"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Types</a></h1>
+
+<h2 id="class_N-GSList"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">class N-GSList</a></h2>
+<p>Structure to create a single linked list. This native object is stored here to prevent circular dependencies.</p>
+<h1 id="Methods"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">new</a></h2>
+
+<h3 id="default,_no_options"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">default, no options</a></h3>
+<p>Create a new plain object.</p><pre class="pod-block-code">multi method new ( )</pre>
+<h3 id=":native-object"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from elsewhere.</p><pre class="pod-block-code">multi method new ( N-GSList :$native-object! )</pre>
+<h2 id="[g_]_slist_free"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_free</a></h2>
+<p>Frees all of the memory used by a <code>N-GSList</code>. The freed elements are returned to the slice allocator.</p><p>If list elements contain dynamically-allocated memory, you should either use <code>g_slist_free_full()</code> or free them manually first.</p><pre class="pod-block-code">method g_slist_free ( N-GSList $list )</pre><ul>
+<li><p>N-GObject $list; a <code>N-GSList</code></p></li>
+</ul>
+
+<h2 id="[g_]_slist_reverse"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_reverse</a></h2>
+<p>Reverses a <code>N-GSList</code>.</p><p>Returns: the start of the reversed <code>N-GSList</code></p><pre class="pod-block-code">method g_slist_reverse ( N-GSList $list --&gt; N-GSList  )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+</ul>
+
+<h2 id="[g_]_slist_copy"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_copy</a></h2>
+<p>Copies a <code>N-GSList</code>.</p><p>Note that this is a &quot;shallow&quot; copy. If the list elements consist of pointers to data, the pointers are copied but the actual data isn't. See <code>g_slist_copy_deep()</code> if you need to copy the data as well.</p><p>Returns: a copy of <em>list</em></p><pre class="pod-block-code">method g_slist_copy ( N-GSList $list --&gt; N-GSList  )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+</ul>
+
+<h2 id="[g_]_slist_nth"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_nth</a></h2>
+<p>Gets the element at the given position in a <code>N-GSList</code>.</p><p>Returns: the element, or undefined if the position is off the end of the <code>N-GSList</code></p><pre class="pod-block-code">method g_slist_nth ( N-GSList $list, UInt $n --&gt; N-GSList  )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+<li><p>UInt $n; the position of the element, counting from 0</p></li>
+</ul>
+
+<h2 id="[g_]_slist_last"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_last</a></h2>
+<p>Gets the last element in a <code>N-GSList</code>.</p><p>This function iterates over the whole list.</p><p>Returns: the last element in the <code>N-GSList</code>, or <code>Any</code> if the <code>N-GSList</code> has no elements</p><pre class="pod-block-code">method g_slist_last ( N-GSList $list --&gt; N-GSList )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+</ul>
+
+<h2 id="[g_]_slist_length"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[g_] slist_length</a></h2>
+<p>Gets the number of elements in a <code>N-GSList</code>.</p><p>This function iterates over the whole list to count its elements. To check whether the list is non-empty, it is faster to check <em>list</em> against an undefined native slist.</p><p>Returns: the number of elements in the <code>N-GSList</code></p><pre class="pod-block-code">method g_slist_length ( N-GSList $list --&gt; UInt  )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+</ul>
+
+<h2 id="[[g_]_slist_]_nth_data"><a href="#Gnome::Glib::SList" class="u" title="go to top of document">[[g_] slist_] nth_data</a></h2>
+<p>Gets the data of the element at the given position.</p><p>Returns: the element's data, or <code>Any</code> if the position is off the end of the <code>N-GSList</code>. Extra methods are added to return specific types of data.</p><pre class="pod-block-code">method g_slist_nth_data ( N-GSList $list, UInt $n --&gt; Pointer )
+method g_slist_nth_data_str ( N-GSList $list, UInt $n --&gt; Str )
+method g_slist_nth_data_gobject ( N-GSList $list, UInt $n --&gt; N-GObject )</pre><ul>
+<li><p>N-GSList $list; a <code>N-GSList</code></p></li>
+<li><p>UInt $n; the position of the element</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-api1/gnome-glib/lib/Gnome/Glib/SList.rakumod</span></div><div>at <span class="time">2025-07-20T17:01:54Z</span></div></footer>
+	</body>
+</html>
