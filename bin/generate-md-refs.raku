@@ -32,6 +32,8 @@ my Hash $source-paths = %(
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
   :GioApi1(PROJECTS ~ API1S ~ 'gnome-gio/lib/Gnome/Gio/'),
+  :GlibApi1(PROJECTS ~ API1S ~ 'gnome-glib/lib/Gnome/Glib/'),
+  :GObjApi1(PROJECTS ~ API1S ~ 'gnome-gobject/lib/Gnome/GObject/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -46,6 +48,8 @@ my Hash $destination-paths = %(
   :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
   :GioApi1(PROJECTS ~ API1D ~ 'Gio/'),
+  :GlibApi1(PROJECTS ~ API1D ~ 'Glib/'),
+  :GObjApi1(PROJECTS ~ API1D ~ 'GObject/'),
 
   :xmas(PROJECTS ~ XMASD),
 );
@@ -60,6 +64,8 @@ my Hash $sidebar-paths = %(
   :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
   :Gdk3Api1(REFS ~ 'api1-ref-gdk3-sidebar.yml'),
   :GioApi1(REFS ~ 'api1-ref-gio-sidebar.yml'),
+  :GlibApi1(REFS ~ 'api1-ref-glib-sidebar.yml'),
+  :GObjectApi1(REFS ~ 'api1-ref-gobject-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
