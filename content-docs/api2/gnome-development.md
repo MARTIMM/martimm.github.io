@@ -1,8 +1,8 @@
 ---
-title: Gnome api1 and api2 history and development
-nav_menu: default-nav
+title: Gnome Gtk api 2
 layout: sidebar
-#sidebar_menu: home-sidebar
+nav_menu: default-nav
+sidebar_menu: api2-sidebar
 ---
 # Introduction
 
