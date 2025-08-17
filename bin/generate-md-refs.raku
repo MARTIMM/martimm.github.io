@@ -330,7 +330,7 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
     $contents ~~ s:g/ '=' end \s pod .*? '=' begin \s pod
                     /=end pod\n=begin pod/;
 
-    # Also from begin of program to first '=begin pod' and
+    # Also from begin of program to first '=begin pod' (seems to work without)
 #    $contents ~~ s/^ .*? '=' begin \s pod/=begin pod\n/;
 
     # from last '=end pod' to end of program.
@@ -368,6 +368,33 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
                     /$md-ref/;
     }
   }
+
+  elsif $file ~~ m/ 'gnome-api2' / {
+    # Turn all B<Gnome::*::*> into link references of other classes
+    while $contents ~~ m/ 'B<' $<class> = ['Gnome::' <-[\>]>* ] '>' / {
+note "$?LINE $/<class>.Str()";
+      my $classname = $/<class>.Str;
+      my Str ( $, $pack, $class ) = $classname.split('::');
+      my Str $target =
+        [~] '/content-docs/api2/reference/', $pack, '/', $class;
+
+note "$?LINE $pack, $class, $target";
+      # Check if document exists or the target points to this doc
+      if ".$target.html".IO !~~ :r or $file ~~ m/ $class '.rakudoc' $/ {
+        $contents ~~ s/ 'B<' 'Gnome::' $pack '::' $class '>'
+                      /____\<$classname\>/;
+      }
+
+      else {
+        $contents ~~ s/ 'B<' 'Gnome::' $pack '::' $class '>'
+                      /U<L<$class|$target>>/;
+      }
+    }
+
+    # Translate back any unreferenced urls
+    $contents ~~ s:g/ '____<' /B\</;
+  }
+
 
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
   my Proc $p = shell "cat > /tmp/mod-doc.txt", :in;
