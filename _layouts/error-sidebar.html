@@ -1,0 +1,55 @@
+---
+---
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!--    {% assign url = site.baseurl | append: "/favicon.ico" %} -->
+    {% assign url = "/favicon.ico" %}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url }}" />
+    {% assign url = site.baseurl | append: "/assets/css/style.css" %}
+    <link rel="stylesheet" href="{{ url }}">
+    {% assign url = site.baseurl | append: "/assets/css/print.css" %}
+    <link rel="stylesheet" type="text/css" href="{{ url }}" media="print">
+
+    <title>{{ page.title }}</title>
+  </head>
+  
+  <body>
+    <div id="container">
+      <div class="inner">
+      
+        {% include header-section.html %}
+        
+        <div id="reference-container">
+          <div id="sidebar-container">
+            {% include sidebar-section.html %}
+          </div>
+          <!--
+            {{site.url}}/{{page.url}}
+            <iframe id="reference-content" src="{{site.url}}/{{page.url}}">
+              
+            </iframe>
+          -->
+          <div id="reference-content">
+            {{content}}
+            <script>
+              //window.location.pathname = '/404/'+window.location.pathname
+              var basename = window.location.pathname.split('/').reverse()[0];
+              console.log(basename);
+              var y = document.createTextNode(
+                basename.replace(/"html" $/,"")
+              );
+              console.log(y);
+
+              var t = document.getElementById("p");
+              console.log(t);
+              t.appendChild(y);
+            </script>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
