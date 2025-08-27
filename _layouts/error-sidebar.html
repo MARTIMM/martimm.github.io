@@ -37,16 +37,20 @@
             {{content}}
             <script>
               //window.location.pathname = '/404/'+window.location.pathname
-              var basename = window.location.pathname.split('/').reverse()[0];
-              console.log(basename);
-              var y = document.createTextNode(
-                basename.replace(/"html" $/,"")
-              );
-              console.log(y);
+              var url = window.location.pathname;
+              var basename = url.split('/').reverse()[0];
+              basename = basename.replace( ".html", "");
+              var y = document.createTextNode(basename);
 
-              var t = document.getElementById("p");
-              console.log(t);
+              var t = document.getElementById("s");
               t.appendChild(y);
+              if ( url.includes("/reference/") ) {
+                t = document.getElementById("p");
+                t.appendChild(document.createTextNode(
+                  " This probably means that the document and the Raku module is not generated and maybe never will, because it is not needed (?)."
+                  )
+                );
+              }
             </script>
           </div>
         </div>
