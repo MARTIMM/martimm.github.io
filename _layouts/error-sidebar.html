@@ -39,17 +39,41 @@
               //window.location.pathname = '/404/'+window.location.pathname
               var url = window.location.pathname;
               var basename = url.split('/').reverse()[0];
-              basename = basename.replace( ".html", "");
               var y = document.createTextNode(basename);
-
+              
               var t = document.getElementById("s");
-              t.appendChild(y);
+              
+              if ( url.includes("/reference/") ) {
+                var text = "module documentation for ";
+                t.appendChild(document.createTextNode(text));
+                basename = basename.replace( ".html", "");
+                t.appendChild(document.createTextNode(basename));
+              }
+
+              else {
+                var text = "page ";
+                t.appendChild(document.createTextNode(text));
+                t.appendChild(document.createTextNode(basename));
+              }
+
               if ( url.includes("/reference/") ) {
                 t = document.getElementById("p");
-                t.appendChild(document.createTextNode(
-                  " This probably means that the document and the Raku module is not generated and maybe never will, because it is not needed (?)."
-                  )
-                );
+                var text = " This probably means that;";
+                t.appendChild(document.createTextNode(text));
+                var ddnode = document.createElement("dd");
+                t.appendChild(ddnode);
+                var linode = document.createElement("li");
+                ddnode.appendChild(linode);
+                text = "The document and the Raku module is not generated.";
+                linode.appendChild(document.createTextNode(text));
+                
+                linode = document.createElement("li");
+                ddnode.appendChild(linode);
+                text = "Or the Raku module exists but there is no documentation of it yet.";
+                linode.appendChild(document.createTextNode(text));
+                
+                text = "When the module nor documentation exists, it is possible that the module and its documentation will not be generated, because Raku has the tools for it or the module is in a sort of niche.";
+                t.appendChild(document.createTextNode(text));
               }
             </script>
           </div>
