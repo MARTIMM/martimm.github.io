@@ -203,6 +203,7 @@ sub generate-sidebar( Str $key ) {
     }
   }
 
+  # Make sidebar and fill with references of all found html files
   for $destination-path.IO.dir.sort -> $url is copy {
     next if $url.Str !~~ m/ \. html $/;
     next if $url.Str ~~ /'index.html' $/;
@@ -368,33 +369,6 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
                     /$md-ref/;
     }
   }
-
-  elsif $file ~~ m/ 'gnome-api2' / {
-    # Turn all B<Gnome::*::*> into link references of other classes
-    while $contents ~~ m/ 'B<' $<class> = ['Gnome::' <-[\>]>* ] '>' / {
-note "$?LINE $/<class>.Str()";
-      my $classname = $/<class>.Str;
-      my Str ( $, $pack, $class ) = $classname.split('::');
-      my Str $target =
-        [~] '/content-docs/api2/reference/', $pack, '/', $class;
-
-note "$?LINE $pack, $class, $target";
-      # Check if document exists or the target points to this doc
-      if ".$target.html".IO !~~ :r or $file ~~ m/ $class '.rakudoc' $/ {
-        $contents ~~ s/ 'B<' 'Gnome::' $pack '::' $class '>'
-                      /____\<$classname\>/;
-      }
-
-      else {
-        $contents ~~ s/ 'B<' 'Gnome::' $pack '::' $class '>'
-                      /U<L<$class|$target>>/;
-      }
-    }
-
-    # Translate back any unreferenced urls
-    $contents ~~ s:g/ '____<' /B\</;
-  }
-
 
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
   my Proc $p = shell "cat > /tmp/mod-doc.txt", :in;
