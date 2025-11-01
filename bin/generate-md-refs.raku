@@ -71,9 +71,8 @@ my Hash $sidebar-paths = %(
 #-------------------------------------------------------------------------------
 # e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
 #      generate-md-refs.raku Gtk4Api2
-sub MAIN (
-  Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False
-) {
+sub MAIN ( Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False ) {
+
   # Go to Githup Pages root dir
   chdir('./content-docs');
 
