@@ -16,15 +16,15 @@
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::T-listbox">Gnome::Gtk4::T-listbox</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Callback_Functions">Callback Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxSortFunc">ListBoxSortFunc</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Signature">Signature</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxFilterFunc">ListBoxFilterFunc</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Signature_0">Signature</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxUpdateHeaderFunc">ListBoxUpdateHeaderFunc</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Signaturf">Signature</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxForeachFunc">ListBoxForeachFunc</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Signaturg">Signature</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxCreateWidgetFunc">ListBoxCreateWidgetFunc</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Signature">Signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxForeachFunc">ListBoxForeachFunc</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Signature_0">Signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxFilterFunc">ListBoxFilterFunc</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Signaturf">Signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxUpdateHeaderFunc">ListBoxUpdateHeaderFunc</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Signaturg">Signature</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#ListBoxSortFunc">ListBoxSortFunc</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#Signaturh">Signature</a></td></tr>
 </table></div>
 </nav><div id=""></div><div class="pod-body">
@@ -32,19 +32,28 @@
 <section name="pod">
 <h1 id="Callback_Functions"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Callback Functions</a></h1>
 
-<h2 id="ListBoxSortFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxSortFunc</a></h2>
+<h2 id="ListBoxCreateWidgetFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxCreateWidgetFunc</a></h2>
 
 <h3 id="Signature"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
-<pre class="pod-block-code">:(  N-Object() $row1, N-Object() $row2, gpointer $user-data  )
+<pre class="pod-block-code">:(  gpointer $item, gpointer $user-data  )
 </pre><ul>
-<li><p>$row1; the first row</p></li>
-<li><p>$row2; the second row</p></li>
+<li><p>$item; the item from the model for which to create a widget for</p></li>
+<li><p>$user-data; user data</p></li>
+</ul>
+
+<h2 id="ListBoxForeachFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxForeachFunc</a></h2>
+
+<h3 id="Signature_0"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
+<pre class="pod-block-code">:(  N-Object() $box, N-Object() $row, gpointer $user-data  )
+</pre><ul>
+<li><p>$box; a <strong>Gnome::Gtk4::ListBox</strong></p></li>
+<li><p>$row; a <a href="/content-docs/api2/reference/Gtk4/ListBoxRow.html">Gnome::Gtk4::ListBoxRow</a></p></li>
 <li><p>$user-data; user data</p></li>
 </ul>
 
 <h2 id="ListBoxFilterFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxFilterFunc</a></h2>
 
-<h3 id="Signature_0"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
+<h3 id="Signaturf"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
 <pre class="pod-block-code">:(  N-Object() $row, gpointer $user-data  )
 </pre><ul>
 <li><p>$row; the row that may be filtered</p></li>
@@ -53,7 +62,7 @@
 
 <h2 id="ListBoxUpdateHeaderFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxUpdateHeaderFunc</a></h2>
 
-<h3 id="Signaturf"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
+<h3 id="Signaturg"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
 <pre class="pod-block-code">:(  N-Object() $row, N-Object() $before, gpointer $user-data  )
 </pre><ul>
 <li><p>$row; the row to update</p></li>
@@ -61,25 +70,16 @@
 <li><p>$user-data; user data</p></li>
 </ul>
 
-<h2 id="ListBoxForeachFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxForeachFunc</a></h2>
-
-<h3 id="Signaturg"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
-<pre class="pod-block-code">:(  N-Object() $box, N-Object() $row, gpointer $user-data  )
-</pre><ul>
-<li><p>$box; a <strong>Gnome::Gtk4::ListBox</strong></p></li>
-<li><p>$row; a <strong>Gnome::Gtk4::ListBoxRow</strong></p></li>
-<li><p>$user-data; user data</p></li>
-</ul>
-
-<h2 id="ListBoxCreateWidgetFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxCreateWidgetFunc</a></h2>
+<h2 id="ListBoxSortFunc"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">ListBoxSortFunc</a></h2>
 
 <h3 id="Signaturh"><a href="#Gnome::Gtk4::T-listbox" class="u" title="go to top of document">Signature</a></h3>
-<pre class="pod-block-code">:(  gpointer $item, gpointer $user-data  )
+<pre class="pod-block-code">:(  N-Object() $row1, N-Object() $row2, gpointer $user-data  )
 </pre><ul>
-<li><p>$item; the item from the model for which to create a widget for</p></li>
+<li><p>$row1; the first row</p></li>
+<li><p>$row2; the second row</p></li>
 <li><p>$user-data; user data</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/T-listbox.rakudoc</span></div><div>at <span class="time">2025-04-21T13:06:39Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/T-listbox.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:45Z</span></div></footer>
 	</body>
 </html>
