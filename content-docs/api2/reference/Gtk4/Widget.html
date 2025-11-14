@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
@@ -27,7 +27,7 @@
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#action-set-enabled">action-set-enabled</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#activate">activate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#activate-action_This_function_is_not_yet_available">activate-action This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#activate-action">activate-action</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#activate-action-variant">activate-action-variant</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#activate-default">activate-default</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#add-controller">add-controller</a></td></tr>
@@ -49,7 +49,7 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-allocated-baseline">get-allocated-baseline</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-allocated-height">get-allocated-height</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-allocated-width">get-allocated-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-allocation_This_function_is_not_yet_available">get-allocation This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-allocation">get-allocation</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-ancestor">get-ancestor</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-baseline">get-baseline</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-can-focus">get-can-focus</a></td></tr>
@@ -179,7 +179,7 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible">set-visible</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#should-layout">should-layout</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#show">show</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#size-allocate_This_function_is_not_yet_available">size-allocate This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#size-allocate">size-allocate</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#snapshot-child">snapshot-child</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#translate-coordinates">translate-coordinates</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#trigger-tooltip-query">trigger-tooltip-query</a></td></tr>
@@ -214,11 +214,11 @@
 <li><p>[vfunc <code>$Gtk</code>.Widget.get_request_mode]</p></li>
 <li><p>[vfunc <code>$Gtk</code>.Widget.measure]</p></li>
 </ul>
-<p>There are some important things to keep in mind when implementing height-for-width and when using it in widget implementations.</p><p>If you implement a direct <strong>Gnome::Gtk4::Widget</strong> subclass that supports height-for-width or width-for-height geometry management for itself or its child widgets, the [vfunc <code>$Gtk</code>.Widget.get_request_mode] virtual function must be implemented as well and return the widget's preferred request mode. The default implementation of this virtual function returns <code>GTK_SIZE_REQUEST_CONSTANT_SIZE</code>, which means that the widget will only ever get -1 passed as the for_size value to its [vfunc <code>$Gtk</code>.Widget.measure] implementation.</p><p>The geometry management system will query a widget hierarchy in only one orientation at a time. When widgets are initially queried for their minimum sizes it is generally done in two initial passes in the enumeration <code>SizeRequestMode</code> from <code>Gnome::Gtk4::T-enums</code> chosen by the toplevel.</p><p>For example, when queried in the normal <code>GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH</code> mode:</p><p>First, the default minimum and natural width for each widget in the interface will be computed using <code>.measure()</code>] with an orientation of <code>GTK_ORIENTATION_HORIZONTAL</code> and a for_size of -1. Because the preferred widths for each widget depend on the preferred widths of their children, this information propagates up the hierarchy, and finally a minimum and natural width is determined for the entire toplevel. Next, the toplevel will use the minimum width to query for the minimum height contextual to that width using <code>.measure()</code>] with an orientation of <code>GTK_ORIENTATION_VERTICAL</code> and a for_size of the just computed width. This will also be a highly recursive operation. The minimum height for the minimum width is normally used to set the minimum size constraint on the toplevel.</p><p>After the toplevel window has initially requested its size in both dimensions it can go on to allocate itself a reasonable size (or a size previously specified with <code>.set-default-size()</code> in class <strong>Gnome::Gtk4::Window</strong>]). During the recursive allocation process it’s important to note that request cycles will be recursively executed while widgets allocate their children. Each widget, once allocated a size, will go on to first share the space in one orientation among its children and then request each child's height for its target allocated width or its width for allocated height, depending. In this way a <strong>Gnome::Gtk4::Widget</strong> will typically be requested its size a number of times before actually being allocated a size. The size a widget is finally allocated can of course differ from the size it has requested. For this reason, <strong>Gnome::Gtk4::Widget</strong> caches a small number of results to avoid re-querying for the same sizes in one allocation cycle.</p><p>If a widget does move content around to intelligently use up the allocated size then it must support the request in both <code>enumeration GtkSizeRequestMode defined in Gnome::Gtk4::T-enums</code>s even if the widget in question only trades sizes in a single orientation.</p><p>For instance, a <strong>Gnome::Gtk4::Label</strong> that does height-for-width word wrapping will not expect to have [vfunc <code>$Gtk</code>.Widget.measure] with an orientation of <code>GTK_ORIENTATION_VERTICAL</code> called because that call is specific to a width-for-height request. In this case the label must return the height required for its own minimum possible width. By following this rule any widget that handles height-for-width or width-for-height requests will always be allocated at least enough space to fit its own content.</p><p>Here are some examples of how a <code>GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH</code> widget generally deals with width-for-height requests:</p><p>Often a widget needs to get its own request during size request or allocation. For example, when computing height it may need to also compute width. Or when deciding how to use an allocation, the widget may need to know its natural size. In these cases, the widget should be careful to call its virtual methods directly, like in the code example above.</p><p>It will not work to use the wrapper function <code>.measure()</code>] inside your own [vfunc <code>$Gtk</code>.Widget.size_allocate] implementation. These return a request adjusted by <strong>Gnome::Gtk4::SizeGroup</strong>, the widget's align and expand flags, as well as its CSS style.</p><p>If a widget used the wrappers inside its virtual method implementations, then the adjustments (such as widget margins) would be applied twice. GTK therefore does not allow this and will warn if you try to do it.</p><p>Of course if you are getting the size request for another widget, such as a child widget, you must use <code>.measure()</code>]; otherwise, you would not properly consider widget margins, <strong>Gnome::Gtk4::SizeGroup</strong>, and so forth.</p><p>GTK also supports baseline vertical alignment of widgets. This means that widgets are positioned such that the typographical baseline of widgets in the same row are aligned. This happens if a widget supports baselines, has a vertical alignment using baselines, and is inside a widget that supports baselines and has a natural “row” that it aligns to the baseline, or a baseline assigned to it by the grandparent.</p><p>Baseline alignment support for a widget is also done by the [vfunc <code>$Gtk</code>.Widget.measure] virtual function. It allows you to report both a minimum and natural size.</p><p>If a widget ends up baseline aligned it will be allocated all the space in the parent as if it was <code>GTK_ALIGN_FILL</code>, but the selected baseline can be found via <code>.get-baseline()</code>]. If the baseline has a value other than -1 you need to align the widget such that the baseline appears at the position.</p>
+<p>There are some important things to keep in mind when implementing height-for-width and when using it in widget implementations.</p><p>If you implement a direct <strong>Gnome::Gtk4::Widget</strong> subclass that supports height-for-width or width-for-height geometry management for itself or its child widgets, the [vfunc <code>$Gtk</code>.Widget.get_request_mode] virtual function must be implemented as well and return the widget's preferred request mode. The default implementation of this virtual function returns <code>GTK_SIZE_REQUEST_CONSTANT_SIZE</code>, which means that the widget will only ever get -1 passed as the for_size value to its [vfunc <code>$Gtk</code>.Widget.measure] implementation.</p><p>The geometry management system will query a widget hierarchy in only one orientation at a time. When widgets are initially queried for their minimum sizes it is generally done in two initial passes in the enumeration <code>SizeRequestMode</code> from <code>Gnome::Gtk4::T-enums</code> chosen by the toplevel.</p><p>For example, when queried in the normal <code>GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH</code> mode:</p><p>First, the default minimum and natural width for each widget in the interface will be computed using <a href="#measure">.measure()</a> with an orientation of <code>GTK_ORIENTATION_HORIZONTAL</code> and a for_size of -1. Because the preferred widths for each widget depend on the preferred widths of their children, this information propagates up the hierarchy, and finally a minimum and natural width is determined for the entire toplevel. Next, the toplevel will use the minimum width to query for the minimum height contextual to that width using <a href="#measure">.measure()</a> with an orientation of <code>GTK_ORIENTATION_VERTICAL</code> and a for_size of the just computed width. This will also be a highly recursive operation. The minimum height for the minimum width is normally used to set the minimum size constraint on the toplevel.</p><p>After the toplevel window has initially requested its size in both dimensions it can go on to allocate itself a reasonable size (or a size previously specified with <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-default-size">.set-default-size() in class Gnome</a>). During the recursive allocation process it’s important to note that request cycles will be recursively executed while widgets allocate their children. Each widget, once allocated a size, will go on to first share the space in one orientation among its children and then request each child's height for its target allocated width or its width for allocated height, depending. In this way a <strong>Gnome::Gtk4::Widget</strong> will typically be requested its size a number of times before actually being allocated a size. The size a widget is finally allocated can of course differ from the size it has requested. For this reason, <strong>Gnome::Gtk4::Widget</strong> caches a small number of results to avoid re-querying for the same sizes in one allocation cycle.</p><p>If a widget does move content around to intelligently use up the allocated size then it must support the request in both <code>enumeration GtkSizeRequestMode defined in Gnome::Gtk4::T-enums</code>s even if the widget in question only trades sizes in a single orientation.</p><p>For instance, a <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Label</a> that does height-for-width word wrapping will not expect to have [vfunc <code>$Gtk</code>.Widget.measure] with an orientation of <code>GTK_ORIENTATION_VERTICAL</code> called because that call is specific to a width-for-height request. In this case the label must return the height required for its own minimum possible width. By following this rule any widget that handles height-for-width or width-for-height requests will always be allocated at least enough space to fit its own content.</p><p>Here are some examples of how a <code>GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH</code> widget generally deals with width-for-height requests:</p><p>Often a widget needs to get its own request during size request or allocation. For example, when computing height it may need to also compute width. Or when deciding how to use an allocation, the widget may need to know its natural size. In these cases, the widget should be careful to call its virtual methods directly, like in the code example above.</p><p>It will not work to use the wrapper function <a href="#measure">.measure()</a> inside your own [vfunc <code>$Gtk</code>.Widget.size_allocate] implementation. These return a request adjusted by <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::SizeGroup</a>, the widget's align and expand flags, as well as its CSS style.</p><p>If a widget used the wrappers inside its virtual method implementations, then the adjustments (such as widget margins) would be applied twice. GTK therefore does not allow this and will warn if you try to do it.</p><p>Of course if you are getting the size request for another widget, such as a child widget, you must use <a href="#measure">.measure()</a>; otherwise, you would not properly consider widget margins, <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::SizeGroup</a>, and so forth.</p><p>GTK also supports baseline vertical alignment of widgets. This means that widgets are positioned such that the typographical baseline of widgets in the same row are aligned. This happens if a widget supports baselines, has a vertical alignment using baselines, and is inside a widget that supports baselines and has a natural “row” that it aligns to the baseline, or a baseline assigned to it by the grandparent.</p><p>Baseline alignment support for a widget is also done by the [vfunc <code>$Gtk</code>.Widget.measure] virtual function. It allows you to report both a minimum and natural size.</p><p>If a widget ends up baseline aligned it will be allocated all the space in the parent as if it was <code>GTK_ALIGN_FILL</code>, but the selected baseline can be found via <a href="#get-baseline">.get-baseline()</a>. If the baseline has a value other than -1 you need to align the widget such that the baseline appears at the position.</p>
 <h4 id="GtkWidget_as_GtkBuildable"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">GtkWidget as GtkBuildable</a></h4>
-<p>The <strong>Gnome::Gtk4::Widget</strong> implementation of the <strong>Gnome::Gtk4::R-Buildable</strong> interface supports various custom elements to specify additional aspects of widgets that are not directly expressed as properties.</p><p>If the widget uses a <strong>Gnome::Gtk4::LayoutManager</strong>, <strong>Gnome::Gtk4::Widget</strong> supports a custom `&lt;layout&gt;` element, used to define layout properties:</p><p><strong>Gnome::Gtk4::Widget</strong> allows style information such as style classes to be associated with widgets, using the custom `&lt;style&gt;` element:</p><p><strong>Gnome::Gtk4::Widget</strong> allows defining accessibility information, such as properties, relations, and states, using the custom `&lt;accessibility&gt;` element:</p>
+<p>The <strong>Gnome::Gtk4::Widget</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports various custom elements to specify additional aspects of widgets that are not directly expressed as properties.</p><p>If the widget uses a <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::LayoutManager</a>, <strong>Gnome::Gtk4::Widget</strong> supports a custom `&lt;layout&gt;` element, used to define layout properties:</p><p><strong>Gnome::Gtk4::Widget</strong> allows style information such as style classes to be associated with widgets, using the custom `&lt;style&gt;` element:</p><p><strong>Gnome::Gtk4::Widget</strong> allows defining accessibility information, such as properties, relations, and states, using the custom `&lt;accessibility&gt;` element:</p>
 <h4 id="Building_composite_widgets_from_template_XML"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">Building composite widgets from template XML</a></h4>
-<p><strong>Gnome::Gtk4::Widget</strong> <strong>exposes</strong> some facilities to automate the procedure of creating composite widgets using &quot;templates&quot;.</p><p>To create composite widgets with <strong>Gnome::Gtk4::Builder</strong> XML, one must associate the interface description with the widget class at class initialization time using <code>.set-template()</code> in class <strong>Gnome::Gtk4::Widget</strong>].</p><p>The interface description semantics expected in composite template descriptions is slightly different from regular <strong>Gnome::Gtk4::Builder</strong> XML.</p><p>Unlike regular interface descriptions, <code>.set-template()</code> in class <strong>Gnome::Gtk4::Widget</strong>] will expect a `&lt;template&gt;` tag as a direct child of the toplevel `&lt;interface&gt;` tag. The `&lt;template&gt;` tag must specify the “class” attribute which must be the type name of the widget. Optionally, the “parent” attribute may be specified to specify the direct parent type of the widget type; this is ignored by <strong>Gnome::Gtk4::Builder</strong> but can be used by UI design tools to introspect what kind of properties and internal children exist for a given type when the actual type does not exist.</p><p>The XML which is contained inside the `&lt;template&gt;` tag behaves as if it were added to the `&lt;object&gt;` tag defining the widget itself. You may set properties on a widget by inserting `&lt;property&gt;` tags into the `&lt;template&gt;` tag, and also add `&lt;child&gt;` tags to add children and extend a widget in the normal way you would with `&lt;object&gt;` tags.</p><p>Additionally, `&lt;object&gt;` tags can also be added before and after the initial `&lt;template&gt;` tag in the normal way, allowing one to define auxiliary objects which might be referenced by other widgets declared as children of the `&lt;template&gt;` tag.</p><p>Since, unlike the `&lt;object&gt;` tag, the `&lt;template&gt;` tag does not contain an “id” attribute, if you need to refer to the instance of the object itself that the template will create, simply refer to the template class name in an applicable element content.</p><p>Here is an example of a template definition, which includes an example of this in the `&lt;signal&gt;` tag:</p><p>Typically, you'll place the template fragment into a file that is bundled with your project, using <strong>Gnome::Gio::N-Resource</strong>. In order to load the template, you need to call <code>.set-template-from-resource()</code> in class <strong>Gnome::Gtk4::Widget</strong>] from the class initialization of your <strong>Gnome::Gtk4::Widget</strong> type:</p><p>You will also need to call <code>.init-template()</code>] from the instance initialization function:</p><p>as well as calling <code>.dispose-template()</code>] from the dispose function:</p><p>You can access widgets defined in the template using the <code>.get-template-child()</code>] function, but you will typically declare a pointer in the instance private data structure of your type using the same name as the widget in the template definition, and call <code>.bind-template-child-full()</code> in class <strong>Gnome::Gtk4::Widget</strong>] (or one of its wrapper macros <code>.widget-class-bind-template-child()</code> and <code>.widget-class-bind-template-child-private()</code>) with that name, e.g.</p><p>You can also use <code>.bind-template-callback-full()</code> in class <strong>Gnome::Gtk4::Widget</strong>] (or is wrapper macro <code>.widget-class-bind-template-callback()</code>) to connect a signal callback defined in the template with a function visible in the scope of the class, e.g.</p>
+<p><strong>Gnome::Gtk4::Widget</strong> <strong>exposes</strong> some facilities to automate the procedure of creating composite widgets using &quot;templates&quot;.</p><p>To create composite widgets with <a href="/content-docs/api2/reference/Gtk4/Builder.html">Gnome::Gtk4::Builder</a> XML, one must associate the interface description with the widget class at class initialization time using <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-template">.set-template() in class Gnome</a>.</p><p>The interface description semantics expected in composite template descriptions is slightly different from regular <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Builder</a> XML.</p><p>Unlike regular interface descriptions, <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-template">.set-template() in class Gnome</a> will expect a `&lt;template&gt;` tag as a direct child of the toplevel `&lt;interface&gt;` tag. The `&lt;template&gt;` tag must specify the “class” attribute which must be the type name of the widget. Optionally, the “parent” attribute may be specified to specify the direct parent type of the widget type; this is ignored by <a href="/content-docs/api2/reference/Gtk4/Builder.html">Gnome::Gtk4::Builder</a> but can be used by UI design tools to introspect what kind of properties and internal children exist for a given type when the actual type does not exist.</p><p>The XML which is contained inside the `&lt;template&gt;` tag behaves as if it were added to the `&lt;object&gt;` tag defining the widget itself. You may set properties on a widget by inserting `&lt;property&gt;` tags into the `&lt;template&gt;` tag, and also add `&lt;child&gt;` tags to add children and extend a widget in the normal way you would with `&lt;object&gt;` tags.</p><p>Additionally, `&lt;object&gt;` tags can also be added before and after the initial `&lt;template&gt;` tag in the normal way, allowing one to define auxiliary objects which might be referenced by other widgets declared as children of the `&lt;template&gt;` tag.</p><p>Since, unlike the `&lt;object&gt;` tag, the `&lt;template&gt;` tag does not contain an “id” attribute, if you need to refer to the instance of the object itself that the template will create, simply refer to the template class name in an applicable element content.</p><p>Here is an example of a template definition, which includes an example of this in the `&lt;signal&gt;` tag:</p><p>Typically, you'll place the template fragment into a file that is bundled with your project, using <strong>Gnome::Gio::N-Resource</strong>. In order to load the template, you need to call <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-template-from-resource">.set-template-from-resource() in class Gnome</a> from the class initialization of your <strong>Gnome::Gtk4::Widget</strong> type:</p><p>You will also need to call <a href="#init-template">.init-template()</a> from the instance initialization function:</p><p>as well as calling <a href="#dispose-template">.dispose-template()</a> from the dispose function:</p><p>You can access widgets defined in the template using the <a href="#get-template-child">.get-template-child()</a> function, but you will typically declare a pointer in the instance private data structure of your type using the same name as the widget in the template definition, and call <a href="/content-docs/api2/reference/Gtk4/Gnome.html#bind-template-child-full">.bind-template-child-full() in class Gnome</a> (or one of its wrapper macros <a href="/content-docs/api2/reference/Gtk4/T-widget.html#widget-class-bind-template-child">.widget-class-bind-template-child().widget-class-bind-template-child() in package Gnome::Gtk4</a> and <a href="/content-docs/api2/reference/Gtk4/T-widget.html#widget-class-bind-template-child-private">.widget-class-bind-template-child-private().widget-class-bind-template-child-private() in package Gnome::Gtk4</a>) with that name, e.g.</p><p>You can also use <a href="/content-docs/api2/reference/Gtk4/Gnome.html#bind-template-callback-full">.bind-template-callback-full() in class Gnome</a> (or is wrapper macro <a href="/content-docs/api2/reference/Gtk4/T-widget.html#widget-class-bind-template-callback">.widget-class-bind-template-callback().widget-class-bind-template-callback() in package Gnome::Gtk4</a>) to connect a signal callback defined in the template with a function visible in the scope of the class, e.g.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/Widget.png" width="70%" height="auto" alt="No caption"></div>
 </section>
@@ -242,11 +242,11 @@
 </section>
 <section name="pod">
 <h2 id="activate"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">activate</a></h2>
-<p>For widgets that can be “activated” (buttons, menu items, etc.), this function activates them.</p><p>The activation will emit the signal set using <code>.set-activate-signal()</code> in class <strong>Gnome::Gtk4::Widget</strong>] during class initialization.</p><p>Activation is what happens when you press &lt;kbd&gt;Enter&lt;/kbd&gt; on a widget during key navigation.</p><p>If you wish to handle the activation keybinding yourself, it is recommended to use <code>.add-shortcut()</code> in class <strong>Gnome::Gtk4::Widget</strong>] with an action created with <code>.newwidget()</code> in class <strong>Gnome::Gtk4::SignalAction</strong>.</p><p>If <code>$widget</code> isn't activatable, the function returns <code>False</code>.</p><pre class="pod-block-code">method activate (--&gt; Bool )
+<p>For widgets that can be “activated” (buttons, menu items, etc.), this function activates them.</p><p>The activation will emit the signal set using <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-activate-signal">.set-activate-signal() in class Gnome</a> during class initialization.</p><p>Activation is what happens when you press &lt;kbd&gt;Enter&lt;/kbd&gt; on a widget during key navigation.</p><p>If you wish to handle the activation keybinding yourself, it is recommended to use <a href="/content-docs/api2/reference/Gtk4/Gnome.html#add-shortcut">.add-shortcut() in class Gnome</a> with an action created with <a href="/content-docs/api2/reference/Gtk4/Gnome.html#newwidget">.newwidget() in class Gnome</a>.</p><p>If <code>$widget</code> isn't activatable, the function returns <code>False</code>.</p><pre class="pod-block-code">method activate (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget was activatable. </p></section>
 <section name="pod">
-<h2 id="activate-action_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">activate-action This function is not yet available</a></h2>
-<p>Looks up the action in the action groups associated with <code>$widget</code> and its ancestors, and activates it.</p><p>This is a wrapper around <code>.activate-action-variant()</code>] that constructs the <code>$args</code> variant according to <code>$format-string</code>.</p><pre class="pod-block-code">method activate-action ( Str $name, Str $format-string, … --&gt; Bool )
+<h2 id="activate-action"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">activate-action</a></h2>
+<p>Looks up the action in the action groups associated with <code>$widget</code> and its ancestors, and activates it.</p><p>This is a wrapper around <a href="#activate-action-variant">.activate-action-variant()</a> that constructs the <code>$args</code> variant according to <code>$format-string</code>.</p><pre class="pod-block-code">method activate-action ( Str $name, Str $format-string, … --&gt; Bool )
 </pre><ul>
 <li><p>$name; the name of the action to activate.</p></li>
 <li><p>$format-string; GVariant format string for arguments.</p></li>
@@ -255,7 +255,7 @@
 <p>Return value; <code>True</code> if the action was activated, <code>False</code> if the action does not exist. </p></section>
 <section name="pod">
 <h2 id="activate-action-variant"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">activate-action-variant</a></h2>
-<p>Looks up the action in the action groups associated with <code>$widget</code> and its ancestors, and activates it.</p><p>If the action is in an action group added with <code>.insert-action-group()</code>], the <code>$name</code> is expected to be prefixed with the prefix that was used when the group was inserted.</p><p>The arguments must match the actions expected parameter type, as returned by <strong>g_action_get_parameter_type</strong>()`.</p><pre class="pod-block-code">method activate-action-variant ( Str $name, N-Object $args --&gt; Bool )
+<p>Looks up the action in the action groups associated with <code>$widget</code> and its ancestors, and activates it.</p><p>If the action is in an action group added with <a href="#insert-action-group">.insert-action-group()</a>, the <code>$name</code> is expected to be prefixed with the prefix that was used when the group was inserted.</p><p>The arguments must match the actions expected parameter type, as returned by <strong>g_action_get_parameter_type</strong>()`.</p><pre class="pod-block-code">method activate-action-variant ( Str $name, N-Object $args --&gt; Bool )
 </pre><ul>
 <li><p>$name; the name of the action to activate.</p></li>
 <li><p>$args; parameters to use</p></li>
@@ -267,37 +267,37 @@
 </pre></section>
 <section name="pod">
 <h2 id="add-controller"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">add-controller</a></h2>
-<p>Adds <code>$controller</code> to <code>$widget</code> so that it will receive events.</p><p>You will usually want to call this function right after creating any kind of <strong>Gnome::Gtk4::EventController</strong>.</p><pre class="pod-block-code">method add-controller ( N-Object() $controller )
+<p>Adds <code>$controller</code> to <code>$widget</code> so that it will receive events.</p><p>You will usually want to call this function right after creating any kind of <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::EventController</a>.</p><pre class="pod-block-code">method add-controller ( N-Object() $controller )
 </pre><ul>
-<li><p>$controller; (transfer ownership: full) a <strong>Gnome::Gtk4::EventController</strong> that hasn't been added to a widget yet.</p></li>
+<li><p>$controller; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/EventController.html">Gnome::Gtk4::EventController</a> that hasn't been added to a widget yet.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="add-css-class"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">add-css-class</a></h2>
-<p>Adds a style class to <code>$widget</code>.</p><p>After calling this function, the widget’s style will match for <code>$css-class</code>, according to CSS matching rules.</p><p>Use <code>.remove-css-class()</code>] to remove the style again.</p><pre class="pod-block-code">method add-css-class ( Str $css-class )
+<p>Adds a style class to <code>$widget</code>.</p><p>After calling this function, the widget’s style will match for <code>$css-class</code>, according to CSS matching rules.</p><p>Use <a href="#remove-css-class">.remove-css-class()</a> to remove the style again.</p><pre class="pod-block-code">method add-css-class ( Str $css-class )
 </pre><ul>
 <li><p>$css-class; The style class to add to <code>$widget</code>, without the leading '.' used for notation of style classes.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="add-mnemonic-label"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">add-mnemonic-label</a></h2>
-<p>Adds a widget to the list of mnemonic labels for this widget.</p><p>See <code>.list-mnemonic-labels()</code>]. Note the list of mnemonic labels for the widget is cleared when the widget is destroyed, so the caller must make sure to update its internal state at this point as well.</p><pre class="pod-block-code">method add-mnemonic-label ( N-Object() $label )
+<p>Adds a widget to the list of mnemonic labels for this widget.</p><p>See <a href="#list-mnemonic-labels">.list-mnemonic-labels()</a>. Note the list of mnemonic labels for the widget is cleared when the widget is destroyed, so the caller must make sure to update its internal state at this point as well.</p><pre class="pod-block-code">method add-mnemonic-label ( N-Object() $label )
 </pre><ul>
 <li><p>$label; a <strong>Gnome::Gtk4::Widget</strong> that acts as a mnemonic label for <code>$widget</code>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="add-tick-callback"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">add-tick-callback</a></h2>
-<p>Queues an animation frame update and adds a callback to be called before each frame.</p><p>Until the tick callback is removed, it will be called frequently (usually at the frame rate of the output device or as quickly as the application can be repainted, whichever is slower). For this reason, is most suitable for handling graphics that change every frame or every few frames. The tick callback does not automatically imply a relayout or repaint. If you want a repaint or relayout, and aren’t changing widget properties that would trigger that (for example, changing the text of a <strong>Gnome::Gtk4::Label</strong>), then you will have to call <code>.queue-resize()</code>] or <code>.queue-draw()</code>] yourself.</p><p><code>.get-frame-time()</code> in class <strong>Gnome::Gdk4::FrameClock</strong>] should generally be used for timing continuous animations and <code>.get-predicted-presentation-time()</code> in class <strong>Gnome::Gdk4::N-FrameTimings</strong>] if you are trying to display isolated frames at particular times.</p><p>This is a more convenient alternative to connecting directly to the [signal <code>$Gdk</code>.FrameClock::update] signal of <strong>Gnome::Gdk4::FrameClock</strong>, since you don't have to worry about when a <strong>Gnome::Gdk4::FrameClock</strong> is assigned to a widget.</p><pre class="pod-block-code">method add-tick-callback ( GtkTickCallback &amp;callback, gpointer $user-data, GDestroyNotify &amp;notify --&gt; UInt )
+<p>Queues an animation frame update and adds a callback to be called before each frame.</p><p>Until the tick callback is removed, it will be called frequently (usually at the frame rate of the output device or as quickly as the application can be repainted, whichever is slower). For this reason, is most suitable for handling graphics that change every frame or every few frames. The tick callback does not automatically imply a relayout or repaint. If you want a repaint or relayout, and aren’t changing widget properties that would trigger that (for example, changing the text of a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>), then you will have to call <a href="#queue-resize">.queue-resize()</a> or <a href="#queue-draw">.queue-draw()</a> yourself.</p><p><a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-frame-time">.get-frame-time() in class Gnome</a> should generally be used for timing continuous animations and <a href="/content-docs/api2/reference/Gdk4/Gnome-FrameTimings.html#get-predicted-presentation-time">.get-predicted-presentation-time() in class Gnome-FrameTimings</a> if you are trying to display isolated frames at particular times.</p><p>This is a more convenient alternative to connecting directly to the [signal <code>$Gdk</code>.FrameClock::update] signal of <a href="/content-docs/api2/reference/Gdk4/FrameClock.html">Gnome::Gdk4::FrameClock</a>, since you don't have to worry about when a <a href="/content-docs/api2/reference/Gdk4/FrameClock.html">Gnome::Gdk4::FrameClock</a> is assigned to a widget.</p><pre class="pod-block-code">method add-tick-callback ( GtkTickCallback &amp;callback, gpointer $user-data, GDestroyNotify &amp;notify --&gt; UInt )
 </pre><ul>
 <li><p>GtkTickCallback &amp;callback; function to call for updating animations. The function must be specified with the following signature; <code>:( N-Object $widget, N-Object $frame-clock, gpointer $user-data )</code>.</p></li>
 <li><p>$user-data; data to pass to <code>$callback</code>.</p></li>
 <li><p>GDestroyNotify &amp;notify; function to call to free <code>$user-data</code> when the callback is removed.. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
 </ul>
-<p>Return value; an id for the connection of this callback. Remove the callback by passing the id returned from this function to <code>.remove-tick-callback()</code>]. </p></section>
+<p>Return value; an id for the connection of this callback. Remove the callback by passing the id returned from this function to <a href="#remove-tick-callback">.remove-tick-callback()</a>. </p></section>
 <section name="pod">
 <h2 id="allocate"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">allocate</a></h2>
-<p>This function is only used by <strong>Gnome::Gtk4::Widget</strong> subclasses, to assign a size, position and (optionally) baseline to their child widgets.</p><p>In this function, the allocation and baseline may be adjusted. The given allocation will be forced to be bigger than the widget's minimum size, as well as at least 0×0 in size.</p><p>For a version that does not take a transform, see <code>.size-allocate()</code>].</p><pre class="pod-block-code">method allocate ( Int() $width, Int() $height, Int() $baseline, N-Object $transform )
+<p>This function is only used by <strong>Gnome::Gtk4::Widget</strong> subclasses, to assign a size, position and (optionally) baseline to their child widgets.</p><p>In this function, the allocation and baseline may be adjusted. The given allocation will be forced to be bigger than the widget's minimum size, as well as at least 0×0 in size.</p><p>For a version that does not take a transform, see <a href="#size-allocate">.size-allocate()</a>.</p><pre class="pod-block-code">method allocate ( Int() $width, Int() $height, Int() $baseline, N-Object $transform )
 </pre><ul>
 <li><p>$width; New width of <code>$widget</code>.</p></li>
 <li><p>$height; New height of <code>$widget</code>.</p></li>
@@ -307,7 +307,7 @@
 </section>
 <section name="pod">
 <h2 id="child-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">child-focus</a></h2>
-<p>Called by widgets as the user moves around the window using keyboard shortcuts.</p><p>The <code>$direction</code> argument indicates what kind of motion is taking place (up, down, left, right, tab forward, tab backward).</p><p>This function calls the [vfunc <code>$Gtk</code>.Widget.focus] virtual function; widgets can override the virtual function in order to implement appropriate focus behavior.</p><p>The default <strong>focus</strong>()` virtual function for a widget should return <code>True</code> if moving in <code>$direction</code> left the focus on a focusable location inside that widget, and <code>False</code> if moving in <code>$direction</code> moved the focus outside the widget. When returning <code>True</code>, widgets normally call <code>.grab-focus()</code>] to place the focus accordingly; when returning <code>False</code>, they don’t modify the current focus location.</p><p>This function is used by custom widget implementations; if you're writing an app, you’d use <code>.grab-focus()</code>] to move the focus to a particular widget.</p><pre class="pod-block-code">method child-focus ( GtkDirectionType $direction --&gt; Bool )
+<p>Called by widgets as the user moves around the window using keyboard shortcuts.</p><p>The <code>$direction</code> argument indicates what kind of motion is taking place (up, down, left, right, tab forward, tab backward).</p><p>This function calls the [vfunc <code>$Gtk</code>.Widget.focus] virtual function; widgets can override the virtual function in order to implement appropriate focus behavior.</p><p>The default <strong>focus</strong>()` virtual function for a widget should return <code>True</code> if moving in <code>$direction</code> left the focus on a focusable location inside that widget, and <code>False</code> if moving in <code>$direction</code> moved the focus outside the widget. When returning <code>True</code>, widgets normally call <a href="#grab-focus">.grab-focus()</a> to place the focus accordingly; when returning <code>False</code>, they don’t modify the current focus location.</p><p>This function is used by custom widget implementations; if you're writing an app, you’d use <a href="#grab-focus">.grab-focus()</a> to move the focus to a particular widget.</p><pre class="pod-block-code">method child-focus ( GtkDirectionType $direction --&gt; Bool )
 </pre><ul>
 <li><p>$direction; direction of focus movement.</p></li>
 </ul>
@@ -322,7 +322,7 @@
 <p>Return value; <code>True</code> if the bounds could be computed. </p></section>
 <section name="pod">
 <h2 id="compute-expand"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">compute-expand</a></h2>
-<p>Computes whether a container should give this widget extra space when possible.</p><p>Containers should check this, rather than looking at <code>.get-hexpand()</code>] or <code>.get-vexpand()</code>].</p><p>This function already checks whether the widget is visible, so visibility does not need to be checked separately. Non-visible widgets are not expanded.</p><p>The computed expand value uses either the expand setting explicitly set on the widget itself, or, if none has been explicitly set, the widget may expand if some of its children do.</p><pre class="pod-block-code">method compute-expand ( GtkOrientation $orientation --&gt; Bool )
+<p>Computes whether a container should give this widget extra space when possible.</p><p>Containers should check this, rather than looking at <a href="#get-hexpand">.get-hexpand()</a> or <a href="#get-vexpand">.get-vexpand()</a>.</p><p>This function already checks whether the widget is visible, so visibility does not need to be checked separately. Non-visible widgets are not expanded.</p><p>The computed expand value uses either the expand setting explicitly set on the widget itself, or, if none has been explicitly set, the widget may expand if some of its children do.</p><pre class="pod-block-code">method compute-expand ( GtkOrientation $orientation --&gt; Bool )
 </pre><ul>
 <li><p>$orientation; expand direction.</p></li>
 </ul>
@@ -354,18 +354,18 @@
 <p>Return value; <code>True</code> if <code>$widget</code> contains ( <code>$x</code>, <code>$y</code>).. </p></section>
 <section name="pod">
 <h2 id="create-pango-context"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">create-pango-context</a></h2>
-<p>Creates a new <strong>Gnome::Pango::Context</strong> with the appropriate font map, font options, font description, and base direction for drawing text for this widget.</p><p>See also <code>.get-pango-context()</code>].</p><pre class="pod-block-code">method create-pango-context (--&gt; N-Object )
-</pre><p>Return value; the new <strong>Gnome::Pango::Context</strong>. </p></section>
+<p>Creates a new <a href="/content-docs/api2/reference/Pango/Context.html">Gnome::Pango::Context</a> with the appropriate font map, font options, font description, and base direction for drawing text for this widget.</p><p>See also <a href="#get-pango-context">.get-pango-context()</a>.</p><pre class="pod-block-code">method create-pango-context (--&gt; N-Object )
+</pre><p>Return value; the new <a href="/content-docs/api2/reference/Pango/Context.html">Gnome::Pango::Context</a>. </p></section>
 <section name="pod">
 <h2 id="create-pango-layout"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">create-pango-layout</a></h2>
-<p>Creates a new <strong>Gnome::Pango::Layout</strong> with the appropriate font map, font description, and base direction for drawing text for this widget.</p><p>If you keep a <strong>Gnome::Pango::Layout</strong> created in this way around, you need to re-create it when the widget <strong>Gnome::Pango::Context</strong> is replaced. This can be tracked by listening to changes of the <em>root</em> property on the widget.</p><pre class="pod-block-code">method create-pango-layout ( Str $text --&gt; N-Object )
+<p>Creates a new <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> with the appropriate font map, font description, and base direction for drawing text for this widget.</p><p>If you keep a <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> created in this way around, you need to re-create it when the widget <a href="/content-docs/api2/reference/Pango/Context.html">Gnome::Pango::Context</a> is replaced. This can be tracked by listening to changes of the <em>root</em> property on the widget.</p><pre class="pod-block-code">method create-pango-layout ( Str $text --&gt; N-Object )
 </pre><ul>
 <li><p>$text; text to set on the layout.</p></li>
 </ul>
-<p>Return value; the new <strong>Gnome::Pango::Layout</strong>. </p></section>
+<p>Return value; the new <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a>. </p></section>
 <section name="pod">
 <h2 id="dispose-template"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">dispose-template</a></h2>
-<p>Clears the template children for the given widget.</p><p>This function is the opposite of <code>.init-template()</code>], and it is used to clear all the template children from a widget instance. If you bound a template child to a field in the instance structure, or in the instance private data structure, the field will be set to undefined after this function returns.</p><p>You should call this function inside the <strong>GObjectClass</strong>.dispose()` implementation of any widget that called <strong>C</strong>&lt;.init-template()&gt;`. Typically, you will want to call this function last, right before chaining up to the parent type's dispose implementation, e.g.</p><pre class="pod-block-code">method dispose-template ( GType $widget-type )
+<p>Clears the template children for the given widget.</p><p>This function is the opposite of <a href="#init-template">.init-template()</a>, and it is used to clear all the template children from a widget instance. If you bound a template child to a field in the instance structure, or in the instance private data structure, the field will be set to undefined after this function returns.</p><p>You should call this function inside the <strong>GObjectClass</strong>.dispose()` implementation of any widget that called <strong>C</strong>&lt;.init-template()&gt;`. Typically, you will want to call this function last, right before chaining up to the parent type's dispose implementation, e.g.</p><pre class="pod-block-code">method dispose-template ( GType $widget-type )
 </pre><ul>
 <li><p>$widget-type; the type of the widget to finalize the template for.</p></li>
 </ul>
@@ -382,7 +382,7 @@
 <p>Return value; <code>True</code> if the drag threshold has been passed.. </p></section>
 <section name="pod">
 <h2 id="error-bell"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">error-bell</a></h2>
-<p>Notifies the user about an input-related error on this widget.</p><p>If the <em>gtk-error-bell defined in Gnome::Gtk4::Settings</em> setting is <code>True</code>, it calls <code>.beep()</code> in class <strong>Gnome::Gdk4::Surface</strong>], otherwise it does nothing.</p><p>Note that the effect of <code>.beep()</code> in class <strong>Gnome::Gdk4::Surface</strong>] can be configured in many ways, depending on the windowing backend and the desktop environment or window manager that is used.</p><pre class="pod-block-code">method error-bell ( )
+<p>Notifies the user about an input-related error on this widget.</p><p>If the <em>gtk-error-bell defined in Gnome::Gtk4::Settings</em> setting is <code>True</code>, it calls <a href="/content-docs/api2/reference/Gdk4/Gnome.html#beep">.beep() in class Gnome</a>, otherwise it does nothing.</p><p>Note that the effect of <a href="/content-docs/api2/reference/Gdk4/Gnome.html#beep">.beep() in class Gnome</a> can be configured in many ways, depending on the windowing backend and the desktop environment or window manager that is used.</p><pre class="pod-block-code">method error-bell ( )
 </pre></section>
 <section name="pod">
 <h2 id="get-allocated-baseline"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-allocated-baseline</a></h2>
@@ -397,15 +397,15 @@
 <p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Returns the width that has currently been allocated to <code>$widget</code>.</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-allocated-width (--&gt; Int )
 </pre><p>Return value; the width of the <code>$widget</code>. </p></section>
 <section name="pod">
-<h2 id="get-allocation_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-allocation This function is not yet available</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Retrieves the widget’s allocation.</p><p>Note, when implementing a layout container: a widget’s allocation will be its “adjusted” allocation, that is, the widget’s parent typically calls <code>.size-allocate()</code>] with an allocation, and that allocation is then adjusted (to handle margin and alignment for example) before assignment to the widget. <code>.get-allocation()</code>] returns the adjusted allocation that was actually assigned to the widget. The adjusted allocation is guaranteed to be completely contained within the <code>.size-allocate()</code>] allocation, however.</p><p>So a layout container is guaranteed that its children stay inside the assigned bounds, but not that they have exactly the bounds the container assigned.</p><pre class="pod-block-code">method get-allocation ( … )
+<h2 id="get-allocation"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-allocation</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Retrieves the widget’s allocation.</p><p>Note, when implementing a layout container: a widget’s allocation will be its “adjusted” allocation, that is, the widget’s parent typically calls <a href="#size-allocate">.size-allocate()</a> with an allocation, and that allocation is then adjusted (to handle margin and alignment for example) before assignment to the widget. <a href="#get-allocation">.get-allocation()</a> returns the adjusted allocation that was actually assigned to the widget. The adjusted allocation is guaranteed to be completely contained within the <a href="#size-allocate">.size-allocate()</a> allocation, however.</p><p>So a layout container is guaranteed that its children stay inside the assigned bounds, but not that they have exactly the bounds the container assigned.</p><pre class="pod-block-code">method get-allocation ( … )
 </pre><ul>
 <li><p>allocation; a pointer to a <strong>Gnome::Gtk4::Widget</strong> to copy to. Note that each argument must be specified as a type followed by its value!</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="get-ancestor"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-ancestor</a></h2>
-<p>Gets the first ancestor of <code>$widget</code> with type <code>$widget-type</code>.</p><p>For example, <strong>gtk_widget_get_ancestor</strong> (widget, GTK_TYPE_BOX)` gets the first <strong>Gnome::Gtk4::Box</strong> that’s an ancestor of <code>$widget</code>. No reference will be added to the returned widget; it should not be unreferenced.</p><p>Note that unlike <code>.is-ancestor()</code>], this function considers <code>$widget</code> to be an ancestor of itself.</p><pre class="pod-block-code">method get-ancestor ( GType $widget-type --&gt; N-Object )
+<p>Gets the first ancestor of <code>$widget</code> with type <code>$widget-type</code>.</p><p>For example, <strong>gtk_widget_get_ancestor</strong> (widget, GTK_TYPE_BOX)` gets the first <a href="/content-docs/api2/reference/Gtk4/Box.html">Gnome::Gtk4::Box</a> that’s an ancestor of <code>$widget</code>. No reference will be added to the returned widget; it should not be unreferenced.</p><p>Note that unlike <a href="#is-ancestor">.is-ancestor()</a>, this function considers <code>$widget</code> to be an ancestor of itself.</p><pre class="pod-block-code">method get-ancestor ( GType $widget-type --&gt; N-Object )
 </pre><ul>
 <li><p>$widget-type; ancestor type.</p></li>
 </ul>
@@ -416,7 +416,7 @@
 </pre><p>Return value; the baseline of the <code>$widget</code>, or -1 if none. </p></section>
 <section name="pod">
 <h2 id="get-can-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-can-focus</a></h2>
-<p>Determines whether the input focus can enter <code>$widget</code> or any of its children.</p><p>See <code>.set-focusable()</code>].</p><pre class="pod-block-code">method get-can-focus (--&gt; Bool )
+<p>Determines whether the input focus can enter <code>$widget</code> or any of its children.</p><p>See <a href="#set-focusable">.set-focusable()</a>.</p><pre class="pod-block-code">method get-can-focus (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the input focus can enter <code>$widget</code>, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-can-target"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-can-target</a></h2>
@@ -428,7 +428,7 @@
 </pre><p>Return value; <code>True</code> if the widget is mapped with the parent.. </p></section>
 <section name="pod">
 <h2 id="get-clipboard"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-clipboard</a></h2>
-<p>Gets the clipboard object for <code>$widget</code>.</p><p>This is a utility function to get the clipboard object for the <strong>Gnome::Gdk4::Display</strong> that <code>$widget</code> is using.</p><p>Note that this function always works, even when <code>$widget</code> is not realized yet.</p><pre class="pod-block-code">method get-clipboard (--&gt; N-Object )
+<p>Gets the clipboard object for <code>$widget</code>.</p><p>This is a utility function to get the clipboard object for the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> that <code>$widget</code> is using.</p><p>Note that this function always works, even when <code>$widget</code> is not realized yet.</p><pre class="pod-block-code">method get-clipboard (--&gt; N-Object )
 </pre><p>Return value; the appropriate clipboard object. </p></section>
 <section name="pod">
 <h2 id="get-color"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-color</a></h2>
@@ -447,16 +447,16 @@
 </pre><p>Return value; the CSS name. </p></section>
 <section name="pod">
 <h2 id="get-cursor"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-cursor</a></h2>
-<p>Queries the cursor set on <code>$widget</code>.</p><p>See <code>.set-cursor()</code>] for details.</p><pre class="pod-block-code">method get-cursor (--&gt; N-Object )
+<p>Queries the cursor set on <code>$widget</code>.</p><p>See <a href="#set-cursor">.set-cursor()</a> for details.</p><pre class="pod-block-code">method get-cursor (--&gt; N-Object )
 </pre><p>Return value; the cursor currently in use or undefined if the cursor is inherited. </p></section>
 <section name="pod">
 <h2 id="get-direction"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-direction</a></h2>
-<p>Gets the reading direction for a particular widget.</p><p>See <code>.set-direction()</code>].</p><pre class="pod-block-code">method get-direction (--&gt; GtkTextDirection )
+<p>Gets the reading direction for a particular widget.</p><p>See <a href="#set-direction">.set-direction()</a>.</p><pre class="pod-block-code">method get-direction (--&gt; GtkTextDirection )
 </pre><p>Return value; the reading direction for the widget.. </p></section>
 <section name="pod">
 <h2 id="get-display"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-display</a></h2>
-<p>Get the <strong>Gnome::Gdk4::Display</strong> for the toplevel window associated with this widget.</p><p>This function can only be called after the widget has been added to a widget hierarchy with a <strong>Gnome::Gtk4::Window</strong> at the top.</p><p>In general, you should only create display specific resources when a widget has been realized, and you should free those resources when the widget is unrealized.</p><pre class="pod-block-code">method get-display (--&gt; N-Object )
-</pre><p>Return value; the <strong>Gnome::Gdk4::Display</strong> for the toplevel for this widget.. </p></section>
+<p>Get the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> for the toplevel window associated with this widget.</p><p>This function can only be called after the widget has been added to a widget hierarchy with a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> at the top.</p><p>In general, you should only create display specific resources when a widget has been realized, and you should free those resources when the widget is unrealized.</p><pre class="pod-block-code">method get-display (--&gt; N-Object )
+</pre><p>Return value; the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> for the toplevel for this widget.. </p></section>
 <section name="pod">
 <h2 id="get-first-child"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-first-child</a></h2>
 <p>Returns the widget’s first child.</p><p>This API is primarily meant for widget implementations.</p><pre class="pod-block-code">method get-first-child (--&gt; N-Object )
@@ -467,24 +467,24 @@
 </pre><p>Return value; The current focus child of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-focus-on-click"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-focus-on-click</a></h2>
-<p>Returns whether the widget should grab focus when it is clicked with the mouse.</p><p>See <code>.set-focus-on-click()</code>].</p><pre class="pod-block-code">method get-focus-on-click (--&gt; Bool )
+<p>Returns whether the widget should grab focus when it is clicked with the mouse.</p><p>See <a href="#set-focus-on-click">.set-focus-on-click()</a>.</p><pre class="pod-block-code">method get-focus-on-click (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget should grab focus when it is clicked with the mouse. </p></section>
 <section name="pod">
 <h2 id="get-focusable"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-focusable</a></h2>
-<p>Determines whether <code>$widget</code> can own the input focus.</p><p>See <code>.set-focusable()</code>].</p><pre class="pod-block-code">method get-focusable (--&gt; Bool )
+<p>Determines whether <code>$widget</code> can own the input focus.</p><p>See <a href="#set-focusable">.set-focusable()</a>.</p><pre class="pod-block-code">method get-focusable (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if <code>$widget</code> can own the input focus, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-font-map"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-font-map</a></h2>
-<p>Gets the font map of <code>$widget</code>.</p><p>See <code>.set-font-map()</code>].</p><pre class="pod-block-code">method get-font-map (--&gt; N-Object )
-</pre><p>Return value; A <strong>Gnome::Pango::FontMap</strong>. </p></section>
+<p>Gets the font map of <code>$widget</code>.</p><p>See <a href="#set-font-map">.set-font-map()</a>.</p><pre class="pod-block-code">method get-font-map (--&gt; N-Object )
+</pre><p>Return value; A <a href="/content-docs/api2/reference/Pango/FontMap.html">Gnome::Pango::FontMap</a>. </p></section>
 <section name="pod">
 <h2 id="get-font-options"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-font-options</a></h2>
-<p>Returns the <strong>Cairo::cairo_font_options_t</strong> of widget.</p><p>Seee <code>.set-font-options()</code>].</p><pre class="pod-block-code">method get-font-options (--&gt; Cairo::cairo_font_options_t )
+<p>Returns the <strong>Cairo::cairo_font_options_t</strong> of widget.</p><p>Seee <a href="#set-font-options">.set-font-options()</a>.</p><pre class="pod-block-code">method get-font-options (--&gt; Cairo::cairo_font_options_t )
 </pre><p>Return value; the <strong>Cairo::cairo_font_options_t</strong> of widget. </p></section>
 <section name="pod">
 <h2 id="get-frame-clock"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-frame-clock</a></h2>
-<p>Obtains the frame clock for a widget.</p><p>The frame clock is a global “ticker” that can be used to drive animations and repaints. The most common reason to get the frame clock is to call <code>.get-frame-time()</code> in class <strong>Gnome::Gdk4::FrameClock</strong>], in order to get a time to use for animating. For example you might record the start of the animation with an initial value from <code>.get-frame-time()</code> in class <strong>Gnome::Gdk4::FrameClock</strong>], and then update the animation by calling <code>.get-frame-time()</code> in class <strong>Gnome::Gdk4::FrameClock</strong>] again during each repaint.</p><p><code>.request-phase()</code> in class <strong>Gnome::Gdk4::FrameClock</strong>] will result in a new frame on the clock, but won’t necessarily repaint any widgets. To repaint a widget, you have to use <code>.queue-draw()</code>] which invalidates the widget (thus scheduling it to receive a draw on the next frame). <code>.queue-draw()</code> will also end up requesting a frame on the appropriate frame clock.</p><p>A widget’s frame clock will not change while the widget is mapped. Reparenting a widget (which implies a temporary unmap) can change the widget’s frame clock.</p><p>Unrealized widgets do not have a frame clock.</p><pre class="pod-block-code">method get-frame-clock (--&gt; N-Object )
-</pre><p>Return value; a <strong>Gnome::Gdk4::FrameClock</strong>. </p></section>
+<p>Obtains the frame clock for a widget.</p><p>The frame clock is a global “ticker” that can be used to drive animations and repaints. The most common reason to get the frame clock is to call <a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-frame-time">.get-frame-time() in class Gnome</a>, in order to get a time to use for animating. For example you might record the start of the animation with an initial value from <a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-frame-time">.get-frame-time() in class Gnome</a>, and then update the animation by calling <a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-frame-time">.get-frame-time() in class Gnome</a> again during each repaint.</p><p><a href="/content-docs/api2/reference/Gdk4/Gnome.html#request-phase">.request-phase() in class Gnome</a> will result in a new frame on the clock, but won’t necessarily repaint any widgets. To repaint a widget, you have to use <a href="#queue-draw">.queue-draw()</a> which invalidates the widget (thus scheduling it to receive a draw on the next frame). <code>.queue-draw()</code> will also end up requesting a frame on the appropriate frame clock.</p><p>A widget’s frame clock will not change while the widget is mapped. Reparenting a widget (which implies a temporary unmap) can change the widget’s frame clock.</p><p>Unrealized widgets do not have a frame clock.</p><pre class="pod-block-code">method get-frame-clock (--&gt; N-Object )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gdk4/FrameClock.html">Gnome::Gdk4::FrameClock</a>. </p></section>
 <section name="pod">
 <h2 id="get-halign"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-halign</a></h2>
 <p>Gets the horizontal alignment of <code>$widget</code>.</p><p>For backwards compatibility reasons this method will never return one of the baseline alignments, but instead it will convert it to <strong>GTK_ALIGN_FILL</strong> or <strong>GTK_ALIGN_CENTER</strong>.</p><p>Baselines are not supported for horizontal alignment.</p><pre class="pod-block-code">method get-halign (--&gt; GtkAlign )
@@ -495,11 +495,11 @@
 </pre><p>Return value; current value of <strong>has</strong>-tooltip` on <code>$widget</code>.. </p></section>
 <section name="pod">
 <h2 id="get-height"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-height</a></h2>
-<p>Returns the content height of the widget.</p><p>This function returns the height passed to its size-allocate implementation, which is the height you should be using in [vfunc <code>$Gtk</code>.Widget.snapshot].</p><p>For pointer events, see <code>.contains()</code>].</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-height (--&gt; Int )
+<p>Returns the content height of the widget.</p><p>This function returns the height passed to its size-allocate implementation, which is the height you should be using in [vfunc <code>$Gtk</code>.Widget.snapshot].</p><p>For pointer events, see <a href="#contains">.contains()</a>.</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-height (--&gt; Int )
 </pre><p>Return value; The height of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-hexpand"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-hexpand</a></h2>
-<p>Gets whether the widget would like any available extra horizontal space.</p><p>When a user resizes a <strong>Gnome::Gtk4::Window</strong>, widgets with expand=TRUE generally receive the extra space. For example, a list or scrollable area or document in your window would often be set to expand.</p><p>Containers should use <code>.compute-expand()</code>] rather than this function, to see whether a widget, or any of its children, has the expand flag set. If any child of a widget wants to expand, the parent may ask to expand also.</p><p>This function only looks at the widget’s own hexpand flag, rather than computing whether the entire widget tree rooted at this widget wants to expand.</p><pre class="pod-block-code">method get-hexpand (--&gt; Bool )
+<p>Gets whether the widget would like any available extra horizontal space.</p><p>When a user resizes a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>, widgets with expand=TRUE generally receive the extra space. For example, a list or scrollable area or document in your window would often be set to expand.</p><p>Containers should use <a href="#compute-expand">.compute-expand()</a> rather than this function, to see whether a widget, or any of its children, has the expand flag set. If any child of a widget wants to expand, the parent may ask to expand also.</p><p>This function only looks at the widget’s own hexpand flag, rather than computing whether the entire widget tree rooted at this widget wants to expand.</p><pre class="pod-block-code">method get-hexpand (--&gt; Bool )
 </pre><p>Return value; whether hexpand flag is set. </p></section>
 <section name="pod">
 <h2 id="get-hexpand-set"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-hexpand-set</a></h2>
@@ -511,8 +511,8 @@
 </pre><p>Return value; The widget's last child. </p></section>
 <section name="pod">
 <h2 id="get-layout-manager"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-layout-manager</a></h2>
-<p>Retrieves the layout manager used by <code>$widget</code>.</p><p>See <code>.set-layout-manager()</code>].</p><pre class="pod-block-code">method get-layout-manager (--&gt; N-Object )
-</pre><p>Return value; a <strong>Gnome::Gtk4::LayoutManager</strong>. </p></section>
+<p>Retrieves the layout manager used by <code>$widget</code>.</p><p>See <a href="#set-layout-manager">.set-layout-manager()</a>.</p><pre class="pod-block-code">method get-layout-manager (--&gt; N-Object )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/LayoutManager.html">Gnome::Gtk4::LayoutManager</a>. </p></section>
 <section name="pod">
 <h2 id="get-mapped"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-mapped</a></h2>
 <p>Whether the widget is mapped.</p><pre class="pod-block-code">method get-mapped (--&gt; Bool )
@@ -535,19 +535,19 @@
 </pre><p>Return value; The top margin of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-name"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-name</a></h2>
-<p>Retrieves the name of a widget.</p><p>See <code>.set-name()</code>] for the significance of widget names.</p><pre class="pod-block-code">method get-name (--&gt; Str )
+<p>Retrieves the name of a widget.</p><p>See <a href="#set-name">.set-name()</a> for the significance of widget names.</p><pre class="pod-block-code">method get-name (--&gt; Str )
 </pre><p>Return value; name of the widget. This string is owned by GTK and should not be modified or freed. </p></section>
 <section name="pod">
 <h2 id="get-native"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-native</a></h2>
-<p>Returns the nearest <strong>Gnome::Gtk4::R-Native</strong> ancestor of <code>$widget</code>.</p><p>This function will return undefined if the widget is not contained inside a widget tree with a native ancestor.</p><p><strong>Gnome::Gtk4::R-Native</strong> widgets will return themselves here.</p><pre class="pod-block-code">method get-native (--&gt; N-Object )
-</pre><p>Return value; the <strong>Gnome::Gtk4::R-Native</strong> ancestor of <code>$widget</code>. </p></section>
+<p>Returns the nearest <a href="/content-docs/api2/reference/Gtk4/R-Native.html">Gnome::Gtk4::R-Native</a> ancestor of <code>$widget</code>.</p><p>This function will return undefined if the widget is not contained inside a widget tree with a native ancestor.</p><p><a href="/content-docs/api2/reference/Gtk4/R-Native.html">Gnome::Gtk4::R-Native</a> widgets will return themselves here.</p><pre class="pod-block-code">method get-native (--&gt; N-Object )
+</pre><p>Return value; the <a href="/content-docs/api2/reference/Gtk4/R-Native.html">Gnome::Gtk4::R-Native</a> ancestor of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-next-sibling"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-next-sibling</a></h2>
 <p>Returns the widget’s next sibling.</p><p>This API is primarily meant for widget implementations.</p><pre class="pod-block-code">method get-next-sibling (--&gt; N-Object )
 </pre><p>Return value; The widget's next sibling. </p></section>
 <section name="pod">
 <h2 id="get-opacity"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-opacity</a></h2>
-<p>#Fetches the requested opacity for this widget.</p><p>See <code>.set-opacity()</code>].</p><pre class="pod-block-code">method get-opacity (--&gt; Num )
+<p>#Fetches the requested opacity for this widget.</p><p>See <a href="#set-opacity">.set-opacity()</a>.</p><pre class="pod-block-code">method get-opacity (--&gt; Num )
 </pre><p>Return value; the requested opacity for this widget.. </p></section>
 <section name="pod">
 <h2 id="get-overflow"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-overflow</a></h2>
@@ -555,15 +555,15 @@
 </pre><p>Return value; The widget's overflow.. </p></section>
 <section name="pod">
 <h2 id="get-pango-context"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-pango-context</a></h2>
-<p>Gets a <strong>Gnome::Pango::Context</strong> with the appropriate font map, font description, and base direction for this widget.</p><p>Unlike the context returned by <code>.create-pango-context()</code>], this context is owned by the widget (it can be used until the screen for the widget changes or the widget is removed from its toplevel), and will be updated to match any changes to the widget’s attributes. This can be tracked by listening to changes of the <em>root</em> property on the widget.</p><pre class="pod-block-code">method get-pango-context (--&gt; N-Object )
-</pre><p>Return value; the <strong>Gnome::Pango::Context</strong> for the widget.. </p></section>
+<p>Gets a <a href="/content-docs/api2/reference/Pango/Context.html">Gnome::Pango::Context</a> with the appropriate font map, font description, and base direction for this widget.</p><p>Unlike the context returned by <a href="#create-pango-context">.create-pango-context()</a>, this context is owned by the widget (it can be used until the screen for the widget changes or the widget is removed from its toplevel), and will be updated to match any changes to the widget’s attributes. This can be tracked by listening to changes of the <em>root</em> property on the widget.</p><pre class="pod-block-code">method get-pango-context (--&gt; N-Object )
+</pre><p>Return value; the <a href="/content-docs/api2/reference/Pango/Context.html">Gnome::Pango::Context</a> for the widget.. </p></section>
 <section name="pod">
 <h2 id="get-parent"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-parent</a></h2>
 <p>Returns the parent widget of <code>$widget</code>.</p><pre class="pod-block-code">method get-parent (--&gt; N-Object )
 </pre><p>Return value; the parent widget of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-preferred-size"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-preferred-size</a></h2>
-<p>Retrieves the minimum and natural size of a widget, taking into account the widget’s preference for height-for-width management.</p><p>This is used to retrieve a suitable size by container widgets which do not impose any restrictions on the child placement. It can be used to deduce toplevel window and menu sizes as well as child widgets in free-form containers such as <strong>Gnome::Gtk4::Fixed</strong>.</p><p>Handle with care. Note that the natural height of a height-for-width widget will generally be a smaller size than the minimum height, since the required height for the natural width is generally smaller than the required height for the minimum width.</p><p>Use <code>.measure()</code>] if you want to support baseline alignment.</p><pre class="pod-block-code">method get-preferred-size ( N-Object $minimum-size, N-Object $natural-size )
+<p>Retrieves the minimum and natural size of a widget, taking into account the widget’s preference for height-for-width management.</p><p>This is used to retrieve a suitable size by container widgets which do not impose any restrictions on the child placement. It can be used to deduce toplevel window and menu sizes as well as child widgets in free-form containers such as <a href="/content-docs/api2/reference/Gtk4/Fixed.html">Gnome::Gtk4::Fixed</a>.</p><p>Handle with care. Note that the natural height of a height-for-width widget will generally be a smaller size than the minimum height, since the required height for the natural width is generally smaller than the required height for the minimum width.</p><p>Use <a href="#measure">.measure()</a> if you want to support baseline alignment.</p><pre class="pod-block-code">method get-preferred-size ( N-Object $minimum-size, N-Object $natural-size )
 </pre><ul>
 <li><p>$minimum-size; location for storing the minimum size</p></li>
 <li><p>$natural-size; location for storing the natural size</p></li>
@@ -575,7 +575,7 @@
 </pre><p>Return value; The widget's previous sibling. </p></section>
 <section name="pod">
 <h2 id="get-primary-clipboard"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-primary-clipboard</a></h2>
-<p>Gets the primary clipboard of <code>$widget</code>.</p><p>This is a utility function to get the primary clipboard object for the <strong>Gnome::Gdk4::Display</strong> that <code>$widget</code> is using.</p><p>Note that this function always works, even when <code>$widget</code> is not realized yet.</p><pre class="pod-block-code">method get-primary-clipboard (--&gt; N-Object )
+<p>Gets the primary clipboard of <code>$widget</code>.</p><p>This is a utility function to get the primary clipboard object for the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> that <code>$widget</code> is using.</p><p>Note that this function always works, even when <code>$widget</code> is not realized yet.</p><pre class="pod-block-code">method get-primary-clipboard (--&gt; N-Object )
 </pre><p>Return value; the appropriate clipboard object. </p></section>
 <section name="pod">
 <h2 id="get-realized"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-realized</a></h2>
@@ -583,7 +583,7 @@
 </pre><p>Return value; <code>True</code> if <code>$widget</code> is realized, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-receives-default"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-receives-default</a></h2>
-<p>Determines whether <code>$widget</code> is always treated as the default widget within its toplevel when it has the focus, even if another widget is the default.</p><p>See <code>.set-receives-default()</code>].</p><pre class="pod-block-code">method get-receives-default (--&gt; Bool )
+<p>Determines whether <code>$widget</code> is always treated as the default widget within its toplevel when it has the focus, even if another widget is the default.</p><p>See <a href="#set-receives-default">.set-receives-default()</a>.</p><pre class="pod-block-code">method get-receives-default (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if <code>$widget</code> acts as the default widget when focused, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-request-mode"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-request-mode</a></h2>
@@ -591,30 +591,30 @@
 </pre><p>Return value; The <code>enumeration GtkSizeRequestMode defined in Gnome::Gtk4::T-enums</code> preferred by <code>$widget</code>.. </p></section>
 <section name="pod">
 <h2 id="get-root"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-root</a></h2>
-<p>Returns the <strong>Gnome::Gtk4::R-Root</strong> widget of <code>$widget</code>.</p><p>This function will return undefined if the widget is not contained inside a widget tree with a root widget.</p><p><strong>Gnome::Gtk4::R-Root</strong> widgets will return themselves here.</p><pre class="pod-block-code">method get-root (--&gt; N-Object )
+<p>Returns the <a href="/content-docs/api2/reference/Gtk4/R-Root.html">Gnome::Gtk4::R-Root</a> widget of <code>$widget</code>.</p><p>This function will return undefined if the widget is not contained inside a widget tree with a root widget.</p><p><a href="/content-docs/api2/reference/Gtk4/R-Root.html">Gnome::Gtk4::R-Root</a> widgets will return themselves here.</p><pre class="pod-block-code">method get-root (--&gt; N-Object )
 </pre><p>Return value; the root widget of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-scale-factor"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-scale-factor</a></h2>
-<p>Retrieves the internal scale factor that maps from window coordinates to the actual device pixels.</p><p>On traditional systems this is 1, on high density outputs, it can be a higher value (typically 2).</p><p>See <code>.get-scale-factor()</code> in class <strong>Gnome::Gdk4::Surface</strong>].</p><pre class="pod-block-code">method get-scale-factor (--&gt; Int )
+<p>Retrieves the internal scale factor that maps from window coordinates to the actual device pixels.</p><p>On traditional systems this is 1, on high density outputs, it can be a higher value (typically 2).</p><p>See <a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-scale-factor">.get-scale-factor() in class Gnome</a>.</p><pre class="pod-block-code">method get-scale-factor (--&gt; Int )
 </pre><p>Return value; the scale factor for <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-sensitive"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-sensitive</a></h2>
-<p>Returns the widget’s sensitivity.</p><p>This function returns the value that has been set using <code>.set-sensitive()</code>]).</p><p>The effective sensitivity of a widget is however determined by both its own and its parent widget’s sensitivity. See <code>.is-sensitive()</code>].</p><pre class="pod-block-code">method get-sensitive (--&gt; Bool )
+<p>Returns the widget’s sensitivity.</p><p>This function returns the value that has been set using <a href="#set-sensitive">.set-sensitive()</a>).</p><p>The effective sensitivity of a widget is however determined by both its own and its parent widget’s sensitivity. See <a href="#is-sensitive">.is-sensitive()</a>.</p><pre class="pod-block-code">method get-sensitive (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget is sensitive. </p></section>
 <section name="pod">
 <h2 id="get-settings"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-settings</a></h2>
-<p>Gets the settings object holding the settings used for this widget.</p><p>Note that this function can only be called when the <strong>Gnome::Gtk4::Widget</strong> is attached to a toplevel, since the settings object is specific to a particular <strong>Gnome::Gdk4::Display</strong>. If you want to monitor the widget for changes in its settings, connect to the <strong>notify</strong>::display` signal.</p><pre class="pod-block-code">method get-settings (--&gt; N-Object )
-</pre><p>Return value; the relevant <strong>Gnome::Gtk4::Settings</strong> object. </p></section>
+<p>Gets the settings object holding the settings used for this widget.</p><p>Note that this function can only be called when the <strong>Gnome::Gtk4::Widget</strong> is attached to a toplevel, since the settings object is specific to a particular <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>. If you want to monitor the widget for changes in its settings, connect to the <strong>notify</strong>::display` signal.</p><pre class="pod-block-code">method get-settings (--&gt; N-Object )
+</pre><p>Return value; the relevant <a href="/content-docs/api2/reference/Gtk4/Settings.html">Gnome::Gtk4::Settings</a> object. </p></section>
 <section name="pod">
 <h2 id="get-size"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-size</a></h2>
-<p>Returns the content width or height of the widget.</p><p>Which dimension is returned depends on <code>$orientation</code>.</p><p>This is equivalent to calling <code>.get-width()</code>] for <code>GTK_ORIENTATION_HORIZONTAL</code> or <code>.get-height()</code>] for <code>GTK_ORIENTATION_VERTICAL</code>, but can be used when writing orientation-independent code, such as when implementing <strong>Gnome::Gtk4::R-Orientable</strong> widgets.</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-size ( GtkOrientation $orientation --&gt; Int )
+<p>Returns the content width or height of the widget.</p><p>Which dimension is returned depends on <code>$orientation</code>.</p><p>This is equivalent to calling <a href="#get-width">.get-width()</a> for <code>GTK_ORIENTATION_HORIZONTAL</code> or <a href="#get-height">.get-height()</a> for <code>GTK_ORIENTATION_VERTICAL</code>, but can be used when writing orientation-independent code, such as when implementing <a href="/content-docs/api2/reference/gtk/Gnome-Orientable.html">Gnome::Gtk4::R-Orientable</a> widgets.</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-size ( GtkOrientation $orientation --&gt; Int )
 </pre><ul>
 <li><p>$orientation; the orientation to query.</p></li>
 </ul>
 <p>Return value; The size of <code>$widget</code> in <code>$orientation</code>.. </p></section>
 <section name="pod">
 <h2 id="get-size-request"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-size-request</a></h2>
-<p>Gets the size request that was explicitly set for the widget using <code>.set-size-request()</code>.</p><p>A value of -1 stored in <code>$width</code> or <code>$height</code> indicates that that dimension has not been set explicitly and the natural requisition of the widget will be used instead. See <code>.set-size-request()</code>]. To get the size a widget will actually request, call <code>.measure()</code>] instead of this function.</p><pre class="pod-block-code">method get-size-request ( Array[Int] $width, Array[Int] $height )
+<p>Gets the size request that was explicitly set for the widget using <code>.set-size-request()</code>.</p><p>A value of -1 stored in <code>$width</code> or <code>$height</code> indicates that that dimension has not been set explicitly and the natural requisition of the widget will be used instead. See <a href="#set-size-request">.set-size-request()</a>. To get the size a widget will actually request, call <a href="#measure">.measure()</a> instead of this function.</p><pre class="pod-block-code">method get-size-request ( Array[Int] $width, Array[Int] $height )
 </pre><ul>
 <li><p>$width; (transfer ownership: full) return location for width.</p></li>
 <li><p>$height; (transfer ownership: full) return location for height.</p></li>
@@ -622,15 +622,15 @@
 </section>
 <section name="pod">
 <h2 id="get-state-flags"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-state-flags</a></h2>
-<p>Returns the widget state as a flag set.</p><p>It is worth mentioning that the effective <code>GTK_STATE_FLAG_INSENSITIVE</code> state will be returned, that is, also based on parent insensitivity, even if <code>$widget</code> itself is sensitive.</p><p>Also note that if you are looking for a way to obtain the [flags <code>$Gtk</code>.StateFlags] to pass to a <strong>Gnome::Gtk4::StyleContext</strong> method, you should look at <code>.get-state()</code> in class <strong>Gnome::Gtk4::StyleContext</strong>].</p><pre class="pod-block-code">method get-state-flags (--&gt; UInt )
+<p>Returns the widget state as a flag set.</p><p>It is worth mentioning that the effective <code>GTK_STATE_FLAG_INSENSITIVE</code> state will be returned, that is, also based on parent insensitivity, even if <code>$widget</code> itself is sensitive.</p><p>Also note that if you are looking for a way to obtain the [flags <code>$Gtk</code>.StateFlags] to pass to a <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::StyleContext</a> method, you should look at <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-state">.get-state() in class Gnome</a>.</p><pre class="pod-block-code">method get-state-flags (--&gt; UInt )
 </pre><p>Return value; The state flags for widget. </p></section>
 <section name="pod">
 <h2 id="get-style-context"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-style-context</a></h2>
 <p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the style context associated to <code>$widget</code>.</p><p>The returned object is guaranteed to be the same for the lifetime of <code>$widget</code>.</p><pre class="pod-block-code">method get-style-context (--&gt; N-Object )
-</pre><p>Return value; the widget’s <strong>Gnome::Gtk4::StyleContext</strong>. </p></section>
+</pre><p>Return value; the widget’s <a href="/content-docs/api2/reference/Gtk4/StyleContext.html">Gnome::Gtk4::StyleContext</a>. </p></section>
 <section name="pod">
 <h2 id="get-template-child"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-template-child</a></h2>
-<p>Fetch an object build from the template XML for <code>$widget-type</code> in this <code>$widget</code> instance.</p><p>This will only report children which were previously declared with <code>.bind-template-child-full()</code> in class <strong>Gnome::Gtk4::Widget</strong>] or one of its variants.</p><p>This function is only meant to be called for code which is private to the <code>$widget-type</code> which declared the child and is meant for language bindings which cannot easily make use of the GObject structure offsets.</p><pre class="pod-block-code">method get-template-child ( GType $widget-type, Str $name --&gt; N-Object )
+<p>Fetch an object build from the template XML for <code>$widget-type</code> in this <code>$widget</code> instance.</p><p>This will only report children which were previously declared with <a href="/content-docs/api2/reference/Gtk4/Gnome.html#bind-template-child-full">.bind-template-child-full() in class Gnome</a> or one of its variants.</p><p>This function is only meant to be called for code which is private to the <code>$widget-type</code> which declared the child and is meant for language bindings which cannot easily make use of the GObject structure offsets.</p><pre class="pod-block-code">method get-template-child ( GType $widget-type, Str $name --&gt; N-Object )
 </pre><ul>
 <li><p>$widget-type; The <strong>Gnome::GObject::Widget</strong> to get a template child for.</p></li>
 <li><p>$name; The “id” of the child defined in the template XML.</p></li>
@@ -638,11 +638,11 @@
 <p>Return value; The object built in the template XML with the id <code>$name</code>. </p></section>
 <section name="pod">
 <h2 id="get-tooltip-markup"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-tooltip-markup</a></h2>
-<p>Gets the contents of the tooltip for <code>$widget</code>.</p><p>If the tooltip has not been set using <code>.set-tooltip-markup()</code>], this function returns undefined.</p><pre class="pod-block-code">method get-tooltip-markup (--&gt; Str )
+<p>Gets the contents of the tooltip for <code>$widget</code>.</p><p>If the tooltip has not been set using <a href="#set-tooltip-markup">.set-tooltip-markup()</a>, this function returns undefined.</p><pre class="pod-block-code">method get-tooltip-markup (--&gt; Str )
 </pre><p>Return value; the tooltip text. </p></section>
 <section name="pod">
 <h2 id="get-tooltip-text"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-tooltip-text</a></h2>
-<p>Gets the contents of the tooltip for <code>$widget</code>.</p><p>If the <code>$widget</code>'s tooltip was set using <code>.set-tooltip-markup()</code>], this function will return the escaped text.</p><pre class="pod-block-code">method get-tooltip-text (--&gt; Str )
+<p>Gets the contents of the tooltip for <code>$widget</code>.</p><p>If the <code>$widget</code>'s tooltip was set using <a href="#set-tooltip-markup">.set-tooltip-markup()</a>, this function will return the escaped text.</p><pre class="pod-block-code">method get-tooltip-text (--&gt; Str )
 </pre><p>Return value; the tooltip text. </p></section>
 <section name="pod">
 <h2 id="get-valign"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-valign</a></h2>
@@ -650,23 +650,23 @@
 </pre><p>Return value; the vertical alignment of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="get-vexpand"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-vexpand</a></h2>
-<p>Gets whether the widget would like any available extra vertical space.</p><p>See <code>.get-hexpand()</code>] for more detail.</p><pre class="pod-block-code">method get-vexpand (--&gt; Bool )
+<p>Gets whether the widget would like any available extra vertical space.</p><p>See <a href="#get-hexpand">.get-hexpand()</a> for more detail.</p><pre class="pod-block-code">method get-vexpand (--&gt; Bool )
 </pre><p>Return value; whether vexpand flag is set. </p></section>
 <section name="pod">
 <h2 id="get-vexpand-set"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-vexpand-set</a></h2>
-<p>Gets whether <code>.set-vexpand()</code> has been used to explicitly set the expand flag on this widget.</p><p>See <code>.get-hexpand-set()</code>] for more detail.</p><pre class="pod-block-code">method get-vexpand-set (--&gt; Bool )
+<p>Gets whether <code>.set-vexpand()</code> has been used to explicitly set the expand flag on this widget.</p><p>See <a href="#get-hexpand-set">.get-hexpand-set()</a> for more detail.</p><pre class="pod-block-code">method get-vexpand-set (--&gt; Bool )
 </pre><p>Return value; whether vexpand has been explicitly set. </p></section>
 <section name="pod">
 <h2 id="get-visible"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-visible</a></h2>
-<p>Determines whether the widget is visible.</p><p>If you want to take into account whether the widget’s parent is also marked as visible, use <code>.is-visible()</code>] instead.</p><p>This function does not check if the widget is obscured in any way.</p><p>See <code>.set-visible()</code>].</p><pre class="pod-block-code">method get-visible (--&gt; Bool )
+<p>Determines whether the widget is visible.</p><p>If you want to take into account whether the widget’s parent is also marked as visible, use <a href="#is-visible">.is-visible()</a> instead.</p><p>This function does not check if the widget is obscured in any way.</p><p>See <a href="#set-visible">.set-visible()</a>.</p><pre class="pod-block-code">method get-visible (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget is visible. </p></section>
 <section name="pod">
 <h2 id="get-width"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-width</a></h2>
-<p>Returns the content width of the widget.</p><p>This function returns the width passed to its size-allocate implementation, which is the width you should be using in [vfunc <code>$Gtk</code>.Widget.snapshot].</p><p>For pointer events, see <code>.contains()</code>].</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-width (--&gt; Int )
+<p>Returns the content width of the widget.</p><p>This function returns the width passed to its size-allocate implementation, which is the width you should be using in [vfunc <code>$Gtk</code>.Widget.snapshot].</p><p>For pointer events, see <a href="#contains">.contains()</a>.</p><p>To learn more about widget sizes, see the coordinate system [overview](coordinates.html).</p><pre class="pod-block-code">method get-width (--&gt; Int )
 </pre><p>Return value; The width of <code>$widget</code>. </p></section>
 <section name="pod">
 <h2 id="grab-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">grab-focus</a></h2>
-<p>Causes <code>$widget</code> to have the keyboard focus for the <strong>Gnome::Gtk4::Window</strong> it's inside.</p><p>If <code>$widget</code> is not focusable, or its [vfunc <code>$Gtk</code>.Widget.grab_focus] implementation cannot transfer the focus to a descendant of <code>$widget</code> that is focusable, it will not take focus and <code>False</code> will be returned.</p><p>Calling <code>.grab-focus()</code>] on an already focused widget is allowed, should not have an effect, and return <code>True</code>.</p><pre class="pod-block-code">method grab-focus (--&gt; Bool )
+<p>Causes <code>$widget</code> to have the keyboard focus for the <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> it's inside.</p><p>If <code>$widget</code> is not focusable, or its [vfunc <code>$Gtk</code>.Widget.grab_focus] implementation cannot transfer the focus to a descendant of <code>$widget</code> that is focusable, it will not take focus and <code>False</code> will be returned.</p><p>Calling <a href="#grab-focus">.grab-focus()</a> on an already focused widget is allowed, should not have an effect, and return <code>True</code>.</p><pre class="pod-block-code">method grab-focus (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if focus is now inside <code>$widget</code>.. </p></section>
 <section name="pod">
 <h2 id="has-css-class"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">has-css-class</a></h2>
@@ -681,11 +681,11 @@
 </pre><p>Return value; <code>True</code> if <code>$widget</code> is the current default widget within its toplevel, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="has-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">has-focus</a></h2>
-<p>Determines if the widget has the global input focus.</p><p>See <code>.is-focus()</code>] for the difference between having the global input focus, and only having the focus within a toplevel.</p><pre class="pod-block-code">method has-focus (--&gt; Bool )
+<p>Determines if the widget has the global input focus.</p><p>See <a href="#is-focus">.is-focus()</a> for the difference between having the global input focus, and only having the focus within a toplevel.</p><pre class="pod-block-code">method has-focus (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget has the global input focus.. </p></section>
 <section name="pod">
 <h2 id="has-visible-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">has-visible-focus</a></h2>
-<p>Determines if the widget should show a visible indication that it has the global input focus.</p><p>This is a convenience function that takes into account whether focus indication should currently be shown in the toplevel window of <code>$widget</code>. See <code>.get-focus-visible()</code> in class <strong>Gnome::Gtk4::Window</strong>] for more information about focus indication.</p><p>To find out if the widget has the global input focus, use <code>.has-focus()</code>].</p><pre class="pod-block-code">method has-visible-focus (--&gt; Bool )
+<p>Determines if the widget should show a visible indication that it has the global input focus.</p><p>This is a convenience function that takes into account whether focus indication should currently be shown in the toplevel window of <code>$widget</code>. See <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-focus-visible">.get-focus-visible() in class Gnome</a> for more information about focus indication.</p><p>To find out if the widget has the global input focus, use <a href="#has-focus">.has-focus()</a>.</p><pre class="pod-block-code">method has-visible-focus (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget should display a “focus rectangle”. </p></section>
 <section name="pod">
 <h2 id="hide"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">hide</a></h2>
@@ -697,7 +697,7 @@
 </pre><p>Return value; <code>True</code> if <code>$widget</code> is being destroyed. </p></section>
 <section name="pod">
 <h2 id="init-template"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">init-template</a></h2>
-<p>Creates and initializes child widgets defined in templates.</p><p>This function must be called in the instance initializer for any class which assigned itself a template using <code>.set-template()</code> in class <strong>Gnome::Gtk4::Widget</strong>].</p><p>It is important to call this function in the instance initializer of a <strong>Gnome::Gtk4::Widget</strong> subclass and not in <strong>Gnome::GObject::Object</strong>.constructed()` or <strong>Gnome::GObject::Object</strong>.constructor()` for two reasons:</p><ul>
+<p>Creates and initializes child widgets defined in templates.</p><p>This function must be called in the instance initializer for any class which assigned itself a template using <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-template">.set-template() in class Gnome</a>.</p><p>It is important to call this function in the instance initializer of a <strong>Gnome::Gtk4::Widget</strong> subclass and not in <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a>.constructed()` or <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a>.constructor()` for two reasons:</p><ul>
 <li><p>derived widgets will assume that the composite widgets defined by its parent classes have been created in their relative instance initializers</p></li>
 <li><p>when calling <strong>g_object_new</strong>()` on a widget with composite templates, it’s important to build the composite widgets before the construct properties are set. Properties passed to <strong>g_object_new</strong>()` should take precedence over properties set in the private template XML</p></li>
 </ul>
@@ -705,10 +705,10 @@
 </pre></section>
 <section name="pod">
 <h2 id="insert-action-group"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">insert-action-group</a></h2>
-<p>Inserts <code>$group</code> into <code>$widget</code>.</p><p>Children of <code>$widget</code> that implement <strong>Gnome::Gtk4::R-Actionable</strong> can then be associated with actions in <code>$group</code> by setting their “action-name” to <code>$prefix</code>.<strong>action</strong>-name`.</p><p>Note that inheritance is defined for individual actions. I.e. even if you insert a group with prefix <code>$prefix</code>, actions with the same prefix will still be inherited from the parent, unless the group contains an action with the same name.</p><p>If <code>$group</code> is undefined, a previously inserted group for <code>$name</code> is removed from <code>$widget</code>.</p><pre class="pod-block-code">method insert-action-group ( Str $name, N-Object() $group )
+<p>Inserts <code>$group</code> into <code>$widget</code>.</p><p>Children of <code>$widget</code> that implement <a href="/content-docs/api2/reference/gtk/Gnome-Actionable.html">Gnome::Gtk4::R-Actionable</a> can then be associated with actions in <code>$group</code> by setting their “action-name” to <code>$prefix</code>.<strong>action</strong>-name`.</p><p>Note that inheritance is defined for individual actions. I.e. even if you insert a group with prefix <code>$prefix</code>, actions with the same prefix will still be inherited from the parent, unless the group contains an action with the same name.</p><p>If <code>$group</code> is undefined, a previously inserted group for <code>$name</code> is removed from <code>$widget</code>.</p><pre class="pod-block-code">method insert-action-group ( Str $name, N-Object() $group )
 </pre><ul>
 <li><p>$name; the prefix for actions in <code>$group</code>.</p></li>
-<li><p>$group; a <strong>Gnome::Gio::R-ActionGroup</strong>, or undefined to remove the previously inserted group for <code>$name</code>.</p></li>
+<li><p>$group; a <a href="/content-docs/api2/reference/Gio/R-ActionGroup.html">Gnome::Gio::R-ActionGroup</a>, or undefined to remove the previously inserted group for <code>$name</code>.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -748,18 +748,18 @@
 </pre><p>Return value; <code>True</code> if the widget is effectively sensitive. </p></section>
 <section name="pod">
 <h2 id="is-visible"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">is-visible</a></h2>
-<p>Determines whether the widget and all its parents are marked as visible.</p><p>This function does not check if the widget is obscured in any way.</p><p>See also <code>.get-visible()</code>] and <code>.set-visible()</code>].</p><pre class="pod-block-code">method is-visible (--&gt; Bool )
+<p>Determines whether the widget and all its parents are marked as visible.</p><p>This function does not check if the widget is obscured in any way.</p><p>See also <a href="#get-visible">.get-visible()</a> and <a href="#set-visible">.set-visible()</a>.</p><pre class="pod-block-code">method is-visible (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the widget and all its parents are visible. </p></section>
 <section name="pod">
 <h2 id="keynav-failed"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">keynav-failed</a></h2>
-<p>Emits the `::keynav-failed` signal on the widget.</p><p>This function should be called whenever keyboard navigation within a single widget hits a boundary.</p><p>The return value of this function should be interpreted in a way similar to the return value of <code>.child-focus()</code>]. When <code>True</code> is returned, stay in the widget, the failed keyboard navigation is OK and/or there is nowhere we can/should move the focus to. When <code>False</code> is returned, the caller should continue with keyboard navigation outside the widget, e.g. by calling <code>.child-focus()</code>] on the widget’s toplevel.</p><p>The default <em>keynav-failed</em> handler returns <code>False</code> for <code>GTK_DIR_TAB_FORWARD</code> and <code>GTK_DIR_TAB_BACKWARD</code>. For the other values of <code>enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</code> it returns <code>True</code>.</p><p>Whenever the default handler returns <code>True</code>, it also calls <code>.error-bell()</code>] to notify the user of the failed keyboard navigation.</p><p>A use case for providing an own implementation of <em>keynav-failed</em> (either by connecting to it or by overriding it) would be a row of <strong>Gnome::Gtk4::Entry</strong> widgets where the user should be able to navigate the entire row with the cursor keys, as e.g. known from user interfaces that require entering license keys.</p><pre class="pod-block-code">method keynav-failed ( GtkDirectionType $direction --&gt; Bool )
+<p>Emits the `::keynav-failed` signal on the widget.</p><p>This function should be called whenever keyboard navigation within a single widget hits a boundary.</p><p>The return value of this function should be interpreted in a way similar to the return value of <a href="#child-focus">.child-focus()</a>. When <code>True</code> is returned, stay in the widget, the failed keyboard navigation is OK and/or there is nowhere we can/should move the focus to. When <code>False</code> is returned, the caller should continue with keyboard navigation outside the widget, e.g. by calling <a href="#child-focus">.child-focus()</a> on the widget’s toplevel.</p><p>The default <em>keynav-failed</em> handler returns <code>False</code> for <code>GTK_DIR_TAB_FORWARD</code> and <code>GTK_DIR_TAB_BACKWARD</code>. For the other values of <code>enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</code> it returns <code>True</code>.</p><p>Whenever the default handler returns <code>True</code>, it also calls <a href="#error-bell">.error-bell()</a> to notify the user of the failed keyboard navigation.</p><p>A use case for providing an own implementation of <em>keynav-failed</em> (either by connecting to it or by overriding it) would be a row of <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Entry</a> widgets where the user should be able to navigate the entire row with the cursor keys, as e.g. known from user interfaces that require entering license keys.</p><pre class="pod-block-code">method keynav-failed ( GtkDirectionType $direction --&gt; Bool )
 </pre><ul>
 <li><p>$direction; direction of focus movement.</p></li>
 </ul>
 <p>Return value; <code>True</code> if stopping keyboard navigation is fine, <code>False</code> if the emitting widget should try to handle the keyboard navigation attempt in its parent container(s).. </p></section>
 <section name="pod">
 <h2 id="list-mnemonic-labels"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">list-mnemonic-labels</a></h2>
-<p>Returns the widgets for which this widget is the target of a mnemonic.</p><p>Typically, these widgets will be labels. See, for example, <code>.set-mnemonic-widget()</code> in class <strong>Gnome::Gtk4::Label</strong>].</p><p>The widgets in the list are not individually referenced. If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets, you must call <strong>g_list_foreach</strong> (result, (GFunc)g_object_ref, NULL)` first, and then unref all the widgets afterwards.</p><pre class="pod-block-code">method list-mnemonic-labels (--&gt; N-List )
+<p>Returns the widgets for which this widget is the target of a mnemonic.</p><p>Typically, these widgets will be labels. See, for example, <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-mnemonic-widget">.set-mnemonic-widget() in class Gnome</a>.</p><p>The widgets in the list are not individually referenced. If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets, you must call <strong>g_list_foreach</strong> (result, (GFunc)g_object_ref, NULL)` first, and then unref all the widgets afterwards.</p><pre class="pod-block-code">method list-mnemonic-labels (--&gt; N-List )
 </pre><p>Return value; the list of mnemonic labels; free this list with g_list_free() when you are done with it.. </p></section>
 <section name="pod">
 <h2 id="map"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">map</a></h2>
@@ -786,15 +786,15 @@
 <p>Return value; <code>True</code> if the signal has been handled. </p></section>
 <section name="pod">
 <h2 id="observe-children"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">observe-children</a></h2>
-<p>Returns a <strong>Gnome::Gio::R-ListModel</strong> to track the children of <code>$widget</code>.</p><p>Calling this function will enable extra internal bookkeeping to track children and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-children (--&gt; N-List )
-</pre><p>Return value; a <strong>Gnome::Gio::R-ListModel</strong> tracking <code>$widget</code>'s children. </p></section>
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> to track the children of <code>$widget</code>.</p><p>Calling this function will enable extra internal bookkeeping to track children and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-children (--&gt; N-List )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> tracking <code>$widget</code>'s children. </p></section>
 <section name="pod">
 <h2 id="observe-controllers"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">observe-controllers</a></h2>
-<p>Returns a <strong>Gnome::Gio::R-ListModel</strong> to track the <strong>Gnome::Gtk4::EventController</strong>s of <code>$widget</code>.</p><p>Calling this function will enable extra internal bookkeeping to track controllers and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-controllers (--&gt; N-List )
-</pre><p>Return value; a <strong>Gnome::Gio::R-ListModel</strong> tracking <code>$widget</code>'s controllers. </p></section>
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> to track the <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::EventController</a>s of <code>$widget</code>.</p><p>Calling this function will enable extra internal bookkeeping to track controllers and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-controllers (--&gt; N-List )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> tracking <code>$widget</code>'s controllers. </p></section>
 <section name="pod">
 <h2 id="pick"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">pick</a></h2>
-<p>Finds the descendant of <code>$widget</code> closest to the point ( <code>$x</code>, <code>$y</code>).</p><p>The point must be given in widget coordinates, so (0, 0) is assumed to be the top left of <code>$widget</code>'s content area.</p><p>Usually widgets will return undefined if the given coordinate is not contained in <code>$widget</code> checked via <code>.contains()</code>]. Otherwise they will recursively try to find a child that does not return undefined. Widgets are however free to customize their picking algorithm.</p><p>This function is used on the toplevel to determine the widget below the mouse cursor for purposes of hover highlighting and delivering events.</p><pre class="pod-block-code">method pick ( Num() $x, Num() $y, UInt $flags --&gt; N-Object )
+<p>Finds the descendant of <code>$widget</code> closest to the point ( <code>$x</code>, <code>$y</code>).</p><p>The point must be given in widget coordinates, so (0, 0) is assumed to be the top left of <code>$widget</code>'s content area.</p><p>Usually widgets will return undefined if the given coordinate is not contained in <code>$widget</code> checked via <a href="#contains">.contains()</a>. Otherwise they will recursively try to find a child that does not return undefined. Widgets are however free to customize their picking algorithm.</p><p>This function is used on the toplevel to determine the widget below the mouse cursor for purposes of hover highlighting and delivering events.</p><pre class="pod-block-code">method pick ( Num() $x, Num() $y, UInt $flags --&gt; N-Object )
 </pre><ul>
 <li><p>$x; X coordinate to test, relative to <code>$widget</code>'s origin.</p></li>
 <li><p>$y; Y coordinate to test, relative to <code>$widget</code>'s origin.</p></li>
@@ -803,7 +803,7 @@
 <p>Return value; The widget descendant at the given point. </p></section>
 <section name="pod">
 <h2 id="queue-allocate"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">queue-allocate</a></h2>
-<p>Flags the widget for a rerun of the [vfunc <code>$Gtk</code>.Widget.size_allocate] function.</p><p>Use this function instead of <code>.queue-resize()</code>] when the <code>$widget</code>'s size request didn't change but it wants to reposition its contents.</p><p>An example user of this function is <code>.set-halign()</code>].</p><p>This function is only for use in widget implementations.</p><pre class="pod-block-code">method queue-allocate ( )
+<p>Flags the widget for a rerun of the [vfunc <code>$Gtk</code>.Widget.size_allocate] function.</p><p>Use this function instead of <a href="#queue-resize">.queue-resize()</a> when the <code>$widget</code>'s size request didn't change but it wants to reposition its contents.</p><p>An example user of this function is <a href="#set-halign">.set-halign()</a>.</p><p>This function is only for use in widget implementations.</p><pre class="pod-block-code">method queue-allocate ( )
 </pre></section>
 <section name="pod">
 <h2 id="queue-draw"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">queue-draw</a></h2>
@@ -811,7 +811,7 @@
 </pre></section>
 <section name="pod">
 <h2 id="queue-resize"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">queue-resize</a></h2>
-<p>Flags a widget to have its size renegotiated.</p><p>This should be called when a widget for some reason has a new size request. For example, when you change the text in a <strong>Gnome::Gtk4::Label</strong>, the label queues a resize to ensure there’s enough space for the new text.</p><p>Note that you cannot call <code>.queue-resize()</code> on a widget from inside its implementation of the [vfunc <code>$Gtk</code>.Widget.size_allocate] virtual method. Calls to <code>.queue-resize()</code> from inside [vfunc <code>$Gtk</code>.Widget.size_allocate] will be silently ignored.</p><p>This function is only for use in widget implementations.</p><pre class="pod-block-code">method queue-resize ( )
+<p>Flags a widget to have its size renegotiated.</p><p>This should be called when a widget for some reason has a new size request. For example, when you change the text in a <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Label</a>, the label queues a resize to ensure there’s enough space for the new text.</p><p>Note that you cannot call <code>.queue-resize()</code> on a widget from inside its implementation of the [vfunc <code>$Gtk</code>.Widget.size_allocate] virtual method. Calls to <code>.queue-resize()</code> from inside [vfunc <code>$Gtk</code>.Widget.size_allocate] will be silently ignored.</p><p>This function is only for use in widget implementations.</p><pre class="pod-block-code">method queue-resize ( )
 </pre></section>
 <section name="pod">
 <h2 id="realize"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">realize</a></h2>
@@ -821,7 +821,7 @@
 <h2 id="remove-controller"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">remove-controller</a></h2>
 <p>Removes <code>$controller</code> from <code>$widget</code>, so that it doesn't process events anymore.</p><p>It should not be used again.</p><p>Widgets will remove all event controllers automatically when they are destroyed, there is normally no need to call this function.</p><pre class="pod-block-code">method remove-controller ( N-Object() $controller )
 </pre><ul>
-<li><p>$controller; a <strong>Gnome::Gtk4::EventController</strong>.</p></li>
+<li><p>$controller; a <a href="/content-docs/api2/reference/Gtk4/EventController.html">Gnome::Gtk4::EventController</a>.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -833,21 +833,21 @@
 </section>
 <section name="pod">
 <h2 id="remove-mnemonic-label"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">remove-mnemonic-label</a></h2>
-<p>Removes a widget from the list of mnemonic labels for this widget.</p><p>See <code>.list-mnemonic-labels()</code>]. The widget must have previously been added to the list with <code>.add-mnemonic-label()</code>].</p><pre class="pod-block-code">method remove-mnemonic-label ( N-Object() $label )
+<p>Removes a widget from the list of mnemonic labels for this widget.</p><p>See <a href="#list-mnemonic-labels">.list-mnemonic-labels()</a>. The widget must have previously been added to the list with <a href="#add-mnemonic-label">.add-mnemonic-label()</a>.</p><pre class="pod-block-code">method remove-mnemonic-label ( N-Object() $label )
 </pre><ul>
-<li><p>$label; a <strong>Gnome::Gtk4::Widget</strong> that was previously set as a mnemonic label for <code>$widget</code> with <code>.add-mnemonic-label()</code>].</p></li>
+<li><p>$label; a <strong>Gnome::Gtk4::Widget</strong> that was previously set as a mnemonic label for <code>$widget</code> with <a href="#add-mnemonic-label">.add-mnemonic-label()</a>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="remove-tick-callback"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">remove-tick-callback</a></h2>
 <p>Removes a tick callback previously registered with <code>.add-tick-callback()</code>.</p><pre class="pod-block-code">method remove-tick-callback ( UInt() $id )
 </pre><ul>
-<li><p>$id; an id returned by <code>.add-tick-callback()</code>].</p></li>
+<li><p>$id; an id returned by <a href="#add-tick-callback">.add-tick-callback()</a>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-can-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-can-focus</a></h2>
-<p>Specifies whether the input focus can enter the widget or any of its children.</p><p>Applications should set <code>$can-focus</code> to <code>False</code> to mark a widget as for pointer/touch use only.</p><p>Note that having <code>$can-focus</code> be <code>True</code> is only one of the necessary conditions for being focusable. A widget must also be sensitive and focusable and not have an ancestor that is marked as not can-focus in order to receive input focus.</p><p>See <code>.grab-focus()</code>] for actually setting the input focus on a widget.</p><pre class="pod-block-code">method set-can-focus ( Bool() $can-focus )
+<p>Specifies whether the input focus can enter the widget or any of its children.</p><p>Applications should set <code>$can-focus</code> to <code>False</code> to mark a widget as for pointer/touch use only.</p><p>Note that having <code>$can-focus</code> be <code>True</code> is only one of the necessary conditions for being focusable. A widget must also be sensitive and focusable and not have an ancestor that is marked as not can-focus in order to receive input focus.</p><p>See <a href="#grab-focus">.grab-focus()</a> for actually setting the input focus on a widget.</p><pre class="pod-block-code">method set-can-focus ( Bool() $can-focus )
 </pre><ul>
 <li><p>$can-focus; whether or not the input focus can enter the widget or any of its children.</p></li>
 </ul>
@@ -861,7 +861,7 @@
 </section>
 <section name="pod">
 <h2 id="set-child-visible"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-child-visible</a></h2>
-<p>Sets whether <code>$widget</code> should be mapped along with its parent.</p><p>The child visibility can be set for widget before it is added to a container with <code>.set-parent()</code>], to avoid mapping children unnecessary before immediately unmapping them. However it will be reset to its default state of <code>True</code> when the widget is removed from a container.</p><p>Note that changing the child visibility of a widget does not queue a resize on the widget. Most of the time, the size of a widget is computed from all visible children, whether or not they are mapped. If this is not the case, the container can queue a resize itself.</p><p>This function is only useful for container implementations and should never be called by an application.</p><pre class="pod-block-code">method set-child-visible ( Bool() $child-visible )
+<p>Sets whether <code>$widget</code> should be mapped along with its parent.</p><p>The child visibility can be set for widget before it is added to a container with <a href="#set-parent">.set-parent()</a>, to avoid mapping children unnecessary before immediately unmapping them. However it will be reset to its default state of <code>True</code> when the widget is removed from a container.</p><p>Note that changing the child visibility of a widget does not queue a resize on the widget. Most of the time, the size of a widget is computed from all visible children, whether or not they are mapped. If this is not the case, the container can queue a resize itself.</p><p>This function is only useful for container implementations and should never be called by an application.</p><pre class="pod-block-code">method set-child-visible ( Bool() $child-visible )
 </pre><ul>
 <li><p>$child-visible; if <code>True</code>, <code>$widget</code> should be mapped along with its parent..</p></li>
 </ul>
@@ -882,21 +882,21 @@
 </section>
 <section name="pod">
 <h2 id="set-cursor-from-name"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-cursor-from-name</a></h2>
-<p>Sets a named cursor to be shown when pointer devices point towards <code>$widget</code>.</p><p>This is a utility function that creates a cursor via <code>.new-from-name()</code> in class <strong>Gnome::Gdk4::Cursor</strong> and then sets it on <code>$widget</code> with <code>.set-cursor()</code>]. See those functions for details.</p><p>On top of that, this function allows <code>$name</code> to be undefined, which will do the same as calling <code>.set-cursor()</code>] with a undefined cursor.</p><pre class="pod-block-code">method set-cursor-from-name ( Str $name )
+<p>Sets a named cursor to be shown when pointer devices point towards <code>$widget</code>.</p><p>This is a utility function that creates a cursor via <a href="/content-docs/api2/reference/Gdk4/Gnome.html#new-from-name">.new-from-name() in class Gnome</a> and then sets it on <code>$widget</code> with <a href="#set-cursor">.set-cursor()</a>. See those functions for details.</p><p>On top of that, this function allows <code>$name</code> to be undefined, which will do the same as calling <a href="#set-cursor">.set-cursor()</a> with a undefined cursor.</p><pre class="pod-block-code">method set-cursor-from-name ( Str $name )
 </pre><ul>
 <li><p>$name; The name of the cursor.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-direction"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-direction</a></h2>
-<p>Sets the reading direction on a particular widget.</p><p>This direction controls the primary direction for widgets containing text, and also the direction in which the children of a container are packed. The ability to set the direction is present in order so that correct localization into languages with right-to-left reading directions can be done. Generally, applications will let the default reading direction present, except for containers where the containers are arranged in an order that is explicitly visual rather than logical (such as buttons for text justification).</p><p>If the direction is set to <code>GTK_TEXT_DIR_NONE</code>, then the value set by <code>.Widget.set-default-direction()</code> will be used.</p><pre class="pod-block-code">method set-direction ( GtkTextDirection $dir )
+<p>Sets the reading direction on a particular widget.</p><p>This direction controls the primary direction for widgets containing text, and also the direction in which the children of a container are packed. The ability to set the direction is present in order so that correct localization into languages with right-to-left reading directions can be done. Generally, applications will let the default reading direction present, except for containers where the containers are arranged in an order that is explicitly visual rather than logical (such as buttons for text justification).</p><p>If the direction is set to <code>GTK_TEXT_DIR_NONE</code>, then the value set by <a href="/content-docs/api2/reference/Gtk4/T-widget.html#Widget.set-default-direction">.Widget.set-default-direction().Widget.set-default-direction() in package Gnome::Gtk4</a> will be used.</p><pre class="pod-block-code">method set-direction ( GtkTextDirection $dir )
 </pre><ul>
 <li><p>$dir; the new direction.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-focus-child"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-focus-child</a></h2>
-<p>Set <code>$child</code> as the current focus child of <code>$widget</code>.</p><p>This function is only suitable for widget implementations. If you want a certain widget to get the input focus, call <code>.grab-focus()</code>] on it.</p><pre class="pod-block-code">method set-focus-child ( N-Object() $child )
+<p>Set <code>$child</code> as the current focus child of <code>$widget</code>.</p><p>This function is only suitable for widget implementations. If you want a certain widget to get the input focus, call <a href="#grab-focus">.grab-focus()</a> on it.</p><pre class="pod-block-code">method set-focus-child ( N-Object() $child )
 </pre><ul>
 <li><p>$child; a direct child widget of <code>$widget</code> or undefined to unset the focus child of <code>$widget</code>.</p></li>
 </ul>
@@ -910,7 +910,7 @@
 </section>
 <section name="pod">
 <h2 id="set-focusable"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-focusable</a></h2>
-<p>Specifies whether <code>$widget</code> can own the input focus.</p><p>Widget implementations should set <code>$focusable</code> to <code>True</code> in their init() function if they want to receive keyboard input.</p><p>Note that having <code>$focusable</code> be <code>True</code> is only one of the necessary conditions for being focusable. A widget must also be sensitive and can-focus and not have an ancestor that is marked as not can-focus in order to receive input focus.</p><p>See <code>.grab-focus()</code>] for actually setting the input focus on a widget.</p><pre class="pod-block-code">method set-focusable ( Bool() $focusable )
+<p>Specifies whether <code>$widget</code> can own the input focus.</p><p>Widget implementations should set <code>$focusable</code> to <code>True</code> in their init() function if they want to receive keyboard input.</p><p>Note that having <code>$focusable</code> be <code>True</code> is only one of the necessary conditions for being focusable. A widget must also be sensitive and can-focus and not have an ancestor that is marked as not can-focus in order to receive input focus.</p><p>See <a href="#grab-focus">.grab-focus()</a> for actually setting the input focus on a widget.</p><pre class="pod-block-code">method set-focusable ( Bool() $focusable )
 </pre><ul>
 <li><p>$focusable; whether or not <code>$widget</code> can own the input focus.</p></li>
 </ul>
@@ -919,12 +919,12 @@
 <h2 id="set-font-map"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-font-map</a></h2>
 <p>Sets the font map to use for Pango rendering.</p><p>The font map is the object that is used to look up fonts. Setting a custom font map can be useful in special situations, e.g. when you need to add application-specific fonts to the set of available fonts.</p><p>When not set, the widget will inherit the font map from its parent.</p><pre class="pod-block-code">method set-font-map ( N-Object() $font-map )
 </pre><ul>
-<li><p>$font-map; a <strong>Gnome::Pango::FontMap</strong>, or undefined to unset any previously set font map.</p></li>
+<li><p>$font-map; a <a href="/content-docs/api2/reference/Pango/FontMap.html">Gnome::Pango::FontMap</a>, or undefined to unset any previously set font map.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-font-options"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-font-options</a></h2>
-<p>Sets the <strong>Cairo::cairo_font_options_t</strong> used for Pango rendering in this widget.</p><p>When not set, the default font options for the <strong>Gnome::Gdk4::Display</strong> will be used.</p><pre class="pod-block-code">method set-font-options (airo::cairo_font_options_t )
+<p>Sets the <strong>Cairo::cairo_font_options_t</strong> used for Pango rendering in this widget.</p><p>When not set, the default font options for the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> will be used.</p><pre class="pod-block-code">method set-font-options (airo::cairo_font_options_t )
 </pre><ul>
 <li><p>$options; a <strong>Cairo::cairo_font_options_t</strong> to unset any previously set default font options.</p></li>
 </ul>
@@ -945,14 +945,14 @@
 </section>
 <section name="pod">
 <h2 id="set-hexpand"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-hexpand</a></h2>
-<p>Sets whether the widget would like any available extra horizontal space.</p><p>When a user resizes a <strong>Gnome::Gtk4::Window</strong>, widgets with expand=TRUE generally receive the extra space. For example, a list or scrollable area or document in your window would often be set to expand.</p><p>Call this function to set the expand flag if you would like your widget to become larger horizontally when the window has extra room.</p><p>By default, widgets automatically expand if any of their children want to expand. (To see if a widget will automatically expand given its current children and state, call <code>.compute-expand()</code>]. A container can decide how the expandability of children affects the expansion of the container by overriding the compute_expand virtual method on <strong>Gnome::Gtk4::Widget</strong>.).</p><p>Setting hexpand explicitly with this function will override the automatic expand behavior.</p><p>This function forces the widget to expand or not to expand, regardless of children. The override occurs because <code>.set-hexpand()</code>] sets the hexpand-set property (see <code>.set-hexpand-set()</code>]) which causes the widget’s hexpand value to be used, rather than looking at children and widget state.</p><pre class="pod-block-code">method set-hexpand ( Bool() $expand )
+<p>Sets whether the widget would like any available extra horizontal space.</p><p>When a user resizes a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>, widgets with expand=TRUE generally receive the extra space. For example, a list or scrollable area or document in your window would often be set to expand.</p><p>Call this function to set the expand flag if you would like your widget to become larger horizontally when the window has extra room.</p><p>By default, widgets automatically expand if any of their children want to expand. (To see if a widget will automatically expand given its current children and state, call <a href="#compute-expand">.compute-expand()</a>. A container can decide how the expandability of children affects the expansion of the container by overriding the compute_expand virtual method on <strong>Gnome::Gtk4::Widget</strong>.).</p><p>Setting hexpand explicitly with this function will override the automatic expand behavior.</p><p>This function forces the widget to expand or not to expand, regardless of children. The override occurs because <a href="#set-hexpand">.set-hexpand()</a> sets the hexpand-set property (see <a href="#set-hexpand-set">.set-hexpand-set()</a>) which causes the widget’s hexpand value to be used, rather than looking at children and widget state.</p><pre class="pod-block-code">method set-hexpand ( Bool() $expand )
 </pre><ul>
 <li><p>$expand; whether to expand.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-hexpand-set"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-hexpand-set</a></h2>
-<p>Sets whether the hexpand flag will be used.</p><p>The <em>hexpand-set</em> property will be set automatically when you call <code>.set-hexpand()</code>] to set hexpand, so the most likely reason to use this function would be to unset an explicit expand flag.</p><p>If hexpand is set, then it overrides any computed expand value based on child widgets. If hexpand is not set, then the expand value depends on whether any children of the widget would like to expand.</p><p>There are few reasons to use this function, but it’s here for completeness and consistency.</p><pre class="pod-block-code">method set-hexpand-set ( Bool() $set )
+<p>Sets whether the hexpand flag will be used.</p><p>The <em>hexpand-set</em> property will be set automatically when you call <a href="#set-hexpand">.set-hexpand()</a> to set hexpand, so the most likely reason to use this function would be to unset an explicit expand flag.</p><p>If hexpand is set, then it overrides any computed expand value based on child widgets. If hexpand is not set, then the expand value depends on whether any children of the widget would like to expand.</p><p>There are few reasons to use this function, but it’s here for completeness and consistency.</p><pre class="pod-block-code">method set-hexpand-set ( Bool() $set )
 </pre><ul>
 <li><p>$set; value for hexpand-set property.</p></li>
 </ul>
@@ -961,7 +961,7 @@
 <h2 id="set-layout-manager"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-layout-manager</a></h2>
 <p>Sets the layout manager delegate instance that provides an implementation for measuring and allocating the children of <code>$widget</code>.</p><pre class="pod-block-code">method set-layout-manager ( N-Object() $layout-manager )
 </pre><ul>
-<li><p>$layout-manager; (transfer ownership: full) a <strong>Gnome::Gtk4::LayoutManager</strong>.</p></li>
+<li><p>$layout-manager; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/LayoutManager.html">Gnome::Gtk4::LayoutManager</a>.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -994,14 +994,14 @@
 </section>
 <section name="pod">
 <h2 id="set-name"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-name</a></h2>
-<p>Sets a widgets name.</p><p>Setting a name allows you to refer to the widget from a CSS file. You can apply a style to widgets with a particular name in the CSS file. See the documentation for the CSS syntax (on the same page as the docs for <strong>Gnome::Gtk4::StyleContext</strong>.</p><p>Note that the CSS syntax has certain special characters to delimit and represent elements in a selector (period, #, &gt;, *...), so using these will make your widget impossible to match by name. Any combination of alphanumeric symbols, dashes and underscores will suffice.</p><pre class="pod-block-code">method set-name ( Str $name )
+<p>Sets a widgets name.</p><p>Setting a name allows you to refer to the widget from a CSS file. You can apply a style to widgets with a particular name in the CSS file. See the documentation for the CSS syntax (on the same page as the docs for <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::StyleContext</a>.</p><p>Note that the CSS syntax has certain special characters to delimit and represent elements in a selector (period, #, &gt;, *...), so using these will make your widget impossible to match by name. Any combination of alphanumeric symbols, dashes and underscores will suffice.</p><pre class="pod-block-code">method set-name ( Str $name )
 </pre><ul>
 <li><p>$name; name for the widget.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-opacity"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-opacity</a></h2>
-<p>Request the <code>$widget</code> to be rendered partially transparent.</p><p>An opacity of 0 is fully transparent and an opacity of 1 is fully opaque.</p><p>Opacity works on both toplevel widgets and child widgets, although there are some limitations: For toplevel widgets, applying opacity depends on the capabilities of the windowing system. On X11, this has any effect only on X displays with a compositing manager, see gdk_display_is_composited(). On Windows and Wayland it should always work, although setting a window’s opacity after the window has been shown may cause some flicker.</p><p>Note that the opacity is inherited through inclusion — if you set a toplevel to be partially translucent, all of its content will appear translucent, since it is ultimatively rendered on that toplevel. The opacity value itself is not inherited by child widgets (since that would make widgets deeper in the hierarchy progressively more translucent). As a consequence, <strong>Gnome::Gtk4::Popover</strong>s and other <strong>Gnome::Gtk4::R-Native</strong> widgets with their own surface will use their own opacity value, and thus by default appear non-translucent, even if they are attached to a toplevel that is translucent.</p><pre class="pod-block-code">method set-opacity ( Num() $opacity )
+<p>Request the <code>$widget</code> to be rendered partially transparent.</p><p>An opacity of 0 is fully transparent and an opacity of 1 is fully opaque.</p><p>Opacity works on both toplevel widgets and child widgets, although there are some limitations: For toplevel widgets, applying opacity depends on the capabilities of the windowing system. On X11, this has any effect only on X displays with a compositing manager, see gdk_display_is_composited(). On Windows and Wayland it should always work, although setting a window’s opacity after the window has been shown may cause some flicker.</p><p>Note that the opacity is inherited through inclusion — if you set a toplevel to be partially translucent, all of its content will appear translucent, since it is ultimatively rendered on that toplevel. The opacity value itself is not inherited by child widgets (since that would make widgets deeper in the hierarchy progressively more translucent). As a consequence, <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Popover</a>s and other <a href="/content-docs/api2/reference/gtk/Gnome-Native.html">Gnome::Gtk4::R-Native</a> widgets with their own surface will use their own opacity value, and thus by default appear non-translucent, even if they are attached to a toplevel that is translucent.</p><pre class="pod-block-code">method set-opacity ( Num() $opacity )
 </pre><ul>
 <li><p>$opacity; desired opacity, between 0 and 1.</p></li>
 </ul>
@@ -1015,7 +1015,7 @@
 </section>
 <section name="pod">
 <h2 id="set-parent"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-parent</a></h2>
-<p>Sets <code>$parent</code> as the parent widget of <code>$widget</code>.</p><p>This takes care of details such as updating the state and style of the child to reflect its new location and resizing the parent. The opposite function is <code>.unparent()</code>].</p><p>This function is useful only when implementing subclasses of <strong>Gnome::Gtk4::Widget</strong>.</p><pre class="pod-block-code">method set-parent ( N-Object() $parent )
+<p>Sets <code>$parent</code> as the parent widget of <code>$widget</code>.</p><p>This takes care of details such as updating the state and style of the child to reflect its new location and resizing the parent. The opposite function is <a href="#unparent">.unparent()</a>.</p><p>This function is useful only when implementing subclasses of <strong>Gnome::Gtk4::Widget</strong>.</p><pre class="pod-block-code">method set-parent ( N-Object() $parent )
 </pre><ul>
 <li><p>$parent; parent widget.</p></li>
 </ul>
@@ -1036,7 +1036,7 @@
 </section>
 <section name="pod">
 <h2 id="set-size-request"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-size-request</a></h2>
-<p>Sets the minimum size of a widget.</p><p>That is, the widget’s size request will be at least <code>$width</code> by <code>$height</code>. You can use this function to force a widget to be larger than it normally would be.</p><p>In most cases, <code>.set-default-size()</code> in class <strong>Gnome::Gtk4::Window</strong>] is a better choice for toplevel windows than this function; setting the default size will still allow users to shrink the window. Setting the size request will force them to leave the window at least as large as the size request.</p><p>Note the inherent danger of setting any fixed size - themes, translations into other languages, different fonts, and user action can all change the appropriate size for a given widget. So, it's basically impossible to hardcode a size that will always be correct.</p><p>The size request of a widget is the smallest size a widget can accept while still functioning well and drawing itself correctly. However in some strange cases a widget may be allocated less than its requested size, and in many cases a widget may be allocated more space than it requested.</p><p>If the size request in a given direction is -1 (unset), then the “natural” size request of the widget will be used instead.</p><p>The size request set here does not include any margin from the properties <em>margin-start</em>, <em>margin-end</em>, <em>margin-top</em>, and <em>margin-bottom</em>, but it does include pretty much all other padding or border properties set by any subclass of <strong>Gnome::Gtk4::Widget</strong>.</p><pre class="pod-block-code">method set-size-request ( Int() $width, Int() $height )
+<p>Sets the minimum size of a widget.</p><p>That is, the widget’s size request will be at least <code>$width</code> by <code>$height</code>. You can use this function to force a widget to be larger than it normally would be.</p><p>In most cases, <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-default-size">.set-default-size() in class Gnome</a> is a better choice for toplevel windows than this function; setting the default size will still allow users to shrink the window. Setting the size request will force them to leave the window at least as large as the size request.</p><p>Note the inherent danger of setting any fixed size - themes, translations into other languages, different fonts, and user action can all change the appropriate size for a given widget. So, it's basically impossible to hardcode a size that will always be correct.</p><p>The size request of a widget is the smallest size a widget can accept while still functioning well and drawing itself correctly. However in some strange cases a widget may be allocated less than its requested size, and in many cases a widget may be allocated more space than it requested.</p><p>If the size request in a given direction is -1 (unset), then the “natural” size request of the widget will be used instead.</p><p>The size request set here does not include any margin from the properties <em>margin-start</em>, <em>margin-end</em>, <em>margin-top</em>, and <em>margin-bottom</em>, but it does include pretty much all other padding or border properties set by any subclass of <strong>Gnome::Gtk4::Widget</strong>.</p><pre class="pod-block-code">method set-size-request ( Int() $width, Int() $height )
 </pre><ul>
 <li><p>$width; width <code>$widget</code> should request, or -1 to unset.</p></li>
 <li><p>$height; height <code>$widget</code> should request, or -1 to unset.</p></li>
@@ -1044,7 +1044,7 @@
 </section>
 <section name="pod">
 <h2 id="set-state-flags"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-state-flags</a></h2>
-<p>Turns on flag values in the current widget state.</p><p>Typical widget states are insensitive, prelighted, etc.</p><p>This function accepts the values <code>GTK_STATE_FLAG_DIR_LTR</code> and <code>GTK_STATE_FLAG_DIR_RTL</code> but ignores them. If you want to set the widget's direction, use <code>.set-direction()</code>].</p><p>This function is for use in widget implementations.</p><pre class="pod-block-code">method set-state-flags ( UInt $flags, Bool() $clear )
+<p>Turns on flag values in the current widget state.</p><p>Typical widget states are insensitive, prelighted, etc.</p><p>This function accepts the values <code>GTK_STATE_FLAG_DIR_LTR</code> and <code>GTK_STATE_FLAG_DIR_RTL</code> but ignores them. If you want to set the widget's direction, use <a href="#set-direction">.set-direction()</a>.</p><p>This function is for use in widget implementations.</p><pre class="pod-block-code">method set-state-flags ( UInt $flags, Bool() $clear )
 </pre><ul>
 <li><p>$flags; State flags to turn on.</p></li>
 <li><p>$clear; Whether to clear state before turning on <code>$flags</code>.</p></li>
@@ -1052,14 +1052,14 @@
 </section>
 <section name="pod">
 <h2 id="set-tooltip-markup"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-tooltip-markup</a></h2>
-<p>Sets <code>$markup</code> as the contents of the tooltip, which is marked up with Pango markup.</p><p>This function will take care of setting the <em>has-tooltip</em> as a side effect, and of the default handler for the <em>query-tooltip</em> signal.</p><p>See also <code>.set-markup()</code> in class <strong>Gnome::Gtk4::Tooltip</strong>].</p><pre class="pod-block-code">method set-tooltip-markup ( Str $markup )
+<p>Sets <code>$markup</code> as the contents of the tooltip, which is marked up with Pango markup.</p><p>This function will take care of setting the <em>has-tooltip</em> as a side effect, and of the default handler for the <em>query-tooltip</em> signal.</p><p>See also <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-markup">.set-markup() in class Gnome</a>.</p><pre class="pod-block-code">method set-tooltip-markup ( Str $markup )
 </pre><ul>
 <li><p>$markup; the contents of the tooltip for <code>$widget</code>.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-tooltip-text"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-tooltip-text</a></h2>
-<p>Sets <code>$text</code> as the contents of the tooltip.</p><p>If <code>$text</code> contains any markup, it will be escaped.</p><p>This function will take care of setting <em>has-tooltip</em> as a side effect, and of the default handler for the <em>query-tooltip</em> signal.</p><p>See also <code>.set-text()</code> in class <strong>Gnome::Gtk4::Tooltip</strong>].</p><pre class="pod-block-code">method set-tooltip-text ( Str $text )
+<p>Sets <code>$text</code> as the contents of the tooltip.</p><p>If <code>$text</code> contains any markup, it will be escaped.</p><p>This function will take care of setting <em>has-tooltip</em> as a side effect, and of the default handler for the <em>query-tooltip</em> signal.</p><p>See also <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-text">.set-text() in class Gnome</a>.</p><pre class="pod-block-code">method set-tooltip-text ( Str $text )
 </pre><ul>
 <li><p>$text; the contents of the tooltip for <code>$widget</code>.</p></li>
 </ul>
@@ -1073,21 +1073,21 @@
 </section>
 <section name="pod">
 <h2 id="set-vexpand"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-vexpand</a></h2>
-<p>Sets whether the widget would like any available extra vertical space.</p><p>See <code>.set-hexpand()</code>] for more detail.</p><pre class="pod-block-code">method set-vexpand ( Bool() $expand )
+<p>Sets whether the widget would like any available extra vertical space.</p><p>See <a href="#set-hexpand">.set-hexpand()</a> for more detail.</p><pre class="pod-block-code">method set-vexpand ( Bool() $expand )
 </pre><ul>
 <li><p>$expand; whether to expand.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-vexpand-set"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-vexpand-set</a></h2>
-<p>Sets whether the vexpand flag will be used.</p><p>See <code>.set-hexpand-set()</code>] for more detail.</p><pre class="pod-block-code">method set-vexpand-set ( Bool() $set )
+<p>Sets whether the vexpand flag will be used.</p><p>See <a href="#set-hexpand-set">.set-hexpand-set()</a> for more detail.</p><pre class="pod-block-code">method set-vexpand-set ( Bool() $set )
 </pre><ul>
 <li><p>$set; value for vexpand-set property.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="set-visible"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-visible</a></h2>
-<p>Sets the visibility state of <code>$widget</code>.</p><p>Note that setting this to <code>True</code> doesn’t mean the widget is actually viewable, see <code>.get-visible()</code>].</p><pre class="pod-block-code">method set-visible ( Bool() $visible )
+<p>Sets the visibility state of <code>$widget</code>.</p><p>Note that setting this to <code>True</code> doesn’t mean the widget is actually viewable, see <a href="#get-visible">.get-visible()</a>.</p><pre class="pod-block-code">method set-visible ( Bool() $visible )
 </pre><ul>
 <li><p>$visible; whether the widget should be shown or not.</p></li>
 </ul>
@@ -1101,8 +1101,8 @@
 <p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Flags a widget to be displayed.</p><p>Any widget that isn’t shown will not appear on the screen.</p><p>Remember that you have to show the containers containing a widget, in addition to the widget itself, before it will appear onscreen.</p><p>When a toplevel container is shown, it is immediately realized and mapped; other shown widgets are realized and mapped when their toplevel container is realized and mapped.</p><pre class="pod-block-code">method show ( )
 </pre></section>
 <section name="pod">
-<h2 id="size-allocate_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">size-allocate This function is not yet available</a></h2>
-<p>Allocates widget with a transformation that translates the origin to the position in <code>$allocation</code>.</p><p>This is a simple form of <code>.allocate()</code>].</p><pre class="pod-block-code">method size-allocate ( …, Int() $baseline )
+<h2 id="size-allocate"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">size-allocate</a></h2>
+<p>Allocates widget with a transformation that translates the origin to the position in <code>$allocation</code>.</p><p>This is a simple form of <a href="#allocate">.allocate()</a>.</p><pre class="pod-block-code">method size-allocate ( …, Int() $baseline )
 </pre><ul>
 <li><p>allocation; position and size to be allocated to <code>$widget</code>. Note that each argument must be specified as a type followed by its value!</p></li>
 <li><p>$baseline; The baseline of the child, or -1.</p></li>
@@ -1110,10 +1110,10 @@
 </section>
 <section name="pod">
 <h2 id="snapshot-child"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">snapshot-child</a></h2>
-<p>Snapshot the a child of <code>$widget</code>.</p><p>When a widget receives a call to the snapshot function, it must send synthetic [vfunc <code>$Gtk</code>.Widget.snapshot] calls to all children. This function provides a convenient way of doing this. A widget, when it receives a call to its [vfunc <code>$Gtk</code>.Widget.snapshot] function, calls <code>.snapshot-child()</code> once for each child, passing in the <code>$snapshot</code> the widget received.</p><p><code>.snapshot-child()</code> takes care of translating the origin of <code>$snapshot</code>, and deciding whether the child needs to be snapshot.</p><p>This function does nothing for children that implement <strong>Gnome::Gtk4::R-Native</strong>.</p><pre class="pod-block-code">method snapshot-child ( N-Object() $child, N-Object() $snapshot )
+<p>Snapshot the a child of <code>$widget</code>.</p><p>When a widget receives a call to the snapshot function, it must send synthetic [vfunc <code>$Gtk</code>.Widget.snapshot] calls to all children. This function provides a convenient way of doing this. A widget, when it receives a call to its [vfunc <code>$Gtk</code>.Widget.snapshot] function, calls <code>.snapshot-child()</code> once for each child, passing in the <code>$snapshot</code> the widget received.</p><p><code>.snapshot-child()</code> takes care of translating the origin of <code>$snapshot</code>, and deciding whether the child needs to be snapshot.</p><p>This function does nothing for children that implement <a href="/content-docs/api2/reference/Gtk4/R-Native.html">Gnome::Gtk4::R-Native</a>.</p><pre class="pod-block-code">method snapshot-child ( N-Object() $child, N-Object() $snapshot )
 </pre><ul>
 <li><p>$child; a child of <code>$widget</code>.</p></li>
-<li><p>$snapshot; <strong>Gnome::Gtk4::Snapshot</strong> as passed to the widget. In particular, no calls to gtk_snapshot_translate() or other transform calls should have been made..</p></li>
+<li><p>$snapshot; <a href="/content-docs/api2/reference/Gtk4/Snapshot.html">Gnome::Gtk4::Snapshot</a> as passed to the widget. In particular, no calls to gtk_snapshot_translate() or other transform calls should have been made..</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -1145,7 +1145,7 @@
 </pre></section>
 <section name="pod">
 <h2 id="unset-state-flags"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">unset-state-flags</a></h2>
-<p>Turns off flag values for the current widget state.</p><p>See <code>.set-state-flags()</code>].</p><p>This function is for use in widget implementations.</p><pre class="pod-block-code">method unset-state-flags ( UInt $flags )
+<p>Turns off flag values for the current widget state.</p><p>See <a href="#set-state-flags">.set-state-flags()</a>.</p><p>This function is for use in widget implementations.</p><pre class="pod-block-code">method unset-state-flags ( UInt $flags )
 </pre><ul>
 <li><p>$flags; State flags to turn off.</p></li>
 </ul>
@@ -1155,11 +1155,11 @@
 </section>
 <section name="pod">
 <h2 id="get-default-direction"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">get-default-direction</a></h2>
-<p>Obtains the current default reading direction.</p><p>See <code>.Widget.set-default-direction()</code>.</p><pre class="pod-block-code">method get-default-direction (--&gt; GtkTextDirection )
+<p>Obtains the current default reading direction.</p><p>See <a href="/content-docs/api2/reference/Gtk4/T-widget.html#Widget.set-default-direction">.Widget.set-default-direction().Widget.set-default-direction() in package Gnome::Gtk4</a>.</p><pre class="pod-block-code">method get-default-direction (--&gt; GtkTextDirection )
 </pre><p>Return value; the current default direction.. </p></section>
 <section name="pod">
 <h2 id="set-default-direction"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">set-default-direction</a></h2>
-<p>Sets the default reading direction for widgets.</p><p>See <code>.set-direction()</code>].</p><pre class="pod-block-code">method set-default-direction ( GtkTextDirection $dir )
+<p>Sets the default reading direction for widgets.</p><p>See <a href="#set-direction">.set-direction()</a>.</p><pre class="pod-block-code">method set-default-direction ( GtkTextDirection $dir )
 </pre><ul>
 <li><p>$dir; the new default direction. This cannot be <code>GTK_TEXT_DIR_NONE</code>..</p></li>
 </ul>
@@ -1172,13 +1172,12 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="direction-changed"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">direction-changed</a></h3>
@@ -1187,14 +1186,13 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$previous-direction; the previous text direction of <code>$widget</code>.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="hide_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">hide</a></h3>
@@ -1202,30 +1200,28 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="keynav-failed_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">keynav-failed</a></h3>
-<p>Emitted if keyboard navigation fails.</p><p>See <code>.keynav-failed()</code>] for details.</p><pre class="pod-block-code">method handler (
+<p>Emitted if keyboard navigation fails.</p><p>See <a href="#keynav-failed">.keynav-failed()</a> for details.</p><pre class="pod-block-code">method handler (
    $direction,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
 <li><p>$direction; the direction of movement.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> if stopping keyboard navigation is fine, <code>False</code> if the emitting widget should try to handle the keyboard navigation attempt in its parent widget(s).</p>
 <h3 id="map_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">map</a></h3>
@@ -1233,13 +1229,12 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="mnemonic-activate_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">mnemonic-activate</a></h3>
@@ -1248,15 +1243,14 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
 <li><p>$group-cycling; <code>True</code> if there are other widgets with the same mnemonic.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> to stop other handlers from being invoked for the event. <code>False</code> to propagate the event further.</p>
 <h3 id="move-focus"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">move-focus</a></h3>
@@ -1265,14 +1259,13 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$direction; the direction of the focus move.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="query-tooltip"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">query-tooltip</a></h3>
@@ -1284,32 +1277,30 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
 <li><p>$x; the x coordinate of the cursor position where the request has been emitted, relative to <code>$widget</code>'s left side.</p></li>
 <li><p>$y; the y coordinate of the cursor position where the request has been emitted, relative to <code>$widget</code>'s top.</p></li>
 <li><p>$keyboard-mode; <code>True</code> if the tooltip was triggered using the keyboard.</p></li>
-<li><p>$tooltip; a <strong>Gnome::Gtk4::Tooltip</strong>.</p></li>
+<li><p>$tooltip; a <a href="/content-docs/api2/reference/Gtk4/Tooltip.html">Gnome::Gtk4::Tooltip</a>.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> if <code>$tooltip</code> should be shown right now, <code>False</code> otherwise.</p>
 <h3 id="realize_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">realize</a></h3>
-<p>Emitted when <code>$widget</code> is associated with a <strong>Gnome::Gdk4::Surface</strong>.</p><p>This means that <code>.realize()</code>] has been called or the widget has been mapped (that is, it is going to be drawn).</p><pre class="pod-block-code">method handler (
+<p>Emitted when <code>$widget</code> is associated with a <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a>.</p><p>This means that <a href="#realize">.realize()</a> has been called or the widget has been mapped (that is, it is going to be drawn).</p><pre class="pod-block-code">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="show_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">show</a></h3>
@@ -1317,29 +1308,27 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="state-flags-changed"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">state-flags-changed</a></h3>
-<p>Emitted when the widget state changes.</p><p>See <code>.get-state-flags()</code>].</p><pre class="pod-block-code">method handler (
+<p>Emitted when the widget state changes.</p><p>See <a href="#get-state-flags">.get-state-flags()</a>.</p><pre class="pod-block-code">method handler (
    $flags,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$flags; The previous state flags..</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="unmap_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">unmap</a></h3>
@@ -1347,29 +1336,27 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 
 <h3 id="unrealize_0"><a href="#Gnome::Gtk4::Widget" class="u" title="go to top of document">unrealize</a></h3>
-<p>Emitted when the <strong>Gnome::Gdk4::Surface</strong> associated with <code>$widget</code> is destroyed.</p><p>This means that <code>.unrealize()</code>] has been called or the widget has been unmapped (that is, it is going to be hidden).</p><pre class="pod-block-code">method handler (
+<p>Emitted when the <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a> associated with <code>$widget</code> is destroyed.</p><p>This means that <a href="#unrealize">.unrealize()</a> has been called or the widget has been unmapped (that is, it is going to be hidden).</p><pre class="pod-block-code">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Widget :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Widget</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Widget.rakudoc</span></div><div>at <span class="time">2025-04-21T13:07:29Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Widget.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:35Z</span></div></footer>
 	</body>
 </html>
