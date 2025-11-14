@@ -1,0 +1,126 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gtk4::GestureClick</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::GestureClick">Gnome::Gtk4::GestureClick</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new-gestureclick">new-gestureclick</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#pressed">pressed</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#released">released</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#stopped">stopped</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#unpaired-release">unpaired-release</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gtk4::GestureClick</strong> is a <a href="/content-docs/api2/reference/Gtk4/Gesture.html">Gnome::Gtk4::Gesture</a> implementation for clicks.</p><p>It is able to recognize multiple clicks on a nearby zone, which can be listened for through the <em>pressed</em> signal. Whenever time or distance between clicks exceed the GTK defaults, <em>stopped</em> is emitted, and the click counter is reset.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/GestureClick.png" width="70%" height="auto" alt="No caption"></div>
+</section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
+<section name="pod">
+<h2 id="new-gestureclick"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">new-gestureclick</a></h2>
+<p>Returns a newly created <a href="/content-docs/api2/reference/Gtk4/Gesture.html">Gnome::Gtk4::Gesture</a> that recognizes single and multiple presses.</p><pre class="pod-block-code">method new-gestureclick ( --&gt; Gnome::Gtk4::GestureClick )
+</pre></section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="pressed"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">pressed</a></h3>
+<p>Emitted whenever a button or touch press happens.</p><pre class="pod-block-code">method handler (
+  gint $n-press,
+  gdouble $x,
+  gdouble $y,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::GestureClick :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$n-press; how many touch/button presses happened with this one.</p></li>
+<li><p>$x; The X coordinate, in widget allocation coordinates.</p></li>
+<li><p>$y; The Y coordinate, in widget allocation coordinates.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GestureClick</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+</ul>
+
+<h3 id="released"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">released</a></h3>
+<p>Emitted when a button or touch is released. <code>$n-press</code> will report the number of press that is paired to this event, note that <em>stopped</em> may have been emitted between the press and its release, <code>$n-press</code> will only start over at the next press.</p><pre class="pod-block-code">method handler (
+  gint $n-press,
+  gdouble $x,
+  gdouble $y,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::GestureClick :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$n-press; number of press that is paired with this release.</p></li>
+<li><p>$x; The X coordinate, in widget allocation coordinates.</p></li>
+<li><p>$y; The Y coordinate, in widget allocation coordinates.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GestureClick</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+</ul>
+
+<h3 id="stopped"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">stopped</a></h3>
+<p>Emitted whenever any time/distance threshold has been exceeded.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::GestureClick :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GestureClick</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+</ul>
+
+<h3 id="unpaired-release"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">unpaired-release</a></h3>
+<p>Emitted whenever the gesture receives a release event that had no previous corresponding press.</p><p>Due to implicit grabs, this can only happen on situations where input is grabbed elsewhere mid-press or the pressed widget voluntarily relinquishes its implicit grab.</p><pre class="pod-block-code">method handler (
+  gdouble $x,
+  gdouble $y,
+  guint $button,
+   $sequence,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gtk4::GestureClick :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$x; X coordinate of the event.</p></li>
+<li><p>$y; Y coordinate of the event.</p></li>
+<li><p>$button; Button being released.</p></li>
+<li><p>$sequence; Sequence being released.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GestureClick</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GestureClick.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:36Z</span></div></footer>
+	</body>
+</html>
