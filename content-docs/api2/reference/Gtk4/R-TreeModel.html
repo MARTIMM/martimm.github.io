@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -21,16 +21,16 @@
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#filter-new">filter-new</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#foreach">foreach</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get_This_function_is_not_yet_available">get This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get">get</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-column-type">get-column-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags_This_function_is_not_yet_available">get-flags This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags">get-flags</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter">get-iter</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-first">get-iter-first</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-from-string">get-iter-from-string</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-columns">get-n-columns</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-path">get-path</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-string-from-iter">get-string-from-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-valist_This_function_is_not_yet_available">get-valist This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-valist">get-valist</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-value">get-value</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#iter-children">iter-children</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#iter-has-child">iter-has-child</a></td></tr>
@@ -57,11 +57,11 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Description</a></h1>
-<p>The tree interface used by GtkTreeView</p><p>The <strong>Gnome::Gtk4::R-TreeModel</strong> interface defines a generic tree interface for use by the <strong>Gnome::Gtk4::TreeView</strong> widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a <strong>Gnome::Gtk4::TreeView</strong> widget.</p><p>The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. <code>G_TYPE_INT</code>, <code>GTK_TYPE_BUTTON</code>, <code>G_TYPE_POINTER</code>, etc). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made.</p><p>In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided — the <strong>Gnome::Gtk4::TreeStore</strong> and the <strong>Gnome::Gtk4::ListStore</strong>. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient.</p><p>Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the <strong>Gnome::Gtk4::N-TreePath</strong> and the <strong>Gnome::Gtk4::N-TreeIter</strong> (“iter” is short for iterator). Most of the interface consists of operations on a <strong>Gnome::Gtk4::N-TreeIter</strong> .</p><p>A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. A <strong>Gnome::Gtk4::N-TreePath</strong> can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path <strong>0</strong> refers to the root node and the path <strong>2</strong>:4` refers to the fifth child of the third node.</p><p>By contrast, a <strong>Gnome::Gtk4::N-TreeIter</strong> is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling <code>.get-iter()</code>. These iterators are the primary way of accessing a model and are similar to the iterators used by <strong>Gnome::Gtk4::TextBuffer</strong>. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model.</p><p>It is expected that models fill in the iterator with private data. For example, the <strong>Gnome::Gtk4::ListStore</strong> model, which is internally a simple linked list, stores a list node in one of the pointers. The <strong>Gnome::Gtk4::R-TreeModel</strong>Sort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model.</p><p>The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn’t emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user’s point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the <strong>Gnome::Gtk4::TreeStore</strong> and <strong>Gnome::Gtk4::ListStore</strong>). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the <code>GTK_TREE_MODEL_ITERS_PERSIST</code> flag was added to indicate this behavior.</p><p>To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location <strong>3</strong>:2:5`. While the first method shown is easier, the second is much more common, as you often get paths from callbacks.</p>
+<p>The tree interface used by GtkTreeView</p><p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface defines a generic tree interface for use by the <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget.</p><p>The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. <code>G_TYPE_INT</code>, <code>GTK_TYPE_BUTTON</code>, <code>G_TYPE_POINTER</code>, etc). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made.</p><p>In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided — the <a href="/content-docs/api2/reference/Gtk4/TreeStore.html">Gnome::Gtk4::TreeStore</a> and the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient.</p><p>Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the <strong>Gnome::Gtk4::N-TreePath</strong> and the <strong>Gnome::Gtk4::N-TreeIter</strong> (“iter” is short for iterator). Most of the interface consists of operations on a <strong>Gnome::Gtk4::N-TreeIter</strong> .</p><p>A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. A <strong>Gnome::Gtk4::N-TreePath</strong> can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path <strong>0</strong> refers to the root node and the path <strong>2</strong>:4` refers to the fifth child of the third node.</p><p>By contrast, a <strong>Gnome::Gtk4::N-TreeIter</strong> is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling <code>.get-iter()</code>. These iterators are the primary way of accessing a model and are similar to the iterators used by <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a>. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model.</p><p>It is expected that models fill in the iterator with private data. For example, the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a> model, which is internally a simple linked list, stores a list node in one of the pointers. The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>Sort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model.</p><p>The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn’t emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user’s point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the <a href="/content-docs/api2/reference/Gtk4/TreeStore.html">Gnome::Gtk4::TreeStore</a> and <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the <code>GTK_TREE_MODEL_ITERS_PERSIST</code> flag was added to indicate this behavior.</p><p>To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location <strong>3</strong>:2:5`. While the first method shown is easier, the second is much more common, as you often get paths from callbacks.</p>
 <h3 id="Acquiring_a_Gnome::Gtk4::N-TreeIter"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Acquiring a <strong>Gnome::Gtk4::N-TreeIter</strong></a></h3>
-<p>This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model() function used below is not shown, as it is specific to the <strong>Gnome::Gtk4::ListStore</strong>. For information on how to write such a function, see the <strong>Gnome::Gtk4::ListStore</strong> documentation.</p>
-<h3 id="Reading_data_from_a_Gnome::Gtk4::R-TreeModel"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Reading data from a <strong>Gnome::Gtk4::R-TreeModel</strong></a></h3>
-<p>The <strong>Gnome::Gtk4::R-TreeModel</strong> interface contains two methods for reference counting: <code>.ref-node()</code> and <code>.unref-node()</code>. These two methods are optional to implement. The reference counting is meant as a way for views to let models know when nodes are being displayed. <strong>Gnome::Gtk4::TreeView</strong> will take a reference on a node when it is visible, which means the node is either in the toplevel or expanded. Being displayed does not mean that the node is currently directly visible to the user in the viewport. Based on this reference counting scheme a caching model, for example, can decide whether or not to cache a node based on the reference count. A file-system based model would not want to keep the entire file hierarchy in memory, but just the folders that are currently expanded in every current view.</p><p>When working with reference counting, the following rules must be taken into account:</p><ul>
+<p>This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model() function used below is not shown, as it is specific to the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>. For information on how to write such a function, see the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a> documentation.</p>
+<h3 id="Reading_data_from_a_Gnome::Gtk4::R-TreeModel"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Reading data from a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a></a></h3>
+<p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface contains two methods for reference counting: <code>.ref-node()</code> and <code>.unref-node()</code>. These two methods are optional to implement. The reference counting is meant as a way for views to let models know when nodes are being displayed. <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> will take a reference on a node when it is visible, which means the node is either in the toplevel or expanded. Being displayed does not mean that the node is currently directly visible to the user in the viewport. Based on this reference counting scheme a caching model, for example, can decide whether or not to cache a node based on the reference count. A file-system based model would not want to keep the entire file hierarchy in memory, but just the folders that are currently expanded in every current view.</p><p>When working with reference counting, the following rules must be taken into account:</p><ul>
 <li><p>Never take a reference on a node without owning a reference on its parent. This means that all parent nodes of a referenced node must be referenced as well.</p></li>
 <li><p>Outstanding references on a deleted node are not released. This is not possible because the node has already been deleted by the time the row-deleted signal is received.</p></li>
 <li><p>Models are not obligated to emit a signal on rows of which none of its siblings are referenced. To phrase this differently, signals are only required for levels in which nodes are referenced. For the root level however, signals must be emitted at all times (however the root level is always referenced when any view is attached).</p></li>
@@ -72,21 +72,21 @@
 </section>
 <section name="pod">
 <h2 id="filter-new"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">filter-new</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::R-TreeModel</strong>, with <code>$child-model</code> as the child_model and <code>$root</code> as the virtual root.</p><pre class="pod-block-code">method filter-new ( N-Object $root --&gt; N-Object )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>, with <code>$child-model</code> as the child_model and <code>$root</code> as the virtual root.</p><pre class="pod-block-code">method filter-new ( N-Object $root --&gt; N-Object )
 </pre><ul>
 <li><p>$root; A <strong>Gnome::Gtk4::N-TreePath</strong></p></li>
 </ul>
-<p>Return value; A new <strong>Gnome::Gtk4::R-TreeModel</strong>.. </p></section>
+<p>Return value; A new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.. </p></section>
 <section name="pod">
 <h2 id="foreach"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">foreach</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls <code>$func</code> on each node in model in a depth-first fashion.</p><p>If <code>$func</code> returns <code>True</code>, then the tree ceases to be walked, and <code>.foreach()</code> returns.</p><pre class="pod-block-code">method foreach ( &amp;func, gpointer $user-data )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls <code>$func</code> on each node in model in a depth-first fashion.</p><p>If <code>$func</code> returns <code>True</code>, then the tree ceases to be walked, and <code>.foreach()</code> returns.</p><pre class="pod-block-code">method foreach ( GtkTreeModelForeachFunc &amp;func, gpointer $user-data )
 </pre><ul>
-<li><p>&amp;func; a function to be called on each row. Tthe function must be specified with following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data --</code> gboolean )&gt;.</p></li>
+<li><p>GtkTreeModelForeachFunc &amp;func; a function to be called on each row. The function must be specified with the following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</code>.</p></li>
 <li><p>$user-data; user data to passed to <code>$func</code>.</p></li>
 </ul>
 </section>
 <section name="pod">
-<h2 id="get_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get This function is not yet available</a></h2>
+<h2 id="get"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get</a></h2>
 <p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>The variable argument list should contain integer column numbers, each column number followed by a place to store the value being retrieved. The list is terminated by a -1. For example, to get a value from column 0 with type <code>G_TYPE_STRING</code>, you would write: <strong>gtk_tree_model_get</strong> (model, iter, 0, &amp;place_string_here, -1)`, where <strong>place_string_here</strong> is a #gchararray to be filled with the string.</p><p>Returned values with type <code>G_TYPE_OBJECT</code> have to be unreferenced, values with type <code>G_TYPE_STRING</code> or <code>G_TYPE_BOXED</code> have to be freed. Other values are passed by value.</p><pre class="pod-block-code">method get ( N-Object $iter, … )
 </pre><ul>
 <li><p>$iter; a row in <code>$tree-model</code></p></li>
@@ -101,8 +101,8 @@
 </ul>
 <p>Return value; the type of the column. </p></section>
 <section name="pod">
-<h2 id="get-flags_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-flags This function is not yet available</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a set of flags supported by this interface.</p><p>The flags are a bitwise combination of <strong>Gnome::Gtk4::R-TreeModel</strong>Flags. The flags supported should not change during the lifetime of the <code>$tree-model</code>.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
+<h2 id="get-flags"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-flags</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a set of flags supported by this interface.</p><p>The flags are a bitwise combination of <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>Flags. The flags supported should not change during the lifetime of the <code>$tree-model</code>.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
 </pre><p>Return value; the flags supported by this interface. </p></section>
 <section name="pod">
 <h2 id="get-iter"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-iter</a></h2>
@@ -146,8 +146,8 @@
 </ul>
 <p>Return value; a newly-allocated string. </p></section>
 <section name="pod">
-<h2 id="get-valist_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-valist This function is not yet available</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>See <code>.get()</code>, this version takes a va_list for language bindings to use.</p><pre class="pod-block-code">method get-valist ( N-Object $iter, … )
+<h2 id="get-valist"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-valist</a></h2>
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>See <a href="#get">.get()</a>, this version takes a va_list for language bindings to use.</p><pre class="pod-block-code">method get-valist ( N-Object $iter, … )
 </pre><ul>
 <li><p>$iter; a row in <code>$tree-model</code></p></li>
 <li><p>var-args; va_list of column/return location pairs. Note that each argument must be specified as a type followed by its value!</p></li>
@@ -289,15 +289,14 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the changed row.</p></li>
 <li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the changed row.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="row-deleted_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-deleted</a></h3>
@@ -306,14 +305,13 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the row.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="row-has-child-toggled_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-has-child-toggled</a></h3>
@@ -323,15 +321,14 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the row.</p></li>
 <li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the row.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="row-inserted_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-inserted</a></h3>
@@ -341,37 +338,35 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the new row.</p></li>
 <li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the new row.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="rows-reordered_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">rows-reordered</a></h3>
-<p>This signal is emitted when the children of a node in the <strong>Gnome::Gtk4::R-TreeModel</strong> have been reordered.</p><p>Note that this signal is not emitted when rows are reordered by DND, since this is implemented by removing and then reinserting the row.</p><pre class="pod-block-code">method handler (
+<p>This signal is emitted when the children of a node in the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> have been reordered.</p><p>Note that this signal is not emitted when rows are reordered by DND, since this is implemented by removing and then reinserting the row.</p><pre class="pod-block-code">method handler (
   N-Object $path,
   N-Object $iter,
   gpointer $new-order,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the tree node whose children have been reordered.</p></li>
 <li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the node whose children have been reordered, or undefined if the depth of <code>$path</code> is 0.</p></li>
 <li><p>$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <code>$new-order</code>`[newpos] = oldpos`.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-TreeModel.rakudoc</span></div><div>at <span class="time">2025-04-21T13:05:45Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-TreeModel.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:53Z</span></div></footer>
 	</body>
 </html>
