@@ -43,7 +43,7 @@
 <p><strong>Gnome::Gtk4::Overlay</strong> is a container which contains a single main child, on top of which it can place “overlay” widgets.</p><div class="image-container inline"><img src="asset_files/images/overlay.png" width="30%" height="auto" alt="No caption"></div>
 <p>The position of each overlay widget is determined by its <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> properties. E.g. a widget with both alignments set to <code>GTK_ALIGN_START</code> will be placed at the top left corner of the <strong>Gnome::Gtk4::Overlay</strong> container, whereas an overlay with halign set to <code>GTK_ALIGN_CENTER</code> and valign set to <code>GTK_ALIGN_END</code> will be placed a the bottom edge of the <strong>Gnome::Gtk4::Overlay</strong>, horizontally centered. The position can be adjusted by setting the margin properties of the child to non-zero values.</p><p>More complicated placement of overlays is possible by connecting to the <em>get-child-position</em> signal.</p><p>An overlay’s minimum and natural sizes are those of its main child. The sizes of overlay children are not considered when measuring these preferred sizes.</p>
 <h2 id="GtkOverlay_as_GtkBuildable"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">GtkOverlay as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::Overlay</strong> implementation of the <strong>Gnome::Gtk4::R-Buildable</strong> interface supports placing a child as an overlay by specifying “overlay” as the “type” attribute of a `&lt;child&gt;` element.</p>
+<p>The <strong>Gnome::Gtk4::Overlay</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports placing a child as an overlay by specifying “overlay” as the “type” attribute of a `&lt;child&gt;` element.</p>
 <h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">CSS nodes</a></h2>
 <p><strong>Gnome::Gtk4::Overlay</strong> has a single CSS node with the name “overlay”. Overlay children whose alignments cause them to be positioned at an edge get the style classes “.left”, “.right”, “.top”, and/or “.bottom” according to their position.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">Uml Diagram</a></h2>
@@ -65,9 +65,9 @@
 </section>
 <section name="pod">
 <h2 id="add-overlay"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">add-overlay</a></h2>
-<p>Adds <code>$widget</code> to <code>$overlay</code>.</p><p>The widget will be stacked on top of the main widget added with <code>.set-child()</code>.</p><p>The position at which <code>$widget</code> is placed is determined from its <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> properties.</p><pre class="pod-block-code">method add-overlay ( N-Object() $widget )
+<p>Adds <code>$widget</code> to <code>$overlay</code>.</p><p>The widget will be stacked on top of the main widget added with <a href="#set-child">.set-child()</a>.</p><p>The position at which <code>$widget</code> is placed is determined from its <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> properties.</p><pre class="pod-block-code">method add-overlay ( N-Object() $widget )
 </pre><ul>
-<li><p>$widget; a <strong>Gnome::Gtk4::Widget</strong> to be added to the container.</p></li>
+<li><p>$widget; a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be added to the container.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -92,7 +92,7 @@
 <h2 id="remove-overlay"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">remove-overlay</a></h2>
 <p>Removes an overlay that was added with <code>.add-overlay()</code>.</p><pre class="pod-block-code">method remove-overlay ( N-Object() $widget )
 </pre><ul>
-<li><p>$widget; a <strong>Gnome::Gtk4::Widget</strong> to be removed.</p></li>
+<li><p>$widget; a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be removed.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -122,24 +122,23 @@
 <h1 id="Signals"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="get-child-position"><a href="#Gnome::Gtk4::Overlay" class="u" title="go to top of document">get-child-position</a></h3>
-<p>Emitted to determine the position and size of any overlay child widgets.</p><p>A handler for this signal should fill <code>$allocation</code> with the desired position and size for <code>$widget</code>, relative to the 'main' child of <code>$overlay</code>.</p><p>The default handler for this signal uses the <code>$widget</code>'s halign and valign properties to determine the position and gives the widget its natural size (except that an alignment of <code>GTK_ALIGN_FILL</code> will cause the overlay to be full-width/height). If the main child is a <strong>Gnome::Gtk4::ScrolledWindow</strong>, the overlays are placed relative to its contents.</p><pre class="pod-block-code">method handler (
+<p>Emitted to determine the position and size of any overlay child widgets.</p><p>A handler for this signal should fill <code>$allocation</code> with the desired position and size for <code>$widget</code>, relative to the 'main' child of <code>$overlay</code>.</p><p>The default handler for this signal uses the <code>$widget</code>'s halign and valign properties to determine the position and gives the widget its natural size (except that an alignment of <code>GTK_ALIGN_FILL</code> will cause the overlay to be full-width/height). If the main child is a <a href="/content-docs/api2/reference/Gtk4/ScrolledWindow.html">Gnome::Gtk4::ScrolledWindow</a>, the overlays are placed relative to its contents.</p><pre class="pod-block-code">method handler (
   N-Object $widget,
    $allocation,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Overlay :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
 <li><p>$widget; the child widget to position.</p></li>
 <li><p>$allocation; return location for the allocation.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Overlay</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Overlay</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> if the <code>$allocation</code> has been filled</p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Overlay.rakudoc</span></div><div>at <span class="time">2025-04-21T13:05:17Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Overlay.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:24Z</span></div></footer>
 	</body>
 </html>
