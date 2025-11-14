@@ -38,7 +38,7 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::DropTargetAsync</strong> is an event controller to receive Drag-and-Drop operations, asynchronously.</p><p>It is the more complete but also more complex method of handling drop operations compared to <strong>Gnome::Gtk4::DropTarget</strong>, and you should only use it if <strong>Gnome::Gtk4::DropTarget</strong> doesn't provide all the features you need.</p><p>To use a <strong>Gnome::Gtk4::DropTargetAsync</strong> to receive drops on a widget, you create a <strong>Gnome::Gtk4::DropTargetAsync</strong> object, configure which data formats and actions you support, connect to its signals, and then attach it to the widget with <code>.add-controller()</code> in class <code>Gnome::Gtk4::Widget</code>.</p><p>During a drag operation, the first signal that a <strong>Gnome::Gtk4::DropTargetAsync</strong> emits is <em>accept</em>, which is meant to determine whether the target is a possible drop site for the ongoing drop. The default handler for the <em>accept</em> signal accepts the drop if it finds a compatible data format and an action that is supported on both sides.</p><p>If it is, and the widget becomes a target, you will receive a <em>drag-enter</em> signal, followed by <em>drag-motion</em> signals as the pointer moves, optionally a <em>drop</em> signal when a drop happens, and finally a <em>drag-leave</em> signal when the pointer moves off the widget.</p><p>The <em>drag-enter</em> and <em>drag-motion</em> handler return a <code>bit field GdkDragAction defined in Gnome::Gdk4::T-enums</code> to update the status of the ongoing operation. The <em>drop</em> handler should decide if it ultimately accepts the drop and if it does, it should initiate the data transfer and finish the operation by calling <code>.finish()</code> in class <code>Gnome::Gdk4::Drop</code>.</p><p>Between the <em>drag-enter</em> and <em>drag-leave</em> signals the widget is a current drop target, and will receive the <code>GTK_STATE_FLAG_DROP_ACTIVE</code> state, which can be used by themes to style the widget as a drop target.</p>
+<p><strong>Gnome::Gtk4::DropTargetAsync</strong> is an event controller to receive Drag-and-Drop operations, asynchronously.</p><p>It is the more complete but also more complex method of handling drop operations compared to <a href="/content-docs/api2/reference/Gtk4/DropTarget.html">Gnome::Gtk4::DropTarget</a>, and you should only use it if <a href="/content-docs/api2/reference/Gtk4/DropTarget.html">Gnome::Gtk4::DropTarget</a> doesn't provide all the features you need.</p><p>To use a <strong>Gnome::Gtk4::DropTargetAsync</strong> to receive drops on a widget, you create a <strong>Gnome::Gtk4::DropTargetAsync</strong> object, configure which data formats and actions you support, connect to its signals, and then attach it to the widget with <a href="/content-docs/api2/reference/Gtk4/Widget.html#add-controller">.add-controller() in class Widget</a>.</p><p>During a drag operation, the first signal that a <strong>Gnome::Gtk4::DropTargetAsync</strong> emits is <em>accept</em>, which is meant to determine whether the target is a possible drop site for the ongoing drop. The default handler for the <em>accept</em> signal accepts the drop if it finds a compatible data format and an action that is supported on both sides.</p><p>If it is, and the widget becomes a target, you will receive a <em>drag-enter</em> signal, followed by <em>drag-motion</em> signals as the pointer moves, optionally a <em>drop</em> signal when a drop happens, and finally a <em>drag-leave</em> signal when the pointer moves off the widget.</p><p>The <em>drag-enter</em> and <em>drag-motion</em> handler return a <code>bit field GdkDragAction defined in Gnome::Gdk4::T-enums</code> to update the status of the ongoing operation. The <em>drop</em> handler should decide if it ultimately accepts the drop and if it does, it should initiate the data transfer and finish the operation by calling <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a>.</p><p>Between the <em>drag-enter</em> and <em>drag-leave</em> signals the widget is a current drop target, and will receive the <code>GTK_STATE_FLAG_DROP_ACTIVE</code> state, which can be used by themes to style the widget as a drop target.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/DropTargetAsync.png" width="70%" height="auto" alt="No caption"></div>
 </section>
@@ -72,7 +72,7 @@
 <h2 id="reject-drop"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">reject-drop</a></h2>
 <p>Sets the <code>$drop</code> as not accepted on this drag site.</p><p>This function should be used when delaying the decision on whether to accept a drag or not until after reading the data.</p><pre class="pod-block-code">method reject-drop ( N-Object() $drop )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong> of an ongoing drag operation.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a> of an ongoing drag operation.</p></li>
 </ul>
 </section>
 <section name="pod">
@@ -93,20 +93,19 @@
 <h1 id="Signals"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="accept"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">accept</a></h3>
-<p>Emitted on the drop site when a drop operation is about to begin.</p><p>If the drop is not accepted, <code>False</code> will be returned and the drop target will ignore the drop. If <code>True</code> is returned, the drop is accepted for now but may be rejected later via a call to <code>.reject-drop()</code> or ultimately by returning <code>False</code> from a <em>drop</em> handler.</p><p>The default handler for this signal decides whether to accept the drop based on the formats provided by the <code>$drop</code>.</p><p>If the decision whether the drop will be accepted or rejected needs further processing, such as inspecting the data, this function should return <code>True</code> and proceed as is <code>$drop</code> was accepted and if it decides to reject the drop later, it should call <code>.reject-drop()</code>.</p><pre class="pod-block-code">method handler (
+<p>Emitted on the drop site when a drop operation is about to begin.</p><p>If the drop is not accepted, <code>False</code> will be returned and the drop target will ignore the drop. If <code>True</code> is returned, the drop is accepted for now but may be rejected later via a call to <a href="#reject-drop">.reject-drop()</a> or ultimately by returning <code>False</code> from a <em>drop</em> handler.</p><p>The default handler for this signal decides whether to accept the drop based on the formats provided by the <code>$drop</code>.</p><p>If the decision whether the drop will be accepted or rejected needs further processing, such as inspecting the data, this function should return <code>True</code> and proceed as is <code>$drop</code> was accepted and if it decides to reject the drop later, it should call <a href="#reject-drop">.reject-drop()</a>.</p><pre class="pod-block-code">method handler (
    $drop,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong>.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> if <code>$drop</code> is accepted</p>
 <h3 id="drag-enter"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-enter</a></h3>
@@ -117,16 +116,15 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong>.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
 <li><p>$x; the x coordinate of the current pointer position.</p></li>
 <li><p>$y; the y coordinate of the current pointer position.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="drag-leave"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-leave</a></h3>
@@ -135,14 +133,13 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong>.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="drag-motion"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-motion</a></h3>
@@ -153,39 +150,37 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong>.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
 <li><p>$x; the x coordinate of the current pointer position.</p></li>
 <li><p>$y; the y coordinate of the current pointer position.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="drop"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drop</a></h3>
-<p>Emitted on the drop site when the user drops the data onto the widget.</p><p>The signal handler must determine whether the pointer position is in a drop zone or not. If it is not in a drop zone, it returns <code>False</code> and no further processing is necessary.</p><p>Otherwise, the handler returns <code>True</code>. In this case, this handler will accept the drop. The handler must ensure that <code>.finish()</code> in class <code>Gnome::Gdk4::Drop</code> is called to let the source know that the drop is done. The call to <code>.finish()</code> in class <code>Gnome::Gdk4::Drop</code> must only be done when all data has been received.</p><p>To receive the data, use one of the read functions provided by <strong>Gnome::Gdk4::Drop</strong> such as <code>.read-async()</code> in class <code>Gnome::Gdk4::Drop</code> or <code>.read-value-async()</code> in class <code>Gnome::Gdk4::Drop</code>.</p><pre class="pod-block-code">method handler (
+<p>Emitted on the drop site when the user drops the data onto the widget.</p><p>The signal handler must determine whether the pointer position is in a drop zone or not. If it is not in a drop zone, it returns <code>False</code> and no further processing is necessary.</p><p>Otherwise, the handler returns <code>True</code>. In this case, this handler will accept the drop. The handler must ensure that <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a> is called to let the source know that the drop is done. The call to <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a> must only be done when all data has been received.</p><p>To receive the data, use one of the read functions provided by <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a> such as <a href="/content-docs/api2/reference/Gdk4/Drop.html#read-async">.read-async() in class Drop</a> or <a href="/content-docs/api2/reference/Gdk4/Drop.html#read-value-async">.read-value-async() in class Drop</a>.</p><pre class="pod-block-code">method handler (
    $drop,
   gdouble $x,
   gdouble $y,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
-<li><p>$drop; the <strong>Gnome::Gdk4::Drop</strong>.</p></li>
+<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
 <li><p>$x; the x coordinate of the current pointer position.</p></li>
 <li><p>$y; the y coordinate of the current pointer position.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 <p>Return value; whether the drop is accepted at the given pointer position</p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropTargetAsync.rakudoc</span></div><div>at <span class="time">2025-04-21T13:04:13Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropTargetAsync.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:16Z</span></div></footer>
 	</body>
 </html>
