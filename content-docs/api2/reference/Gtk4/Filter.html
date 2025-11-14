@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -31,7 +31,7 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gtk4::Filter</strong> object describes the filtering to be performed by a <strong>Gnome::Gtk4::FilterListModel</strong>.</p><p>The model will use the filter to determine if it should include items or not by calling <code>.match()</code> for each item and only keeping the ones that the function returns <code>True</code> for.</p><p>Filters may change what items they match through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that previous filter results are no longer valid and that items should be checked again via <code>.match()</code>.</p><p>GTK provides various pre-made filter implementations for common filtering operations. These filters often include properties that can be linked to various widgets to easily allow searches.</p><p>However, in particular for large lists or complex search methods, it is also possible to subclass <strong>Gnome::Gtk4::Filter</strong> and provide one's own filter.</p>
+<p>A <strong>Gnome::Gtk4::Filter</strong> object describes the filtering to be performed by a <a href="/content-docs/api2/reference/Gtk4/FilterListModel.html">Gnome::Gtk4::FilterListModel</a>.</p><p>The model will use the filter to determine if it should include items or not by calling <a href="#match">.match()</a> for each item and only keeping the ones that the function returns <code>True</code> for.</p><p>Filters may change what items they match through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that previous filter results are no longer valid and that items should be checked again via <a href="#match">.match()</a>.</p><p>GTK provides various pre-made filter implementations for common filtering operations. These filters often include properties that can be linked to various widgets to easily allow searches.</p><p>However, in particular for large lists or complex search methods, it is also possible to subclass <strong>Gnome::Gtk4::Filter</strong> and provide one's own filter.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/Filter.png" width="70%" height="auto" alt="No caption"></div>
 </section>
@@ -47,14 +47,14 @@
 </section>
 <section name="pod">
 <h2 id="changed"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">changed</a></h2>
-<p>Notifies all users of the filter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the filter should then check items again via <code>.match()</code>.</p><p>Depending on the <code>$change</code> parameter, not all items need to be changed, but only some. Refer to the enumeration <code>FilterChange</code> from <code>Gnome::Gtk4::T-filter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Filter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkFilterChange $change )
+<p>Notifies all users of the filter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the filter should then check items again via <a href="#match">.match()</a>.</p><p>Depending on the <code>$change</code> parameter, not all items need to be changed, but only some. Refer to the enumeration <code>FilterChange</code> from <code>Gnome::Gtk4::T-filter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Filter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkFilterChange $change )
 </pre><ul>
 <li><p>$change; How the filter changed.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="get-strictness"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">get-strictness</a></h2>
-<p>Gets the known strictness of <code>$filters</code>.</p><p>If the strictness is not known, <code>GTK_FILTER_MATCH_SOME</code> is returned.</p><p>This value may change after emission of the <em>changed</em> signal.</p><p>This function is meant purely for optimization purposes, filters can choose to omit implementing it, but <strong>Gnome::Gtk4::FilterListModel</strong> uses it.</p><pre class="pod-block-code">method get-strictness (--&gt; GtkFilterMatch )
+<p>Gets the known strictness of <code>$filters</code>.</p><p>If the strictness is not known, <code>GTK_FILTER_MATCH_SOME</code> is returned.</p><p>This value may change after emission of the <em>changed</em> signal.</p><p>This function is meant purely for optimization purposes, filters can choose to omit implementing it, but <a href="/content-docs/api2/reference/Gtk4/FilterListModel.html">Gnome::Gtk4::FilterListModel</a> uses it.</p><pre class="pod-block-code">method get-strictness (--&gt; GtkFilterMatch )
 </pre><p>Return value; the strictness of <code>$self</code>. </p></section>
 <section name="pod">
 <h2 id="match"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">match</a></h2>
@@ -67,21 +67,20 @@
 <h1 id="Signals"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="changed_0"><a href="#Gnome::Gtk4::Filter" class="u" title="go to top of document">changed</a></h3>
-<p>Emitted whenever the filter changed.</p><p>Users of the filter should then check items again via <code>.match()</code>.</p><p><strong>Gnome::Gtk4::FilterListModel</strong> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, not all items need to be checked, but only some. Refer to the enumeration <code>FilterChange</code> from <code>Gnome::Gtk4::T-filter</code> documentation for details.</p><pre class="pod-block-code">method handler (
+<p>Emitted whenever the filter changed.</p><p>Users of the filter should then check items again via <a href="#match">.match()</a>.</p><p><a href="/content-docs/api2/reference/Gtk4/FilterListModel.html">Gnome::Gtk4::FilterListModel</a> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, not all items need to be checked, but only some. Refer to the enumeration <code>FilterChange</code> from <code>Gnome::Gtk4::T-filter</code> documentation for details.</p><pre class="pod-block-code">method handler (
    $change,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Filter :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$change; how the filter changed.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Filter</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Filter</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Filter.rakudoc</span></div><div>at <span class="time">2025-04-21T13:04:24Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Filter.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:27Z</span></div></footer>
 	</body>
 </html>
