@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
@@ -37,7 +37,7 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-use-es">get-use-es</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#make-current">make-current</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#queue-render">queue-render</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-allowed-apis_This_function_is_not_yet_available">set-allowed-apis This function is not yet available</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-allowed-apis">set-allowed-apis</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-auto-render">set-auto-render</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-error">set-error</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-depth-buffer">set-has-depth-buffer</a></td></tr>
@@ -53,7 +53,7 @@
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">Description</a></h1>
 <p><strong>Gnome::Gtk4::GLArea</strong> is a widget that allows drawing with OpenGL.</p><div class="image-container inline"><img src="asset_files/images/glarea.png" width="30%" height="auto" alt="No caption"></div>
-<p><strong>Gnome::Gtk4::GLArea</strong> sets up its own <strong>Gnome::Gdk4::GLContext</strong>, and creates a custom GL framebuffer that the widget will do GL rendering onto. It also ensures that this framebuffer is the default GL rendering target when rendering. The completed rendering is integrated into the larger GTK scene graph as a texture.</p><p>In order to draw, you have to connect to the <em>render</em> signal, or subclass <strong>Gnome::Gtk4::GLArea</strong> and override the GtkGLAreaClass.render virtual function.</p><p>The <strong>Gnome::Gtk4::GLArea</strong> widget ensures that the <strong>Gnome::Gdk4::GLContext</strong> is associated with the widget's drawing area, and it is kept updated when the size and position of the drawing area changes.</p>
+<p><strong>Gnome::Gtk4::GLArea</strong> sets up its own <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>, and creates a custom GL framebuffer that the widget will do GL rendering onto. It also ensures that this framebuffer is the default GL rendering target when rendering. The completed rendering is integrated into the larger GTK scene graph as a texture.</p><p>In order to draw, you have to connect to the <em>render</em> signal, or subclass <strong>Gnome::Gtk4::GLArea</strong> and override the GtkGLAreaClass.render virtual function.</p><p>The <strong>Gnome::Gtk4::GLArea</strong> widget ensures that the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> is associated with the widget's drawing area, and it is kept updated when the size and position of the drawing area changes.</p>
 <h3 id="Drawing_with_GtkGLArea"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">Drawing with GtkGLArea</a></h3>
 <p>The simplest way to draw using OpenGL commands in a <strong>Gnome::Gtk4::GLArea</strong> is to create a widget instance and connect to the <em>render</em> signal:</p><p>The <strong>render</strong>()` function will be called when the <strong>Gnome::Gtk4::GLArea</strong> is ready for you to draw its content:</p><p>The initial contents of the framebuffer are transparent.</p><p><strong>B</strong>&lt;B&gt;&lt;c&gt; static gboolean render (GtkGLArea *area, GdkGLContext *context) { // inside this function it's safe to use GL; the given // GdkGLContext has been made current to the drawable // surface used by the <strong>Gnome::Gtk4::GLArea</strong> and the viewport has // already been set to be the size of the allocation</p><pre class="pod-block-code">// we can start by clearing the buffer
 glClearColor (0, 0, 0, 0);
@@ -66,7 +66,7 @@ glClear (GL_COLOR_BUFFER_BIT);
 // flushed at the end of the signal emission chain, and
 // the buffers will be drawn on the window
 return TRUE;</pre><p>}</p><p>void setup_glarea (void) { // create a GtkGLArea instance GtkWidget *gl_area = gtk_gl_area_new ();</p><pre class="pod-block-code">// connect to the &quot;render&quot; signal
-g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre><p>} ```</p><p>If you need to initialize OpenGL state, e.g. buffer objects or shaders, you should use the <em>realize defined in Widget</em> signal; you can use the <em>unrealize defined in Widget</em> signal to clean up. Since the <strong>Gnome::Gdk4::GLContext</strong> creation and initialization may fail, you will need to check for errors, using <code>.get-error()</code>.</p><p>An example of how to safely initialize the GL state is:</p><p>If you need to change the options for creating the <strong>Gnome::Gdk4::GLContext</strong> you should use the <em>create-context</em> signal.</p>
+g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre><p>} ```</p><p>If you need to initialize OpenGL state, e.g. buffer objects or shaders, you should use the <em>realize defined in Widget</em> signal; you can use the <em>unrealize defined in Widget</em> signal to clean up. Since the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> creation and initialization may fail, you will need to check for errors, using <a href="#get-error">.get-error()</a>.</p><p>An example of how to safely initialize the GL state is:</p><p>If you need to change the options for creating the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> you should use the <em>create-context</em> signal.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/GLArea.png" width="70%" height="auto" alt="No caption"></div>
 </section>
@@ -90,7 +90,7 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </pre></section>
 <section name="pod">
 <h2 id="get-allowed-apis_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-allowed-apis This function is not yet available</a></h2>
-<p>Gets the allowed APIs.</p><p>See <code>.set-allowed-apis()</code>.</p><pre class="pod-block-code">method get-allowed-apis (--&gt; UInt )
+<p>Gets the allowed APIs.</p><p>See <a href="#set-allowed-apis">.set-allowed-apis()</a>.</p><pre class="pod-block-code">method get-allowed-apis (--&gt; UInt )
 </pre><p>Return value; the allowed APIs. </p></section>
 <section name="pod">
 <h2 id="get-api_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-api This function is not yet available</a></h2>
@@ -102,8 +102,8 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </pre><p>Return value; <code>True</code> if the <code>$area</code> is auto rendering, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-context"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-context</a></h2>
-<p>Retrieves the <strong>Gnome::Gdk4::GLContext</strong> used by <code>$area</code>.</p><pre class="pod-block-code">method get-context (--&gt; N-Object )
-</pre><p>Return value; the <strong>Gnome::Gdk4::GLContext</strong>. </p></section>
+<p>Retrieves the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> used by <code>$area</code>.</p><pre class="pod-block-code">method get-context (--&gt; N-Object )
+</pre><p>Return value; the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>. </p></section>
 <section name="pod">
 <h2 id="get-error"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-error</a></h2>
 <p>Gets the current error set on the <code>$area</code>.</p><pre class="pod-block-code">method get-error (--&gt; N-Object )
@@ -118,7 +118,7 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </pre><p>Return value; <code>True</code> if the <code>$area</code> has a stencil buffer, <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-required-version"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-required-version</a></h2>
-<p>Retrieves the required version of OpenGL.</p><p>See <code>.set-required-version()</code>.</p><pre class="pod-block-code">method get-required-version ( Array[Int] $major, Array[Int] $minor )
+<p>Retrieves the required version of OpenGL.</p><p>See <a href="#set-required-version">.set-required-version()</a>.</p><pre class="pod-block-code">method get-required-version ( Array[Int] $major, Array[Int] $minor )
 </pre><ul>
 <li><p>$major; (transfer ownership: full) return location for the required major version.</p></li>
 <li><p>$minor; (transfer ownership: full) return location for the required minor version.</p></li>
@@ -126,18 +126,18 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </section>
 <section name="pod">
 <h2 id="get-use-es"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">get-use-es</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Returns whether the <strong>Gnome::Gtk4::GLArea</strong> should use OpenGL ES.</p><p>See <code>.set-use-es()</code>.</p><pre class="pod-block-code">method get-use-es (--&gt; Bool )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Returns whether the <strong>Gnome::Gtk4::GLArea</strong> should use OpenGL ES.</p><p>See <a href="#set-use-es">.set-use-es()</a>.</p><pre class="pod-block-code">method get-use-es (--&gt; Bool )
 </pre><p>Return value; <code>True</code> if the <strong>Gnome::Gtk4::GLArea</strong> should create an OpenGL ES context and <code>False</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="make-current"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">make-current</a></h2>
-<p>Ensures that the <strong>Gnome::Gdk4::GLContext</strong> used by <code>$area</code> is associated with the <strong>Gnome::Gtk4::GLArea</strong>.</p><p>This function is automatically called before emitting the <em>render</em> signal, and doesn't normally need to be called by application code.</p><pre class="pod-block-code">method make-current ( )
+<p>Ensures that the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> used by <code>$area</code> is associated with the <strong>Gnome::Gtk4::GLArea</strong>.</p><p>This function is automatically called before emitting the <em>render</em> signal, and doesn't normally need to be called by application code.</p><pre class="pod-block-code">method make-current ( )
 </pre></section>
 <section name="pod">
 <h2 id="queue-render"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">queue-render</a></h2>
-<p>Marks the currently rendered data (if any) as invalid, and queues a redraw of the widget.</p><p>This ensures that the <em>render</em> signal is emitted during the draw.</p><p>This is only needed when <code>.set-auto-render()</code> has been called with a <code>False</code> value. The default behaviour is to emit <em>render</em> on each draw.</p><pre class="pod-block-code">method queue-render ( )
+<p>Marks the currently rendered data (if any) as invalid, and queues a redraw of the widget.</p><p>This ensures that the <em>render</em> signal is emitted during the draw.</p><p>This is only needed when <a href="#set-auto-render">.set-auto-render()</a> has been called with a <code>False</code> value. The default behaviour is to emit <em>render</em> on each draw.</p><pre class="pod-block-code">method queue-render ( )
 </pre></section>
 <section name="pod">
-<h2 id="set-allowed-apis_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">set-allowed-apis This function is not yet available</a></h2>
+<h2 id="set-allowed-apis"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">set-allowed-apis</a></h2>
 <p>Sets the allowed APIs to create a context with.</p><p>You should check <em>api</em> before drawing with either API.</p><p>By default, all APIs are allowed.</p><pre class="pod-block-code">method set-allowed-apis ( UInt $apis )
 </pre><ul>
 <li><p>$apis; the allowed APIs.</p></li>
@@ -145,7 +145,7 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </section>
 <section name="pod">
 <h2 id="set-auto-render"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">set-auto-render</a></h2>
-<p>Sets whether the <strong>Gnome::Gtk4::GLArea</strong> is in auto render mode.</p><p>If <code>$auto-render</code> is <code>True</code> the <em>render</em> signal will be emitted every time the widget draws. This is the default and is useful if drawing the widget is faster.</p><p>If <code>$auto-render</code> is <code>False</code> the data from previous rendering is kept around and will be used for drawing the widget the next time, unless the window is resized. In order to force a rendering <code>.queue-render()</code> must be called. This mode is useful when the scene changes seldom, but takes a long time to redraw.</p><pre class="pod-block-code">method set-auto-render ( Bool() $auto-render )
+<p>Sets whether the <strong>Gnome::Gtk4::GLArea</strong> is in auto render mode.</p><p>If <code>$auto-render</code> is <code>True</code> the <em>render</em> signal will be emitted every time the widget draws. This is the default and is useful if drawing the widget is faster.</p><p>If <code>$auto-render</code> is <code>False</code> the data from previous rendering is kept around and will be used for drawing the widget the next time, unless the window is resized. In order to force a rendering <a href="#queue-render">.queue-render()</a> must be called. This mode is useful when the scene changes seldom, but takes a long time to redraw.</p><pre class="pod-block-code">method set-auto-render ( Bool() $auto-render )
 </pre><ul>
 <li><p>$auto-render; a boolean.</p></li>
 </ul>
@@ -181,7 +181,7 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 </section>
 <section name="pod">
 <h2 id="set-use-es"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">set-use-es</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Sets whether the <code>$area</code> should create an OpenGL or an OpenGL ES context.</p><p>You should check the capabilities of the <strong>Gnome::Gdk4::GLContext</strong> before drawing with either API.</p><pre class="pod-block-code">method set-use-es ( Bool() $use-es )
+<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.12</strong></p><p>Sets whether the <code>$area</code> should create an OpenGL or an OpenGL ES context.</p><p>You should check the capabilities of the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> before drawing with either API.</p><pre class="pod-block-code">method set-use-es ( Bool() $use-es )
 </pre><ul>
 <li><p>$use-es; whether to use OpenGL or OpenGL ES.</p></li>
 </ul>
@@ -190,17 +190,16 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
 <h1 id="Signals"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="create-context"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">create-context</a></h3>
-<p>Emitted when the widget is being realized.</p><p>This allows you to override how the GL context is created. This is useful when you want to reuse an existing GL context, or if you want to try creating different kinds of GL options.</p><p>If context creation fails then the signal handler can use <code>.set-error()</code> to register a more detailed error of how the construction failed.</p><pre class="pod-block-code">method handler (
+<p>Emitted when the widget is being realized.</p><p>This allows you to override how the GL context is created. This is useful when you want to reuse an existing GL context, or if you want to try creating different kinds of GL options.</p><p>If context creation fails then the signal handler can use <a href="#set-error">.set-error()</a> to register a more detailed error of how the construction failed.</p><pre class="pod-block-code">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::GLArea :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="render"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">render</a></h3>
@@ -209,15 +208,14 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::GLArea :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
   --&gt; gboolean
 )
 </pre><ul>
-<li><p>$context; the <strong>Gnome::Gdk4::GLContext</strong> used by <code>$area</code>.</p></li>
+<li><p>$context; the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> used by <code>$area</code>.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 <p>Return value; <code>True</code> to stop other handlers from being invoked for the event. <code>False</code> to propagate the event further.</p>
 <h3 id="resize"><a href="#Gnome::Gtk4::GLArea" class="u" title="go to top of document">resize</a></h3>
@@ -227,17 +225,16 @@ g_signal_connect (gl_area, &quot;render&quot;, G_CALLBACK (render), NULL);</pre>
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::GLArea :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$width; the width of the viewport.</p></li>
 <li><p>$height; the height of the viewport.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GLArea</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GLArea.rakudoc</span></div><div>at <span class="time">2025-04-21T13:04:32Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GLArea.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:35Z</span></div></footer>
 	</body>
 </html>

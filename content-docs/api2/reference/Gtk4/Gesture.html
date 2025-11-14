@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -59,14 +59,14 @@
 </ul>
 
 <h3 id="Event_propagation"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">Event propagation</a></h3>
-<p>In order to receive events, a gesture needs to set a propagation phase through <code>.set-propagation-phase()</code> in class <code>Gnome::Gtk4::EventController</code>.</p><p>In the capture phase, events are propagated from the toplevel down to the target widget, and gestures that are attached to containers above the widget get a chance to interact with the event before it reaches the target.</p><p>In the bubble phase, events are propagated up from the target widget to the toplevel, and gestures that are attached to containers above the widget get a chance to interact with events that have not been handled yet.</p>
+<p>In order to receive events, a gesture needs to set a propagation phase through <a href="/content-docs/api2/reference/Gtk4/EventController.html#set-propagation-phase">.set-propagation-phase() in class EventController</a>.</p><p>In the capture phase, events are propagated from the toplevel down to the target widget, and gestures that are attached to containers above the widget get a chance to interact with the event before it reaches the target.</p><p>In the bubble phase, events are propagated up from the target widget to the toplevel, and gestures that are attached to containers above the widget get a chance to interact with events that have not been handled yet.</p>
 <h3 id="States_of_a_sequence"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">States of a sequence</a></h3>
-<p>Whenever input interaction happens, a single event may trigger a cascade of <strong>Gnome::Gtk4::Gesture</strong>s, both across the parents of the widget receiving the event and in parallel within an individual widget. It is a responsibility of the widgets using those gestures to set the state of touch sequences accordingly in order to enable cooperation of gestures around the <strong>Gnome::Gdk4::N-EventSequence</strong>s triggering those.</p><p>Within a widget, gestures can be grouped through <code>.group()</code>. Grouped gestures synchronize the state of sequences, so calling <code>.set-state()</code> on one will effectively propagate the state throughout the group.</p><p>By default, all sequences start out in the <code>GTK_EVENT_SEQUENCE_NONE</code> state, sequences in this state trigger the gesture event handler, but event propagation will continue unstopped by gestures.</p><p>If a sequence enters into the <code>GTK_EVENT_SEQUENCE_DENIED</code> state, the gesture group will effectively ignore the sequence, letting events go unstopped through the gesture, but the &quot;slot&quot; will still remain occupied while the touch is active.</p><p>If a sequence enters in the <code>GTK_EVENT_SEQUENCE_CLAIMED</code> state, the gesture group will grab all interaction on the sequence, by:</p><ul>
+<p>Whenever input interaction happens, a single event may trigger a cascade of <strong>Gnome::Gtk4::Gesture</strong>s, both across the parents of the widget receiving the event and in parallel within an individual widget. It is a responsibility of the widgets using those gestures to set the state of touch sequences accordingly in order to enable cooperation of gestures around the <strong>Gnome::Gdk4::N-EventSequence</strong>s triggering those.</p><p>Within a widget, gestures can be grouped through <a href="#group">.group()</a>. Grouped gestures synchronize the state of sequences, so calling <a href="#set-state">.set-state()</a> on one will effectively propagate the state throughout the group.</p><p>By default, all sequences start out in the <code>GTK_EVENT_SEQUENCE_NONE</code> state, sequences in this state trigger the gesture event handler, but event propagation will continue unstopped by gestures.</p><p>If a sequence enters into the <code>GTK_EVENT_SEQUENCE_DENIED</code> state, the gesture group will effectively ignore the sequence, letting events go unstopped through the gesture, but the &quot;slot&quot; will still remain occupied while the touch is active.</p><p>If a sequence enters in the <code>GTK_EVENT_SEQUENCE_CLAIMED</code> state, the gesture group will grab all interaction on the sequence, by:</p><ul>
 <li><p>Setting the same sequence to <code>GTK_EVENT_SEQUENCE_DENIED</code> on every other gesture group within the widget, and every gesture on parent widgets in the propagation chain.</p></li>
 <li><p>Emitting <em>cancel</em> on every gesture in widgets underneath in the propagation chain.</p></li>
 <li><p>Stopping event propagation after the gesture group handles the event.</p></li>
 </ul>
-<p>Note: if a sequence is set early to <code>GTK_EVENT_SEQUENCE_CLAIMED</code> on <code>GDK_TOUCH_BEGIN</code>/<code>GDK_BUTTON_PRESS</code> (so those events are captured before reaching the event widget, this implies <code>GTK_PHASE_CAPTURE</code>), one similar event will be emulated if the sequence changes to <code>GTK_EVENT_SEQUENCE_DENIED</code>. This way event coherence is preserved before event propagation is unstopped again.</p><p>Sequence states can't be changed freely. See <code>.set-state()</code> to know about the possible lifetimes of a <strong>Gnome::Gdk4::N-EventSequence</strong>.</p>
+<p>Note: if a sequence is set early to <code>GTK_EVENT_SEQUENCE_CLAIMED</code> on <code>GDK_TOUCH_BEGIN</code>/<code>GDK_BUTTON_PRESS</code> (so those events are captured before reaching the event widget, this implies <code>GTK_PHASE_CAPTURE</code>), one similar event will be emulated if the sequence changes to <code>GTK_EVENT_SEQUENCE_DENIED</code>. This way event coherence is preserved before event propagation is unstopped again.</p><p>Sequence states can't be changed freely. See <a href="#set-state">.set-state()</a> to know about the possible lifetimes of a <strong>Gnome::Gdk4::N-EventSequence</strong>.</p>
 <h3 id="Touchpad_gestures"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">Touchpad gestures</a></h3>
 <p>On the platforms that support it, <strong>Gnome::Gtk4::Gesture</strong> will handle transparently touchpad gesture events. The only precautions users of <strong>Gnome::Gtk4::Gesture</strong> should do to enable this support are:</p><ul>
 <li><p>If the gesture has <code>GTK_PHASE_NONE</code>, ensuring events of type <code>GDK_TOUCHPAD_SWIPE</code> and <code>GDK_TOUCHPAD_PINCH</code> are handled by the <strong>Gnome::Gtk4::Gesture</strong></p></li>
@@ -102,8 +102,8 @@
 <p>Return value; <code>False</code> if no active touches are present, <code>True</code> otherwise. </p></section>
 <section name="pod">
 <h2 id="get-device"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">get-device</a></h2>
-<p>Returns the logical <strong>Gnome::Gdk4::Device</strong> that is currently operating on <code>$gesture</code>.</p><p>This returns undefined if the gesture is not being interacted.</p><pre class="pod-block-code">method get-device (--&gt; N-Object )
-</pre><p>Return value; a <strong>Gnome::Gdk4::Device</strong>. </p></section>
+<p>Returns the logical <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a> that is currently operating on <code>$gesture</code>.</p><p>This returns undefined if the gesture is not being interacted.</p><pre class="pod-block-code">method get-device (--&gt; N-Object )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a>. </p></section>
 <section name="pod">
 <h2 id="get-group"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">get-group</a></h2>
 <p>Returns all gestures in the group of <code>$gesture</code></p><pre class="pod-block-code">method get-group (--&gt; N-List )
@@ -141,7 +141,7 @@
 </pre><p>Return value; A list of <strong>Gnome::Gdk4::N-EventSequence</strong>, the list elements are owned by GTK and must not be freed or modified, the list itself must be deleted through g_list_free(). </p></section>
 <section name="pod">
 <h2 id="group"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">group</a></h2>
-<p>Adds <code>$gesture</code> to the same group than <code>$group-gesture</code>.</p><p>Gestures are by default isolated in their own groups.</p><p>Both gestures must have been added to the same widget before they can be grouped.</p><p>When gestures are grouped, the state of <strong>GdkEventSequences</strong> is kept in sync for all of those, so calling <code>.set-sequence-state()</code>, on one will transfer the same value to the others.</p><p>Groups also perform an &quot;implicit grabbing&quot; of sequences, if a <strong>Gnome::Gdk4::N-EventSequence</strong> state is set to <code>GTK_EVENT_SEQUENCE_CLAIMED</code> on one group, every other gesture group attached to the same <strong>Gnome::Gtk4::Widget</strong> will switch the state for that sequence to <code>GTK_EVENT_SEQUENCE_DENIED</code>.</p><pre class="pod-block-code">method group ( N-Object() $gesture )
+<p>Adds <code>$gesture</code> to the same group than <code>$group-gesture</code>.</p><p>Gestures are by default isolated in their own groups.</p><p>Both gestures must have been added to the same widget before they can be grouped.</p><p>When gestures are grouped, the state of <strong>GdkEventSequences</strong> is kept in sync for all of those, so calling <a href="#set-sequence-state">.set-sequence-state()</a>, on one will transfer the same value to the others.</p><p>Groups also perform an &quot;implicit grabbing&quot; of sequences, if a <strong>Gnome::Gdk4::N-EventSequence</strong> state is set to <code>GTK_EVENT_SEQUENCE_CLAIMED</code> on one group, every other gesture group attached to the same <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> will switch the state for that sequence to <code>GTK_EVENT_SEQUENCE_DENIED</code>.</p><pre class="pod-block-code">method group ( N-Object() $gesture )
 </pre><ul>
 <li><p>$gesture; a <strong>Gnome::Gtk4::Gesture</strong>.</p></li>
 </ul>
@@ -196,64 +196,60 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Gesture :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$sequence; the <strong>Gnome::Gdk4::N-EventSequence</strong> that made the gesture to be recognized.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="cancel"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">cancel</a></h3>
-<p>Emitted whenever a sequence is cancelled.</p><p>This usually happens on active touches when <code>.reset()</code> in class <code>Gnome::Gtk4::EventController</code> is called on <code>$gesture</code> (manually, due to grabs...), or the individual <code>$sequence</code> was claimed by parent widgets' controllers (see <code>.set-sequence-state()</code>). <code>$gesture</code> must forget everything about <code>$sequence</code> as in response to this signal.</p><pre class="pod-block-code">method handler (
+<p>Emitted whenever a sequence is cancelled.</p><p>This usually happens on active touches when <a href="/content-docs/api2/reference/Gtk4/EventController.html#reset">.reset() in class EventController</a> is called on <code>$gesture</code> (manually, due to grabs...), or the individual <code>$sequence</code> was claimed by parent widgets' controllers (see <a href="#set-sequence-state">.set-sequence-state()</a>). <code>$gesture</code> must forget everything about <code>$sequence</code> as in response to this signal.</p><pre class="pod-block-code">method handler (
    $sequence,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Gesture :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$sequence; the <strong>Gnome::Gdk4::N-EventSequence</strong> that was cancelled.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="end"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">end</a></h3>
-<p>Emitted when <code>$gesture</code> either stopped recognizing the event sequences as something to be handled, or the number of touch sequences became higher or lower than <em>n-points</em>.</p><p>Note: <code>$sequence</code> might not pertain to the group of sequences that were previously triggering recognition on <code>$gesture</code> (ie. a just pressed touch sequence that exceeds <em>n-points</em>). This situation may be detected by checking through <code>.handles-sequence()</code>.</p><pre class="pod-block-code">method handler (
+<p>Emitted when <code>$gesture</code> either stopped recognizing the event sequences as something to be handled, or the number of touch sequences became higher or lower than <em>n-points</em>.</p><p>Note: <code>$sequence</code> might not pertain to the group of sequences that were previously triggering recognition on <code>$gesture</code> (ie. a just pressed touch sequence that exceeds <em>n-points</em>). This situation may be detected by checking through <a href="#handles-sequence">.handles-sequence()</a>.</p><pre class="pod-block-code">method handler (
    $sequence,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Gesture :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$sequence; the <strong>Gnome::Gdk4::N-EventSequence</strong> that made gesture recognition to finish.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="sequence-state-changed"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">sequence-state-changed</a></h3>
-<p>Emitted whenever a sequence state changes.</p><p>See <code>.set-sequence-state()</code> to know more about the expectable sequence lifetimes.</p><pre class="pod-block-code">method handler (
+<p>Emitted whenever a sequence state changes.</p><p>See <a href="#set-sequence-state">.set-sequence-state()</a> to know more about the expectable sequence lifetimes.</p><pre class="pod-block-code">method handler (
    $sequence,
    $state,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Gesture :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$sequence; the <strong>Gnome::Gdk4::N-EventSequence</strong> that was cancelled.</p></li>
 <li><p>$state; the new sequence state.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 
 <h3 id="update"><a href="#Gnome::Gtk4::Gesture" class="u" title="go to top of document">update</a></h3>
@@ -262,16 +258,15 @@
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Gesture :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$sequence; the <strong>Gnome::Gdk4::N-EventSequence</strong> that was updated.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Gesture</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Gesture.rakudoc</span></div><div>at <span class="time">2025-04-21T13:04:33Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Gesture.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:36Z</span></div></footer>
 	</body>
 </html>
