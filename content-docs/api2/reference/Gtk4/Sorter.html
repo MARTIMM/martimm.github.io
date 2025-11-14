@@ -31,7 +31,7 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Sorter</strong> is an object to describe sorting criteria.</p><p>Its primary user is <strong>Gnome::Gtk4::SortListModel</strong></p><p>The model will use a sorter to determine the order in which its items should appear by calling <code>.compare()</code>] for pairs of items.</p><p>Sorters may change their sorting behavior through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that the sort order is no longer valid and should be updated by calling <code>.compare()</code> again.</p><p>GTK provides various pre-made sorter implementations for common sorting operations. <strong>Gnome::Gtk4::ColumnView</strong> has built-in support for sorting lists via the <em>sorter defined in Gnome::Gtk4::ColumnViewColumn</em> property, where the user can change the sorting by clicking on list headers.</p><p>Of course, in particular for large lists, it is also possible to subclass <strong>Gnome::Gtk4::Sorter</strong> and provide one's own sorter.</p>
+<p><strong>Gnome::Gtk4::Sorter</strong> is an object to describe sorting criteria.</p><p>Its primary user is <a href="/content-docs/api2/reference/Gtk4/SortListModel.html">Gnome::Gtk4::SortListModel</a></p><p>The model will use a sorter to determine the order in which its items should appear by calling <a href="#compare">.compare()</a> for pairs of items.</p><p>Sorters may change their sorting behavior through their lifetime. In that case, they will emit the <em>changed</em> signal to notify that the sort order is no longer valid and should be updated by calling <code>.compare()</code> again.</p><p>GTK provides various pre-made sorter implementations for common sorting operations. <a href="/content-docs/api2/reference/Gtk4/ColumnView.html">Gnome::Gtk4::ColumnView</a> has built-in support for sorting lists via the <em>sorter defined in Gnome::Gtk4::ColumnViewColumn</em> property, where the user can change the sorting by clicking on list headers.</p><p>Of course, in particular for large lists, it is also possible to subclass <strong>Gnome::Gtk4::Sorter</strong> and provide one's own sorter.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/Sorter.png" width="70%" height="auto" alt="No caption"></div>
 </section>
@@ -47,14 +47,14 @@
 </section>
 <section name="pod">
 <h2 id="changed"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">changed</a></h2>
-<p>Notifies all users of the sorter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the sorter should then update the sort order via <code>.compare()</code>].</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Sorter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkSorterChange $change )
+<p>Notifies all users of the sorter that it has changed.</p><p>This emits the <em>changed</em> signal. Users of the sorter should then update the sort order via <a href="#compare">.compare()</a>.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><p>This function is intended for implementers of <strong>Gnome::Gtk4::Sorter</strong> subclasses and should not be called from other functions.</p><pre class="pod-block-code">method changed ( GtkSorterChange $change )
 </pre><ul>
 <li><p>$change; How the sorter changed.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="compare"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">compare</a></h2>
-<p>Compares two given items according to the sort order implemented by the sorter.</p><p>Sorters implement a partial order:</p><p>* It is reflexive, ie a = a * It is antisymmetric, ie if a &lt; b and b &lt; a, then a = b * It is transitive, ie given any 3 items with a ≤ b and b ≤ c, then a ≤ c</p><p>The sorter may signal it conforms to additional constraints via the return value of <code>.get-order()</code>].</p><pre class="pod-block-code">method compare ( gpointer $item1, gpointer $item2 --&gt; GtkOrdering )
+<p>Compares two given items according to the sort order implemented by the sorter.</p><p>Sorters implement a partial order:</p><p>* It is reflexive, ie a = a * It is antisymmetric, ie if a &lt; b and b &lt; a, then a = b * It is transitive, ie given any 3 items with a ≤ b and b ≤ c, then a ≤ c</p><p>The sorter may signal it conforms to additional constraints via the return value of <a href="#get-order">.get-order()</a>.</p><pre class="pod-block-code">method compare ( gpointer $item1, gpointer $item2 --&gt; GtkOrdering )
 </pre><ul>
 <li><p>$item1; first item to compare.</p></li>
 <li><p>$item2; second item to compare.</p></li>
@@ -68,21 +68,20 @@
 <h1 id="Signals"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="changed_0"><a href="#Gnome::Gtk4::Sorter" class="u" title="go to top of document">changed</a></h3>
-<p>Emitted whenever the sorter changed.</p><p>Users of the sorter should then update the sort order again via <code>.compare()</code>.</p><p><strong>Gnome::Gtk4::SortListModel</strong> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><pre class="pod-block-code">method handler (
+<p>Emitted whenever the sorter changed.</p><p>Users of the sorter should then update the sort order again via <code>.compare()</code>.</p><p><a href="/content-docs/api2/reference/Gtk4/SortListModel.html">Gnome::Gtk4::SortListModel</a> handles this signal automatically.</p><p>Depending on the <code>$change</code> parameter, it may be possible to update the sort order without a full resorting. Refer to the enumeration <code>SorterChange</code> from <code>Gnome::Gtk4::T-sorter</code> documentation for details.</p><pre class="pod-block-code">method handler (
    $change,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Sorter :$_widget,
-  *C&lt;user&gt;-options
+  *%user-options
 )
 </pre><ul>
 <li><p>$change; how the sorter changed.</p></li>
 <li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gtk4::Sorter</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Sorter</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Sorter.rakudoc</span></div><div>at <span class="time">2025-04-21T13:06:05Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Sorter.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:12Z</span></div></footer>
 	</body>
 </html>
