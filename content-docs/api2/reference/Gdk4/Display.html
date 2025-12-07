@@ -1,0 +1,315 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::Gdk4::Display</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk4::Display">Gnome::Gdk4::Display</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#beep">beep</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#close">close</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#create-gl-context">create-gl-context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#device-is-grabbed">device-is-grabbed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#flush">flush</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-app-launch-context">get-app-launch-context</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-clipboard">get-clipboard</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-seat">get-default-seat</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-monitor-at-surface">get-monitor-at-surface</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-monitors">get-monitors</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-primary-clipboard">get-primary-clipboard</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-setting">get-setting</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-startup-notification-id">get-startup-notification-id</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-closed">is-closed</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-composited">is-composited</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-rgba">is-rgba</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#list-seats">list-seats</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#map-keycode">map-keycode</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#map-keyval">map-keyval</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#notify-startup-complete">notify-startup-complete</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#prepare-gl">prepare-gl</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#put-event">put-event</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#supports-input-shapes">supports-input-shapes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#sync">sync</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#translate-key">translate-key</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-default">get-default</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#open">open</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#closed">closed</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#opened">opened</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#seat-added">seat-added</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#seat-removed">seat-removed</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#setting-changed">setting-changed</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Description</a></h1>
+<p><strong>Gnome::Gdk4::Display</strong> objects are the GDK representation of a workstation.</p><p>Their purpose are two-fold:</p><ul>
+<li><p>To manage and provide information about input devices (pointers, keyboards, etc)</p></li>
+<li><p>To manage and provide information about output devices (monitors, projectors, etc)</p></li>
+</ul>
+<p>Most of the input device handling has been factored out into separate <a href="/content-docs/api2/reference/Gdk4/Gnome.html">Gnome::Gdk4::Seat</a> objects. Every display has a one or more seats, which can be accessed with <a href="#get-default-seat">.get-default-seat()</a> and <a href="#list-seats">.list-seats()</a>.</p><p>Output devices are represented by <a href="/content-docs/api2/reference/Gdk4/Gnome.html">Gnome::Gdk4::Monitor</a> objects, which can be accessed with <a href="#get-monitor-at-surface">.get-monitor-at-surface()</a> and similar APIs.</p></section>
+<section name="pod">
+<h1 id="Class_initialization"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Class initialization</a></h1>
+
+<h2 id="new"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">new</a></h2>
+
+<h3 id=":native-object"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
+<section name="pod">
+<h1 id="Methods"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Methods</a></h1>
+</section>
+<section name="pod">
+<h2 id="beep"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">beep</a></h2>
+<p>Emits a short beep on <code>$display</code></p><pre class="pod-block-code">method beep ( )
+</pre></section>
+<section name="pod">
+<h2 id="close"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">close</a></h2>
+<p>Closes the connection to the windowing system for the given display.</p><p>This cleans up associated resources.</p><pre class="pod-block-code">method close ( )
+</pre></section>
+<section name="pod">
+<h2 id="create-gl-context"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">create-gl-context</a></h2>
+<p>Creates a new <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> for the <strong>Gnome::Gdk4::Display</strong>.</p><p>The context is disconnected from any particular surface or surface and cannot be used to draw to any surface. It can only be used to draw to non-surface framebuffers like textures.</p><p>If the creation of the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> failed, <code>$error</code> will be set. Before using the returned <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>, you will need to call <a href="/content-docs/api2/reference/Gdk4/Gnome.html#make-current">.make-current() in class Gnome</a> or <a href="/content-docs/api2/reference/Gdk4/Gnome.html#realize">.realize() in class Gnome</a>.</p><pre class="pod-block-code">method create-gl-context ( CArray[N-Error] $err --&gt; N-Object )
+</pre><ul>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+</ul>
+<p>Return value; the newly created <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>. </p></section>
+<section name="pod">
+<h2 id="device-is-grabbed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">device-is-grabbed</a></h2>
+<p>Returns <code>True</code> if there is an ongoing grab on <code>$device</code> for <code>$display</code>.</p><pre class="pod-block-code">method device-is-grabbed ( N-Object() $device --&gt; Bool )
+</pre><ul>
+<li><p>$device; a <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if there is a grab in effect for <code>$device</code>.. </p></section>
+<section name="pod">
+<h2 id="flush"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">flush</a></h2>
+<p>Flushes any requests queued for the windowing system.</p><p>This happens automatically when the main loop blocks waiting for new events, but if your application is drawing without returning control to the main loop, you may need to call this function explicitly. A common case where this function needs to be called is when an application is executing drawing commands from a thread other than the thread where the main loop is running.</p><p>This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p><pre class="pod-block-code">method flush ( )
+</pre></section>
+<section name="pod">
+<h2 id="get-app-launch-context"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-app-launch-context</a></h2>
+<p>Returns a <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext.html">Gnome::Gdk4::AppLaunchContext</a> suitable for launching applications on the given display.</p><pre class="pod-block-code">method get-app-launch-context (--&gt; N-Object )
+</pre><p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext.html">Gnome::Gdk4::AppLaunchContext</a> for <code>$display</code>. </p></section>
+<section name="pod">
+<h2 id="get-clipboard"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-clipboard</a></h2>
+<p>Gets the clipboard used for copy/paste operations.</p><pre class="pod-block-code">method get-clipboard (--&gt; N-Object )
+</pre><p>Return value; the display's clipboard. </p></section>
+<section name="pod">
+<h2 id="get-default-seat"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-default-seat</a></h2>
+<p>Returns the default <a href="/content-docs/api2/reference/Gdk4/Seat.html">Gnome::Gdk4::Seat</a> for this display.</p><p>Note that a display may not have a seat. In this case, this function will return undefined.</p><pre class="pod-block-code">method get-default-seat (--&gt; N-Object )
+</pre><p>Return value; the default seat.. </p></section>
+<section name="pod">
+<h2 id="get-monitor-at-surface"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-monitor-at-surface</a></h2>
+<p>Gets the monitor in which the largest area of <code>$surface</code> resides.</p><p>Returns a monitor close to <code>$surface</code> if it is outside of all monitors.</p><pre class="pod-block-code">method get-monitor-at-surface ( N-Object() $surface --&gt; N-Object )
+</pre><ul>
+<li><p>$surface; a <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a>.</p></li>
+</ul>
+<p>Return value; the monitor with the largest overlap with <code>$surface</code>. </p></section>
+<section name="pod">
+<h2 id="get-monitors"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-monitors</a></h2>
+<p>Gets the list of monitors associated with this display.</p><p>Subsequent calls to this function will always return the same list for the same display.</p><p>You can listen to the GListModel::items-changed signal on this list to monitor changes to the monitor of this display.</p><pre class="pod-block-code">method get-monitors (--&gt; N-List )
+</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> of <a href="/content-docs/api2/reference/Gdk4/Monitor.html">Gnome::Gdk4::Monitor</a>. </p></section>
+<section name="pod">
+<h2 id="get-name"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-name</a></h2>
+<p>Gets the name of the display.</p><pre class="pod-block-code">method get-name (--&gt; Str )
+</pre><p>Return value; a string representing the display name. This string is owned by GDK and should not be modified or freed.. </p></section>
+<section name="pod">
+<h2 id="get-primary-clipboard"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-primary-clipboard</a></h2>
+<p>Gets the clipboard used for the primary selection.</p><p>On backends where the primary clipboard is not supported natively, GDK emulates this clipboard locally.</p><pre class="pod-block-code">method get-primary-clipboard (--&gt; N-Object )
+</pre><p>Return value; the primary clipboard. </p></section>
+<section name="pod">
+<h2 id="get-setting"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-setting</a></h2>
+<p>Retrieves a desktop-wide setting such as double-click time for the <code>$display</code>.</p><pre class="pod-block-code">method get-setting ( Str $name, N-Object $value --&gt; Bool )
+</pre><ul>
+<li><p>$name; the name of the setting.</p></li>
+<li><p>$value; location to store the value of the setting</p></li>
+</ul>
+<p>Return value; <code>True</code> if the setting existed and a value was stored in <code>$value</code>, <code>False</code> otherwise. </p></section>
+<section name="pod">
+<h2 id="get-startup-notification-id"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-startup-notification-id</a></h2>
+<p>Gets the startup notification ID for a Wayland display, or undefined if no ID has been defined.</p><pre class="pod-block-code">method get-startup-notification-id (--&gt; Str )
+</pre><p>Return value; the startup notification ID for <code>$display</code>. </p></section>
+<section name="pod">
+<h2 id="is-closed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-closed</a></h2>
+<p>Finds out if the display has been closed.</p><pre class="pod-block-code">method is-closed (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if the display is closed.. </p></section>
+<section name="pod">
+<h2 id="is-composited"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-composited</a></h2>
+<p>Returns whether surfaces can reasonably be expected to have their alpha channel drawn correctly on the screen.</p><p>Check <a href="#is-rgba">.is-rgba()</a> for whether the display supports an alpha channel.</p><p>On X11 this function returns whether a compositing manager is compositing on <code>$display</code>.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method is-composited (--&gt; Bool )
+</pre><p>Return value; Whether surfaces with RGBA visuals can reasonably be expected to have their alpha channels drawn correctly on the screen.. </p></section>
+<section name="pod">
+<h2 id="is-rgba"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-rgba</a></h2>
+<p>Returns whether surfaces on this <code>$display</code> are created with an alpha channel.</p><p>Even if a <code>True</code> is returned, it is possible that the surface’s alpha channel won’t be honored when displaying the surface on the screen: in particular, for X an appropriate windowing manager and compositing manager must be running to provide appropriate display. Use <a href="#is-composited">.is-composited()</a> to check if that is the case.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method is-rgba (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if surfaces are created with an alpha channel or <code>False</code> if the display does not support this functionality.. </p></section>
+<section name="pod">
+<h2 id="list-seats"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">list-seats</a></h2>
+<p>Returns the list of seats known to <code>$display</code>.</p><pre class="pod-block-code">method list-seats (--&gt; N-List )
+</pre><p>Return value; the list of seats known to the <strong>Gnome::Gdk4::Display</strong>. </p></section>
+<section name="pod">
+<h2 id="map-keycode"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">map-keycode</a></h2>
+<p>Returns the keyvals bound to <code>$keycode</code>.</p><p>The Nth <strong>Gnome::Gdk4::N-KeymapKey</strong> in <code>$keys</code> is bound to the Nth keyval in <code>$keyvals</code>.</p><p>When a keycode is pressed by the user, the keyval from this list of entries is selected by considering the effective keyboard group and level.</p><p>Free the returned arrays with g_free().</p><pre class="pod-block-code">method map-keycode ( UInt() $keycode, N-Object $keys, Array[Int] $keyvals, Array[Int] $n-entries --&gt; Bool )
+</pre><ul>
+<li><p>$keycode; a keycode.</p></li>
+<li><p>$keys; (transfer ownership: full) return location for array of <strong>Gnome::Gdk4::N-KeymapKey</strong></p></li>
+<li><p>$keyvals; (transfer ownership: full) return location for array of keyvals.</p></li>
+<li><p>$n-entries; (transfer ownership: full) length of <code>$keys</code> and <code>$keyvals</code>.</p></li>
+</ul>
+<p>Return value; <code>True</code> if there were any entries. </p></section>
+<section name="pod">
+<h2 id="map-keyval"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">map-keyval</a></h2>
+<p>Obtains a list of keycode/group/level combinations that will generate <code>$keyval</code>.</p><p>Groups and levels are two kinds of keyboard mode; in general, the level determines whether the top or bottom symbol on a key is used, and the group determines whether the left or right symbol is used.</p><p>On US keyboards, the shift key changes the keyboard level, and there are no groups. A group switch key might convert a keyboard between Hebrew to English modes, for example.</p><p><strong>GdkEventKey</strong> contains a %group field that indicates the active keyboard group. The level is computed from the modifier mask.</p><p>The returned array should be freed with g_free().</p><pre class="pod-block-code">method map-keyval ( UInt() $keyval, N-Object $keys, Array[Int] $n-keys --&gt; Bool )
+</pre><ul>
+<li><p>$keyval; a keyval, such as %GDK_KEY_a, %GDK_KEY_Up, %GDK_KEY_Return, etc..</p></li>
+<li><p>$keys; (transfer ownership: full) return location for an array of <strong>Gnome::Gdk4::N-KeymapKey</strong></p></li>
+<li><p>$n-keys; (transfer ownership: full) return location for number of elements in returned array.</p></li>
+</ul>
+<p>Return value; <code>True</code> if keys were found and returned. </p></section>
+<section name="pod">
+<h2 id="notify-startup-complete"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">notify-startup-complete</a></h2>
+<p>Indicates to the GUI environment that the application has finished loading, using a given identifier.</p><p>GTK will call this function automatically for <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Window</a> with custom startup-notification identifier unless <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-auto-startup-notification">.set-auto-startup-notification() in class Gnome</a> is called to disable that feature.</p><pre class="pod-block-code">method notify-startup-complete ( Str $startup-id )
+</pre><ul>
+<li><p>$startup-id; a startup-notification identifier, for which notification process should be completed.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="prepare-gl"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">prepare-gl</a></h2>
+<p>Checks that OpenGL is available for <code>$self</code> and ensures that it is properly initialized. When this fails, an <code>$error</code> will be set describing the error and this function returns <code>False</code>.</p><p>Note that even if this function succeeds, creating a <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> may still fail.</p><p>This function is idempotent. Calling it multiple times will just return the same value or error.</p><p>You never need to call this function, GDK will call it automatically as needed. But you can use it as a check when setting up code that might make use of OpenGL.</p><pre class="pod-block-code">method prepare-gl ( CArray[N-Error] $err --&gt; Bool )
+</pre><ul>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+</ul>
+<p>Return value; <code>True</code> if the display supports OpenGL. </p></section>
+<section name="pod">
+<h2 id="put-event"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">put-event</a></h2>
+<p>Appends the given event onto the front of the event queue for <code>$display</code>.</p><p>This function is only useful in very special situations and should not be used by applications.</p><pre class="pod-block-code">method put-event ( N-Object() $event )
+</pre><ul>
+<li><p>$event; a <a href="/content-docs/api2/reference/Gdk4/Event.html">Gnome::Gdk4::Event</a>.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="supports-input-shapes"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">supports-input-shapes</a></h2>
+<p>Returns <code>True</code> if the display supports input shapes.</p><p>This means that <a href="/content-docs/api2/reference/Gdk4/Gnome.html#set-input-region">.set-input-region() in class Gnome</a> can be used to modify the input shape of surfaces on <code>$display</code>.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method supports-input-shapes (--&gt; Bool )
+</pre><p>Return value; <code>True</code> if surfaces with modified input shape are supported. </p></section>
+<section name="pod">
+<h2 id="sync"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">sync</a></h2>
+<p>Flushes any requests queued for the windowing system and waits until all requests have been handled.</p><p>This is often used for making sure that the display is synchronized with the current state of the program. Calling <a href="#sync">.sync()</a> before <a href="/content-docs/api2/reference/GdkX11/Gnome.html#error-trap-pop">.error-trap-pop() in class Gnome</a> makes sure that any errors generated from earlier requests are handled before the error trap is removed.</p><p>This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p><pre class="pod-block-code">method sync ( )
+</pre></section>
+<section name="pod">
+<h2 id="translate-key"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">translate-key</a></h2>
+<p>Translates the contents of a <strong>GdkEventKey</strong> into a keyval, effective group, and level.</p><p>Modifiers that affected the translation and are thus unavailable for application use are returned in <code>$consumed-modifiers</code>.</p><p>The <code>$effective-group</code> is the group that was actually used for the translation; some keys such as Enter are not affected by the active keyboard group. The <code>$level</code> is derived from <code>$state</code>. <code>$consumed-modifiers</code> gives modifiers that should be masked out from <code>$state</code> when comparing this key press to a keyboard shortcut. For instance, on a US keyboard, the <strong>plus</strong> symbol is shifted, so when comparing a key press to a `&lt;Control&gt;plus` accelerator `&lt;Shift&gt;` should be masked out.</p><p>This function should rarely be needed, since <strong>GdkEventKey</strong> already contains the translated keyval. It is exported for the benefit of virtualized test environments.</p><pre class="pod-block-code">method translate-key ( UInt() $keycode, UInt $state, Int() $group, Array[Int] $keyval, Array[Int] $effective-group, Array[Int] $level, UInt $consumed --&gt; Bool )
+</pre><ul>
+<li><p>$keycode; a keycode.</p></li>
+<li><p>$state; a modifier state.</p></li>
+<li><p>$group; active keyboard group.</p></li>
+<li><p>$keyval; (transfer ownership: full) return location for keyval.</p></li>
+<li><p>$effective-group; (transfer ownership: full) return location for effective group.</p></li>
+<li><p>$level; (transfer ownership: full) return location for level.</p></li>
+<li><p>$consumed; (transfer ownership: full) return location for modifiers that were used to determine the group or level.</p></li>
+</ul>
+<p>Return value; <code>True</code> if there was a keyval bound to keycode/state/group.. </p></section>
+<section name="pod">
+<h1 id="Functions"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Functions</a></h1>
+</section>
+<section name="pod">
+<h2 id="get-default"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-default</a></h2>
+<p>Gets the default <strong>Gnome::Gdk4::Display</strong>.</p><p>This is a convenience function for:</p><pre class="pod-block-code">gdk_display_manager_get_default_display (gdk_display_manager_get ())</pre><pre class="pod-block-code">method get-default (--&gt; N-Object )
+</pre><p>Return value; a <strong>Gnome::Gdk4::Display</strong>, or undefined if there is no default display. </p></section>
+<section name="pod">
+<h2 id="open"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">open</a></h2>
+<p>Opens a display.</p><p>If opening the display fails, undefined is returned.</p><pre class="pod-block-code">method open ( Str $display-name --&gt; N-Object )
+</pre><ul>
+<li><p>$display-name; the name of the display to open.</p></li>
+</ul>
+<p>Return value; a <strong>Gnome::Gdk4::Display</strong>. </p></section>
+<section name="pod">
+<h1 id="Signals"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Signals</a></h1>
+
+<h3 id="closed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">closed</a></h3>
+<p>Emitted when the connection to the windowing system for <code>$display</code> is closed.</p><pre class="pod-block-code">method handler (
+  gboolean $is-error,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Display :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$is-error; <code>True</code> if the display was closed due to an error.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+</ul>
+
+<h3 id="opened"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">opened</a></h3>
+<p>Emitted when the connection to the windowing system for <code>$display</code> is opened.</p><pre class="pod-block-code">method handler (
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Display :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+</ul>
+
+<h3 id="seat-added"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">seat-added</a></h3>
+<p>Emitted whenever a new seat is made known to the windowing system.</p><pre class="pod-block-code">method handler (
+  N-Object $seat,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Display :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$seat; the seat that was just added.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+</ul>
+
+<h3 id="seat-removed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">seat-removed</a></h3>
+<p>Emitted whenever a seat is removed by the windowing system.</p><pre class="pod-block-code">method handler (
+  N-Object $seat,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Display :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$seat; the seat that was just removed.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+</ul>
+
+<h3 id="setting-changed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">setting-changed</a></h3>
+<p>Emitted whenever a setting changes its value.</p><pre class="pod-block-code">method handler (
+  Str $setting,
+  Int :$_handle_id,
+  N-GObject :$_native-object,
+  Gnome::Gdk4::Display :$_widget,
+  *%user-options
+)
+</pre><ul>
+<li><p>$setting; the name of the setting that changed.</p></li>
+<li><p>$_handle_id; The registered event handler id.</p></li>
+<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
+<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Display.rakudoc</span></div><div>at <span class="time">2025-12-07T20:14:58Z</span></div></footer>
+	</body>
+</html>
