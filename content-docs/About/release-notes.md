@@ -7,41 +7,10 @@ layout: sidebar
 
 # Release notes
 
-## TODO list
-* Project documentation.
-  * Gnome Api 1 project
-    * [ ] Move Gtk3 site to this site.
-    * [ ] tutorials and 'How to' pages.
-    * [ ] Gdk3
-    * [ ] GdkPixbuf
-    * [ ] Gio
-    * [ ] Glib
-    * [ ] GObject
-    * [ ] Gtk3
-    * [ ] N
-    * [ ] Cairo
-
-  * Gnome Api 2 project
-    * [x] Special pages for the release of Gtk4 and depending modules (index etc).
-    * [x] New [tutorials and 'How to'](../api2/tutorials/index.html) pages.
-    * [x] Gdk4
-    * [ ] GdkPixbuf
-    * [x] Gio
-    * [ ] Glib
-    * [ ] GObject
-    * [x] Graphene
-    * [x] Gsk4
-    * [x] Gtk4
-    * [ ] N
-    * [ ] Pango
-
-  * MongoDB and BSON project
-    * [ ] Move MongoDB site to this site.
-    * [ ] tutorials and 'How to' pages.
-
-## Notes
-
 Release notes for github pages project https://martimm.github.io
+
+* 2025-12-17 0.9.0
+  * Change of theme. I used tactile and rouge based on Jackyll but saw another one which looked promising. It is called Minimal Mistakes. The reason is that I wanted to start writing short stories about the projects. Much is already done in tutorials but had a need to catagorize them and reachable from other locations. They also should look different from the reference pages. The new theme comes with a lot of `_includes` and `_layouts` which made me thinking of adding a few of myself to separate more parts of the display of data. With the new theme, the old layout collapses and changes must be made in several files to get that right again.
 
 * 2025-sometime 0.8.1
   * Add a program, `generate-md-refs.raku`, to copy docs from Raku distros to the publishing directories.
