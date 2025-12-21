@@ -21,7 +21,7 @@ What we're trying to accomplish is placing four colored squares in the middle of
 ## Lets roll
 
 First import the needed modules. 
-```raku
+```
 use v6.d;
 
 use Gnome::Graphene::T-size:api<2>;
@@ -42,7 +42,7 @@ use Gnome::N::N-Object:api<2>;
 ```
 
 The class definition and its attributes.
-```raku
+```
 class DrawingColors {
   has Gnome::Glib::N-MainLoop $!main-loop;
 
@@ -53,7 +53,7 @@ class DrawingColors {
 ```
 
 We initialize the attributes. The `$!width` and `$!height` defines the size of the picture and the `$!w` and `$!h` the sizes of the colored squares in that picture.
-```raku
+```
   submethod BUILD ( ) {
     $!main-loop .= new-mainloop( N-Object, True);
     $!width = 200;
@@ -63,13 +63,13 @@ We initialize the attributes. The `$!width` and `$!height` defines the size of t
 ```
 
 We must make an empty image of a specific size.
-```raku
+```
     my Gnome::Gtk4::Image $image .= new-image;
     $image.set-size-request( $!width, $!height);
 ```
 
 We place the image in a frame with a 50 pixel border around it.
-```raku
+```
     with my Gnome::Gtk4::Frame $frame .= new-frame('My Drawing') {
       .set-margin-start(50);
       .set-margin-end(50);
@@ -80,7 +80,7 @@ We place the image in a frame with a 50 pixel border around it.
 ```
 
 The frame is then placed in a window. Note that we now use `.present()` to display the window. It is a method of the window class. `.show()` which we were used to, is deprecated and removed in Gtk version 5 (we still got some time before that happens though 😉). There is another call for it, namely `.set-visible()`.
-```raku
+```
     with my Gnome::Gtk4::Window $window .= new-window {
       .register-signal( self, 'stopit', 'close-request');
       .set-title('My new window');
@@ -93,7 +93,7 @@ The frame is then placed in a window. Note that we now use `.present()` to displ
 ```
 
 Before finishing the building of the object, start the event loop.
-```raku
+```
     $!main-loop.run;
   }
 ```
@@ -111,7 +111,7 @@ This is the callback routine to stop the program
 ```
 
 Here we call the method `.add-col-rect()` to add a colored rectangular node to the list of nodes in a **Gnome::Gtk4::Snapshot**. Then we set the image with our creation by first getting a paintable object and then give that object to the image. Btw, we use an undefined size because the snapshot can find it from what is created.
-```raku
+```
   method set-image ( Gnome::Gtk4::Image $image ) {
 
     my Gnome::Gtk4::Snapshot $snapshot .= new-snapshot;
@@ -125,7 +125,7 @@ Here we call the method `.add-col-rect()` to add a colored rectangular node to t
 ```
 
 The colored rectangle is appended in the snapshot with `.append-color()` using a rectangle structure from Graphene and an RGBA structure from Gdk. 
-```raku
+```
   method add-col-rect(
     Gnome::Gtk4::Snapshot $snapshot,
     Num() $x, Num() $y, Num() $w, Num() $h,
@@ -142,7 +142,7 @@ The colored rectangle is appended in the snapshot with `.append-color()` using a
 }
 ```
 The only thing left is to create our drawing object
-```raku
+```
 DrawingColors.new;
 ```
 
