@@ -25,6 +25,7 @@ layout: sidebar
   * Gnome Api 2 project
     * [x] Main page and sidebar.
     * [Tutorials and 'How to'](../api2/tutorials/index.html) pages.
+      * [x] [XMas story](https://raku-advent.blog/2024/12/09/day-9-the-end-of-the-year/)
 
     * Reference
       * [x] Gdk4
@@ -48,6 +49,8 @@ layout: sidebar
       * [ ] MessageDialog
       * [ ] Statusbar
       * [ ] Theming
+    * Tutorials and 'How to' pages.
+      * [x] [XMas story](https://raku-advent.blog/2025/12/05/day-5-tools-for-gnomegtk4/)
 
   * MongoDB and BSON project
     * [ ] Tutorials and 'How to' pages.
