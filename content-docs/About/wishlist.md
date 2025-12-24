@@ -58,4 +58,8 @@ layout: sidebar
 
   * [ ] Move MongoDB document site  under this umbrella.
   * [ ] Drop original Gtk version 3 site.
+
 ## Other notes
+* [ ] Rakudo documentation changes
+* [ ] Make use of Minimal Mistakes for blog posts
+* [ ] Convert existing tutorial entries to blog posts
