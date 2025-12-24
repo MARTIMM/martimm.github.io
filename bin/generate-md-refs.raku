@@ -161,12 +161,13 @@ sub generate-html (
 
   note "\nProcessing $doc-name";
 
-  my Pod::To::HTML2 $pr .= new;
-  $pr.pod-file.path = $raku-doc-path;
-  $pr.process-pod($rak);
-  $pr.no-toc = True if $raku-doc-path ~~ m/ XMas /;
-  $pr.no-glossary = True;
-  $pr.no-footnotes = True;
+  with my Pod::To::HTML2 $pr .= new {
+    .pod-file.path = $raku-doc-path;
+    .process-pod($rak);
+    .no-toc = True if $raku-doc-path ~~ m/ XMas /;
+    .no-glossary = True;
+    .no-footnotes = True;
+  }
 
   "$filename.html".IO.spurt: "---\n---\n" ~ $pr.source-wrap(:$filename);
 
