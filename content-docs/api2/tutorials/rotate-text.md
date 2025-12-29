@@ -182,7 +182,6 @@ To get the rectangle around the text call the method `.get-pixel-extents()`. We 
 Now that we have defined the **RotateLabel** class, we like to us it. To do that, we need to import some more modules to get things fancy.
 
 ```
-#-------------------------------------------------------------------------------
 use Gnome::Gdk4::Display:api<2>;
 use Gnome::Glib::N-MainLoop:api<2>;
 use Gnome::N::N-Object:api<2>;
