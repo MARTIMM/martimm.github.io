@@ -22,6 +22,9 @@ constant SKIMTOOL = 'gnome-source-skim-tool/';
 constant API2S = SKIMTOOL ~ 'gnome-api2/';  # S source, D destination
 constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
 
+constant GTS = 'GnomeTools/';
+constant GTD = 'MARTIMM.github.io/content-docs/GnomeTools/reference/';
+
 my Hash $source-paths = %(
   :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/doc/'),
   :Gdk4Api2(PROJECTS ~ API2S ~ 'gnome-gdk4/doc/'),
@@ -34,6 +37,10 @@ my Hash $source-paths = %(
   :GioApi1(PROJECTS ~ API1S ~ 'gnome-gio/lib/Gnome/Gio/'),
   :GlibApi1(PROJECTS ~ API1S ~ 'gnome-glib/lib/Gnome/Glib/'),
   :GObjApi1(PROJECTS ~ API1S ~ 'gnome-gobject/lib/Gnome/GObject/'),
+
+  # GnomeTools
+  :GTGtk(PROJECTS ~ GTS ~ 'lib/GnomeTools/Gtk/'),
+  :GTGio(PROJECTS ~ GTS ~ 'lib/GnomeTools/Gio/'),
 
   :xmas(PROJECTS ~ XMASS),
 );
@@ -51,6 +58,10 @@ my Hash $destination-paths = %(
   :GlibApi1(PROJECTS ~ API1D ~ 'Glib/'),
   :GObjApi1(PROJECTS ~ API1D ~ 'GObject/'),
 
+  # GnomeTools
+  :GTGtk(PROJECTS ~ GTD ~ 'Gtk/'),
+  :GTGio(PROJECTS ~ GTD ~ 'Gio/'),
+
   :xmas(PROJECTS ~ XMASD),
 );
 
@@ -66,6 +77,10 @@ my Hash $sidebar-paths = %(
   :GioApi1(REFS ~ 'api1-ref-gio-sidebar.yml'),
   :GlibApi1(REFS ~ 'api1-ref-glib-sidebar.yml'),
   :GObjectApi1(REFS ~ 'api1-ref-gobject-sidebar.yml'),
+
+  # GnomeTools
+  :GTGtk(REFS ~ 'gnometools-ref-gtk-sidebar.yml'),
+  :GTGio(REFS ~ 'gnometools-ref-gio-sidebar.yml'),
 );
 
 #-------------------------------------------------------------------------------
@@ -151,7 +166,9 @@ sub generate-html (
   mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
 
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
-#note "$?LINE $raku-doc-path, $raku-doc-dest, $basename";
+  note "\n$basename";
+  note "  Source: $raku-doc-path";
+  note "  Destination: $raku-doc-dest";
 
 
   my Str $filename = "$raku-doc-dest$basename";
@@ -159,7 +176,7 @@ sub generate-html (
   
   my Array $rak = load-pod($raku-doc-path);
 
-  note "\nProcessing $doc-name";
+  note "  Processing $doc-name";
 
   with my Pod::To::HTML2 $pr .= new {
     .pod-file.path = $raku-doc-path;
@@ -167,17 +184,18 @@ sub generate-html (
     .no-toc = True if $raku-doc-path ~~ m/ XMas /;
     .no-glossary = True;
     .no-footnotes = True;
+    "$filename.html".IO.spurt("---\n---\n" ~ .source-wrap(:$filename));
   }
 
-  "$filename.html".IO.spurt: "---\n---\n" ~ $pr.source-wrap(:$filename);
-
-  note "Generated {$filename.IO.basename}.html";
+  note "  Generated {$filename.IO.basename}.html";
 }
 
 #-------------------------------------------------------------------------------
 sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
+
+  note "\nAdd entries to sidebar at $sidebar-path";
 
   my @classes = ();
   my @roles = ();
@@ -186,6 +204,9 @@ sub generate-sidebar( Str $key ) {
 
   my Hash $deprecated-data = %();
   my Str $prefix-name = '';
+
+  # Special coloring for deprecated modules
+  # TODO also for Api1?
   if $key ~~ m/ Api2 / {
     my Str $path-part = S/ Api2 // with $key;
     my Str $skimfile = PROJECTS ~ SKIMTOOL ~ 
@@ -213,7 +234,7 @@ sub generate-sidebar( Str $key ) {
     $url = "/content-docs/$url";
     my Str() $name = S/ \.html $// with $url;
     $name = $name.IO.basename;
-#note "$?LINE Sidebar reference of $name: $url";
+    note "  Url of $name: $url";
 
     my Str $type = 'normal-object';
     if $deprecated-data{$name}:exists {
@@ -307,7 +328,7 @@ use MONKEY-SEE-NO-EVAL;
 sub load-pod ( Str $file where .IO.e --> Array ) {
   my $pod;
   my $contents = $file.IO.slurp;
-  
+
   # Old documentation generator will not be changed. We have to do it here.
   if $file ~~ m/ 'gnome-api1' / {
     # Change first =head1 into =TITLE
