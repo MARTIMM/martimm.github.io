@@ -23,7 +23,7 @@ What we're trying to accomplish is placing four colored squares in the middle of
 First import the needed modules. 
 ```
 use v6.d;
-
+ 
 use Gnome::Graphene::T-size:api<2>;
 use Gnome::Graphene::T-rect:api<2>;
 use Gnome::Graphene::T-point:api<2>;
