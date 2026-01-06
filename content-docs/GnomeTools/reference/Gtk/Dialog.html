@@ -1,0 +1,139 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>GnomeTools::Gtk::Dialog</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="GnomeTools::Gtk::Dialog">GnomeTools::Gtk::Dialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Css">Css</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-content">add-content</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Description</a></h1>
+<p>This module is used to setup a dialog window. It is made as a convenience and because it will be deprecated in Gtk version 5.</p><p>The contents of the dialog is a grid. The first column is used for a label to describe what is in the next columns. At the bottom is a row where buttons are placed. Optionally there is a status line below the row of buttons.</p><p>The dialog is modal by default.</p>
+<h2 id="Example"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Example</a></h2>
+<p>Example use of the class <strong>GnomeTools::Gtk::Dialog</strong>.</p><pre class="pod-block-code">method make-dialog ( ) {
+  my Str $dialog-header = Q:a:to/EOHEADER/;
+    This is a small test to show a dialog with an entry
+    and a few buttons. The &lt;b&gt;Hello&lt;/b&gt; button shows some
+    text in the statusbar when pressed. The &lt;b&gt;Cancel&lt;/b&gt;
+    button stops the program.
+    EOHEADER
+
+  with my Gnome::Gtk4::Entry $entry .= new-entry {
+    .set-placeholder-text('Text shows up after pressing Hello');
+    .set-size-request( 400, -1);
+  }
+
+  with my GnomeTools::Gtk::Dialog $dialog .= new(
+    :$dialog-header, :dialog-title('Test Dialog'), :add-statusbar
+  ) {
+    .add-content( 'Please enter your name', $entry);
+    .add-button( helper.new, 'say-hello', 'Hello', :$dialog, :$entry);
+    .add-button( $dialog, 'destroy-dialog', 'Cancel');
+  }
+}
+…
+method say-hello (
+  GnomeTools::Gtk::Dialog :$dialog,
+  Gnome::Gtk4::Entry :$entry
+) {
+  say &quot;hello $entry.get-text()&quot;;
+  $dialog.set-status(&quot;hello &lt;b&gt;$entry.get-text()\&lt;/b&gt;&quot;);
+}
+…</pre>
+<h2 id="Css"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Css</a></h2>
+<p>The Css classes defined for the <strong>GnomeTools::Gtk::Dialog</strong> are; dialog-tool, dialog-header, dialog-content, and dialog-button. When the following code is added to method <code>make-dialog()</code></p><pre class="pod-block-code">  my GnomeTools::Gtk::Theming $theme .= new(:css-text(Q:q:to/EOCSS/));
+  .dialog-tool {
+    background-color: #afafaf;
+  }
+
+  .dialog-header {
+    /*background-color:rgb(84, 10, 85);*/
+    color:rgb(59, 1, 65);
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .dialog-content label {
+    color: #004060;
+  }
+
+  .dialog-button label {
+    color:rgb(15, 165, 240);
+  }
+
+  .statusbar-tool {
+    background-color:rgb(84, 10, 85);
+    border-width: 5px;
+    border-style: groove;
+    border-color:rgb(144, 0, 255);
+  }
+
+  .statusbar-tool &gt; label {
+    color:rgb(0, 0, 90);
+  }
+
+  .dialog-entry {
+    border-width: 5px;
+    border-style: inset;
+    border-color:rgb(144, 0, 255);
+    color:rgb(255, 141, 141);
+  }
+
+  EOCSS
+
+  $theme.add-css-class( $entry, 'dialog-entry');
+
+</pre><p>The status bar has its own css classes as is shown in the code. The result shows like;</p><div class="image-container inline"><img src="asset_files/images/Dialog-2.png" width="60%" height="auto" alt="No caption"></div>
+</section>
+<section name="pod">
+<h1 id="Methods"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">new</a></h2>
+<p>Create a <strong>GnomeTools::Gtk::Dialog</strong>.</p><pre class="pod-block-code">submethod BUILD (
+  Str :$dialog-header = '',  Str :$dialog-title = '',
+  Bool :$add-statusbar = False, Gnome::Gtk4::Window :$transition-window?,
+  Int :$width = 400, :$height = 100, Bool :$modal = True
+)
+</pre><ul>
+<li><p>$dialog-header; A small text placed at the top of the dialog.</p></li>
+<li><p>$dialog-title; A string placed in the windows decoration bar.</p></li>
+<li><p>$add-statusbar; A statusbar can be placed at the bottom of the dialog. Not shown by default.</p></li>
+<li><p>$transition-window; Make the dialog depending on another window. This is useful that the dialog also is destroyed when the $transition-window is removed.</p></li>
+<li><p>$width; The width of the dialog.</p></li>
+<li><p>$heaght; The width of the dialog.</p></li>
+<li><p>$modal; Specifies that other windows cannot get focus when $modal is True. Turned on by default.</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="add-content"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">add-content</a></h2>
+<p>Content is added to the dialog. There is always a label on the left and a user defined widget on the right.</p><pre class="pod-block-code">method add-content (
+  Str:D $text, *@widgets, Int :$columns = 1, Int :$rows = 1
+)
+</pre><ul>
+<li><p>$text; The text shown on the left</p></li>
+<li><p>*@widgets; One or more widgets placed horizontally</p></li>
+<li><p>$columns; The number of columns each widget needs. By default 1.</p></li>
+<li><p>$rows; The number of rows each widget needs. By default 1.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/Dialog.rakumod</span></div><div>at <span class="time">2026-01-06T18:44:09Z</span></div></footer>
+	</body>
+</html>
