@@ -22,6 +22,12 @@
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#add-content">add-content</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#An_example_use">An example use</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#add-button">add-button</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#An_example_use_0">An example use</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-status">set-status</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#show-dialog">show-dialog</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#destroy-dialog">destroy-dialog</a></td></tr>
 </table></div>
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
@@ -59,13 +65,12 @@ method say-hello (
 }
 …</pre>
 <h2 id="Css"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Css</a></h2>
-<p>The Css classes defined for the <strong>GnomeTools::Gtk::Dialog</strong> are; dialog-tool, dialog-header, dialog-content, and dialog-button. When the following code is added to method <code>make-dialog()</code></p><pre class="pod-block-code">  my GnomeTools::Gtk::Theming $theme .= new(:css-text(Q:q:to/EOCSS/));
+<p>The Css classes defined for the <strong>GnomeTools::Gtk::Dialog</strong> are; <code>dialog-tool</code>, <code>dialog-header</code>, <code>dialog-content</code>, and <code>dialog-button</code>.</p><p>When the following code is added to method <code>make-dialog()</code> defined above;</p><pre class="pod-block-code">  my GnomeTools::Gtk::Theming $theme .= new(:css-text(Q:q:to/EOCSS/));
   .dialog-tool {
     background-color: #afafaf;
   }
 
   .dialog-header {
-    /*background-color:rgb(84, 10, 85);*/
     color:rgb(59, 1, 65);
     padding-left: 15px;
     padding-right: 15px;
@@ -101,7 +106,7 @@ method say-hello (
 
   $theme.add-css-class( $entry, 'dialog-entry');
 
-</pre><p>The status bar has its own css classes as is shown in the code. The result shows like;</p><div class="image-container inline"><img src="asset_files/images/Dialog-2.png" width="60%" height="auto" alt="No caption"></div>
+</pre><p>The status bar has its own css classes as is shown in the code. Also the emtry widget got a class <code>dialog-entry</code>. The result shows like;</p><div class="image-container inline"><img src="asset_files/images/Dialog-2.png" width="60%" height="auto" alt="No caption"></div>
 </section>
 <section name="pod">
 <h1 id="Methods"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">Methods</a></h1>
@@ -124,16 +129,54 @@ method say-hello (
 </section>
 <section name="pod">
 <h2 id="add-content"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">add-content</a></h2>
-<p>Content is added to the dialog. There is always a label on the left and a user defined widget on the right.</p><pre class="pod-block-code">method add-content (
+<p>Content is added to the dialog. There is always a label on the left and a user defined widget on the right.</p><pre class="pod-block-code">multi method add-content (
   Str:D $text, *@widgets, Int :$columns = 1, Int :$rows = 1
 )
+
+multi method add-content ( Str:D $text, Array:D $widgets, Int :$rows = 1 )
+
 </pre><ul>
 <li><p>$text; The text shown on the left</p></li>
-<li><p>*@widgets; One or more widgets placed horizontally</p></li>
+<li><p>*@widgets or $widgets; One or more widgets placed horizontally</p></li>
 <li><p>$columns; The number of columns each widget needs. By default 1.</p></li>
 <li><p>$rows; The number of rows each widget needs. By default 1.</p></li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/Dialog.rakumod</span></div><div>at <span class="time">2026-01-06T18:44:09Z</span></div></footer>
+
+<h3 id="An_example_use"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">An example use</a></h3>
+<p>This example shows how to add some content to the dialog.</p><pre class="pod-block-code">$dialog.add-content(
+  'Please enter your name',
+  my Gnome::Gtk4::Entry $entry .= new-entry;
+);
+</pre></section>
+<section name="pod">
+<h2 id="add-button"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">add-button</a></h2>
+<p>Add a button to the button row at the bottom of the dialog. It is right justified and filled right to left.</p><pre class="pod-block-code">method add-button ( Mu $object, Str $method, Str $button-label, *%options )
+</pre><ul>
+<li><p>$object; The object where method is defined.</p></li>
+<li><p>$method; The name of the method. The method is called after pressing the button.</p></li>
+<li><p>$button-label; The text on the button</p></li>
+<li><p>*%options; Any options provided to the method when called.</p></li>
+</ul>
+
+<h3 id="An_example_use_0"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">An example use</a></h3>
+<p>An example of two buttons. The first expects two named arguments <code>$dialog</code> and <code>$entry</code>. The second button destroys the dialog by calling <code>$dialog.destroy-dialog()</code>.</p><pre class="pod-block-code">  $dialog.add-button( $helper, 'say-hello', 'Hello', :$dialog, :$entry);
+  $dialog.add-button( $dialog, 'destroy-dialog', 'Done');
+</pre></section>
+<section name="pod">
+<h2 id="set-status"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">set-status</a></h2>
+<p>When the statusbar is visible, you may use this method to show some text in it. Previous shown text is removed.</p><pre class="pod-block-code">method set-status ( Str $message )
+</pre><ul>
+<li><p>$message; The message to display</p></li>
+</ul>
+</section>
+<section name="pod">
+<h2 id="show-dialog"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">show-dialog</a></h2>
+<p>When everything is placed in the dialog, <code>show-dialog()</code> can be called to show the dialog on screen.</p><pre class="pod-block-code">method show-dialog ( )
+</pre></section>
+<section name="pod">
+<h2 id="destroy-dialog"><a href="#GnomeTools::Gtk::Dialog" class="u" title="go to top of document">destroy-dialog</a></h2>
+<p>When dialog isn't needed anymore, call <code>destroy-dialog()</code>.</p><pre class="pod-block-code">method destroy-dialog ( )
+</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/Dialog.rakumod</span></div><div>at <span class="time">2026-01-07T16:21:35Z</span></div></footer>
 	</body>
 </html>
