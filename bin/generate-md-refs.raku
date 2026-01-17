@@ -3,6 +3,9 @@
 # References generator to generate 
 use v6.d;
 
+# In the Raku::Pod::Render distro at
+# github.com/finanalyst/raku-pod-render/blob/master/lib/Pod/To/HTML2.rakumod
+# github.com/finanalyst/raku-pod-render/blob/master/Pod2HTML2.md
 use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
 #use Pod::Load;
@@ -178,12 +181,15 @@ sub generate-html (
 
   note "  Processing $doc-name";
 
+  # See also ProcessedPod.rakumod TWEAK. Can be set via %ENV.
+  # Attributes are defined as 'is rw'
   with my Pod::To::HTML2 $pr .= new {
     .pod-file.path = $raku-doc-path;
     .process-pod($rak);
     .no-toc = True if $raku-doc-path ~~ m/ XMas /;
     .no-glossary = True;
     .no-footnotes = True;
+    .no-meta = True;
     "$filename.html".IO.spurt("---\n---\n" ~ .source-wrap(:$filename));
   }
 
