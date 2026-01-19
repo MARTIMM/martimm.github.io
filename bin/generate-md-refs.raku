@@ -152,10 +152,7 @@ note Q:to/EOUSAGE/;
 
 #-------------------------------------------------------------------------------
 # Read doc and generate HTML and store in $raku-doc-dest
-
-sub generate-html (
-  Str $key, Str $doc-name, Bool :$skip
-) {
+sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
   if ($raku-doc-path ~ '.rakudoc').IO ~~ :r {
     $raku-doc-path ~= '.rakudoc';
@@ -177,7 +174,7 @@ sub generate-html (
   my Str $filename = "$raku-doc-dest$basename";
   return if ($skip and ("$filename.html".IO ~~ :e));
   
-  my Array $rak = load-pod($raku-doc-path);
+  my Array $raku-pod = load-pod($raku-doc-path);
 
   note "  Processing $doc-name";
 
@@ -185,7 +182,7 @@ sub generate-html (
   # Attributes are defined as 'is rw'
   with my Pod::To::HTML2 $pr .= new {
     .pod-file.path = $raku-doc-path;
-    .process-pod($rak);
+    .process-pod($raku-pod);
     .no-toc = True if $raku-doc-path ~~ m/ XMas /;
     .no-glossary = True;
     .no-footnotes = True;
@@ -331,9 +328,13 @@ sub generate-sidebar( Str $key ) {
 #-------------------------------------------------------------------------------
 use MONKEY-SEE-NO-EVAL;
 
-sub load-pod ( Str $file where .IO.e --> Array ) {
-  my $pod;
-  my $contents = $file.IO.slurp;
+sub load-pod ( Str $file --> Array ) {
+  if $file.IO !~~ :r {
+    note "$file does not exist or isn't readable";
+    return [];
+  }
+
+  my Str $contents = $file.IO.slurp;
 
   # Old documentation generator will not be changed. We have to do it here.
   if $file ~~ m/ 'gnome-api1' / {
@@ -397,18 +398,23 @@ sub load-pod ( Str $file where .IO.e --> Array ) {
     }
   }
 
+  my $pod;
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
   my Proc $p = shell "cat > /tmp/mod-doc.txt", :in;
   $p.in.spurt($contents);
   $p.in.close;
+#note $contents;
+
+#"/tmp/mod-doc.txt".IO.spurt($contents);
+#EVALFILE "/tmp/mod-doc.txt";
 
   try {
     EVAL($contents);
+  }
 
-    CATCH {
-      default {
-        .note;
-      }
+  CATCH {
+    default {
+      .note;
     }
   }
 
