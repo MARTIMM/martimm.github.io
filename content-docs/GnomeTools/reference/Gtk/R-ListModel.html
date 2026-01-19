@@ -1,0 +1,123 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>GnomeTools::Gtk::R-ListModel</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="GnomeTools::Gtk::R-ListModel">GnomeTools::Gtk::R-ListModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection">get-selection</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#find">find</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-string">get-string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#An_example_to_remove_selected_items">An example to remove selected items</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#splice">splice</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">Description</a></h1>
+<p>Role to be used for classes such as <strong>GnomeTools::Gtk::ListView</strong>. Its purpose is to register and process events. The role is also used to add, find and remove items from the list in the model.</p><p>When an event fires, user methods are called when they are defined. The user must provide an object where these methods are defined. The call to be used is <code>.set-events()</code> defined in the classes using this role.</p><ul>
+<li><p>Selection type events.</p></li>
+<ul>
+<li><p>The <code>selection-changed</code> event is emitted when the selection state of some of the items in the model changes. Note that this signal does not specify the new selection state of the items, they need to be queried manually. It is also not necessary for a model to change the selection state of any of the items in the selection model, though it would be rather useless to emit such a signal.</p></li>
+</ul>
+</ul>
+<p>The user method must be named <code>selection-changed</code> and its API must be</p><pre class="pod-block-code">method selection-changed ( UInt $position, @selections, *%options )
+</pre><ul>
+<ul>
+<ul>
+<li><p>$position is the position of the last clicked selection</p></li>
+<li><p>@selections is the selection of items used to add items to the list.</p></li>
+<li><p>%options. Any named arguments <code>.new()</code> are given to the method.</p></li>
+</ul>
+</ul>
+<li><p>Signal factory type events.</p></li>
+<ul>
+<li><p>Method setup-list-item; Handles the <code>setup</code> event. The event is emitted to set up permanent things on the <strong>Gnome::Gtk4::ListItem</strong>. However, the list item is kept under the hood of this class. So, this means the called routine only needs to create and return the widget used in the row. Any named arguments <code>*%options</code> given to <code>.new()</code> are given to the method.</p></li>
+</ul>
+</ul>
+<pre class="pod-block-code">method setup-list-item ( *%options --&gt; Gnome::Gtk4::Widget )
+</pre><ul>
+<ul>
+<li><p>Method bind-list-item; Handles the <code>bind</code> event. The event is emitted to bind the widgets created by <code>.setup-list-item()</code> to their values and, optionally, add entry specific widgets to the given widget. Signals are connected to listen to changes - both to changes in the item to update the widgets or to changes in the widgets to update the item. After this signal has been called, the listitem may be shown in a list widget. The <code>$item</code> is the string inserted in the list using e.g. <code>.append()</code>. Any named arguments in <code>*%options</code> given to <code>.new()</code> are given to the method.</p></li>
+</ul>
+</ul>
+<pre class="pod-block-code">method bind-list-item ( Gnome::Gtk4::Widget $widget, Str $item, *%options )
+</pre><ul>
+<ul>
+<li><p>Method unbind-list-item; Handles the <code>unbind</code> event. The event is emitted to undo everything done when binding. Usually this means disconnecting signal handlers or removing non-permanent widgets. Once this signal has been called, the listitem will no longer be used in a list widget. The <code>bind</code> and <code>unbind</code> events may be emitted multiple times again to bind the listitem for use with new items. By reusing listitems, potentially costly setup can be avoided. However, it means code needs to make sure to properly clean up the listitem when unbinding so that no information from the previous use leaks into the next one. Any named arguments in <code>*%options</code> given to <code>.new()</code> are given to the method.</p></li>
+</ul>
+</ul>
+<pre class="pod-block-code">method unbind-list-item ( Gnome::Gtk4::Widget $widget, Str $item, *%options )
+</pre><ul>
+<ul>
+<li><p>Method teardown-list-item; Handles the <code>teardown</code> event. The event is emitted to undo the effects of the <code>setup</code> event. After this signal was emitted on a listitem, the listitem will be destroyed and not be used again. No <code>$item</code> is provided because the item is already destroyed. Any named arguments in <code>*%options</code> given to <code>.new()</code> are given to the method.</p></li>
+</ul>
+</ul>
+<pre class="pod-block-code">method teardown-list-item ( Gnome::Gtk4::Widget $widget, *%options )
+</pre>
+<h2 id="get-selection"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">get-selection</a></h2>
+<p>Get the current selection.</p><pre class="pod-block-code">method get-selection ( Bool :$rows = False --&gt; List )
+</pre><ul>
+<li><p>$rows: By default a list of items are returned. When row numbers are needed set the variable to True.</p></li>
+</ul>
+
+<h2 id="append"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">append</a></h2>
+<p>Add an item at the end of the list</p><pre class="pod-block-code">method append ( *@list-item )
+</pre><ul>
+<li><p>@list-item: Items to append. Items must be of <code>Str</code> type</p></li>
+</ul>
+
+<h2 id="find"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">find</a></h2>
+<p>Gets the position of the item in the list. The return value can be undefined.</p><pre class="pod-block-code">method find ( Str $list-item --&gt; UInt )
+</pre><ul>
+<li><p>$list-item: The item to find.</p></li>
+</ul>
+
+<h2 id="get-string"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">get-string</a></h2>
+<p>Gets the item at <code>$pos</code> of the item in the list. The return value can be undefined.</p><pre class="pod-block-code">method get-string ( UInt $pos --&gt; Str )
+</pre><ul>
+<li><p>$pos: The item at the position.</p></li>
+</ul>
+
+<h2 id="remove"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">remove</a></h2>
+<p>Remove the item at <code>$pos</code> of the item in the list.</p><pre class="pod-block-code">method remove ( UInt $pos )
+</pre><ul>
+<li><p>$pos: The item at the position.</p></li>
+</ul>
+
+<h3 id="An_example_to_remove_selected_items"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">An example to remove selected items</a></h3>
+<pre class="pod-block-code"># Reverse rows because after each removal the row count decreases
+# This causes to remove wrong rows or throwing errors like:
+# (process:8769): Gtk-CRITICAL **: 18:25:48.324: gtk_string_list_splice:
+# assertion 'position + n_removals &lt;= objects_get_size (&amp;self-&gt;items)'
+# failed.
+# The error shows that under the hood, splice() is used
+
+my @selections = $listview.get-selection(:rows).reverse;
+for @selections -&gt; $selection {
+  $listview.remove($selection);
+}
+</pre>
+<h2 id="splice"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">splice</a></h2>
+<p>Remove and/or insert items at position given by <code>$pos</code>.</p><pre class="pod-block-code">method splice ( UInt $pos, UInt $nremove, @str-array )
+</pre><ul>
+<li><p>$pos: The item at the position.</p></li>
+<li><p>$nremove: Number of rows to remove at $pos.</p></li>
+<li><p>@str-array: The array of items to insert at $pos after removal.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/R-ListModel.rakudoc</span></div><div>at <span class="time">2026-01-19T20:37:58Z</span></div></footer>
+	</body>
+</html>
