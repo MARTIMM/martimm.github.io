@@ -1,0 +1,101 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>GnomeTools::Gtk::ListView</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="GnomeTools::Gtk::ListView">GnomeTools::Gtk::ListView</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_classes">CSS classes</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-activate">set-activate</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">Description</a></h1>
+<p>A listview is like a list where objects can be inserted horizontally or vertically. The listview is filled using a factory and is created in steps. The list is often partly visible and only asks for the objects to be created when they become visible.</p><p>There are several events which needs to be captured if complex objects must be created. This class has only one event which is <code>activate</code> and can be set using <code>.set-activate()</code>. Other events which may be needed are defined in <strong>GnomeTools::Gtk::R-ListModel</strong> using the Gtk class <strong>Gnome::Gtk4::SignalListItemFactory</strong>.</p>
+<h2 id="CSS_classes"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">CSS classes</a></h2>
+<p>The <strong>GnomeTools::Gtk::ListView</strong> class is placed in a <strong>Gnome::Gtk4::ScrolledWindow</strong>. That object has a classname <code>listview-window</code> and the <strong>GnomeTools::Gtk::ListView</strong> object has a classname <code>listview-tool</code>. Other CSS nodes are defined for <a href="content-docs/api2/reference/Gtk4/ListView.html.html#CSS_nodes">Gnome::Gtk4::ListView</a>.</p>
+<h2 id="Example"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">Example</a></h2>
+<p>This example shows the easy way to make use of the class. The objects created are simple <strong>Label</strong> objects with a text.</p><p>First define a helper class.</p><pre class="pod-block-code">class HelperObject {
+  method show-select (
+    GnomeTools::Gtk::ListView :$listview,
+    GnomeTools::Gtk::Dialog :$dialog, :@items
+  ) {
+    $dialog.set-status($listview.get-selection.join(', '));
+  }
+
+  method selection-changed (
+    UInt $position, @selections, GnomeTools::Gtk::Dialog :$dialog, :@items
+  ) {
+    my @rows = @selections.map: {@items.first( $_, :k)};
+    $dialog.set-status(&quot;Rows '{@rows.join(', ')}' are selected&quot;);
+  }
+}
+
+my HelperObject $helper .= new;
+</pre><p>Instantiate the class and setup the <strong>GnomeTools::Gtk::ListView</strong>. In this example the ListView is placed in a <strong>GnomeTools::Gtk::Dialog</strong>.</p><pre class="pod-block-code">my GnomeTools::Gtk::Dialog $dialog .= new(
+  :dialog-header('Test Dialog'), :add-statusbar
+);
+
+my @items = &lt;class role method sub submethod for else unit package module&gt;;
+
+my GnomeTools::Gtk::ListView $listview .= new(:multi-select);
+$listview.set-events;
+$listview.set-selection-changed(
+  :object($helper), :method&lt;selection-changed&gt;, :$dialog, :@items
+);
+$listview.append(|@items);
+$dialog.add-content( 'Nice list', $listview);
+
+# Buttons
+$dialog.add-button(
+  $helper, 'show-select', 'Get Selection',
+  :$dialog, :@items, :$listview
+);
+
+$dialog.add-button( $dialog, 'destroy-dialog', 'Cancel');
+
+$dialog.set-size-request( 400, 300);
+$dialog.show-dialog;
+</pre>
+<h1 id="Methods"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">new</a></h2>
+<p>Instantiate the <code>GnomeTools::Gtk::ListView</code> class.</p><pre class="pod-block-code">submethod BUILD (
+  Bool :$multi-select = False, :$orientation = GTK_ORIENTATION_VERTICAL
+)
+</pre><ul>
+<li><p>$multi-select; Selection method. When True, more than one entry can be selected. By default False. Selections can be done a) by holding &lt;CTRL&gt; or &lt;SHIFT&gt; and click on the entries. b) by dragging the pointer over the entries (rubberband select).</p></li>
+<li><p>$orientation; Orientation of the list. By default shown vertically.</p></li>
+</ul>
+
+<h2 id="set-activate"><a href="#GnomeTools::Gtk::ListView" class="u" title="go to top of document">set-activate</a></h2>
+<p>Define a callback routine for the <code>activate</code> event. The <code>activate</code> event is emitted when a row has been activated by the user. If an item is activatable, double-clicking on the item, using the Return key or calling <code>.activate() in Gnome::Gtk4::Widget</code> will activate the item. Activating instructs the containing view to handle activation.</p><pre class="pod-block-code">method set-activate ( Any:D $object, Str:D $method, *%options )
+</pre><ul>
+<li><p>$object; user object where methods are defined to process the events.</p></li>
+<li><p>$method; the method called when the <code>activate</code> event arrives.</p></li>
+<li><p>*%options: any named arguments are passed to the callback method.</p></li>
+</ul>
+<p>The callback method must have the following API;</p><pre class="pod-block-code">method $object.&quot;$method&quot; ( UInt $position, @selections, *%options);
+</pre><ul>
+<li><p>$position; The position of the activated entry.</p></li>
+<li><p>@selections; A list of the currently selected entries.</p></li>
+<li><p>%options. Any named arguments provided to <code>.set-activate()</code>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/ListView.rakudoc</span></div><div>at <span class="time">2026-01-29T17:03:17Z</span></div></footer>
+	</body>
+</html>
