@@ -1,0 +1,60 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>GnomeTools::Gtk::GridView</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="GnomeTools::Gtk::GridView">GnomeTools::Gtk::GridView</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_classes">CSS classes</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-activate">set-activate</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#GnomeTools::Gtk::GridView" class="u" title="go to top of document">Description</a></h1>
+<p>A gridview is like the listview class a list of objects. The list however, can wrap to the next when the edge of the window or when the maximum columns is reached.</p><p>This class has only one event which is <code>activate</code> and can be set using <code>.set-activate()</code>. Other events which may be needed are defined in <strong>GnomeTools::Gtk::R-ListModel</strong> using the Gtk class <strong>Gnome::Gtk4::SignalListItemFactory</strong>.</p>
+<h2 id="CSS_classes"><a href="#GnomeTools::Gtk::GridView" class="u" title="go to top of document">CSS classes</a></h2>
+<p>The <strong>GnomeTools::Gtk::GridView</strong> class is placed in a <strong>Gnome::Gtk4::ScrolledWindow</strong>. That object has a classname <code>gridview-window</code> and the <strong>GnomeTools::Gtk::GridView</strong> object has a classname <code>listview-tool</code>. Other CSS nodes are defined for <a href="content-docs/api2/reference/Gtk4/GridView.html.html#CSS_nodes">Gnome::Gtk4::GridView</a>.</p>
+<h1 id="Methods"><a href="#GnomeTools::Gtk::GridView" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#GnomeTools::Gtk::GridView" class="u" title="go to top of document">new</a></h2>
+<p>Instantiate the <code>GnomeTools::Gtk::GridView</code> class.</p><pre class="pod-block-code">submethod BUILD (
+  Bool :$multi-select = False, :$orientation = GTK_ORIENTATION_VERTICAL,
+  UInt :$min-columns, UInt :$max-columns
+)
+</pre><ul>
+<li><p>$multi-select; Selection method. When True, more than one entry can be selected. By default False. Selections can be done a) by holding &lt;CTRL&gt; or &lt;SHIFT&gt; and click on the entries. b) by dragging the pointer over the entries (rubberband select).</p></li>
+<li><p>$orientation; orientation of the list. By default shown vertically.</p></li>
+<li><p>$min-columns; minimum columns before wrapping to next row. When the orientation is set to horizontal, the value is about the number of rows!</p></li>
+<li><p>$max-columns; maximum number of columns to use for a row. Also here, when horizontal, the number is about rows!</p></li>
+</ul>
+
+<h2 id="set-activate"><a href="#GnomeTools::Gtk::GridView" class="u" title="go to top of document">set-activate</a></h2>
+<p>Define a callback routine for the <code>activate</code> event. The <code>activate</code> event is emitted when a row has been activated by the user. If an item is activatable, double-clicking on the item, using the Return key or calling <code>.activate() in Gnome::Gtk4::Widget</code> will activate the item. Activating instructs the containing view to handle activation.</p><pre class="pod-block-code">method set-activate ( Any:D $object, Str:D $method, *%options )
+</pre><ul>
+<li><p>$object; user object where methods are defined to process the events.</p></li>
+<li><p>$method; the method called when the <code>activate</code> event arrives.</p></li>
+<li><p>*%options: any named arguments are passed to the callback method.</p></li>
+</ul>
+<p>The callback method must have the following API;</p><pre class="pod-block-code">method $object.&quot;$method&quot; ( UInt $position, @selections, *%options);
+</pre><ul>
+<li><p>$position; The position of the activated entry.</p></li>
+<li><p>@selections; A list of the currently selected entries.</p></li>
+<li><p>%options. Any named arguments provided to <code>.set-activate()</code>.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/GridView.rakudoc</span></div><div>at <span class="time">2026-02-01T20:21:22Z</span></div></footer>
+	</body>
+</html>
