@@ -34,7 +34,7 @@ my Gnome::Gtk4::N-Border $border .= new-border;
 my N-Border $native-border .= new( :$!left, :$!right, :$!top, :$!bottom);
 ```
 
-Note that types from `T-` files (in the example from **Gnome::Gtk4::T-border**) are exported so in the example we could use **N-Border**, which is different from **Gnome::Gtk4::N-Border**.
+Note that types from `T-` files (in the example from **Gnome::Gtk4::T-border**) are exported so in the example we could use **N-Border** instead of **Gnome::Gtk4::T-border::N-Border**, which is obviously different from **Gnome::Gtk4::N-Border**.
 Note also that for these structures, plain `new()` is used.
 Also, a **N-Border** is the native representation and can therefore be read into **Gnome::Gtk4::N-Border** using the coersion process.
 ```
