@@ -79,7 +79,7 @@ When the packages mature, the next points are/become available;
   * It is possible to make use of D-Bus. This is one of the things that makes an application able to interact with the system and other processes as well as the desktop manager. (Not yet implemented in these libraries though).
   * Drag and drop will help you to drag documents from a filebrowser into your application as well as moving widgets from one place to another in your GUI.
     In the Gtk4 version it isn't yet possible to do interprocess dragging. This might be a bug and/or is caused by the transition of X11 to Wayland.
-  * Drawing is available with Cairo using the **Gnome::Cairo** package. In the mean time, Gtk4 can make use of Timo's **Caito** package. It might very well be possible to use it with Gtk3 (api<1>) version too.
+  * Drawing is available with Cairo using the **Gnome::Cairo** package. In the mean time, Gtk4 can make use of Timo's **Cairo** package. It might very well be possible to use it with Gtk3 (api<1>) version too.
   * Text manipulations are supported using Pango.
 
 
