@@ -84,14 +84,14 @@ When the packages mature, the next points are/become available;
 
 
 ## Cons
-  * The code base is much larger but I think it gives you greater flexibility.
+  * The code base is much larger but it gives you greater flexibility.
   * Code is somewhat slower. That is not a big problem when a user interface is mostly set up and drawn once. Compiling the software takes much time when installing the packages. Raku, however gets faster and is becoming less of a problem. Also, now that the api<2> version is generated, the time to install is also shorter.
   * When programs are run the first time, it might take some time to compile.
 
 
 # Packages
 The packages, together with a few others is an interface to the great Gnome libraries Gtk, Gdk, Pango, GObject, Gio and Glib. Cairo is an independed project but Gnome makes significant use of that package.
-It is important to know that not all classes are available or fully implemented. E.g. Pango for the Gtk3 version is not available and not all classes are defined in **Gnome::Gtk3::Gio** and **Gnome::Gtk4::Gio** are available because much of the I/O can be handled by Raku itself.
+It is important to know that not all classes are available or fully implemented. E.g. Pango for the Gtk3 version is not available and not all classes of Pango, Gio, Glib, etc, are defined because much of the classes, types, functions and methods found there can be handled by Raku itself.
 
 * [x] **Gnome::Gtk3:api<1>**. Version 3 widget toolkit for graphical interfaces.
 * [x] **Gnome::Gdk3:api<1>**. Version 3 low-level abstraction for the windowing system.
@@ -179,12 +179,12 @@ zef install Gnome::Gtk4:api<2>
 
 # Issues
 
-There are always some problems! If you find one, please help by filing an issue at [for the api 1 version (gtk3 et al)](https://github.com/MARTIMM/gnome-gtk3/issues) and [for the api 2 version (gtk4 and friends)](https://github.com/MARTIMM/gnome-source-skim-tool/issues)
+There are always some problems! If you find one, please help by filing an issue [for the api 1 version (gtk3 et al)](https://github.com/MARTIMM/gnome-gtk3/issues) and [for the api 2 version (gtk4 and friends)](https://github.com/MARTIMM/gnome-source-skim-tool/issues).
 
 
 # Attribution
 
-* The inventors and developers of Raku, formerly known as Perl 6, of course and the writers of the documentation.
+* The inventors and developers of Raku, of course and the writers of the documentation.
 * The builders of the Gnome libraries and the documentation on their [developers site](https://developer.gnome.org/documentation/).
 * Helpful hands are there when issues are raised, after requesting for help or developers returning ideas tips, etcetera for documentation; Pixlmixr, Hkdtam, JackKuhan, Alain Barbason, Clifton Wood, Rob Ransbottom, Håkon Hægland (some names are Github names).
 * Icons used from www.iconfinder.com, humility icons, Andy Fitzsimon, licensed GPL.
