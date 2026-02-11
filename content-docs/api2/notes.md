@@ -45,7 +45,7 @@ my Gnome::Gtk4::N-Border() $border = N-Border.new(
 
 ### Using new(:native-object(…))
 
-When native objects are returned from calls to native functions, you need some other method to initialize your class. The next example is from a grid. We assume that there is a `Label` widget stored at (0,0).
+When native objects are returned from calls to native functions, you need some other method to initialize your class. The next example is from a grid. We assume that there is a native `Label` widget stored at (0,0).
 
 ```
 my N-Object $native-label = $grid.get-child-at( 0, 0);
@@ -86,16 +86,40 @@ $window.present;
 There is a [builder tutorial](/content-docs/api2/tutorials/builder1) to understand everything a bit better. As is shown there, the purpose is to define widgets and signals using a user interface design program and save the design. Later it is read into the program and displayed.
 
 # Versions of libraries
-## Missing methods
+
+The Gnome libraries change in time. Sometimes there is a class or method added and sometimes deprecated. Documentation on their website shows the current information. However, the raku modules and documentation are not generated at the same time. It is therefore important to find out in which state the Raku modules are.
+
 ## Versions program
+
 The package `Gnome::Gtk4` is shipped with the program `version-of.raku` to see the library version against which the packages are generated. For example;
+
 ```
 > raku bin/version-of.raku gtk4
-Gnome version of gtk4 library at time of generation is: 4.16.13
+Gnome system library version of gtk4 at time of generation is: 4.16.13
+Raku version of Gnome::Gtk4 library at time of generation is: 0.2.6
+```
+
+All info can be listed using the `--all` option
+
+```
+> raku bin/version-of.raku --all
+
+gdk3:
+  name: Gnome::Gdk3
+  sys: 3.24.43
+gdk4:
+  name: Gnome::Gdk4
+  raku: 0.1.22
+  sys: 4.16.13
+gdkpixbuf:
+  name: Gnome::GdkPixbuf
+  raku: 0.1.5
+  sys: 2.42.12
+…
 ```
 
 # Deprecation messages
-There are many deprecations in the Gnome packages. To make the user aware of this the library generates deprecation message when the user program finishes. This can become annoying and all depreactions of Gnome is activated in the next release. So for example GtkDialog is deprecated in Gtk4 but will only be removed in Gtk5.
+There are many deprecations in the Gnome packages. To make the user aware of this the library generates deprecation message when the user program finishes. This can become annoying and all depreactions of Gnome are only removed in the next major release. So for example GtkDialog is deprecated in Gtk4 but will only be removed in Gtk5.
 
 To get rid of the messages, just set the `IGNORE_GNOME_DEPRECATION_MESSAGES` environment variable. In your program that is easy to do;
 ```
@@ -104,8 +128,7 @@ To get rid of the messages, just set the `IGNORE_GNOME_DEPRECATION_MESSAGES` env
 
 # Tools Library
 
-There is a tools library in the making to make several widgets more easy to handle. Also to make replacements for some of the deprecated widgets. An example of a widget is the GtkDialog (used by **Gnome::Gtk4::Dialog**).
+There is a tools library in the making to make several widgets more easy to handle. Also to make replacements for some of the deprecated widgets. An example of a widget is the GtkDialog, defined by **Gnome::Gtk4::Dialog**. In the library available as **GnomeTools::Gtk::Dialog**.
 
 When is is available it is installable by `zef install GnomeTools`.
 
-# Issues
