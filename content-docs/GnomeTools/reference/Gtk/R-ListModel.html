@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -19,11 +19,13 @@
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#find">find</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-items">get-n-items</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection">get-selection</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-string">get-string</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-bind">set-bind</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-events">set-events</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#set-selection">set-selection</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-selection-changed">set-selection-changed</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-setup">set-setup</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-teardown">set-teardown</a></td></tr>
@@ -37,31 +39,34 @@
 <h1 id="Methods"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">Methods</a></h1>
 
 <h2 id="append"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">append</a></h2>
-<pre class="pod-block-code">method append ( *@list-item )
+<pre class="pod-block-code">method append ( *@items )
 </pre><ul>
-<li><p>@list-item; list item strings. The bind and unbind callback routines will receive these strings to properly fill in the data or remove it.</p></li>
+<li><p>@items; item strings. The bind and unbind callback routines will receive these strings to properly fill in the data or remove it.</p></li>
 </ul>
 
 <h2 id="find"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">find</a></h2>
-<p>Find the position of the list item in the list.</p><pre class="pod-block-code">method find ( Str $list-item --&gt; UInt )
+<p>Find the position of the list item in the list.</p><pre class="pod-block-code">method find ( Str $item --&gt; UInt )
 </pre><ul>
-<li><p>$list-item; the string to look for.</p></li>
+<li><p>$item; the string to look for.</p></li>
 </ul>
-
+<p>Returns the position of the string if found.</p>
+<h2 id="get-n-items"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">get-n-items</a></h2>
+<p>Get the number of items in the list.</p><pre class="pod-block-code">method get-n-items ( --&gt; UInt )
+</pre><p>Returns the number of items in the list.</p>
 <h2 id="get-selection"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">get-selection</a></h2>
-<p>Get the list of currently selected items</p><pre class="pod-block-code">method get-selection ( Bool :$rows = False --&gt; List )
+<p>Get the list of currently selected items.</p><pre class="pod-block-code">method get-selection ( Bool :$rows = False --&gt; List )
 </pre><ul>
 <li><p>$rows; When set, return the positions in the list, otherwise return a list of item strings.</p></li>
 </ul>
-
+<p>Returns the list of currently selected items.</p>
 <h2 id="get-string"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">get-string</a></h2>
 <p>Get the list item string given the position in the list.</p><pre class="pod-block-code">method get-string ( UInt $pos --&gt; Str )
 </pre><ul>
 <li><p>$pos; the position in the list</p></li>
 </ul>
-
+<pre class="pod-block-code">Returns the item string given the position in the list.</pre>
 <h2 id="remove"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">remove</a></h2>
-<p>Remove the list item given its position in the list.</p><pre class="pod-block-code">method remove ( @pos )
+<p>Remove the item given its position in the list.</p><pre class="pod-block-code">method remove ( *@pos )
 </pre><ul>
 <li><p>@pos; a list of positions to be removed</p></li>
 </ul>
@@ -83,6 +88,12 @@
 <h2 id="set-events"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">set-events</a></h2>
 <p>Register a series of events defined in the <strong>Gnome::Gtk4::SignalListItemFactory</strong> class. The purpose of this method is to register a series of events at once without the need of user methods to capture the events. The entries in the list are populated with <strong>Gnome::Gtk4::Label</strong>s. The text in the labels are set with user text from <code>.append()</code>.</p><pre class="pod-block-code">method set-events ( )
 </pre>
+<h2 id="set-selection"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">set-selection</a></h2>
+<p>Make selection changes.</p><pre class="pod-block-code">method set-selection ( *@pos )
+</pre><ul>
+<li><p>@pos; one or more positions in the list to select. If the model uses single selection, only one item is selected.</p></li>
+</ul>
+
 <h2 id="set-selection-changed"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">set-selection-changed</a></h2>
 <p>The <code>selection-changed</code> event is emitted when the selection state of some of the items in the model changes.</p><pre class="pod-block-code">method set-selection-changed ( Any:D $object, Str:D $method, *%options )
 </pre><ul>
@@ -108,7 +119,7 @@
 </pre><ul>
 <li><p>%options. Any named arguments provided to <code>.set-setup()</code>.</p></li>
 </ul>
-
+<p>The callback routine must return the top leve widget.</p>
 <h2 id="set-teardown"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">set-teardown</a></h2>
 <p>The <code>teardown</code> event is emitted to undo the effects of the <code>setup</code> event. After this signal was emitted on a listitem, the listitem will be destroyed and not be used again. No <code>$item</code> is provided because the item is already destroyed. Any named arguments in <code>*%options</code> given to <code>.new()</code> are given to the method.</p><pre class="pod-block-code">method set-teardown ( Any:D $object, Str:D $method, *%options )
 </pre><ul>
@@ -137,13 +148,13 @@
 </ul>
 
 <h2 id="splice"><a href="#GnomeTools::Gtk::R-ListModel" class="u" title="go to top of document">splice</a></h2>
-<p>Remove list items at given position in the list. Then insert new items at that position.</p><pre class="pod-block-code">method splice ( UInt $pos, UInt $nremove, @str-array )
+<p>Remove list items at given position in the list. Then insert new items at that position.</p><pre class="pod-block-code">method splice ( UInt $pos, UInt $nremove, *@str-array )
 </pre><ul>
 <li><p>$pos; position in the list</p></li>
 <li><p>$nremove; number of list items to remove</p></li>
-<li><p>@str-array; list items to insert at position</p></li>
+<li><p>@str-array; list items to insert at the position</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/R-ListModel.rakudoc</span></div><div>at <span class="time">2026-01-28T21:20:03Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/GnomeTools/lib/GnomeTools/Gtk/R-ListModel.rakudoc</span></div><div>at <span class="time">2026-02-25T13:45:31Z</span></div></footer>
 	</body>
 </html>
