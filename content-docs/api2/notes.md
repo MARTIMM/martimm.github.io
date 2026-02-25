@@ -128,7 +128,7 @@ To get rid of the messages, just set the `IGNORE_GNOME_DEPRECATION_MESSAGES` env
 
 # Tools Library
 
-There is a tools library in the making to make several widgets more easy to handle. Also to make replacements for some of the deprecated widgets. An example of a widget is the GtkDialog, defined by **Gnome::Gtk4::Dialog**. In the library available as **GnomeTools::Gtk::Dialog**.
+There is a tools library in the making to make several widgets more easy to handle. Also to make replacements for some of the deprecated widgets. An example of a widget is the GtkDialog, defined by **Gnome::Gtk4::Dialog**. In the tools library available as **GnomeTools::Gtk::Dialog**.
 
 When is is available it is installable by `zef install GnomeTools`.
 
