@@ -400,21 +400,15 @@ sub load-pod ( Str $file --> Array ) {
 
   my $pod;
   $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
-  my Proc $p = shell "cat > /tmp/mod-doc.txt", :in;
-  $p.in.spurt($contents);
-  $p.in.close;
-#note $contents;
-
-#"/tmp/mod-doc.txt".IO.spurt($contents);
-#EVALFILE "/tmp/mod-doc.txt";
 
   try {
-    EVAL($contents);
-  }
+    "/tmp/mod-doc.txt".IO.spurt($contents);
+    EVALFILE "/tmp/mod-doc.txt";
 
-  CATCH {
-    default {
-      .note;
+    CATCH {
+      default {
+        .die;
+      }
     }
   }
 
