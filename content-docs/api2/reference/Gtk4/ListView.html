@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
@@ -35,6 +35,7 @@
  <tr class="toc-level-2"><td class="toc-text"><a href="#scroll-to">scroll-to</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-enable-rubberband">set-enable-rubberband</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-factory">set-factory</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example_using_set-factory">Example using set-factory</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-header-factory">set-header-factory</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-model">set-model</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-separators">set-show-separators</a></td></tr>
@@ -46,9 +47,16 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::ListView</strong> presents a large dynamic list of items.</p><p><strong>Gnome::Gtk4::ListView</strong> uses its factory to generate one row widget for each visible item and shows them in a linear display, either vertically or horizontally.</p><p>The <em>show-separators</em> property offers a simple way to display separators between the rows.</p><p><strong>Gnome::Gtk4::ListView</strong> allows the user to select items according to the selection characteristics of the model. For models that allow multiple selected items, it is possible to turn on _rubberband selection_, using <em>enable-rubberband</em>.</p><p>If you need multiple columns with headers, see <a href="/content-docs/api2/reference/Gtk4/ColumnView.html">Gnome::Gtk4::ColumnView</a>.</p><p>To learn more about the list widget framework, see the [overview](section-list-widget.html).</p><p>An example of using <strong>Gnome::Gtk4::ListView</strong>:</p>
+<p><strong>Gnome::Gtk4::ListView</strong> presents a large dynamic list of items.</p><p><strong>Gnome::Gtk4::ListView</strong> uses its factory to generate one row widget for each visible item and shows them in a linear display, either vertically or horizontally.</p><p>The <code>.set-show-separators()</code> method offers a simple way to set separators between the rows.</p><p><strong>Gnome::Gtk4::ListView</strong> allows the user to select items according to the selection characteristics of the model. For models that allow multiple selected items, it is possible to turn on <em>rubberband selection</em>, using <code>.set-enable-rubberband()</code>.</p><p>If you need multiple columns with headers, see <a href="/content-docs/api2/reference/Gtk4/ColumnView.html">Gnome::Gtk4::ColumnView</a>.</p><p>To learn more about the list widget framework, see the <a href="https://docs.gtk.org/gtk4/section-list-widget.html">overview</a>.</p>
 <h2 id="CSS_nodes"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::ListView</strong> uses a single CSS node named <strong>listview</strong>. It may carry the `.separators` style class, when <em>show-separators</em> property is set. Each child widget uses a single CSS node named <strong>row</strong>. If the <em>activatable defined in Gnome::Gtk4::ListItem</em> property is set, the corresponding row will have the `.activatable` style class. For rubberband selection, a node with name <strong>rubberband</strong> is used.</p><p>The main listview node may also carry style classes to select the style of [list presentation](ListContainers.html#list-styles): .rich-list, .navigation-sidebar or .data-table.</p>
+<pre class="pod-block-code">listview[.separators][.rich-list][.navigation-sidebar][.data-table]
+├── row[.activatable]
+│
+├── row[.activatable]
+│
+┊
+╰── [rubberband]
+</pre><p><strong>Gnome::Gtk4::ListView</strong> uses a single CSS node named <strong>listview</strong>. It may carry the <em>.separators</em> style class, when <em>show-separators</em> property is set. Each child widget uses a single CSS node named <strong>row</strong>. If the <em>activatable defined in Gnome::Gtk4::ListItem</em> property is set, the corresponding row will have the <em>.activatable</em> style class. For rubberband selection, a node with name <strong>rubberband</strong> is used.</p><p>The main listview node may also carry style classes to select the style of <a href="https://docs.gtk.org/gtk4/section-list-widget.html#list-styles">list presentation</a>: <em>.rich-list</em>, <em>.navigation-sidebar</em> or <em>.data-table</em>.</p>
 <h2 id="Accessibility"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">Accessibility</a></h2>
 <p><strong>Gnome::Gtk4::ListView</strong> uses the <code>GTK_ACCESSIBLE_ROLE_LIST</code> role, and the list items use the <code>GTK_ACCESSIBLE_ROLE_LIST_ITEM</code> role.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">Uml Diagram</a></h2>
@@ -60,7 +68,7 @@
 <h2 id="new"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">new</a></h2>
 
 <h3 id=":native-object"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">method new ( N-Object() :$native-object! )</pre></section>
 <section name="pod">
 <h2 id="new-listview"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">new-listview</a></h2>
 <p>Creates a new <strong>Gnome::Gtk4::ListView</strong> that uses the given <code>$factory</code> for mapping items to widgets.</p><p>The function takes ownership of the arguments, so you can write code like</p><pre class="pod-block-code">method new-listview ( N-Object() $model, N-Object() $factory --&gt; Gnome::Gtk4::ListView )
@@ -122,7 +130,15 @@
 </pre><ul>
 <li><p>$factory; the factory to use.</p></li>
 </ul>
-</section>
+
+<h2 id="Example_using_set-factory"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">Example using set-factory</a></h2>
+<pre class="pod-block-code">my Gnome::Gtk4::ListView $list-view;
+with $list-view .= new-listview( N-Object, N-Object) {
+  my $signal-factory .= new-signallistitemfactory;
+  .set-factory($!signal-factory);
+  …
+}
+</pre></section>
 <section name="pod">
 <h2 id="set-header-factory"><a href="#Gnome::Gtk4::ListView" class="u" title="go to top of document">set-header-factory</a></h2>
 <p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a> to use for populating the <a href="/content-docs/api2/reference/Gtk4/ListHeader.html">Gnome::Gtk4::ListHeader</a> objects used in section headers.</p><p>If this factory is set to undefined, the list will not show section headers.</p><pre class="pod-block-code">method set-header-factory ( N-Object() $factory )
@@ -166,7 +182,6 @@
   guint $position,
   Int :$_handle_id,
   N-GObject :$_native-object,
-  Gnome::Gtk4::ListView :$_widget,
   *%user-options
 )
 </pre><ul>
@@ -176,6 +191,6 @@
 <li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ListView.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:02Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ListView.rakudoc</span></div><div>at <span class="time">2026-02-26T21:11:10Z</span></div></footer>
 	</body>
 </html>
