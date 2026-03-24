@@ -1,5 +1,5 @@
 ---
-title: MARTIMM's projects
+title: Gnome api 2
 layout: sidebar
 nav_menu: api2-nav
 sidebar_menu: api2-pack-sidebar
