@@ -1,0 +1,81 @@
+---
+title: Gnome api 2
+layout: sidebar
+nav_menu: api2-nav
+sidebar_menu: api2-gtk4-checklist-sidebar
+---
+<style>
+html body table {
+  border: 2px solid rgb(47, 0, 47);
+  width: 95%;
+  margin: 0px auto;
+  display: block table;
+}
+
+td:nth-child(1) {  
+  width: 35%;
+}
+</style>
+
+# Legend for the tables
+
+|Symbol|Meaning|
+|-|-|
+|![](/content-docs/asset_files/images/checklist-ok.png)|Code and documentation is generated|
+|![](/content-docs/asset_files/images/checklist-implement.png)|Must be written|
+|![](/content-docs/asset_files/images/checklist-deprecated.png)|Removed in next Gnome library release|
+|![](/content-docs/asset_files/images/checklist-missing.png)|Not generated, there are missing types|
+|![](/content-docs/asset_files/images/checklist-no-implement.png)|Will not be generated|
+
+# Module Information
+
+||State|Name|Tests|
+|-|-|-|-|
+|Class name||Gnome::Gtk4::N-PaperSize||
+|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|PaperSize.rakumod
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|PaperSize.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|PaperSize.rakutest|0 tests|
+
+### Constructors
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| new-custom |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-from-gvariant |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-from-ipp |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-from-key-file |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-from-ppd |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-papersize |![](/content-docs/asset_files/images/checklist-implement.png)|||
+
+1. Status, generated, missing values, deprecated, etc
+2. Version of introduction, otherwise it is the release version
+3. Version of deprecation and is removed in next release
+
+### Methods
+
+|Routine|State|Version|Deprecated|
+|-------|-|----------|-------|
+| copy |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| free |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-default-bottom-margin |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-default-left-margin |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-default-right-margin |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-default-top-margin |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-display-name |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-height |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-name |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-ppd-name |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-width |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| is-custom |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| is-equal |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| is-ipp |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| set-size |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| to-gvariant |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| to-key-file |![](/content-docs/asset_files/images/checklist-implement.png)|||
+
+### Functions
+
+|Routine|State|Version|Deprecated|
+|-------|-|----------|-------|
+| get-default |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-paper-sizes |![](/content-docs/asset_files/images/checklist-implement.png)|||
