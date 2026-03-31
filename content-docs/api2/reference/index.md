@@ -24,8 +24,10 @@ Here you can select a distribution from the side bar. The distributions have the
 * **Gnome::N**; Low level modules to connect to the native libraries and provide the low level Gnome types.
 
 Ideas for later, if ever, are implementing;
+* A GUI Interface testing environment
 * Gtk3 and Gdk3;
-* Vulkan;
-
-
-
+* ADW; Libadwaita supplements GTK with additional widgets and classes. It is used to implement the standard GNOME design patterns as documented in the GNOME Human Interface Guidelines.
+* WebKitGTK; WebKitGTK allows adding web functionality to applications, such as HTML rendering and embedded web views.
+* librsvg; librsvg is a library that renders Scalable Vector Graphics (SVG). It can be used to display static SVG assets from GTK and gdk-pixbuf, or to render SVG documents to Cairo surfaces in general.
+* glycin; Glycin allows to decode images into GdkTextures and to extract image metadata. The image decoding happens in sandboxed, modular image loaders.
+* Avahi; Avahi implements Zeroconf Networking. It allows programs to discover services like printers on local networks without prior configuration. It also allows applications to set up services that are reachable through the local network without configuration; for example, a chat program that “finds” other chat users in a LAN without having to set up a central chat server first.
