@@ -2,8 +2,6 @@
 
 use v6.d;
 
-my enum Parts <CLASS ROLE STRUCT>;
-
 sub MAIN ( Str $gnome-package ) {
   my Str $checklist-path = "content-docs/api2/check-lists/$gnome-package";
   if $checklist-path.IO ~~ :e {
@@ -23,8 +21,6 @@ sub MAIN ( Str $gnome-package ) {
       - bar_title: "Structures"
         bar_menu:
       EOHEAD
-    
-    my Parts $part = CLASS;
 
     for $checklist-path.IO.dir.sort: { $^a.lc leg $^b.lc } -> $file {
 #note $file.Str;
