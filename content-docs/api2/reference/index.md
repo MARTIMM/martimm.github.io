@@ -30,4 +30,5 @@ Ideas for later, if ever, are implementing;
 * WebKitGTK; WebKitGTK allows adding web functionality to applications, such as HTML rendering and embedded web views.
 * librsvg; librsvg is a library that renders Scalable Vector Graphics (SVG). It can be used to display static SVG assets from GTK and gdk-pixbuf, or to render SVG documents to Cairo surfaces in general.
 * glycin; Glycin allows to decode images into GdkTextures and to extract image metadata. The image decoding happens in sandboxed, modular image loaders.
+* GSettings; GSettings is the GNOME library for reading and writing user settings. It allows storing a variety of settings types, including integers and arrays of strings.
 * Avahi; Avahi implements Zeroconf Networking. It allows programs to discover services like printers on local networks without prior configuration. It also allows applications to set up services that are reachable through the local network without configuration; for example, a chat program that “finds” other chat users in a LAN without having to set up a central chat server first.

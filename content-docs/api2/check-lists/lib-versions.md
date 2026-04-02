@@ -2,7 +2,7 @@
 title: Gnome api 2
 layout: sidebar
 nav_menu: api2-nav
-sidebar_menu: api2--checklist-sidebar
+sidebar_menu: api2-sidebar
 ---
 
 <style>

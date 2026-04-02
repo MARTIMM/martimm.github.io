@@ -12,3 +12,18 @@ package favicon {}
 index -> sidebar
 sidebar *-> favicon
 ```
+
+
+```plantuml
+@startyaml
+scale 0.8
+
+skinparam packageStyle Rectangle
+
+index:
+  layout:
+    sidebar:
+      
+@endyaml
+```
+
