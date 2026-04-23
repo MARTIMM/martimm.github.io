@@ -8,14 +8,15 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::N-Bitset">Gnome::Gtk4::N-Bitset</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -53,7 +54,33 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gtk4::N-Bitset</strong> represents a set of unsigned integers.</p><p>Another name for this data structure is &quot;bitmap&quot;.</p><p>The current implementation is based on [roaring bitmaps](https://roaringbitmap.org/).</p><p>A bitset allows adding a set of integers and provides support for set operations like unions, intersections and checks for equality or if a value is contained in the set. <strong>Gnome::Gtk4::N-Bitset</strong> also contains various functions to query metadata about the bitset, such as the minimum or maximum values or its size.</p><p>The fastest way to iterate values in a bitset is <strong>Gnome::Gtk4::N-BitsetIter</strong> .</p><p>The main use case for <strong>Gnome::Gtk4::N-Bitset</strong> is implementing complex selections for <a href="/content-docs/api2/reference/Gnome/Gtk4/R-SelectionModel.html"></a>.</p></section>
+<p>A <strong>Gnome::Gtk4::N-Bitset</strong> represents a set of unsigned integers.</p><p>Another name for this data structure is &quot;bitmap&quot;.</p><p>The current implementation is based on <a href="https://roaringbitmap.org/">roaring bitmaps</a> (Roaring bitmaps are compressed bitmaps. They can be hundreds of times faster).</p><p>A bitset allows adding a set of integers and provides support for set operations like unions, intersections and checks for equality or if a value is contained in the set. <strong>Gnome::Gtk4::N-Bitset</strong> also contains various functions to query metadata about the bitset, such as the minimum or maximum values or its size.</p><p>The fastest way to iterate values in a bitset is <strong>Gnome::Gtk4::N-BitsetIter</strong>.</p><p>The main use case for <strong>Gnome::Gtk4::N-Bitset</strong> is implementing complex selections for <a href="/content-docs/api2/reference/Gnome/Gtk4/R-SelectionModel.html">using the R-SelectionModel</a>.</p>
+<h2 id="Example"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Example</a></h2>
+<p>An example use of module bitset is to show a selection of listview entries. @pos is an array of unsigned integers representing the item positions in the listview to select.</p><pre class="pod-block-code">  my Gnome::Gtk4::StringList $list-objects;
+  $list-objects .= new-stringlist(CArray[Str].new(Str));
+  $list-objects.append('foo');
+  $list-objects.append('foo');
+  $list-objects.append('baz');
+
+  my Gnome::Gtk4::MultiSelection $selection-type;
+  $selection-type .= new-multiselection($list-objects);
+
+  my Gnome::Gtk4::N-Bitset $bitset .= new-empty;
+  for ( 0, 2) -&gt; $p {
+    $bitset.add($p);
+  }
+
+  my Gnome::Gtk4::ListView $list-view;
+  with $list-view .= new-listview( N-Object, N-Object) {
+    .set-orientation(GTK_ORIENTATION_VERTICAL);
+    .set-model($selection-type);
+    .set-enable-rubberband(True);
+    .set-show-separators(True);
+  }
+
+  # Set the selection with the same mask as its selected items.
+  $selection-type.set-selection( $bitset, $bitset);
+</pre></section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -254,6 +281,6 @@
 <h2 id="unref"><a href="#Gnome::Gtk4::N-Bitset" class="u" title="go to top of document">unref</a></h2>
 <p>Releases a reference on the given <strong>Gnome::Gtk4::N-Bitset</strong>.</p><p>If the reference was the last, the resources associated to the <code>$self</code> are freed.</p><pre class="pod-block-code">method unref ( )
 </pre></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-Bitset.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:10Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-Bitset.rakudoc</span></div><div>at <span class="time">2026-04-23T17:55:34Z</span></div></footer>
 	</body>
 </html>
