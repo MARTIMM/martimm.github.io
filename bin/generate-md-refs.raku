@@ -1,6 +1,8 @@
 #!/usr/bin/env -S raku
 
-# References generator to generate 
+# References generator to generate html pages of the rakudoc documents. Also
+# it recreates the sidebar if necessary.
+
 use v6.d;
 
 # In the Raku::Pod::Render distro at
