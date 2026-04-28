@@ -32,7 +32,7 @@ td:nth-child(2) {
 </style>
 # Module Checklist
 
-Checklist for module Gnome::Gtk4::N-BitsetIter to show the progress of deveopment or wheher it is deprecated. Most of the modules are generated but documentation needs to be checked for typos ad mistakes. Also examples may be added. Not much will be done for deprecated modules. You might be interested in the [GnomeTools distribution](/content-docs/GnomeTools/index.html) where some of the deprecated modules are rewritten.
+Checklist for module Gnome::Gtk4::N-BitsetIter to show the progress of deveopment or whether it is deprecated. Most of the modules are generated but documentation needs to be checked for typos and mistakes. Also examples may be added. Not much will be done for deprecated modules. You might be interested in the [GnomeTools distribution](/content-docs/GnomeTools/index.html) where some of the deprecated modules are rewritten.
 
 Furthermore there is a list of the current versions of [Gnome libraries and Raku distibutions](/content-docs/api2/check-lists/lib-versions) installed on my machine versus the Raku distribution versions.
 
@@ -44,13 +44,11 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|N-BitsetIter.rakudoc
 |Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|N-BitsetIter.rakutest|1 tests|
 
-1. Status, generated, missing values, deprecated, etc
-2. Version of introduction, otherwise it is the release version
-3. Version of deprecation and is removed in next release
+<br/><strong>Note:</strong> Tests are done mainly in N-bitset.rakutest
 
 ### Methods
 
-|Routine|State|Version|Deprecated|
+|Routine|State¹|Version²|Deprecated|
 |-------|-|----------|-------|
 | get-value |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | is-valid |![](/content-docs/asset_files/images/checklist-ok.png)|||
@@ -59,11 +57,15 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ### Functions
 
-|Routine|State|Version|Deprecated|
+|Routine|State¹|Version²|Deprecated³|
 |-------|-|----------|-------|
 | init-at |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | init-first |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | init-last |![](/content-docs/asset_files/images/checklist-ok.png)|||
+
+1. Status, generated, missing values, deprecated, etc
+2. Version of introduction, otherwise it is the release version
+3. Version of deprecation and is removed in next release
 
 ## Legend for the tables
 
