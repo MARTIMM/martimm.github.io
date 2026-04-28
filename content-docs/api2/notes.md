@@ -84,6 +84,7 @@ my Window $window .= new(:build-id<MyWindow>);
 $window.present;
 ```
 There is a [builder tutorial](/content-docs/api2/tutorials/builder1) to understand everything a bit better. As is shown there, the purpose is to define widgets and signals using a user interface design program and save the design. Later it is read into the program and displayed.
+
 <!--
 # Versions of libraries
 
@@ -116,7 +117,8 @@ gdkpixbuf:
   raku: 0.1.5
   sys: 2.42.12
 …
--->```
+```
+-->
 
 # Deprecation messages
 There are many deprecations in the Gnome packages. To make the user aware of this the library generates deprecation message when the user program finishes. This can become annoying and all depreactions of Gnome are only removed in the next major release. So for example GtkDialog is deprecated in Gtk4 but will only be removed in Gtk5.
