@@ -1,0 +1,114 @@
+---
+title: Gnome api 2
+layout: sidebar
+nav_menu: api2-nav
+sidebar_menu: api2-gio-checklist-sidebar
+---
+<style>
+html body table {
+  border: 2px solid rgb(47, 0, 47);
+  width: 95%;
+  margin: 0px auto;
+  display: block table;
+}
+
+/* Keep most tables first 2 columns the same. Less disturbing display */
+td:nth-child(1) {
+  width: 35%;
+}
+
+td:nth-child(2) {
+  width: 11%;
+}
+
+/* Legend table must have different column sizes */
+.legend td:nth-child(1) {
+  width: 1%;
+}
+
+.legend td:nth-child(2) {
+  width: 99%;
+}
+</style>
+# Module Checklist
+
+Checklist for module Gnome::Gio::DesktopAppInfo to show the progress of deveopment or whether it is deprecated. Most of the modules are generated but documentation needs to be checked for typos and mistakes. Also examples may be added. Not much will be done for deprecated modules. You might be interested in the [GnomeTools distribution](/content-docs/GnomeTools/index.html) where some of the deprecated modules are rewritten.
+
+Furthermore there is a list of the current versions of [Gnome libraries and Raku distibutions](/content-docs/api2/check-lists/lib-versions) installed on my machine versus the Raku distribution versions.
+
+## Gnome::Gio::DesktopAppInfo
+
+||State|Name|Tests|
+|-|-|-|-|
+|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|DesktopAppInfo.rakumod
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|DesktopAppInfo.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|DesktopAppInfo.rakutest|0 tests|
+
+### Constructors
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| new-from-filename |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| new-from-keyfile |![](/content-docs/asset_files/images/checklist-implement.png)| 2.18 ||
+| new-gdesktopappinfo |![](/content-docs/asset_files/images/checklist-implement.png)|||
+
+<br/>
+
+### Methods
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| get-action-name |![](/content-docs/asset_files/images/checklist-implement.png)| 2.38 ||
+| get-boolean |![](/content-docs/asset_files/images/checklist-implement.png)| 2.36 ||
+| get-categories |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-filename |![](/content-docs/asset_files/images/checklist-implement.png)| 2.24 ||
+| get-generic-name |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-is-hidden |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| get-keywords |![](/content-docs/asset_files/images/checklist-implement.png)| 2.32 ||
+| get-locale-string |![](/content-docs/asset_files/images/checklist-implement.png)| 2.56 ||
+| get-nodisplay |![](/content-docs/asset_files/images/checklist-implement.png)| 2.30 ||
+| get-show-in |![](/content-docs/asset_files/images/checklist-implement.png)| 2.30 ||
+| get-startup-wm-class |![](/content-docs/asset_files/images/checklist-implement.png)| 2.34 ||
+| get-string |![](/content-docs/asset_files/images/checklist-implement.png)| 2.36 ||
+| get-string-list |![](/content-docs/asset_files/images/checklist-implement.png)| 2.60 ||
+| has-key |![](/content-docs/asset_files/images/checklist-implement.png)| 2.36 ||
+| launch-action |![](/content-docs/asset_files/images/checklist-implement.png)| 2.38 ||
+| launch-uris-as-manager |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)|||
+| launch-uris-as-manager-with-fds |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 2.58 ||
+| list-actions |![](/content-docs/asset_files/images/checklist-implement.png)| 2.38 ||
+
+<br/>
+
+### Functions
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| get-implementations |![](/content-docs/asset_files/images/checklist-implement.png)| 2.42 ||
+| search |![](/content-docs/asset_files/images/checklist-implement.png)|||
+| set-desktop-env |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-deprecated.png)||2.42 |
+
+<br/>
+
+1. Status, generated, missing values, deprecated, etc
+2. Version of introduction, otherwise it is the release version
+3. Version of deprecation and is removed in next release
+
+## Legend for the tables
+
+<table class="legend"><tr><th>Symbol</th><th>Meaning</th></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-ok.png" /></td>
+<td>Code and documentation is generated</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-implement.png" /></td>
+<td>Must be written</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-deprecated.png" /></td>
+<td>Removed in next Gnome library release</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-missing.png" /></td>
+<td>Not generated, there are missing types</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-no-implement.png" /></td>
+<td>Will not be generated</td></tr>
+
