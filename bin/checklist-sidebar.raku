@@ -23,6 +23,7 @@ sub MAIN ( Str $gnome-package ) {
       EOHEAD
 
     for $checklist-path.IO.dir.sort: { $^a.lc leg $^b.lc } -> $file {
+      next if $file.Str ~~ m/ asset_files | index /;
 #note $file.Str;
 
       my Str $title = $file.basename;
