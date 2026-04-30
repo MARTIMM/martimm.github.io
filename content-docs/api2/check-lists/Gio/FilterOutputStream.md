@@ -40,7 +40,7 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|FilterOutputStream.rakumod
+|Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|FilterOutputStream.rakumod
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|FilterOutputStream.rakudoc
 |Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|FilterOutputStream.rakutest|0 tests|
 
@@ -55,7 +55,7 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 <br/>
 
 1. Status, generated, missing values, deprecated, etc
-2. Version of introduction, otherwise it is the release version
+2. Version of introduction, otherwise it is the release version ()
 3. Version of deprecation and is removed in next release
 
 ## Legend for the tables
@@ -75,5 +75,5 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 <td>Not generated, there are missing types</td></tr>
 
 <tr><td><img src="/content-docs/asset_files/images/checklist-no-implement.png" /></td>
-<td>Will not be generated</td></tr>
+<td>Is removed or will not be implemented</td></tr>
 
