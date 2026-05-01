@@ -61,7 +61,7 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 <br/>
 
 1. Status, generated, missing values, deprecated, etc
-2. Version of introduction, otherwise it is the release version (2.72)
+2. Version of introduction, otherwise it is the release version (2.0)
 3. Version of deprecation and is removed in next release
 
 ## Legend for the tables

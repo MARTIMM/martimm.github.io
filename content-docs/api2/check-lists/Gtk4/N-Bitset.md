@@ -53,9 +53,11 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 | new-empty |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | new-range |![](/content-docs/asset_files/images/checklist-ok.png)|||
 
+<br/>
+
 ### Methods
 
-|Routine|State¹|Version²|Deprecated|
+|Routine|State¹|Version²|Deprecated³|
 |-------|-|----------|-------|
 | add |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | add-range |![](/content-docs/asset_files/images/checklist-ok.png)|||
@@ -85,8 +87,10 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 | union |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | unref |![](/content-docs/asset_files/images/checklist-ok.png)|||
 
+<br/>
+
 1. Status, generated, missing values, deprecated, etc
-2. Version of introduction, otherwise it is the release version
+2. Version of introduction, otherwise it is the release version (4.0)
 3. Version of deprecation and is removed in next release
 
 ## Legend for the tables
@@ -106,5 +110,5 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 <td>Not generated, there are missing types</td></tr>
 
 <tr><td><img src="/content-docs/asset_files/images/checklist-no-implement.png" /></td>
-<td>Will not be generated</td></tr>
+<td>Is removed or will not be implemented</td></tr>
 
