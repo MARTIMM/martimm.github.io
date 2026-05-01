@@ -8,8 +8,8 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
@@ -19,26 +19,41 @@
  <tr class="toc-level-3"><td class="toc-text"><a href="#GtkStringList_as_GtkBuildable">GtkStringList as GtkBuildable</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new-stringlist">new-stringlist</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example_0">Example</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#get-string">get-string</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#splice">splice</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take">take</a></td></tr>
 </table></div>
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::StringList</strong> is a list model that wraps an array of strings.</p><p>The objects in the model are of type <a href="/content-docs/api2/reference/Gtk4/StringObject.html">Gnome::Gtk4::StringObject</a> and have a &quot;string&quot; property that can be used inside expressions.</p><p><strong>Gnome::Gtk4::StringList</strong> is well-suited for any place where you would typically use a <strong>char</strong>*[]`, but need a list model.</p>
+<p><strong>Gnome::Gtk4::StringList</strong> is a list model that wraps an array of strings.</p><p>The objects in the model are of type <a href="/content-docs/api2/reference/Gtk4/StringObject.html">Gnome::Gtk4::StringObject</a> and have a &quot;string&quot; property that can be used inside expressions.</p><p><strong>Gnome::Gtk4::StringList</strong> is well-suited for any place where you would typically use a string, but need a list model.</p>
 <h3 id="GtkStringList_as_GtkBuildable"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">GtkStringList as GtkBuildable</a></h3>
-<p>The <strong>Gnome::Gtk4::StringList</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports adding items directly using the `&lt;items&gt;` element and specifying `&lt;item&gt;` elements for each item. Each `&lt;item&gt;` element supports the regular translation attributes “translatable”, “context” and “comments”.</p><p>Here is a UI definition fragment specifying a <strong>Gnome::Gtk4::StringList</strong></p>
+<p>The <strong>Gnome::Gtk4::StringList</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports adding items directly using the `&lt;items&gt;` element and specifying `&lt;item&gt;` elements for each item. Each `&lt;item&gt;` element supports the regular translation attributes “translatable”, “context” and “comments”.</p><p>Here is a UI definition fragment specifying a <strong>Gnome::Gtk4::StringList</strong></p><pre class="pod-block-code">&lt;object class=&quot;GtkStringList&quot;&gt;
+  &lt;items&gt;
+    &lt;item translatable=&quot;yes&quot;&gt;Factory&lt;/item&gt;
+    &lt;item translatable=&quot;yes&quot;&gt;Home&lt;/item&gt;
+    &lt;item translatable=&quot;yes&quot;&gt;Subway&lt;/item&gt;
+  &lt;/items&gt;
+&lt;/object&gt;
+
+</pre>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/StringList.png" width="70%" height="auto" alt="No caption"></div>
-</section>
+
+<h2 id="Example"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">Example</a></h2>
+<p># Example use of module Gnome::Gtk4::StringList</p><pre class="pod-block-code">my Gnome::Gtk4::StringList $stringlist;
+$stringlist .= new-stringlist([ 'a string', '2nd string']);
+say $stringlist.get-string(1); # Shows '2nd string'
+
+</pre></section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -58,41 +73,45 @@
 </section>
 <section name="pod">
 <h2 id="append"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">append</a></h2>
-<p>Appends <code>$string</code> to <code>$self</code>.</p><p>The <code>$string</code> will be copied. See <a href="#take">.take()</a> for a way to avoid that.</p><pre class="pod-block-code">method append ( Str $string )
+<p>Appends <code>$string</code> to the string list.</p><p>The <code>$string</code> will be copied.</p><pre class="pod-block-code">method append ( Str $string )
 </pre><ul>
 <li><p>$string; the string to insert.</p></li>
 </ul>
-</section>
+
+<h2 id="Example_0"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">Example</a></h2>
+<p>Create an empty list and append 10 strings to it.</p><pre class="pod-block-code">my Gnome::Gtk4::StringList $stringlist;
+$stringlist .= new-stringlist([]);
+
+for ^10 -&gt; $i {
+  $stringlist.append(&quot;string$i&quot;);
+}
+
+say $stringlist.get-string(3); # Shows 'string3'
+
+</pre></section>
 <section name="pod">
 <h2 id="get-string"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">get-string</a></h2>
-<p>Gets the string that is at <code>$position</code> in <code>$self</code>.</p><p>If <code>$self</code> does not contain <code>$position</code> items, undefined is returned.</p><p>This function returns the const char *. To get the object wrapping it, use g_list_model_get_item().</p><pre class="pod-block-code">method get-string ( UInt() $position --&gt; Str )
+<p>Gets the string that is at <code>$position</code> in the stringlist.</p><p>If the stringlist does not contain <code>$position</code> items, undefined is returned.</p><p>This function returns an <code>Str</code>. To get the object wrapping it, use <a href="/content-docs/api2/reference/Gio/R-ListModel.html#get-object">.get-object() from R-ListModel in Gio</a>. That object should be of type <a href="/content-docs/api2/reference/Gtk4/StringObject.html">Gnome::Gtk4::StringObject</a>.</p><pre class="pod-block-code">method get-string ( UInt() $position --&gt; Str )
 </pre><ul>
 <li><p>$position; the position to get the string for.</p></li>
 </ul>
 <p>Return value; the string at the given position. </p></section>
 <section name="pod">
 <h2 id="remove"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">remove</a></h2>
-<p>Removes the string at <code>$position</code> from <code>$self</code>. <code>$position</code> must be smaller than the current length of the list.</p><pre class="pod-block-code">method remove ( UInt() $position )
+<p>Removes the string at <code>$position</code> from the stringlist. <code>$position</code> must be smaller than the current length of the list.</p><pre class="pod-block-code">method remove ( UInt() $position )
 </pre><ul>
 <li><p>$position; the position of the string that is to be removed.</p></li>
 </ul>
 </section>
 <section name="pod">
 <h2 id="splice"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">splice</a></h2>
-<p>Changes <code>$self</code> by removing <code>$n-removals</code> strings and adding <code>$additions</code> to it.</p><p>This function is more efficient than <a href="#append">.append()</a> and <a href="#remove">.remove()</a>, because it only emits the <em>items-changed</em> signal once for the change.</p><p>This function copies the strings in <code>$additions</code>.</p><p>The parameters <code>$position</code> and <code>$n-removals</code> must be correct (ie: <code>$position</code> + <code>$n-removals</code> must be less than or equal to the length of the list at the time this function is called).</p><pre class="pod-block-code">method splice ( UInt() $position, UInt() $n-removals, Array[Str] $additions )
+<p>Changes the stringlist by removing <code>$n-removals</code> strings and adding <code>$additions</code> to it.</p><p>This function is more efficient than <a href="#append">.append()</a> and <a href="#remove">.remove()</a>, because it only emits the <em>items-changed</em> signal once for the change.</p><p>This function copies the strings in <code>$additions</code>.</p><p>The parameters <code>$position</code> and <code>$n-removals</code> must be correct (ie: <code>$position</code> + <code>$n-removals</code> must be less than or equal to the length of the list at the time this function is called).</p><pre class="pod-block-code">method splice ( UInt() $position, UInt() $n-removals, Array[Str] $additions )
 </pre><ul>
 <li><p>$position; the position at which to make the change.</p></li>
 <li><p>$n-removals; the number of strings to remove.</p></li>
 <li><p>$additions; The strings to add.</p></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="take"><a href="#Gnome::Gtk4::StringList" class="u" title="go to top of document">take</a></h2>
-<p>Adds <code>$string</code> to self at the end, and takes ownership of it.</p><p>This variant of <a href="#append">.append()</a> is convenient for formatting strings:</p><pre class="pod-block-code">method take ( Str $string )
-</pre><ul>
-<li><p>$string; (transfer ownership: full) the string to insert.</p></li>
-</ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StringList.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:19Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StringList.rakudoc</span></div><div>at <span class="time">2026-05-01T14:08:28Z</span></div></footer>
 	</body>
 </html>
