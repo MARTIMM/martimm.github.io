@@ -40,7 +40,7 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|ActivateAction.rakumod
+|Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|ActivateAction.rakumod
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|ActivateAction.rakudoc
 |Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|ActivateAction.rakutest|1 tests|
 
