@@ -44,6 +44,8 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|StringObject.rakudoc
 |Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|StringObject.rakutest|3 tests|
 
+<br/><strong>Note:</strong> Most tests are done in StringList.rakutest
+
 ### Constructors
 
 |Routine|State¹|Version²|Deprecated³|
