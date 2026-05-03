@@ -40,9 +40,9 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|AboutDialog.rakumod
+|Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|AboutDialog.rakumod
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|AboutDialog.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|AboutDialog.rakutest|0 tests|
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|AboutDialog.rakutest|14 tests|
 
 ### Constructors
 
