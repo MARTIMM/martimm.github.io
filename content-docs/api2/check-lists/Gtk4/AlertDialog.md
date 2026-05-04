@@ -40,15 +40,15 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|AlertDialog.rakumod
-|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|AlertDialog.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|AlertDialog.rakutest|0 tests|
+|Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|AlertDialog.rakumod
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|AlertDialog.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|AlertDialog.rakutest|13 tests|
 
 ### Constructors
 
 |Routine|State¹|Version²|Deprecated³|
 |-------|-|----------|-------|
-| new-alertdialog |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
+| new-alertdialog |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
 
 <br/>
 
@@ -56,21 +56,21 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 |Routine|State¹|Version²|Deprecated³|
 |-------|-|----------|-------|
-| choose |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| choose-finish |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-buttons |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-cancel-button |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-default-button |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-detail |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-message |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| get-modal |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-buttons |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-cancel-button |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-default-button |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-detail |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-message |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| set-modal |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
-| show |![](/content-docs/asset_files/images/checklist-implement.png)| 4.10 ||
+| choose |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| choose-finish |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-buttons |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-cancel-button |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-default-button |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-detail |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-message |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| get-modal |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-buttons |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-cancel-button |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-default-button |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-detail |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-message |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| set-modal |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
+| show |![](/content-docs/asset_files/images/checklist-ok.png)| 4.10 ||
 
 <br/>
 
