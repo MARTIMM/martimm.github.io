@@ -1,0 +1,111 @@
+---
+title: Gnome api 2
+layout: sidebar
+nav_menu: api2-nav
+sidebar_menu: api2-gdk4-checklist-sidebar
+---
+<style>
+html body table {
+  border: 2px solid rgb(47, 0, 47);
+  width: 95%;
+  margin: 0px auto;
+  display: block table;
+}
+
+/* Keep most tables first 2 columns the same. Less disturbing display */
+td:nth-child(1) {
+  width: 35%;
+}
+
+td:nth-child(2) {
+  width: 11%;
+}
+
+/* Legend table must have different column sizes */
+.legend td:nth-child(1) {
+  width: 1%;
+}
+
+.legend td:nth-child(2) {
+  width: 99%;
+}
+</style>
+# Module Checklist
+
+Checklist for module Gnome::Gdk4::DmabufTextureBuilder to show the progress of deveopment or whether it is deprecated. Most of the modules are generated but documentation needs to be checked for typos and mistakes. Also examples may be added. Not much will be done for deprecated modules. You might be interested in the [GnomeTools distribution](/content-docs/GnomeTools/index.html) where some of the deprecated modules are rewritten.
+
+Furthermore there is a list of the current versions of [Gnome libraries and Raku distibutions](/content-docs/api2/check-lists/lib-versions) installed on my machine versus the Raku distribution versions.
+
+## Gnome::Gdk4::DmabufTextureBuilder
+
+||State|Name|Tests|
+|-|-|-|-|
+|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|DmabufTextureBuilder.rakumod
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|DmabufTextureBuilder.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|DmabufTextureBuilder.rakutest|0 tests|
+
+### Constructors
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| new-dmabuftexturebuilder |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+
+<br/>
+
+### Methods
+
+|Routine|State¹|Version²|Deprecated³|
+|-------|-|----------|-------|
+| build |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-color-state |![](/content-docs/asset_files/images/checklist-implement.png)| 4.16 ||
+| get-display |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-fd |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| get-fourcc |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-height |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| get-modifier |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-n-planes |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| get-offset |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| get-premultiplied |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-stride |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| get-update-region |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-update-texture |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| get-width |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-color-state |![](/content-docs/asset_files/images/checklist-implement.png)| 4.16 ||
+| set-display |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-fd |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-fourcc |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-height |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-modifier |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-n-planes |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-offset |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-premultiplied |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-stride |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+| set-update-region |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-update-texture |![](/content-docs/asset_files/images/checklist-implement.png)| 4.14 ||
+| set-width |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)| 4.14 ||
+
+<br/>
+
+1. Status, generated, missing values, deprecated, etc
+2. Version of introduction, otherwise it is the release version (4.0)
+3. Version of deprecation and is removed in next release
+
+## Legend for the tables
+
+<table class="legend"><tr><th>Symbol</th><th>Meaning</th></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-ok.png" /></td>
+<td>Code and documentation is generated</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-implement.png" /></td>
+<td>Must be written</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-deprecated.png" /></td>
+<td>Removed in next Gnome library release</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-missing.png" /></td>
+<td>Not generated, there are missing types</td></tr>
+
+<tr><td><img src="/content-docs/asset_files/images/checklist-no-implement.png" /></td>
+<td>Is removed or will not be implemented</td></tr>
+
