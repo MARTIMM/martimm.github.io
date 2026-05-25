@@ -2,7 +2,7 @@
 title: Gnome api 2
 layout: sidebar
 nav_menu: api2-nav
-sidebar_menu: api2-sidebar
+sidebar_menu: api2-checklist-sidebar
 ---
 
 <style>
@@ -13,8 +13,22 @@ html body table {
   display: block table;
 }
 
-td:nth-child(1) {  
+/* Keep most tables first 2 columns the same. Less disturbing display */
+td:nth-child(1) {
   width: 35%;
+}
+
+td:nth-child(2) {
+  width: 11%;
+}
+
+/* Legend table must have different column sizes */
+.legend td:nth-child(1) {
+  width: 1%;
+}
+
+.legend td:nth-child(2) {
+  width: 99%;
 }
 </style>
 
@@ -25,12 +39,12 @@ Below there is a table of versions. It shows the current Raku distributions and 
 
 |Distribution|Raku version|Gnome library version|
 |-|-|-|
-|Gnome::Gtk4|0.2.6|4.18.6|
-|Gnome::Gdk4|0.1.22|4.18.6|
-|Gnome::Gsk4|0.2.1|4.18.6|
-|Gnome::Graphene|0.1.13|1.10.6|
+|Gnome::Gtk4|0.2.8|4.20.4|
+|Gnome::Gdk4|0.1.23|4.20.4|
+|Gnome::Gsk4|0.2.1|4.20.4|
+|Gnome::Graphene|0.1.13|1.10.8|
 |Gnome::Glib|0.1.14|1:1.2.10|
 |Gnome::Gio|0.1.27|1:1.2.10|
 |Gnome::GObject|0.2.0|1:1.2.10|
-|Gnome::Pango|0.1.14|1.56.4|
-|Gnome::GdkPixbuf|0.1.5|2.42.12|
+|Gnome::Pango|0.1.15|1.57.1|
+|Gnome::GdkPixbuf|0.1.5|2.44.6^really2.44.4|
