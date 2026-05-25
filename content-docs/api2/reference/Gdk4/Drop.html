@@ -8,14 +8,16 @@
 
 <link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 
 </head>
 	<body class="pod">
 <header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk4::Drop">Gnome::Gdk4::Drop</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -36,7 +38,10 @@
 </nav><div id=""></div><div class="pod-body">
 <section name="___top">
 <h1 id="Description"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">Description</a></h1>
-<p>The <strong>Gnome::Gdk4::Drop</strong> object represents the target of an ongoing DND operation.</p><p>Possible drop sites get informed about the status of the ongoing drag operation with events of type <code>GDK_DRAG_ENTER</code>, <code>GDK_DRAG_LEAVE</code>, <code>GDK_DRAG_MOTION</code> and <code>GDK_DROP_START</code>. The <strong>Gnome::Gdk4::Drop</strong> object can be obtained from these <a href="/content-docs/api2/reference/Gdk4/Gnome.html">Gnome::Gdk4::Event</a> types using <a href="/content-docs/api2/reference/Gdk4/Gnome.html#get-drop">.get-drop() in class Gnome</a>.</p><p>The actual data transfer is initiated from the target side via an async read, using one of the <strong>Gnome::Gdk4::Drop</strong> methods for this purpose: <a href="#read-async">.read-async()</a> or <a href="#read-value-async">.read-value-async()</a>.</p><p>GTK provides a higher level abstraction based on top of these functions, and so they are not normally needed in GTK applications. See the &quot;Drag and Drop&quot; section of the GTK documentation for more information.</p></section>
+<p>The <strong>Gnome::Gdk4::Drop</strong> object represents the target of an ongoing DND operation.</p><p>Possible drop sites get informed about the status of the ongoing drag operation with events of type <code>GDK_DRAG_ENTER</code>, <code>GDK_DRAG_LEAVE</code>, <code>GDK_DRAG_MOTION</code>, and <code>GDK_DROP_START</code>. The <strong>Gnome::Gdk4::Drop</strong> object can be obtained from these <a href="/content-docs/api2/reference/Gdk4/Event.html">Gnome::Gdk4::Event</a> types using <a href="/content-docs/api2/reference/Gdk4/DNDEvent.html#get-drop">.get-drop() in class Gnome::Gdk4::DNDEvent</a>.</p><p>The actual data transfer is initiated from the target side via an async read, using one of the <strong>Gnome::Gdk4::Drop</strong> methods for this purpose: <a href="#read-async">.read-async()</a> or <a href="#read-value-async">.read-value-async()</a>.</p><p>GTK provides a higher level abstraction based on top of these functions, and so they are not normally needed in GTK applications. See the &quot;Drag and Drop&quot; section of the GTK documentation for more information.</p>
+<h2 id="Uml_Diagram"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">Uml Diagram</a></h2>
+<div class="image-container inline"><img src="asset_files/images/plantuml/Drop.png" width="70%" height="auto" alt="No caption"></div>
+</section>
 <section name="pod">
 <h1 id="Class_initialization"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">Class initialization</a></h1>
 
@@ -56,31 +61,35 @@
 </section>
 <section name="pod">
 <h2 id="get-actions"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-actions</a></h2>
-<p>Returns the possible actions for this <strong>Gnome::Gdk4::Drop</strong>.</p><p>If this value contains multiple actions - i.e. <a href="/content-docs/api2/reference/Gdk4/T-drop.html#DragAction.is-unique">.DragAction.is-unique().DragAction.is-unique() in package Gnome::Gdk4</a> returns <code>False</code> for the result - <a href="#finish">.finish()</a> must choose the action to use when accepting the drop. This will only happen if you passed <code>GDK_ACTION_ASK</code> as one of the possible actions in <a href="#status">.status()</a>. <code>GDK_ACTION_ASK</code> itself will not be included in the actions returned by this function.</p><p>This value may change over the lifetime of the <strong>Gnome::Gdk4::Drop</strong> both as a response to source side actions as well as to calls to <a href="#status">.status()</a> or <a href="#finish">.finish()</a>. The source side will not change this value anymore once a drop has started.</p><pre class="pod-block-code">method get-actions (--&gt; UInt )
+<p>Returns the possible actions for this <strong>Gnome::Gdk4::Drop</strong>.</p><p>If this value contains multiple actions - i.e. <a href="/content-docs/api2/reference/Gdk4/T-drag.html#drag-action-is-unique">.drag-action-is-unique() in package Gnome::Gdk4::T-drag</a> returns <code>False</code> for the result - <a href="#finish">.finish()</a> must choose the action to use when accepting the drop. This will only happen if you passed <code>GDK_ACTION_ASK</code> as one of the possible actions in <a href="#status">.status()</a>. <code>GDK_ACTION_ASK</code> itself will not be included in the actions returned by this function.</p><p>This value may change over the lifetime of the <strong>Gnome::Gdk4::Drop</strong> both as a response to source side actions as well as to calls to <a href="#status">.status()</a> or <a href="#finish">.finish()</a>. The source side will not change this value anymore once a drop has started.</p><pre class="pod-block-code">method get-actions ( --&gt; UInt )
 </pre><p>Return value; The possible <strong>GdkDragActions</strong>. </p></section>
 <section name="pod">
 <h2 id="get-device"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-device</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a> performing the drop.</p><pre class="pod-block-code">method get-device (--&gt; N-Object )
-</pre><p>Return value; The <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a> performing the drop.. </p></section>
+<p>Returns the <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a> performing the drop.</p><pre class="pod-block-code">method get-device ( --&gt; N-Object )
+</pre><p>Return value; The <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a> performing the drop.</p></section>
 <section name="pod">
 <h2 id="get-display"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-display</a></h2>
-<p>Gets the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> that <code>$self</code> was created for.</p><pre class="pod-block-code">method get-display (--&gt; N-Object )
+<p>Gets the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> that <code>$self</code> was created for.</p><pre class="pod-block-code">method get-display ( --&gt; N-Object )
 </pre><p>Return value; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>. </p></section>
 <section name="pod">
 <h2 id="get-drag"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-drag</a></h2>
-<p>If this is an in-app drag-and-drop operation, returns the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> that corresponds to this drop.</p><p>If it is not, undefined is returned.</p><pre class="pod-block-code">method get-drag (--&gt; N-Object )
+<p>If this is an in-app drag-and-drop operation, returns the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object that corresponds to this drop.</p><p>If it is not, undefined is returned.</p><pre class="pod-block-code">method get-drag ( --&gt; N-Object )
 </pre><p>Return value; the corresponding <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a>. </p></section>
 <section name="pod">
 <h2 id="get-formats"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-formats</a></h2>
-<p>Returns the <strong>Gnome::Gdk4::N-ContentFormats</strong> that the drop offers the data to be read in.</p><pre class="pod-block-code">method get-formats (--&gt; N-Object )
+<p>Returns the <strong>Gnome::Gdk4::N-ContentFormats</strong> that the drop offers the data to be read in.</p><pre class="pod-block-code">method get-formats ( --&gt; N-Object )
 </pre><p>Return value; The possible <strong>Gnome::Gdk4::N-ContentFormats</strong>. </p></section>
 <section name="pod">
 <h2 id="get-surface"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">get-surface</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a> performing the drop.</p><pre class="pod-block-code">method get-surface (--&gt; N-Object )
+<p>Returns the <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a> performing the drop.</p><pre class="pod-block-code">method get-surface ( --&gt; N-Object )
 </pre><p>Return value; The <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a> performing the drop.. </p></section>
 <section name="pod">
 <h2 id="read-async"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">read-async</a></h2>
-<p>Asynchronously read the dropped data from a <strong>Gnome::Gdk4::Drop</strong> in a format that complies with one of the mime types.</p><pre class="pod-block-code">method read-async ( Array[Str] $mime-types, Int() $io-priority, N-Object() $cancellable, GAsyncReadyCallback &amp;callback, gpointer $user-data )
+<p>Asynchronously read the dropped data from a <strong>Gnome::Gdk4::Drop</strong> in a format that complies with one of the mime types.</p><pre class="pod-block-code">method read-async (
+  Array[Str] $mime-types, Int() $io-priority,
+  N-Object() $cancellable, GAsyncReadyCallback &amp;callback,
+  gpointer $user-data
+)
 </pre><ul>
 <li><p>$mime-types; pointer to an array of mime types.</p></li>
 <li><p>$io-priority; the I/O priority for the read operation.</p></li>
@@ -91,16 +100,22 @@
 </section>
 <section name="pod">
 <h2 id="read-finish"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">read-finish</a></h2>
-<p>Finishes an async drop read operation.</p><p>Note that you must not use blocking read calls on the returned stream in the GTK thread, since some platforms might require communication with GTK to complete the data transfer. You can use async APIs such as g_input_stream_read_bytes_async().</p><p>See <a href="#read-async">.read-async()</a>.</p><pre class="pod-block-code">method read-finish ( N-Object() $result, Array[Str] $out-mime-type, CArray[N-Error] $err --&gt; N-Object )
+<p>Finishes an async drop read operation.</p><p>Note that you must not use blocking read calls on the returned stream in the GTK thread, since some platforms might require communication with GTK to complete the data transfer. You can use async APIs such as <code>Gnome::Gio::InputStream.read_bytes_async()</code>.</p><p>See <a href="#read-async">.read-async()</a>.</p><pre class="pod-block-code">method read-finish (
+  N-Object() $result, Array[Str] $out-mime-type, CArray[N-Error] $err
+  --&gt; N-Object
+)
 </pre><ul>
 <li><p>$result; a <a href="/content-docs/api2/reference/Gio/R-AsyncResult.html">Gnome::Gio::R-AsyncResult</a>.</p></li>
 <li><p>$out-mime-type; (transfer ownership: full) return location for the used mime type.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error.</p></li>
 </ul>
 <p>Return value; the <a href="/content-docs/api2/reference/Gio/InputStream.html">Gnome::Gio::InputStream</a>. </p></section>
 <section name="pod">
 <h2 id="read-value-async"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">read-value-async</a></h2>
-<p>Asynchronously request the drag operation's contents converted to the given <code>$type</code>.</p><p>When the operation is finished <code>$callback</code> will be called. You must then call <a href="#read-value-finish">.read-value-finish()</a> to get the resulting <strong>Gnome::GObject::N-Value</strong>.</p><p>For local drag-and-drop operations that are available in the given <strong>Gnome::GObject::Drop</strong>, the value will be copied directly. Otherwise, GDK will try to use <a href="/content-docs/api2/reference/Gdk4/T-drop.html#content-deserialize-async">.content-deserialize-async().content-deserialize-async() in package Gnome::Gdk4</a> to convert the data.</p><pre class="pod-block-code">method read-value-async ( GType $type, Int() $io-priority, N-Object() $cancellable, GAsyncReadyCallback &amp;callback, gpointer $user-data )
+<p>Asynchronously request the drag operation's contents converted to the given <code>$type</code>.</p><p>When the operation is finished <code>$callback</code> will be called. You must then call <a href="#read-value-finish">.read-value-finish()</a> to get the resulting <strong>Gnome::GObject::N-Value</strong>.</p><p>For local drag-and-drop operations that are available in the given <strong>Gnome::GObject::Drop</strong>, the value will be copied directly. Otherwise, GDK will try to use <a href="/content-docs/api2/reference/Gdk4/T-drop.html#content-deserialize-async">.content-deserialize-async().content-deserialize-async() in package Gnome::Gdk4</a> to convert the data.</p><pre class="pod-block-code">method read-value-async (
+  GType $type, Int() $io-priority, N-Object() $cancellable,
+  GAsyncReadyCallback &amp;callback, gpointer $user-data
+)
 </pre><ul>
 <li><p>$type; a <strong>Gnome::GObject::Drop</strong> to read.</p></li>
 <li><p>$io-priority; the I/O priority of the request..</p></li>
@@ -111,10 +126,13 @@
 </section>
 <section name="pod">
 <h2 id="read-value-finish"><a href="#Gnome::Gdk4::Drop" class="u" title="go to top of document">read-value-finish</a></h2>
-<p>Finishes an async drop read.</p><p>See <a href="#read-value-async">.read-value-async()</a>.</p><pre class="pod-block-code">method read-value-finish ( N-Object() $result, CArray[N-Error] $err --&gt; N-Object )
+<p>Finishes an async drop read.</p><p>See <a href="#read-value-async">.read-value-async()</a>.</p><pre class="pod-block-code">method read-value-finish (
+  N-Object() $result, CArray[N-Error] $err
+  --&gt; N-Object
+)
 </pre><ul>
 <li><p>$result; a <a href="/content-docs/api2/reference/Gio/R-AsyncResult.html">Gnome::Gio::R-AsyncResult</a>.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error.</p></li>
 </ul>
 <p>Return value; a <strong>Gnome::GObject::N-Value</strong> containing the result.. </p></section>
 <section name="pod">
@@ -125,6 +143,6 @@
 <li><p>$preferred; A unique action that's a member of <code>$actions</code> indicating the preferred action.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Drop.rakudoc</span></div><div>at <span class="time">2026-05-22T15:14:24Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Drop.rakudoc</span></div><div>at <span class="time">2026-05-25T11:48:16Z</span></div></footer>
 	</body>
 </html>
