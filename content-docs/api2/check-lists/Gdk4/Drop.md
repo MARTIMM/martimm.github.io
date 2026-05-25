@@ -41,8 +41,10 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 ||State|Name|Tests|
 |-|-|-|-|
 |Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|Drop.rakumod
-|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|Drop.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|Drop.rakutest|0 tests|
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|Drop.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|Drop.rakutest|1 tests|
+
+<br/><strong>Note:</strong> Only a load test. Need higher level tests
 
 ### Methods
 
