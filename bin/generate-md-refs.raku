@@ -408,8 +408,11 @@ sub load-pod ( Str $file --> Array ) {
     $contents ~~ s/'=finish' .* $//;
   }
 
+  # And drop all comments while w're at it
+  $contents ~~ s:g/^^ '=comment' .*? $$//; 
+
   my $pod;
-  $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n";
+  $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n\n";
 
   try {
     "/tmp/mod-doc.txt".IO.spurt($contents);
