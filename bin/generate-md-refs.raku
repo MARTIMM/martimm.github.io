@@ -36,6 +36,7 @@ my Hash $source-paths = %(
   :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
   :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/doc/'),
   :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/doc/'),
+  :NApi2(PROJECTS ~ API2S ~ 'gnome-native/doc/'),
 
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
@@ -56,6 +57,7 @@ my Hash $destination-paths = %(
   :Gsk4Api2(PROJECTS ~ API2D ~ 'Gsk4/'),
   :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
   :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
+  :NApi2(PROJECTS ~ API2D ~ 'N/'),
 
   :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
@@ -76,6 +78,7 @@ my Hash $sidebar-paths = %(
   :Gsk4Api2(REFS ~ 'api2-ref-gsk4-sidebar.yml'),
   :GrapApi2(REFS ~ 'api2-ref-graphene-sidebar.yml'),
   :GioApi2(REFS ~ 'api2-ref-gio-sidebar.yml'),
+  :NApi2(REFS ~ 'api2-ref-n-sidebar.yml'),
 
   :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
   :Gdk3Api1(REFS ~ 'api1-ref-gdk3-sidebar.yml'),
@@ -328,7 +331,7 @@ sub generate-sidebar( Str $key ) {
 }
 
 #-------------------------------------------------------------------------------
-use MONKEY-SEE-NO-EVAL;
+#use MONKEY-SEE-NO-EVAL;
 
 sub load-pod ( Str $file --> Array ) {
   if $file.IO !~~ :r {
@@ -398,6 +401,11 @@ sub load-pod ( Str $file --> Array ) {
                       <-[\.]>+ \. [png | svg] ')'
                     /$md-ref/;
     }
+  }
+
+  # Evaluation of the pod file does not seem to understand '=finish'
+  if $contents ~~ m/^^ '=finish' $$/ {
+    $contents ~~ s/'=finish' .* $//;
   }
 
   my $pod;
