@@ -1,0 +1,107 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::N::GlibToRakuTypes</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::N::GlibToRakuTypes">Gnome::N::GlibToRakuTypes</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Special_types">Special types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Pointers_to_character_string">Pointers to character string</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Pointers_to_integer">Pointers to integer</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Special_pointers">Special pointers</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Simple_types">Simple types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Floating_point">Floating point</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Integer_types">Integer types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Special_integer_types">Special integer types</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Unsigned_integer_types">Unsigned integer types</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Description</a></h1>
+<p>A series of basic types which are named after the Glib types and mapped to Raku types. They are used internally most of the time but sometimes it is used to describe a callback interface. But even then, many Raku types can be translated back into the native types automatically. For instance, <strong>Bool</strong></p><p>For almost all of the (unsigned) integer types, one can use <strong>Int</strong> or <strong>UInt</strong>. While that is true, you must take care that it fits in the proper native type. Only magicians can fit the integer number 1024 into a <strong>gint8</strong> for example.</p><p>Also there is an automatic mapping from <strong>Num</strong> to <strong>gfloat</strong> which is like a Raku type <strong>num32</strong>. Furthermore The Raku <strong>Rat</strong> type is mapped to <strong>gdouble</strong> whih is represented as <strong>num64</strong> in Raku.</p>
+<h2 id="Special_types"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Special types</a></h2>
+<ul>
+<li><p>GEnum; An integer used to refer to native enumerations.</p></li>
+<li><p>GFlag; An unsigned integer to be used as a mask of bits.</p></li>
+<li><p>GQuark; An unsigned integer to be used in the native error system.</p></li>
+<li><p>GType; An unsigned integer to be used as a type number. There are a series of fixed numbers but the classes get a type number when instantiated.</p></li>
+<li><p>gunichar; Classifies a Unicode character by type.</p></li>
+</ul>
+
+<h2 id="Pointers_to_character_string"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Pointers to character string</a></h2>
+<ul>
+<li><p>char-ppptr; A pointer to an array of strings. Used by the native functions to return string arrays.</p></li>
+<li><p>char-pptr; A pointer to a character string.</p></li>
+<li><p>gchar-ppptr; Like char-ppptr. Documentation of Gnome is not always concequent in the use of types.</p></li>
+<li><p>gchar-pptr; Like char-pptr.</p></li>
+<li><p>gchar-ptr; A character string. The Raku <strong>Str</strong> type can be used for this.</p></li>
+</ul>
+
+<h2 id="Pointers_to_integer"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Pointers to integer</a></h2>
+<ul>
+<li><p>int-ptr; A pointer to an integer. Used by the native functions to return an integer.</p></li>
+<li><p>gint-ptr; Like int-ptr</p></li>
+</ul>
+
+<h2 id="Special_pointers"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Special pointers</a></h2>
+<ul>
+<li><p>void-ptr; Used when nothing is returned from a function.</p></li>
+<li><p>gpointer; A pointer to some object.</p></li>
+</ul>
+
+<h2 id="Simple_types"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Simple types</a></h2>
+<ul>
+<li><p>gboolean; An integer value being 0 or 1. You can use the <strong>Bool</strong> type for it.</p></li>
+<li><p>gchar; An 8 bit number for a character</p></li>
+<li><p>guchar; The Raku type <strong>UInt</strong> can be used.</p></li>
+</ul>
+
+<h2 id="Floating_point"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Floating point</a></h2>
+<ul>
+<li><p>gdouble; A large floating point number. The modules will translate Raku type <strong>Rat</strong> to this type.</p></li>
+<li><p>gfloat; A smaller floating point value. The modules will translate Raku type <strong>Num</strong> to this type.</p></li>
+</ul>
+
+<h2 id="Integer_types"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Integer types</a></h2>
+<ul>
+<li><p>gint; An integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>gint16; a 16 bit integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>gint32; a 32 bit integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>gint64; a 64 bit integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>gint8; An 8 bit integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>glong; A large integer. The Raku type <strong>Int</strong> can be used.</p></li>
+<li><p>gshort; A small integer. The Raku type <strong>Int</strong> can be used.</p></li>
+</ul>
+
+<h2 id="Special_integer_types"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Special integer types</a></h2>
+<ul>
+<li><p>gsize; An unsigned integer use for sizes. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>gssize; An integer also used for sizes The Raku type <strong>Int</strong> can be used.</p></li>
+</ul>
+
+<h2 id="Unsigned_integer_types"><a href="#Gnome::N::GlibToRakuTypes" class="u" title="go to top of document">Unsigned integer types</a></h2>
+<ul>
+<li><p>guint; An unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>guint16; A 16 bit unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>guint32; A 32 bit unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>guint64; A 64 bit unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>guint8; An 8 bit unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>gulong; An unsigned large integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>gushort; An unsigned small integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+<li><p>time_t; A 64 bit unsigned integer. The Raku type <strong>UInt</strong> can be used.</p></li>
+</ul>
+</section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-native/doc/GlibToRakuTypes.rakudoc</span></div><div>at <span class="time">2026-06-15T14:09:04Z</span></div></footer>
+	</body>
+</html>
