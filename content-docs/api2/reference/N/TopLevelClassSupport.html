@@ -1,0 +1,77 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::N::TopLevelClassSupport</title>
+<meta charset="UTF-8" />
+
+<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::N::TopLevelClassSupport">Gnome::N::TopLevelClassSupport</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Declaration">Declaration</a></td></tr>
+ <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#N-Object">N-Object</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#COERCE">COERCE</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-class-gtype">get-class-gtype</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#get-class-name">get-class-name</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#native-object-ref">native-object-ref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#native-object-unref">native-object-unref</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#is-valid">is-valid</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#clear-object">clear-object</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">Description</a></h1>
+<p>Top most class providing internally used methods and subroutines.</p><p>The class <strong>Gnome::N::TopLevelClassSupport</strong>, is the class at the top of the food chain. Most, if not all, are inheriting from this class. Its purpose is to provide convenience methods, processing and storing native objects, etcetera.</p><p>Most of the time, if not ever, you will not have to use any of this and can be read by interested souls only.</p>
+<h2 id="Declaration"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">Declaration</a></h2>
+<p>Its declaration is a bit different than normally done in Raku. It is done this way to prevent clashes from the <strong>Any</strong> class.</p><pre class="pod-block-code">unit class Gnome::N::TopLevelClassSupport;
+also is Mu;
+</pre>
+<h1 id="Methods"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">Methods</a></h1>
+
+<h2 id="new"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">new</a></h2>
+<p>Please note that this class is never instantiated directly but is used indirectly when child classes are instantiated.</p>
+<h3 id=":native-object"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">:native-object</a></h3>
+<p>Create a Raku object using a native object from elsewhere. $native-object can be a N-Object or a Raku object like <code>Gnome::Gtk3::Button</code>.</p><pre class="pod-block-code">method new ( :$native-object! )
+</pre>
+<h2 id="N-Object"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">N-Object</a></h2>
+<p>Method to get the native object wrapped in the Raku objects.</p><p>Example where the native object is retrieved from a <strong>Gnome::Gtk3::Window</strong> object.</p><pre class="pod-block-code">  my Gnome::Gtk3::Window $w;
+  my N-Object() $no = $w;
+</pre><pre class="pod-block-code">method N-Object ( --&gt; N-Object )
+</pre>
+<h2 id="COERCE"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">COERCE</a></h2>
+<p>Method to wrap a native object into a Raku object</p><p>Example;</p><pre class="pod-block-code">my N-Object $no = …;  # native object from somewhere
+my Gnome::Gtk3::Window() $w = $no;
+</pre><pre class="pod-block-code">method COERCE( $no --&gt; Mu )
+</pre>
+<h2 id="get-class-gtype"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">get-class-gtype</a></h2>
+<p>Get glib type code of this native object which is set when the native object was created.</p><pre class="pod-block-code">method get-class-gtype ( --&gt; GType )
+</pre>
+<h2 id="get-class-name"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">get-class-name</a></h2>
+<p>Return native class name.</p><pre class="pod-block-code">method get-class-name ( --&gt; Str )
+</pre>
+<h2 id="native-object-ref"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">native-object-ref</a></h2>
+<p>Absolute method needed to be defined in all child classes to do reference count administration.</p><pre class="pod-block-code">  method native-object-ref ( $n-native-object ) { !!! }
+</pre>
+<h2 id="native-object-unref"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">native-object-unref</a></h2>
+<p>Absolute method needed to be defined in all child classes to do reference count administration.</p><pre class="pod-block-code">method native-object-unref ( $n-native-object ) { !!! }
+</pre>
+<h2 id="is-valid"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">is-valid</a></h2>
+<p>Returns True if native object is valid. When <code>False</code>, the native object is undefined and errors will occur when this instance is used.</p><pre class="pod-block-code">method is-valid ( --&gt; Bool )
+</pre>
+<h2 id="clear-object"><a href="#Gnome::N::TopLevelClassSupport" class="u" title="go to top of document">clear-object</a></h2>
+<p>Clear the error and return data to memory pool. The error object is not valid after this call and <code>is-valid()</code> will return <code>False</code>.</p><pre class="pod-block-code">method clear-object ()
+</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-native/doc/TopLevelClassSupport.rakudoc</span></div><div>at <span class="time">2026-06-15T20:45:18Z</span></div></footer>
+	</body>
+</html>
