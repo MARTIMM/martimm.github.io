@@ -8,6 +8,7 @@ use v6.d;
 # In the Raku::Pod::Render distro at
 # github.com/finanalyst/raku-pod-render/blob/master/lib/Pod/To/HTML2.rakumod
 # github.com/finanalyst/raku-pod-render/blob/master/Pod2HTML2.md
+use lib '/home/marcel/Languages/Raku/External/raku-pod-render/lib';
 use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
 #use Pod::Load;
@@ -31,12 +32,12 @@ constant GTS = 'GnomeTools/';
 constant GTD = 'MARTIMM.github.io/content-docs/GnomeTools/reference/';
 
 my Hash $source-paths = %(
-  :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/doc/'),
-  :Gdk4Api2(PROJECTS ~ API2S ~ 'gnome-gdk4/doc/'),
-  :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/doc/'),
-  :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/doc/'),
-  :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/doc/'),
-  :NApi2(PROJECTS ~ API2S ~ 'gnome-native/doc/'),
+  :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/lib/Gnome/Gtk4/'),
+  :Gdk4Api2(PROJECTS ~ API2S ~ 'gnome-gdk4/lib/Gnome/Gdk4/'),
+  :Gsk4Api2(PROJECTS ~ API2S ~ 'gnome-gsk4/lib/Gnome/Gsk4/'),
+  :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/lib/Gnome/Graphene/'),
+  :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/lib/Gnome/Gio/'),
+  :NApi2(PROJECTS ~ API2S ~ 'gnome-native/lib/Gnome/N/'),
 
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
@@ -158,20 +159,40 @@ note Q:to/EOUSAGE/;
 #-------------------------------------------------------------------------------
 # Read doc and generate HTML and store in $raku-doc-dest
 sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
+
+  # First check doc directory first
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
-  if ($raku-doc-path ~ '.rakudoc').IO ~~ :r {
-    $raku-doc-path ~= '.rakudoc';
+  $raku-doc-path ~~ s/ 'lib' \/ 'Gnome' .* $/doc\/$doc-name.rakudoc/;
+  if $raku-doc-path.IO.r {
   }
 
-  elsif ($raku-doc-path ~ '.rakumod').IO ~~ :r {
+  # Then check module directory
+  elsif ($raku-doc-path = $source-paths{$key} ~ $doc-name ~ '.rakumod').IO.r {
+  }
+
+  else {
+    die 'Cannot find rakumod nor rakudoc file';
+  }
+
+#`{{
+  my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
+  if ($raku-doc-path ~ '.rakumod').IO ~~ :r {
     $raku-doc-path ~= '.rakumod';
   }
+
+  else {
+    $raku-doc-path ~~ s/ 'lib' \/ 'Gnome' .* $/doc\/$doc-name.rakudoc/;
+
+    die 'Cannot find rakumod nor rakudoc file' unless $raku-doc-path.IO ~~ :r;
+  }
+}}
+note "$?LINE $key, $doc-name, $raku-doc-path";
 
   my Str $raku-doc-dest = $destination-paths{$key};
   mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
 
   my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
-  note "\n$basename";
+#  note "\n$basename";
   note "  Source: $raku-doc-path";
   note "  Destination: $raku-doc-dest";
 
@@ -181,8 +202,12 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
   
   my Array $raku-pod = load-pod($raku-doc-path);
 
-  note "  Processing $doc-name";
+  note "  Processing ", $filename.IO.basename;
+#  note "shell \"raku --doc=HTML2 $raku-doc-path > $filename.html\"";
 
+#  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
+#  my Proc $p = shell "raku --doc=HTML2 $raku-doc-path > $filename.html";
+##`{{
   # See also ProcessedPod.rakumod TWEAK. Can be set via %ENV.
   # Attributes are defined as 'is rw'
   with my Pod::To::HTML2 $pr .= new {
@@ -194,7 +219,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
     .no-meta = True;
     "$filename.html".IO.spurt("---\n---\n" ~ .source-wrap(:$filename));
   }
-
+#}}
   note "  Generated {$filename.IO.basename}.html";
 }
 
@@ -403,20 +428,31 @@ sub load-pod ( Str $file --> Array ) {
     }
   }
 
-  # Evaluation of the pod file does not seem to understand '=finish'
+  # EVALFILE has limitations so cleanup code is essential
+  # Remove everything after '=finish'
   if $contents ~~ m/^^ '=finish' $$/ {
     $contents ~~ s/'=finish' .* $//;
   }
 
-  # And drop all comments while w're at it
-  $contents ~~ s:g/^^ '=comment' .*? $$//; 
+  # Remove commented out code
+  $contents ~~ s:g/ '#`{{' .*? '}}' //;
+
+  # And drop all pod comments while w're at it
+  $contents ~~ s:g/^^ '=comment' .*? $$//;
+
+  # Drop all code
+  $contents ~~ s:g/ '=end' \s 'pod' .*? '=begin' \s 'pod' //;
+  $contents ~~ s:g/^ .*? '=begin' \s 'pod' /=begin pod/;
+  $contents ~~ s:g/ '=end' \s 'pod' .* $/=end pod/;
+
 
   my $pod;
-  $contents ~= "\n" ~ '$pod = $=pod;' ~ "\n\n";
+  $contents ~= "\n\n" ~ '$pod = $=pod;' ~ "\n\n";
 
   try {
     "/tmp/mod-doc.txt".IO.spurt($contents);
     EVALFILE "/tmp/mod-doc.txt";
+#    EVAL $contents;
 
     CATCH {
       default {
