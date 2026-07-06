@@ -42,7 +42,7 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 |-|-|-|-|
 |Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|GestureSingle.rakumod
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|GestureSingle.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|GestureSingle.rakutest|no-implement	0 tests|
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|GestureSingle.rakutest|8 tests|
 
 ### Methods
 
