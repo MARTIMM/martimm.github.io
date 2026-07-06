@@ -40,9 +40,11 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|GestureClick.rakumod
-|Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|GestureClick.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|GestureClick.rakutest|0 tests|
+|Module generated|![](/content-docs/asset_files/images/checklist-ok.png)|GestureClick.rakumod
+|Documentation corrected|![](/content-docs/asset_files/images/checklist-ok.png)|GestureClick.rakudoc
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|GestureClick.rakutest|1 tests|
+
+<br/><strong>Note:</strong> Tested by example program `xt/gtk4-tests/Events/gestures01.raku`
 
 ### Constructors
 
