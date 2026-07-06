@@ -6,18 +6,20 @@
 <title>Gnome::Gtk4::GestureClick</title>
 <meta charset="UTF-8" />
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="/asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
 <link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
 
 </head>
 	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::GestureClick">Gnome::Gtk4::GestureClick</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
+<header>
+<img id="Camelia_bug" src="/asset_files/images/Camelia.svg"><h1 class="title">Gnome::Gtk4::GestureClick</h1></header><div class="pod-content"><nav><div id="_TOC"><table>
 <caption>Table of Contents</caption>
 <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
  <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
  <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
  <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
@@ -34,19 +36,53 @@
 <p><strong>Gnome::Gtk4::GestureClick</strong> is a <a href="/content-docs/api2/reference/Gtk4/Gesture.html">Gnome::Gtk4::Gesture</a> implementation for clicks.</p><p>It is able to recognize multiple clicks on a nearby zone, which can be listened for through the <em>pressed</em> signal. Whenever time or distance between clicks exceed the GTK defaults, <em>stopped</em> is emitted, and the click counter is reset.</p>
 <h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Uml Diagram</a></h2>
 <div class="image-container inline"><img src="asset_files/images/plantuml/GestureClick.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
+
+<h2 id="Example"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Example</a></h2>
+<p>Example use of <strong>Gnome::Gtk4::GestureClick</strong>. The code below shows a helper class to handle the mouse button presses in method <code>.press()</code>. Double click will show a single button first ($nbr-buttons = 1), then 2 buttons ($nbr-buttons = 2). To process that properly, it is suggested above to also register the <em>stopped</em> event.</p><p>Normally only button 1 is set to trigger. To change that for other buttons, <a href="/content-docs/api2/reference/Gtk4/GestureSingle.html">.set-button() from Gnome::Gtk4::GestureSingle</a> must be used. To set it to 0, it will trigger any button. <a href="/content-docs/api2/reference/Gtk4/GestureSingle.html">.get-button() from Gnome::Gtk4::GestureSingle</a> will only return what is set by <code>.set-button()</code>.</p><pre class="pod-block-code">class SH {
+  has Int $!click-count = 0;
+
+  method stopit ( --&gt; gboolean ) { … }
+
+  method stopped ( ) {
+    say &quot;button is pressed $!click-count times&quot;;
+    $!click-count = 0;
+  }
+
+  method press (
+    Int $nbr-buttons, Rat() $x, Rat() $y,
+    GestureClick() :_native-object($gc)
+  ) {
+    $!click-count = $nbr-buttons;
+    say &quot;$gc.get-current-button() mouse button is pressed&quot;;
+  }
+}
+
+my SH $sh .= new;
+
+with my GestureClick $click-gesture .= new-gestureclick {
+  $click-gesture.set-button(0);
+  .register-signal( $sh, 'press', 'pressed');
+  .register-signal( $sh, 'stopped', 'stopped');
+}
+
+with my Window $window .= new-window {
+  .register-signal( $sh, 'stopit', 'close-request');
+  .add-controller($click-gesture);
+
+  .set-title('My mouse buttons test window');
+  .present;
+}
+
+</pre>
 <h1 id="Class_initialization"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Class initialization</a></h1>
 
 <h2 id="new"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">new</a></h2>
 
 <h3 id=":native-object"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre>
 <h2 id="new-gestureclick"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">new-gestureclick</a></h2>
 <p>Returns a newly created <a href="/content-docs/api2/reference/Gtk4/Gesture.html">Gnome::Gtk4::Gesture</a> that recognizes single and multiple presses.</p><pre class="pod-block-code">method new-gestureclick ( --&gt; Gnome::Gtk4::GestureClick )
-</pre></section>
-<section name="pod">
+</pre>
 <h1 id="Signals"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">Signals</a></h1>
 
 <h3 id="pressed"><a href="#Gnome::Gtk4::GestureClick" class="u" title="go to top of document">pressed</a></h3>
@@ -121,6 +157,6 @@
 <li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
 </ul>
 </section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GestureClick.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:36Z</span></div></footer>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GestureClick.rakudoc</span></div><div>at <span class="time">2026-07-06T12:31:41Z</span></div></footer>
 	</body>
 </html>
