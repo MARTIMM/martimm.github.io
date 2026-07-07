@@ -1,0 +1,85 @@
+---
+---
+<!doctype html>
+<html lang="en">
+<head>
+<title>Gnome::N::GObjectSupport</title>
+<meta charset="UTF-8" />
+
+<link href="/asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+
+</head>
+	<body class="pod">
+<header>
+<img id="Camelia_bug" src="/asset_files/images/Camelia.svg"><h1 class="title">Gnome::N::GObjectSupport</h1></header><div class="pod-content"><nav><div id="_TOC"><table>
+<caption>Table of Contents</caption>
+<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
+ <tr class="toc-level-2"><td class="toc-text"><a href="#register-signal">register-signal</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Callback_handlers">Callback handlers</a></td></tr>
+ <tr class="toc-level-3"><td class="toc-text"><a href="#Example_1">Example 1</a></td></tr>
+</table></div>
+</nav><div id=""></div><div class="pod-body">
+<section name="___top">
+<h1 id="Description"><a href="#Gnome::N::GObjectSupport" class="u" title="go to top of document">Description</a></h1>
+<p>This class is a helper class to support methods which do not fit in <strong>Gnome::GObject::Object</strong>. It mostly deals with signals. Most important method used all the time is <code>.register-signal()</code>.</p>
+<h2 id="register-signal"><a href="#Gnome::N::GObjectSupport" class="u" title="go to top of document">register-signal</a></h2>
+<p>Register a handler to process a signal or an event. There are several types of callbacks which can be handled by this registration. They can be controlled by using a named argument with a special name.</p><pre class="pod-block-code">method register-signal (
+  $handler-object, Str:D $handler-name,
+  Str:D $signal-name, *%user-options
+  --&gt; Int
+)
+</pre><ul>
+<li><p>$handler-object; The object wherein the handler is defined.</p></li>
+<li><p>$handler-name; The name of the method.</p></li>
+<li><p>$signal-name; The name of the event to be handled. Each gtk object has its own series of signals.</p></li>
+<ul>
+<li><p><code>:$_handler-id</code>; The handler id which is returned from the registration</p></li>
+<li><p><code>:$_native-object</code>; The native object provided by the caller.</p></li>
+</ul>
+<li><p>%user-options; Any other user data in whatever type provided as one or more named arguments. These arguments are provided to the user handler when an event for the handler is fired. The names starting with '_' are reserved to provide other info to the user.</p><p>The following reserved named arguments are available;</p><pre class="pod-block-code">method some-button-click-handler (
+  …,
+  Gnome::Gtk3::Button() :_native-object($button)
+) {
+  …
+}
+</pre></li>
+</ul>
+<p>The method returns a handler id which can be used for example to disconnect the callback later.</p>
+<h3 id="Callback_handlers"><a href="#Gnome::N::GObjectSupport" class="u" title="go to top of document">Callback handlers</a></h3>
+<ul>
+<li><p>Simple handlers; e.g. a click event handler has only named arguments and are optional.</p></li>
+<li><p>Complex handlers (only a bit) also have positional arguments and <strong>MUST</strong> be typed because they are checked to create a signature for the call to a native subroutine. You can use the raku native types like <code>int32</code> but several types are automatically converted to native types. The types such as gboolean, etc are defined in <strong>Gnome::N::GlibToRakuTypes</strong>.</p><table class="table is-bordered centered pod-table">	<thead>
+		<tr><th>Raku type</th><th>Native glib type</th><th>Native Raku type</th></tr>
+	</thead>	<tbody>
+		<tr><td>Bool</td><td>gboolean</td><td>int32</td></tr>
+		<tr><td>UInt</td><td>guint</td><td>uint32/uint64</td></tr>
+		<tr><td>Int</td><td>gint</td><td>int32/int64</td></tr>
+		<tr><td>Num</td><td>gfloat</td><td>num32</td></tr>
+		<tr><td>Rat</td><td>gdouble</td><td>num64</td></tr>
+	</tbody>
+</table>
+</li>
+<li><p>Some handlers must return a value and is used by the calling process. You <strong>MUST</strong> describe this too in the andlers API, otherwise the returned value is thrown away.</p></li>
+<li><p>Any user options are provided via named arguments from the call to <code>register-signal()</code>.</p></li>
+</ul>
+
+<h3 id="Example_1"><a href="#Gnome::N::GObjectSupport" class="u" title="go to top of document">Example 1</a></h3>
+<p>An example of a registration and the handlers signature to handle a button click event.</p><pre class="pod-block-code"># Handler class with callback methods
+class ButtonHandlers {
+  method click-button (
+    Gnome::Gtk3::Button() :_native-object($button),
+    Int :$_handler_id, :$my-option ) {
+    …
+  }
+}
+
+$button.register-signal(
+  ButtonHandlers.new, 'click-button', 'clicked', :my-option(…)
+);
+</pre></section>		</div>
+</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-native/doc/GObjectSupport.rakudoc</span></div><div>at <span class="time">2026-07-07T12:06:30Z</span></div></footer>
+	</body>
+</html>
