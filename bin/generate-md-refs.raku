@@ -8,7 +8,7 @@ use v6.d;
 # In the Raku::Pod::Render distro at
 # github.com/finanalyst/raku-pod-render/blob/master/lib/Pod/To/HTML2.rakumod
 # github.com/finanalyst/raku-pod-render/blob/master/Pod2HTML2.md
-use lib '/home/marcel/Languages/Raku/External/raku-pod-render/lib';
+#use lib '/home/marcel/Languages/Raku/External/raku-pod-render/lib';
 use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
 #use Pod::Load;
@@ -38,6 +38,8 @@ my Hash $source-paths = %(
   :GrapApi2(PROJECTS ~ API2S ~ 'gnome-graphene/lib/Gnome/Graphene/'),
   :GioApi2(PROJECTS ~ API2S ~ 'gnome-gio/lib/Gnome/Gio/'),
   :NApi2(PROJECTS ~ API2S ~ 'gnome-native/lib/Gnome/N/'),
+  :GObjApi2(PROJECTS ~ API2S ~ 'gnome-gobject/lib/Gnome/GObject/'),
+  :GlibApi2(PROJECTS ~ API2S ~ 'gnome-glib/lib/Gnome/Glib/'),
 
   :Gtk3Api1(PROJECTS ~ API1S ~ 'gnome-gtk3/lib/Gnome/Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1S ~ 'gnome-gdk3/lib/Gnome/Gdk3/'),
@@ -59,6 +61,8 @@ my Hash $destination-paths = %(
   :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
   :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
   :NApi2(PROJECTS ~ API2D ~ 'N/'),
+  :GObjApi2(PROJECTS ~ API2D ~ 'GObject/'),
+  :GlibApi2(PROJECTS ~ API2D ~ 'Glib/'),
 
   :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
   :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
@@ -80,6 +84,8 @@ my Hash $sidebar-paths = %(
   :GrapApi2(REFS ~ 'api2-ref-graphene-sidebar.yml'),
   :GioApi2(REFS ~ 'api2-ref-gio-sidebar.yml'),
   :NApi2(REFS ~ 'api2-ref-n-sidebar.yml'),
+  :GObjApi2(REFS ~ 'api2-ref-gobject-sidebar.yml'),
+  :GlibApi2(REFS ~ 'api2-ref-glib-sidebar.yml'),
 
   :Gtk3Api1(REFS ~ 'api1-ref-gtk3-sidebar.yml'),
   :Gdk3Api1(REFS ~ 'api1-ref-gdk3-sidebar.yml'),
