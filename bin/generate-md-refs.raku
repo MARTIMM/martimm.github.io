@@ -9,10 +9,11 @@ use v6.d;
 # github.com/finanalyst/raku-pod-render/blob/master/lib/Pod/To/HTML2.rakumod
 # github.com/finanalyst/raku-pod-render/blob/master/Pod2HTML2.md
 #use lib '/home/marcel/Languages/Raku/External/raku-pod-render/lib';
-use Pod::To::HTML2;
+#use Pod::To::HTML2;
 #use RakuDoc::To::HTML;
 #use Pod::Load;
 use YAMLish;
+use RakuDoc::Processor;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = $*HOME ~ '/Languages/Raku/Projects/';
@@ -104,7 +105,7 @@ my Hash $sidebar-paths = %(
 sub MAIN ( Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False ) {
 
   # Go to Githup Pages root dir
-  chdir('./content-docs');
+#  chdir('./content-docs');
 
   if $source-paths{$key}:exists and $destination-paths{$key}:exists {
     if ?$raku-doc-name {
@@ -206,26 +207,41 @@ note "$?LINE $key, $doc-name, $raku-doc-path";
   my Str $filename = "$raku-doc-dest$basename";
   return if ($skip and ("$filename.html".IO ~~ :e));
   
-  my Array $raku-pod = load-pod($raku-doc-path);
+#  my Array $raku-pod = load-pod($raku-doc-path);
 
   note "  Processing ", $filename.IO.basename;
 #  note "shell \"raku --doc=HTML2 $raku-doc-path > $filename.html\"";
+  my Str() $sdir = $raku-doc-path.IO.parent;
+#  my Str() $ddir = $filename.IO.parent;
+#  my Str() $sname = $raku-doc-path.IO.basename;
+note "\n\nshell \"RenderDocs --format=html --src='$sdir' --to='/tmp' '$doc-name'\"\n ";
+
+  shell "RenderDocs --format=html --src='$sdir' --to='/tmp' '$doc-name'";
+  my Str $result = "---\n---\n" ~ "/tmp/$doc-name.html".IO.slurp;
+#  $result ~~ s/
+note "Store at $filename.html";
+  "$filename.html".IO.spurt($result);
 
 #  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
 #  my Proc $p = shell "raku --doc=HTML2 $raku-doc-path > $filename.html";
-##`{{
+
+#`{{
   # See also ProcessedPod.rakumod TWEAK. Can be set via %ENV.
   # Attributes are defined as 'is rw'
   with my Pod::To::HTML2 $pr .= new {
     .pod-file.path = $raku-doc-path;
-    .process-pod($raku-pod);
+    .pod-file.title-target = '____top';
     .no-toc = True if $raku-doc-path ~~ m/ XMas /;
     .no-glossary = True;
     .no-footnotes = True;
+    .process-pod($raku-pod);
     .no-meta = True;
     "$filename.html".IO.spurt("---\n---\n" ~ .source-wrap(:$filename));
   }
-#}}
+  note $pr.pod-file.gist;
+}}
+
+
   note "  Generated {$filename.IO.basename}.html";
 }
 
@@ -234,6 +250,7 @@ sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
 
+  chdir('./content-docs');
   note "\nAdd entries to sidebar at $sidebar-path";
 
   my @classes = ();
@@ -361,6 +378,7 @@ sub generate-sidebar( Str $key ) {
   }
 }
 
+#`{{
 #-------------------------------------------------------------------------------
 #use MONKEY-SEE-NO-EVAL;
 
@@ -470,3 +488,4 @@ sub load-pod ( Str $file --> Array ) {
   $pod
 }
 
+}}
