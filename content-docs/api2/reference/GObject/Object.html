@@ -1,210 +1,1065 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::GObject::Object</title>
-<meta charset="UTF-8" />
-
-<link href="/asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-
-</head>
-	<body class="pod">
-<header>
-<img id="Camelia_bug" src="/asset_files/images/Camelia.svg"><h1 class="title">Gnome::GObject::Object</h1></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#freeze-notify">freeze-notify</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-data">get-data</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-property">get-property</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Example">Example</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-qdata">get-qdata</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#notify">notify</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-data">set-data</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Example_0">Example</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-property">set-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-qdata">set-qdata</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#thaw-notify">thaw-notify</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#register-signal">register-signal</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Callback_handlers">Callback handlers</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Example_1">Example 1</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#notify_0">notify</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Description</a></h1>
-<p>The base object type.</p>
-<h1 id="Methods"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Methods</a></h1>
-
-<h2 id="freeze-notify"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">freeze-notify</a></h2>
-<p>Increases the freeze count on <code>$object</code>. If the freeze count is non-zero, the emission of &quot;notify&quot; signals on <code>$object</code> is stopped. The signals are queued until the freeze count is decreased to zero. Duplicate notifications are squashed so that at most one <em>notify</em> signal is emitted for each property modified while the object is frozen.</p><p>This is necessary for accessors that modify multiple properties to prevent premature notification while the object is still being modified.</p><pre class="pod-block-code">method freeze-notify ( )
-</pre>
-<h2 id="get-data"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">get-data</a></h2>
-<p>Gets a named field from the objects table of associations (see <a href="#set-data">.set-data()</a>).</p><pre class="pod-block-code">method get-data ( Str $key --&gt; gpointer )
-</pre><ul>
-<li><p>$key; name of the key for that association.</p></li>
-</ul>
-<p>Return value; the data if found, or <code>Nil</code> if no such data exists.</p>
-<h2 id="get-property"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">get-property</a></h2>
-<p>Gets a property of an object.</p><p>The <code>$value</code> can be:</p><ul>
-<li><p>an empty GValue, which will be automatically initialized with the expected type of the property (since GLib 2.60)</p></li>
-<li><p>a GValue initialized with the expected type of the property.</p></li>
-<li><p>a GValue initialized with a type to which the expected type of the property can be transformed.</p></li>
-</ul>
-<p>In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling <a href="#unset">.unset()</a>.</p><p>Note that <code>.get-property()</code> is really intended for language bindings, <code>.get()</code> is much more convenient for C programming.</p><pre class="pod-block-code">method get-property ( Str $property-name, CArray[N-Value] $value )
-</pre><ul>
-<li><p>$property-name; the name of the property to get.</p></li>
-<li><p>$value; return location for the property value.</p></li>
-</ul>
-
-<h3 id="Example"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Example</a></h3>
-<p>Get the label property of a <strong>Gnome::Gtk4::Label</strong> object.</p><pre class="pod-block-code">with my Gnome::Gtk4::Label $label .= new-label {
-  my Gnome::GObject::N-Value() $property-value .= new(:type(G_TYPE_STRING));
-
-  $property-value.set-string('My label text');
-  .set-property( 'label', $property-value);
-
-  .get-property( 'label', $property-value);
-  say 'Label string is &quot;, $property-value.get-string;
-}
-</pre><p>Please note that most, if not all, properties of the classes are accessable using the class getters and setters. In the case above, <code>.set-text()</code> and <code>.get-text()</code> methods defined in the <strong>Gnome::Gtk4::Label</strong> class.</p>
-<h2 id="get-qdata"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">get-qdata</a></h2>
-<p>This function gets back user data pointers stored via <a href="#set-qdata">.set-qdata()</a>.</p><pre class="pod-block-code">method get-qdata ( UInt $quark --&gt; gpointer )
-</pre><ul>
-<li><p>$quark; A GQuark, naming the user data pointer.</p></li>
-</ul>
-<p>Return value; The user data pointer set, or <code>Nil</code>. </p>
-<h2 id="notify"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">notify</a></h2>
-<p>Emits a &quot;notify&quot; signal for the property <code>$property_name</code> in this object.</p><p>Note that emission of the notify signal may be blocked with <code>.freeze-notify()</code>. In this case, the signal emissions are queued and will be emitted (in reverse order) when <code>.thaw-notify()</code> is called.</p><pre class="pod-block-code">method notify ( Str $property-name )
-</pre><ul>
-<li><p>$property-name; the name of a property installed on the class of <code>$object</code>..</p></li>
-</ul>
-
-<h2 id="set-data"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">set-data</a></h2>
-<p>Each object carries around a table of associations from strings to pointers. This function lets you set an association.</p><p>If the object already had an association with that name, the old association will be destroyed.</p><p>Internally, the <code>$key</code> is converted to a GQuark using <a href="content-docs/api2/reference/Glib/T-quark.html#from-string">.from-string() in Gnome::Glib::T-quark</a>.This means a copy of <code>$key</code> is kept permanently (even after this native object has been deleted) — so it is recommended to only use a small, bounded set of values for <code>$key</code> in your program, to avoid the GQuark storage growing unbounded.</p><pre class="pod-block-code">method set-data ( Str $key, gpointer $data )
-</pre><ul>
-<li><p>$key; name of the key.</p></li>
-<li><p>$data; data to associate with that key.</p></li>
-</ul>
-
-<h3 id="Example_0"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Example</a></h3>
-<p>A label object is used to store extra data in the form of an N-Value structure. The example shows the use of <code>.set-data()</code>, <a href="#get-data">.get-data()</a>. Also the methods <a href="#set-qdata">.set-qdata()</a>, <a href="#get-qdata">.get-qdata()</a> are shown.</p><pre class="pod-block-code">with my Gnome::Gtk4::Label $label .= new-label {
-  my Gnome::GObject::N-Value() $extra-data .= new(:type(G_TYPE_INT));
-
-  # Store
-  $extra-data.set-int(12345);
-  .set-data( 'my-data', $extra-data);
-
-  # Retrieve
-  $extra-data = .get-data('my-data');
-  say &quot;The stored integer is &quot;, $extra-data.get-int;
-
-  # Same using a quark
-  my Gnome::Glib::T-quark $tq .= new;
-  my GQuark $q = $tq.from-string('my-data2');
-
-  # Store
-  $extra-data.set-int(54321);
-  .set-qdata( $q, $extra-data);
-
-  # Retrieve
-  $extra-data = .get-qdata($q);
-  say &quot;$extra-data.get-int, 54321, '.set-qdata() / .get-qdata() stored N-Value with quark';
-}
-</pre>
-<h2 id="set-property"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">set-property</a></h2>
-<p>Sets a property on an object.</p><pre class="pod-block-code">method set-property ( Str $property-name, CArray[N-Value] $value )
-</pre><ul>
-<li><p>$property-name; the name of the property to set.</p></li>
-<li><p>$value; the value.</p></li>
-</ul>
-
-<h2 id="set-qdata"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">set-qdata</a></h2>
-<p>This sets an opaque, named pointer on an object. The name is specified through a GQuark (retrieved e.g. via .from-string()), and the pointer can be gotten back from the <code>$object</code> with <code>.get-qdata()</code> until the object is finalized.</p><p>Setting a previously set user data pointer, overrides (frees) the old pointer set, using <code>NULL</code> as pointer essentially removes the data stored.</p><pre class="pod-block-code">method set-qdata ( UInt $quark, gpointer $data )
-</pre><ul>
-<li><p>$quark; A GQuark, naming the user data pointer.</p></li>
-<li><p>$data; An opaque user data pointer.</p></li>
-</ul>
-
-<h2 id="thaw-notify"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">thaw-notify</a></h2>
-<p>Reverts the effect of a previous call to <code>.freeze-notify()</code>. The freeze count is decreased on <code>$object</code> and when it reaches zero, queued &quot;notify&quot; signals are emitted.</p><p>Duplicate notifications for each property are squashed so that at most one <em>notify</em> signal is emitted for each property, in the reverse order in which they have been queued.</p><p>It is an error to call this function when the freeze count is zero.</p><pre class="pod-block-code">method thaw-notify ( )
-</pre>
-<h2 id="register-signal"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">register-signal</a></h2>
-<p>Note: This method is a convenience method not defined by Gnome in the Object class. The method is defined in <a href="/content-docs/api2//reference/N/GObjectSupport.html#register-signal">Gnome::N::GObjectSupport</a>.</p><p>Register a handler to process a signal or an event. There are several types of callbacks which can be handled by this registration. They can be controlled by using a named argument with a special name.</p><pre class="pod-block-code">method register-signal (
-  $handler-object, Str:D $handler-name,
-  Str:D $signal-name, *%user-options
-  --&gt; Int
-)
-</pre><ul>
-<li><p>$handler-object; The object wherein the handler is defined.</p></li>
-<li><p>$handler-name; The name of the method.</p></li>
-<li><p>$signal-name; The name of the event to be handled. Each gtk object has its own series of signals.</p></li>
-<ul>
-<li><p><code>:$_handler-id</code>; The handler id which is returned from the registration</p></li>
-<li><p><code>:$_native-object</code>; The native object provided by the caller.</p></li>
-</ul>
-<li><p>%user-options; Any other user data in whatever type provided as one or more named arguments. These arguments are provided to the user handler when an event for the handler is fired. The names starting with '_' are reserved to provide other info to the user.</p><p>The following reserved named arguments are available;</p><pre class="pod-block-code">method some-button-click-handler (
-  …,
-  Gnome::Gtk3::Button() :_native-object($button)
-) {
-  …
-}
-</pre></li>
-</ul>
-<p>The method returns a handler id which can be used for example to disconnect the callback later.</p>
-<h3 id="Callback_handlers"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Callback handlers</a></h3>
-<ul>
-<li><p>Simple handlers; e.g. a click event handler has only named arguments and are optional.</p></li>
-<li><p>Complex handlers (only a bit) also have positional arguments and <strong>MUST</strong> be typed because they are checked to create a signature for the call to a native subroutine. You can use the raku native types like <code>int32</code> but several types are automatically converted to native types. The types such as gboolean, etc are defined in <strong>Gnome::N::GlibToRakuTypes</strong>.</p><table class="table is-bordered centered pod-table">	<thead>
-		<tr><th>Raku type</th><th>Native glib type</th><th>Native Raku type</th></tr>
-	</thead>	<tbody>
-		<tr><td>Bool</td><td>gboolean</td><td>int32</td></tr>
-		<tr><td>UInt</td><td>guint</td><td>uint32/uint64</td></tr>
-		<tr><td>Int</td><td>gint</td><td>int32/int64</td></tr>
-		<tr><td>Num</td><td>gfloat</td><td>num32</td></tr>
-		<tr><td>Rat</td><td>gdouble</td><td>num64</td></tr>
-	</tbody>
-</table>
-</li>
-<li><p>Some handlers must return a value and is used by the calling process. You <strong>MUST</strong> describe this too in the handlers API, otherwise the returned value is thrown away.</p></li>
-<li><p>Any user options are provided via named arguments from the call to <code>register-signal()</code>.</p></li>
-</ul>
-
-<h3 id="Example_1"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Example 1</a></h3>
-<p>An example of a registration and the handlers signature to handle a button click event.</p><pre class="pod-block-code"># Handler class with callback methods
-class ButtonHandlers {
-  method click-button (
-    Gnome::Gtk3::Button() :_native-object($button),
-    Int :$_handler_id, :$my-option ) {
-    …
-  }
+<!DOCTYPE html>
+<html lang="en"
+           class="theme-light"
+           style="scroll-padding-top:var(--bulma-navbar-height)" >
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Gnome::GObject::Object</title>
+<link rel="icon" href="https://irclogs.raku.org/favicon.ico">
+<style>@charset "UTF-8";
+/*! Vanilla CSS */
+span.basis {
+  font-weight: 800;
 }
 
-$button.register-signal(
-  ButtonHandlers.new, 'click-button', 'clicked', :my-option(…)
-);
-</pre>
-<h1 id="Signals"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">Signals</a></h1>
+span.important {
+  font-style: italic;
+}
 
-<h3 id="notify_0"><a href="#Gnome::GObject::Object" class="u" title="go to top of document">notify</a></h3>
-<p>The notify signal is emitted on an object when one of its properties has its value set through <code>.set-property()</code>.</p><p>Note that getting this signal doesn’t itself guarantee that the value of the property has actually changed. When it is emitted is determined by the derived GObject class. If the implementor did not create the property with %G_PARAM_EXPLICIT_NOTIFY, then any call to <code>.set-property()</code> results in <em>notify</em> being emitted, even if the new value is the same as the old. If they did pass %G_PARAM_EXPLICIT_NOTIFY, then this signal is emitted only when they explicitly call <code>.notify()</code> or <code>.notify-by-pspec()</code>, and common practice is to do that only when the value has actually changed.</p><p>This signal is typically used to obtain change notification for a single property, by specifying the property name as a detail in the g_signal_connect() call, like this:</p><p>It is important to note that you must use canonical parameter names as detail strings for the notify signal.</p><pre class="pod-block-code">method handler (
-  N-Object $pspec,
-  Int :$_handle_id,
-  Gnome::GObject::Object() :$_native-object,
-  *%user-options
-)
-</pre><ul>
-<li><p>$pspec; the GParamSpec of the property which changed.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event.</p></li>
-<li><p>%user-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+span.unusual {
+  text-decoration: underline;
+}
+
+span.weighty {
+  font-variant: small-caps;
+}
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px;
+}
+
+span.overstrike {
+  text-decoration: line-through;
+}
+
+span.high {
+  vertical-align: super;
+}
+
+span.junior {
+  vertical-align: sub;
+}
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px;
+}
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */
+}
+span.indexed:target {
+  background-color: #fff3bf; /* Soft yellow highlight */
+  outline: 2px solid #fab005;
+}
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px;
+}
+
+span.keyboard {
+  text-shadow: 1px 1px;
+}
+
+span.terminal {
+  text-decoration: overline underline;
+}
+
+span.footnote {
+  vertical-align: super;
+}
+
+a.footnote-anchor {
+  text-decoration: none;
+}
+
+span.developer-version {
+  display: none;
+  color: red;
+}
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive;
+}
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5;
+}
+
+span.bad-markdown {
+  text-shadow: 1px 1px red;
+}
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem;
+}
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem;
+}
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem;
+}
+
+div.defn-text {
+  margin-left: 1rem;
+}
+div.defn-text p {
+  margin: 0;
+}
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic;
+}
+div.defn-term .N {
+  margin-right: 5px;
+}
+
+div.id-target {
+  display: none;
+}
+
+div.nested {
+  margin-left: 5rem;
+}
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem);
+}
+div.toc .toc-item::before {
+  content: attr(data-bullet);
+}
+div.toc .toc-item a {
+  padding-left: 0.4rem;
+}
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem);
+}
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange;
+}
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal;
+}
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/
+}
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green;
+}
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green;
+}
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super;
+}
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem);
+}
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem;
+}
+
+span.developer-text:hover {
+  text-decoration: overline;
+}
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem;
+}
+div.footer .footer-field {
+  display: inline-block;
+}
+div.footer .footer-line {
+  display: block;
+}
+
+.heading > a {
+  color: maroon;
+  text-decoration: none;
+}
+
+h.title {
+  font-size: larger;
+}
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content;
+}
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+}
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black;
+}
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px;
+}
+.rakudoc-table .table caption {
+  margin-bottom: 5px;
+}
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left;
+}
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center;
+}
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center;
+}
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right;
+}
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top;
+}
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline;
+}
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom;
+}
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold;
+}
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem);
+}
+li.item::marker {
+  content: attr(data-bullet);
+}
+li.item.extended-item > p {
+  margin: 0;
+}
+
+li.numitem {
+  padding-left: 0.4rem;
+}
+li.numitem::marker {
+  content: attr(data-bullet);
+}
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold;
+}
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden;
+}
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px;
+}
+
+.enumeration-N {
+  margin: 0 5px 0 5px;
+}
+
+.formula {
+  margin: 1rem;
+}
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+}
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem;
+}
+
+div.extended-para {
+  margin: 1rem 0;
+}
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem;
+}
+div.extended-para p.extended-para {
+  margin: 0.5rem 0;
+}
+
+.rakudoc-singlepage {
+  margin-left: 4rem;
+}
+
+/*# sourceMappingURL=vanilla.css.map */
+</style>
+<style>/* bulma */
+</style>
+<style>/* bulma */
+</style>
+<style>/* bulma */
+</style>
+<style>/* bulma */
+</style>
+<style>/* graphviz */
+</style>
+<style>/* hilite */
+</style>
+<style>/* latexformula */
+</style>
+<style>/* listfiles */
+</style>
+<style>/* leafletmap */
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+crossorigin=""
+/>
+
+<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuzzysort@3.1.0/fuzzysort.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+crossorigin=""
+></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/haskell.min.js"></script>
+<script src="https://unpkg.com/leaflet-providers@latest/leaflet-providers.js"
+></script>
+
+
+<script>    // Hilite-helper.js
+    document.addEventListener('DOMContentLoaded', function () {
+        // trigger the highlighter for non-Raku code
+        hljs.highlightAll();
+
+        // copy code block to clipboard adapted from solution at
+        // https://stackoverflow.com/questions/34191780/javascript-copy-string-to-clipboard-as-text-html
+        // if behaviour problems with different browsers add stylesheet code from that solution.
+        const copyButtons = Array.from(document.querySelectorAll('.copy-code'));
+        copyButtons.forEach( function( button ) {
+        var codeElement = button.nextElementSibling.nextElementSibling; // skip the label and get the div
+        button.addEventListener( 'click', function(insideButton) {
+            var container = document.createElement('div');
+            container.innerHTML = codeElement.innerHTML;
+                container.style.position = 'fixed';
+                container.style.pointerEvents = 'none';
+                container.style.opacity = 0;
+                document.body.appendChild(container);
+                window.getSelection().removeAllRanges();
+                var range = document.createRange();
+                range.selectNode(container);
+                window.getSelection().addRange(range);
+                document.execCommand("copy", false);
+                document.body.removeChild(container);
+            });
+        });
+    });
+</script>
+<script>// BulmaHelper.js
+var change_theme = function (theme) {
+    document.querySelector('html').className = '';
+    document.querySelector('html').classList.add('theme-' + theme);
+};
+var persisted_theme = function () { return localStorage.getItem('theme') };
+var persist_theme = function (theme) { localStorage.setItem('theme', theme) };
+
+var persisted_tocState = function () { return localStorage.getItem('tocOpen') };
+var persist_tocState = function (tocState) { localStorage.setItem('tocOpen', tocState ) };
+
+var originalIndex;
+var originalTOC;
+var matchTocState = function ( state ) {
+    if (document.getElementById("TOC") == null) { return };
+    if ( state ) {
+        document.getElementById("TOC").classList.remove('is-hidden');
+        document.getElementById("page-nav").classList.remove('is-hidden');
+        document.getElementById("mobile-nav").classList.remove('is-hidden');
+        document.getElementById("MainText").classList.add('is-three-quarters');
+        document.getElementById("MainText").classList.add('column');
+        document.getElementById("MainText").classList.remove('px-5');
+        persist_tocState( 'open');
+    }
+    else {
+        document.getElementById("TOC").classList.add('is-hidden');
+        document.getElementById("page-nav").classList.add('is-hidden');
+        document.getElementById("mobile-nav").classList.add('is-hidden');
+        document.getElementById("MainText").classList.remove('is-three-quarters');
+        document.getElementById("MainText").classList.remove('column');
+        document.getElementById("MainText").classList.add('px-5');
+        persist_tocState( 'closed' );
+    }
+}
+var setTocState = function ( state ) {
+    if (document.getElementById("TOC") == null) { return };
+    if ( state === 'closed') {
+        document.getElementById("TOC").classList.add('is-hidden');
+        document.getElementById("page-nav").classList.add('is-hidden');
+        document.getElementById("mobile-nav").classList.add('is-hidden');
+        document.getElementById("MainText").classList.remove('is-three-quarters');
+        document.getElementById("MainText").classList.remove('column');
+        document.getElementById("MainText").classList.add('px-5');
+        document.getElementById("navbar-toc-toggle").checked = false;
+    }
+    else {
+        document.getElementById("TOC").classList.remove('is-hidden');
+        document.getElementById("page-nav").classList.remove('is-hidden');
+        document.getElementById("mobile-nav").classList.remove('is-hidden');
+        document.getElementById("MainText").classList.add('is-three-quarters');
+        document.getElementById("MainText").classList.add('column');
+        document.getElementById("MainText").classList.remove('px-5');
+        document.getElementById("navbar-toc-toggle").checked = true;
+    }
+};
+window.addEventListener('load', function () {
+    // initialise if localStorage is set
+    let theme = persisted_theme();
+    if ( theme == null ) {
+        theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        change_theme(theme);
+        persist_theme(theme);
+    }
+    let tocState = persisted_tocState();
+    if ( tocState == null ) {
+        setTocState( 'open' )
+    }
+    else {
+        setTocState( tocState );
+        persist_tocState( tocState );
+    }
+    // Add listeners
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    };
+    // initialise window state
+    document.getElementById('changeTheme').addEventListener('click', function () {
+        let theme = persisted_theme() === 'light' ? 'dark' : 'light';
+        change_theme(theme);
+        persist_theme(theme);
+    });
+    if (document.getElementById("navbar-toc-toggle") !== null ) {
+        document.getElementById("navbar-toc-toggle").addEventListener('change', function() {
+            matchTocState( this.checked )
+        });
+        document.getElementById('toc-tab').addEventListener('click', function () { swap_toc_index('','toc') });
+        document.getElementById('index-tab').addEventListener('click', function () { swap_toc_index('','index') });
+        document.getElementById('mtoc-tab').addEventListener('click', function () { swap_toc_index('m','toc') });
+        document.getElementById('mindex-tab').addEventListener('click', function () { swap_toc_index('m','index') });
+        originalTOC = document.getElementById('toc-menu').getHTML();
+        originalIndex = document.getElementById('index-menu').getHTML();
+        document.getElementById("page-nav-search").addEventListener('keyup', function (event) {
+            filtersearch(event, 'toc-menu', 'index-menu', 'page-nav')
+        });
+        document.getElementById("mobile-nav-search").addEventListener('keyup', function (event) {
+            filtersearch(event, 'mtoc-menu', 'mindex-menu', 'mobile-nav')
+        });
+    }
+});
+function filtersearch(event, toc,index,nav) {
+    document.getElementById(toc).innerHTML = originalTOC;
+    document.getElementById(index).innerHTML = originalIndex;
+    var searchText = event.srcElement.value.toLowerCase();
+    if (searchText.length === 0) return;
+    var menuListElements = document.getElementById(nav).querySelectorAll('.toc-item, .index-section');
+    var matchingListElements = Array.from(menuListElements).filter(function (item) {
+        var el;
+        if ( item.classList.contains('toc-item') ) {
+            el = item.querySelector('a');
+        } else {
+            el = item.querySelector('.index-entry')
+        }
+        var listItemHTML = el.innerHTML;
+        var fuzzyRes = fuzzysort.go(searchText, [listItemHTML])[0];
+        if (fuzzyRes === undefined || fuzzyRes.score <= 0) {
+            return false;
+        }
+        var res = fuzzyRes.highlight('<b>','</b>');
+        if (res !== null) {
+            el.innerHTML = res;
+            return true;
+        } else {
+            return false;
+        }
+    });
+    menuListElements.forEach(function(elem){elem.classList.add('is-hidden')});
+    matchingListElements.forEach(function(elem){elem.classList.remove('is-hidden')});
+};
+function swap_toc_index(div, activate) {
+    let disactivate = (activate == 'toc') ? 'index' : 'toc';
+    document.getElementById( div + activate + '-tab').classList.add('is-active');
+    document.getElementById( div + disactivate + '-menu').classList.add('is-hidden');
+    document.getElementById( div + disactivate + '-tab').classList.remove('is-active');
+    document.getElementById( div + activate + '-menu').classList.remove('is-hidden');
+}
+</script>
+
+
+        <link rel="icon" href="https://irclogs.raku.org/favicon.ico">
+    </head>
+    <body class="has-navbar-fixed-top">
+        <!--nav class="navbar is-fixed-top raku-webs" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+     <figure class="navbar-item">
+        <img id="Camelia" class="is-rounded" src="https://avatars.githubusercontent.com/u/58170775">
+        <span class="navbar-tm-logo">tm</span>
+     </figure>
+      <div class="navbar-start navbar-item">
+        <label class="chevronToggle tooltip">
+            <input id="navbar-toc-toggle" type="checkbox" />
+            <span class="checkmark on is-hidden-mobile"><i class="fa fa-chevron-left fa-2x"></i></span>
+            <span class="checkmark off is-hidden-mobile"><i class="fa fa-chevron-right fa-2x"></i></span>
+            <span class="checkmark on is-hidden-tablet"><i class="fa fa-chevron-down fa-2x"></i></span>
+            <span class="checkmark off is-hidden-tablet"><i class="fa fa-chevron-up fa-2x"></i></span>
+            <span class="tooltiptext on">Close Table of contents for this page</span>
+            <span class="tooltiptext off">Open Table of contents for this page</span>
+        </label>
+      </div>
+
+     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+       <span aria-hidden="true"></span>
+       <span aria-hidden="true"></span>
+       <span aria-hidden="true"></span>
+       <span aria-hidden="true"></span>
+     </a>
+     </div>
+    <div id="navMenu" class="navbar-menu">
+    <div class="navbar-start navbar-item is-hidden-touch"></div> < !-- empty item so remainder are centered -- >
+    <a id="changeTheme" class="navbar-item">ChangeTheme</a>
+</div>
+
+</nav-->
+
+        <nav class="raku-webs panel is-hidden-mobile" id="page-nav">
+  <div class="panel-block">
+    <p class="control has-icons-left">
+      <input class="input" type="text" placeholder="🔍" id="page-nav-search"/>
+      <span class="icon is-left">
+        <i class="fas fa-search" aria-hidden="true"></i>
+      </span>
+    </p>
+  </div>
+  <p class="panel-tabs">
+    <a id="toc-tab">Table of Contents</a>
+    <a id="index-tab">Index</a>
+  </p>
+    <aside id="toc-menu" class="panel-block">
+    <div class="raku-webs toc"><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#freeze-notify">freeze-notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-data">get-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-property">get-property</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example">Example</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-qdata">get-qdata</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#notify">notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-data">set-data</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example_0">Example</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-property">set-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-qdata">set-qdata</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#thaw-notify">thaw-notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#register-signal">register-signal</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Callback_handlers">Callback handlers</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example_1">Example 1</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#notify_0">notify</a></div>
+</div>
+
+    </aside>
+    <aside id="index-menu" class="panel-block is-hidden">
+    <p>No Index for this page</p>
+    </aside>
+</nav>
+
+<div class="columns">
+    <div id="TOC" class="column is-one-quarter">
+            <div id="siteNavigation">
+        <!-- the following panel appears at the top of the page when form format is small -->
+        <nav class="panel is-hidden-tablet" id="mobile-nav">
+          <div class="panel-block">
+            <p class="control has-icons-left">
+              <input class="input" type="text" placeholder="🔍" id="mobile-nav-search"/>
+              <span class="icon is-left">
+                <i class="fas fa-search" aria-hidden="true"></i>
+              </span>
+            </p>
+          </div>
+          <p class="panel-tabs">
+            <a id="mtoc-tab">Table of Contents</a>
+            <a id="mindex-tab">Index</a>
+          </p>
+            <aside id="mtoc-menu" class="panel-block">
+            <div class="raku-webs toc"><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#freeze-notify">freeze-notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-data">get-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-property">get-property</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example">Example</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-qdata">get-qdata</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#notify">notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-data">set-data</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example_0">Example</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-property">set-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-qdata">set-qdata</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#thaw-notify">thaw-notify</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#register-signal">register-signal</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Callback_handlers">Callback handlers</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example_1">Example 1</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#notify_0">notify</a></div>
+</div>
+
+            </aside>
+            <aside id="mindex-menu" class="panel-block is-hidden">
+            <p>No Index for this page</p>
+            </aside>
+        </nav>
+    </div>
+
+    </div>
+    <div id="MainText" class="column section container">
+        <section class="section">
+  <div class="container">
+<div id="Gnome::GObject::Object"></div><h1 class="raku-webs title">Gnome::GObject::Object</h1>
+
+  </div>
+</section>
+
+        <div class="content px-4 ">
+        
+<h1 id="Description" class="heading raku-webs-h1 "><a href="#">Description</a><a class="raku-webs-anchor" href="#Description">§</a></h1>
+
+<p id="Para">The base object type.</p>
+<h1 id="Methods" class="heading raku-webs-h1 "><a href="#">Methods</a><a class="raku-webs-anchor" href="#Methods">§</a></h1>
+<h2 id="freeze-notify" class="heading raku-webs-h2 "><a href="#">freeze-notify</a><a class="raku-webs-anchor" href="#freeze-notify">§</a></h2>
+
+<p>Increases the freeze count on <span class="code">$object</span>. If the freeze count is non-zero, the emission of &quot;notify&quot; signals on <span class="code">$object</span> is stopped. The signals are queued until the freeze count is decreased to zero. Duplicate notifications are squashed so that at most one <span class="important">notify</span> signal is emitted for each property modified while the object is frozen. </p>
+
+<p id="Para_0">This is necessary for accessors that modify multiple properties to prevent premature notification while the object is still being modified.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">freeze-notify</span>&nbsp;(&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-data" class="heading raku-webs-h2 "><a href="#">get-data</a><a class="raku-webs-anchor" href="#get-data">§</a></h2>
+
+<p>Gets a named field from the objects table of associations (see <a href="#set-data">.set-data()</a>). </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">get-data</span>&nbsp;(&nbsp;<span class="rainbow-type">Str</span>&nbsp;<span class="rainbow-name_scalar">$key</span>&nbsp;<span class="rainbow-keyword">--&gt;</span>&nbsp;<span class="rainbow-name">gpointer</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$key; name of the key for that association.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/Object.rakudoc</span></div><div>at <span class="time">2026-07-12T19:09:11Z</span></div></footer>
-	</body>
+
+<p>Return value; the data if found, or <span class="code">Nil</span> if no such data exists. </p>
+<h2 id="get-property" class="heading raku-webs-h2 "><a href="#">get-property</a><a class="raku-webs-anchor" href="#get-property">§</a></h2>
+
+<p id="Para_1">Gets a property of an object.</p>
+
+<p>The <span class="code">$value</span> can be: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >an empty GValue, which will be automatically initialized with the expected type of the property (since GLib 2.60)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >a GValue initialized with the expected type of the property.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >a GValue initialized with a type to which the expected type of the property can be transformed.</li>
+</ul>
+
+<p>In general, a copy is made of the property contents and the caller is responsible for freeing the memory by calling <a href="#unset">.unset()</a>. </p>
+
+<p>Note that <span class="code">.get-property()</span> is really intended for language bindings, <span class="code">.get()</span> is much more convenient for C programming. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">get-property</span>&nbsp;(&nbsp;<span class="rainbow-type">Str</span>&nbsp;<span class="rainbow-name_scalar">$property-name</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-type">CArray</span><span class="rainbow-operator">[</span><span class="rainbow-name">N-Value</span><span class="rainbow-operator">]</span>&nbsp;<span class="rainbow-name_scalar">$value</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$property-name; the name of the property to get.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; return location for the property value.</li>
+</ul>
+<h3 id="Example" class="heading raku-webs-h3 "><a href="#">Example</a><a class="raku-webs-anchor" href="#Example">§</a></h3>
+
+<p>Get the label property of a <span class="basis">Gnome::Gtk4::Label</span> object. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">with</span>&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-name">Gnome::Gtk4::Label</span>&nbsp;<span class="rainbow-name_scalar">$label</span>&nbsp;<span class="rainbow-operator">.=</span>&nbsp;<span class="rainbow-name">new-label</span>&nbsp;{<br>&nbsp;&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-routine">Gnome::GObject::N-Value</span>()&nbsp;<span class="rainbow-name_scalar">$property-value</span>&nbsp;<span class="rainbow-operator">.=</span>&nbsp;<span class="rainbow-routine">new</span>(:<span class="rainbow-routine">type</span>(<span class="rainbow-name">G_TYPE_STRING</span>));<br><br>&nbsp;&nbsp;<span class="rainbow-name_scalar">$property-value</span><span class="rainbow-operator">.</span><span class="rainbow-routine">set-string</span>(<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">My label text</span><span class="rainbow-string_delimiter">'</span>);<br>&nbsp;&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">set-property</span>(&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">label</span><span class="rainbow-string_delimiter">'</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name_scalar">$property-value</span>);<br><br>&nbsp;&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">get-property</span>(&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">label</span><span class="rainbow-string_delimiter">'</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name_scalar">$property-value</span>);<br>&nbsp;&nbsp;<span class="rainbow-routine">say</span>&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">Label string is &quot;, $property-value.get-string;<br>}</span><span class="rainbow-string_delimiter"></span></pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Please note that most, if not all, properties of the classes are accessable using the class getters and setters. In the case above, <span class="code">.set-text()</span> and <span class="code">.get-text()</span> methods defined in the <span class="basis">Gnome::Gtk4::Label</span> class. </p>
+<h2 id="get-qdata" class="heading raku-webs-h2 "><a href="#">get-qdata</a><a class="raku-webs-anchor" href="#get-qdata">§</a></h2>
+
+<p>This function gets back user data pointers stored via <a href="#set-qdata">.set-qdata()</a>. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">get-qdata</span>&nbsp;(&nbsp;<span class="rainbow-type">UInt</span>&nbsp;<span class="rainbow-name_scalar">$quark</span>&nbsp;<span class="rainbow-keyword">--&gt;</span>&nbsp;<span class="rainbow-name">gpointer</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$quark; A GQuark, naming the user data pointer.</li>
+</ul>
+
+<p>Return value; The user data pointer set, or <span class="code">Nil</span>. </p>
+<h2 id="notify" class="heading raku-webs-h2 "><a href="#">notify</a><a class="raku-webs-anchor" href="#notify">§</a></h2>
+
+<p>Emits a &quot;notify&quot; signal for the property <span class="code">$property_name</span> in this object. </p>
+
+<p>Note that emission of the notify signal may be blocked with <span class="code">.freeze-notify()</span>. In this case, the signal emissions are queued and will be emitted (in reverse order) when <span class="code">.thaw-notify()</span> is called. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">notify</span>&nbsp;(&nbsp;<span class="rainbow-type">Str</span>&nbsp;<span class="rainbow-name_scalar">$property-name</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$property-name; the name of a property installed on the class of <span class="code">$object</span>..</li>
+</ul>
+
+<h2 id="set-data" class="heading raku-webs-h2 "><a href="#">set-data</a><a class="raku-webs-anchor" href="#set-data">§</a></h2>
+
+<p id="Para_2">Each object carries around a table of associations from strings to pointers. This function lets you set an association.</p>
+
+<p id="Para_3">If the object already had an association with that name, the old association will be destroyed.</p>
+
+<p>Internally, the <span class="code">$key</span> is converted to a GQuark using <a href="content-docs/api2/reference/Glib/T-quark#from-string">.from-string() in Gnome::Glib::T-quark</a>.This means a copy of <span class="code">$key</span> is kept permanently (even after this native object has been deleted) — so it is recommended to only use a small, bounded set of values for <span class="code">$key</span> in your program, to avoid the GQuark storage growing unbounded. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">set-data</span>&nbsp;(&nbsp;<span class="rainbow-type">Str</span>&nbsp;<span class="rainbow-name_scalar">$key</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name">gpointer</span>&nbsp;<span class="rainbow-name_scalar">$data</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$key; name of the key.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to associate with that key.</li>
+</ul>
+
+<div class="id-target" id="Example"></div><h3 id="Example_0" class="heading raku-webs-h3 "><a href="#">Example</a><a class="raku-webs-anchor" href="#Example">§</a></h3>
+
+<p>A label object is used to store extra data in the form of an N-Value structure. The example shows the use of <span class="code">.set-data()</span>, <a href="#get-data">.get-data()</a>. Also the methods <a href="#set-qdata">.set-qdata()</a>, <a href="#get-qdata">.get-qdata()</a> are shown. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">with</span>&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-name">Gnome::Gtk4::Label</span>&nbsp;<span class="rainbow-name_scalar">$label</span>&nbsp;<span class="rainbow-operator">.=</span>&nbsp;<span class="rainbow-name">new-label</span>&nbsp;{<br>&nbsp;&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-routine">Gnome::GObject::N-Value</span>()&nbsp;<span class="rainbow-name_scalar">$extra-data</span>&nbsp;<span class="rainbow-operator">.=</span>&nbsp;<span class="rainbow-routine">new</span>(:<span class="rainbow-routine">type</span>(<span class="rainbow-name">G_TYPE_INT</span>));<br><br>&nbsp;&nbsp;<span class="rainbow-comment"># Store<br></span>&nbsp;&nbsp;<span class="rainbow-name_scalar">$extra-data</span><span class="rainbow-operator">.</span><span class="rainbow-routine">set-int</span>(<span class="rainbow-num_literal">12345</span>);<br>&nbsp;&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">set-data</span>(&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">my-data</span><span class="rainbow-string_delimiter">'</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name_scalar">$extra-data</span>);<br><br>&nbsp;&nbsp;<span class="rainbow-comment"># Retrieve<br></span>&nbsp;&nbsp;<span class="rainbow-name_scalar">$extra-data</span>&nbsp;<span class="rainbow-operator">=</span>&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">get-data</span>(<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">my-data</span><span class="rainbow-string_delimiter">'</span>);<br>&nbsp;&nbsp;<span class="rainbow-routine">say</span>&nbsp;<span class="rainbow-string_delimiter">&quot;</span><span class="rainbow-string">The stored integer is </span><span class="rainbow-string_delimiter">&quot;</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name_scalar">$extra-data</span><span class="rainbow-operator">.</span><span class="rainbow-routine">get-int</span>;<br><br>&nbsp;&nbsp;<span class="rainbow-comment"># Same using a quark<br></span>&nbsp;&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-name">Gnome::Glib::T-quark</span>&nbsp;<span class="rainbow-name_scalar">$tq</span>&nbsp;<span class="rainbow-operator">.=</span>&nbsp;<span class="rainbow-routine">new</span>;<br>&nbsp;&nbsp;<span class="rainbow-keyword">my</span>&nbsp;<span class="rainbow-name">GQuark</span>&nbsp;<span class="rainbow-name_scalar">$q</span>&nbsp;<span class="rainbow-operator">=</span>&nbsp;<span class="rainbow-name_scalar">$tq</span><span class="rainbow-operator">.</span><span class="rainbow-routine">from-string</span>(<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">my-data2</span><span class="rainbow-string_delimiter">'</span>);<br><br>&nbsp;&nbsp;<span class="rainbow-comment"># Store<br></span>&nbsp;&nbsp;<span class="rainbow-name_scalar">$extra-data</span><span class="rainbow-operator">.</span><span class="rainbow-routine">set-int</span>(<span class="rainbow-num_literal">54321</span>);<br>&nbsp;&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">set-qdata</span>(&nbsp;<span class="rainbow-name_scalar">$q</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name_scalar">$extra-data</span>);<br><br>&nbsp;&nbsp;<span class="rainbow-comment"># Retrieve<br></span>&nbsp;&nbsp;<span class="rainbow-name_scalar">$extra-data</span>&nbsp;<span class="rainbow-operator">=</span>&nbsp;<span class="rainbow-operator">.</span><span class="rainbow-routine">get-qdata</span>(<span class="rainbow-name_scalar">$q</span>);<br>&nbsp;&nbsp;<span class="rainbow-routine">say</span>&nbsp;<span class="rainbow-string_delimiter">&quot;</span><span class="rainbow-name_scalar">$extra-data</span><span class="rainbow-string">.get-int, 54321, '.set-qdata() / .get-qdata() stored N-Value with quark';<br>}</span><span class="rainbow-string_delimiter"></span></pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="set-property" class="heading raku-webs-h2 "><a href="#">set-property</a><a class="raku-webs-anchor" href="#set-property">§</a></h2>
+
+<p id="Para_4">Sets a property on an object.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">set-property</span>&nbsp;(&nbsp;<span class="rainbow-type">Str</span>&nbsp;<span class="rainbow-name_scalar">$property-name</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-type">CArray</span><span class="rainbow-operator">[</span><span class="rainbow-name">N-Value</span><span class="rainbow-operator">]</span>&nbsp;<span class="rainbow-name_scalar">$value</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$property-name; the name of the property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; the value.</li>
+</ul>
+
+<h2 id="set-qdata" class="heading raku-webs-h2 "><a href="#">set-qdata</a><a class="raku-webs-anchor" href="#set-qdata">§</a></h2>
+
+<p>This sets an opaque, named pointer on an object. The name is specified through a GQuark (retrieved e.g. via .from-string()), and the pointer can be gotten back from the <span class="code">$object</span> with <span class="code">.get-qdata()</span> until the object is finalized. </p>
+
+<p>Setting a previously set user data pointer, overrides (frees) the old pointer set, using <span class="code">NULL</span> as pointer essentially removes the data stored. </p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">set-qdata</span>&nbsp;(&nbsp;<span class="rainbow-type">UInt</span>&nbsp;<span class="rainbow-name_scalar">$quark</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name">gpointer</span>&nbsp;<span class="rainbow-name_scalar">$data</span>&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$quark; A GQuark, naming the user data pointer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; An opaque user data pointer.</li>
+</ul>
+
+<h2 id="thaw-notify" class="heading raku-webs-h2 "><a href="#">thaw-notify</a><a class="raku-webs-anchor" href="#thaw-notify">§</a></h2>
+
+<p>Reverts the effect of a previous call to <span class="code">.freeze-notify()</span>. The freeze count is decreased on <span class="code">$object</span> and when it reaches zero, queued &quot;notify&quot; signals are emitted. </p>
+
+<p>Duplicate notifications for each property are squashed so that at most one <span class="important">notify</span> signal is emitted for each property, in the reverse order in which they have been queued. </p>
+
+<p id="Para_5">It is an error to call this function when the freeze count is zero.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">thaw-notify</span>&nbsp;(&nbsp;)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="register-signal" class="heading raku-webs-h2 "><a href="#">register-signal</a><a class="raku-webs-anchor" href="#register-signal">§</a></h2>
+
+<p>Note: This method is a convenience method not defined by Gnome in the Object class. The method is defined in <a href="/content-docs/api2//reference/N/GObjectSupport#register-signal">Gnome::N::GObjectSupport</a>. </p>
+
+<p id="Para_6">Register a handler to process a signal or an event. There are several types of callbacks which can be handled by this registration. They can be controlled by using a named argument with a special name.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">register-signal</span>&nbsp;(<br>&nbsp;&nbsp;<span class="rainbow-name_scalar">$handler-object</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-name">Str</span>:<span class="rainbow-name">D</span>&nbsp;<span class="rainbow-name_scalar">$handler-name</span><span class="rainbow-operator">,</span><br>&nbsp;&nbsp;<span class="rainbow-name">Str</span>:<span class="rainbow-name">D</span>&nbsp;<span class="rainbow-name_scalar">$signal-name</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-whatever_star">*</span><span class="rainbow-name_hash">%user-options</span><br>&nbsp;&nbsp;<span class="rainbow-keyword">--&gt;</span>&nbsp;<span class="rainbow-type">Int</span><br>)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$handler-object; The object wherein the handler is defined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-name; The name of the method.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; The name of the event to be handled. Each gtk object has its own series of signals.</li>
+<li class="item extended-item" data-bullet="•" style ="--level:0;"  >%user-options; Any other user data in whatever type provided as one or more named arguments. These arguments are provided to the user handler when an event for the handler is fired. The names starting with '_' are reserved to provide other info to the user.<p class="extended-item">The following reserved named arguments are available;</p><p class="extended-item"><span class="code">:$_handler-id</span>; The handler id which is returned from the registration</p><p class="extended-item"><span class="code">:$_native-object</span>; The native object provided by the caller.</p><p class="extended-item">    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">some-button-click-handler</span>&nbsp;(<br>&nbsp;&nbsp;<span class="rainbow-operator">…</span><span class="rainbow-operator">,</span><br>&nbsp;&nbsp;<span class="rainbow-routine">Gnome::Gtk3::Button</span>()&nbsp;:<span class="rainbow-routine">_native-object</span>(<span class="rainbow-name_scalar">$button</span>)<br>)&nbsp;{<br>&nbsp;&nbsp;<span class="rainbow-operator">…</span><br>}</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div></p></li>
+</ul>
+
+<p id="Para_7">The method returns a handler id which can be used for example to disconnect the callback later.</p>
+
+<div class="id-target" id="Callback handlers"></div><h3 id="Callback_handlers" class="heading raku-webs-h3 "><a href="#">Callback handlers</a><a class="raku-webs-anchor" href="#Callback handlers">§</a></h3>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >Simple handlers; e.g. a click event handler has only named arguments and are optional.</li>
+<li class="item extended-item" data-bullet="•" style ="--level:0;"  >Complex handlers (only a bit) also have positional arguments and <span class="basis">MUST</span> be typed because they are checked to create a signature for the call to a native subroutine. You can use the raku native types like <span class="code">int32</span> but several types are automatically converted to native types. The types such as gboolean, etc are defined in <span class="basis">Gnome::N::GlibToRakuTypes</span>.<p class="extended-item">===============================================</p></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Some handlers must return a value and is used by the calling process. You <span class="basis">MUST</span> describe this too in the handlers API, otherwise the returned value is thrown away.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Any user options are provided via named arguments from the call to <span class="code">register-signal()</span>.</li>
+</ul>
+
+<div class="id-target" id="Example 1"></div><h3 id="Example_1" class="heading raku-webs-h3 "><a href="#">Example 1</a><a class="raku-webs-anchor" href="#Example 1">§</a></h3>
+
+<p id="Para_8">An example of a registration and the handlers signature to handle a button click event.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-comment"># Handler class with callback methods<br></span><span class="rainbow-keyword">class</span>&nbsp;<span class="rainbow-name">ButtonHandlers</span>&nbsp;{<br>&nbsp;&nbsp;<span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">click-button</span>&nbsp;(<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="rainbow-routine">Gnome::Gtk3::Button</span>()&nbsp;:<span class="rainbow-routine">_native-object</span>(<span class="rainbow-name_scalar">$button</span>)<span class="rainbow-operator">,</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="rainbow-type">Int</span>&nbsp;<span class="rainbow-operator">:</span><span class="rainbow-name_scalar">$_handler_id</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-operator">:</span><span class="rainbow-name_scalar">$my-option</span>&nbsp;)&nbsp;{<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="rainbow-operator">…</span><br>&nbsp;&nbsp;}<br>}<br><br><span class="rainbow-name_scalar">$button</span><span class="rainbow-operator">.</span><span class="rainbow-routine">register-signal</span>(<br>&nbsp;&nbsp;<span class="rainbow-name">ButtonHandlers</span><span class="rainbow-operator">.</span><span class="rainbow-routine">new</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">click-button</span><span class="rainbow-string_delimiter">'</span><span class="rainbow-operator">,</span>&nbsp;<span class="rainbow-string_delimiter">'</span><span class="rainbow-string">clicked</span><span class="rainbow-string_delimiter">'</span><span class="rainbow-operator">,</span>&nbsp;:<span class="rainbow-routine">my-option</span>(<span class="rainbow-operator">…</span>)<br>);</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Signals" class="heading raku-webs-h1 "><a href="#">Signals</a><a class="raku-webs-anchor" href="#Signals">§</a></h1>
+
+<div class="id-target" id="notify"></div><h3 id="notify_0" class="heading raku-webs-h3 "><a href="#">notify</a><a class="raku-webs-anchor" href="#notify">§</a></h3>
+
+<p>The notify signal is emitted on an object when one of its properties has its value set through <span class="code">.set-property()</span>. </p>
+
+<p>Note that getting this signal doesn’t itself guarantee that the value of the property has actually changed. When it is emitted is determined by the derived GObject class. If the implementor did not create the property with %G_PARAM_EXPLICIT_NOTIFY, then any call to <span class="code">.set-property()</span> results in <span class="important">notify</span> being emitted, even if the new value is the same as the old. If they did pass %G_PARAM_EXPLICIT_NOTIFY, then this signal is emitted only when they explicitly call <span class="code">.notify()</span> or <span class="code">.notify-by-pspec()</span>, and common practice is to do that only when the value has actually changed. </p>
+
+<p id="Para_9">This signal is typically used to obtain change notification for a single property, by specifying the property name as a detail in the g_signal_connect() call, like this:</p>
+
+<p id="Para_10">It is important to note that you must use canonical parameter names as detail strings for the notify signal.</p>
+    
+    <div class="raku-code">
+    <button class="copy-code" title="Copy code">⿻</button>
+    <label>Raku highlighting</label>
+    <div><pre class="nohighlights"><span class="rainbow-keyword">method</span>&nbsp;<span class="rainbow-routine">handler</span>&nbsp;(<br>&nbsp;&nbsp;<span class="rainbow-name">N-Object</span>&nbsp;<span class="rainbow-name_scalar">$pspec</span><span class="rainbow-operator">,</span><br>&nbsp;&nbsp;<span class="rainbow-type">Int</span>&nbsp;<span class="rainbow-operator">:</span><span class="rainbow-name_scalar">$_handle_id</span><span class="rainbow-operator">,</span><br>&nbsp;&nbsp;<span class="rainbow-routine">Gnome::GObject::Object</span>()&nbsp;<span class="rainbow-operator">:</span><span class="rainbow-name_scalar">$_native-object</span><span class="rainbow-operator">,</span><br>&nbsp;&nbsp;<span class="rainbow-whatever_star">*</span><span class="rainbow-name_hash">%user-options</span><br>)</pre>
+</div>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pspec; the GParamSpec of the property which changed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
+</ul>
+
+
+        </div>
+        <div class="content px-4">
+        
+        </div>
+        <div class="content px-4">
+        
+        </div>
+    </div>
+</div>
+
+        <footer class="footer main-footer">
+    <div class="container px-4">
+        <nav class="level">
+            <div class="level-item">
+                Rendered from&nbsp;<span class="footer-field">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/Object.rakudoc/Object</span>
+            </div>
+            <div class="level-item">
+                Rendered at 12:43 UTC on 2026-07-17
+            </div>
+            <div class="level-item">
+                Source last modified&nbsp;at 10:43 UTC on 2026-07-16
+            </div>
+        </nav>
+    </div>
+    <div class="section"><div class="container px-4 warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>The line ｢Raku type | Native glib type | Native Raku type<br>｣ should not appear outside the scope of a =table<br></li>
+<li>The line ｢Bool      | gboolean         | int32<br>｣ should not appear outside the scope of a =table<br></li>
+<li>The line ｢UInt      | guint            | uint32/uint64<br>｣ should not appear outside the scope of a =table<br></li>
+<li>The line ｢Int       | gint             | int32/int64<br>｣ should not appear outside the scope of a =table<br></li>
+<li>The line ｢Num       | gfloat           | num32<br>｣ should not appear outside the scope of a =table<br></li>
+<li>The line ｢Rat       | gdouble          | num64<br>｣ should not appear outside the scope of a =table<br></li>
+
+        </ol>
+    </div>
+</div></div>
+</footer>
+
+    </body>
 </html>
