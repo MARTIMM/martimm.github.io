@@ -13,7 +13,7 @@ use v6.d;
 #use RakuDoc::To::HTML;
 #use Pod::Load;
 use YAMLish;
-use RakuDoc::Processor;
+#use RakuDoc::Processor;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = $*HOME ~ '/Languages/Raku/Projects/';
@@ -214,9 +214,10 @@ note "$?LINE $key, $doc-name, $raku-doc-path";
   my Str() $sdir = $raku-doc-path.IO.parent;
 #  my Str() $ddir = $filename.IO.parent;
 #  my Str() $sname = $raku-doc-path.IO.basename;
-note "\n\nshell \"RenderDocs --format=html --src='$sdir' --to='/tmp' '$doc-name'\"\n ";
+note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name'\n ";
 
-  shell "RenderDocs --format=html --src='$sdir' --to='/tmp' '$doc-name'";
+  %*ENV<RAKUDO_RAKUAST> = 1;
+  shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name.html'";
   my Str $result = "---\n---\n" ~ "/tmp/$doc-name.html".IO.slurp;
 #  $result ~~ s/
 note "Store at $filename.html";
