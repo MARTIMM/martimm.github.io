@@ -216,11 +216,26 @@ note "$?LINE $key, $doc-name, $raku-doc-path";
 #  my Str() $sname = $raku-doc-path.IO.basename;
 note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name'\n ";
 
+  # For the moment we need to explicitly turn on RakuAST processing
+  #TODO remove when version raku 6.e
   %*ENV<RAKUDO_RAKUAST> = 1;
+
+  # We want to have an alternative CSS setup using the files from a github
+  # pages theme and css from the previous html generator
+  %*ENV<ALT_CSS> = 'assets/css/style.css';
+
+  # Generate the HTML file and place result in /tmp
   shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name.html'";
+
+  # Get the result for post processing and prefix the text with the github
+  # pages frontmatter marks
   my Str $result = "---\n---\n" ~ "/tmp/$doc-name.html".IO.slurp;
-#  $result ~~ s/
+
+  # First, change the class for the table of contents
+  $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
+
 note "Store at $filename.html";
+  # Store the result at its proper place.
   "$filename.html".IO.spurt($result);
 
 #  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
