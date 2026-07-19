@@ -224,18 +224,24 @@ note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-na
   # pages theme and css from the previous html generator
   %*ENV<ALT_CSS> = 'assets/css/style.css';
 
-  # Generate the HTML file and place result in /tmp
-  shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name.html'";
+  # Generate the HTML file
+  my Proc $p =
+    shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path'", :out;
 
-  # Get the result for post processing and prefix the text with the github
-  # pages frontmatter marks
-  my Str $result = "---\n---\n" ~ "/tmp/$doc-name.html".IO.slurp;
+  # Prefix the text with the github pages frontmatter marks
+  my Str $result = "---\n---\n";
 
-  # First, change the class for the table of contents
+  # Get the result for post processing
+  for $p.out.lines -> Str $line {
+    $result ~= "$line\n";
+  }
+  $p.out.close;
+
+  # Change the class for the table of contents
   $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
 
-note "Store at $filename.html";
   # Store the result at its proper place.
+  note "Store at $filename.html";
   "$filename.html".IO.spurt($result);
 
 #  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
