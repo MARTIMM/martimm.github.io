@@ -3,17 +3,16 @@
 # References generator to generate html pages of the rakudoc documents. Also
 # it recreates the sidebar if necessary.
 
+# Steps to get everything in place;
+# Only when changed!
+#     sass doc/Scss/github-style.scss assets/css/github-style.css
+#     sass doc/Scss/rakuast-style.scss doc/Scss/rakuast-style.css
+# Then e.g.
+#     bin/generate-md-refs.raku GObjApi2 Object
+
 use v6.d;
 
-# In the Raku::Pod::Render distro at
-# github.com/finanalyst/raku-pod-render/blob/master/lib/Pod/To/HTML2.rakumod
-# github.com/finanalyst/raku-pod-render/blob/master/Pod2HTML2.md
-#use lib '/home/marcel/Languages/Raku/External/raku-pod-render/lib';
-#use Pod::To::HTML2;
-#use RakuDoc::To::HTML;
-#use Pod::Load;
 use YAMLish;
-#use RakuDoc::Processor;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = $*HOME ~ '/Languages/Raku/Projects/';
@@ -222,7 +221,7 @@ note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-na
 
   # We want to have an alternative CSS setup using the files from a github
   # pages theme and css from the previous html generator
-  %*ENV<ALT_CSS> = 'assets/css/style.css';
+  %*ENV<ALT_CSS> = 'doc/Scss/rakuast-style.css';
 
   # Generate the HTML file
   my Proc $p =
@@ -238,7 +237,7 @@ note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-na
   $p.out.close;
 
   # Change the class for the table of contents
-  $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
+#  $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
 
   # Store the result at its proper place.
   note "Store at $filename.html";
