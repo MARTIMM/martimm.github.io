@@ -5,448 +5,362 @@
     <head>
     <meta charset="UTF-8" />
         <title>Gnome::GObject::Object</title>
-    <style>/* main.css control */
-/*
-$link-color: red;
-$paragraph-indent: true;
-$indent-var: 2em;
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
 */
-/* system typefaces */
-/*
-$serif      : Georgia, Times, serif;
-$sans-serif : -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
-$monospace  : Monaco, Consolas, "Lucida Console", monospace;
-*/
-/*@import "main.css";*/
-/* LAYOUT STYLES */
-@import url(/asset_files/css/font-awesome.min.css);
-@import url(/asset_files/css/rakudoc-extra.css);
-@import url(/asset_files/css/rakudoc-styling.css);
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, serif;
-  color: #6d6d6d;
-  background: #e7e7e7 url(/assets/images/body-bg.png) 0 0 repeat; }
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-div.inner {
-  background: url(/assets/images/top5.png) 0 0 no-repeat; }
+span.important {
+  font-style: italic; }
 
-a {
-  color: navy;
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
   text-decoration: none; }
 
-a.u {
-  color: navy;
-  text-decoration: none; }
+span.developer-version {
+  display: none;
+  color: red; }
 
-a:hover {
-  /*  text-decoration: none;*/
-  text-decoration: underline;
-  color: blue; }
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
 
-header {
-  padding-top: 0px;
-  padding-bottom: 15px; }
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
 
-header h1, header h2 {
-  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 23pt;
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
   font-weight: bold;
-  letter-spacing: -1px; }
+  font-style: italic; }
 
-.XL-h1-size {
-  font-family: 'Chivo', 'Helvetica Neue', Helvetica, Arial, serif;
-  font-size: 23pt;
-  font-weight: bold;
-  letter-spacing: -1px;
-  text-shadow: 0px 0px 15px white;
-  -webkit-text-fill-color: #deffff;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #008080; }
+div.defn-term .N {
+  margin-right: 5px; }
 
-img.header-image {
-  width: 80px;
-  height: 84px;
-  margin: 3px 5px 0 5px;
-  border-radius: 50%;
-  border: 3px solid #deffff; }
+div.id-target {
+  display: none; }
 
-header nav.horizontal-nav {
-  padding: 7px 0 0 5px;
-  /*  Must be improved
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background-color: $menu-bgcolor;
-  */
-  height: 30px;
-  font-size: 1em;
-  font-weight: normal;
+div.nested {
+  margin-left: 5rem; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem);
+  float: left; }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
   /*
-    .float-right {
-      float: right;
-    }
-  */ }
-  header nav.horizontal-nav a {
-    float: left;
-    padding: 0 4px 0 4px;
-    margin-right: 2px;
-    border-radius: 5px;
-    line-height: 1.5;
-    color: #39013e; }
-  header nav.horizontal-nav a:hover:not(.active) {
-    background-color: #eee;
-    color: #39013e; }
-  header nav.horizontal-nav .active {
-    color: #39013e;
-    background-color: #e6e6ef;
-    border: 2px solid #777; }
-  header nav.horizontal-nav .inactive {
-    color: #39013e;
-    border: 2px solid #ddd; }
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
 
-nav.horizontal-nav {
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h.title {
+  font-size: larger; }
+
+.rakudoc-table {
   display: flex;
-  flex-direction: row;
-  padding: 5px, 0, 0, 0; }
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
 
-.float-right {
-  float: right; }
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
 
-div.inner header.gp-header {
-  background-color: transparent;
-  padding: 0; }
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
 
-header hr {
-  padding: 0;
-  margin: 0 0 0.5em 0;
-  border: 2px solid #9696bf;
-  border-radius: 5px;
-  width: 100%; }
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
 
-h1 {
-  font-size: 20pt;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #39013e; }
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
 
-h2 {
-  font-size: 18pt;
-  font-weight: bold;
-  margin-top: 4px;
-  margin-bottom: 8px;
-  color: #39013e; }
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
 
-h3 {
-  font-size: 16pt;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #39013e; }
-
-h4 {
-  font-size: 15pt;
-  font-weight: bold;
-  color: #39013e; }
-
-h5 {
-  font-size: 14pt;
-  color: #39013e; }
-
-h6 {
-  font-size: 12pt;
-  color: #39013e; }
-
-div.inner {
-  width: 100%; }
-
-div.highlight, div.highlighter-rouge, pre {
-  border-radius: 4px; }
-
-pre {
-  padding: 10px;
-  color: #0e0efe;
-  background-color: #e3e3f9;
-  border: 1px solid #0e0efe; }
-  pre code {
-    background-color: #e3e3f9;
-    color: #0e0efe;
-    margin: 0;
-    font-size: 10pt; }
-
-code {
-  font-family: monospace, serif; }
-
-table td {
+tbody.procedural tr.procedural .procedural-cell-left {
   text-align: left; }
 
-#reference-container {
-  width: 100%;
-  margin: auto;
-  overflow: scroll; }
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
 
-#reference-content {
-  width: 74%;
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 0 0 20px;
-  height: auto; }
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
 
-#xmas-content {
-  width: 100%;
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 0 0 0px;
-  height: 100%; }
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
 
-#sidebar-container {
-  padding: 0;
-  width: 22%;
-  height: 100%;
-  padding-left: 5px; }
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
 
-ul {
-  font-size: 0.9em; }
-  ul li {
-    list-style-type: square;
-    padding-left: 15px;
-    margin-left: 15px; }
-    ul li li {
-      list-style-type: circle; }
-  ul .task-list-item {
-    list-style: none;
-    padding-left: 0px;
-    margin-left: 0px; }
-    ul .task-list-item li {
-      margin-left: 20px; }
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
 
-ol li {
-  list-style-position: inside;
-  list-style: decimal;
-  padding-left: 3px; }
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
 
-.sidebar {
-  float: left;
-  border: 1px solid #aaa;
-  width: 100%;
-  border-radius: 5px;
-  padding-top: 5px;
-  margin-bottom: 5px;
-  font-size: 0.9em;
-  overflow: scroll;
-  max-height: 45em; }
-  .sidebar strong {
-    padding-left: 7px;
-    margin: 10px 0 0 0;
-    font-size: 1em;
-    color: #39013e; }
-  .sidebar hr {
-    padding: 0;
-    border: 2px solid #9696bf;
-    border-radius: 5px;
-    width: 90%;
-    margin: auto;
-    margin-bottom: 4px; }
-  .sidebar hr.small {
-    padding: 0;
-    border: 0px solid #9696bf;
-    border-radius: 0px;
-    width: 100%;
-    margin: auto;
-    margin-bottom: 4px; }
-  .sidebar ul.sidebar-list {
-    margin: 0;
-    padding: 0 5px 0 5px;
-    /*
-    li.active {
-      background-color: $menu-bgcolor-active;
-    }
-
-    li.toplevel a {
-      font-weight: bolder;
-      color: $menu-color-toplevel;
-      line-height: 1.1;
-    }
-
-    li.interface a {
-      font-weight: bolder;
-      color: $menu-color-interface;
-      line-height: 1.1;
-    }
-
-    li.widget a {
-      font-weight: bolder;
-      color: $menu-color-widget;
-      line-height: 1.1;
-    }
-
-    li.boxed a {
-      font-weight: bolder;
-      color: $menu-color-boxed;
-      line-height: 1.1;
-    }
-
-    li.object a {
-      font-weight: bolder;
-      color: $menu-color-object;
-      line-height: 1.1;
-    }
-
-    li.standalone a {
-      font-weight: bolder;
-      color: $menu-color-standalone;
-      line-height: 1.1;
-    }
-*/ }
-    .sidebar ul.sidebar-list li {
-      list-style-type: none;
-      list-style: none;
-      margin-bottom: 3px;
-      margin-left: 0;
-      padding: 0 0 0 4px; }
-      .sidebar ul.sidebar-list li a {
-        display: block;
-        width: 100%;
-        text-decoration: none; }
-      .sidebar ul.sidebar-list li a:hover {
-        background-color: #eee;
-        text-decoration: underline; }
-      .sidebar ul.sidebar-list li div.module-url {
-        float: left; }
-      .sidebar ul.sidebar-list li div.module-state {
-        float: right; }
-    .sidebar ul.sidebar-list li.normal-object a {
-      background-color: transparent;
-      color: #39013e; }
-    .sidebar ul.sidebar-list li.deprecated-object a {
-      background-color: transparent;
-      color: #a8009a; }
-
-.tooltiptext strong {
-  color: #afffff; }
-
-/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  /* If you want dots under the hoverable text */ }
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: rgba(60, 60, 60, 0.8);
-  color: #afffff;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(255, 100, 100, 0.8);
-  padding: 5px 0;
-  border-radius: 6px;
-  /* Position the tooltip text */
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  /* Fade in tooltip */
-  opacity: 0;
-  transition: opacity 0.5s; }
-
-/* Tooltip arrow */
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent; }
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1; }
-
-p {
-  margin-bottom: 10px;
-  font-size: 15pt; }
-  p strong {
-    font-weight: lighter;
-    color: #555; }
-  p code {
-    font-size: 14pt;
-    color: #0e0efe;
-    font-family: serif;
-    border-radius: 20px; }
-  p a {
-    color: navy;
-    text-decoration: underline; }
-  p a:hover {
-    /*  text-decoration: none;*/
-    text-decoration: underline;
-    color: blue; }
-
-/*
-#reference-page {
-//  overflow-y: scroll;
-//  height: 200px;
-}
-*/
-#category {
-  padding: 1.5em; }
-  #category a {
-    font-size: 14px; }
-
-/*
-#content {
-//  margin: 1em 0 0.5em 0;
-//  height: 500px;
-//  overflow-y: scroll;
-
-//  border: 1px solid #aaa;
-//  border-radius: 5px;
-//  padding: 1.5em;
-
-  //position: fixed;
-  //bottom: 5px;
-  //overflow: auto;
-}
-*/
-.lineno-container > figure > pre {
-  padding: 0px; }
-
-/*
-.highlight {
-
-//  height: 20em;
-//  overflow: scroll;
-
-  pre.lineno {
-    //@include opacity(0.6);
-    text-align: right;
-  }
-
-  .lineno {
-    @include unselectable();
-  }
-
-//  .gutter {
-//  }
-
-  pre {
-    border: none;
-    pre {
-      text-align: left;
-      margin-bottom: 0px;
-    }
-  }
-}
-*/
-table th {
+tbody.procedural tr.procedural .procedural-cell-label {
   font-weight: bold; }
 
-.highlight table, .highlight td {
-  border: none; }
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
 
-/*# sourceMappingURL=style.css.map */
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
 </style>
 
     </head>
@@ -475,7 +389,7 @@ table th {
 </div>
 
     
-<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a></h1>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
 
 <p id="Para">The base object type.</p>
 <h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
@@ -751,7 +665,7 @@ $button.register-signal(
     
 <div class="footer">
     Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc//home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/Object.rakudoc</span>
-<span class="footer-field">&nbsp;at 12:35 UTC on 2026-07-19</span>
+<span class="footer-field">&nbsp;at 12:32 UTC on 2026-07-20</span>
 <span class="footer-line">Source last modified at 10:43 UTC on 2026-07-16</span>
 <div class="warnings">    <div class="warnings">
     <h2 class="warnings-caption">Warnings</h2>
