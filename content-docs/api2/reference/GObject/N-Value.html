@@ -1,428 +1,1250 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>NO_TITLE</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="/asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header>
-<img id="Camelia_bug" src="/asset_files/images/Camelia.svg"><h1 class="title">NO_TITLE</h1></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Gnome::GObject::Value">Gnome::GObject::Value</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Record_N-Value">Record N-Value</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#dup-boxed">dup-boxed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#dup-object">dup-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#dup-param">dup-param</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#dup-string">dup-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#dup-variant">dup-variant</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#fits-pointer">fits-pointer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-boolean">get-boolean</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-boxed">get-boxed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-double">get-double</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-enum">get-enum</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags">get-flags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-float">get-float</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-gtype">get-gtype</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-int">get-int</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-int64">get-int64</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-long">get-long</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-object">get-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-param">get-param</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-pointer">get-pointer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-schar">get-schar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-string">get-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uchar">get-uchar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uint">get-uint</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uint64">get-uint64</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-ulong">get-ulong</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-variant">get-variant</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#init">init</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#init-from-instance">init-from-instance</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#peek-pointer">peek-pointer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reset">reset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-boolean">set-boolean</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-boxed">set-boxed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-double">set-double</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-enum">set-enum</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-flags">set-flags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-float">set-float</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-gtype">set-gtype</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-instance">set-instance</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-int">set-int</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-int64">set-int64</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-interned-string">set-interned-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-long">set-long</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-object">set-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-param">set-param</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-pointer">set-pointer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-schar">set-schar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-static-boxed">set-static-boxed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-static-string">set-static-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-string">set-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-uchar">set-uchar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-uint">set-uint</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-uint64">set-uint64</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-ulong">set-ulong</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-variant">set-variant</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take-boxed">take-boxed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take-object">take-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take-param">take-param</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take-string">take-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#take-variant">take-variant</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#transform">transform</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unset">unset</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#register-transform-func">register-transform-func</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#type-compatible">type-compatible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#type-transformable">type-transformable</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Gnome::GObject::Value"><a href="#___top" class="u" title="go to top of document">Gnome::GObject::Value</a></h1>
-<p>![](images/value.png)</p>
-<h1 id="Description"><a href="#___top" class="u" title="go to top of document">Description</a></h1>
-<p>An opaque structure used to hold different types of values.</p><p>The data within the structure has protected scope: it is accessible only to functions within a <strong>Gnome::GObject::N-TypeValueTable</strong> structure, or implementations of the g_value_*() API. That is, code portions which implement new fundamental types.</p><p><strong>Gnome::GObject::N-Value</strong> users cannot make any assumptions about how data is stored within the 2 element <code>$data</code> union, and the <code>$g_type</code> member should only be accessed through the G_VALUE_TYPE() macro.</p>
-<h1 id="Record_N-Value"><a href="#___top" class="u" title="go to top of document">Record N-Value</a></h1>
-<pre class="pod-block-code">class N-Value:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h.title {
+  font-size: larger;
+  background-color: #F2C100; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::GObject::Value">Gnome::GObject::Value</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-Value">Record N-Value</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-boxed">dup-boxed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-object">dup-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-param">dup-param</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-string">dup-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-variant">dup-variant</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#fits-pointer">fits-pointer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-boolean">get-boolean</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-boxed">get-boxed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-double">get-double</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-enum">get-enum</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-flags">get-flags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-float">get-float</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-gtype">get-gtype</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-int">get-int</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-int64">get-int64</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-long">get-long</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-object">get-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-param">get-param</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-pointer">get-pointer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-schar">get-schar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-string">get-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uchar">get-uchar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uint">get-uint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uint64">get-uint64</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-ulong">get-ulong</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-variant">get-variant</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#init">init</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#init-from-instance">init-from-instance</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#peek-pointer">peek-pointer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reset">reset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-boolean">set-boolean</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-boxed">set-boxed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-double">set-double</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-enum">set-enum</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-flags">set-flags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-float">set-float</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-gtype">set-gtype</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-instance">set-instance</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-int">set-int</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-int64">set-int64</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-interned-string">set-interned-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-long">set-long</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-object">set-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-param">set-param</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-pointer">set-pointer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-schar">set-schar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-static-boxed">set-static-boxed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-static-string">set-static-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-string">set-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-uchar">set-uchar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-uint">set-uint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-uint64">set-uint64</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-ulong">set-ulong</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-variant">set-variant</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#take-boxed">take-boxed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#take-object">take-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#take-param">take-param</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#take-string">take-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#take-variant">take-variant</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#transform">transform</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unset">unset</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#register-transform-func">register-transform-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#type-compatible">type-compatible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#type-transformable">type-transformable</a></div>
+</div>
+
+    <h1 id="Gnome::GObject::Value" class="heading "><a href="#" title="go to top of document">Gnome::GObject::Value</a><a class="raku-anchor" title="direct link" href="#Gnome::GObject::Value">§</a></h1>
+
+<p id="Para">![](images/value.png)</p>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para_0">An opaque structure used to hold different types of values.</p>
+
+<p>The data within the structure has protected scope: it is accessible only to functions within a <span class="basis">Gnome::GObject::N-TypeValueTable</span> structure, or implementations of the g_value_*() API. That is, code portions which implement new fundamental types. </p>
+
+<p><span class="basis">Gnome::GObject::N-Value</span> users cannot make any assumptions about how data is stored within the 2 element <span class="code">$data</span> union, and the <span class="code">$g_type</span> member should only be accessed through the G_VALUE_TYPE() macro. </p>
+
+<div class="id-target" id="Record N-Value"></div><h1 id="Record_N-Value" class="heading "><a href="#" title="go to top of document">Record N-Value</a><a class="raku-anchor" title="direct link" href="#Record N-Value">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-Value:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
 
   has GType $.g-type;
   has gchar-pptr $.data;
-}</pre><ul>
-<li><p>g-type; </p></li>
-<li><p>data; </p></li>
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >g-type;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >data;</li>
 </ul>
 
-<h1 id="Class_initialization"><a href="#___top" class="u" title="go to top of document">Class initialization</a></h1>
 
-<h2 id="new"><a href="#___top" class="u" title="go to top of document">new</a></h2>
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
 
-<h3 id=":native-object"><a href="#___top" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre>
-<h1 id="Methods"><a href="#___top" class="u" title="go to top of document">Methods</a></h1>
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
 
-<h2 id="copy"><a href="#___top" class="u" title="go to top of document">copy</a></h2>
-<p>Copies the value of <code>$src_value</code> into <code>$dest_value</code>.</p><pre class="pod-block-code">method copy ( CArray[N-Value] $dest-value )
-</pre><ul>
-<li><p>$dest-value; An initialized <strong>Gnome::GObject::N-Value</strong> structure of the same type as <code>$src_value</code>..</p></li>
+<p>Copies the value of <span class="code">$src_value</span> into <span class="code">$dest_value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy ( CArray[N-Value] $dest-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$dest-value; An initialized <span class="basis">Gnome::GObject::N-Value</span> structure of the same type as <span class="code">$src_value</span>..</li>
 </ul>
 
-<h2 id="dup-boxed"><a href="#___top" class="u" title="go to top of document">dup-boxed</a></h2>
-<p>Get the contents of a %G_TYPE_BOXED derived <strong>Gnome::GObject::N-Value</strong>. Upon getting, the boxed value is duplicated and needs to be later freed with g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE ( <code>$value</code>), return_value);</p><pre class="pod-block-code">method dup-boxed (--&gt; gpointer )
-</pre><p>Return value; boxed contents of <code>$value</code>. </p>
-<h2 id="dup-object"><a href="#___top" class="u" title="go to top of document">dup-object</a></h2>
-<p>Get the contents of a %G_TYPE_OBJECT derived <strong>Gnome::GObject::N-Value</strong>, increasing its reference count. If the contents of the <strong>Gnome::GObject::N-Value</strong> are <code>Nil</code>, then <code>Nil</code> will be returned.</p><pre class="pod-block-code">method dup-object (--&gt; gpointer )
-</pre><p>Return value; object content of <code>$value</code>, should be unreferenced when no longer needed.. </p>
-<h2 id="dup-param"><a href="#___top" class="u" title="go to top of document">dup-param</a></h2>
-<p>Get the contents of a %G_TYPE_PARAM <strong>Gnome::GObject::N-Value</strong>, increasing its reference count.</p><pre class="pod-block-code">method dup-param (--&gt; N-Object )
-</pre><p>Return value; <strong>Gnome::GObject::ParamSpec</strong> content of <code>$value</code>, should be unreferenced when no longer needed.. </p>
-<h2 id="dup-string"><a href="#___top" class="u" title="go to top of document">dup-string</a></h2>
-<p>Get a copy the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method dup-string (--&gt; Str )
-</pre><p>Return value; a newly allocated copy of the string content of <code>$value</code>. </p>
-<h2 id="dup-variant"><a href="#___top" class="u" title="go to top of document">dup-variant</a></h2>
-<p>Get the contents of a variant <strong>Gnome::GObject::N-Value</strong>, increasing its refcount. The returned <strong>Gnome::GObject::N-Variant</strong> is never floating.</p><pre class="pod-block-code">method dup-variant (--&gt; CArray[N-Variant] )
-</pre><p>Return value; variant contents of <code>$value</code> (may be <code>Nil</code>); should be unreffed using g_variant_unref() when no longer needed. </p>
-<h2 id="fits-pointer"><a href="#___top" class="u" title="go to top of document">fits-pointer</a></h2>
-<p>Determines if <code>$value</code> will fit inside the size of a pointer value. This is an internal function introduced mainly for C marshallers.</p><pre class="pod-block-code">method fits-pointer (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$value</code> will fit inside a pointer value.. </p>
-<h2 id="get-boolean"><a href="#___top" class="u" title="go to top of document">get-boolean</a></h2>
-<p>Get the contents of a %G_TYPE_BOOLEAN <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-boolean (--&gt; Bool )
-</pre><p>Return value; boolean contents of <code>$value</code>. </p>
-<h2 id="get-boxed"><a href="#___top" class="u" title="go to top of document">get-boxed</a></h2>
-<p>Get the contents of a %G_TYPE_BOXED derived <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-boxed (--&gt; gpointer )
-</pre><p>Return value; boxed contents of <code>$value</code>. </p>
-<h2 id="get-double"><a href="#___top" class="u" title="go to top of document">get-double</a></h2>
-<p>Get the contents of a %G_TYPE_DOUBLE <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-double (--&gt; Num )
-</pre><p>Return value; double contents of <code>$value</code>. </p>
-<h2 id="get-enum"><a href="#___top" class="u" title="go to top of document">get-enum</a></h2>
-<p>Get the contents of a %G_TYPE_ENUM <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-enum (--&gt; Int )
-</pre><p>Return value; enum contents of <code>$value</code>. </p>
-<h2 id="get-flags"><a href="#___top" class="u" title="go to top of document">get-flags</a></h2>
-<p>Get the contents of a %G_TYPE_FLAGS <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
-</pre><p>Return value; flags contents of <code>$value</code>. </p>
-<h2 id="get-float"><a href="#___top" class="u" title="go to top of document">get-float</a></h2>
-<p>Get the contents of a %G_TYPE_FLOAT <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-float (--&gt; Num )
-</pre><p>Return value; float contents of <code>$value</code>. </p>
-<h2 id="get-gtype"><a href="#___top" class="u" title="go to top of document">get-gtype</a></h2>
-<p>Get the contents of a %G_TYPE_GTYPE <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-gtype (--&gt; GType )
-</pre><p>Return value; the GType stored in <code>$value</code>. </p>
-<h2 id="get-int"><a href="#___top" class="u" title="go to top of document">get-int</a></h2>
-<p>Get the contents of a %G_TYPE_INT <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-int (--&gt; Int )
-</pre><p>Return value; integer contents of <code>$value</code>. </p>
-<h2 id="get-int64"><a href="#___top" class="u" title="go to top of document">get-int64</a></h2>
-<p>Get the contents of a %G_TYPE_INT64 <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-int64 (--&gt; Int )
-</pre><p>Return value; 64bit integer contents of <code>$value</code>. </p>
-<h2 id="get-long"><a href="#___top" class="u" title="go to top of document">get-long</a></h2>
-<p>Get the contents of a %G_TYPE_LONG <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-long (--&gt; Int )
-</pre><p>Return value; long integer contents of <code>$value</code>. </p>
-<h2 id="get-object"><a href="#___top" class="u" title="go to top of document">get-object</a></h2>
-<p>Get the contents of a %G_TYPE_OBJECT derived <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-object (--&gt; gpointer )
-</pre><p>Return value; object contents of <code>$value</code>. </p>
-<h2 id="get-param"><a href="#___top" class="u" title="go to top of document">get-param</a></h2>
-<p>Get the contents of a %G_TYPE_PARAM <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-param (--&gt; N-Object )
-</pre><p>Return value; <strong>Gnome::GObject::ParamSpec</strong> content of <code>$value</code>. </p>
-<h2 id="get-pointer"><a href="#___top" class="u" title="go to top of document">get-pointer</a></h2>
-<p>Get the contents of a pointer <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-pointer (--&gt; gpointer )
-</pre><p>Return value; pointer contents of <code>$value</code>. </p>
-<h2 id="get-schar"><a href="#___top" class="u" title="go to top of document">get-schar</a></h2>
-<p>Get the contents of a %G_TYPE_CHAR <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-schar (--&gt; Int )
-</pre><p>Return value; signed 8 bit integer contents of <code>$value</code>. </p>
-<h2 id="get-string"><a href="#___top" class="u" title="go to top of document">get-string</a></h2>
-<p>Get the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-string (--&gt; Str )
-</pre><p>Return value; string content of <code>$value</code>. </p>
-<h2 id="get-uchar"><a href="#___top" class="u" title="go to top of document">get-uchar</a></h2>
-<p>Get the contents of a %G_TYPE_UCHAR <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-uchar (--&gt; UInt )
-</pre><p>Return value; unsigned character contents of <code>$value</code>. </p>
-<h2 id="get-uint"><a href="#___top" class="u" title="go to top of document">get-uint</a></h2>
-<p>Get the contents of a %G_TYPE_UINT <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-uint (--&gt; UInt )
-</pre><p>Return value; unsigned integer contents of <code>$value</code>. </p>
-<h2 id="get-uint64"><a href="#___top" class="u" title="go to top of document">get-uint64</a></h2>
-<p>Get the contents of a %G_TYPE_UINT64 <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-uint64 (--&gt; UInt )
-</pre><p>Return value; unsigned 64bit integer contents of <code>$value</code>. </p>
-<h2 id="get-ulong"><a href="#___top" class="u" title="go to top of document">get-ulong</a></h2>
-<p>Get the contents of a %G_TYPE_ULONG <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-ulong (--&gt; UInt )
-</pre><p>Return value; unsigned long integer contents of <code>$value</code>. </p>
-<h2 id="get-variant"><a href="#___top" class="u" title="go to top of document">get-variant</a></h2>
-<p>Get the contents of a variant <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method get-variant (--&gt; CArray[N-Variant] )
-</pre><p>Return value; variant contents of <code>$value</code> (may be <code>Nil</code>). </p>
-<h2 id="init"><a href="#___top" class="u" title="go to top of document">init</a></h2>
-<p>Initializes <code>$value</code> with the default value of <code>$type</code>.</p><pre class="pod-block-code">method init ( GType $g-type --&gt; CArray[N-Value] )
-</pre><ul>
-<li><p>$g-type; Type the <strong>Gnome::GObject::N-Value</strong> should hold values of..</p></li>
-</ul>
-<p>Return value; the <strong>Gnome::GObject::N-Value</strong> structure that has been passed in. </p>
-<h2 id="init-from-instance"><a href="#___top" class="u" title="go to top of document">init-from-instance</a></h2>
-<p>Initializes and sets <code>$value</code> from an instantiatable type via the value_table's collect_value() function.</p><p>Note: The <code>$value</code> will be initialised with the exact type of <code>$instance</code>. If you wish to set the <code>$value</code>'s type to a different GType (such as a parent class GType), you need to manually call <code>.init()</code> and <code>.set-instance()</code>.</p><pre class="pod-block-code">method init-from-instance ( gpointer $instance )
-</pre><ul>
-<li><p>$instance; the instance.</p></li>
+<h2 id="dup-boxed" class="heading "><a href="#" title="go to top of document">dup-boxed</a><a class="raku-anchor" title="direct link" href="#dup-boxed">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_BOXED derived <span class="basis">Gnome::GObject::N-Value</span>. Upon getting, the boxed value is duplicated and needs to be later freed with g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE ( <span class="code">$value</span>), return_value); </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-boxed (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; boxed contents of <span class="code">$value</span>. </p>
+<h2 id="dup-object" class="heading "><a href="#" title="go to top of document">dup-object</a><a class="raku-anchor" title="direct link" href="#dup-object">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_OBJECT derived <span class="basis">Gnome::GObject::N-Value</span>, increasing its reference count. If the contents of the <span class="basis">Gnome::GObject::N-Value</span> are <span class="code">Nil</span>, then <span class="code">Nil</span> will be returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-object (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; object content of <span class="code">$value</span>, should be unreferenced when no longer needed.. </p>
+<h2 id="dup-param" class="heading "><a href="#" title="go to top of document">dup-param</a><a class="raku-anchor" title="direct link" href="#dup-param">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_PARAM <span class="basis">Gnome::GObject::N-Value</span>, increasing its reference count. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-param (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="basis">Gnome::GObject::ParamSpec</span> content of <span class="code">$value</span>, should be unreferenced when no longer needed.. </p>
+<h2 id="dup-string" class="heading "><a href="#" title="go to top of document">dup-string</a><a class="raku-anchor" title="direct link" href="#dup-string">§</a></h2>
+
+<p>Get a copy the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-string (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a newly allocated copy of the string content of <span class="code">$value</span>. </p>
+<h2 id="dup-variant" class="heading "><a href="#" title="go to top of document">dup-variant</a><a class="raku-anchor" title="direct link" href="#dup-variant">§</a></h2>
+
+<p>Get the contents of a variant <span class="basis">Gnome::GObject::N-Value</span>, increasing its refcount. The returned <span class="basis">Gnome::GObject::N-Variant</span> is never floating. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-variant (--&gt; CArray[N-Variant] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; variant contents of <span class="code">$value</span> (may be <span class="code">Nil</span>); should be unreffed using g_variant_unref() when no longer needed. </p>
+<h2 id="fits-pointer" class="heading "><a href="#" title="go to top of document">fits-pointer</a><a class="raku-anchor" title="direct link" href="#fits-pointer">§</a></h2>
+
+<p>Determines if <span class="code">$value</span> will fit inside the size of a pointer value. This is an internal function introduced mainly for C marshallers. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method fits-pointer (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$value</span> will fit inside a pointer value.. </p>
+<h2 id="get-boolean" class="heading "><a href="#" title="go to top of document">get-boolean</a><a class="raku-anchor" title="direct link" href="#get-boolean">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_BOOLEAN <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-boolean (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; boolean contents of <span class="code">$value</span>. </p>
+<h2 id="get-boxed" class="heading "><a href="#" title="go to top of document">get-boxed</a><a class="raku-anchor" title="direct link" href="#get-boxed">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_BOXED derived <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-boxed (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; boxed contents of <span class="code">$value</span>. </p>
+<h2 id="get-double" class="heading "><a href="#" title="go to top of document">get-double</a><a class="raku-anchor" title="direct link" href="#get-double">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_DOUBLE <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-double (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; double contents of <span class="code">$value</span>. </p>
+<h2 id="get-enum" class="heading "><a href="#" title="go to top of document">get-enum</a><a class="raku-anchor" title="direct link" href="#get-enum">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_ENUM <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-enum (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; enum contents of <span class="code">$value</span>. </p>
+<h2 id="get-flags" class="heading "><a href="#" title="go to top of document">get-flags</a><a class="raku-anchor" title="direct link" href="#get-flags">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_FLAGS <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-flags (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; flags contents of <span class="code">$value</span>. </p>
+<h2 id="get-float" class="heading "><a href="#" title="go to top of document">get-float</a><a class="raku-anchor" title="direct link" href="#get-float">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_FLOAT <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-float (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; float contents of <span class="code">$value</span>. </p>
+<h2 id="get-gtype" class="heading "><a href="#" title="go to top of document">get-gtype</a><a class="raku-anchor" title="direct link" href="#get-gtype">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_GTYPE <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-gtype (--&gt; GType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the GType stored in <span class="code">$value</span>. </p>
+<h2 id="get-int" class="heading "><a href="#" title="go to top of document">get-int</a><a class="raku-anchor" title="direct link" href="#get-int">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_INT <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-int (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-int64" class="heading "><a href="#" title="go to top of document">get-int64</a><a class="raku-anchor" title="direct link" href="#get-int64">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_INT64 <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-int64 (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; 64bit integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-long" class="heading "><a href="#" title="go to top of document">get-long</a><a class="raku-anchor" title="direct link" href="#get-long">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_LONG <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-long (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; long integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-object" class="heading "><a href="#" title="go to top of document">get-object</a><a class="raku-anchor" title="direct link" href="#get-object">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_OBJECT derived <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-object (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; object contents of <span class="code">$value</span>. </p>
+<h2 id="get-param" class="heading "><a href="#" title="go to top of document">get-param</a><a class="raku-anchor" title="direct link" href="#get-param">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_PARAM <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-param (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="basis">Gnome::GObject::ParamSpec</span> content of <span class="code">$value</span>. </p>
+<h2 id="get-pointer" class="heading "><a href="#" title="go to top of document">get-pointer</a><a class="raku-anchor" title="direct link" href="#get-pointer">§</a></h2>
+
+<p>Get the contents of a pointer <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-pointer (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; pointer contents of <span class="code">$value</span>. </p>
+<h2 id="get-schar" class="heading "><a href="#" title="go to top of document">get-schar</a><a class="raku-anchor" title="direct link" href="#get-schar">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_CHAR <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-schar (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; signed 8 bit integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-string" class="heading "><a href="#" title="go to top of document">get-string</a><a class="raku-anchor" title="direct link" href="#get-string">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-string (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; string content of <span class="code">$value</span>. </p>
+<h2 id="get-uchar" class="heading "><a href="#" title="go to top of document">get-uchar</a><a class="raku-anchor" title="direct link" href="#get-uchar">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_UCHAR <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uchar (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; unsigned character contents of <span class="code">$value</span>. </p>
+<h2 id="get-uint" class="heading "><a href="#" title="go to top of document">get-uint</a><a class="raku-anchor" title="direct link" href="#get-uint">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_UINT <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uint (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; unsigned integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-uint64" class="heading "><a href="#" title="go to top of document">get-uint64</a><a class="raku-anchor" title="direct link" href="#get-uint64">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_UINT64 <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uint64 (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; unsigned 64bit integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-ulong" class="heading "><a href="#" title="go to top of document">get-ulong</a><a class="raku-anchor" title="direct link" href="#get-ulong">§</a></h2>
+
+<p>Get the contents of a %G_TYPE_ULONG <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-ulong (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; unsigned long integer contents of <span class="code">$value</span>. </p>
+<h2 id="get-variant" class="heading "><a href="#" title="go to top of document">get-variant</a><a class="raku-anchor" title="direct link" href="#get-variant">§</a></h2>
+
+<p>Get the contents of a variant <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-variant (--&gt; CArray[N-Variant] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; variant contents of <span class="code">$value</span> (may be <span class="code">Nil</span>). </p>
+<h2 id="init" class="heading "><a href="#" title="go to top of document">init</a><a class="raku-anchor" title="direct link" href="#init">§</a></h2>
+
+<p>Initializes <span class="code">$value</span> with the default value of <span class="code">$type</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method init ( GType $g-type --&gt; CArray[N-Value] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$g-type; Type the <span class="basis">Gnome::GObject::N-Value</span> should hold values of..</li>
 </ul>
 
-<h2 id="peek-pointer"><a href="#___top" class="u" title="go to top of document">peek-pointer</a></h2>
-<p>Returns the value contents as pointer. This function asserts that <code>.fits-pointer()</code> returned <code>True</code> for the passed in value. This is an internal function introduced mainly for C marshallers.</p><pre class="pod-block-code">method peek-pointer (--&gt; gpointer )
-</pre><p>Return value; the value contents as pointer. </p>
-<h2 id="reset"><a href="#___top" class="u" title="go to top of document">reset</a></h2>
-<p>Clears the current value in <code>$value</code> and resets it to the default value (as if the value had just been initialized).</p><pre class="pod-block-code">method reset (--&gt; CArray[N-Value] )
-</pre><p>Return value; the <strong>Gnome::GObject::N-Value</strong> structure that has been passed in. </p>
-<h2 id="set-boolean"><a href="#___top" class="u" title="go to top of document">set-boolean</a></h2>
-<p>Set the contents of a %G_TYPE_BOOLEAN <strong>Gnome::GObject::N-Value</strong> to <code>$v_boolean</code>.</p><pre class="pod-block-code">method set-boolean ( Bool() $v-boolean )
-</pre><ul>
-<li><p>$v-boolean; boolean value to be set.</p></li>
+<p>Return value; the <span class="basis">Gnome::GObject::N-Value</span> structure that has been passed in. </p>
+<h2 id="init-from-instance" class="heading "><a href="#" title="go to top of document">init-from-instance</a><a class="raku-anchor" title="direct link" href="#init-from-instance">§</a></h2>
+
+<p>Initializes and sets <span class="code">$value</span> from an instantiatable type via the value_table's collect_value() function. </p>
+
+<p>Note: The <span class="code">$value</span> will be initialised with the exact type of <span class="code">$instance</span>. If you wish to set the <span class="code">$value</span>'s type to a different GType (such as a parent class GType), you need to manually call <span class="code">.init()</span> and <span class="code">.set-instance()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method init-from-instance ( gpointer $instance )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance.</li>
 </ul>
 
-<h2 id="set-boxed"><a href="#___top" class="u" title="go to top of document">set-boxed</a></h2>
-<p>Set the contents of a %G_TYPE_BOXED derived <strong>Gnome::GObject::N-Value</strong> to <code>$v_boxed</code>.</p><pre class="pod-block-code">method set-boxed ( gpointer $v-boxed )
-</pre><ul>
-<li><p>$v-boxed; boxed value to be set.</p></li>
+<h2 id="peek-pointer" class="heading "><a href="#" title="go to top of document">peek-pointer</a><a class="raku-anchor" title="direct link" href="#peek-pointer">§</a></h2>
+
+<p>Returns the value contents as pointer. This function asserts that <span class="code">.fits-pointer()</span> returned <span class="code">True</span> for the passed in value. This is an internal function introduced mainly for C marshallers. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method peek-pointer (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_1">Return value; the value contents as pointer.</p>
+<h2 id="reset" class="heading "><a href="#" title="go to top of document">reset</a><a class="raku-anchor" title="direct link" href="#reset">§</a></h2>
+
+<p>Clears the current value in <span class="code">$value</span> and resets it to the default value (as if the value had just been initialized). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reset (--&gt; CArray[N-Value] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <span class="basis">Gnome::GObject::N-Value</span> structure that has been passed in. </p>
+<h2 id="set-boolean" class="heading "><a href="#" title="go to top of document">set-boolean</a><a class="raku-anchor" title="direct link" href="#set-boolean">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_BOOLEAN <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_boolean</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-boolean ( Bool() $v-boolean )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-boolean; boolean value to be set.</li>
 </ul>
 
-<h2 id="set-double"><a href="#___top" class="u" title="go to top of document">set-double</a></h2>
-<p>Set the contents of a %G_TYPE_DOUBLE <strong>Gnome::GObject::N-Value</strong> to <code>$v_double</code>.</p><pre class="pod-block-code">method set-double ( Num() $v-double )
-</pre><ul>
-<li><p>$v-double; double value to be set.</p></li>
+<h2 id="set-boxed" class="heading "><a href="#" title="go to top of document">set-boxed</a><a class="raku-anchor" title="direct link" href="#set-boxed">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_BOXED derived <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_boxed</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-boxed ( gpointer $v-boxed )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-boxed; boxed value to be set.</li>
 </ul>
 
-<h2 id="set-enum"><a href="#___top" class="u" title="go to top of document">set-enum</a></h2>
-<p>Set the contents of a %G_TYPE_ENUM <strong>Gnome::GObject::N-Value</strong> to <code>$v_enum</code>.</p><pre class="pod-block-code">method set-enum ( Int() $v-enum )
-</pre><ul>
-<li><p>$v-enum; enum value to be set.</p></li>
+<h2 id="set-double" class="heading "><a href="#" title="go to top of document">set-double</a><a class="raku-anchor" title="direct link" href="#set-double">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_DOUBLE <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_double</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-double ( Num() $v-double )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-double; double value to be set.</li>
 </ul>
 
-<h2 id="set-flags"><a href="#___top" class="u" title="go to top of document">set-flags</a></h2>
-<p>Set the contents of a %G_TYPE_FLAGS <strong>Gnome::GObject::N-Value</strong> to <code>$v_flags</code>.</p><pre class="pod-block-code">method set-flags ( UInt() $v-flags )
-</pre><ul>
-<li><p>$v-flags; flags value to be set.</p></li>
+<h2 id="set-enum" class="heading "><a href="#" title="go to top of document">set-enum</a><a class="raku-anchor" title="direct link" href="#set-enum">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_ENUM <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_enum</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-enum ( Int() $v-enum )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-enum; enum value to be set.</li>
 </ul>
 
-<h2 id="set-float"><a href="#___top" class="u" title="go to top of document">set-float</a></h2>
-<p>Set the contents of a %G_TYPE_FLOAT <strong>Gnome::GObject::N-Value</strong> to <code>$v_float</code>.</p><pre class="pod-block-code">method set-float ( Num() $v-float )
-</pre><ul>
-<li><p>$v-float; float value to be set.</p></li>
+<h2 id="set-flags" class="heading "><a href="#" title="go to top of document">set-flags</a><a class="raku-anchor" title="direct link" href="#set-flags">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_FLAGS <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_flags</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-flags ( UInt() $v-flags )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-flags; flags value to be set.</li>
 </ul>
 
-<h2 id="set-gtype"><a href="#___top" class="u" title="go to top of document">set-gtype</a></h2>
-<p>Set the contents of a %G_TYPE_GTYPE <strong>Gnome::GObject::N-Value</strong> to <code>$v_gtype</code>.</p><pre class="pod-block-code">method set-gtype ( GType $v-gtype )
-</pre><ul>
-<li><p>$v-gtype; GType to be set.</p></li>
+<h2 id="set-float" class="heading "><a href="#" title="go to top of document">set-float</a><a class="raku-anchor" title="direct link" href="#set-float">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_FLOAT <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_float</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-float ( Num() $v-float )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-float; float value to be set.</li>
 </ul>
 
-<h2 id="set-instance"><a href="#___top" class="u" title="go to top of document">set-instance</a></h2>
-<p>Sets <code>$value</code> from an instantiatable type via the value_table's collect_value() function.</p><pre class="pod-block-code">method set-instance ( gpointer $instance )
-</pre><ul>
-<li><p>$instance; the instance.</p></li>
+<h2 id="set-gtype" class="heading "><a href="#" title="go to top of document">set-gtype</a><a class="raku-anchor" title="direct link" href="#set-gtype">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_GTYPE <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_gtype</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-gtype ( GType $v-gtype )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-gtype; GType to be set.</li>
 </ul>
 
-<h2 id="set-int"><a href="#___top" class="u" title="go to top of document">set-int</a></h2>
-<p>Set the contents of a %G_TYPE_INT <strong>Gnome::GObject::N-Value</strong> to <code>$v_int</code>.</p><pre class="pod-block-code">method set-int ( Int() $v-int )
-</pre><ul>
-<li><p>$v-int; integer value to be set.</p></li>
+<h2 id="set-instance" class="heading "><a href="#" title="go to top of document">set-instance</a><a class="raku-anchor" title="direct link" href="#set-instance">§</a></h2>
+
+<p>Sets <span class="code">$value</span> from an instantiatable type via the value_table's collect_value() function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-instance ( gpointer $instance )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance.</li>
 </ul>
 
-<h2 id="set-int64"><a href="#___top" class="u" title="go to top of document">set-int64</a></h2>
-<p>Set the contents of a %G_TYPE_INT64 <strong>Gnome::GObject::N-Value</strong> to <code>$v_int64</code>.</p><pre class="pod-block-code">method set-int64 ( Int() $v-int64 )
-</pre><ul>
-<li><p>$v-int64; 64bit integer value to be set.</p></li>
+<h2 id="set-int" class="heading "><a href="#" title="go to top of document">set-int</a><a class="raku-anchor" title="direct link" href="#set-int">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_INT <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_int</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-int ( Int() $v-int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-int; integer value to be set.</li>
 </ul>
 
-<h2 id="set-interned-string"><a href="#___top" class="u" title="go to top of document">set-interned-string</a></h2>
-<p>Set the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong> to <code>$v_string</code>. The string is assumed to be static and interned (canonical, for example from g_intern_string()), and is thus not duplicated when setting the <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method set-interned-string ( Str $v-string )
-</pre><ul>
-<li><p>$v-string; static string to be set.</p></li>
+<h2 id="set-int64" class="heading "><a href="#" title="go to top of document">set-int64</a><a class="raku-anchor" title="direct link" href="#set-int64">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_INT64 <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_int64</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-int64 ( Int() $v-int64 )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-int64; 64bit integer value to be set.</li>
 </ul>
 
-<h2 id="set-long"><a href="#___top" class="u" title="go to top of document">set-long</a></h2>
-<p>Set the contents of a %G_TYPE_LONG <strong>Gnome::GObject::N-Value</strong> to <code>$v_long</code>.</p><pre class="pod-block-code">method set-long ( Int() $v-long )
-</pre><ul>
-<li><p>$v-long; long integer value to be set.</p></li>
+<h2 id="set-interned-string" class="heading "><a href="#" title="go to top of document">set-interned-string</a><a class="raku-anchor" title="direct link" href="#set-interned-string">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_string</span>. The string is assumed to be static and interned (canonical, for example from g_intern_string()), and is thus not duplicated when setting the <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-interned-string ( Str $v-string )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-string; static string to be set.</li>
 </ul>
 
-<h2 id="set-object"><a href="#___top" class="u" title="go to top of document">set-object</a></h2>
-<p>Set the contents of a %G_TYPE_OBJECT derived <strong>Gnome::GObject::N-Value</strong> to <code>$v_object</code>.</p><p><code>.set-object()</code> increases the reference count of <code>$v_object</code> (the <strong>Gnome::GObject::N-Value</strong> holds a reference to <code>$v_object</code>). If you do not wish to increase the reference count of the object (i.e. you wish to pass your current reference to the <strong>Gnome::GObject::N-Value</strong> because you no longer need it), use <code>.take-object()</code> instead.</p><p>It is important that your <strong>Gnome::GObject::N-Value</strong> holds a reference to <code>$v_object</code> (either its own, or one it has taken) to ensure that the object won't be destroyed while the <strong>Gnome::GObject::N-Value</strong> still exists).</p><pre class="pod-block-code">method set-object ( gpointer $v-object )
-</pre><ul>
-<li><p>$v-object; object value to be set.</p></li>
+<h2 id="set-long" class="heading "><a href="#" title="go to top of document">set-long</a><a class="raku-anchor" title="direct link" href="#set-long">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_LONG <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_long</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-long ( Int() $v-long )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-long; long integer value to be set.</li>
 </ul>
 
-<h2 id="set-param"><a href="#___top" class="u" title="go to top of document">set-param</a></h2>
-<p>Set the contents of a %G_TYPE_PARAM <strong>Gnome::GObject::N-Value</strong> to <code>$param</code>.</p><pre class="pod-block-code">method set-param ( N-Object() $param )
-</pre><ul>
-<li><p>$param; the <strong>Gnome::GObject::ParamSpec</strong> to be set.</p></li>
+<h2 id="set-object" class="heading "><a href="#" title="go to top of document">set-object</a><a class="raku-anchor" title="direct link" href="#set-object">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_OBJECT derived <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_object</span>. </p>
+
+<p><span class="code">.set-object()</span> increases the reference count of <span class="code">$v_object</span> (the <span class="basis">Gnome::GObject::N-Value</span> holds a reference to <span class="code">$v_object</span>). If you do not wish to increase the reference count of the object (i.e. you wish to pass your current reference to the <span class="basis">Gnome::GObject::N-Value</span> because you no longer need it), use <span class="code">.take-object()</span> instead. </p>
+
+<p>It is important that your <span class="basis">Gnome::GObject::N-Value</span> holds a reference to <span class="code">$v_object</span> (either its own, or one it has taken) to ensure that the object won't be destroyed while the <span class="basis">Gnome::GObject::N-Value</span> still exists). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-object ( gpointer $v-object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-object; object value to be set.</li>
 </ul>
 
-<h2 id="set-pointer"><a href="#___top" class="u" title="go to top of document">set-pointer</a></h2>
-<p>Set the contents of a pointer <strong>Gnome::GObject::N-Value</strong> to <code>$v_pointer</code>.</p><pre class="pod-block-code">method set-pointer ( gpointer $v-pointer )
-</pre><ul>
-<li><p>$v-pointer; pointer value to be set.</p></li>
+<h2 id="set-param" class="heading "><a href="#" title="go to top of document">set-param</a><a class="raku-anchor" title="direct link" href="#set-param">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_PARAM <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$param</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-param ( N-Object() $param )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$param; the <span class="basis">Gnome::GObject::ParamSpec</span> to be set.</li>
 </ul>
 
-<h2 id="set-schar"><a href="#___top" class="u" title="go to top of document">set-schar</a></h2>
-<p>Set the contents of a %G_TYPE_CHAR <strong>Gnome::GObject::N-Value</strong> to <code>$v_char</code>.</p><pre class="pod-block-code">method set-schar ( Int() $v-char )
-</pre><ul>
-<li><p>$v-char; signed 8 bit integer to be set.</p></li>
+<h2 id="set-pointer" class="heading "><a href="#" title="go to top of document">set-pointer</a><a class="raku-anchor" title="direct link" href="#set-pointer">§</a></h2>
+
+<p>Set the contents of a pointer <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_pointer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-pointer ( gpointer $v-pointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-pointer; pointer value to be set.</li>
 </ul>
 
-<h2 id="set-static-boxed"><a href="#___top" class="u" title="go to top of document">set-static-boxed</a></h2>
-<p>Set the contents of a %G_TYPE_BOXED derived <strong>Gnome::GObject::N-Value</strong> to <code>$v_boxed</code>.</p><p>The boxed value is assumed to be static, and is thus not duplicated when setting the <strong>Gnome::GObject::N-Value</strong>.</p><pre class="pod-block-code">method set-static-boxed ( gpointer $v-boxed )
-</pre><ul>
-<li><p>$v-boxed; static boxed value to be set.</p></li>
+<h2 id="set-schar" class="heading "><a href="#" title="go to top of document">set-schar</a><a class="raku-anchor" title="direct link" href="#set-schar">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_CHAR <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_char</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-schar ( Int() $v-char )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-char; signed 8 bit integer to be set.</li>
 </ul>
 
-<h2 id="set-static-string"><a href="#___top" class="u" title="go to top of document">set-static-string</a></h2>
-<p>Set the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong> to <code>$v_string</code>. The string is assumed to be static, and is thus not duplicated when setting the <strong>Gnome::GObject::N-Value</strong>.</p><p>If the the string is a canonical string, using <code>.set-interned-string()</code> is more appropriate.</p><pre class="pod-block-code">method set-static-string ( Str $v-string )
-</pre><ul>
-<li><p>$v-string; static string to be set.</p></li>
+<h2 id="set-static-boxed" class="heading "><a href="#" title="go to top of document">set-static-boxed</a><a class="raku-anchor" title="direct link" href="#set-static-boxed">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_BOXED derived <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_boxed</span>. </p>
+
+<p>The boxed value is assumed to be static, and is thus not duplicated when setting the <span class="basis">Gnome::GObject::N-Value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-static-boxed ( gpointer $v-boxed )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-boxed; static boxed value to be set.</li>
 </ul>
 
-<h2 id="set-string"><a href="#___top" class="u" title="go to top of document">set-string</a></h2>
-<p>Set the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong> to a copy of <code>$v_string</code>.</p><pre class="pod-block-code">method set-string ( Str $v-string )
-</pre><ul>
-<li><p>$v-string; caller-owned string to be duplicated for the <strong>Gnome::GObject::N-Value</strong>.</p></li>
+<h2 id="set-static-string" class="heading "><a href="#" title="go to top of document">set-static-string</a><a class="raku-anchor" title="direct link" href="#set-static-string">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_string</span>. The string is assumed to be static, and is thus not duplicated when setting the <span class="basis">Gnome::GObject::N-Value</span>. </p>
+
+<p>If the the string is a canonical string, using <span class="code">.set-interned-string()</span> is more appropriate. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-static-string ( Str $v-string )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-string; static string to be set.</li>
 </ul>
 
-<h2 id="set-uchar"><a href="#___top" class="u" title="go to top of document">set-uchar</a></h2>
-<p>Set the contents of a %G_TYPE_UCHAR <strong>Gnome::GObject::N-Value</strong> to <code>$v_uchar</code>.</p><pre class="pod-block-code">method set-uchar ( UInt() $v-uchar )
-</pre><ul>
-<li><p>$v-uchar; unsigned character value to be set.</p></li>
+<h2 id="set-string" class="heading "><a href="#" title="go to top of document">set-string</a><a class="raku-anchor" title="direct link" href="#set-string">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span> to a copy of <span class="code">$v_string</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-string ( Str $v-string )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-string; caller-owned string to be duplicated for the <span class="basis">Gnome::GObject::N-Value</span>.</li>
 </ul>
 
-<h2 id="set-uint"><a href="#___top" class="u" title="go to top of document">set-uint</a></h2>
-<p>Set the contents of a %G_TYPE_UINT <strong>Gnome::GObject::N-Value</strong> to <code>$v_uint</code>.</p><pre class="pod-block-code">method set-uint ( UInt() $v-uint )
-</pre><ul>
-<li><p>$v-uint; unsigned integer value to be set.</p></li>
+<h2 id="set-uchar" class="heading "><a href="#" title="go to top of document">set-uchar</a><a class="raku-anchor" title="direct link" href="#set-uchar">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_UCHAR <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_uchar</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-uchar ( UInt() $v-uchar )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-uchar; unsigned character value to be set.</li>
 </ul>
 
-<h2 id="set-uint64"><a href="#___top" class="u" title="go to top of document">set-uint64</a></h2>
-<p>Set the contents of a %G_TYPE_UINT64 <strong>Gnome::GObject::N-Value</strong> to <code>$v_uint64</code>.</p><pre class="pod-block-code">method set-uint64 ( UInt() $v-uint64 )
-</pre><ul>
-<li><p>$v-uint64; unsigned 64bit integer value to be set.</p></li>
+<h2 id="set-uint" class="heading "><a href="#" title="go to top of document">set-uint</a><a class="raku-anchor" title="direct link" href="#set-uint">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_UINT <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_uint</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-uint ( UInt() $v-uint )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-uint; unsigned integer value to be set.</li>
 </ul>
 
-<h2 id="set-ulong"><a href="#___top" class="u" title="go to top of document">set-ulong</a></h2>
-<p>Set the contents of a %G_TYPE_ULONG <strong>Gnome::GObject::N-Value</strong> to <code>$v_ulong</code>.</p><pre class="pod-block-code">method set-ulong ( UInt() $v-ulong )
-</pre><ul>
-<li><p>$v-ulong; unsigned long integer value to be set.</p></li>
+<h2 id="set-uint64" class="heading "><a href="#" title="go to top of document">set-uint64</a><a class="raku-anchor" title="direct link" href="#set-uint64">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_UINT64 <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_uint64</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-uint64 ( UInt() $v-uint64 )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-uint64; unsigned 64bit integer value to be set.</li>
 </ul>
 
-<h2 id="set-variant"><a href="#___top" class="u" title="go to top of document">set-variant</a></h2>
-<p>Set the contents of a variant <strong>Gnome::GObject::N-Value</strong> to <code>$variant</code>. If the variant is floating, it is consumed.</p><pre class="pod-block-code">method set-variant ( CArray[N-Variant] $variant )
-</pre><ul>
-<li><p>$variant; a <strong>Gnome::GObject::N-Variant</strong>, or <code>Nil</code>.</p></li>
+<h2 id="set-ulong" class="heading "><a href="#" title="go to top of document">set-ulong</a><a class="raku-anchor" title="direct link" href="#set-ulong">§</a></h2>
+
+<p>Set the contents of a %G_TYPE_ULONG <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_ulong</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-ulong ( UInt() $v-ulong )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-ulong; unsigned long integer value to be set.</li>
 </ul>
 
-<h2 id="take-boxed"><a href="#___top" class="u" title="go to top of document">take-boxed</a></h2>
-<p>Sets the contents of a %G_TYPE_BOXED derived <strong>Gnome::GObject::N-Value</strong> to <code>$v_boxed</code> and takes over the ownership of the caller’s reference to <code>$v_boxed</code>; the caller doesn’t have to unref it any more.</p><pre class="pod-block-code">method take-boxed ( gpointer $v-boxed )
-</pre><ul>
-<li><p>$v-boxed; duplicated unowned boxed value to be set.</p></li>
+<h2 id="set-variant" class="heading "><a href="#" title="go to top of document">set-variant</a><a class="raku-anchor" title="direct link" href="#set-variant">§</a></h2>
+
+<p>Set the contents of a variant <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$variant</span>. If the variant is floating, it is consumed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-variant ( CArray[N-Variant] $variant )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$variant; a <span class="basis">Gnome::GObject::N-Variant</span>, or <span class="code">Nil</span>.</li>
 </ul>
 
-<h2 id="take-object"><a href="#___top" class="u" title="go to top of document">take-object</a></h2>
-<p>Sets the contents of a %G_TYPE_OBJECT derived <strong>Gnome::GObject::N-Value</strong> to <code>$v_object</code> and takes over the ownership of the caller’s reference to <code>$v_object</code>; the caller doesn’t have to unref it any more (i.e. the reference count of the object is not increased).</p><p>If you want the <strong>Gnome::GObject::N-Value</strong> to hold its own reference to <code>$v_object</code>, use <code>.set-object()</code> instead.</p><pre class="pod-block-code">method take-object ( gpointer $v-object )
-</pre><ul>
-<li><p>$v-object; object value to be set.</p></li>
+<h2 id="take-boxed" class="heading "><a href="#" title="go to top of document">take-boxed</a><a class="raku-anchor" title="direct link" href="#take-boxed">§</a></h2>
+
+<p>Sets the contents of a %G_TYPE_BOXED derived <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_boxed</span> and takes over the ownership of the caller’s reference to <span class="code">$v_boxed</span>; the caller doesn’t have to unref it any more. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method take-boxed ( gpointer $v-boxed )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-boxed; duplicated unowned boxed value to be set.</li>
 </ul>
 
-<h2 id="take-param"><a href="#___top" class="u" title="go to top of document">take-param</a></h2>
-<p>Sets the contents of a %G_TYPE_PARAM <strong>Gnome::GObject::N-Value</strong> to <code>$param</code> and takes over the ownership of the caller’s reference to <code>$param</code>; the caller doesn’t have to unref it any more.</p><pre class="pod-block-code">method take-param ( N-Object() $param )
-</pre><ul>
-<li><p>$param; the <strong>Gnome::GObject::ParamSpec</strong> to be set.</p></li>
+<h2 id="take-object" class="heading "><a href="#" title="go to top of document">take-object</a><a class="raku-anchor" title="direct link" href="#take-object">§</a></h2>
+
+<p>Sets the contents of a %G_TYPE_OBJECT derived <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_object</span> and takes over the ownership of the caller’s reference to <span class="code">$v_object</span>; the caller doesn’t have to unref it any more (i.e. the reference count of the object is not increased). </p>
+
+<p>If you want the <span class="basis">Gnome::GObject::N-Value</span> to hold its own reference to <span class="code">$v_object</span>, use <span class="code">.set-object()</span> instead. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method take-object ( gpointer $v-object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-object; object value to be set.</li>
 </ul>
 
-<h2 id="take-string"><a href="#___top" class="u" title="go to top of document">take-string</a></h2>
-<p>Sets the contents of a %G_TYPE_STRING <strong>Gnome::GObject::N-Value</strong> to <code>$v_string</code>.</p><pre class="pod-block-code">method take-string ( Str $v-string )
-</pre><ul>
-<li><p>$v-string; string to take ownership of.</p></li>
+<h2 id="take-param" class="heading "><a href="#" title="go to top of document">take-param</a><a class="raku-anchor" title="direct link" href="#take-param">§</a></h2>
+
+<p>Sets the contents of a %G_TYPE_PARAM <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$param</span> and takes over the ownership of the caller’s reference to <span class="code">$param</span>; the caller doesn’t have to unref it any more. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method take-param ( N-Object() $param )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$param; the <span class="basis">Gnome::GObject::ParamSpec</span> to be set.</li>
 </ul>
 
-<h2 id="take-variant"><a href="#___top" class="u" title="go to top of document">take-variant</a></h2>
-<p>Set the contents of a variant <strong>Gnome::GObject::N-Value</strong> to <code>$variant</code>, and takes over the ownership of the caller's reference to <code>$variant</code>; the caller doesn't have to unref it any more (i.e. the reference count of the variant is not increased).</p><p>If <code>$variant</code> was floating then its floating reference is converted to a hard reference.</p><p>If you want the <strong>Gnome::GObject::N-Value</strong> to hold its own reference to <code>$variant</code>, use <code>.set-variant()</code> instead.</p><p>This is an internal function introduced mainly for C marshallers.</p><pre class="pod-block-code">method take-variant ( CArray[N-Variant] $variant )
-</pre><ul>
-<li><p>$variant; (transfer ownership: full) a <strong>Gnome::GObject::N-Variant</strong>, or <code>Nil</code>.</p></li>
+<h2 id="take-string" class="heading "><a href="#" title="go to top of document">take-string</a><a class="raku-anchor" title="direct link" href="#take-string">§</a></h2>
+
+<p>Sets the contents of a %G_TYPE_STRING <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$v_string</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method take-string ( Str $v-string )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$v-string; string to take ownership of.</li>
 </ul>
 
-<h2 id="transform"><a href="#___top" class="u" title="go to top of document">transform</a></h2>
-<p>Tries to cast the contents of <code>$src_value</code> into a type appropriate to store in <code>$dest_value</code>, e.g. to transform a %G_TYPE_INT value into a %G_TYPE_FLOAT value. Performing transformations between value types might incur precision lossage. Especially transformations into strings might reveal seemingly arbitrary results and shouldn't be relied upon for production code (such as rcfile value or object property serialization).</p><pre class="pod-block-code">method transform ( CArray[N-Value] $dest-value --&gt; Bool )
-</pre><ul>
-<li><p>$dest-value; Target value..</p></li>
-</ul>
-<p>Return value; Whether a transformation rule was found and could be applied. Upon failing transformations, <code>$dest_value</code> is left untouched.. </p>
-<h2 id="unset"><a href="#___top" class="u" title="go to top of document">unset</a></h2>
-<p>Clears the current value in <code>$value</code> (if any) and &quot;unsets&quot; the type, this releases all resources associated with this <strong>Gnome::GObject::N-Value</strong>. An unset value is the same as an uninitialized (zero-filled) <strong>Gnome::GObject::N-Value</strong> structure.</p><pre class="pod-block-code">method unset ( )
-</pre>
-<h1 id="Functions"><a href="#___top" class="u" title="go to top of document">Functions</a></h1>
+<h2 id="take-variant" class="heading "><a href="#" title="go to top of document">take-variant</a><a class="raku-anchor" title="direct link" href="#take-variant">§</a></h2>
 
-<h2 id="register-transform-func"><a href="#___top" class="u" title="go to top of document">register-transform-func</a></h2>
-<p>Registers a value transformation function for use in <code>.transform()</code>. A previously registered transformation function for <code>$src_type</code> and <code>$dest_type</code> will be replaced.</p><pre class="pod-block-code">method register-transform-func ( GType $src-type, GType $dest-type, &amp;transform-func )
-</pre><ul>
-<li><p>$src-type; Source type..</p></li>
-<li><p>$dest-type; Target type..</p></li>
-<li><p>&amp;transform-func; a function which transforms values of type <code>$src_type</code> into value of type <code>$dest_type</code>. Tthe function must be specified with following signature; <code>:( N-Value $src-value, N-Value $dest-value )</code>.</p></li>
+<p>Set the contents of a variant <span class="basis">Gnome::GObject::N-Value</span> to <span class="code">$variant</span>, and takes over the ownership of the caller's reference to <span class="code">$variant</span>; the caller doesn't have to unref it any more (i.e. the reference count of the variant is not increased). </p>
+
+<p>If <span class="code">$variant</span> was floating then its floating reference is converted to a hard reference. </p>
+
+<p>If you want the <span class="basis">Gnome::GObject::N-Value</span> to hold its own reference to <span class="code">$variant</span>, use <span class="code">.set-variant()</span> instead. </p>
+
+<p id="Para_2">This is an internal function introduced mainly for C marshallers.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method take-variant ( CArray[N-Variant] $variant )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$variant; (transfer ownership: full) a <span class="basis">Gnome::GObject::N-Variant</span>, or <span class="code">Nil</span>.</li>
 </ul>
 
-<h2 id="type-compatible"><a href="#___top" class="u" title="go to top of document">type-compatible</a></h2>
-<p>Returns whether a <strong>Gnome::GObject::N-Value</strong> of type <code>$src_type</code> can be copied into a <strong>Gnome::GObject::N-Value</strong> of type <code>$dest_type</code>.</p><pre class="pod-block-code">method type-compatible ( GType $src-type, GType $dest-type --&gt; Bool )
-</pre><ul>
-<li><p>$src-type; source type to be copied..</p></li>
-<li><p>$dest-type; destination type for copying..</p></li>
+<h2 id="transform" class="heading "><a href="#" title="go to top of document">transform</a><a class="raku-anchor" title="direct link" href="#transform">§</a></h2>
+
+<p>Tries to cast the contents of <span class="code">$src_value</span> into a type appropriate to store in <span class="code">$dest_value</span>, e.g. to transform a %G_TYPE_INT value into a %G_TYPE_FLOAT value. Performing transformations between value types might incur precision lossage. Especially transformations into strings might reveal seemingly arbitrary results and shouldn't be relied upon for production code (such as rcfile value or object property serialization). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method transform ( CArray[N-Value] $dest-value --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$dest-value; Target value..</li>
 </ul>
-<p>Return value; <code>True</code> if <code>.copy()</code> is possible with <code>$src_type</code> and <code>$dest_type</code>.. </p>
-<h2 id="type-transformable"><a href="#___top" class="u" title="go to top of document">type-transformable</a></h2>
-<p>Check whether <code>.transform()</code> is able to transform values of type <code>$src_type</code> into values of type <code>$dest_type</code>. Note that for the types to be transformable, they must be compatible or a transformation function must be registered.</p><pre class="pod-block-code">method type-transformable ( GType $src-type, GType $dest-type --&gt; Bool )
-</pre><ul>
-<li><p>$src-type; Source type..</p></li>
-<li><p>$dest-type; Target type..</p></li>
+
+<p>Return value; Whether a transformation rule was found and could be applied. Upon failing transformations, <span class="code">$dest_value</span> is left untouched.. </p>
+<h2 id="unset" class="heading "><a href="#" title="go to top of document">unset</a><a class="raku-anchor" title="direct link" href="#unset">§</a></h2>
+
+<p>Clears the current value in <span class="code">$value</span> (if any) and &quot;unsets&quot; the type, this releases all resources associated with this <span class="basis">Gnome::GObject::N-Value</span>. An unset value is the same as an uninitialized (zero-filled) <span class="basis">Gnome::GObject::N-Value</span> structure. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unset ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="register-transform-func" class="heading "><a href="#" title="go to top of document">register-transform-func</a><a class="raku-anchor" title="direct link" href="#register-transform-func">§</a></h2>
+
+<p>Registers a value transformation function for use in <span class="code">.transform()</span>. A previously registered transformation function for <span class="code">$src_type</span> and <span class="code">$dest_type</span> will be replaced. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method register-transform-func ( GType $src-type, GType $dest-type, &amp;transform-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$src-type; Source type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dest-type; Target type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;transform-func; a function which transforms values of type <span class="code">$src_type</span> into value of type <span class="code">$dest_type</span>. Tthe function must be specified with following signature; <span class="code">:( N-Value $src-value, N-Value $dest-value )</span>.</li>
 </ul>
-<p>Return value; <code>True</code> if the transformation is possible, <code>False</code> otherwise.. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/N-Value.rakudoc</span></div><div>at <span class="time">2026-07-12T19:00:19Z</span></div></footer>
-	</body>
+
+<h2 id="type-compatible" class="heading "><a href="#" title="go to top of document">type-compatible</a><a class="raku-anchor" title="direct link" href="#type-compatible">§</a></h2>
+
+<p>Returns whether a <span class="basis">Gnome::GObject::N-Value</span> of type <span class="code">$src_type</span> can be copied into a <span class="basis">Gnome::GObject::N-Value</span> of type <span class="code">$dest_type</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method type-compatible ( GType $src-type, GType $dest-type --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$src-type; source type to be copied..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dest-type; destination type for copying..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">.copy()</span> is possible with <span class="code">$src_type</span> and <span class="code">$dest_type</span>.. </p>
+<h2 id="type-transformable" class="heading "><a href="#" title="go to top of document">type-transformable</a><a class="raku-anchor" title="direct link" href="#type-transformable">§</a></h2>
+
+<p>Check whether <span class="code">.transform()</span> is able to transform values of type <span class="code">$src_type</span> into values of type <span class="code">$dest_type</span>. Note that for the types to be transformable, they must be compatible or a transformation function must be registered. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method type-transformable ( GType $src-type, GType $dest-type --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$src-type; Source type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dest-type; Target type..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the transformation is possible, <span class="code">False</span> otherwise.. </p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc//home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/N-Value.rakudoc</span>
+<span class="footer-field">&nbsp;at 19:43 UTC on 2026-07-21</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>
+
