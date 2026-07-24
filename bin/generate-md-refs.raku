@@ -13,23 +13,25 @@
 use v6.d;
 
 use YAMLish;
+use RakuDoc::Render;
+use RakuDoc::To::HTML;
 
 #-------------------------------------------------------------------------------
 constant PROJECTS = $*HOME ~ '/Languages/Raku/Projects/';
 constant REFS = PROJECTS ~ 'MARTIMM.github.io/_data/';
 
 constant XMASS = 'MARTIMM.github.io/doc/XMas/';
-constant XMASD = 'MARTIMM.github.io/content-docs/XMas/';
+constant XMASD = './content-docs/XMas/';
 
 constant API1S = 'gnome-api1/';
-constant API1D = 'MARTIMM.github.io/content-docs/api1/reference/';
+constant API1D = './content-docs/api1/reference/';
 
 constant SKIMTOOL = 'gnome-source-skim-tool/';
 constant API2S = SKIMTOOL ~ 'gnome-api2/';  # S source, D destination
-constant API2D = 'MARTIMM.github.io/content-docs/api2/reference/';
+constant API2D = './content-docs/api2/reference/';
 
 constant GTS = 'GnomeTools/';
-constant GTD = 'MARTIMM.github.io/content-docs/GnomeTools/reference/';
+constant GTD = './content-docs/GnomeTools/reference/';
 
 my Hash $source-paths = %(
   :Gtk4Api2(PROJECTS ~ API2S ~ 'gnome-gtk4/lib/Gnome/Gtk4/'),
@@ -55,26 +57,26 @@ my Hash $source-paths = %(
 );
 
 my Hash $destination-paths = %(
-  :Gtk4Api2(PROJECTS ~ API2D ~ 'Gtk4/'),
-  :Gdk4Api2(PROJECTS ~ API2D ~ 'Gdk4/'),
-  :Gsk4Api2(PROJECTS ~ API2D ~ 'Gsk4/'),
-  :GrapApi2(PROJECTS ~ API2D ~ 'Graphene/'),
-  :GioApi2(PROJECTS ~ API2D ~ 'Gio/'),
-  :NApi2(PROJECTS ~ API2D ~ 'N/'),
-  :GObjApi2(PROJECTS ~ API2D ~ 'GObject/'),
-  :GlibApi2(PROJECTS ~ API2D ~ 'Glib/'),
+  :Gtk4Api2(API2D ~ 'Gtk4/'),
+  :Gdk4Api2(API2D ~ 'Gdk4/'),
+  :Gsk4Api2(API2D ~ 'Gsk4/'),
+  :GrapApi2(API2D ~ 'Graphene/'),
+  :GioApi2(API2D ~ 'Gio/'),
+  :NApi2(API2D ~ 'N/'),
+  :GObjApi2(API2D ~ 'GObject/'),
+  :GlibApi2(API2D ~ 'Glib/'),
 
-  :Gtk3Api1(PROJECTS ~ API1D ~ 'Gtk3/'),
-  :Gdk3Api1(PROJECTS ~ API1D ~ 'Gdk3/'),
-  :GioApi1(PROJECTS ~ API1D ~ 'Gio/'),
-  :GlibApi1(PROJECTS ~ API1D ~ 'Glib/'),
-  :GObjApi1(PROJECTS ~ API1D ~ 'GObject/'),
+  :Gtk3Api1(API1D ~ 'Gtk3/'),
+  :Gdk3Api1(API1D ~ 'Gdk3/'),
+  :GioApi1(API1D ~ 'Gio/'),
+  :GlibApi1(API1D ~ 'Glib/'),
+  :GObjApi1(API1D ~ 'GObject/'),
 
   # GnomeTools
-  :GTGtk(PROJECTS ~ GTD ~ 'Gtk/'),
-  :GTGio(PROJECTS ~ GTD ~ 'Gio/'),
+  :GTGtk(GTD ~ 'Gtk/'),
+  :GTGio(GTD ~ 'Gio/'),
 
-  :xmas(PROJECTS ~ XMASD),
+  :xmas(XMASD),
 );
 
 my Hash $sidebar-paths = %(
@@ -192,28 +194,28 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
     die 'Cannot find rakumod nor rakudoc file' unless $raku-doc-path.IO ~~ :r;
   }
 }}
-note "$?LINE $key, $doc-name, $raku-doc-path";
 
   my Str $raku-doc-dest = $destination-paths{$key};
   mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
 
-  my IO::Path $basename = $raku-doc-path.IO.basename.IO.extension('');
+  my Str $basename = $raku-doc-path.IO.basename;
 #  note "\n$basename";
-  note "  Source: $raku-doc-path";
-  note "  Destination: $raku-doc-dest";
+#  note "  Source: $raku-doc-path";
+#  note "  Destination: $raku-doc-dest";
 
+  note "\nGenerate $basename from ", $raku-doc-path.IO.basename;
 
-  my Str $filename = "$raku-doc-dest$basename";
+  my Str $filename = "$raku-doc-dest" ~ $basename.IO.extension('');
   return if ($skip and ("$filename.html".IO ~~ :e));
   
 #  my Array $raku-pod = load-pod($raku-doc-path);
 
-  note "  Processing ", $filename.IO.basename;
+  note "  Processing ", $raku-doc-path.IO.basename;
 #  note "shell \"raku --doc=HTML2 $raku-doc-path > $filename.html\"";
   my Str() $sdir = $raku-doc-path.IO.parent;
 #  my Str() $ddir = $filename.IO.parent;
 #  my Str() $sname = $raku-doc-path.IO.basename;
-note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name'\n ";
+#note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name'\n ";
 
   # For the moment we need to explicitly turn on RakuAST processing
   #TODO remove when version raku 6.e
@@ -223,6 +225,7 @@ note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-na
   # pages theme and css from the previous html generator
   %*ENV<ALT_CSS> = 'doc/Scss/rakuast-style.css';
 
+#`{{
   # Generate the HTML file
   my Proc $p =
     shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path'", :out;
@@ -235,12 +238,28 @@ note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-na
     $result ~= "$line\n";
   }
   $p.out.close;
+}}
+
+  # Prefix the text with the github pages frontmatter marks
+  my Str $result = "---\n---\n";
+
+  my Str $rakudoc = $raku-doc-path.IO.slurp;
+  my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp; #(:test);
+#  $rdp.debug(True);
+#  $rdp.verbose(True);
+  my %source-data = %(
+      name     => $doc-name,
+      modified => $raku-doc-path.IO.modified,
+      path     => $raku-doc-path.IO.path
+  );
+  $result ~= $rdp.render( $rakudoc.AST, :%source-data);
+#  $result ~= $rdp.finalize;
 
   # Change the class for the table of contents
 #  $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
 
   # Store the result at its proper place.
-  note "Store at $filename.html";
+  note "  Store at $filename.html";
   "$filename.html".IO.spurt($result);
 
 #  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
@@ -271,7 +290,7 @@ sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
 
-  chdir('./content-docs');
+#  chdir('./content-docs');
   note "\nAdd entries to sidebar at $sidebar-path";
 
   my @classes = ();
@@ -301,14 +320,22 @@ sub generate-sidebar( Str $key ) {
     }
   }
 
+#note "$?LINE $destination-path";
   # Make sidebar and fill with references of all found html files
   for $destination-path.IO.dir.sort -> $url is copy {
+
+    # Skip all files not HTML and also the index file
     next if $url.Str !~~ m/ \. html $/;
     next if $url.Str ~~ /'index.html' $/;
 
-    my $cwd = $*CWD;
-    $url ~~ s/^ $cwd \/ //;
-    $url = "/content-docs/$url";
+#note "$?LINE $url";
+    # Drop path to content-docs
+#    my $cwd = $*CWD;
+#    $url ~~ s/^ $cwd \/ //;
+    $url ~~ s/^ '.' //;
+#note "$?LINE $url";
+
+#    $url = "/content-docs/$url";
     my Str() $name = S/ \.html $// with $url;
     $name = $name.IO.basename;
     note "  Url of $name: $url";
