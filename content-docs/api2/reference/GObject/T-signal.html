@@ -1,0 +1,1296 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::GObject::T-signal</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h.title {
+  font-size: larger;
+  background-color: #F2C100; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::GObject::T-signal"></div><h1 class="title">Gnome::GObject::T-signal</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-SignalInvocationHint">Record N-SignalInvocationHint</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-SignalQuery">Record N-SignalQuery</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Constants">Constants</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_SIGNAL_FLAGS_MASK">G_SIGNAL_FLAGS_MASK</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_SIGNAL_MATCH_MASK">G_SIGNAL_MATCH_MASK</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Bitfields">Bitfields</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GConnectFlags">GConnectFlags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GSignalFlags">GSignalFlags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GSignalMatchType">GSignalMatchType</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Callback_Functions">Callback Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SignalEmissionHook">SignalEmissionHook</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SignalAccumulator">SignalAccumulator</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_0">Signature</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Standalone_Functions">Standalone Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#clear-signal-handler">clear-signal-handler</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-accumulator-first-wins">signal-accumulator-first-wins</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-accumulator-true-handled">signal-accumulator-true-handled</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-add-emission-hook">signal-add-emission-hook</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-chain-from-overridden">signal-chain-from-overridden</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-chain-from-overridden-handler">signal-chain-from-overridden-handler</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-connect-closure">signal-connect-closure</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-connect-closure-by-id">signal-connect-closure-by-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-connect-data">signal-connect-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-emit">signal-emit</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-emit-by-name">signal-emit-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-emit-valist">signal-emit-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-emitv">signal-emitv</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-get-invocation-hint">signal-get-invocation-hint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handler-block">signal-handler-block</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handler-disconnect">signal-handler-disconnect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handler-find">signal-handler-find</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handler-is-connected">signal-handler-is-connected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handler-unblock">signal-handler-unblock</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handlers-block-matched">signal-handlers-block-matched</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handlers-destroy">signal-handlers-destroy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handlers-disconnect-matched">signal-handlers-disconnect-matched</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-handlers-unblock-matched">signal-handlers-unblock-matched</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-has-handler-pending">signal-has-handler-pending</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-is-valid-name">signal-is-valid-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-list-ids">signal-list-ids</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-lookup">signal-lookup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-name">signal-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-new">signal-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-new-class-handler">signal-new-class-handler</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-new-valist">signal-new-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-newv">signal-newv</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-override-class-closure">signal-override-class-closure</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-override-class-handler">signal-override-class-handler</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-parse-name">signal-parse-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-query">signal-query</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-remove-emission-hook">signal-remove-emission-hook</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-set-va-marshaller">signal-set-va-marshaller</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-stop-emission">signal-stop-emission</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#signal-stop-emission-by-name">signal-stop-emission-by-name</a></div>
+</div>
+
+    
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+
+<p id="Para">Initialization of a type class is simple and only needed when the standalone functions are used.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Record N-SignalInvocationHint"></div><h1 id="Record_N-SignalInvocationHint" class="heading "><a href="#" title="go to top of document">Record N-SignalInvocationHint</a><a class="raku-anchor" title="direct link" href="#Record N-SignalInvocationHint">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-SignalInvocationHint:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has guint $.signal-id;
+  has GQuark $.detail;
+  has GFlag $.run-type;           # GSignalFlags _UA_
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >signal-id; The signal id of the signal invoking the callback</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >detail; The detail passed on for this emission</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >run-type; The stage the signal emission is currently in, this field will contain one of <span class="code">G_SIGNAL_RUN_FIRST</span>, <span class="code">G_SIGNAL_RUN_LAST</span> or <span class="code">G_SIGNAL_RUN_CLEANUP</span> and <span class="code">G_SIGNAL_ACCUMULATOR_FIRST_RUN</span>. <span class="code">G_SIGNAL_ACCUMULATOR_FIRST_RUN</span> is only set for the first run of the accumulator function for a signal emission.. Enumeration of type GSignalFlags _UA_.</li>
+</ul>
+
+
+<div class="id-target" id="Record N-SignalQuery"></div><h1 id="Record_N-SignalQuery" class="heading "><a href="#" title="go to top of document">Record N-SignalQuery</a><a class="raku-anchor" title="direct link" href="#Record N-SignalQuery">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-SignalQuery:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has guint $.signal-id;
+  has Str $.signal-name;
+  has GType $.itype;
+  has GFlag $.signal-flags;           # GSignalFlags _UA_
+  has GType $.return-type;
+  has guint $.n-params;
+  has  $.param-types;
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >signal-id; The signal id of the signal being queried, or 0 if the signal to be queried was unknown.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >signal-name; The signal name.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >itype; The interface/instance type that this signal can be emitted for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >signal-flags; The signal flags as passed in to g_signal_new().. Enumeration of type GSignalFlags _UA_.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >return-type; The return type for user callbacks.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >n-params; The number of parameters that user callbacks take.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >param-types; The individual parameter types for user callbacks, note that the effective callback signature is:</li>
+</ul>
+
+<h1 id="Constants" class="heading "><a href="#" title="go to top of document">Constants</a><a class="raku-anchor" title="direct link" href="#Constants">§</a></h1>
+<h2 id="G_SIGNAL_FLAGS_MASK" class="heading "><a href="#" title="go to top of document">G_SIGNAL_FLAGS_MASK</a><a class="raku-anchor" title="direct link" href="#G_SIGNAL_FLAGS_MASK">§</a></h2>
+
+<p>A mask for all <span class="basis">Gnome::GObject::T-signal</span> bits. </p>
+<h2 id="G_SIGNAL_MATCH_MASK" class="heading "><a href="#" title="go to top of document">G_SIGNAL_MATCH_MASK</a><a class="raku-anchor" title="direct link" href="#G_SIGNAL_MATCH_MASK">§</a></h2>
+
+<p>A mask for all <span class="basis">Gnome::GObject::T-signal</span> bits. </p>
+<h1 id="Bitfields" class="heading "><a href="#" title="go to top of document">Bitfields</a><a class="raku-anchor" title="direct link" href="#Bitfields">§</a></h1>
+<h2 id="GConnectFlags" class="heading "><a href="#" title="go to top of document">GConnectFlags</a><a class="raku-anchor" title="direct link" href="#GConnectFlags">§</a></h2>
+
+<p id="Para_0">The connection flags are used to specify the behaviour of a signal's connection.</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_CONNECT_DEFAULT</span>; Default behaviour (no special flags). Since: 2.74</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_CONNECT_AFTER</span>; If set, the handler should be called after the default handler of the signal. Normally, the handler is called before the default handler.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_CONNECT_SWAPPED</span>; If set, the instance and data should be swapped when calling the handler; see g_signal_connect_swapped() for an example.</li>
+</ul>
+<h2 id="GSignalFlags" class="heading "><a href="#" title="go to top of document">GSignalFlags</a><a class="raku-anchor" title="direct link" href="#GSignalFlags">§</a></h2>
+
+<p id="Para_1">The signal flags are used to specify a signal's behaviour.</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_RUN_FIRST</span>; Invoke the object method handler in the first emission stage.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_RUN_LAST</span>; Invoke the object method handler in the third emission stage.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_RUN_CLEANUP</span>; Invoke the object method handler in the last emission stage.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_NO_RECURSE</span>; Signals being emitted for an object while currently being in emission for this very object will not be emitted recursively, but instead cause the first emission to be restarted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_DETAILED</span>; This signal supports &quot;::detail&quot; appendices to the signal name upon handler connections and emissions.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_ACTION</span>; Action signals are signals that may freely be emitted on alive objects from user code via g_signal_emit() and friends, without the need of being embedded into extra code that performs pre or post emission adjustments on the object. They can also be thought of as object methods which can be called generically by third-party code.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_NO_HOOKS</span>; No emissions hooks are supported for this signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MUST_COLLECT</span>; Varargs signal emission will always collect the arguments, even if there are no signal handlers connected. Since 2.30.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_DEPRECATED</span>; The signal is deprecated and will be removed in a future version. A warning will be generated if it is connected while running with G_ENABLE_DIAGNOSTIC=1. Since 2.32.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_ACCUMULATOR_FIRST_RUN</span>; Only used in <span class="basis">Gnome::GObject::T-signal</span> accumulator functions for the <span class="important">run_type</span> defined in <span class="code">Gnome::GObject::SignalQuery</span> field to mark the first call to the accumulator function for a signal emission. Since 2.68.</li>
+</ul>
+<h2 id="GSignalMatchType" class="heading "><a href="#" title="go to top of document">GSignalMatchType</a><a class="raku-anchor" title="direct link" href="#GSignalMatchType">§</a></h2>
+
+<p id="Para_2">The match types specify what g_signal_handlers_block_matched(), g_signal_handlers_unblock_matched() and g_signal_handlers_disconnect_matched() match signals by.</p>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_ID</span>; The signal id must be equal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_DETAIL</span>; The signal detail must be equal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_CLOSURE</span>; The closure must be the same.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_FUNC</span>; The C closure callback must be the same.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_DATA</span>; The closure data must be the same.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_SIGNAL_MATCH_UNBLOCKED</span>; Only unblocked signals may be matched.</li>
+</ul>
+
+
+<div class="id-target" id="Callback Functions"></div><h1 id="Callback_Functions" class="heading "><a href="#" title="go to top of document">Callback Functions</a><a class="raku-anchor" title="direct link" href="#Callback Functions">§</a></h1>
+<h2 id="SignalEmissionHook" class="heading "><a href="#" title="go to top of document">SignalEmissionHook</a><a class="raku-anchor" title="direct link" href="#SignalEmissionHook">§</a></h2>
+<h3 id="Signature" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  Array[Int] $ihint, UInt() $n-param-values, N-Object $param-values, gpointer $data  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ihint; Signal invocation hint, see <span class="basis">Gnome::GObject::T-signal</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-param-values; the number of parameters to the function, including the instance on which the signal was emitted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$param-values; the instance on which the signal was emitted, followed by the parameters of the emission.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; user data associated with the hook.</li>
+</ul>
+<h2 id="SignalAccumulator" class="heading "><a href="#" title="go to top of document">SignalAccumulator</a><a class="raku-anchor" title="direct link" href="#SignalAccumulator">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_0" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  Array[Int] $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $data  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ihint; Signal invocation hint, see <span class="basis">Gnome::GObject::T-signal</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-accu; Accumulator to collect callback return values in, this is the return value of the current signal emission.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-return; A <span class="basis">Gnome::GObject::N-Value</span> holding the return value of the signal handler.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; Callback data that was specified when creating the signal.</li>
+</ul>
+
+
+<div class="id-target" id="Standalone Functions"></div><h1 id="Standalone_Functions" class="heading "><a href="#" title="go to top of document">Standalone Functions</a><a class="raku-anchor" title="direct link" href="#Standalone Functions">§</a></h1>
+<h2 id="clear-signal-handler" class="heading "><a href="#" title="go to top of document">clear-signal-handler</a><a class="raku-anchor" title="direct link" href="#clear-signal-handler">§</a></h2>
+
+<p>Disconnects a handler from <span class="code">$instance</span> so it will not be called during any future or currently ongoing emissions of the signal it has been connected to. The <span class="code">$handler-id-ptr</span> is then set to zero, which is never a valid handler ID value (see g_signal_connect()). </p>
+
+<p id="Para_3">If the handler ID is 0 then this function does nothing.</p>
+
+<p id="Para_4">There is also a macro version of this function so that the code will be inlined.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method clear-signal-handler ( …, gpointer $instance )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >handler-id-ptr; A pointer to a handler ID (of type #gulong) of the handler to be disconnected.. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to remove the signal handler from. This pointer may be undefined or invalid, if the handler ID is zero..</li>
+</ul>
+<h2 id="signal-accumulator-first-wins" class="heading "><a href="#" title="go to top of document">signal-accumulator-first-wins</a><a class="raku-anchor" title="direct link" href="#signal-accumulator-first-wins">§</a></h2>
+
+<p>A predefined <span class="basis">Gnome::GObject::T-signal</span> for signals intended to be used as a hook for application code to provide a particular value. Usually only one such value is desired and multiple handlers for the same signal don't make much sense (except for the case of the default handler defined in the class structure, in which case you will usually want the signal connection to override the class handler). </p>
+
+<p id="Para_5">This accumulator will use the return value from the first signal handler that is run as the return value for the signal and not run any further handlers (ie: the first handler &quot;wins&quot;).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-accumulator-first-wins ( Array[Int] $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $dummy --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ihint; standard <span class="basis">Gnome::GObject::T-signal</span> parameter.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-accu; standard <span class="basis">Gnome::GObject::T-signal</span> parameter</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-return; standard <span class="basis">Gnome::GObject::T-signal</span> parameter</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dummy; standard <span class="basis">Gnome::GObject::T-signal</span> parameter.</li>
+</ul>
+
+<p>Return value; standard <span class="basis">Gnome::GObject::T-signal</span> result. </p>
+<h2 id="signal-accumulator-true-handled" class="heading "><a href="#" title="go to top of document">signal-accumulator-true-handled</a><a class="raku-anchor" title="direct link" href="#signal-accumulator-true-handled">§</a></h2>
+
+<p>A predefined <span class="basis">Gnome::GObject::T-signal</span> for signals that return a boolean values. The behavior that this accumulator gives is that a return of <span class="code">True</span> stops the signal emission: no further callbacks will be invoked, while a return of <span class="code">False</span> allows the emission to continue. The idea here is that a <span class="code">True</span> return indicates that the callback handled the signal, and no further handling is needed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-accumulator-true-handled ( Array[Int] $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $dummy --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ihint; standard <span class="basis">Gnome::GObject::T-signal</span> parameter.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-accu; standard <span class="basis">Gnome::GObject::T-signal</span> parameter</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-return; standard <span class="basis">Gnome::GObject::T-signal</span> parameter</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dummy; standard <span class="basis">Gnome::GObject::T-signal</span> parameter.</li>
+</ul>
+
+<p>Return value; standard <span class="basis">Gnome::GObject::T-signal</span> result. </p>
+<h2 id="signal-add-emission-hook" class="heading "><a href="#" title="go to top of document">signal-add-emission-hook</a><a class="raku-anchor" title="direct link" href="#signal-add-emission-hook">§</a></h2>
+
+<p>Adds an emission hook for a signal, which will get called for any emission of that signal, independent of the instance. This is possible only for signals which don't have <span class="code">G_SIGNAL_NO_HOOKS</span> flag set. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-add-emission-hook ( UInt() $signal-id, UInt $detail, GSignalEmissionHook &amp;hook-func, gpointer $hook-data, GDestroyNotify &amp;data-destroy --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal identifier, as returned by g_signal_lookup()..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail on which to call the hook..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GSignalEmissionHook &amp;hook-func; a <span class="basis">Gnome::GObject::T-signal</span> function.. The function must be specified with the following signature; <span class="code">:( gint-ptr $ihint, guint $n-param-values, N-Object $param-values, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hook-data; user data for <span class="code">$hook-func</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GDestroyNotify &amp;data-destroy; a <span class="basis">Gnome::Glib::T-types</span> for <span class="code">$hook-data</span>.. The function must be specified with the following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p id="Para_6">Return value; the hook id, for later use with g_signal_remove_emission_hook()..</p>
+<h2 id="signal-chain-from-overridden" class="heading "><a href="#" title="go to top of document">signal-chain-from-overridden</a><a class="raku-anchor" title="direct link" href="#signal-chain-from-overridden">§</a></h2>
+
+<p id="Para_7">Calls the original class closure of a signal. This function should only be called from an overridden class closure; see g_signal_override_class_closure() and g_signal_override_class_handler().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-chain-from-overridden ( N-Object $instance-and-params, N-Object $return-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance-and-params; the argument list of the signal emission. The first element in the array is a <span class="basis">Gnome::GObject::N-Value</span> for the instance the signal is being emitted on. The rest are any arguments to be passed to the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-value; Location for the return value.</li>
+</ul>
+
+<h2 id="signal-chain-from-overridden-handler" class="heading "><a href="#" title="go to top of document">signal-chain-from-overridden-handler</a><a class="raku-anchor" title="direct link" href="#signal-chain-from-overridden-handler">§</a></h2>
+
+<p id="Para_8">Calls the original class closure of a signal. This function should only be called from an overridden class closure; see g_signal_override_class_closure() and g_signal_override_class_handler().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-chain-from-overridden-handler ( gpointer $instance, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance the signal is being emitted on..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<h2 id="signal-connect-closure" class="heading "><a href="#" title="go to top of document">signal-connect-closure</a><a class="raku-anchor" title="direct link" href="#signal-connect-closure">§</a></h2>
+
+<p id="Para_9">Connects a closure to a signal for a particular object.</p>
+
+<p>If <span class="code">$closure</span> is a floating reference (see g_closure_sink()), this function takes ownership of <span class="code">$closure</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-connect-closure ( gpointer $instance, Str $detailed-signal, N-Object $closure, Bool() $after --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance to connect to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detailed-signal; a string of the form &quot;signal-name::detail&quot;..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; the closure to connect.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$after; whether the handler should be called before or after the default handler of the signal..</li>
+</ul>
+
+<p id="Para_10">Return value; the handler ID (always greater than 0 for successful connections).</p>
+<h2 id="signal-connect-closure-by-id" class="heading "><a href="#" title="go to top of document">signal-connect-closure-by-id</a><a class="raku-anchor" title="direct link" href="#signal-connect-closure-by-id">§</a></h2>
+
+<p id="Para_11">Connects a closure to a signal for a particular object.</p>
+
+<p>If <span class="code">$closure</span> is a floating reference (see g_closure_sink()), this function takes ownership of <span class="code">$closure</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-connect-closure-by-id ( gpointer $instance, UInt() $signal-id, UInt $detail, N-Object $closure, Bool() $after --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance to connect to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the id of the signal..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; the closure to connect.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$after; whether the handler should be called before or after the default handler of the signal..</li>
+</ul>
+
+<p id="Para_12">Return value; the handler ID (always greater than 0 for successful connections).</p>
+<h2 id="signal-connect-data" class="heading "><a href="#" title="go to top of document">signal-connect-data</a><a class="raku-anchor" title="direct link" href="#signal-connect-data">§</a></h2>
+
+<p>Connects a <span class="basis">Gnome::GObject::T-closure</span> function to a signal for a particular object. Similar to g_signal_connect(), but allows to provide a <span class="basis">Gnome::GObject::T-closure</span> for the data which will be called when the signal handler is disconnected and no longer used. Specify <span class="code">$connect-flags</span> if you need `..._after()` or `..._swapped()` variants of this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-connect-data ( gpointer $instance, Str $detailed-signal, GCallback &amp;c-handler, gpointer $data, GClosureNotify &amp;destroy-data, UInt $connect-flags --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance to connect to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detailed-signal; a string of the form &quot;signal-name::detail&quot;..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GCallback &amp;c-handler; the <span class="basis">Gnome::GObject::T-closure</span> to connect.. The function must be specified with the following signature; <span class="code">:( )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$c-handler</span> calls..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GClosureNotify &amp;destroy-data; a <span class="basis">Gnome::GObject::T-closure</span> for <span class="code">$data</span>.. The function must be specified with the following signature; <span class="code">:( gpointer $data, N-Object $closure )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$connect-flags; a combination of <span class="basis">Gnome::GObject::T-signal</span>..</li>
+</ul>
+
+<p id="Para_13">Return value; the handler ID (always greater than 0 for successful connections).</p>
+<h2 id="signal-emit" class="heading "><a href="#" title="go to top of document">signal-emit</a><a class="raku-anchor" title="direct link" href="#signal-emit">§</a></h2>
+
+<p id="Para_14">Emits a signal. Signal emission is done synchronously. The method will only return control after all handlers are called or signal emission was stopped.</p>
+
+<p id="Para_15">Note that g_signal_emit() resets the return value to the default if no handlers are connected, in contrast to g_signal_emitv().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-emit ( gpointer $instance, UInt() $signal-id, UInt $detail, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance the signal is being emitted on..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<h2 id="signal-emit-by-name" class="heading "><a href="#" title="go to top of document">signal-emit-by-name</a><a class="raku-anchor" title="direct link" href="#signal-emit-by-name">§</a></h2>
+
+<p id="Para_16">Emits a signal. Signal emission is done synchronously. The method will only return control after all handlers are called or signal emission was stopped.</p>
+
+<p id="Para_17">Note that g_signal_emit_by_name() resets the return value to the default if no handlers are connected, in contrast to g_signal_emitv().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-emit-by-name ( gpointer $instance, Str $detailed-signal, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance the signal is being emitted on..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detailed-signal; a string of the form &quot;signal-name::detail&quot;..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<h2 id="signal-emit-valist" class="heading "><a href="#" title="go to top of document">signal-emit-valist</a><a class="raku-anchor" title="direct link" href="#signal-emit-valist">§</a></h2>
+
+<p id="Para_18">Emits a signal. Signal emission is done synchronously. The method will only return control after all handlers are called or signal emission was stopped.</p>
+
+<p id="Para_19">Note that g_signal_emit_valist() resets the return value to the default if no handlers are connected, in contrast to g_signal_emitv().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-emit-valist ( gpointer $instance, UInt() $signal-id, UInt $detail, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance the signal is being emitted on..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >var-args; a list of parameters to be passed to the signal, followed by a location for the return value. If the return type of the signal is <span class="code">G_TYPE_NONE</span>, the return value location can be omitted.. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<h2 id="signal-emitv" class="heading "><a href="#" title="go to top of document">signal-emitv</a><a class="raku-anchor" title="direct link" href="#signal-emitv">§</a></h2>
+
+<p id="Para_20">Emits a signal. Signal emission is done synchronously. The method will only return control after all handlers are called or signal emission was stopped.</p>
+
+<p>Note that g_signal_emitv() doesn't change <span class="code">$return-value</span> if no handlers are connected, in contrast to g_signal_emit() and g_signal_emit_valist(). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-emitv ( N-Object $instance-and-params, UInt() $signal-id, UInt $detail, N-Object $return-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance-and-params; argument list for the signal emission. The first element in the array is a <span class="basis">Gnome::GObject::N-Value</span> for the instance the signal is being emitted on. The rest are any arguments to be passed to the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-value; (transfer ownership: full) Location to store the return value of the signal emission. This must be provided if the specified signal returns a value, but may be ignored otherwise.</li>
+</ul>
+
+<h2 id="signal-get-invocation-hint" class="heading "><a href="#" title="go to top of document">signal-get-invocation-hint</a><a class="raku-anchor" title="direct link" href="#signal-get-invocation-hint">§</a></h2>
+
+<p id="Para_21">Returns the invocation hint of the innermost signal emission of instance.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-get-invocation-hint ( gpointer $instance --&gt; Array[Int] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the instance to query.</li>
+</ul>
+
+<p id="Para_22">Return value; the invocation hint of the innermost signal emission, or undefined if not found..</p>
+<h2 id="signal-handler-block" class="heading "><a href="#" title="go to top of document">signal-handler-block</a><a class="raku-anchor" title="direct link" href="#signal-handler-block">§</a></h2>
+
+<p id="Para_23">Blocks a handler of an instance so it will not be called during any signal emissions unless it is unblocked again. Thus &quot;blocking&quot; a signal handler means to temporarily deactivate it, a signal handler has to be unblocked exactly the same amount of times it has been blocked before to become active again.</p>
+
+<p>The <span class="code">$handler-id</span> has to be a valid signal handler id, connected to a signal of <span class="code">$instance</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handler-block ( gpointer $instance, UInt() $handler-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to block the signal handler of..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-id; Handler id of the handler to be blocked..</li>
+</ul>
+
+<h2 id="signal-handler-disconnect" class="heading "><a href="#" title="go to top of document">signal-handler-disconnect</a><a class="raku-anchor" title="direct link" href="#signal-handler-disconnect">§</a></h2>
+
+<p>Disconnects a handler from an instance so it will not be called during any future or currently ongoing emissions of the signal it has been connected to. The <span class="code">$handler-id</span> becomes invalid and may be reused. </p>
+
+<p>The <span class="code">$handler-id</span> has to be a valid signal handler id, connected to a signal of <span class="code">$instance</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handler-disconnect ( gpointer $instance, UInt() $handler-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to remove the signal handler from..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-id; Handler id of the handler to be disconnected..</li>
+</ul>
+
+<h2 id="signal-handler-find" class="heading "><a href="#" title="go to top of document">signal-handler-find</a><a class="raku-anchor" title="direct link" href="#signal-handler-find">§</a></h2>
+
+<p>Finds the first signal handler that matches certain selection criteria. The criteria mask is passed as an OR-ed combination of <span class="basis">Gnome::GObject::T-signal</span> flags, and the criteria values are passed as arguments. The match <span class="code">$mask</span> has to be non-0 for successful matches. If no handler was found, 0 is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handler-find ( gpointer $instance, UInt $mask, UInt() $signal-id, UInt $detail, N-Object $closure, gpointer $func, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance owning the signal handler to be found..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mask; Mask indicating which of <span class="code">$signal-id</span>, <span class="code">$detail</span>, <span class="code">$closure</span>, <span class="code">$func</span> and/or <span class="code">$data</span> the handler has to match..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; Signal the handler has to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; Signal detail the handler has to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; The closure the handler will invoke.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$func; The C closure callback of the handler (useless for non-C closures)..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; The closure data of the handler's closure..</li>
+</ul>
+
+<p id="Para_24">Return value; A valid non-0 signal handler id for a successful match..</p>
+<h2 id="signal-handler-is-connected" class="heading "><a href="#" title="go to top of document">signal-handler-is-connected</a><a class="raku-anchor" title="direct link" href="#signal-handler-is-connected">§</a></h2>
+
+<p>Returns whether <span class="code">$handler-id</span> is the ID of a handler connected to <span class="code">$instance</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handler-is-connected ( gpointer $instance, UInt() $handler-id --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance where a signal handler is sought..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-id; the handler ID..</li>
+</ul>
+
+<p>Return value; whether <span class="code">$handler-id</span> identifies a handler connected to <span class="code">$instance</span>.. </p>
+<h2 id="signal-handler-unblock" class="heading "><a href="#" title="go to top of document">signal-handler-unblock</a><a class="raku-anchor" title="direct link" href="#signal-handler-unblock">§</a></h2>
+
+<p id="Para_25">Undoes the effect of a previous g_signal_handler_block() call. A blocked handler is skipped during signal emissions and will not be invoked, unblocking it (for exactly the amount of times it has been blocked before) reverts its &quot;blocked&quot; state, so the handler will be recognized by the signal system and is called upon future or currently ongoing signal emissions (since the order in which handlers are called during signal emissions is deterministic, whether the unblocked handler in question is called as part of a currently ongoing emission depends on how far that emission has proceeded yet).</p>
+
+<p>The <span class="code">$handler-id</span> has to be a valid id of a signal handler that is connected to a signal of <span class="code">$instance</span> and is currently blocked. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handler-unblock ( gpointer $instance, UInt() $handler-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to unblock the signal handler of..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$handler-id; Handler id of the handler to be unblocked..</li>
+</ul>
+
+<h2 id="signal-handlers-block-matched" class="heading "><a href="#" title="go to top of document">signal-handlers-block-matched</a><a class="raku-anchor" title="direct link" href="#signal-handlers-block-matched">§</a></h2>
+
+<p id="Para_26">Blocks all handlers on an instance that match a certain selection criteria.</p>
+
+<p>The criteria mask is passed as a combination of <span class="basis">Gnome::GObject::T-signal</span> flags, and the criteria values are passed as arguments. A handler must match on all flags set in <span class="code">$mask</span> to be blocked (i.e. the match is conjunctive). </p>
+
+<p>Passing at least one of the <span class="code">G_SIGNAL_MATCH_ID</span>, <span class="code">G_SIGNAL_MATCH_CLOSURE</span>, <span class="code">G_SIGNAL_MATCH_FUNC</span> or <span class="code">G_SIGNAL_MATCH_DATA</span> match flags is required for successful matches. If no handlers were found, 0 is returned, the number of blocked handlers otherwise. </p>
+
+<p>Support for <span class="code">G_SIGNAL_MATCH_ID</span> was added in GLib 2.78. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handlers-block-matched ( gpointer $instance, UInt $mask, UInt() $signal-id, UInt $detail, N-Object $closure, gpointer $func, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to block handlers from..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mask; Mask indicating which of <span class="code">$signal-id</span>, <span class="code">$detail</span>, <span class="code">$closure</span>, <span class="code">$func</span> and/or <span class="code">$data</span> the handlers have to match..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; Signal the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; Signal detail the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; The closure the handlers will invoke.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$func; The C closure callback of the handlers (useless for non-C closures)..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; The closure data of the handlers' closures..</li>
+</ul>
+
+<p id="Para_27">Return value; The number of handlers that matched..</p>
+<h2 id="signal-handlers-destroy" class="heading "><a href="#" title="go to top of document">signal-handlers-destroy</a><a class="raku-anchor" title="direct link" href="#signal-handlers-destroy">§</a></h2>
+
+<p>Destroy all signal handlers of a type instance. This function is an implementation detail of the <span class="basis">Gnome::GObject::Object</span> dispose implementation, and should not be used outside of the type system. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handlers-destroy ( gpointer $instance )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance whose signal handlers are destroyed.</li>
+</ul>
+
+<h2 id="signal-handlers-disconnect-matched" class="heading "><a href="#" title="go to top of document">signal-handlers-disconnect-matched</a><a class="raku-anchor" title="direct link" href="#signal-handlers-disconnect-matched">§</a></h2>
+
+<p id="Para_28">Disconnects all handlers on an instance that match a certain selection criteria.</p>
+
+<p>The criteria mask is passed as a combination of <span class="basis">Gnome::GObject::T-signal</span> flags, and the criteria values are passed as arguments. A handler must match on all flags set in <span class="code">$mask</span> to be disconnected (i.e. the match is conjunctive). </p>
+
+<p>Passing at least one of the <span class="code">G_SIGNAL_MATCH_ID</span>, <span class="code">G_SIGNAL_MATCH_CLOSURE</span>, <span class="code">G_SIGNAL_MATCH_FUNC</span> or <span class="code">G_SIGNAL_MATCH_DATA</span> match flags is required for successful matches. If no handlers were found, 0 is returned, the number of disconnected handlers otherwise. </p>
+
+<p>Support for <span class="code">G_SIGNAL_MATCH_ID</span> was added in GLib 2.78. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handlers-disconnect-matched ( gpointer $instance, UInt $mask, UInt() $signal-id, UInt $detail, N-Object $closure, gpointer $func, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to remove handlers from..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mask; Mask indicating which of <span class="code">$signal-id</span>, <span class="code">$detail</span>, <span class="code">$closure</span>, <span class="code">$func</span> and/or <span class="code">$data</span> the handlers have to match..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; Signal the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; Signal detail the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; The closure the handlers will invoke.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$func; The C closure callback of the handlers (useless for non-C closures)..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; The closure data of the handlers' closures..</li>
+</ul>
+
+<p id="Para_29">Return value; The number of handlers that matched..</p>
+<h2 id="signal-handlers-unblock-matched" class="heading "><a href="#" title="go to top of document">signal-handlers-unblock-matched</a><a class="raku-anchor" title="direct link" href="#signal-handlers-unblock-matched">§</a></h2>
+
+<p id="Para_30">Unblocks all handlers on an instance that match a certain selection criteria.</p>
+
+<p>The criteria mask is passed as a combination of <span class="basis">Gnome::GObject::T-signal</span> flags, and the criteria values are passed as arguments. A handler must match on all flags set in <span class="code">$mask</span> to be unblocked (i.e. the match is conjunctive). </p>
+
+<p>Passing at least one of the <span class="code">G_SIGNAL_MATCH_ID</span>, <span class="code">G_SIGNAL_MATCH_CLOSURE</span>, <span class="code">G_SIGNAL_MATCH_FUNC</span> or <span class="code">G_SIGNAL_MATCH_DATA</span> match flags is required for successful matches. If no handlers were found, 0 is returned, the number of unblocked handlers otherwise. The match criteria should not apply to any handlers that are not currently blocked. </p>
+
+<p>Support for <span class="code">G_SIGNAL_MATCH_ID</span> was added in GLib 2.78. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-handlers-unblock-matched ( gpointer $instance, UInt $mask, UInt() $signal-id, UInt $detail, N-Object $closure, gpointer $func, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; The instance to unblock handlers from..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mask; Mask indicating which of <span class="code">$signal-id</span>, <span class="code">$detail</span>, <span class="code">$closure</span>, <span class="code">$func</span> and/or <span class="code">$data</span> the handlers have to match..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; Signal the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; Signal detail the handlers have to be connected to..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$closure; The closure the handlers will invoke.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$func; The C closure callback of the handlers (useless for non-C closures)..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; The closure data of the handlers' closures..</li>
+</ul>
+
+<p id="Para_31">Return value; The number of handlers that matched..</p>
+<h2 id="signal-has-handler-pending" class="heading "><a href="#" title="go to top of document">signal-has-handler-pending</a><a class="raku-anchor" title="direct link" href="#signal-has-handler-pending">§</a></h2>
+
+<p>Returns whether there are any handlers connected to <span class="code">$instance</span> for the given signal id and detail. </p>
+
+<p>If <span class="code">$detail</span> is 0 then it will only match handlers that were connected without detail. If <span class="code">$detail</span> is non-zero then it will match handlers connected both without detail and with the given detail. This is consistent with how a signal emitted with <span class="code">$detail</span> would be delivered to those handlers. </p>
+
+<p id="Para_32">Since 2.46 this also checks for a non-default class closure being installed, as this is basically always what you want.</p>
+
+<p id="Para_33">One example of when you might use this is when the arguments to the signal are difficult to compute. A class implementor may opt to not emit the signal if no one is attached anyway, thus saving the cost of building the arguments.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-has-handler-pending ( gpointer $instance, UInt() $signal-id, UInt $detail, Bool() $may-be-blocked --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the object whose signal handlers are sought..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$may-be-blocked; whether blocked handlers should count as match..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if a handler is connected to the signal, <span class="code">False</span> otherwise.. </p>
+<h2 id="signal-is-valid-name" class="heading "><a href="#" title="go to top of document">signal-is-valid-name</a><a class="raku-anchor" title="direct link" href="#signal-is-valid-name">§</a></h2>
+
+<p id="Para_34">Validate a signal name. This can be useful for dynamically-generated signals which need to be validated at run-time before actually trying to create them.</p>
+
+<p id="Para_35">See canonical parameter names for details of the rules for valid names. The rules for signal names are the same as those for property names.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-is-valid-name ( Str $name --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the canonical name of the signal.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$name</span> is a valid signal name, <span class="code">False</span> otherwise.. </p>
+<h2 id="signal-list-ids" class="heading "><a href="#" title="go to top of document">signal-list-ids</a><a class="raku-anchor" title="direct link" href="#signal-list-ids">§</a></h2>
+
+<p id="Para_36">Lists the signals by id that a certain instance or interface type created. Further information about the signals can be acquired through g_signal_query().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-list-ids ( GType $itype, Array[Int] $n-ids --&gt; Array[Int] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$itype; Instance or interface type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-ids; (transfer ownership: full) Location to store the number of signal ids for <span class="code">$itype</span>..</li>
+</ul>
+
+<p id="Para_37">Return value; Newly allocated array of signal IDs..</p>
+<h2 id="signal-lookup" class="heading "><a href="#" title="go to top of document">signal-lookup</a><a class="raku-anchor" title="direct link" href="#signal-lookup">§</a></h2>
+
+<p id="Para_38">Given the name of the signal and the type of object it connects to, gets the signal's identifying integer. Emitting the signal by number is somewhat faster than using the name each time.</p>
+
+<p id="Para_39">Also tries the ancestors of the given type.</p>
+
+<p>The type class passed as <span class="code">$itype</span> must already have been instantiated (for example, using g_type_class_ref()) for this function to work, as signals are always installed during class initialization. </p>
+
+<p id="Para_40">See g_signal_new() for details on allowed signal names.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-lookup ( Str $name, GType $itype --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the signal's name..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; the type that the signal operates on..</li>
+</ul>
+
+<p id="Para_41">Return value; the signal's identifying number, or 0 if no signal was found..</p>
+<h2 id="signal-name" class="heading "><a href="#" title="go to top of document">signal-name</a><a class="raku-anchor" title="direct link" href="#signal-name">§</a></h2>
+
+<p id="Para_42">Given the signal's identifier, finds its name.</p>
+
+<p id="Para_43">Two different signals may have the same name, if they have differing types.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-name ( UInt() $signal-id --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal's identifying number..</li>
+</ul>
+
+<p id="Para_44">Return value; the signal name, or undefined if the signal number was invalid..</p>
+<h2 id="signal-new" class="heading "><a href="#" title="go to top of document">signal-new</a><a class="raku-anchor" title="direct link" href="#signal-new">§</a></h2>
+
+<p id="Para_45">Creates a new signal. (This is usually done in the class initializer.)</p>
+
+<p>A signal name consists of segments consisting of ASCII letters and digits, separated by either the `-` or <span class="basis">_</span> character. The first character of a signal name must be a letter. Names which violate these rules lead to undefined behaviour. These are the same rules as for property naming (see g_param_spec_internal()). </p>
+
+<p>When registering a signal and looking up a signal, either separator can be used, but they cannot be mixed. Using `-` is considerably more efficient. Using <span class="basis">_</span> is discouraged. </p>
+
+<p>If 0 is used for <span class="code">$class-offset</span> subclasses cannot override the class handler in their class_init method by doing super_class-&gt;signal_handler = my_signal_handler. Instead they will have to use g_signal_override_class_handler(). </p>
+
+<p>If <span class="code">$c-marshaller</span> is undefined, g_cclosure_marshal_generic() will be used as the marshaller for this signal. In some simple cases, g_signal_new() will use a more optimized c_marshaller and va_marshaller for the signal instead of g_cclosure_marshal_generic(). </p>
+
+<p>If <span class="code">$c-marshaller</span> is non-undefined, you need to also specify a va_marshaller using g_signal_set_va_marshaller() or the generic va_marshaller will be used. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-new ( Str $signal-name, GType $itype, UInt $signal-flags, UInt() $class-offset, GSignalAccumulator &amp;accumulator, gpointer $accu-data, …, GType $return-type, UInt() $n-params, … --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; the name for the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; the type this signal pertains to. It will also pertain to types which are derived from this type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-flags; a combination of <span class="basis">Gnome::GObject::T-signal</span> specifying detail of when the default handler is to be invoked. You should at least specify <span class="code">G_SIGNAL_RUN_FIRST</span> or <span class="code">G_SIGNAL_RUN_LAST</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$class-offset; The offset of the function pointer in the class structure for this type. Used to invoke a class method generically. Pass 0 to not associate a class method slot with this signal..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GSignalAccumulator &amp;accumulator; the accumulator for this signal; may be undefined.. The function must be specified with the following signature; <span class="code">:( gint-ptr $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$accu-data; user data for the <span class="code">$accumulator</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >c-marshaller; the function to translate arrays of parameter values to signal emissions into C language callback invocations or undefined.. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-type; the type of return value, or <span class="code">G_TYPE_NONE</span> for a signal without a return value..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-params; the number of parameter types to follow..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_46">Return value; the signal id.</p>
+<h2 id="signal-new-class-handler" class="heading "><a href="#" title="go to top of document">signal-new-class-handler</a><a class="raku-anchor" title="direct link" href="#signal-new-class-handler">§</a></h2>
+
+<p id="Para_47">Creates a new signal. (This is usually done in the class initializer.)</p>
+
+<p id="Para_48">This is a variant of g_signal_new() that takes a C callback instead of a class offset for the signal's class handler. This function doesn't need a function pointer exposed in the class structure of an object definition, instead the function pointer is passed directly and can be overridden by derived classes with g_signal_override_class_closure() or g_signal_override_class_handler() and chained to with g_signal_chain_from_overridden() or g_signal_chain_from_overridden_handler().</p>
+
+<p id="Para_49">See g_signal_new() for information about signal names.</p>
+
+<p id="Para_50">If c_marshaller is undefined, g_cclosure_marshal_generic() will be used as the marshaller for this signal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-new-class-handler ( Str $signal-name, GType $itype, UInt $signal-flags, GCallback &amp;class-handler, GSignalAccumulator &amp;accumulator, gpointer $accu-data, …, GType $return-type, UInt() $n-params, … --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; the name for the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; the type this signal pertains to. It will also pertain to types which are derived from this type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-flags; a combination of <span class="basis">Gnome::GObject::T-signal</span> specifying detail of when the default handler is to be invoked. You should at least specify <span class="code">G_SIGNAL_RUN_FIRST</span> or <span class="code">G_SIGNAL_RUN_LAST</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GCallback &amp;class-handler; a <span class="basis">Gnome::GObject::T-closure</span> which acts as class implementation of this signal. Used to invoke a class method generically. Pass undefined to not associate a class method with this signal.. The function must be specified with the following signature; <span class="code">:( )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GSignalAccumulator &amp;accumulator; the accumulator for this signal; may be undefined.. The function must be specified with the following signature; <span class="code">:( gint-ptr $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$accu-data; user data for the <span class="code">$accumulator</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >c-marshaller; the function to translate arrays of parameter values to signal emissions into C language callback invocations or undefined.. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-type; the type of return value, or <span class="code">G_TYPE_NONE</span> for a signal without a return value..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-params; the number of parameter types to follow..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_51">Return value; the signal id.</p>
+<h2 id="signal-new-valist" class="heading "><a href="#" title="go to top of document">signal-new-valist</a><a class="raku-anchor" title="direct link" href="#signal-new-valist">§</a></h2>
+
+<p id="Para_52">Creates a new signal. (This is usually done in the class initializer.)</p>
+
+<p id="Para_53">See g_signal_new() for details on allowed signal names.</p>
+
+<p id="Para_54">If c_marshaller is undefined, g_cclosure_marshal_generic() will be used as the marshaller for this signal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-new-valist ( Str $signal-name, GType $itype, UInt $signal-flags, N-Object $class-closure, GSignalAccumulator &amp;accumulator, gpointer $accu-data, …, GType $return-type, UInt() $n-params, … --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; the name for the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; the type this signal pertains to. It will also pertain to types which are derived from this type..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-flags; a combination of <span class="basis">Gnome::GObject::T-signal</span> specifying detail of when the default handler is to be invoked. You should at least specify <span class="code">G_SIGNAL_RUN_FIRST</span> or <span class="code">G_SIGNAL_RUN_LAST</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$class-closure; The closure to invoke on signal emission; may be undefined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GSignalAccumulator &amp;accumulator; the accumulator for this signal; may be undefined.. The function must be specified with the following signature; <span class="code">:( gint-ptr $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$accu-data; user data for the <span class="code">$accumulator</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >c-marshaller; the function to translate arrays of parameter values to signal emissions into C language callback invocations or undefined.. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-type; the type of return value, or <span class="code">G_TYPE_NONE</span> for a signal without a return value..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-params; the number of parameter types in <span class="code">$args</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >args; va_list of <span class="basis">Gnome::GObject::SignalQuery</span>, one for each parameter.. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_55">Return value; the signal id.</p>
+<h2 id="signal-newv" class="heading "><a href="#" title="go to top of document">signal-newv</a><a class="raku-anchor" title="direct link" href="#signal-newv">§</a></h2>
+
+<p id="Para_56">Creates a new signal. (This is usually done in the class initializer.)</p>
+
+<p id="Para_57">See g_signal_new() for details on allowed signal names.</p>
+
+<p id="Para_58">If c_marshaller is undefined, g_cclosure_marshal_generic() will be used as the marshaller for this signal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-newv ( Str $signal-name, GType $itype, UInt $signal-flags, N-Object $class-closure, GSignalAccumulator &amp;accumulator, gpointer $accu-data, …, GType $return-type, UInt() $n-params, … --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; the name for the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; the type this signal pertains to. It will also pertain to types which are derived from this type.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-flags; a combination of <span class="basis">Gnome::GObject::T-signal</span> specifying detail of when the default handler is to be invoked. You should at least specify <span class="code">G_SIGNAL_RUN_FIRST</span> or <span class="code">G_SIGNAL_RUN_LAST</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$class-closure; The closure to invoke on signal emission; may be undefined</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GSignalAccumulator &amp;accumulator; the accumulator for this signal; may be undefined. The function must be specified with the following signature; <span class="code">:( gint-ptr $ihint, N-Object $return-accu, N-Object $handler-return, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$accu-data; user data for the <span class="code">$accumulator</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >c-marshaller; the function to translate arrays of parameter values to signal emissions into C language callback invocations or undefined. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$return-type; the type of return value, or <span class="code">G_TYPE_NONE</span> for a signal without a return value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-params; the length of <span class="code">$param-types</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >param-types; an array of types, one for each parameter (may be undefined if <span class="code">$n-params</span> is zero). Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_59">Return value; the signal id.</p>
+<h2 id="signal-override-class-closure" class="heading "><a href="#" title="go to top of document">signal-override-class-closure</a><a class="raku-anchor" title="direct link" href="#signal-override-class-closure">§</a></h2>
+
+<p>Overrides the class closure (i.e. the default handler) for the given signal for emissions on instances of <span class="code">$instance-type</span>. <span class="code">$instance-type</span> must be derived from the type to which the signal belongs. </p>
+
+<p id="Para_60">See g_signal_chain_from_overridden() and g_signal_chain_from_overridden_handler() for how to chain up to the parent class closure from inside the overridden one.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-override-class-closure ( UInt() $signal-id, GType $instance-type, N-Object $class-closure )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$instance-type; the instance type on which to override the class closure for the signal..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$class-closure; the closure.</li>
+</ul>
+
+<h2 id="signal-override-class-handler" class="heading "><a href="#" title="go to top of document">signal-override-class-handler</a><a class="raku-anchor" title="direct link" href="#signal-override-class-handler">§</a></h2>
+
+<p>Overrides the class closure (i.e. the default handler) for the given signal for emissions on instances of <span class="code">$instance-type</span> with callback <span class="code">$class-handler</span>. <span class="code">$instance-type</span> must be derived from the type to which the signal belongs. </p>
+
+<p id="Para_61">See g_signal_chain_from_overridden() and g_signal_chain_from_overridden_handler() for how to chain up to the parent class closure from inside the overridden one.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-override-class-handler ( Str $signal-name, GType $instance-type, GCallback &amp;class-handler )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-name; the name for the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$instance-type; the instance type on which to override the class handler for the signal..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GCallback &amp;class-handler; the handler.. The function must be specified with the following signature; <span class="code">:( )</span>.</li>
+</ul>
+
+<h2 id="signal-parse-name" class="heading "><a href="#" title="go to top of document">signal-parse-name</a><a class="raku-anchor" title="direct link" href="#signal-parse-name">§</a></h2>
+
+<p>Internal function to parse a signal name into its <span class="code">$signal-id</span> and <span class="code">$detail</span> quark. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-parse-name ( Str $detailed-signal, GType $itype, Array[Int] $signal-id-p, UInt $detail-p, Bool() $force-detail-quark --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$detailed-signal; a string of the form &quot;signal-name::detail&quot;..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$itype; The interface/instance type that introduced &quot;signal-name&quot;..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id-p; (transfer ownership: full) Location to store the signal id..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail-p; (transfer ownership: full) Location to store the detail quark..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$force-detail-quark; <span class="code">True</span> forces creation of a <span class="basis">Gnome::Glib::SignalQuery</span> for the detail..</li>
+</ul>
+
+<p>Return value; Whether the signal name could successfully be parsed and <span class="code">$signal-id-p</span> and <span class="code">$detail-p</span> contain valid return values.. </p>
+<h2 id="signal-query" class="heading "><a href="#" title="go to top of document">signal-query</a><a class="raku-anchor" title="direct link" href="#signal-query">§</a></h2>
+
+<p>Queries the signal system for in-depth information about a specific signal. This function will fill in a user-provided structure to hold signal-specific information. If an invalid signal id is passed in, the <span class="code">$signal-id</span> member of the <span class="basis">Gnome::GObject::T-signal</span> is 0. All members filled into the <span class="basis">Gnome::GObject::T-signal</span> structure should be considered constant and have to be left untouched. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-query ( UInt() $signal-id, N-Object $query )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; The signal id of the signal to query information for..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$query; A user provided structure that is filled in with constant values upon success.</li>
+</ul>
+
+<h2 id="signal-remove-emission-hook" class="heading "><a href="#" title="go to top of document">signal-remove-emission-hook</a><a class="raku-anchor" title="direct link" href="#signal-remove-emission-hook">§</a></h2>
+
+<p id="Para_62">Deletes an emission hook.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-remove-emission-hook ( UInt() $signal-id, UInt() $hook-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the id of the signal.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hook-id; the id of the emission hook, as returned by g_signal_add_emission_hook().</li>
+</ul>
+
+<h2 id="signal-set-va-marshaller" class="heading "><a href="#" title="go to top of document">signal-set-va-marshaller</a><a class="raku-anchor" title="direct link" href="#signal-set-va-marshaller">§</a></h2>
+
+<p>Change the <span class="basis">Gnome::GObject::SignalQuery</span> used for a given signal. This is a specialised form of the marshaller that can often be used for the common case of a single connected signal handler and avoids the overhead of <span class="basis">Gnome::GObject::N-Value</span>. Its use is optional. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-set-va-marshaller ( UInt() $signal-id, GType $instance-type, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$instance-type; the instance type on which to set the marshaller..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >va-marshaller; the marshaller to set.. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<h2 id="signal-stop-emission" class="heading "><a href="#" title="go to top of document">signal-stop-emission</a><a class="raku-anchor" title="direct link" href="#signal-stop-emission">§</a></h2>
+
+<p id="Para_63">Stops a signal's current emission.</p>
+
+<p>This will prevent the default method from running, if the signal was <span class="code">G_SIGNAL_RUN_LAST</span> and you connected normally (i.e. without the &quot;after&quot; flag). </p>
+
+<p id="Para_64">Prints a warning if used on a signal which isn't being emitted.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-stop-emission ( gpointer $instance, UInt() $signal-id, UInt $detail )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the object whose signal handlers you wish to stop..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$signal-id; the signal identifier, as returned by g_signal_lookup()..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detail; the detail which the signal was emitted with..</li>
+</ul>
+
+<h2 id="signal-stop-emission-by-name" class="heading "><a href="#" title="go to top of document">signal-stop-emission-by-name</a><a class="raku-anchor" title="direct link" href="#signal-stop-emission-by-name">§</a></h2>
+
+<p id="Para_65">Stops a signal's current emission.</p>
+
+<p id="Para_66">This is just like g_signal_stop_emission() except it will look up the signal id for you.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method signal-stop-emission-by-name ( gpointer $instance, Str $detailed-signal )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$instance; the object whose signal handlers you wish to stop..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detailed-signal; a string of the form &quot;signal-name::detail&quot;..</li>
+</ul>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc//home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gobject/doc/T-signal.rakudoc</span>
+<span class="footer-field">&nbsp;at 08:16 UTC on 2026-07-22</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
+</html>
+
