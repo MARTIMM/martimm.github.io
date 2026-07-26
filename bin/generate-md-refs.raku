@@ -249,9 +249,9 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 #  $rdp.debug(True);
 #  $rdp.verbose(True);
   my %source-data = %(
-      name     => $doc-name,
+      name     => $raku-doc-path.IO.basename,
       modified => $raku-doc-path.IO.modified,
-      path     => $raku-doc-path.IO.path
+      path     => $raku-doc-path.IO.relative.IO.parent,
   );
   $result ~= $rdp.render( $rakudoc.AST, :%source-data);
 #  $result ~= $rdp.finalize;
