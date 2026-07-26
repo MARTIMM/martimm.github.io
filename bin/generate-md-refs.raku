@@ -223,7 +223,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
   # We want to have an alternative CSS setup using the files from a github
   # pages theme and css from the previous html generator
-  %*ENV<ALT_CSS> = 'doc/Scss/rakuast-style.css';
+  #%*ENV<ALT_CSS> = 'doc/Scss/rakuast-style.css';
 
 #`{{
   # Generate the HTML file
@@ -245,6 +245,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
   my Str $rakudoc = $raku-doc-path.IO.slurp;
   my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp; #(:test);
+  $rdp.add-data( 'css', 'doc/Scss/rakuast-style.css'.IO.slurp);
 #  $rdp.debug(True);
 #  $rdp.verbose(True);
   my %source-data = %(
