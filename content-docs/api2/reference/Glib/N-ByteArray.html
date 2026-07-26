@@ -1,0 +1,670 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::N-ByteArray">Gnome::Glib::N-ByteArray</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append">append</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-to-bytes">free-to-bytes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new_0">new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-take">new-take</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend">prepend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ref">ref</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-index">remove-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-index-fast">remove-index-fast</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-range">remove-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-size">set-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sized-new">sized-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort">sort</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort-with-data">sort-with-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#steal">steal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unref">unref</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::N-ByteArray" class="heading "><a href="#" title="go to top of document">Gnome::Glib::N-ByteArray</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::N-ByteArray">§</a></h1>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">Contains the public fields of a GByteArray.</p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="append" class="heading "><a href="#" title="go to top of document">append</a><a class="raku-anchor" title="direct link" href="#append">§</a></h2>
+
+<p>Adds the given bytes to the end of the <span class="basis">Gnome::Glib::N-ByteArray</span>. The array will grow in size automatically if necessary. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append ( N-Object $array, Array[Int] $data, UInt() $len --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the byte data to be added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; the number of bytes to add.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p>Frees the memory allocated by the <span class="basis">Gnome::Glib::N-ByteArray</span>. If <span class="code">$free-segment</span> is <span class="code">True</span> it frees the actual byte data. If the reference count of <span class="code">$array</span> is greater than one, the <span class="basis">Gnome::Glib::N-ByteArray</span> wrapper is preserved but the size of <span class="code">$array</span> will be set to zero. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( N-Object $array, Bool() $free-segment --&gt; Array[Int] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$free-segment; if <span class="code">True</span> the actual byte data is freed as well.</li>
+</ul>
+
+<p>Return value; the element data if <span class="code">$free-segment</span> is <span class="code">False</span>, otherwise undefined. The element data should be freed using g_free().. </p>
+<h2 id="free-to-bytes" class="heading "><a href="#" title="go to top of document">free-to-bytes</a><a class="raku-anchor" title="direct link" href="#free-to-bytes">§</a></h2>
+
+<p>Transfers the data from the <span class="basis">Gnome::Glib::N-ByteArray</span> into a new immutable <span class="basis">Gnome::Glib::N-Bytes</span>. </p>
+
+<p>The <span class="basis">Gnome::Glib::N-ByteArray</span> is freed unless the reference count of <span class="code">$array</span> is greater than one, the <span class="basis">Gnome::Glib::N-ByteArray</span> wrapper is preserved but the size of <span class="code">$array</span> will be set to zero. </p>
+
+<p>This is identical to using g_bytes_new_take() and <span class="code">.free()</span> together. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free-to-bytes ( N-Object $array --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; (transfer ownership: full) a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+</ul>
+
+<p>Return value; a new immutable <span class="basis">Gnome::Glib::N-Bytes</span> representing same byte data that was in the array. </p>
+
+<div class="id-target" id="new"></div><h2 id="new_0" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-ByteArray</span> with a reference count of 1. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the new <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="new-take" class="heading "><a href="#" title="go to top of document">new-take</a><a class="raku-anchor" title="direct link" href="#new-take">§</a></h2>
+
+<p id="Para_0">Create byte array containing the data. The data will be owned by the array and will be freed with g_free(), i.e. it could be allocated using g_strdup().</p>
+
+<p>Do not use it if <span class="code">$len</span> is greater than <span class="code">G_MAXUINT</span>. <span class="basis">Gnome::Glib::N-ByteArray</span> stores the length of its data in #guint, which may be shorter than #gsize. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-take ( Array[Int] $data, Int() $len --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$data; (transfer ownership: full) byte data for the array.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of <span class="code">$data</span>.</li>
+</ul>
+
+<p>Return value; a new <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="prepend" class="heading "><a href="#" title="go to top of document">prepend</a><a class="raku-anchor" title="direct link" href="#prepend">§</a></h2>
+
+<p>Adds the given data to the start of the <span class="basis">Gnome::Glib::N-ByteArray</span>. The array will grow in size automatically if necessary. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend ( N-Object $array, Array[Int] $data, UInt() $len --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the byte data to be added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; the number of bytes to add.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="ref" class="heading "><a href="#" title="go to top of document">ref</a><a class="raku-anchor" title="direct link" href="#ref">§</a></h2>
+
+<p>Atomically increments the reference count of <span class="code">$array</span> by one. This function is thread-safe and may be called from any thread. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ref ( N-Object $array --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; A <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+</ul>
+
+<p>Return value; The passed in <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="remove-index" class="heading "><a href="#" title="go to top of document">remove-index</a><a class="raku-anchor" title="direct link" href="#remove-index">§</a></h2>
+
+<p>Removes the byte at the given index from a <span class="basis">Gnome::Glib::N-ByteArray</span>. The following bytes are moved down one place. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-index ( N-Object $array, UInt() $index --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the byte to remove.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="remove-index-fast" class="heading "><a href="#" title="go to top of document">remove-index-fast</a><a class="raku-anchor" title="direct link" href="#remove-index-fast">§</a></h2>
+
+<p>Removes the byte at the given index from a <span class="basis">Gnome::Glib::N-ByteArray</span>. The last element in the array is used to fill in the space, so this function does not preserve the order of the <span class="basis">Gnome::Glib::N-ByteArray</span>. But it is faster than <span class="code">.remove-index()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-index-fast ( N-Object $array, UInt() $index --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the byte to remove.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="remove-range" class="heading "><a href="#" title="go to top of document">remove-range</a><a class="raku-anchor" title="direct link" href="#remove-range">§</a></h2>
+
+<p>Removes the given number of bytes starting at the given index from a <span class="basis">Gnome::Glib::N-ByteArray</span>. The following elements are moved to close the gap. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-range ( N-Object $array, UInt() $index, UInt() $length --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="code">$GByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the first byte to remove.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; the number of bytes to remove.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="set-size" class="heading "><a href="#" title="go to top of document">set-size</a><a class="raku-anchor" title="direct link" href="#set-size">§</a></h2>
+
+<p>Sets the size of the <span class="basis">Gnome::Glib::N-ByteArray</span>, expanding it if necessary. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-size ( N-Object $array, UInt() $length --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; the new size of the <span class="basis">Gnome::Glib::N-ByteArray</span>.</li>
+</ul>
+
+<p>Return value; the <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="sized-new" class="heading "><a href="#" title="go to top of document">sized-new</a><a class="raku-anchor" title="direct link" href="#sized-new">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-ByteArray</span> with <span class="code">$reserved-size</span> bytes preallocated. This avoids frequent reallocation, if you are going to add many bytes to the array. Note however that the size of the array is still 0. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sized-new ( UInt() $reserved-size --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$reserved-size; number of bytes preallocated.</li>
+</ul>
+
+<p>Return value; the new <span class="basis">Gnome::Glib::N-ByteArray</span>. </p>
+<h2 id="sort" class="heading "><a href="#" title="go to top of document">sort</a><a class="raku-anchor" title="direct link" href="#sort">§</a></h2>
+
+<p>Sorts a byte array, using <span class="code">$compare-func</span> which should be a qsort()-style comparison function (returns less than zero for first arg is less than second arg, zero for equal, greater than zero if first arg is greater than second arg). </p>
+
+<p id="Para_1">If two array elements compare equal, their order in the sorted array is undefined. If you want equal elements to keep their order (i.e. you want a stable sort) you can write a comparison function that, if two elements would otherwise compare equal, compares them by their addresses.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort ( N-Object $array, &amp;compare-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; comparison function. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gint )&gt;.</li>
+</ul>
+<h2 id="sort-with-data" class="heading "><a href="#" title="go to top of document">sort-with-data</a><a class="raku-anchor" title="direct link" href="#sort-with-data">§</a></h2>
+
+<p>Like <span class="code">.sort()</span>, but the comparison function takes an extra user data argument. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort-with-data ( N-Object $array, &amp;compare-func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; comparison function. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data --</span> gint )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; data to pass to <span class="code">$compare-func</span>.</li>
+</ul>
+<h2 id="steal" class="heading "><a href="#" title="go to top of document">steal</a><a class="raku-anchor" title="direct link" href="#steal">§</a></h2>
+
+<p id="Para_2">Frees the data in the array and resets the size to zero, while the underlying array is preserved for use elsewhere and returned to the caller.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method steal ( N-Object $array, Array[gsize] $len --&gt; Array[Int] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-ByteArray</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; (transfer ownership: full) pointer to retrieve the number of elements of the original array.</li>
+</ul>
+
+<p id="Para_3">Return value; the element data, which should be freed using g_free()..</p>
+<h2 id="unref" class="heading "><a href="#" title="go to top of document">unref</a><a class="raku-anchor" title="direct link" href="#unref">§</a></h2>
+
+<p>Atomically decrements the reference count of <span class="code">$array</span> by one. If the reference count drops to 0, all memory allocated by the array is released. This function is thread-safe and may be called from any thread. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unref ( N-Object $array )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; A <span class="basis">Gnome::Glib::N-ByteArray</span></li>
+</ul>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/N-ByteArray.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
+</html>

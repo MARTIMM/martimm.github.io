@@ -1,0 +1,860 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::N-PtrArray">Gnome::Glib::N-PtrArray</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add">add</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#extend">extend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#extend-and-steal">extend-and-steal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find">find</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find-with-equal-func">find-with-equal-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#foreach">foreach</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert">insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new_0">new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-full">new-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-free-func">new-with-free-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ref">ref</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-fast">remove-fast</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-index">remove-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-index-fast">remove-index-fast</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-range">remove-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-free-func">set-free-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-size">set-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sized-new">sized-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort">sort</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort-with-data">sort-with-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#steal">steal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#steal-index">steal-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#steal-index-fast">steal-index-fast</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unref">unref</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::N-PtrArray" class="heading "><a href="#" title="go to top of document">Gnome::Glib::N-PtrArray</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::N-PtrArray">§</a></h1>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">Contains the public fields of a pointer array.</p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="add" class="heading "><a href="#" title="go to top of document">add</a><a class="raku-anchor" title="direct link" href="#add">§</a></h2>
+
+<p id="Para_0">Adds a pointer to the end of the pointer array. The array will grow in size automatically if necessary.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add ( N-Object $array, gpointer $data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the pointer to add.</li>
+</ul>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
+
+<p>Makes a full (deep) copy of a <span class="basis">Gnome::Glib::N-PtrArray</span>. <span class="code">$func</span>, as a <span class="basis">Gnome::Glib::T-types</span>, takes two arguments, the data to be copied and a <span class="code">$user-data</span> pointer. On common processor architectures, it's safe to pass undefined as <span class="code">$user-data</span> if the copy function takes only one argument. You may get compiler warnings from this though if compiling with GCC’s <span class="basis">-Wcast-function-type</span> warning. </p>
+
+<p>If <span class="code">$func</span> is undefined, then only the pointers (and not what they are pointing to) are copied to the new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+
+<p>The copy of <span class="code">$array</span> will have the same <span class="basis">Gnome::Glib::T-types</span> for its elements as <span class="code">$array</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy ( N-Object $array, &amp;func, gpointer $user-data --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; <span class="basis">Gnome::Glib::N-PtrArray</span> to duplicate</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; a copy function used to copy every element in the array. Tthe function must be specified with following signature; <span class="code">:( gpointer $src, gpointer $data --</span> gpointer )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data passed to the copy function <span class="code">$func</span>, or undefined.</li>
+</ul>
+
+<p>Return value; a deep copy of the initial <span class="basis">Gnome::Glib::N-PtrArray</span>.. </p>
+<h2 id="extend" class="heading "><a href="#" title="go to top of document">extend</a><a class="raku-anchor" title="direct link" href="#extend">§</a></h2>
+
+<p>Adds all pointers of <span class="code">$array</span> to the end of the array <span class="code">$array-to-extend</span>. The array will grow in size automatically if needed. <span class="code">$array-to-extend</span> is modified in-place. <span class="code">$func</span>, as a <span class="basis">Gnome::Glib::T-types</span>, takes two arguments, the data to be copied and a <span class="code">$user-data</span> pointer. On common processor architectures, it's safe to pass undefined as <span class="code">$user-data</span> if the copy function takes only one argument. You may get compiler warnings from this though if compiling with GCC’s <span class="basis">-Wcast-function-type</span> warning. </p>
+
+<p>If <span class="code">$func</span> is undefined, then only the pointers (and not what they are pointing to) are copied to the new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method extend ( N-Object $array-to-extend, N-Object $array, &amp;func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array-to-extend; a <span class="basis">Gnome::Glib::N-PtrArray</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span> to add to the end of <span class="code">$array-to-extend</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; a copy function used to copy every element in the array. Tthe function must be specified with following signature; <span class="code">:( gpointer $src, gpointer $data --</span> gpointer )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data passed to the copy function <span class="code">$func</span>, or undefined.</li>
+</ul>
+<h2 id="extend-and-steal" class="heading "><a href="#" title="go to top of document">extend-and-steal</a><a class="raku-anchor" title="direct link" href="#extend-and-steal">§</a></h2>
+
+<p>Adds all the pointers in <span class="code">$array</span> to the end of <span class="code">$array-to-extend</span>, transferring ownership of each element from <span class="code">$array</span> to <span class="code">$array-to-extend</span> and modifying <span class="code">$array-to-extend</span> in-place. <span class="code">$array</span> is then freed. </p>
+
+<p>As with <span class="code">.free()</span>, <span class="code">$array</span> will be destroyed if its reference count is 1. If its reference count is higher, it will be decremented and the length of <span class="code">$array</span> set to zero. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method extend-and-steal ( N-Object $array-to-extend, N-Object $array )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array-to-extend; a <span class="basis">Gnome::Glib::N-PtrArray</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$array; (transfer ownership: container) a <span class="basis">Gnome::Glib::N-PtrArray</span> to add to the end of <span class="code">$array-to-extend</span>.</li>
+</ul>
+<h2 id="find" class="heading "><a href="#" title="go to top of document">find</a><a class="raku-anchor" title="direct link" href="#find">§</a></h2>
+
+<p>Checks whether <span class="code">$needle</span> exists in <span class="code">$haystack</span>. If the element is found, <span class="code">True</span> is returned and the element’s index is returned in <span class="code">$index-</span> (if non-undefined). Otherwise, <span class="code">False</span> is returned and <span class="code">$index-</span> is undefined. If <span class="code">$needle</span> exists multiple times in <span class="code">$haystack</span>, the index of the first instance is returned. </p>
+
+<p>This does pointer comparisons only. If you want to use more complex equality checks, such as string comparisons, use <span class="code">.find-with-equal-func()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find ( N-Object $haystack, gpointer $needle, Array[Int] $index --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$haystack; pointer array to be searched</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$needle; pointer to look for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; (transfer ownership: full) return location for the index of the element, if found.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$needle</span> is one of the elements of <span class="code">$haystack</span>. </p>
+<h2 id="find-with-equal-func" class="heading "><a href="#" title="go to top of document">find-with-equal-func</a><a class="raku-anchor" title="direct link" href="#find-with-equal-func">§</a></h2>
+
+<p>Checks whether <span class="code">$needle</span> exists in <span class="code">$haystack</span>, using the given <span class="code">$equal-func</span>. If the element is found, <span class="code">True</span> is returned and the element’s index is returned in <span class="code">$index-</span> (if non-undefined). Otherwise, <span class="code">False</span> is returned and <span class="code">$index-</span> is undefined. If <span class="code">$needle</span> exists multiple times in <span class="code">$haystack</span>, the index of the first instance is returned. <span class="code">$equal-func</span> is called with the element from the array as its first parameter, and <span class="code">$needle</span> as its second parameter. If <span class="code">$equal-func</span> is undefined, pointer equality is used. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find-with-equal-func ( N-Object $haystack, gpointer $needle, &amp;equal-func, Array[Int] $index --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$haystack; pointer array to be searched</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$needle; pointer to look for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;equal-func; the function to call for each element, which should return <span class="code">True</span> when the desired element is found; or undefined to use pointer equality. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; (transfer ownership: full) return location for the index of the element, if found.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$needle</span> is one of the elements of <span class="code">$haystack</span>. </p>
+<h2 id="foreach" class="heading "><a href="#" title="go to top of document">foreach</a><a class="raku-anchor" title="direct link" href="#foreach">§</a></h2>
+
+<p>Calls a function for each element of a <span class="basis">Gnome::Glib::N-PtrArray</span>. <span class="code">$func</span> must not add elements to or remove elements from the array. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method foreach ( N-Object $array, &amp;func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; the function to call for each array element. Tthe function must be specified with following signature; <span class="code">:( gpointer $data, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data to pass to the function.</li>
+</ul>
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p>Frees the memory allocated for the <span class="basis">Gnome::Glib::N-PtrArray</span>. If <span class="code">$free-seg</span> is <span class="code">True</span> it frees the memory block holding the elements as well. Pass <span class="code">False</span> if you want to free the <span class="basis">Gnome::Glib::N-PtrArray</span> wrapper but preserve the underlying array for use elsewhere. If the reference count of <span class="code">$array</span> is greater than one, the <span class="basis">Gnome::Glib::N-PtrArray</span> wrapper is preserved but the size of <span class="code">$array</span> will be set to zero. </p>
+
+<p>If array contents point to dynamically-allocated memory, they should be freed separately if <span class="code">$free-seg</span> is <span class="code">True</span> and no <span class="basis">Gnome::Glib::T-types</span> function has been set for <span class="code">$array</span>. </p>
+
+<p>This function is not thread-safe. If using a <span class="basis">Gnome::Glib::N-PtrArray</span> from multiple threads, use only the atomic <span class="code">.ref()</span> and <span class="code">.unref()</span> functions. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( N-Object $array, Bool() $free-seg --&gt; Array )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$free-seg; if <span class="code">True</span> the actual pointer array is freed as well.</li>
+</ul>
+
+<p>Return value; the pointer array if <span class="code">$free-seg</span> is <span class="code">False</span>, otherwise undefined. The pointer array should be freed using g_free().. </p>
+<h2 id="insert" class="heading "><a href="#" title="go to top of document">insert</a><a class="raku-anchor" title="direct link" href="#insert">§</a></h2>
+
+<p id="Para_1">Inserts an element into the pointer array at the given index. The array will grow in size automatically if necessary.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert ( N-Object $array, Int() $index, gpointer $data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index to place the new element at, or -1 to append.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the pointer to add..</li>
+</ul>
+
+<div class="id-target" id="new"></div><h2 id="new_0" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-PtrArray</span> with a reference count of 1. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+<h2 id="new-full" class="heading "><a href="#" title="go to top of document">new-full</a><a class="raku-anchor" title="direct link" href="#new-full">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-PtrArray</span> with <span class="code">$reserved-size</span> pointers preallocated and a reference count of 1. This avoids frequent reallocation, if you are going to add many pointers to the array. Note however that the size of the array is still 0. It also set <span class="code">$element-free-func</span> for freeing each element when the array is destroyed either via <span class="code">.unref()</span>, when <span class="code">.free()</span> is called with <span class="code">$free-segment</span> set to <span class="code">True</span> or when removing elements. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-full ( UInt() $reserved-size, &amp;element-free-func --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$reserved-size; number of pointers preallocated.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;element-free-func; A function to free elements with destroy <span class="code">$array</span> or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p>Return value; A new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+<h2 id="new-with-free-func" class="heading "><a href="#" title="go to top of document">new-with-free-func</a><a class="raku-anchor" title="direct link" href="#new-with-free-func">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-PtrArray</span> with a reference count of 1 and use <span class="code">$element-free-func</span> for freeing each element when the array is destroyed either via <span class="code">.unref()</span>, when <span class="code">.free()</span> is called with <span class="code">$free-segment</span> set to <span class="code">True</span> or when removing elements. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-free-func ( &amp;element-free-func --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >&amp;element-free-func; A function to free elements with destroy <span class="code">$array</span> or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p>Return value; A new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+<h2 id="ref" class="heading "><a href="#" title="go to top of document">ref</a><a class="raku-anchor" title="direct link" href="#ref">§</a></h2>
+
+<p>Atomically increments the reference count of <span class="code">$array</span> by one. This function is thread-safe and may be called from any thread. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ref ( N-Object $array --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+</ul>
+
+<p>Return value; The passed in <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p>Removes the first occurrence of the given pointer from the pointer array. The following elements are moved down one place. If <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function it is called for the removed element. </p>
+
+<p>It returns <span class="code">True</span> if the pointer was removed, or <span class="code">False</span> if the pointer was not found. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-Object $array, gpointer $data --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the pointer to remove.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the pointer is removed, <span class="code">False</span> if the pointer is not found in the array. </p>
+<h2 id="remove-fast" class="heading "><a href="#" title="go to top of document">remove-fast</a><a class="raku-anchor" title="direct link" href="#remove-fast">§</a></h2>
+
+<p>Removes the first occurrence of the given pointer from the pointer array. The last element in the array is used to fill in the space, so this function does not preserve the order of the array. But it is faster than <span class="code">.remove()</span>. If <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function it is called for the removed element. </p>
+
+<p>It returns <span class="code">True</span> if the pointer was removed, or <span class="code">False</span> if the pointer was not found. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-fast ( N-Object $array, gpointer $data --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the pointer to remove.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the pointer was found in the array. </p>
+<h2 id="remove-index" class="heading "><a href="#" title="go to top of document">remove-index</a><a class="raku-anchor" title="direct link" href="#remove-index">§</a></h2>
+
+<p>Removes the pointer at the given index from the pointer array. The following elements are moved down one place. If <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function it is called for the removed element. If so, the return value from this function will potentially point to freed memory (depending on the <span class="basis">Gnome::Glib::T-types</span> implementation). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-index ( N-Object $array, UInt() $index --&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the pointer to remove.</li>
+</ul>
+
+<p id="Para_2">Return value; the pointer which was removed.</p>
+<h2 id="remove-index-fast" class="heading "><a href="#" title="go to top of document">remove-index-fast</a><a class="raku-anchor" title="direct link" href="#remove-index-fast">§</a></h2>
+
+<p>Removes the pointer at the given index from the pointer array. The last element in the array is used to fill in the space, so this function does not preserve the order of the array. But it is faster than <span class="code">.remove-index()</span>. If <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function it is called for the removed element. If so, the return value from this function will potentially point to freed memory (depending on the <span class="basis">Gnome::Glib::T-types</span> implementation). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-index-fast ( N-Object $array, UInt() $index --&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the pointer to remove.</li>
+</ul>
+
+<p id="Para_3">Return value; the pointer which was removed.</p>
+<h2 id="remove-range" class="heading "><a href="#" title="go to top of document">remove-range</a><a class="raku-anchor" title="direct link" href="#remove-range">§</a></h2>
+
+<p>Removes the given number of pointers starting at the given index from a <span class="basis">Gnome::Glib::N-PtrArray</span>. The following elements are moved to close the gap. If <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function it is called for the removed elements. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-range ( N-Object $array, UInt() $index, UInt() $length --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="code">$GPtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the first pointer to remove.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; the number of pointers to remove.</li>
+</ul>
+
+<p>Return value; the <span class="code">$array</span>. </p>
+<h2 id="set-free-func" class="heading "><a href="#" title="go to top of document">set-free-func</a><a class="raku-anchor" title="direct link" href="#set-free-func">§</a></h2>
+
+<p>Sets a function for freeing each element when <span class="code">$array</span> is destroyed either via <span class="code">.unref()</span>, when <span class="code">.free()</span> is called with <span class="code">$free-segment</span> set to <span class="code">True</span> or when removing elements. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-free-func ( N-Object $array, &amp;element-free-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; A <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;element-free-func; A function to free elements with destroy <span class="code">$array</span> or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+<h2 id="set-size" class="heading "><a href="#" title="go to top of document">set-size</a><a class="raku-anchor" title="direct link" href="#set-size">§</a></h2>
+
+<p>Sets the size of the array. When making the array larger, newly-added elements will be set to undefined. When making it smaller, if <span class="code">$array</span> has a non-undefined <span class="basis">Gnome::Glib::T-types</span> function then it will be called for the removed elements. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-size ( N-Object $array, Int() $length )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; the new length of the pointer array.</li>
+</ul>
+<h2 id="sized-new" class="heading "><a href="#" title="go to top of document">sized-new</a><a class="raku-anchor" title="direct link" href="#sized-new">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-PtrArray</span> with <span class="code">$reserved-size</span> pointers preallocated and a reference count of 1. This avoids frequent reallocation, if you are going to add many pointers to the array. Note however that the size of the array is still 0. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sized-new ( UInt() $reserved-size --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$reserved-size; number of pointers preallocated.</li>
+</ul>
+
+<p>Return value; the new <span class="basis">Gnome::Glib::N-PtrArray</span>. </p>
+<h2 id="sort" class="heading "><a href="#" title="go to top of document">sort</a><a class="raku-anchor" title="direct link" href="#sort">§</a></h2>
+
+<p>Sorts the array, using <span class="code">$compare-func</span> which should be a qsort()-style comparison function (returns less than zero for first arg is less than second arg, zero for equal, greater than zero if irst arg is greater than second arg). </p>
+
+<p>Note that the comparison function for <span class="code">.sort()</span> doesn't take the pointers from the array as arguments, it takes pointers to the pointers in the array. Here is a full example of usage: </p>
+
+<p id="Para_4">This is guaranteed to be a stable sort since version 2.32.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort ( N-Object $array, &amp;compare-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; comparison function. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gint )&gt;.</li>
+</ul>
+<h2 id="sort-with-data" class="heading "><a href="#" title="go to top of document">sort-with-data</a><a class="raku-anchor" title="direct link" href="#sort-with-data">§</a></h2>
+
+<p>Like <span class="code">.sort()</span>, but the comparison function has an extra user data argument. </p>
+
+<p>Note that the comparison function for <span class="code">.sort-with-data()</span> doesn't take the pointers from the array as arguments, it takes pointers to the pointers in the array. Here is a full example of use: </p>
+
+<p id="Para_5">This is guaranteed to be a stable sort since version 2.32.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort-with-data ( N-Object $array, &amp;compare-func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; comparison function. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data --</span> gint )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; data to pass to <span class="code">$compare-func</span>.</li>
+</ul>
+<h2 id="steal" class="heading "><a href="#" title="go to top of document">steal</a><a class="raku-anchor" title="direct link" href="#steal">§</a></h2>
+
+<p id="Para_6">Frees the data in the array and resets the size to zero, while the underlying array is preserved for use elsewhere and returned to the caller.</p>
+
+<p>Even if set, the <span class="basis">Gnome::Glib::T-types</span> function will never be called on the current contents of the array and the caller is responsible for freeing the array elements. </p>
+
+<p id="Para_7">An example of use:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method steal ( N-Object $array, Array[gsize] $len --&gt; Array )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; (transfer ownership: full) pointer to retrieve the number of elements of the original array.</li>
+</ul>
+
+<p>Return value; the element data, which should be freed using g_free(). This may be undefined if the array doesn’t have any elements (i.e. if <span class="basis">*len</span> is zero).. </p>
+<h2 id="steal-index" class="heading "><a href="#" title="go to top of document">steal-index</a><a class="raku-anchor" title="direct link" href="#steal-index">§</a></h2>
+
+<p>Removes the pointer at the given index from the pointer array. The following elements are moved down one place. The <span class="basis">Gnome::Glib::T-types</span> for <span class="code">$array</span> is *not* called on the removed element; ownership is transferred to the caller of this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method steal-index ( N-Object $array, UInt() $index --&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the pointer to steal.</li>
+</ul>
+
+<p id="Para_8">Return value; the pointer which was removed.</p>
+<h2 id="steal-index-fast" class="heading "><a href="#" title="go to top of document">steal-index-fast</a><a class="raku-anchor" title="direct link" href="#steal-index-fast">§</a></h2>
+
+<p>Removes the pointer at the given index from the pointer array. The last element in the array is used to fill in the space, so this function does not preserve the order of the array. But it is faster than <span class="code">.steal-index()</span>. The <span class="basis">Gnome::Glib::T-types</span> for <span class="code">$array</span> is *not* called on the removed element; ownership is transferred to the caller of this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method steal-index-fast ( N-Object $array, UInt() $index --&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; a <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index of the pointer to steal.</li>
+</ul>
+
+<p id="Para_9">Return value; the pointer which was removed.</p>
+<h2 id="unref" class="heading "><a href="#" title="go to top of document">unref</a><a class="raku-anchor" title="direct link" href="#unref">§</a></h2>
+
+<p>Atomically decrements the reference count of <span class="code">$array</span> by one. If the reference count drops to 0, the effect is the same as calling <span class="code">.free()</span> with <span class="code">$free-segment</span> set to <span class="code">True</span>. This function is thread-safe and may be called from any thread. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unref ( N-Object $array )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$array; A <span class="basis">Gnome::Glib::N-PtrArray</span></li>
+</ul>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/N-PtrArray.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
+</html>

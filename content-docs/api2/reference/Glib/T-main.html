@@ -1,0 +1,1234 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::T-main">Gnome::Glib::T-main</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-MainLoop">Record N-MainLoop</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-MainContext">Record N-MainContext</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-SourceCallbackFuncs">Record N-SourceCallbackFuncs</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-SourceFuncs">Record N-SourceFuncs</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-Source">Record N-Source</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Constants">Constants</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_PRIORITY_DEFAULT">G_PRIORITY_DEFAULT</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_PRIORITY_DEFAULT_IDLE">G_PRIORITY_DEFAULT_IDLE</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_PRIORITY_HIGH">G_PRIORITY_HIGH</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_PRIORITY_HIGH_IDLE">G_PRIORITY_HIGH_IDLE</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_PRIORITY_LOW">G_PRIORITY_LOW</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_SOURCE_CONTINUE">G_SOURCE_CONTINUE</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#G_SOURCE_REMOVE">G_SOURCE_REMOVE</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Bitfields">Bitfields</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GMainContextFlags">GMainContextFlags</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Callback_Functions">Callback Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SourceOnceFunc">SourceOnceFunc</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SourceFunc">SourceFunc</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_0">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SourceDisposeFunc">SourceDisposeFunc</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_1">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ClearHandleFunc">ClearHandleFunc</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_2">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ChildWatchFunc">ChildWatchFunc</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_3">Signature</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#SourceDummyMarshal">SourceDummyMarshal</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Signature_4">Signature</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Standalone_Functions">Standalone Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#child-watch-add_This_function_is_not_yet_available">child-watch-add This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#child-watch-add-full_This_function_is_not_yet_available">child-watch-add-full This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#child-watch-source-new_This_function_is_not_yet_available">child-watch-source-new This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#clear-handle-id">clear-handle-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-time">get-current-time</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-monotonic-time">get-monotonic-time</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-real-time">get-real-time</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#idle-add">idle-add</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#idle-add-full">idle-add-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#idle-add-once">idle-add-once</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#idle-remove-by-data">idle-remove-by-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#idle-source-new">idle-source-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#main-context-default">main-context-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#main-context-get-thread-default">main-context-get-thread-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#main-context-ref-thread-default">main-context-ref-thread-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#main-current-source">main-current-source</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#main-depth">main-depth</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#source-remove">source-remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#source-remove-by-funcs-user-data">source-remove-by-funcs-user-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#source-remove-by-user-data">source-remove-by-user-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#source-set-name-by-id">source-set-name-by-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add">timeout-add</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add-full">timeout-add-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add-once">timeout-add-once</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add-seconds">timeout-add-seconds</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add-seconds-full">timeout-add-seconds-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-add-seconds-once">timeout-add-seconds-once</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-source-new">timeout-source-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#timeout-source-new-seconds">timeout-source-new-seconds</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::T-main" class="heading "><a href="#" title="go to top of document">Gnome::Glib::T-main</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::T-main">§</a></h1>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+
+<p id="Para">Initialization of a type class is simple and only needed when the standalone functions are used.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Record N-MainLoop"></div><h1 id="Record_N-MainLoop" class="heading "><a href="#" title="go to top of document">Record N-MainLoop</a><a class="raku-anchor" title="direct link" href="#Record N-MainLoop">§</a></h1>
+
+<p id="Para_0">This is an opaque type of which fields are not available.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-MainLoop:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') { }</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Record N-MainContext"></div><h1 id="Record_N-MainContext" class="heading "><a href="#" title="go to top of document">Record N-MainContext</a><a class="raku-anchor" title="direct link" href="#Record N-MainContext">§</a></h1>
+
+<p id="Para_1">This is an opaque type of which fields are not available.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-MainContext:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') { }</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Record N-SourceCallbackFuncs"></div><h1 id="Record_N-SourceCallbackFuncs" class="heading "><a href="#" title="go to top of document">Record N-SourceCallbackFuncs</a><a class="raku-anchor" title="direct link" href="#Record N-SourceCallbackFuncs">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-SourceCallbackFuncs:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has $.ref;
+  has $.unref;
+  has $.get;
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >ref;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >unref;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >get;</li>
+</ul>
+
+
+<div class="id-target" id="Record N-SourceFuncs"></div><h1 id="Record_N-SourceFuncs" class="heading "><a href="#" title="go to top of document">Record N-SourceFuncs</a><a class="raku-anchor" title="direct link" href="#Record N-SourceFuncs">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-SourceFuncs:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has $.prepare;
+  has $.check;
+  has $.dispatch;
+  has $.finalize;
+  has  $.closure-callback;           # ( gpointer $user-data --&gt; gboolean )
+  has  $.closure-marshal;           # ( )
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >prepare;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >check;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >dispatch;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >finalize;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >closure-callback; . Enumeration of type ( gpointer $user-data --&gt; gboolean ).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >closure-marshal; . Enumeration of type ( ).</li>
+</ul>
+
+
+<div class="id-target" id="Record N-Source"></div><h1 id="Record_N-Source" class="heading "><a href="#" title="go to top of document">Record N-Source</a><a class="raku-anchor" title="direct link" href="#Record N-Source">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-Source:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has gpointer $.callback-data;
+  has N-Object $.callback-funcs;
+  has N-Object $.source-funcs;
+  has guint $.ref-count;
+  has N-Object $.context;
+  has gint $.priority;
+  has guint $.flags;
+  has guint $.source-id;
+  has N-Object $.poll-fds;
+  has N-Object $.prev;
+  has N-Object $.next;
+  has Str $.name;
+  has  $.priv;
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >callback-data;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >callback-funcs;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >source-funcs;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >ref-count;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >context;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >priority;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >flags;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >source-id;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >poll-fds;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >prev;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >next;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >name;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >priv;</li>
+</ul>
+
+<h1 id="Constants" class="heading "><a href="#" title="go to top of document">Constants</a><a class="raku-anchor" title="direct link" href="#Constants">§</a></h1>
+<h2 id="G_PRIORITY_DEFAULT" class="heading "><a href="#" title="go to top of document">G_PRIORITY_DEFAULT</a><a class="raku-anchor" title="direct link" href="#G_PRIORITY_DEFAULT">§</a></h2>
+
+<p id="Para_2">Use this for default priority event sources.</p>
+
+<p id="Para_3">In GLib this priority is used when adding timeout functions with g_timeout_add(). In GDK this priority is used for events from the X server.</p>
+<h2 id="G_PRIORITY_DEFAULT_IDLE" class="heading "><a href="#" title="go to top of document">G_PRIORITY_DEFAULT_IDLE</a><a class="raku-anchor" title="direct link" href="#G_PRIORITY_DEFAULT_IDLE">§</a></h2>
+
+<p id="Para_4">Use this for default priority idle functions.</p>
+
+<p id="Para_5">In GLib this priority is used when adding idle functions with g_idle_add().</p>
+<h2 id="G_PRIORITY_HIGH" class="heading "><a href="#" title="go to top of document">G_PRIORITY_HIGH</a><a class="raku-anchor" title="direct link" href="#G_PRIORITY_HIGH">§</a></h2>
+
+<p id="Para_6">Use this for high priority event sources.</p>
+
+<p id="Para_7">It is not used within GLib or GTK.</p>
+<h2 id="G_PRIORITY_HIGH_IDLE" class="heading "><a href="#" title="go to top of document">G_PRIORITY_HIGH_IDLE</a><a class="raku-anchor" title="direct link" href="#G_PRIORITY_HIGH_IDLE">§</a></h2>
+
+<p id="Para_8">Use this for high priority idle functions.</p>
+
+<p>GTK uses <span class="code">G_PRIORITY_HIGH_IDLE</span> + 10 for resizing operations, and <span class="code">G_PRIORITY_HIGH_IDLE</span> + 20 for redrawing operations. (This is done to ensure that any pending resizes are processed before any pending redraws, so that widgets are not redrawn twice unnecessarily.) </p>
+<h2 id="G_PRIORITY_LOW" class="heading "><a href="#" title="go to top of document">G_PRIORITY_LOW</a><a class="raku-anchor" title="direct link" href="#G_PRIORITY_LOW">§</a></h2>
+
+<p id="Para_9">Use this for very low priority background tasks.</p>
+
+<p id="Para_10">It is not used within GLib or GTK.</p>
+<h2 id="G_SOURCE_CONTINUE" class="heading "><a href="#" title="go to top of document">G_SOURCE_CONTINUE</a><a class="raku-anchor" title="direct link" href="#G_SOURCE_CONTINUE">§</a></h2>
+
+<p>Use this macro as the return value of a <span class="basis">Gnome::Glib::T-main</span> to leave the <span class="basis">Gnome::Glib::N-Source</span> in the main loop. </p>
+<h2 id="G_SOURCE_REMOVE" class="heading "><a href="#" title="go to top of document">G_SOURCE_REMOVE</a><a class="raku-anchor" title="direct link" href="#G_SOURCE_REMOVE">§</a></h2>
+
+<p>Use this macro as the return value of a <span class="basis">Gnome::Glib::T-main</span> to remove the <span class="basis">Gnome::Glib::N-Source</span> from the main loop. </p>
+<h1 id="Bitfields" class="heading "><a href="#" title="go to top of document">Bitfields</a><a class="raku-anchor" title="direct link" href="#Bitfields">§</a></h1>
+<h2 id="GMainContextFlags" class="heading "><a href="#" title="go to top of document">GMainContextFlags</a><a class="raku-anchor" title="direct link" href="#GMainContextFlags">§</a></h2>
+
+<p>Flags to pass to <span class="code">.context-new-with-flags()</span> which affect the behaviour of a <span class="basis">Gnome::Glib::N-MainContext</span>. </p>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_MAIN_CONTEXT_FLAGS_NONE</span>; Default behaviour.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">G_MAIN_CONTEXT_FLAGS_OWNERLESS_POLLING</span>; Assume that polling for events will free the thread to process other jobs. That's useful if you're using <span class="basis">g_main_context_{prepare,query,check,dispatch}</span> to integrate GMainContext in other event loops.</li>
+</ul>
+
+
+<div class="id-target" id="Callback Functions"></div><h1 id="Callback_Functions" class="heading "><a href="#" title="go to top of document">Callback Functions</a><a class="raku-anchor" title="direct link" href="#Callback Functions">§</a></h1>
+<h2 id="SourceOnceFunc" class="heading "><a href="#" title="go to top of document">SourceOnceFunc</a><a class="raku-anchor" title="direct link" href="#SourceOnceFunc">§</a></h2>
+<h3 id="Signature" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  gpointer $user-data  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >user-data; data passed to the function, set when the source was created</li>
+</ul>
+<h2 id="SourceFunc" class="heading "><a href="#" title="go to top of document">SourceFunc</a><a class="raku-anchor" title="direct link" href="#SourceFunc">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_0" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  gpointer $user-data  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >user-data; data passed to the function, set when the source was created with one of the above functions</li>
+</ul>
+<h2 id="SourceDisposeFunc" class="heading "><a href="#" title="go to top of document">SourceDisposeFunc</a><a class="raku-anchor" title="direct link" href="#SourceDisposeFunc">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_1" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  N-Object $source  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >source; <span class="basis">Gnome::Glib::N-Source</span> that is currently being disposed</li>
+</ul>
+<h2 id="ClearHandleFunc" class="heading "><a href="#" title="go to top of document">ClearHandleFunc</a><a class="raku-anchor" title="direct link" href="#ClearHandleFunc">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_2" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:(  UInt() $handle-id  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >handle-id; the handle ID to clear</li>
+</ul>
+<h2 id="ChildWatchFunc" class="heading "><a href="#" title="go to top of document">ChildWatchFunc</a><a class="raku-anchor" title="direct link" href="#ChildWatchFunc">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_3" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:( $pid, Int() $wait-status, gpointer $user-data  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >pid; the process id of the child process</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >wait-status; Status information about the child process, encoded in a platform-specific manner</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >user-data; user data passed to g_child_watch_add()</li>
+</ul>
+<h2 id="SourceDummyMarshal" class="heading "><a href="#" title="go to top of document">SourceDummyMarshal</a><a class="raku-anchor" title="direct link" href="#SourceDummyMarshal">§</a></h2>
+
+<div class="id-target" id="Signature"></div><h3 id="Signature_4" class="heading "><a href="#" title="go to top of document">Signature</a><a class="raku-anchor" title="direct link" href="#Signature">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">:( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Standalone Functions"></div><h1 id="Standalone_Functions" class="heading "><a href="#" title="go to top of document">Standalone Functions</a><a class="raku-anchor" title="direct link" href="#Standalone Functions">§</a></h1>
+
+<div class="id-target" id="child-watch-add This function is not yet available"></div><h2 id="child-watch-add_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">child-watch-add This function is not yet available</a><a class="raku-anchor" title="direct link" href="#child-watch-add This function is not yet available">§</a></h2>
+
+<p>Sets a function to be called when the child indicated by <span class="code">$pid</span> exits, at a default priority, <span class="code">G_PRIORITY_DEFAULT</span>. </p>
+
+<p>If you obtain <span class="code">$pid</span> from g_spawn_async() or g_spawn_async_with_pipes() you will need to pass <span class="code">G_SPAWN_DO_NOT_REAP_CHILD</span> as flag to the spawn function for the child watching to work. </p>
+
+<p>Note that on platforms where <span class="basis">Gnome::Glib::Main</span> must be explicitly closed (see g_spawn_close_pid()) <span class="code">$pid</span> must not be closed while the source is still active. Typically, you will want to call g_spawn_close_pid() in the callback function for the source. </p>
+
+<p id="Para_11">GLib supports only a single callback per process id. On POSIX platforms, the same restrictions mentioned for g_child_watch_source_new() apply to this function.</p>
+
+<p id="Para_12">This internally creates a main loop source using g_child_watch_source_new() and attaches it to the main loop context using g_source_attach(). You can do these steps manually if you need greater control.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method child-watch-add ( …, &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >pid; process id to watch. On POSIX the positive pid of a child process. On Windows a handle for a process (which doesn't have to be a child).. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:(  $pid, gint $wait-status, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_13">Return value; the ID (greater than 0) of the event source..</p>
+
+<div class="id-target" id="child-watch-add-full This function is not yet available"></div><h2 id="child-watch-add-full_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">child-watch-add-full This function is not yet available</a><a class="raku-anchor" title="direct link" href="#child-watch-add-full This function is not yet available">§</a></h2>
+
+<p>Sets a function to be called when the child indicated by <span class="code">$pid</span> exits, at the priority <span class="code">$priority</span>. </p>
+
+<p>If you obtain <span class="code">$pid</span> from g_spawn_async() or g_spawn_async_with_pipes() you will need to pass <span class="code">G_SPAWN_DO_NOT_REAP_CHILD</span> as flag to the spawn function for the child watching to work. </p>
+
+<p id="Para_14">In many programs, you will want to call g_spawn_check_wait_status() in the callback to determine whether or not the child exited successfully.</p>
+
+<p>Also, note that on platforms where <span class="basis">Gnome::Glib::Main</span> must be explicitly closed (see g_spawn_close_pid()) <span class="code">$pid</span> must not be closed while the source is still active. Typically, you should invoke g_spawn_close_pid() in the callback function for the source. </p>
+
+<p id="Para_15">GLib supports only a single callback per process id. On POSIX platforms, the same restrictions mentioned for g_child_watch_source_new() apply to this function.</p>
+
+<p id="Para_16">This internally creates a main loop source using g_child_watch_source_new() and attaches it to the main loop context using g_source_attach(). You can do these steps manually if you need greater control.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method child-watch-add-full ( Int() $priority, …, &amp;function, gpointer $data, &amp;notify --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the idle source. Typically this will be in the range between <span class="code">G_PRIORITY_DEFAULT_IDLE</span> and <span class="code">G_PRIORITY_HIGH_IDLE</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >pid; process to watch. On POSIX the positive pid of a child process. On Windows a handle for a process (which doesn't have to be a child).. Note that each argument must be specified as a type followed by its value!</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:(  $pid, gint $wait-status, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;notify; function to call when the idle is removed, or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p id="Para_17">Return value; the ID (greater than 0) of the event source..</p>
+
+<div class="id-target" id="child-watch-source-new This function is not yet available"></div><h2 id="child-watch-source-new_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">child-watch-source-new This function is not yet available</a><a class="raku-anchor" title="direct link" href="#child-watch-source-new This function is not yet available">§</a></h2>
+
+<p id="Para_18">Creates a new child_watch source.</p>
+
+<p>The source will not initially be associated with any <span class="basis">Gnome::Glib::N-MainContext</span> and must be added to one with g_source_attach() before it will be executed. </p>
+
+<p>Note that child watch sources can only be used in conjunction with <span class="basis">g_spawn...</span> when the <span class="code">G_SPAWN_DO_NOT_REAP_CHILD</span> flag is used. </p>
+
+<p>Note that on platforms where <span class="basis">Gnome::Glib::Main</span> must be explicitly closed (see g_spawn_close_pid()) <span class="code">$pid</span> must not be closed while the source is still active. Typically, you will want to call g_spawn_close_pid() in the callback function for the source. </p>
+
+<p id="Para_19">On POSIX platforms, the following restrictions apply to this API due to limitations in POSIX process interfaces:</p>
+
+<p>* <span class="code">$pid</span> must be a child of this process * <span class="code">$pid</span> must be positive * the application must not call <span class="basis">waitpid</span> with a non-positive first argument, for instance in another thread * the application must not wait for <span class="code">$pid</span> to exit by any other mechanism, including <span class="basis">waitpid(pid, ...)</span> or a second child-watch source for the same <span class="code">$pid</span> * the application must not ignore <span class="basis">SIGCHLD</span> * Before 2.78, the application could not send a signal (<span class="basis">kill()</span>) to the watched <span class="code">$pid</span> in a race free manner. Since 2.78, you can do that while the associated <span class="basis">Gnome::Glib::N-MainContext</span> is acquired. * Before 2.78, even after destroying the <span class="basis">Gnome::Glib::N-Source</span>, you could not be sure that <span class="code">$pid</span> wasn't already reaped. Hence, it was also not safe to <span class="basis">kill()</span> or <span class="basis">waitpid()</span> on the process ID after the child watch source was gone. Destroying the source before it fired made it impossible to reliably reap the process. </p>
+
+<p>If any of those conditions are not met, this and related APIs will not work correctly. This can often be diagnosed via a GLib warning stating that <span class="basis">ECHILD</span> was received by <span class="basis">waitpid</span>. </p>
+
+<p>Calling <span class="basis">waitpid</span> for specific processes other than <span class="code">$pid</span> remains a valid thing to do. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method child-watch-source-new ( … --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >pid; process to watch. On POSIX the positive pid of a child process. On Windows a handle for a process (which doesn't have to be a child).. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_20">Return value; the newly-created child watch source.</p>
+<h2 id="clear-handle-id" class="heading "><a href="#" title="go to top of document">clear-handle-id</a><a class="raku-anchor" title="direct link" href="#clear-handle-id">§</a></h2>
+
+<p>Clears a numeric handler, such as a <span class="basis">Gnome::Glib::N-Source</span> ID. <span class="code">$tag-ptr</span> must be a valid pointer to the variable holding the handler. </p>
+
+<p id="Para_21">If the ID is zero then this function does nothing. Otherwise, clear_func() is called with the ID as a parameter, and the tag is set to zero.</p>
+
+<p id="Para_22">A macro is also included that allows this function to be used without pointer casts.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method clear-handle-id ( Array[Int] $tag-ptr, &amp;clear-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag-ptr; a pointer to the handler ID.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;clear-func; the function to call to clear the handler. Tthe function must be specified with following signature; <span class="code">:( guint $handle-id )</span>.</li>
+</ul>
+<h2 id="get-current-time" class="heading "><a href="#" title="go to top of document">get-current-time</a><a class="raku-anchor" title="direct link" href="#get-current-time">§</a></h2>
+
+<p id="Para_23">Equivalent to the UNIX gettimeofday() function, but portable.</p>
+
+<p id="Para_24">You may find g_get_real_time() to be more convenient.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-time ( N-Object $result )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$result; <span class="basis">Gnome::Glib::N-TimeVal</span> structure in which to store current time.</li>
+</ul>
+<h2 id="get-monotonic-time" class="heading "><a href="#" title="go to top of document">get-monotonic-time</a><a class="raku-anchor" title="direct link" href="#get-monotonic-time">§</a></h2>
+
+<p id="Para_25">Queries the system monotonic time.</p>
+
+<p id="Para_26">The monotonic clock will always increase and doesn't suffer discontinuities when the user (or NTP) changes the system time. It may or may not continue to tick during times where the machine is suspended.</p>
+
+<p id="Para_27">We try to use the clock that corresponds as closely as possible to the passage of time as measured by system calls such as poll() but it may not always be possible to do this.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-monotonic-time (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_28">Return value; the monotonic time, in microseconds.</p>
+<h2 id="get-real-time" class="heading "><a href="#" title="go to top of document">get-real-time</a><a class="raku-anchor" title="direct link" href="#get-real-time">§</a></h2>
+
+<p id="Para_29">Queries the system wall-clock time.</p>
+
+<p>This call is functionally equivalent to g_get_current_time() except that the return value is often more convenient than dealing with a <span class="basis">Gnome::Glib::N-TimeVal</span>. </p>
+
+<p id="Para_30">You should only use this call if you are actually interested in the real wall-clock time. g_get_monotonic_time() is probably more useful for measuring intervals.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-real-time (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_31">Return value; the number of microseconds since January 1, 1970 UTC..</p>
+<h2 id="idle-add" class="heading "><a href="#" title="go to top of document">idle-add</a><a class="raku-anchor" title="direct link" href="#idle-add">§</a></h2>
+
+<p>Adds a function to be called whenever there are no higher priority events pending to the default main loop. The function is given the default idle priority, <span class="code">G_PRIORITY_DEFAULT_IDLE</span>. If the function returns <span class="code">False</span> it is automatically removed from the list of event sources and will not be called again. </p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p>This internally creates a main loop source using g_idle_source_new() and attaches it to the global <span class="basis">Gnome::Glib::N-MainContext</span> using g_source_attach(), so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method idle-add ( &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>..</li>
+</ul>
+
+<p id="Para_32">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="idle-add-full" class="heading "><a href="#" title="go to top of document">idle-add-full</a><a class="raku-anchor" title="direct link" href="#idle-add-full">§</a></h2>
+
+<p id="Para_33">Adds a function to be called whenever there are no higher priority events pending.</p>
+
+<p>If the function returns <span class="code">G_SOURCE_REMOVE</span> or <span class="code">False</span> it is automatically removed from the list of event sources and will not be called again. </p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p>This internally creates a main loop source using g_idle_source_new() and attaches it to the global <span class="basis">Gnome::Glib::N-MainContext</span> using g_source_attach(), so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method idle-add-full ( Int() $priority, &amp;function, gpointer $data, &amp;notify --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the idle source. Typically this will be in the range between <span class="code">G_PRIORITY_DEFAULT_IDLE</span> and <span class="code">G_PRIORITY_HIGH_IDLE</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;notify; function to call when the idle is removed, or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p id="Para_34">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="idle-add-once" class="heading "><a href="#" title="go to top of document">idle-add-once</a><a class="raku-anchor" title="direct link" href="#idle-add-once">§</a></h2>
+
+<p>Adds a function to be called whenever there are no higher priority events pending to the default main loop. The function is given the default idle priority, <span class="code">G_PRIORITY_DEFAULT_IDLE</span>. </p>
+
+<p id="Para_35">The function will only be called once and then the source will be automatically removed from the main context.</p>
+
+<p id="Para_36">This function otherwise behaves like g_idle_add().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method idle-add-once ( &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_37">Return value; the ID (greater than 0) of the event source.</p>
+<h2 id="idle-remove-by-data" class="heading "><a href="#" title="go to top of document">idle-remove-by-data</a><a class="raku-anchor" title="direct link" href="#idle-remove-by-data">§</a></h2>
+
+<p id="Para_38">Removes the idle function with the given data.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method idle-remove-by-data ( gpointer $data --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the idle source's callback..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if an idle source was found and removed.. </p>
+<h2 id="idle-source-new" class="heading "><a href="#" title="go to top of document">idle-source-new</a><a class="raku-anchor" title="direct link" href="#idle-source-new">§</a></h2>
+
+<p id="Para_39">Creates a new idle source.</p>
+
+<p>The source will not initially be associated with any <span class="basis">Gnome::Glib::N-MainContext</span> and must be added to one with g_source_attach() before it will be executed. Note that the default priority for idle sources is <span class="code">G_PRIORITY_DEFAULT_IDLE</span>, as compared to other sources which have a default priority of <span class="code">G_PRIORITY_DEFAULT</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method idle-source-new (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_40">Return value; the newly-created idle source.</p>
+<h2 id="main-context-default" class="heading "><a href="#" title="go to top of document">main-context-default</a><a class="raku-anchor" title="direct link" href="#main-context-default">§</a></h2>
+
+<p>Returns the global-default main context. This is the main context used for main loop functions when a main loop is not explicitly specified, and corresponds to the &quot;main&quot; main loop. See also <span class="code">.context-get-thread-default()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method main-context-default (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_41">Return value; the global-default main context..</p>
+<h2 id="main-context-get-thread-default" class="heading "><a href="#" title="go to top of document">main-context-get-thread-default</a><a class="raku-anchor" title="direct link" href="#main-context-get-thread-default">§</a></h2>
+
+<p>Gets the thread-default <span class="basis">Gnome::Glib::N-MainContext</span> for this thread. Asynchronous operations that want to be able to be run in contexts other than the default one should call this method or <span class="code">.context-ref-thread-default()</span> to get a <span class="basis">Gnome::Glib::N-MainContext</span> to add their <span class="basis">GSources</span> to. (Note that even in single-threaded programs applications may sometimes want to temporarily push a non-default context, so it is not safe to assume that this will always return undefined if you are running in the default thread.) </p>
+
+<p>If you need to hold a reference on the context, use <span class="code">.context-ref-thread-default()</span> instead. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method main-context-get-thread-default (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the thread-default <span class="basis">Gnome::Glib::N-MainContext</span>, or undefined if the thread-default context is the global-default main context.. </p>
+<h2 id="main-context-ref-thread-default" class="heading "><a href="#" title="go to top of document">main-context-ref-thread-default</a><a class="raku-anchor" title="direct link" href="#main-context-ref-thread-default">§</a></h2>
+
+<p>Gets the thread-default <span class="basis">Gnome::Glib::N-MainContext</span> for this thread, as with <span class="code">.context-get-thread-default()</span>, but also adds a reference to it with <span class="code">.context-ref()</span>. In addition, unlike <span class="code">.context-get-thread-default()</span>, if the thread-default context is the global-default context, this will return that <span class="basis">Gnome::Glib::N-MainContext</span> (with a ref added to it) rather than returning undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method main-context-ref-thread-default (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the thread-default <span class="basis">Gnome::Glib::N-MainContext</span>. Unref with <span class="code">.context-unref()</span> when you are done with it.. </p>
+<h2 id="main-current-source" class="heading "><a href="#" title="go to top of document">main-current-source</a><a class="raku-anchor" title="direct link" href="#main-current-source">§</a></h2>
+
+<p id="Para_42">Returns the currently firing source for this thread.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method main-current-source (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_43">Return value; The currently firing source or undefined..</p>
+<h2 id="main-depth" class="heading "><a href="#" title="go to top of document">main-depth</a><a class="raku-anchor" title="direct link" href="#main-depth">§</a></h2>
+
+<p>Returns the depth of the stack of calls to <span class="code">.context-dispatch()</span> on any <span class="basis">Gnome::Glib::N-MainContext</span> in the current thread. That is, when called from the toplevel, it gives 0. When called from within a callback from <span class="code">.context-iteration()</span> (or <span class="code">.loop-run()</span>, etc.) it returns 1. When called from within a callback to a recursive call to <span class="code">.context-iteration()</span>, it returns 2. And so forth. </p>
+
+<p id="Para_44">This function is useful in a situation like the following: Imagine an extremely simple &quot;garbage collected&quot; system.</p>
+
+<p>This works from an application, however, if you want to do the same thing from a library, it gets more difficult, since you no longer control the main loop. You might think you can simply use an idle function to make the call to free_allocated_memory(), but that doesn't work, since the idle function could be called from a recursive callback. This can be fixed by using <span class="code">.depth()</span> </p>
+
+<p>There is a temptation to use <span class="code">.depth()</span> to solve problems with reentrancy. For instance, while waiting for data to be received from the network in response to a menu item, the menu item might be selected again. It might seem that one could make the menu item's callback return immediately and do nothing if <span class="code">.depth()</span> returns a value greater than 1. However, this should be avoided since the user then sees selecting the menu item do nothing. Furthermore, you'll find yourself adding these checks all over your code, since there are doubtless many, many things that the user could do. Instead, you can use the following techniques: </p>
+
+<p id="Para_45">1. Use gtk_widget_set_sensitive() or modal dialogs to prevent the user from interacting with elements while the main loop is recursing.</p>
+
+<p id="Para_46">2. Avoid main loop recursion in situations where you can't handle arbitrary callbacks. Instead, structure your code so that you simply return to the main loop and then get called again when there is more work to do.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method main-depth (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_47">Return value; The main loop recursion level in the current thread.</p>
+<h2 id="source-remove" class="heading "><a href="#" title="go to top of document">source-remove</a><a class="raku-anchor" title="direct link" href="#source-remove">§</a></h2>
+
+<p id="Para_48">Removes the source with the given ID from the default main context. You must use g_source_destroy() for sources added to a non-default main context.</p>
+
+<p>The ID of a <span class="basis">Gnome::Glib::N-Source</span> is given by g_source_get_id(), or will be returned by the functions g_source_attach(), g_idle_add(), g_idle_add_full(), g_timeout_add(), g_timeout_add_full(), g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and g_io_add_watch_full(). </p>
+
+<p id="Para_49">It is a programmer error to attempt to remove a non-existent source.</p>
+
+<p id="Para_50">More specifically: source IDs can be reissued after a source has been destroyed and therefore it is never valid to use this function with a source ID which may have already been removed. An example is when scheduling an idle to run in another thread with g_idle_add(): the idle may already have run and been removed by the time this function is called on its (now invalid) source ID. This source ID may have been reissued, leading to the operation being performed against the wrong source.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method source-remove ( UInt() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; the ID of the source to remove..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the source was found and removed.. </p>
+<h2 id="source-remove-by-funcs-user-data" class="heading "><a href="#" title="go to top of document">source-remove-by-funcs-user-data</a><a class="raku-anchor" title="direct link" href="#source-remove-by-funcs-user-data">§</a></h2>
+
+<p id="Para_51">Removes a source from the default main loop context given the source functions and user data. If multiple sources exist with the same source functions and user data, only one will be destroyed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method source-remove-by-funcs-user-data ( N-Object $funcs, gpointer $user-data --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$funcs; The <span class="code">$source-funcs</span> passed to g_source_new()</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; the user data for the callback.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if a source was found and removed.. </p>
+<h2 id="source-remove-by-user-data" class="heading "><a href="#" title="go to top of document">source-remove-by-user-data</a><a class="raku-anchor" title="direct link" href="#source-remove-by-user-data">§</a></h2>
+
+<p id="Para_52">Removes a source from the default main loop context given the user data for the callback. If multiple sources exist with the same user data, only one will be destroyed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method source-remove-by-user-data ( gpointer $user-data --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$user-data; the user_data for the callback..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if a source was found and removed.. </p>
+<h2 id="source-set-name-by-id" class="heading "><a href="#" title="go to top of document">source-set-name-by-id</a><a class="raku-anchor" title="direct link" href="#source-set-name-by-id">§</a></h2>
+
+<p id="Para_53">Sets the name of a source using its ID.</p>
+
+<p id="Para_54">This is a convenience utility to set source names from the return value of g_idle_add(), g_timeout_add(), etc.</p>
+
+<p id="Para_55">It is a programmer error to attempt to set the name of a non-existent source.</p>
+
+<p id="Para_56">More specifically: source IDs can be reissued after a source has been destroyed and therefore it is never valid to use this function with a source ID which may have already been removed. An example is when scheduling an idle to run in another thread with g_idle_add(): the idle may already have run and been removed by the time this function is called on its (now invalid) source ID. This source ID may have been reissued, leading to the operation being performed against the wrong source.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method source-set-name-by-id ( UInt() $tag, Str $name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <span class="basis">Gnome::Glib::N-Source</span> ID.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$name; debug name for the source.</li>
+</ul>
+<h2 id="timeout-add" class="heading "><a href="#" title="go to top of document">timeout-add</a><a class="raku-anchor" title="direct link" href="#timeout-add">§</a></h2>
+
+<p>Sets a function to be called at regular intervals, with the default priority, <span class="code">G_PRIORITY_DEFAULT</span>. </p>
+
+<p>The given <span class="code">$function</span> is called repeatedly until it returns <span class="code">G_SOURCE_REMOVE</span> or <span class="code">False</span>, at which point the timeout is automatically destroyed and the function will not be called again. The first call to the function will be at the end of the first <span class="code">$interval</span>. </p>
+
+<p id="Para_57">Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given interval (it does not try to 'catch up' time lost in delays).</p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p id="Para_58">If you want to have a timer in the &quot;seconds&quot; range and do not care about the exact time of the first call of the timer, use the g_timeout_add_seconds() function; this function allows for more optimizations and more efficient system power usage.</p>
+
+<p>This internally creates a main loop source using g_timeout_source_new() and attaches it to the global <span class="basis">Gnome::Glib::N-MainContext</span> using g_source_attach(), so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context. </p>
+
+<p id="Para_59">It is safe to call this function from any thread.</p>
+
+<p id="Para_60">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add ( UInt() $interval, &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time between calls to the function, in milliseconds (1/1000ths of a second).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_61">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="timeout-add-full" class="heading "><a href="#" title="go to top of document">timeout-add-full</a><a class="raku-anchor" title="direct link" href="#timeout-add-full">§</a></h2>
+
+<p>Sets a function to be called at regular intervals, with the given priority. The function is called repeatedly until it returns <span class="code">False</span>, at which point the timeout is automatically destroyed and the function will not be called again. The <span class="code">$notify</span> function is called when the timeout is destroyed. The first call to the function will be at the end of the first <span class="code">$interval</span>. </p>
+
+<p id="Para_62">Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given interval (it does not try to 'catch up' time lost in delays).</p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p>This internally creates a main loop source using g_timeout_source_new() and attaches it to the global <span class="basis">Gnome::Glib::N-MainContext</span> using g_source_attach(), so the callback will be invoked in whichever thread is running that main context. You can do these steps manually if you need greater control or to use a custom main context. </p>
+
+<p id="Para_63">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add-full ( Int() $priority, UInt() $interval, &amp;function, gpointer $data, &amp;notify --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the timeout source. Typically this will be in the range between <span class="code">G_PRIORITY_DEFAULT</span> and <span class="code">G_PRIORITY_HIGH</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time between calls to the function, in milliseconds (1/1000ths of a second).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;notify; function to call when the timeout is removed, or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p id="Para_64">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="timeout-add-once" class="heading "><a href="#" title="go to top of document">timeout-add-once</a><a class="raku-anchor" title="direct link" href="#timeout-add-once">§</a></h2>
+
+<p>Sets a function to be called after <span class="code">$interval</span> milliseconds have elapsed, with the default priority, <span class="code">G_PRIORITY_DEFAULT</span>. </p>
+
+<p>The given <span class="code">$function</span> is called once and then the source will be automatically removed from the main context. </p>
+
+<p id="Para_65">This function otherwise behaves like g_timeout_add().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add-once ( UInt() $interval, &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time after which the function will be called, in milliseconds (1/1000ths of a second).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_66">Return value; the ID (greater than 0) of the event source.</p>
+<h2 id="timeout-add-seconds" class="heading "><a href="#" title="go to top of document">timeout-add-seconds</a><a class="raku-anchor" title="direct link" href="#timeout-add-seconds">§</a></h2>
+
+<p>Sets a function to be called at regular intervals with the default priority, <span class="code">G_PRIORITY_DEFAULT</span>. </p>
+
+<p>The function is called repeatedly until it returns <span class="code">G_SOURCE_REMOVE</span> or <span class="code">False</span>, at which point the timeout is automatically destroyed and the function will not be called again. </p>
+
+<p id="Para_67">This internally creates a main loop source using g_timeout_source_new_seconds() and attaches it to the main loop context using g_source_attach(). You can do these steps manually if you need greater control. Also see g_timeout_add_seconds_full().</p>
+
+<p id="Para_68">It is safe to call this function from any thread.</p>
+
+<p id="Para_69">Note that the first call of the timer may not be precise for timeouts of one second. If you need finer precision and have such a timeout, you may want to use g_timeout_add() instead.</p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p id="Para_70">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add-seconds ( UInt() $interval, &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time between calls to the function, in seconds.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_71">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="timeout-add-seconds-full" class="heading "><a href="#" title="go to top of document">timeout-add-seconds-full</a><a class="raku-anchor" title="direct link" href="#timeout-add-seconds-full">§</a></h2>
+
+<p>Sets a function to be called at regular intervals, with <span class="code">$priority</span>. </p>
+
+<p>The function is called repeatedly until it returns <span class="code">G_SOURCE_REMOVE</span> or <span class="code">False</span>, at which point the timeout is automatically destroyed and the function will not be called again. </p>
+
+<p>Unlike g_timeout_add(), this function operates at whole second granularity. The initial starting point of the timer is determined by the implementation and the implementation is expected to group multiple timers together so that they fire all at the same time. To allow this grouping, the <span class="code">$interval</span> to the first timer is rounded and can deviate up to one second from the specified interval. Subsequent timer iterations will generally run at the specified interval. </p>
+
+<p>Note that timeout functions may be delayed, due to the processing of other event sources. Thus they should not be relied on for precise timing. After each call to the timeout function, the time of the next timeout is recalculated based on the current time and the given <span class="code">$interval</span> </p>
+
+<p>See memory management of sources for details on how to handle the return value and memory management of <span class="code">$data</span>. </p>
+
+<p id="Para_72">If you want timing more precise than whole seconds, use g_timeout_add() instead.</p>
+
+<p id="Para_73">The grouping of timers to fire at the same time results in a more power and CPU efficient behavior so if your timer is in multiples of seconds and you don't require the first timer exactly one second from now, the use of g_timeout_add_seconds() is preferred over g_timeout_add().</p>
+
+<p id="Para_74">This internally creates a main loop source using g_timeout_source_new_seconds() and attaches it to the main loop context using g_source_attach(). You can do these steps manually if you need greater control.</p>
+
+<p id="Para_75">It is safe to call this function from any thread.</p>
+
+<p id="Para_76">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add-seconds-full ( Int() $priority, UInt() $interval, &amp;function, gpointer $data, &amp;notify --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the timeout source. Typically this will be in the range between <span class="code">G_PRIORITY_DEFAULT</span> and <span class="code">G_PRIORITY_HIGH</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time between calls to the function, in seconds.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data --</span> gboolean )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;notify; function to call when the timeout is removed, or undefined. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<p id="Para_77">Return value; the ID (greater than 0) of the event source..</p>
+<h2 id="timeout-add-seconds-once" class="heading "><a href="#" title="go to top of document">timeout-add-seconds-once</a><a class="raku-anchor" title="direct link" href="#timeout-add-seconds-once">§</a></h2>
+
+<p id="Para_78">This function behaves like g_timeout_add_once() but with a range in seconds.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-add-seconds-once ( UInt() $interval, &amp;function, gpointer $data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the time after which the function will be called, in seconds.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;function; function to call. Tthe function must be specified with following signature; <span class="code">:( gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to pass to <span class="code">$function</span>.</li>
+</ul>
+
+<p id="Para_79">Return value; the ID (greater than 0) of the event source.</p>
+<h2 id="timeout-source-new" class="heading "><a href="#" title="go to top of document">timeout-source-new</a><a class="raku-anchor" title="direct link" href="#timeout-source-new">§</a></h2>
+
+<p id="Para_80">Creates a new timeout source.</p>
+
+<p>The source will not initially be associated with any <span class="basis">Gnome::Glib::N-MainContext</span> and must be added to one with g_source_attach() before it will be executed. </p>
+
+<p id="Para_81">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-source-new ( UInt() $interval --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the timeout interval in milliseconds..</li>
+</ul>
+
+<p id="Para_82">Return value; the newly-created timeout source.</p>
+<h2 id="timeout-source-new-seconds" class="heading "><a href="#" title="go to top of document">timeout-source-new-seconds</a><a class="raku-anchor" title="direct link" href="#timeout-source-new-seconds">§</a></h2>
+
+<p id="Para_83">Creates a new timeout source.</p>
+
+<p>The source will not initially be associated with any <span class="basis">Gnome::Glib::N-MainContext</span> and must be added to one with g_source_attach() before it will be executed. </p>
+
+<p id="Para_84">The scheduling granularity/accuracy of this timeout source will be in seconds.</p>
+
+<p id="Para_85">The interval given is in terms of monotonic time, not wall clock time. See g_get_monotonic_time().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method timeout-source-new-seconds ( UInt() $interval --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interval; the timeout interval in seconds.</li>
+</ul>
+
+<p id="Para_86">Return value; the newly-created timeout source.</p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/T-main.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 10:28 UTC on 2024-02-21</span>
+
+</div>
+
+</body>
+</html>

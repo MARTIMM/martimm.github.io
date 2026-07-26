@@ -1,0 +1,968 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::N-VariantType">Gnome::Glib::N-VariantType</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#GVariant_Type_Strings">GVariant Type Strings</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-varianttype">new-varianttype</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-array">new-array</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-dict-entry">new-dict-entry</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-maybe">new-maybe</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-tuple">new-tuple</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#dup-string">dup-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#element">element</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#equal">equal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#first">first</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-string-length">get-string-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#hash">hash</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-array">is-array</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-basic">is-basic</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-container">is-container</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-definite">is-definite</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-dict-entry">is-dict-entry</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-maybe">is-maybe</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-subtype-of">is-subtype-of</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-tuple">is-tuple</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-variant">is-variant</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#key">key</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#n-items">n-items</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#next">next</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#peek-string">peek-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#value">value</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#string-is-valid">string-is-valid</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#string-scan">string-scan</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::N-VariantType" class="heading "><a href="#" title="go to top of document">Gnome::Glib::N-VariantType</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::N-VariantType">§</a></h1>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">This section introduces the GVariant type system. It is based, in large part, on the D-Bus type system, with two major changes and some minor lifting of restrictions. The [D-Bus specification](http://dbus.freedesktop.org/doc/dbus-specification.html), therefore, provides a significant amount of information that is useful when working with GVariant.</p>
+
+<p id="Para_0">The first major change with respect to the D-Bus type system is the introduction of maybe (or &quot;nullable&quot;) types. Any type in GVariant can be converted to a maybe type, in which case, &quot;nothing&quot; (or &quot;null&quot;) becomes a valid value. Maybe types have been added by introducing the character &quot;m&quot; to type strings.</p>
+
+<p id="Para_1">The second major change is that the GVariant type system supports the concept of &quot;indefinite types&quot; -- types that are less specific than the normal types found in D-Bus. For example, it is possible to speak of &quot;an array of any type&quot; in GVariant, where the D-Bus type system would require you to speak of &quot;an array of integers&quot; or &quot;an array of strings&quot;. Indefinite types have been added by introducing the characters &quot;*&quot;, &quot;?&quot; and &quot;r&quot; to type strings.</p>
+
+<p id="Para_2">Finally, all arbitrary restrictions relating to the complexity of types are lifted along with the restriction that dictionary entries may only appear nested inside of arrays.</p>
+
+<p id="Para_3">Just as in D-Bus, GVariant types are described with strings (&quot;type strings&quot;). Subject to the differences mentioned above, these strings are of the same form as those found in D-Bus. Note, however: D-Bus always works in terms of messages and therefore individual type strings appear nowhere in its interface. Instead, &quot;signatures&quot; are a concatenation of the strings of the type of each argument in a message. GVariant deals with single values directly so GVariant type strings always describe the type of exactly one value. This means that a D-Bus signature string is generally not a valid GVariant type string -- except in the case that it is the signature of a message containing exactly one argument.</p>
+
+<p>An indefinite type is similar in spirit to what may be called an abstract type in other type systems. No value can exist that has an indefinite type as its type, but values can exist that have types that are subtypes of indefinite types. That is to say, g_variant_get_type() will never return an indefinite type, but calling g_variant_is_of_type() with an indefinite type may return <span class="code">True</span>. For example, you cannot have a value that represents &quot;an array of no particular type&quot;, but you can have an &quot;array of integers&quot; which certainly matches the type of &quot;an array of no particular type&quot;, since &quot;array of integers&quot; is a subtype of &quot;array of no particular type&quot;. </p>
+
+<p>This is similar to how instances of abstract classes may not directly exist in other type systems, but instances of their non-abstract subtypes may. For example, in GTK, no object that has the type of <span class="basis">GtkBin</span> can exist (since <span class="basis">GtkBin</span> is an abstract class), but a <span class="basis">GtkWindow</span> can certainly be instantiated, and you would say that the <span class="basis">GtkWindow</span> is a <span class="basis">GtkBin</span> (since <span class="basis">GtkWindow</span> is a subclass of <span class="basis">GtkBin</span>). </p>
+
+<div class="id-target" id="GVariant Type Strings"></div><h3 id="GVariant_Type_Strings" class="heading "><a href="#" title="go to top of document">GVariant Type Strings</a><a class="raku-anchor" title="direct link" href="#GVariant Type Strings">§</a></h3>
+
+<p id="Para_4">A GVariant type string can be any of the following:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >any basic type string (listed below)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&quot;v&quot;, &quot;r&quot; or &quot;*&quot;</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >one of the characters 'a' or 'm', followed by another type string</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the character '(', followed by a concatenation of zero or more other type strings, followed by the character ')'</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the character '{', followed by a basic type string (see below), followed by another type string, followed by the character '}'</li>
+</ul>
+
+<p>A basic type string describes a basic type (as per <span class="code">.is-basic()</span>) and is always a single character in length. The valid basic type strings are &quot;b&quot;, &quot;y&quot;, &quot;n&quot;, &quot;q&quot;, &quot;i&quot;, &quot;u&quot;, &quot;x&quot;, &quot;t&quot;, &quot;h&quot;, &quot;d&quot;, &quot;s&quot;, &quot;o&quot;, &quot;g&quot; and &quot;?&quot;. </p>
+
+<p>The above definition is recursive to arbitrary depth. &quot;aaaaai&quot; and &quot;(ui(nq((y)))s)&quot; are both valid type strings, as is &quot;a(aa(ui)(qna{ya(yd)}))&quot;. In order to not hit memory limits, <span class="basis">Gnome::Glib::N-Variant</span> imposes a limit on recursion depth of 65 nested containers. This is the limit in the D-Bus specification (64) plus one to allow a <span class="basis">GDBusMessage</span> to be nested in a top-level tuple. </p>
+
+<p id="Para_5">The meaning of each of the characters is as follows:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">b</span>: the type string of <span class="code">G_VARIANT_TYPE_BOOLEAN</span>; a boolean value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">y</span>: the type string of <span class="code">G_VARIANT_TYPE_BYTE</span>; a byte.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">n</span>: the type string of %G_VARIANT_TYPE_INT16; a signed 16 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">q</span>: the type string of %G_VARIANT_TYPE_UINT16; an unsigned 16 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">i</span>: the type string of %G_VARIANT_TYPE_INT32; a signed 32 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">u</span>: the type string of %G_VARIANT_TYPE_UINT32; an unsigned 32 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">x</span>: the type string of %G_VARIANT_TYPE_INT64; a signed 64 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">t</span>: the type string of %G_VARIANT_TYPE_UINT64; an unsigned 64 bit integer.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">h</span>: the type string of <span class="code">G_VARIANT_TYPE_HANDLE</span>; a signed 32 bit value that, by convention, is used as an index into an array of file descriptors that are sent alongside a D-Bus message.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">d</span>: the type string of <span class="code">G_VARIANT_TYPE_DOUBLE</span>; a double precision floating point value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">s</span>: the type string of <span class="code">G_VARIANT_TYPE_STRING</span>; a string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">o</span>: the type string of <span class="code">G_VARIANT_TYPE_OBJECT_PATH</span>; a string in the form of a D-Bus object path.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">g</span>: the type string of <span class="code">G_VARIANT_TYPE_SIGNATURE</span>; a string in the form of a D-Bus type signature.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">?</span>: the type string of <span class="code">G_VARIANT_TYPE_BASIC</span>; an indefinite type that is a supertype of any of the basic types.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">v</span>: the type string of <span class="code">G_VARIANT_TYPE_VARIANT</span>; a container type that contain any other type of value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">a</span>: used as a prefix on another type string to mean an array of that type; the type string &quot;ai&quot;, for example, is the type of an array of signed 32-bit integers.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">m</span>: used as a prefix on another type string to mean a &quot;maybe&quot;, or &quot;nullable&quot;, version of that type; the type string &quot;ms&quot;, for example, is the type of a value that maybe contains a string, or maybe contains nothing.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">()</span>: used to enclose zero or more other concatenated type strings to create a tuple type; the type string &quot;(is)&quot;, for example, is the type of a pair of an integer and a string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">r</span>: the type string of <span class="code">G_VARIANT_TYPE_TUPLE</span>; an indefinite type that is a supertype of any tuple type, regardless of the number of items.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">{}</span>: used to enclose a basic type string concatenated with another type string to create a dictionary entry type, which usually appears inside of an array to form a dictionary; the type string &quot;a{sd}&quot;, for example, is the type of a dictionary that maps strings to double precision floating point values.</li>
+</ul>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">The first type (the basic type) is the key type and the second type is
+the value type. The reason that the first type is restricted to being a
+basic type is so that it can easily be hashed.</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">*</span>: the type string of <span class="code">G_VARIANT_TYPE_ANY</span>; the indefinite type that is a supertype of all types. Note that, as with all type strings, this character represents exactly one type. It cannot be used inside of tuples to mean &quot;any number of items&quot;.</li>
+</ul>
+
+<p>Any type string of a container that contains an indefinite type is, itself, an indefinite type. For example, the type string &quot;a*&quot; (corresponding to <span class="code">G_VARIANT_TYPE_ARRAY</span>) is an indefinite type that is a supertype of every array type. &quot;(*s)&quot; is a supertype of all tuples that contain exactly two items where the second item is a string. </p>
+
+<p>&quot;a{?*}&quot; is an indefinite type that is a supertype of all arrays containing dictionary entries where the key is any basic type and the value is any type at all. This is, by definition, a dictionary, so this type string corresponds to <span class="code">G_VARIANT_TYPE_DICTIONARY</span>. Note that, due to the restriction that the key of a dictionary entry must be a basic type, &quot;{**}&quot; is not a valid type string. </p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-varianttype" class="heading "><a href="#" title="go to top of document">new-varianttype</a><a class="raku-anchor" title="direct link" href="#new-varianttype">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Glib::N-VariantType</span> corresponding to the type string given by <span class="code">$type-string</span>. It is appropriate to call <span class="code">.free()</span> on the return value. </p>
+
+<p>It is a programmer error to call this function with an invalid type string. Use <span class="code">.string-is-valid()</span> if you are unsure. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-varianttype ( Str $type-string --&gt; Gnome::Glib::VariantType \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$type-string; a valid GVariant type string.</li>
+</ul>
+<h2 id="new-array" class="heading "><a href="#" title="go to top of document">new-array</a><a class="raku-anchor" title="direct link" href="#new-array">§</a></h2>
+
+<p>Constructs the type corresponding to an array of elements of the type <span class="code">$type</span>. </p>
+
+<p>It is appropriate to call <span class="code">.free()</span> on the return value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-array ( N-Object $element --&gt; Gnome::Glib::VariantType \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$element; a <span class="basis">Gnome::Glib::N-VariantType</span></li>
+</ul>
+<h2 id="new-dict-entry" class="heading "><a href="#" title="go to top of document">new-dict-entry</a><a class="raku-anchor" title="direct link" href="#new-dict-entry">§</a></h2>
+
+<p>Constructs the type corresponding to a dictionary entry with a key of type <span class="code">$key</span> and a value of type <span class="code">$value</span>. </p>
+
+<p>It is appropriate to call <span class="code">.free()</span> on the return value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-dict-entry ( N-Object $key, N-Object $value --&gt; Gnome::Glib::VariantType \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$key; a basic <span class="basis">Gnome::Glib::N-VariantType</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; a <span class="basis">Gnome::Glib::N-VariantType</span></li>
+</ul>
+<h2 id="new-maybe" class="heading "><a href="#" title="go to top of document">new-maybe</a><a class="raku-anchor" title="direct link" href="#new-maybe">§</a></h2>
+
+<p>Constructs the type corresponding to a maybe instance containing type <span class="code">$type</span> or Nothing. </p>
+
+<p>It is appropriate to call <span class="code">.free()</span> on the return value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-maybe ( N-Object $element --&gt; Gnome::Glib::VariantType \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$element; a <span class="basis">Gnome::Glib::N-VariantType</span></li>
+</ul>
+<h2 id="new-tuple" class="heading "><a href="#" title="go to top of document">new-tuple</a><a class="raku-anchor" title="direct link" href="#new-tuple">§</a></h2>
+
+<p>Constructs a new tuple type, from <span class="code">$items</span>. <span class="code">$length</span> is the number of items in <span class="code">$items</span>, or -1 to indicate that <span class="code">$items</span> is undefined-terminated. </p>
+
+<p>It is appropriate to call <span class="code">.free()</span> on the return value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-tuple ( N-Object $items, Int() $length --&gt; Gnome::Glib::VariantType \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$items; an array of <span class="basis">GVariantTypes</span>, one for each item</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; the length of <span class="code">$items</span>, or -1.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
+
+<p>Makes a copy of a <span class="basis">Gnome::Glib::N-VariantType</span>. It is appropriate to call <span class="code">.free()</span> on the return value. <span class="code">$type</span> may not be undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a new <span class="basis">Gnome::Glib::N-VariantType</span> </p>
+
+<p id="Para_6">Since 2.24.</p>
+<h2 id="dup-string" class="heading "><a href="#" title="go to top of document">dup-string</a><a class="raku-anchor" title="direct link" href="#dup-string">§</a></h2>
+
+<p>Returns a newly-allocated copy of the type string corresponding to <span class="code">$type</span>. The returned string is nul-terminated. It is appropriate to call g_free() on the return value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method dup-string (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the corresponding type string</p>
+
+<p id="Para_8">Since 2.24.</p>
+<h2 id="element" class="heading "><a href="#" title="go to top of document">element</a><a class="raku-anchor" title="direct link" href="#element">§</a></h2>
+
+<p id="Para_9">Determines the element type of an array or maybe type.</p>
+
+<p id="Para_10">This function may only be used with array or maybe types.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method element (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the element type of <span class="code">$type</span> </p>
+
+<p id="Para_11">Since 2.24.</p>
+<h2 id="equal" class="heading "><a href="#" title="go to top of document">equal</a><a class="raku-anchor" title="direct link" href="#equal">§</a></h2>
+
+<p>Compares <span class="code">$type1</span> and <span class="code">$type2</span> for equality. </p>
+
+<p>Only returns <span class="code">True</span> if the types are exactly equal. Even if one type is an indefinite type and the other is a subtype of it, <span class="code">False</span> will be returned if they are not exactly equal. If you want to check for subtypes, use <span class="code">.is-subtype-of()</span>. </p>
+
+<p>The argument types of <span class="code">$type1</span> and <span class="code">$type2</span> are only #gconstpointer to allow use with <span class="basis">Gnome::Glib::N-HashTable</span> without function pointer casting. For both arguments, a valid <span class="basis">Gnome::Glib::N-VariantType</span> must be provided. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method equal ( gpointer $type2 --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$type2; a <span class="basis">Gnome::Glib::N-VariantType</span>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type1</span> and <span class="code">$type2</span> are exactly equal </p>
+
+<p id="Para_12">Since 2.24.</p>
+<h2 id="first" class="heading "><a href="#" title="go to top of document">first</a><a class="raku-anchor" title="direct link" href="#first">§</a></h2>
+
+<p id="Para_13">Determines the first item type of a tuple or dictionary entry type.</p>
+
+<p>This function may only be used with tuple or dictionary entry types, but must not be used with the generic tuple type <span class="code">G_VARIANT_TYPE_TUPLE</span>. </p>
+
+<p id="Para_14">In the case of a dictionary entry type, this returns the type of the key.</p>
+
+<p>undefined is returned in case of <span class="code">$type</span> being <span class="code">G_VARIANT_TYPE_UNIT</span>. </p>
+
+<p>This call, together with <span class="code">.next()</span> provides an iterator interface over tuple and dictionary entry types. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method first (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the first item type of <span class="code">$type</span>, or undefined </p>
+
+<p id="Para_15">Since 2.24.</p>
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p>Frees a <span class="basis">Gnome::Glib::N-VariantType</span> that was allocated with <span class="code">.copy()</span>, <span class="code">.new-varianttype()</span> or one of the container type constructor functions. </p>
+
+<p>In the case that <span class="code">$type</span> is undefined, this function does nothing. </p>
+
+<p id="Para_16">Since 2.24</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-string-length" class="heading "><a href="#" title="go to top of document">get-string-length</a><a class="raku-anchor" title="direct link" href="#get-string-length">§</a></h2>
+
+<p>Returns the length of the type string corresponding to the given <span class="code">$type</span>. This function must be used to determine the valid extent of the memory region returned by <span class="code">.peek-string()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-string-length (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_17">Return value; the length of the corresponding type string</p>
+
+<p id="Para_18">Since 2.24.</p>
+<h2 id="hash" class="heading "><a href="#" title="go to top of document">hash</a><a class="raku-anchor" title="direct link" href="#hash">§</a></h2>
+
+<p>Hashes <span class="code">$type</span>. </p>
+
+<p>The argument type of <span class="code">$type</span> is only #gconstpointer to allow use with <span class="basis">Gnome::Glib::N-HashTable</span> without function pointer casting. A valid <span class="basis">Gnome::Glib::N-VariantType</span> must be provided. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method hash (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_19">Return value; the hash value</p>
+
+<p id="Para_20">Since 2.24.</p>
+<h2 id="is-array" class="heading "><a href="#" title="go to top of document">is-array</a><a class="raku-anchor" title="direct link" href="#is-array">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is an array type. This is true if the type string for <span class="code">$type</span> starts with an 'a'. </p>
+
+<p>This function returns <span class="code">True</span> for any indefinite type for which every definite subtype is an array type -- <span class="code">G_VARIANT_TYPE_ARRAY</span>, for example. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-array (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is an array type </p>
+
+<p id="Para_21">Since 2.24.</p>
+<h2 id="is-basic" class="heading "><a href="#" title="go to top of document">is-basic</a><a class="raku-anchor" title="direct link" href="#is-basic">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is a basic type. </p>
+
+<p id="Para_22">Basic types are booleans, bytes, integers, doubles, strings, object paths and signatures.</p>
+
+<p id="Para_23">Only a basic type may be used as the key of a dictionary entry.</p>
+
+<p>This function returns <span class="code">False</span> for all indefinite types except <span class="code">G_VARIANT_TYPE_BASIC</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-basic (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a basic type </p>
+
+<p id="Para_24">Since 2.24.</p>
+<h2 id="is-container" class="heading "><a href="#" title="go to top of document">is-container</a><a class="raku-anchor" title="direct link" href="#is-container">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is a container type. </p>
+
+<p id="Para_25">Container types are any array, maybe, tuple, or dictionary entry types plus the variant type.</p>
+
+<p>This function returns <span class="code">True</span> for any indefinite type for which every definite subtype is a container -- <span class="code">G_VARIANT_TYPE_ARRAY</span>, for example. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-container (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a container type </p>
+
+<p id="Para_26">Since 2.24.</p>
+<h2 id="is-definite" class="heading "><a href="#" title="go to top of document">is-definite</a><a class="raku-anchor" title="direct link" href="#is-definite">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is definite (ie: not indefinite). </p>
+
+<p id="Para_27">A type is definite if its type string does not contain any indefinite type characters ('*', '?', or 'r').</p>
+
+<p>A <span class="basis">Gnome::Glib::N-Variant</span> instance may not have an indefinite type, so calling this function on the result of g_variant_get_type() will always result in <span class="code">True</span> being returned. Calling this function on an indefinite type like <span class="code">G_VARIANT_TYPE_ARRAY</span>, however, will result in <span class="code">False</span> being returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-definite (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is definite </p>
+
+<p id="Para_28">Since 2.24.</p>
+<h2 id="is-dict-entry" class="heading "><a href="#" title="go to top of document">is-dict-entry</a><a class="raku-anchor" title="direct link" href="#is-dict-entry">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is a dictionary entry type. This is true if the type string for <span class="code">$type</span> starts with a '{'. </p>
+
+<p>This function returns <span class="code">True</span> for any indefinite type for which every definite subtype is a dictionary entry type -- <span class="code">G_VARIANT_TYPE_DICT_ENTRY</span>, for example. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-dict-entry (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a dictionary entry type </p>
+
+<p id="Para_29">Since 2.24.</p>
+<h2 id="is-maybe" class="heading "><a href="#" title="go to top of document">is-maybe</a><a class="raku-anchor" title="direct link" href="#is-maybe">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is a maybe type. This is true if the type string for <span class="code">$type</span> starts with an 'm'. </p>
+
+<p>This function returns <span class="code">True</span> for any indefinite type for which every definite subtype is a maybe type -- <span class="code">G_VARIANT_TYPE_MAYBE</span>, for example. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-maybe (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a maybe type </p>
+
+<p id="Para_30">Since 2.24.</p>
+<h2 id="is-subtype-of" class="heading "><a href="#" title="go to top of document">is-subtype-of</a><a class="raku-anchor" title="direct link" href="#is-subtype-of">§</a></h2>
+
+<p>Checks if <span class="code">$type</span> is a subtype of <span class="code">$supertype</span>. </p>
+
+<p>This function returns <span class="code">True</span> if <span class="code">$type</span> is a subtype of <span class="code">$supertype</span>. All types are considered to be subtypes of themselves. Aside from that, only indefinite types can have subtypes. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-subtype-of ( N-Object $supertype --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$supertype; a <span class="basis">Gnome::Glib::N-VariantType</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a subtype of <span class="code">$supertype</span> </p>
+
+<p id="Para_31">Since 2.24.</p>
+<h2 id="is-tuple" class="heading "><a href="#" title="go to top of document">is-tuple</a><a class="raku-anchor" title="direct link" href="#is-tuple">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is a tuple type. This is true if the type string for <span class="code">$type</span> starts with a '(' or if <span class="code">$type</span> is <span class="code">G_VARIANT_TYPE_TUPLE</span>. </p>
+
+<p>This function returns <span class="code">True</span> for any indefinite type for which every definite subtype is a tuple type -- <span class="code">G_VARIANT_TYPE_TUPLE</span>, for example. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-tuple (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is a tuple type </p>
+
+<p id="Para_32">Since 2.24.</p>
+<h2 id="is-variant" class="heading "><a href="#" title="go to top of document">is-variant</a><a class="raku-anchor" title="direct link" href="#is-variant">§</a></h2>
+
+<p>Determines if the given <span class="code">$type</span> is the variant type. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-variant (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type</span> is the variant type </p>
+
+<p id="Para_33">Since 2.24.</p>
+<h2 id="key" class="heading "><a href="#" title="go to top of document">key</a><a class="raku-anchor" title="direct link" href="#key">§</a></h2>
+
+<p id="Para_34">Determines the key type of a dictionary entry type.</p>
+
+<p>This function may only be used with a dictionary entry type. Other than the additional restriction, this call is equivalent to <span class="code">.first()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method key (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_35">Return value; the key type of the dictionary entry</p>
+
+<p id="Para_36">Since 2.24.</p>
+<h2 id="n-items" class="heading "><a href="#" title="go to top of document">n-items</a><a class="raku-anchor" title="direct link" href="#n-items">§</a></h2>
+
+<p id="Para_37">Determines the number of items contained in a tuple or dictionary entry type.</p>
+
+<p>This function may only be used with tuple or dictionary entry types, but must not be used with the generic tuple type <span class="code">G_VARIANT_TYPE_TUPLE</span>. </p>
+
+<p id="Para_38">In the case of a dictionary entry type, this function will always return 2.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method n-items (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the number of items in <span class="code">$type</span> </p>
+
+<p id="Para_39">Since 2.24.</p>
+<h2 id="next" class="heading "><a href="#" title="go to top of document">next</a><a class="raku-anchor" title="direct link" href="#next">§</a></h2>
+
+<p>Determines the next item type of a tuple or dictionary entry type. <span class="code">$type</span> must be the result of a previous call to <span class="code">.first()</span> or <span class="code">.next()</span>. </p>
+
+<p id="Para_40">If called on the key type of a dictionary entry then this call returns the value type. If called on the value type of a dictionary entry then this call returns undefined.</p>
+
+<p>For tuples, undefined is returned when <span class="code">$type</span> is the last item in a tuple. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method next (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the next <span class="basis">Gnome::Glib::N-VariantType</span> after <span class="code">$type</span>, or undefined </p>
+
+<p id="Para_41">Since 2.24.</p>
+<h2 id="peek-string" class="heading "><a href="#" title="go to top of document">peek-string</a><a class="raku-anchor" title="direct link" href="#peek-string">§</a></h2>
+
+<p>Returns the type string corresponding to the given <span class="code">$type</span>. The result is not nul-terminated; in order to determine its length you must call <span class="code">.get-string-length()</span>. </p>
+
+<p>To get a nul-terminated string, see <span class="code">.dup-string()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method peek-string (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_42">Return value; the corresponding type string (not nul-terminated)</p>
+
+<p id="Para_43">Since 2.24.</p>
+<h2 id="value" class="heading "><a href="#" title="go to top of document">value</a><a class="raku-anchor" title="direct link" href="#value">§</a></h2>
+
+<p id="Para_44">Determines the value type of a dictionary entry type.</p>
+
+<p id="Para_45">This function may only be used with a dictionary entry type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method value (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_46">Return value; the value type of the dictionary entry</p>
+
+<p id="Para_47">Since 2.24.</p>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="string-is-valid" class="heading "><a href="#" title="go to top of document">string-is-valid</a><a class="raku-anchor" title="direct link" href="#string-is-valid">§</a></h2>
+
+<p>Checks if <span class="code">$type-string</span> is a valid GVariant type string. This call is equivalent to calling <span class="code">.string-scan()</span> and confirming that the following character is a nul terminator. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method string-is-valid ( Str $type-string --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$type-string; a pointer to any string.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$type-string</span> is exactly one valid type string </p>
+
+<p id="Para_48">Since 2.24.</p>
+<h2 id="string-scan" class="heading "><a href="#" title="go to top of document">string-scan</a><a class="raku-anchor" title="direct link" href="#string-scan">§</a></h2>
+
+<p>Scan for a single complete and valid GVariant type string in <span class="code">$string</span>. The memory pointed to by <span class="code">$limit</span> (or bytes beyond it) is never accessed. </p>
+
+<p>If a valid type string is found, <span class="code">$endptr</span> is updated to point to the first character past the end of the string that was found and <span class="code">True</span> is returned. </p>
+
+<p>If there is no valid type string starting at <span class="code">$string</span>, or if the type string does not end before <span class="code">$limit</span> then <span class="code">False</span> is returned. </p>
+
+<p>For the simple case of checking if a string is a valid type string, see <span class="code">.string-is-valid()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method string-scan ( Str $string, Str $limit, Array[Str] $endptr --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$string; a pointer to any string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$limit; the end of <span class="code">$string</span>, or undefined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$endptr; (transfer ownership: full) location to store the end pointer, or undefined.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if a valid type string was found. </p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/N-VariantType.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
+</html>

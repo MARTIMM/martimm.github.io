@@ -1,0 +1,574 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::Error">Gnome::Glib::Error</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Example">Example</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-Error">Record N-Error</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-error">new-error</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-literal">new-literal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-valist_This_function_is_not_yet_available">new-valist This function is not yet available</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#matches">matches</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#domain-register">domain-register</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#domain-register-static">domain-register-static</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::Error" class="heading "><a href="#" title="go to top of document">Gnome::Glib::Error</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::Error">§</a></h1>
+
+<p id="Para">![](images/error.png)</p>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>The `<span class="basis">N-Error</span>` structure contains information about an error that has occurred. </p>
+<h2 id="Example" class="heading "><a href="#" title="go to top of document">Example</a><a class="raku-anchor" title="direct link" href="#Example">§</a></h2>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">my GQuark $domain = 45444;
+my Int $code = 1012342;
+my Str $message = 'my error';
+
+my Gnome::Glib::N-Error $error .= new-error( $domain, $code, $message);
+say $error.matches( $domain, $code), '.matches()';    # True
+$error.free;
+say $error.matches( $domain, $code);                  # False</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="Record N-Error"></div><h1 id="Record_N-Error" class="heading "><a href="#" title="go to top of document">Record N-Error</a><a class="raku-anchor" title="direct link" href="#Record N-Error">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-Error:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has GQuark $.domain;
+  has gint $.code;
+  has Str $.message;
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >domain; error domain, e.g. %G_FILE_ERROR</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >code; error code, e.g. %G_FILE_ERROR_NOENT</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >message; human-readable informative error message</li>
+</ul>
+
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-error" class="heading "><a href="#" title="go to top of document">new-error</a><a class="raku-anchor" title="direct link" href="#new-error">§</a></h2>
+
+<p>Creates a new <span class="basis">N-Error</span> with the given <span class="code">$domain</span> and <span class="code">$code</span>, and a message formatted with <span class="code">$format</span>. </p>
+<h2 id="new-literal" class="heading "><a href="#" title="go to top of document">new-literal</a><a class="raku-anchor" title="direct link" href="#new-literal">§</a></h2>
+
+<p>Creates a new <span class="basis">N-Error</span>; unlike g_error_new(), <span class="code">$message</span> is not a printf()-style format string. Use this function if <span class="code">$message</span> contains text you don't have control over, that could include printf() escape sequences. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-literal ( UInt $domain, Int() $code, Str $message --&gt; Gnome::Glib::Error )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$domain; error domain.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$code; error code.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$message; error message.</li>
+</ul>
+
+<div class="id-target" id="new-valist This function is not yet available"></div><h2 id="new-valist_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">new-valist This function is not yet available</a><a class="raku-anchor" title="direct link" href="#new-valist This function is not yet available">§</a></h2>
+
+<p>Creates a new <span class="basis">N-Error</span> with the given <span class="code">$domain</span> and <span class="code">$code</span>, and a message formatted with <span class="code">$format</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-valist ( UInt $domain, Int() $code, Str $format, … --&gt; Gnome::Glib::Error )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$domain; error domain.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$code; error code.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$format; printf()-style format for error message.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >args; <span class="code">va_list</span> of parameters for the message format. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
+
+<p>Makes a copy of <span class="code">$error</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy (--&gt; CArray[N-Error] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a new <span class="basis">N-Error</span>. </p>
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p>Frees a <span class="basis">N-Error</span> and associated resources. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="matches" class="heading "><a href="#" title="go to top of document">matches</a><a class="raku-anchor" title="direct link" href="#matches">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$error</span> matches <span class="code">$domain</span> and <span class="code">$code</span>, <span class="code">False</span> otherwise. In particular, when <span class="code">$error</span> is <span class="code">Nil</span>, <span class="code">False</span> will be returned. </p>
+
+<p>If <span class="code">$domain</span> contains a `FAILED` (or otherwise generic) error code, you should generally not check for it explicitly, but should instead treat any not-explicitly-recognized error code as being equivalent to the `FAILED` code. This way, if the domain is extended in the future to provide a more specific error code for a certain case, your code will still work. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method matches ( UInt $domain, Int() $code --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$domain; an error domain.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$code; an error code.</li>
+</ul>
+
+<p>Return value; whether <span class="code">$error</span> has <span class="code">$domain</span> and <span class="code">$code</span>. </p>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="domain-register" class="heading "><a href="#" title="go to top of document">domain-register</a><a class="raku-anchor" title="direct link" href="#domain-register">§</a></h2>
+
+<p>This function registers an extended <span class="basis">N-Error</span> domain. <span class="code">$error_type_name</span> will be duplicated. Otherwise does the same as g_error_domain_register_static(). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method domain-register (
+  Str $error-type-name, Int() $error-type-private-size,
+  &amp;error-type-init, &amp;error-type-copy, &amp;error-type-clear
+  --&gt; UInt
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$error-type-name; string to create a GQuark from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$error-type-private-size; size of the private error data in bytes.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-init; function initializing fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $error )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-copy; function copying fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $src-error, N-Error $dest-error )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-clear; function freeing fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $error )</span>.</li>
+</ul>
+
+<p id="Para_0">Return value; GQuark representing the error domain.</p>
+<h2 id="domain-register-static" class="heading "><a href="#" title="go to top of document">domain-register-static</a><a class="raku-anchor" title="direct link" href="#domain-register-static">§</a></h2>
+
+<p>This function registers an extended <span class="basis">N-Error</span> domain. <span class="code">$error_type_name</span> should not be freed. <span class="code">$error_type_private_size</span> must be greater than 0. <span class="code">$error_type_init</span> receives an initialized <span class="basis">N-Error</span> and should then initialize the private data. <span class="code">$error_type_copy</span> is a function that receives both original and a copy <span class="basis">N-Error</span> and should copy the fields of the private error data. The standard <span class="basis">N-Error</span> fields are already handled. <span class="code">$error_type_clear</span> receives the pointer to the error, and it should free the fields of the private error data. It should not free the struct itself though. </p>
+
+<p id="Para_1">Normally, it is better to use G_DEFINE_EXTENDED_ERROR(), as it already takes care of passing valid information to this function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method domain-register-static (
+  Str $error-type-name, Int() $error-type-private-size,
+  &amp;error-type-init, &amp;error-type-copy, &amp;error-type-clear
+  --&gt; UInt
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$error-type-name; static string to create a GQuark from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$error-type-private-size; size of the private error data in bytes.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-init; function initializing fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $error )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-copy; function copying fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $src-error, N-Error $dest-error )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;error-type-clear; function freeing fields of the private error data. Tthe function must be specified with following signature; <span class="code">:( N-Error $error )</span>.</li>
+</ul>
+
+<p id="Para_2">Return value; GQuark representing the error domain.</p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/N-Error.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 17:53 UTC on 2026-07-26</span>
+
+</div>
+
+</body>
+</html>

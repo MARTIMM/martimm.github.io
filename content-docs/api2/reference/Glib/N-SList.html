@@ -1,0 +1,914 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>NO_TITLE</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
+
+span.important {
+  font-style: italic; }
+
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="___top"></div><h1 class="title">NO_TITLE</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Gnome::Glib::SList">Gnome::Glib::SList</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Record_N-SList">Record N-SList</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#alloc">alloc</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append">append</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#concat">concat</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy-deep">copy-deep</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete-link">delete-link</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find">find</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find-custom">find-custom</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#foreach">foreach</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-full">free-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-one">free-one</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#index">index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert">insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-before">insert-before</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-sorted">insert-sorted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-sorted-with-data">insert-sorted-with-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#last">last</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#length">length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#nth">nth</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#nth-data">nth-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#position">position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend">prepend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-all">remove-all</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-link">remove-link</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reverse">reverse</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort">sort</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort-with-data">sort-with-data</a></div>
+</div>
+
+    <h1 id="Gnome::Glib::SList" class="heading "><a href="#" title="go to top of document">Gnome::Glib::SList</a><a class="raku-anchor" title="direct link" href="#Gnome::Glib::SList">§</a></h1>
+<h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>The <span class="basis">N-SList</span> struct is used for each element in the singly-linked list. </p>
+
+<p id="Para">Note that this class is mainly used to get the data from a list returned by e.g. a widget. Raku has smart types to the work much easier.</p>
+
+<div class="id-target" id="Record N-SList"></div><h1 id="Record_N-SList" class="heading "><a href="#" title="go to top of document">Record N-SList</a><a class="raku-anchor" title="direct link" href="#Record N-SList">§</a></h1>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">class N-SList:auth&lt;github:MARTIMM&gt;:api&lt;2&gt; is export is repr('CStruct') {
+
+  has gpointer $.data;
+  has N-SList $.next;
+}</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >data; holds the element's data, which can be a pointer to any kind of data, or any integer value using the Type Conversion Macros</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >next; contains the link to the next element in the list.</li>
+</ul>
+
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="alloc" class="heading "><a href="#" title="go to top of document">alloc</a><a class="raku-anchor" title="direct link" href="#alloc">§</a></h2>
+
+<p>Allocates space for one <span class="basis">N-SList</span> element. It is called by the <span class="code">.append()</span>, <span class="code">.prepend()</span>, <span class="code">.insert()</span> and <span class="code">.insert-sorted()</span> functions and so is rarely used on its own. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method alloc ( --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a pointer to the newly-allocated <span class="basis">N-SList</span> element.. </p>
+<h2 id="append" class="heading "><a href="#" title="go to top of document">append</a><a class="raku-anchor" title="direct link" href="#append">§</a></h2>
+
+<p id="Para_0">Adds a new element on to the end of the list.</p>
+
+<p id="Para_1">The return value is the new start of the list, which may have changed, so make sure you store the new value.</p>
+
+<p>Note that <span class="code">.append()</span> has to traverse the entire list to find the end, which is inefficient when adding multiple elements. A common idiom to avoid the inefficiency is to prepend the elements and reverse the list when all elements have been added. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append ( N-SList $list, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the new element.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="concat" class="heading "><a href="#" title="go to top of document">concat</a><a class="raku-anchor" title="direct link" href="#concat">§</a></h2>
+
+<p>Adds the second <span class="basis">N-SList</span> onto the end of the first <span class="basis">N-SList</span>. Note that the elements of the second <span class="basis">N-SList</span> are not copied. They are used directly. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method concat ( N-SList $list1, N-SList $list2 --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list1; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$list2; the <span class="basis">N-SList</span> to add to the end of the first <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the start of the new <span class="basis">N-SList</span>. </p>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
+
+<p>Copies a <span class="basis">N-SList</span>. </p>
+
+<p>Note that this is a &quot;shallow&quot; copy. If the list elements consist of pointers to data, the pointers are copied but the actual data isn't. See <span class="code">.copy-deep()</span> if you need to copy the data as well. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy ( N-SList $list --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; a copy of <span class="code">$list</span>. </p>
+<h2 id="copy-deep" class="heading "><a href="#" title="go to top of document">copy-deep</a><a class="raku-anchor" title="direct link" href="#copy-deep">§</a></h2>
+
+<p>Makes a full (deep) copy of a <span class="basis">N-SList</span>. </p>
+
+<p>In contrast with <span class="code">.copy()</span>, this function uses <span class="code">$func</span> to make a copy of each list element, in addition to copying the list container itself. <span class="code">$func</span>, as a <span class="basis">Gnome::Glib::T-DoubleIEEE754</span>, takes two arguments, the data to be copied and a <span class="code">$user_data</span> pointer. On common processor architectures, it's safe to pass <span class="code">Nil</span> as <span class="code">$user_data</span> if the copy function takes only one argument. You may get compiler warnings from this though if compiling with GCC’s `-Wcast-function-type` warning. </p>
+
+<p>For instance, if <span class="code">$list</span> holds a list of GObjects, you can do: </p>
+
+<p id="Para_2">And, to entirely free the new list, you could do:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy-deep ( N-SList $list, &amp;func, gpointer $user-data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; a copy function used to copy every element in the list. Tthe function must be specified with following signature; <span class="code">:( gpointer $src, gpointer $user-data --</span> gpointer )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data passed to the copy function <span class="code">$func</span>, or <span class="code">NULL</span>.</li>
+</ul>
+
+<p>Return value; a full copy of <span class="code">$list</span>, use <span class="code">.free-full()</span> to free it. </p>
+<h2 id="delete-link" class="heading "><a href="#" title="go to top of document">delete-link</a><a class="raku-anchor" title="direct link" href="#delete-link">§</a></h2>
+
+<p>Removes the node link_ from the list and frees it. Compare this to <span class="code">.remove-link()</span> which removes the node without freeing it. </p>
+
+<p>Removing arbitrary nodes from a singly-linked list requires time that is proportional to the length of the list (ie. O(n)). If you find yourself using <span class="code">.delete-link()</span> frequently, you should consider a different data structure, such as the doubly-linked <span class="basis">Gnome::Glib::N-List</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete-link ( N-SList $list, N-SList $link --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$link; node to delete.</li>
+</ul>
+
+<p>Return value; the new head of <span class="code">$list</span>. </p>
+<h2 id="find" class="heading "><a href="#" title="go to top of document">find</a><a class="raku-anchor" title="direct link" href="#find">§</a></h2>
+
+<p>Finds the element in a <span class="basis">N-SList</span> which contains the given data. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find ( N-SList $list, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the element data to find.</li>
+</ul>
+
+<p>Return value; the found <span class="basis">N-SList</span> element, or <span class="code">Nil</span> if it is not found. </p>
+<h2 id="find-custom" class="heading "><a href="#" title="go to top of document">find-custom</a><a class="raku-anchor" title="direct link" href="#find-custom">§</a></h2>
+
+<p>Finds an element in a <span class="basis">N-SList</span>, using a supplied function to find the desired element. It iterates over the list, calling the given function which should return 0 when the desired element is found. The function takes two <span class="code">gconstpointer</span> arguments, the <span class="basis">N-SList</span> element's data as the first argument and the given user data. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find-custom ( N-SList $list, gpointer $data, &amp;func --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; user data passed to the function.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; the function to call for each element. It should return 0 when the desired element is found. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gint )&gt;.</li>
+</ul>
+
+<p>Return value; the found <span class="basis">N-SList</span> element, or <span class="code">Nil</span> if it is not found. </p>
+<h2 id="foreach" class="heading "><a href="#" title="go to top of document">foreach</a><a class="raku-anchor" title="direct link" href="#foreach">§</a></h2>
+
+<p>Calls a function for each element of a <span class="basis">N-SList</span>. </p>
+
+<p>It is safe for <span class="code">$func</span> to remove the element from <span class="code">$list</span>, but it must not modify any part of the list after that element. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method foreach ( N-SList $list, &amp;func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; the function to call with each element's data. Tthe function must be specified with following signature; <span class="code">:( gpointer $data, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data to pass to the function.</li>
+</ul>
+
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p>Frees all of the memory used by a <span class="basis">N-SList</span>. The freed elements are returned to the slice allocator. </p>
+
+<p>If list elements contain dynamically-allocated memory, you should either use <span class="code">.free-full()</span> or free them manually first. </p>
+
+<p id="Para_3">It can be combined with g_steal_pointer() to ensure the list head pointer is not left dangling:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( N-SList $list )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; the first link of a <span class="basis">N-SList</span>.</li>
+</ul>
+
+<h2 id="free-full" class="heading "><a href="#" title="go to top of document">free-full</a><a class="raku-anchor" title="direct link" href="#free-full">§</a></h2>
+
+<p>Convenience method, which frees all the memory used by a <span class="basis">N-SList</span>, and calls the specified destroy function on every element's data. <span class="code">$free_func</span> must not modify the list (eg, by removing the freed element from it). </p>
+
+<p>It can be combined with g_steal_pointer() to ensure the list head pointer is not left dangling ­— this also has the nice property that the head pointer is cleared before any of the list elements are freed, to prevent double frees from <span class="code">$free_func</span>: </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free-full ( N-SList $list, &amp;free-func )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; the first link of a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;free-func; the function to be called to free each element's data. Tthe function must be specified with following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+
+<h2 id="free-one" class="heading "><a href="#" title="go to top of document">free-one</a><a class="raku-anchor" title="direct link" href="#free-one">§</a></h2>
+
+<p>Frees one <span class="basis">N-SList</span> element. It is usually used after <span class="code">.remove-link()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free-one ( N-SList $list )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span> element.</li>
+</ul>
+
+<h2 id="index" class="heading "><a href="#" title="go to top of document">index</a><a class="raku-anchor" title="direct link" href="#index">§</a></h2>
+
+<p id="Para_4">Gets the position of the element containing the given data (starting from 0).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method index ( N-SList $list, gpointer $data --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data to find.</li>
+</ul>
+
+<p id="Para_5">Return value; the index of the element containing the data, or -1 if the data is not found.</p>
+<h2 id="insert" class="heading "><a href="#" title="go to top of document">insert</a><a class="raku-anchor" title="direct link" href="#insert">§</a></h2>
+
+<p id="Para_6">Inserts a new element into the list at the given position.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert ( N-SList $list, gpointer $data, Int() $position --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the new element.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; the position to insert the element. If this is negative, or is larger than the number of elements in the list, the new element is added on to the end of the list..</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="insert-before" class="heading "><a href="#" title="go to top of document">insert-before</a><a class="raku-anchor" title="direct link" href="#insert-before">§</a></h2>
+
+<p>Inserts a node before <span class="code">$sibling</span> containing <span class="code">$data</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-before ( N-SList $slist, N-SList $sibling, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$slist; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; node to insert <span class="code">$data</span> before.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to put in the newly-inserted node.</li>
+</ul>
+
+<p id="Para_7">Return value; the new head of the list..</p>
+<h2 id="insert-sorted" class="heading "><a href="#" title="go to top of document">insert-sorted</a><a class="raku-anchor" title="direct link" href="#insert-sorted">§</a></h2>
+
+<p id="Para_8">Inserts a new element into the list, using the given comparison function to determine its position.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-sorted ( N-SList $list, gpointer $data, &amp;func --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the new element.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; the function to compare elements in the list. It should return a number &gt; 0 if the first parameter comes after the second parameter in the sort order.. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gint )&gt;.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="insert-sorted-with-data" class="heading "><a href="#" title="go to top of document">insert-sorted-with-data</a><a class="raku-anchor" title="direct link" href="#insert-sorted-with-data">§</a></h2>
+
+<p id="Para_9">Inserts a new element into the list, using the given comparison function to determine its position.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-sorted-with-data ( N-SList $list, gpointer $data, &amp;func, gpointer $user-data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the new element.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;func; the function to compare elements in the list. It should return a number &gt; 0 if the first parameter comes after the second parameter in the sort order.. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data --</span> gint )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; data to pass to comparison function.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="last" class="heading "><a href="#" title="go to top of document">last</a><a class="raku-anchor" title="direct link" href="#last">§</a></h2>
+
+<p>Gets the last element in a <span class="basis">N-SList</span>. </p>
+
+<p id="Para_10">This function iterates over the whole list.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method last ( N-SList $list --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the last element in the <span class="basis">N-SList</span>, or <span class="code">Nil</span> if the <span class="basis">N-SList</span> has no elements. </p>
+<h2 id="length" class="heading "><a href="#" title="go to top of document">length</a><a class="raku-anchor" title="direct link" href="#length">§</a></h2>
+
+<p>Gets the number of elements in a <span class="basis">N-SList</span>. </p>
+
+<p>This function iterates over the whole list to count its elements. To check whether the list is non-empty, it is faster to check <span class="code">$list</span> against <span class="code">Nil</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method length ( N-SList $list --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the number of elements in the <span class="basis">N-SList</span>. </p>
+<h2 id="nth" class="heading "><a href="#" title="go to top of document">nth</a><a class="raku-anchor" title="direct link" href="#nth">§</a></h2>
+
+<p>Gets the element at the given position in a <span class="basis">N-SList</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method nth ( N-SList $list, UInt() $n --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n; the position of the element, counting from 0.</li>
+</ul>
+
+<p>Return value; the element, or <span class="code">Nil</span> if the position is off the end of the <span class="basis">N-SList</span>. </p>
+<h2 id="nth-data" class="heading "><a href="#" title="go to top of document">nth-data</a><a class="raku-anchor" title="direct link" href="#nth-data">§</a></h2>
+
+<p id="Para_11">Gets the data of the element at the given position.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method nth-data ( N-SList $list, UInt() $n --&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n; the position of the element.</li>
+</ul>
+
+<p>Return value; the element's data, or <span class="code">Nil</span> if the position is off the end of the <span class="basis">N-SList</span>. </p>
+<h2 id="position" class="heading "><a href="#" title="go to top of document">position</a><a class="raku-anchor" title="direct link" href="#position">§</a></h2>
+
+<p>Gets the position of the given element in the <span class="basis">N-SList</span> (starting from 0). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method position ( N-SList $list, N-SList $llink --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$llink; an element in the <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the position of the element in the <span class="basis">N-SList</span>, or -1 if the element is not found. </p>
+<h2 id="prepend" class="heading "><a href="#" title="go to top of document">prepend</a><a class="raku-anchor" title="direct link" href="#prepend">§</a></h2>
+
+<p id="Para_12">Adds a new element on to the start of the list.</p>
+
+<p id="Para_13">The return value is the new start of the list, which may have changed, so make sure you store the new value.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend ( N-SList $list, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data for the new element.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p>Removes an element from a <span class="basis">N-SList</span>. If two elements contain the same data, only the first is removed. If none of the elements contain the data, the <span class="basis">N-SList</span> is unchanged. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-SList $list, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; the data of the element to remove.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>. </p>
+<h2 id="remove-all" class="heading "><a href="#" title="go to top of document">remove-all</a><a class="raku-anchor" title="direct link" href="#remove-all">§</a></h2>
+
+<p>Removes all list nodes with data equal to <span class="code">$data</span>. Returns the new head of the list. Contrast with <span class="code">.remove()</span> which removes only the first node matching the given data. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-all ( N-SList $list, gpointer $data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; data to remove.</li>
+</ul>
+
+<p>Return value; new head of <span class="code">$list</span>. </p>
+<h2 id="remove-link" class="heading "><a href="#" title="go to top of document">remove-link</a><a class="raku-anchor" title="direct link" href="#remove-link">§</a></h2>
+
+<p>Removes an element from a <span class="basis">N-SList</span>, without freeing the element. The removed element's next link is set to <span class="code">Nil</span>, so that it becomes a self-contained list with one element. </p>
+
+<p>Removing arbitrary nodes from a singly-linked list requires time that is proportional to the length of the list (ie. O(n)). If you find yourself using <span class="code">.remove-link()</span> frequently, you should consider a different data structure, such as the doubly-linked <span class="basis">Gnome::Glib::N-List</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-link ( N-SList $list, N-SList $link --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$link; an element in the <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the new start of the <span class="basis">N-SList</span>, without the element. </p>
+<h2 id="reverse" class="heading "><a href="#" title="go to top of document">reverse</a><a class="raku-anchor" title="direct link" href="#reverse">§</a></h2>
+
+<p>Reverses a <span class="basis">N-SList</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reverse ( N-SList $list --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+</ul>
+
+<p>Return value; the start of the reversed <span class="basis">N-SList</span>. </p>
+<h2 id="sort" class="heading "><a href="#" title="go to top of document">sort</a><a class="raku-anchor" title="direct link" href="#sort">§</a></h2>
+
+<p>Sorts a <span class="basis">N-SList</span> using the given comparison function. The algorithm used is a stable sort. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort ( N-SList $list, &amp;compare-func --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; the comparison function used to sort the <span class="basis">N-SList</span>. This function is passed the data from 2 elements of the <span class="basis">N-SList</span> and should return 0 if they are equal, a negative value if the first element comes before the second, or a positive value if the first element comes after the second.. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b --</span> gint )&gt;.</li>
+</ul>
+
+<p>Return value; the start of the sorted <span class="basis">N-SList</span>. </p>
+<h2 id="sort-with-data" class="heading "><a href="#" title="go to top of document">sort-with-data</a><a class="raku-anchor" title="direct link" href="#sort-with-data">§</a></h2>
+
+<p>Like <span class="code">.sort()</span>, but the sort function accepts a user data argument. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort-with-data ( N-SList $list, &amp;compare-func, gpointer $user-data --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$list; a <span class="basis">N-SList</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&amp;compare-func; comparison function. Tthe function must be specified with following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data --</span> gint )&gt;.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; data to pass to comparison function.</li>
+</ul>
+
+<p id="Para_14">Return value; new head of the list.</p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-glib/doc/N-SList.rakudoc</span>
+<span class="footer-field">&nbsp;at 17:54 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
+</html>
