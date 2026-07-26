@@ -1,143 +1,614 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gio::ListStore</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gio::ListStore</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::ListStore">Gnome::Gio::ListStore</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-liststore">new-liststore</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#find">find</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#find-with-equal-func">find-with-equal-func</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#find-with-equal-func-full">find-with-equal-func-full</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-sorted">insert-sorted</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all">remove-all</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#sort">sort</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#splice">splice</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::ListStore</strong> is a simple implementation of <strong>Gnome::Gio::ListStore</strong> that stores all items in memory.</p><p>It provides insertions, deletions, and lookups in logarithmic time with a fast path for the common case of iterating the list linearly.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/ListStore.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-liststore"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">new-liststore</a></h2>
-<p>Creates a new <strong>Gnome::Gio::ListStore</strong> with items of type <code>$item-type</code>. <code>$item-type</code> must be a subclass of <strong>Gnome::GObject::Object</strong>.</p><pre class="pod-block-code">method new-liststore ( GType $item-type --&gt; Gnome::Gio::ListStore \)
-</pre><ul>
-<li><p>$item-type; the <strong>Gnome::GObject::ListStore</strong> of items in the list.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gio::ListStore"></div><h1 class="title">Gnome::Gio::ListStore</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-liststore">new-liststore</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append">append</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find">find</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find-with-equal-func">find-with-equal-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find-with-equal-func-full">find-with-equal-func-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert">insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-sorted">insert-sorted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-all">remove-all</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sort">sort</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#splice">splice</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gio::ListStore</span> is a simple implementation of <span class="basis">Gnome::Gio::ListStore</span> that stores all items in memory. </p>
+
+<p id="Para">It provides insertions, deletions, and lookups in logarithmic time with a fast path for the common case of iterating the list linearly.</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/ListStore.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-liststore" class="heading "><a href="#" title="go to top of document">new-liststore</a><a class="raku-anchor" title="direct link" href="#new-liststore">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gio::ListStore</span> with items of type <span class="code">$item-type</span>. <span class="code">$item-type</span> must be a subclass of <span class="basis">Gnome::GObject::Object</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-liststore ( GType $item-type --&gt; Gnome::Gio::ListStore \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-type; the <span class="basis">Gnome::GObject::ListStore</span> of items in the list.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="append"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">append</a></h2>
-<p>Appends <code>$item</code> to <code>$store</code>. <code>$item</code> must be of type <strong>Gnome::Gio::ListStore</strong>:item-type.</p><p>This function takes a ref on <code>$item</code>.</p><p>Use <code>.splice()</code> to append multiple items at the same time efficiently.</p><pre class="pod-block-code">method append ( gpointer $item )
-</pre><ul>
-<li><p>$item; the new item.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="append" class="heading "><a href="#" title="go to top of document">append</a><a class="raku-anchor" title="direct link" href="#append">§</a></h2>
+
+<p>Appends <span class="code">$item</span> to <span class="code">$store</span>. <span class="code">$item</span> must be of type <span class="basis">Gnome::Gio::ListStore</span>:item-type. </p>
+
+<p>This function takes a ref on <span class="code">$item</span>. </p>
+
+<p>Use <span class="code">.splice()</span> to append multiple items at the same time efficiently. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append ( gpointer $item )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item; the new item.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="find"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">find</a></h2>
-<p>Looks up the given <code>$item</code> in the list store by looping over the items until the first occurrence of <code>$item</code>. If <code>$item</code> was not found, then <code>$position</code> will not be set, and this method will return <code>False</code>.</p><p>If you need to compare the two items with a custom comparison function, use <code>.find-with-equal-func()</code> with a custom <strong>Gnome::Glib::T-types</strong> instead.</p><pre class="pod-block-code">method find ( gpointer $item, Array[Int] $position --&gt; Bool )
-</pre><ul>
-<li><p>$item; an item.</p></li>
-<li><p>$position; (transfer ownership: full) the first position of <code>$item</code>, if it was found..</p></li>
+<h2 id="find" class="heading "><a href="#" title="go to top of document">find</a><a class="raku-anchor" title="direct link" href="#find">§</a></h2>
+
+<p>Looks up the given <span class="code">$item</span> in the list store by looping over the items until the first occurrence of <span class="code">$item</span>. If <span class="code">$item</span> was not found, then <span class="code">$position</span> will not be set, and this method will return <span class="code">False</span>. </p>
+
+<p>If you need to compare the two items with a custom comparison function, use <span class="code">.find-with-equal-func()</span> with a custom <span class="basis">Gnome::Glib::T-types</span> instead. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find ( gpointer $item, Array[Int] $position --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item; an item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; (transfer ownership: full) the first position of <span class="code">$item</span>, if it was found..</li>
 </ul>
-<p>Return value; Whether <code>$store</code> contains <code>$item</code>. If it was found, <code>$position</code> will be set to the position where <code>$item</code> occurred for the first time.. </p></section>
-<section name="pod">
-<h2 id="find-with-equal-func"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">find-with-equal-func</a></h2>
-<p>Looks up the given <code>$item</code> in the list store by looping over the items and comparing them with <code>$equal-func</code> until the first occurrence of <code>$item</code> which matches. If <code>$item</code> was not found, then <code>$position</code> will not be set, and this method will return <code>False</code>. <code>$item</code> is always passed as second parameter to <code>$equal-func</code>.</p><p>Since GLib 2.76 it is possible to pass undefined for <code>$item</code>.</p><pre class="pod-block-code">method find-with-equal-func ( gpointer $item, GEqualFunc &amp;equal-func, Array[Int] $position --&gt; Bool )
-</pre><ul>
-<li><p>$item; an item.</p></li>
-<li><p>GEqualFunc &amp;equal-func; A custom equality check function. The function must be specified with the following signature; <code>:( gpointer $a, gpointer $b )</code>.</p></li>
-<li><p>$position; (transfer ownership: full) the first position of <code>$item</code>, if it was found..</p></li>
+
+<p>Return value; Whether <span class="code">$store</span> contains <span class="code">$item</span>. If it was found, <span class="code">$position</span> will be set to the position where <span class="code">$item</span> occurred for the first time.. </p>
+<h2 id="find-with-equal-func" class="heading "><a href="#" title="go to top of document">find-with-equal-func</a><a class="raku-anchor" title="direct link" href="#find-with-equal-func">§</a></h2>
+
+<p>Looks up the given <span class="code">$item</span> in the list store by looping over the items and comparing them with <span class="code">$equal-func</span> until the first occurrence of <span class="code">$item</span> which matches. If <span class="code">$item</span> was not found, then <span class="code">$position</span> will not be set, and this method will return <span class="code">False</span>. <span class="code">$item</span> is always passed as second parameter to <span class="code">$equal-func</span>. </p>
+
+<p>Since GLib 2.76 it is possible to pass undefined for <span class="code">$item</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find-with-equal-func ( gpointer $item, GEqualFunc &amp;equal-func, Array[Int] $position --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item; an item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GEqualFunc &amp;equal-func; A custom equality check function. The function must be specified with the following signature; <span class="code">:( gpointer $a, gpointer $b )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; (transfer ownership: full) the first position of <span class="code">$item</span>, if it was found..</li>
 </ul>
-<p>Return value; Whether <code>$store</code> contains <code>$item</code>. If it was found, <code>$position</code> will be set to the position where <code>$item</code> occurred for the first time.. </p></section>
-<section name="pod">
-<h2 id="find-with-equal-func-full"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">find-with-equal-func-full</a></h2>
-<p>Like <code>.find-with-equal-func()</code> but with an additional <code>$user-data</code> that is passed to <code>$equal-func</code>. <code>$item</code> is always passed as second parameter to <code>$equal-func</code>.</p><p>Since GLib 2.76 it is possible to pass undefined for <code>$item</code>.</p><pre class="pod-block-code">method find-with-equal-func-full ( gpointer $item, GEqualFuncFull &amp;equal-func, gpointer $user-data, Array[Int] $position --&gt; Bool )
-</pre><ul>
-<li><p>$item; an item.</p></li>
-<li><p>GEqualFuncFull &amp;equal-func; A custom equality check function. The function must be specified with the following signature; <code>:( gpointer $a, gpointer $b, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data for <code>$equal-func</code>.</p></li>
-<li><p>$position; (transfer ownership: full) the first position of <code>$item</code>, if it was found..</p></li>
+
+<p>Return value; Whether <span class="code">$store</span> contains <span class="code">$item</span>. If it was found, <span class="code">$position</span> will be set to the position where <span class="code">$item</span> occurred for the first time.. </p>
+<h2 id="find-with-equal-func-full" class="heading "><a href="#" title="go to top of document">find-with-equal-func-full</a><a class="raku-anchor" title="direct link" href="#find-with-equal-func-full">§</a></h2>
+
+<p>Like <span class="code">.find-with-equal-func()</span> but with an additional <span class="code">$user-data</span> that is passed to <span class="code">$equal-func</span>. <span class="code">$item</span> is always passed as second parameter to <span class="code">$equal-func</span>. </p>
+
+<p>Since GLib 2.76 it is possible to pass undefined for <span class="code">$item</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find-with-equal-func-full ( gpointer $item, GEqualFuncFull &amp;equal-func, gpointer $user-data, Array[Int] $position --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item; an item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GEqualFuncFull &amp;equal-func; A custom equality check function. The function must be specified with the following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data for <span class="code">$equal-func</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; (transfer ownership: full) the first position of <span class="code">$item</span>, if it was found..</li>
 </ul>
-<p>Return value; Whether <code>$store</code> contains <code>$item</code>. If it was found, <code>$position</code> will be set to the position where <code>$item</code> occurred for the first time.. </p></section>
-<section name="pod">
-<h2 id="insert"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">insert</a></h2>
-<p>Inserts <code>$item</code> into <code>$store</code> at <code>$position</code>. <code>$item</code> must be of type <strong>Gnome::Gio::ListStore</strong>:item-type or derived from it. <code>$position</code> must be smaller than the length of the list, or equal to it to append.</p><p>This function takes a ref on <code>$item</code>.</p><p>Use <code>.splice()</code> to insert multiple items at the same time efficiently.</p><pre class="pod-block-code">method insert ( UInt() $position, gpointer $item )
-</pre><ul>
-<li><p>$position; the position at which to insert the new item.</p></li>
-<li><p>$item; the new item.</p></li>
+
+<p>Return value; Whether <span class="code">$store</span> contains <span class="code">$item</span>. If it was found, <span class="code">$position</span> will be set to the position where <span class="code">$item</span> occurred for the first time.. </p>
+<h2 id="insert" class="heading "><a href="#" title="go to top of document">insert</a><a class="raku-anchor" title="direct link" href="#insert">§</a></h2>
+
+<p>Inserts <span class="code">$item</span> into <span class="code">$store</span> at <span class="code">$position</span>. <span class="code">$item</span> must be of type <span class="basis">Gnome::Gio::ListStore</span>:item-type or derived from it. <span class="code">$position</span> must be smaller than the length of the list, or equal to it to append. </p>
+
+<p>This function takes a ref on <span class="code">$item</span>. </p>
+
+<p>Use <span class="code">.splice()</span> to insert multiple items at the same time efficiently. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert ( UInt() $position, gpointer $item )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position at which to insert the new item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$item; the new item.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="insert-sorted"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">insert-sorted</a></h2>
-<p>Inserts <code>$item</code> into <code>$store</code> at a position to be determined by the <code>$compare-func</code>.</p><p>The list must already be sorted before calling this function or the result is undefined. Usually you would approach this by only ever inserting items by way of this function.</p><p>This function takes a ref on <code>$item</code>.</p><pre class="pod-block-code">method insert-sorted ( gpointer $item, GCompareDataFunc &amp;compare-func, gpointer $user-data --&gt; UInt )
-</pre><ul>
-<li><p>$item; the new item.</p></li>
-<li><p>GCompareDataFunc &amp;compare-func; pairwise comparison function for sorting. The function must be specified with the following signature; <code>:( gpointer $a, gpointer $b, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data for <code>$compare-func</code>.</p></li>
+<h2 id="insert-sorted" class="heading "><a href="#" title="go to top of document">insert-sorted</a><a class="raku-anchor" title="direct link" href="#insert-sorted">§</a></h2>
+
+<p>Inserts <span class="code">$item</span> into <span class="code">$store</span> at a position to be determined by the <span class="code">$compare-func</span>. </p>
+
+<p id="Para_0">The list must already be sorted before calling this function or the result is undefined. Usually you would approach this by only ever inserting items by way of this function.</p>
+
+<p>This function takes a ref on <span class="code">$item</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-sorted ( gpointer $item, GCompareDataFunc &amp;compare-func, gpointer $user-data --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item; the new item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GCompareDataFunc &amp;compare-func; pairwise comparison function for sorting. The function must be specified with the following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data for <span class="code">$compare-func</span>.</li>
 </ul>
-<p>Return value; the position at which <code>$item</code> was inserted. </p></section>
-<section name="pod">
-<h2 id="remove"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">remove</a></h2>
-<p>Removes the item from <code>$store</code> that is at <code>$position</code>. <code>$position</code> must be smaller than the current length of the list.</p><p>Use <code>.splice()</code> to remove multiple items at the same time efficiently.</p><pre class="pod-block-code">method remove ( UInt() $position )
-</pre><ul>
-<li><p>$position; the position of the item that is to be removed.</p></li>
+
+<p>Return value; the position at which <span class="code">$item</span> was inserted. </p>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p>Removes the item from <span class="code">$store</span> that is at <span class="code">$position</span>. <span class="code">$position</span> must be smaller than the current length of the list. </p>
+
+<p>Use <span class="code">.splice()</span> to remove multiple items at the same time efficiently. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( UInt() $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position of the item that is to be removed.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove-all"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">remove-all</a></h2>
-<p>Removes all items from <code>$store</code>.</p><pre class="pod-block-code">method remove-all ( )
-</pre></section>
-<section name="pod">
-<h2 id="sort"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">sort</a></h2>
-<p>Sort the items in <code>$store</code> according to <code>$compare-func</code>.</p><pre class="pod-block-code">method sort ( GCompareDataFunc &amp;compare-func, gpointer $user-data )
-</pre><ul>
-<li><p>GCompareDataFunc &amp;compare-func; pairwise comparison function for sorting. The function must be specified with the following signature; <code>:( gpointer $a, gpointer $b, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data for <code>$compare-func</code>.</p></li>
+<h2 id="remove-all" class="heading "><a href="#" title="go to top of document">remove-all</a><a class="raku-anchor" title="direct link" href="#remove-all">§</a></h2>
+
+<p>Removes all items from <span class="code">$store</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-all ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="sort" class="heading "><a href="#" title="go to top of document">sort</a><a class="raku-anchor" title="direct link" href="#sort">§</a></h2>
+
+<p>Sort the items in <span class="code">$store</span> according to <span class="code">$compare-func</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sort ( GCompareDataFunc &amp;compare-func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GCompareDataFunc &amp;compare-func; pairwise comparison function for sorting. The function must be specified with the following signature; <span class="code">:( gpointer $a, gpointer $b, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data for <span class="code">$compare-func</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="splice"><a href="#Gnome::Gio::ListStore" class="u" title="go to top of document">splice</a></h2>
-<p>Changes <code>$store</code> by removing <code>$n-removals</code> items and adding <code>$n-additions</code> items to it. <code>$additions</code> must contain <code>$n-additions</code> items of type <strong>Gnome::Gio::ListStore</strong>:item-type. undefined is not permitted.</p><p>This function is more efficient than <code>.insert()</code> and <code>.remove()</code>, because it only emits <em>items-changed</em> defined in <code>Gnome::Gio::ListStore</code> once for the change.</p><p>This function takes a ref on each item in <code>$additions</code>.</p><p>The parameters <code>$position</code> and <code>$n-removals</code> must be correct (ie: <code>$position</code> + <code>$n-removals</code> must be less than or equal to the length of the list at the time this function is called).</p><pre class="pod-block-code">method splice ( UInt() $position, UInt() $n-removals, Array $additions, UInt() $n-additions )
-</pre><ul>
-<li><p>$position; the position at which to make the change.</p></li>
-<li><p>$n-removals; the number of items to remove.</p></li>
-<li><p>$additions; the items to add.</p></li>
-<li><p>$n-additions; the number of items to add.</p></li>
+<h2 id="splice" class="heading "><a href="#" title="go to top of document">splice</a><a class="raku-anchor" title="direct link" href="#splice">§</a></h2>
+
+<p>Changes <span class="code">$store</span> by removing <span class="code">$n-removals</span> items and adding <span class="code">$n-additions</span> items to it. <span class="code">$additions</span> must contain <span class="code">$n-additions</span> items of type <span class="basis">Gnome::Gio::ListStore</span>:item-type. undefined is not permitted. </p>
+
+<p>This function is more efficient than <span class="code">.insert()</span> and <span class="code">.remove()</span>, because it only emits <span class="important">items-changed</span> defined in <span class="code">Gnome::Gio::ListStore</span> once for the change. </p>
+
+<p>This function takes a ref on each item in <span class="code">$additions</span>. </p>
+
+<p>The parameters <span class="code">$position</span> and <span class="code">$n-removals</span> must be correct (ie: <span class="code">$position</span> + <span class="code">$n-removals</span> must be less than or equal to the length of the list at the time this function is called). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method splice ( UInt() $position, UInt() $n-removals, Array $additions, UInt() $n-additions )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position at which to make the change.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-removals; the number of items to remove.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$additions; the items to add.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-additions; the number of items to add.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/ListStore.rakudoc</span></div><div>at <span class="time">2025-04-15T13:41:12Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gio/doc/ListStore.rakudoc</span>
+<span class="footer-field">&nbsp;at 19:43 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

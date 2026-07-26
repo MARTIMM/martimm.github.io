@@ -1,37 +1,421 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gio::R-ListModel</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gio::R-ListModel</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::R-ListModel">Gnome::Gio::R-ListModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-type">get-item-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-items">get-n-items</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-object">get-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Example_0">Example</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#items-changed">items-changed</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#items-changed_0">items-changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::R-ListModel</strong> is an interface that represents a mutable list of <strong>GObjects</strong>. Its main intention is as a model for various widgets in user interfaces, such as list views, but it can also be used as a convenient method of returning lists of data, with support for updates.</p><p>Each object in the list may also report changes in itself via some mechanism (normally the <em>notify signal defined in Gnome::Gio::ListModel</em>). Taken together with the <em>items-changed</em> signal, this provides for a list that can change its membership, and in which the members can change their individual properties.</p><p>A good example would be the list of visible wireless network access points, where each access point can report dynamic properties such as signal strength.</p><p>It is important to note that the <strong>Gnome::Gio::R-ListModel</strong> itself does not report changes to the individual items. It only reports changes to the list membership. If you want to observe changes to the objects themselves then you need to connect signals to the objects that you are interested in.</p><p>All items in a <strong>Gnome::Gio::R-ListModel</strong> are of (or derived from) the same type. <code>.get-item-type()</code> returns that type. The type may be an interface, in which case all objects in the list must implement it.</p><p>The semantics are close to that of an array: <code>.get-n-items()</code> returns the number of items in the list and <code>.get-object()</code> returns an item at a (0-based) position. In order to allow implementations to calculate the list length lazily, you can also iterate over items: starting from 0, repeatedly call <code>.get-object()</code> until it returns undefined.</p><p>An implementation may create objects lazily, but must take care to return the same object for a given position until all references to it are gone.</p><p>On the other side, a consumer is expected only to hold references on objects that are currently &quot;user visible&quot;, in order to facilitate the maximum level of laziness in the implementation of the list and to reduce the required number of signal connections at a given time.</p><p>This interface is intended only to be used from a single thread. The thread in which it is appropriate to use it depends on the particular implementation, but typically it will be from the thread that owns the thread-default main context in effect at the time that the model was created.</p><p>Over time, it has established itself as good practice for list model implementations to provide properties <strong>item-type</strong> and <strong>n-items</strong> to ease working with them. While it is not required, it is recommended that implementations provide these two properties. They should return the values of <code>.get-item-type()</code>.</p>
-<h2 id="Example"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Example</a></h2>
-<p>A <a href="/content-docs/api2/reference/Gtk4/StringList.html">Gnome::Gtk4::StringList</a> implements the role <strong>Gnome::Gio::ListModel</strong>. This example shows some code in relation with that class</p><pre class="pod-block-code">my Gnome::Gtk4::StringList $stringlist;
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gio::R-ListModel"></div><h1 class="title">Gnome::Gio::R-ListModel</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Example">Example</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-item-type">get-item-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-items">get-n-items</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-object">get-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Example_0">Example</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#items-changed">items-changed</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#items-changed_0">items-changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gio::R-ListModel</span> is an interface that represents a mutable list of <span class="basis">GObjects</span>. Its main intention is as a model for various widgets in user interfaces, such as list views, but it can also be used as a convenient method of returning lists of data, with support for updates. </p>
+
+<p>Each object in the list may also report changes in itself via some mechanism (normally the <span class="important">notify signal defined in Gnome::Gio::ListModel</span>). Taken together with the <span class="important">items-changed</span> signal, this provides for a list that can change its membership, and in which the members can change their individual properties. </p>
+
+<p id="Para">A good example would be the list of visible wireless network access points, where each access point can report dynamic properties such as signal strength.</p>
+
+<p>It is important to note that the <span class="basis">Gnome::Gio::R-ListModel</span> itself does not report changes to the individual items. It only reports changes to the list membership. If you want to observe changes to the objects themselves then you need to connect signals to the objects that you are interested in. </p>
+
+<p>All items in a <span class="basis">Gnome::Gio::R-ListModel</span> are of (or derived from) the same type. <span class="code">.get-item-type()</span> returns that type. The type may be an interface, in which case all objects in the list must implement it. </p>
+
+<p>The semantics are close to that of an array: <span class="code">.get-n-items()</span> returns the number of items in the list and <span class="code">.get-object()</span> returns an item at a (0-based) position. In order to allow implementations to calculate the list length lazily, you can also iterate over items: starting from 0, repeatedly call <span class="code">.get-object()</span> until it returns undefined. </p>
+
+<p id="Para_0">An implementation may create objects lazily, but must take care to return the same object for a given position until all references to it are gone.</p>
+
+<p id="Para_1">On the other side, a consumer is expected only to hold references on objects that are currently &quot;user visible&quot;, in order to facilitate the maximum level of laziness in the implementation of the list and to reduce the required number of signal connections at a given time.</p>
+
+<p id="Para_2">This interface is intended only to be used from a single thread. The thread in which it is appropriate to use it depends on the particular implementation, but typically it will be from the thread that owns the thread-default main context in effect at the time that the model was created.</p>
+
+<p>Over time, it has established itself as good practice for list model implementations to provide properties <span class="basis">item-type</span> and <span class="basis">n-items</span> to ease working with them. While it is not required, it is recommended that implementations provide these two properties. They should return the values of <span class="code">.get-item-type()</span>. </p>
+<h2 id="Example" class="heading "><a href="#" title="go to top of document">Example</a><a class="raku-anchor" title="direct link" href="#Example">§</a></h2>
+
+<p>A <a href="/content-docs/api2/reference/Gtk4/StringList">Gnome::Gtk4::StringList</a> implements the role <span class="basis">Gnome::Gio::ListModel</span>. This example shows some code in relation with that class </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">my Gnome::Gtk4::StringList $stringlist;
 $stringlist .= new-stringlist(CArray[Str].new( 'a string', '2nd string'));
 
 # Easiest way to get the string
@@ -45,62 +429,121 @@ say 'Length of list is: ', $stringlist.get-n-items;
 
 # More elaborate way to get the string
 my Gnome::Gtk4::StringObject() $so = $stringlist.get-object(2);
-say 'List item at position 2: ', $so.get-string;
+say 'List item at position 2: ', $so.get-string;</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-item-type" class="heading "><a href="#" title="go to top of document">get-item-type</a><a class="raku-anchor" title="direct link" href="#get-item-type">§</a></h2>
 
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-item-type"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-item-type</a></h2>
-<p>Gets the type of the items in the list.</p><p>All items returned from <code>.get-object()</code> are of the type returned by this function, or a subtype, or if the type is an interface, they are an implementation of that interface.</p><p>The item type of a <strong>Gnome::Gio::R-ListModel</strong> can not change during the life of the model.</p><pre class="pod-block-code">method get-item-type ( --&gt; GType )
-</pre><p>Return value; the <strong>GType</strong> of the items contained in list.</p></section>
-<section name="pod">
-<h2 id="get-n-items"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-n-items</a></h2>
-<p>Gets the number of items in the list.</p><p>Depending on the model implementation, calling this function may be less efficient than iterating the list with increasing values for <code>$position</code> until <code>.get-object()</code> returns undefined.</p><pre class="pod-block-code">method get-n-items ( --&gt; UInt )
-</pre><p>Return value; the number of items in the list.</p></section>
-<section name="pod">
-<h2 id="get-object"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">get-object</a></h2>
-<p>Get the item at <code>$position</code>.</p><p>If <code>$position</code> is greater than the number of items in the list, undefined is returned.</p><p>Undefined is never returned for an index that is smaller than the length of the list.</p><pre class="pod-block-code">method get-object ( UInt() $position --&gt; N-Object )
-</pre><ul>
-<li><p>$position; the position of the item to fetch.</p></li>
+<p id="Para_3">Gets the type of the items in the list.</p>
+
+<p>All items returned from <span class="code">.get-object()</span> are of the type returned by this function, or a subtype, or if the type is an interface, they are an implementation of that interface. </p>
+
+<p>The item type of a <span class="basis">Gnome::Gio::R-ListModel</span> can not change during the life of the model. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-item-type ( --&gt; GType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <span class="basis">GType</span> of the items contained in list. </p>
+<h2 id="get-n-items" class="heading "><a href="#" title="go to top of document">get-n-items</a><a class="raku-anchor" title="direct link" href="#get-n-items">§</a></h2>
+
+<p id="Para_4">Gets the number of items in the list.</p>
+
+<p>Depending on the model implementation, calling this function may be less efficient than iterating the list with increasing values for <span class="code">$position</span> until <span class="code">.get-object()</span> returns undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-items ( --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the number of items in the list.</p>
+<h2 id="get-object" class="heading "><a href="#" title="go to top of document">get-object</a><a class="raku-anchor" title="direct link" href="#get-object">§</a></h2>
+
+<p>Get the item at <span class="code">$position</span>. </p>
+
+<p>If <span class="code">$position</span> is greater than the number of items in the list, undefined is returned. </p>
+
+<p id="Para_6">Undefined is never returned for an index that is smaller than the length of the list.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-object ( UInt() $position --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position of the item to fetch.</li>
 </ul>
-<p>Return value; the object at <code>$position</code>.</p>
-<h2 id="Example_0"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Example</a></h2>
-<p>The example shows a way to get the 2nd item from a list managed by the list model.</p><pre class="pod-block-code">my Gnome::Gtk4::StringObject() $so = $stringlist.get-item(1));
-my Str $string = $so.get-string(1);
 
-</pre></section>
-<section name="pod">
-<h2 id="items-changed"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">items-changed</a></h2>
-<p>Emits the <em>items-changed</em> signal on the list.</p><p>This function should only be called by classes implementing <strong>Gnome::Gio::R-ListModel</strong>. It has to be called after the internal representation of the list has been updated, because handlers connected to this signal might query the new state of the list.</p><p>Implementations must only make changes to the model (as visible to its consumer) in places that will not cause problems for that consumer. For models that are driven directly by a write API (such as <strong>Gnome::Gio::ListStore</strong>), changes can be reported in response to uses of that API. For models that represent remote data, changes should only be made from a fresh mainloop dispatch. It is particularly not permitted to make changes in response to a call to the <strong>Gnome::Gio::R-ListModel</strong> consumer API.</p><p>Stated another way: in general, it is assumed that code making a series of accesses to the model via the API, without returning to the mainloop, and without calling other code, will continue to view the same contents of the model.</p><pre class="pod-block-code">method items-changed ( UInt() $position, UInt() $removed, UInt() $added )
-</pre><ul>
-<li><p>$position; the position at which the list changed.</p></li>
-<li><p>$removed; the number of items removed.</p></li>
-<li><p>$added; the number of items added.</p></li>
+<p>Return value; the object at <span class="code">$position</span>. </p>
+
+<div class="id-target" id="Example"></div><h2 id="Example_0" class="heading "><a href="#" title="go to top of document">Example</a><a class="raku-anchor" title="direct link" href="#Example">§</a></h2>
+
+<p id="Para_7">The example shows a way to get the 2nd item from a list managed by the list model.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">my Gnome::Gtk4::StringObject() $so = $stringlist.get-item(1));
+my Str $string = $so.get-string(1);</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="items-changed" class="heading "><a href="#" title="go to top of document">items-changed</a><a class="raku-anchor" title="direct link" href="#items-changed">§</a></h2>
+
+<p>Emits the <span class="important">items-changed</span> signal on the list. </p>
+
+<p>This function should only be called by classes implementing <span class="basis">Gnome::Gio::R-ListModel</span>. It has to be called after the internal representation of the list has been updated, because handlers connected to this signal might query the new state of the list. </p>
+
+<p>Implementations must only make changes to the model (as visible to its consumer) in places that will not cause problems for that consumer. For models that are driven directly by a write API (such as <span class="basis">Gnome::Gio::ListStore</span>), changes can be reported in response to uses of that API. For models that represent remote data, changes should only be made from a fresh mainloop dispatch. It is particularly not permitted to make changes in response to a call to the <span class="basis">Gnome::Gio::R-ListModel</span> consumer API. </p>
+
+<p id="Para_8">Stated another way: in general, it is assumed that code making a series of accesses to the model via the API, without returning to the mainloop, and without calling other code, will continue to view the same contents of the model.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method items-changed ( UInt() $position, UInt() $removed, UInt() $added )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position at which the list changed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$removed; the number of items removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$added; the number of items added.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">Signals</a></h1>
 
-<h3 id="items-changed_0"><a href="#Gnome::Gio::R-ListModel" class="u" title="go to top of document">items-changed</a></h3>
-<p>This signal is emitted whenever items were added to or removed from the list. At <code>$position</code>, <code>$removed</code> items were removed and <code>$added</code> items were added in their place.</p><p>Note: If <strong>removed != added</strong>, the positions of all later items in the model change.</p><pre class="pod-block-code">method handler (
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+
+<div class="id-target" id="items-changed"></div><h3 id="items-changed_0" class="heading "><a href="#" title="go to top of document">items-changed</a><a class="raku-anchor" title="direct link" href="#items-changed">§</a></h3>
+
+<p>This signal is emitted whenever items were added to or removed from the list. At <span class="code">$position</span>, <span class="code">$removed</span> items were removed and <span class="code">$added</span> items were added in their place. </p>
+
+<p>Note: If <span class="basis">removed != added</span>, the positions of all later items in the model change. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   guint $position,
   guint $removed,
   guint $added,
   Int :$_handle_id,
   N-GObject :$_native-object,
   *%user-options
-)
-</pre><ul>
-<li><p>$position; the position at which the list changed.</p></li>
-<li><p>$removed; the number of items removed.</p></li>
-<li><p>$added; the number of items added.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::ListModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position at which the list changed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$removed; the number of items removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$added; the number of items added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::ListModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-ListModel.rakudoc</span></div><div>at <span class="time">2026-04-30T11:52:34Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gio/doc/R-ListModel.rakudoc</span>
+<span class="footer-field">&nbsp;at 19:43 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 11:51 UTC on 2026-04-30</span>
+
+</div>
+
+</body>
 </html>

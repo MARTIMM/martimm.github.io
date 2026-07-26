@@ -1,152 +1,642 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gio::MenuModel</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gio::MenuModel</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::MenuModel">Gnome::Gio::MenuModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#An_example_menu">An example menu</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#A_menu_example">A menu example</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Stateless">Stateless</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Boolean_State">Boolean State</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#String_Parameter_and_State">String Parameter and State</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-attribute_This_function_is_not_yet_available">get-item-attribute This function is not yet available</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-attribute-value">get-item-attribute-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-item-link">get-item-link</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-items">get-n-items</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-mutable">is-mutable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#items-changed">items-changed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iterate-item-attributes">iterate-item-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iterate-item-links">iterate-item-links</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#items-changed_0">items-changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::MenuModel</strong> represents the contents of a menu — an ordered list of menu items. The items are associated with actions, which can be activated through them. Items can be grouped in sections, and may have submenus associated with them. Both items and sections usually have some representation data, such as labels or icons. The type of the associated action (ie whether it is stateful, and what kind of state it has) can influence the representation of the item.</p><p>The conceptual model of menus in <strong>Gnome::Gio::MenuModel</strong> is hierarchical: sections and submenus are again represented by <strong>Gnome::Gio::MenuModel</strong>s. Menus themselves do not define their own roles. Rather, the role of a particular <strong>Gnome::Gio::MenuModel</strong> is defined by the item that references it (or, in the case of the ‘root’ menu, is defined by the context in which it is used).</p><p>As an example, consider the visible portions of this menu:</p>
-<h3 id="An_example_menu"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">An example menu</a></h3>
-<div class="image-container inline"><img src="asset_files/images/menu-example.png" width="30%" height="auto" alt="No caption"></div>
-<p>There are 8 ‘menus’ visible in the screenshot: one menubar, two submenus and 5 sections:</p><ul>
-<li><p>the toplevel menubar (containing 4 items)</p></li>
-<li><p>the View submenu (containing 3 sections)</p></li>
-<li><p>the first section of the View submenu (containing 2 items)</p></li>
-<li><p>the second section of the View submenu (containing 1 item)</p></li>
-<li><p>the final section of the View submenu (containing 1 item)</p></li>
-<li><p>the Highlight Mode submenu (containing 2 sections)</p></li>
-<li><p>the Sources section (containing 2 items)</p></li>
-<li><p>the Markup section (containing 2 items)</p></li>
-</ul>
-<p>The [example](#a-menu-example) illustrates the conceptual connection between these 8 menus. Each large block in the figure represents a menu and the smaller blocks within the large block represent items in that menu. Some items contain references to other menus.</p>
-<h3 id="A_menu_example"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">A menu example</a></h3>
-<div class="image-container inline"><img src="asset_files/images/menu-model.png" width="30%" height="auto" alt="No caption"></div>
-<p>Notice that the separators visible in the [example](#an-example-menu) appear nowhere in the [menu model](#a-menu-example). This is because separators are not explicitly represented in the menu model. Instead, a separator is inserted between any two non-empty sections of a menu. Section items can have labels just like any other item. In that case, a display system may show a section header instead of a separator.</p><p>The motivation for this abstract model of application controls is that modern user interfaces tend to make these controls available outside the application. Examples include global menus, jumplists, dash boards, etc. To support such uses, it is necessary to ‘export’ information about actions and their representation in menus, which is exactly what the action group exporter and the menu model exporter do for <strong>Gnome::Gio::MenuModel</strong> and <strong>Gnome::Gio::MenuModel</strong>. The client-side counterparts to make use of the exported information are <strong>Gnome::Gio::MenuModel</strong> and <strong>Gnome::Gio::MenuModel</strong>.</p><p>The API of <strong>Gnome::Gio::MenuModel</strong> is very generic, with iterators for the attributes and links of an item, see <code>.iterate-item-attributes()</code> and <code>.iterate-item-links()</code>. The ‘standard’ attributes and link types have predefined names: <strong>Gnome::Gio::T-menumodel</strong>, <strong>Gnome::Gio::T-menumodel</strong>, <strong>Gnome::Gio::T-menumodel</strong>, <strong>Gnome::Gio::T-menumodel</strong> and <strong>Gnome::Gio::T-menumodel</strong>.</p><p>Items in a <strong>Gnome::Gio::MenuModel</strong> represent active controls if they refer to an action that can get activated when the user interacts with the menu item. The reference to the action is encoded by the string ID in the <strong>Gnome::Gio::T-menumodel</strong> attribute. An action ID uniquely identifies an action in an action group. Which action group(s) provide actions depends on the context in which the menu model is used. E.g. when the model is exported as the application menu of a [<strong>GtkApplication</strong>](https://docs.gtk.org/gtk4/class.Application.html), actions can be application-wide or window-specific (and thus come from two different action groups). By convention, the application-wide actions have names that start with <strong>app</strong>.`, while the names of window-specific actions start with <strong>win</strong>.`.</p><p>While a wide variety of stateful actions is possible, the following is the minimum that is expected to be supported by all users of exported menu information:</p><ul>
-<li><p>an action with no parameter type and no state</p></li>
-<li><p>an action with no parameter type and boolean state</p></li>
-<li><p>an action with string parameter type and string state</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gio::MenuModel"></div><h1 class="title">Gnome::Gio::MenuModel</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#An_example_menu">An example menu</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#A_menu_example">A menu example</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Stateless">Stateless</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Boolean_State">Boolean State</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#String_Parameter_and_State">String Parameter and State</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-item-attribute_This_function_is_not_yet_available">get-item-attribute This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-item-attribute-value">get-item-attribute-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-item-link">get-item-link</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-items">get-n-items</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-mutable">is-mutable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#items-changed">items-changed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iterate-item-attributes">iterate-item-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iterate-item-links">iterate-item-links</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#items-changed_0">items-changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gio::MenuModel</span> represents the contents of a menu — an ordered list of menu items. The items are associated with actions, which can be activated through them. Items can be grouped in sections, and may have submenus associated with them. Both items and sections usually have some representation data, such as labels or icons. The type of the associated action (ie whether it is stateful, and what kind of state it has) can influence the representation of the item. </p>
+
+<p>The conceptual model of menus in <span class="basis">Gnome::Gio::MenuModel</span> is hierarchical: sections and submenus are again represented by <span class="basis">Gnome::Gio::MenuModel</span>s. Menus themselves do not define their own roles. Rather, the role of a particular <span class="basis">Gnome::Gio::MenuModel</span> is defined by the item that references it (or, in the case of the ‘root’ menu, is defined by the context in which it is used). </p>
+
+<p id="Para">As an example, consider the visible portions of this menu:</p>
+
+<div class="id-target" id="An example menu"></div><h3 id="An_example_menu" class="heading "><a href="#" title="go to top of document">An example menu</a><a class="raku-anchor" title="direct link" href="#An example menu">§</a></h3>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/menu-example.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p id="Para_0">There are 8 ‘menus’ visible in the screenshot: one menubar, two submenus and 5 sections:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >the toplevel menubar (containing 4 items)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the View submenu (containing 3 sections)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the first section of the View submenu (containing 2 items)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the second section of the View submenu (containing 1 item)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the final section of the View submenu (containing 1 item)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the Highlight Mode submenu (containing 2 sections)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the Sources section (containing 2 items)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >the Markup section (containing 2 items)</li>
 </ul>
 
-<h3 id="Stateless"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Stateless</a></h3>
-<p>A stateless action typically corresponds to an ordinary menu item.</p><p>Selecting such a menu item will activate the action (with no parameter).</p>
-<h3 id="Boolean_State"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Boolean State</a></h3>
-<p>An action with a boolean state will most typically be used with a ‘toggle’ or ‘switch’ menu item. The state can be set directly, but activating the action (with no parameter) results in the state being toggled.</p><p>Selecting a toggle menu item will activate the action. The menu item should be rendered as ‘checked’ when the state is true.</p>
-<h3 id="String_Parameter_and_State"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">String Parameter and State</a></h3>
-<p>Actions with string parameters and state will most typically be used to represent an enumerated choice over the items available for a group of radio menu items. Activating the action with a string parameter is equivalent to setting that parameter as the state.</p><p>Radio menu items, in addition to being associated with the action, will have a target value. Selecting that menu item will result in activation of the action with the target value as the parameter. The menu item should be rendered as ‘selected’ when the state of the action is equal to the target value of the menu item.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/MenuModel.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Class initialization</a></h1>
+<p id="Para_1">The [example](#a-menu-example) illustrates the conceptual connection between these 8 menus. Each large block in the figure represents a menu and the smaller blocks within the large block represent items in that menu. Some items contain references to other menus.</p>
 
-<h2 id="new"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">new</a></h2>
+<div class="id-target" id="A menu example"></div><h3 id="A_menu_example" class="heading "><a href="#" title="go to top of document">A menu example</a><a class="raku-anchor" title="direct link" href="#A menu example">§</a></h3>
 
-<h3 id=":native-object"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-item-attribute_This_function_is_not_yet_available"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-attribute This function is not yet available</a></h2>
-<p>Queries item at position <code>$item-index</code> in <code>$model</code> for the attribute specified by <code>$attribute</code>.</p><p>If the attribute exists and matches the <strong>Gnome::Glib::N-VariantType</strong> corresponding to <code>$format-string</code> then <code>$format-string</code> is used to deconstruct the value into the positional parameters and <code>True</code> is returned.</p><p>If the attribute does not exist, or it does exist but has the wrong type, then the positional parameters are ignored and <code>False</code> is returned.</p><p>This function is a mix of <code>.get-item-attribute-value()</code> and g_variant_get(), followed by a g_variant_unref(). As such, <code>$format-string</code> must make a complete copy of the data (since the <strong>Gnome::Glib::N-Variant</strong> may go away after the call to g_variant_unref()). In particular, no '&amp;' characters are allowed in <code>$format-string</code>.</p><pre class="pod-block-code">method get-item-attribute ( Int() $item-index, Str $attribute, Str $format-string, … --&gt; Bool )
-</pre><ul>
-<li><p>$item-index; the index of the item.</p></li>
-<li><p>$attribute; the attribute to query.</p></li>
-<li><p>$format-string; a <strong>Gnome::Glib::N-Variant</strong> format string.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-<p>Return value; <code>True</code> if the named attribute was found with the expected type. </p></section>
-<section name="pod">
-<h2 id="get-item-attribute-value"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-attribute-value</a></h2>
-<p>Queries the item at position <code>$item-index</code> in <code>$model</code> for the attribute specified by <code>$attribute</code>.</p><p>If <code>$expected-type</code> is non-undefined then it specifies the expected type of the attribute. If it is undefined then any type will be accepted.</p><p>If the attribute exists and matches <code>$expected-type</code> (or if the expected type is unspecified) then the value is returned.</p><p>If the attribute does not exist, or does not match the expected type then undefined is returned.</p><pre class="pod-block-code">method get-item-attribute-value ( Int() $item-index, Str $attribute, N-Object $expected-type --&gt; N-Object )
-</pre><ul>
-<li><p>$item-index; the index of the item.</p></li>
-<li><p>$attribute; the attribute to query.</p></li>
-<li><p>$expected-type; the expected type of the attribute, or undefined</p></li>
-</ul>
-<p>Return value; the value of the attribute. </p></section>
-<section name="pod">
-<h2 id="get-item-link"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-item-link</a></h2>
-<p>Queries the item at position <code>$item-index</code> in <code>$model</code> for the link specified by <code>$link</code>.</p><p>If the link exists, the linked <strong>Gnome::Gio::MenuModel</strong> is returned. If the link does not exist, undefined is returned.</p><pre class="pod-block-code">method get-item-link ( Int() $item-index, Str $link --&gt; N-Object )
-</pre><ul>
-<li><p>$item-index; the index of the item.</p></li>
-<li><p>$link; the link to query.</p></li>
-</ul>
-<p>Return value; the linked <strong>Gnome::Gio::MenuModel</strong>, or undefined. </p></section>
-<section name="pod">
-<h2 id="get-n-items"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">get-n-items</a></h2>
-<p>Query the number of items in <code>$model</code>.</p><pre class="pod-block-code">method get-n-items (--&gt; Int )
-</pre><p>Return value; the number of items. </p></section>
-<section name="pod">
-<h2 id="is-mutable"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">is-mutable</a></h2>
-<p>Queries if <code>$model</code> is mutable.</p><p>An immutable <strong>Gnome::Gio::MenuModel</strong> will never emit the <em>items-changed</em> signal. Consumers of the model may make optimisations accordingly.</p><pre class="pod-block-code">method is-mutable (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the model is mutable (ie: &quot;items-changed&quot; may be emitted).. </p></section>
-<section name="pod">
-<h2 id="items-changed"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">items-changed</a></h2>
-<p>Requests emission of the <em>items-changed</em> signal on <code>$model</code>.</p><p>This function should never be called except by <strong>Gnome::Gio::MenuModel</strong> subclasses. Any other calls to this function will very likely lead to a violation of the interface of the model.</p><p>The implementation should update its internal representation of the menu before emitting the signal. The implementation should further expect to receive queries about the new state of the menu (and particularly added menu items) while signal handlers are running.</p><p>The implementation must dispatch this call directly from a mainloop entry and not in response to calls -- particularly those from the <strong>Gnome::Gio::MenuModel</strong> API. Said another way: the menu must not change while user code is running without returning to the mainloop.</p><pre class="pod-block-code">method items-changed ( Int() $position, Int() $removed, Int() $added )
-</pre><ul>
-<li><p>$position; the position of the change.</p></li>
-<li><p>$removed; the number of items removed.</p></li>
-<li><p>$added; the number of items added.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="iterate-item-attributes"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">iterate-item-attributes</a></h2>
-<p>Creates a <strong>Gnome::Gio::MenuAttributeIter</strong> to iterate over the attributes of the item at position <code>$item-index</code> in <code>$model</code>.</p><p>You must free the iterator with g_object_unref() when you are done.</p><pre class="pod-block-code">method iterate-item-attributes ( Int() $item-index --&gt; N-Object )
-</pre><ul>
-<li><p>$item-index; the index of the item.</p></li>
-</ul>
-<p>Return value; a new <strong>Gnome::Gio::MenuAttributeIter</strong>. </p></section>
-<section name="pod">
-<h2 id="iterate-item-links"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">iterate-item-links</a></h2>
-<p>Creates a <strong>Gnome::Gio::MenuLinkIter</strong> to iterate over the links of the item at position <code>$item-index</code> in <code>$model</code>.</p><p>You must free the iterator with g_object_unref() when you are done.</p><pre class="pod-block-code">method iterate-item-links ( Int() $item-index --&gt; N-Object )
-</pre><ul>
-<li><p>$item-index; the index of the item.</p></li>
-</ul>
-<p>Return value; a new <strong>Gnome::Gio::MenuLinkIter</strong>. </p></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">Signals</a></h1>
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/menu-model.png&gt; :width&lt;30\%&gt;<br><br>
 
-<h3 id="items-changed_0"><a href="#Gnome::Gio::MenuModel" class="u" title="go to top of document">items-changed</a></h3>
-<p>Emitted when a change has occurred to the menu.</p><p>The only changes that can occur to a menu is that items are removed or added. Items may not change (except by being removed and added back in the same location). This signal is capable of describing both of those changes (at the same time).</p><p>The signal means that starting at the index <code>$position</code>, <code>$removed</code> items were removed and <code>$added</code> items were added in their place. If <code>$removed</code> is zero then only items were added. If <code>$added</code> is zero then only items were removed.</p><p>As an example, if the menu contains items a, b, c, d (in that order) and the signal (2, 1, 3) occurs then the new composition of the menu will be a, b, _, _, _, d (with each _ representing some new item).</p><p>Signal handlers may query the model (particularly the added items) and expect to see the results of the modification that is being reported. The signal is emitted after the modification.</p><pre class="pod-block-code">method handler (
+
+<p id="Para_2">Notice that the separators visible in the [example](#an-example-menu) appear nowhere in the [menu model](#a-menu-example). This is because separators are not explicitly represented in the menu model. Instead, a separator is inserted between any two non-empty sections of a menu. Section items can have labels just like any other item. In that case, a display system may show a section header instead of a separator.</p>
+
+<p>The motivation for this abstract model of application controls is that modern user interfaces tend to make these controls available outside the application. Examples include global menus, jumplists, dash boards, etc. To support such uses, it is necessary to ‘export’ information about actions and their representation in menus, which is exactly what the action group exporter and the menu model exporter do for <span class="basis">Gnome::Gio::MenuModel</span> and <span class="basis">Gnome::Gio::MenuModel</span>. The client-side counterparts to make use of the exported information are <span class="basis">Gnome::Gio::MenuModel</span> and <span class="basis">Gnome::Gio::MenuModel</span>. </p>
+
+<p>The API of <span class="basis">Gnome::Gio::MenuModel</span> is very generic, with iterators for the attributes and links of an item, see <span class="code">.iterate-item-attributes()</span> and <span class="code">.iterate-item-links()</span>. The ‘standard’ attributes and link types have predefined names: <span class="basis">Gnome::Gio::T-menumodel</span>, <span class="basis">Gnome::Gio::T-menumodel</span>, <span class="basis">Gnome::Gio::T-menumodel</span>, <span class="basis">Gnome::Gio::T-menumodel</span> and <span class="basis">Gnome::Gio::T-menumodel</span>. </p>
+
+<p>Items in a <span class="basis">Gnome::Gio::MenuModel</span> represent active controls if they refer to an action that can get activated when the user interacts with the menu item. The reference to the action is encoded by the string ID in the <span class="basis">Gnome::Gio::T-menumodel</span> attribute. An action ID uniquely identifies an action in an action group. Which action group(s) provide actions depends on the context in which the menu model is used. E.g. when the model is exported as the application menu of a [<span class="basis">GtkApplication</span>](https://docs.gtk.org/gtk4/class.Application.html), actions can be application-wide or window-specific (and thus come from two different action groups). By convention, the application-wide actions have names that start with <span class="basis">app</span>.`, while the names of window-specific actions start with <span class="basis">win</span>.`. </p>
+
+<p id="Para_3">While a wide variety of stateful actions is possible, the following is the minimum that is expected to be supported by all users of exported menu information:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >an action with no parameter type and no state</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >an action with no parameter type and boolean state</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >an action with string parameter type and string state</li>
+</ul>
+<h3 id="Stateless" class="heading "><a href="#" title="go to top of document">Stateless</a><a class="raku-anchor" title="direct link" href="#Stateless">§</a></h3>
+
+<p id="Para_4">A stateless action typically corresponds to an ordinary menu item.</p>
+
+<p id="Para_5">Selecting such a menu item will activate the action (with no parameter).</p>
+
+<div class="id-target" id="Boolean State"></div><h3 id="Boolean_State" class="heading "><a href="#" title="go to top of document">Boolean State</a><a class="raku-anchor" title="direct link" href="#Boolean State">§</a></h3>
+
+<p id="Para_6">An action with a boolean state will most typically be used with a ‘toggle’ or ‘switch’ menu item. The state can be set directly, but activating the action (with no parameter) results in the state being toggled.</p>
+
+<p id="Para_7">Selecting a toggle menu item will activate the action. The menu item should be rendered as ‘checked’ when the state is true.</p>
+
+<div class="id-target" id="String Parameter and State"></div><h3 id="String_Parameter_and_State" class="heading "><a href="#" title="go to top of document">String Parameter and State</a><a class="raku-anchor" title="direct link" href="#String Parameter and State">§</a></h3>
+
+<p id="Para_8">Actions with string parameters and state will most typically be used to represent an enumerated choice over the items available for a group of radio menu items. Activating the action with a string parameter is equivalent to setting that parameter as the state.</p>
+
+<p id="Para_9">Radio menu items, in addition to being associated with the action, will have a target value. Selecting that menu item will result in activation of the action with the target value as the parameter. The menu item should be rendered as ‘selected’ when the state of the action is equal to the target value of the menu item.</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/MenuModel.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+
+<div class="id-target" id="get-item-attribute This function is not yet available"></div><h2 id="get-item-attribute_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">get-item-attribute This function is not yet available</a><a class="raku-anchor" title="direct link" href="#get-item-attribute This function is not yet available">§</a></h2>
+
+<p>Queries item at position <span class="code">$item-index</span> in <span class="code">$model</span> for the attribute specified by <span class="code">$attribute</span>. </p>
+
+<p>If the attribute exists and matches the <span class="basis">Gnome::Glib::N-VariantType</span> corresponding to <span class="code">$format-string</span> then <span class="code">$format-string</span> is used to deconstruct the value into the positional parameters and <span class="code">True</span> is returned. </p>
+
+<p>If the attribute does not exist, or it does exist but has the wrong type, then the positional parameters are ignored and <span class="code">False</span> is returned. </p>
+
+<p>This function is a mix of <span class="code">.get-item-attribute-value()</span> and g_variant_get(), followed by a g_variant_unref(). As such, <span class="code">$format-string</span> must make a complete copy of the data (since the <span class="basis">Gnome::Glib::N-Variant</span> may go away after the call to g_variant_unref()). In particular, no '&amp;' characters are allowed in <span class="code">$format-string</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-item-attribute ( Int() $item-index, Str $attribute, Str $format-string, … --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-index; the index of the item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$attribute; the attribute to query.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$format-string; a <span class="basis">Gnome::Glib::N-Variant</span> format string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the named attribute was found with the expected type. </p>
+<h2 id="get-item-attribute-value" class="heading "><a href="#" title="go to top of document">get-item-attribute-value</a><a class="raku-anchor" title="direct link" href="#get-item-attribute-value">§</a></h2>
+
+<p>Queries the item at position <span class="code">$item-index</span> in <span class="code">$model</span> for the attribute specified by <span class="code">$attribute</span>. </p>
+
+<p>If <span class="code">$expected-type</span> is non-undefined then it specifies the expected type of the attribute. If it is undefined then any type will be accepted. </p>
+
+<p>If the attribute exists and matches <span class="code">$expected-type</span> (or if the expected type is unspecified) then the value is returned. </p>
+
+<p id="Para_10">If the attribute does not exist, or does not match the expected type then undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-item-attribute-value ( Int() $item-index, Str $attribute, N-Object $expected-type --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-index; the index of the item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$attribute; the attribute to query.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$expected-type; the expected type of the attribute, or undefined</li>
+</ul>
+
+<p id="Para_11">Return value; the value of the attribute.</p>
+<h2 id="get-item-link" class="heading "><a href="#" title="go to top of document">get-item-link</a><a class="raku-anchor" title="direct link" href="#get-item-link">§</a></h2>
+
+<p>Queries the item at position <span class="code">$item-index</span> in <span class="code">$model</span> for the link specified by <span class="code">$link</span>. </p>
+
+<p>If the link exists, the linked <span class="basis">Gnome::Gio::MenuModel</span> is returned. If the link does not exist, undefined is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-item-link ( Int() $item-index, Str $link --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-index; the index of the item.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$link; the link to query.</li>
+</ul>
+
+<p>Return value; the linked <span class="basis">Gnome::Gio::MenuModel</span>, or undefined. </p>
+<h2 id="get-n-items" class="heading "><a href="#" title="go to top of document">get-n-items</a><a class="raku-anchor" title="direct link" href="#get-n-items">§</a></h2>
+
+<p>Query the number of items in <span class="code">$model</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-items (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; the number of items.</p>
+<h2 id="is-mutable" class="heading "><a href="#" title="go to top of document">is-mutable</a><a class="raku-anchor" title="direct link" href="#is-mutable">§</a></h2>
+
+<p>Queries if <span class="code">$model</span> is mutable. </p>
+
+<p>An immutable <span class="basis">Gnome::Gio::MenuModel</span> will never emit the <span class="important">items-changed</span> signal. Consumers of the model may make optimisations accordingly. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-mutable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the model is mutable (ie: &quot;items-changed&quot; may be emitted).. </p>
+<h2 id="items-changed" class="heading "><a href="#" title="go to top of document">items-changed</a><a class="raku-anchor" title="direct link" href="#items-changed">§</a></h2>
+
+<p>Requests emission of the <span class="important">items-changed</span> signal on <span class="code">$model</span>. </p>
+
+<p>This function should never be called except by <span class="basis">Gnome::Gio::MenuModel</span> subclasses. Any other calls to this function will very likely lead to a violation of the interface of the model. </p>
+
+<p id="Para_13">The implementation should update its internal representation of the menu before emitting the signal. The implementation should further expect to receive queries about the new state of the menu (and particularly added menu items) while signal handlers are running.</p>
+
+<p>The implementation must dispatch this call directly from a mainloop entry and not in response to calls -- particularly those from the <span class="basis">Gnome::Gio::MenuModel</span> API. Said another way: the menu must not change while user code is running without returning to the mainloop. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method items-changed ( Int() $position, Int() $removed, Int() $added )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position of the change.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$removed; the number of items removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$added; the number of items added.</li>
+</ul>
+<h2 id="iterate-item-attributes" class="heading "><a href="#" title="go to top of document">iterate-item-attributes</a><a class="raku-anchor" title="direct link" href="#iterate-item-attributes">§</a></h2>
+
+<p>Creates a <span class="basis">Gnome::Gio::MenuAttributeIter</span> to iterate over the attributes of the item at position <span class="code">$item-index</span> in <span class="code">$model</span>. </p>
+
+<p id="Para_14">You must free the iterator with g_object_unref() when you are done.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iterate-item-attributes ( Int() $item-index --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-index; the index of the item.</li>
+</ul>
+
+<p>Return value; a new <span class="basis">Gnome::Gio::MenuAttributeIter</span>. </p>
+<h2 id="iterate-item-links" class="heading "><a href="#" title="go to top of document">iterate-item-links</a><a class="raku-anchor" title="direct link" href="#iterate-item-links">§</a></h2>
+
+<p>Creates a <span class="basis">Gnome::Gio::MenuLinkIter</span> to iterate over the links of the item at position <span class="code">$item-index</span> in <span class="code">$model</span>. </p>
+
+<p id="Para_15">You must free the iterator with g_object_unref() when you are done.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iterate-item-links ( Int() $item-index --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$item-index; the index of the item.</li>
+</ul>
+
+<p>Return value; a new <span class="basis">Gnome::Gio::MenuLinkIter</span>. </p>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+
+<div class="id-target" id="items-changed"></div><h3 id="items-changed_0" class="heading "><a href="#" title="go to top of document">items-changed</a><a class="raku-anchor" title="direct link" href="#items-changed">§</a></h3>
+
+<p id="Para_16">Emitted when a change has occurred to the menu.</p>
+
+<p id="Para_17">The only changes that can occur to a menu is that items are removed or added. Items may not change (except by being removed and added back in the same location). This signal is capable of describing both of those changes (at the same time).</p>
+
+<p>The signal means that starting at the index <span class="code">$position</span>, <span class="code">$removed</span> items were removed and <span class="code">$added</span> items were added in their place. If <span class="code">$removed</span> is zero then only items were added. If <span class="code">$added</span> is zero then only items were removed. </p>
+
+<p id="Para_18">As an example, if the menu contains items a, b, c, d (in that order) and the signal (2, 1, 3) occurs then the new composition of the menu will be a, b, _, _, _, d (with each _ representing some new item).</p>
+
+<p id="Para_19">Signal handlers may query the model (particularly the added items) and expect to see the results of the modification that is being reported. The signal is emitted after the modification.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gint $position,
   gint $removed,
   gint $added,
@@ -154,17 +644,38 @@
   N-GObject :$_native-object,
   Gnome::Gio::MenuModel :$_widget,
   *C&lt;user&gt;-options
-)
-</pre><ul>
-<li><p>$position; the position of the change.</p></li>
-<li><p>$removed; the number of items removed.</p></li>
-<li><p>$added; the number of items added.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::MenuModel</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position of the change.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$removed; the number of items removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$added; the number of items added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::MenuModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/MenuModel.rakudoc</span></div><div>at <span class="time">2025-04-15T13:41:16Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gio/doc/MenuModel.rakudoc</span>
+<span class="footer-field">&nbsp;at 19:43 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢An example menu｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢A menu example｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

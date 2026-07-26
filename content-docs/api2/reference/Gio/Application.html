@@ -1,419 +1,1283 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gio::Application</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gio::Application</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gio::Application">Gnome::Gio::Application</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-application">new-application</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#activate">activate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-main-option_This_function_is_not_yet_available">add-main-option This function is not yet available</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-main-option-entries">add-main-option-entries</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-option-group">add-option-group</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#bind-busy-property">bind-busy-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-application-id">get-application-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-dbus-connection">get-dbus-connection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-dbus-object-path">get-dbus-object-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags">get-flags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-inactivity-timeout">get-inactivity-timeout</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-is-busy">get-is-busy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-is-registered">get-is-registered</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-is-remote">get-is-remote</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-resource-base-path">get-resource-base-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-version">get-version</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#hold">hold</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#mark-busy">mark-busy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#open">open</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#quit">quit</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#register">register</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#release">release</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#run">run</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#send-notification">send-notification</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-action-group">set-action-group</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-application-id">set-application-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default">set-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-flags">set-flags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-inactivity-timeout">set-inactivity-timeout</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-option-context-description">set-option-context-description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-option-context-parameter-string">set-option-context-parameter-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-option-context-summary">set-option-context-summary</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-resource-base-path">set-resource-base-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-version">set-version</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unbind-busy-property">unbind-busy-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unmark-busy">unmark-busy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#withdraw-notification">withdraw-notification</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default">get-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#id-is-valid">id-is-valid</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate_0">activate</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#command-line">command-line</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#handle-local-options">handle-local-options</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#name-lost">name-lost</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#open_0">open</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#shutdown">shutdown</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#startup">startup</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gio::Application</strong> is the core class for application support.</p><p>A <strong>Gnome::Gio::Application</strong> is the foundation of an application. It wraps some low-level platform-specific services and is intended to act as the foundation for higher-level application classes such as <strong>GtkApplication</strong> or <strong>MxApplication</strong>. In general, you should not use this class outside of a higher level framework.</p><p><strong>Gnome::Gio::Application</strong> provides convenient life-cycle management by maintaining a &quot;use count&quot; for the primary application instance. The use count can be changed using <code>.hold()</code> and <code>.release()</code>. If it drops to zero, the application exits. Higher-level classes such as <strong>GtkApplication</strong> employ the use count to ensure that the application stays alive as long as it has any opened windows.</p><p>Another feature that <strong>Gnome::Gio::Application</strong> (optionally) provides is process uniqueness. Applications can make use of this functionality by providing a unique application ID. If given, only one application with this ID can be running at a time per session. The session concept is platform-dependent, but corresponds roughly to a graphical desktop login. When your application is launched again, its arguments are passed through platform communication to the already running program. The already running instance of the program is called the &quot;primary instance&quot;; for non-unique applications this is always the current instance. On Linux, the D-Bus session bus is used for communication.</p><p>The use of <strong>Gnome::Gio::Application</strong> differs from some other commonly-used uniqueness libraries (such as libunique) in important ways. The application is not expected to manually register itself and check if it is the primary instance. Instead, the main() function of a <strong>Gnome::Gio::Application</strong> should do very little more than instantiating the application instance, possibly connecting signal handlers, then calling <code>.run()</code>. All checks for uniqueness are done internally. If the application is the primary instance then the startup signal is emitted and the mainloop runs. If the application is not the primary instance then a signal is sent to the primary instance and <code>.run()</code> promptly returns. See the code examples below.</p><p>If used, the expected form of an application identifier is the same as that of a [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus). Examples include: <strong>com</strong>.example.MyApp`, <strong>org</strong>.example.internal_apps.Calculator`, <strong>org</strong>._7_zip.Archiver`. For details on valid application identifiers, see <code>.Application.id-is-valid() in package Gnome::Gio</code>.</p><p>On Linux, the application identifier is claimed as a well-known bus name on the user's session bus. This means that the uniqueness of your application is scoped to the current session. It also means that your application may provide additional services (through registration of other object paths) at that bus name. The registration of these object paths should be done with the shared GDBus session bus. Note that due to the internal architecture of GDBus, method calls can be dispatched at any time (even if a main loop is not running). For this reason, you must ensure that any object paths that you wish to register are registered before <strong>Gnome::Gio::Application</strong> attempts to acquire the bus name of your application (which happens in <code>.register()</code>). Unfortunately, this means that you cannot use <em>is-remote defined in Gnome::Gio::Application</em> to decide if you want to register object paths.</p><p><strong>Gnome::Gio::Application</strong> also implements the <strong>Gnome::Gio::Application</strong> and <strong>Gnome::Gio::Application</strong> interfaces and lets you easily export actions by adding them with <code>.add-action()</code> in class <code>Gnome::Gio::R-ActionMap</code>. When invoking an action by calling <code>.activate-action()</code> in class <code>Gnome::Gio::R-ActionGroup</code> on the application, it is always invoked in the primary instance. The actions are also exported on the session bus, and GIO provides the <strong>Gnome::Gio::Application</strong> wrapper to conveniently access them remotely. GIO provides a <strong>Gnome::Gio::Application</strong> wrapper for remote access to exported <strong>Gnome::Gio::Application</strong>s.</p><p>Note: Due to the fact that actions are exported on the session bus, using <strong>maybe</strong> parameters is not supported, since D-Bus does not support <strong>maybe</strong> types.</p><p>There is a number of different entry points into a <strong>Gnome::Gio::Application</strong>:</p><ul>
-<li><p>via 'Activate' (i.e. just starting the application)</p></li>
-<li><p>via 'Open' (i.e. opening some files)</p></li>
-<li><p>by handling a command-line</p></li>
-<li><p>via activating an action</p></li>
-</ul>
-<p>The [signal <code>$Gio</code>.Application::startup] signal lets you handle the application initialization for all of these in a single place.</p><p>Regardless of which of these entry points is used to start the application, <strong>Gnome::Gio::Application</strong> passes some ‘platform data’ from the launching instance to the primary instance, in the form of a <strong>Variant</strong> dictionary mapping strings to variants. To use platform data, override the [vfunc <code>$Gio</code>.Application.before_emit] or [vfunc <code>$Gio</code>.Application.after_emit] virtual functions in your <strong>Gnome::Gio::Application</strong> subclass. When dealing with <strong>Gnome::Gio::Application</strong> objects, the platform data is directly available via <code>.get-cwd()</code> in class <code>Gnome::Gio::ApplicationCommandLine</code>, <code>.get-environ()</code> in class <code>Gnome::Gio::ApplicationCommandLine</code> and <code>.get-platform-data()</code> in class <code>Gnome::Gio::ApplicationCommandLine</code>.</p><p>As the name indicates, the platform data may vary depending on the operating system, but it always includes the current directory (key <strong>cwd</strong>), and optionally the environment (ie the set of environment variables and their values) of the calling process (key <strong>environ</strong>). The environment is only added to the platform data if the <strong>G_APPLICATION_SEND_ENVIRONMENT</strong> flag is set. <strong>Gnome::Gio::Application</strong> subclasses can add their own platform data by overriding the [vfunc <code>$Gio</code>.Application.add_platform_data] virtual function. For instance, <strong>GtkApplication</strong> adds startup notification data in this way.</p><p>To parse commandline arguments you may handle the [signal <code>$Gio</code>.Application::command-line] signal or override the [vfunc <code>$Gio</code>.Application.local_command_line] virtual funcion, to parse them in either the primary instance or the local instance, respectively.</p><p>For an example of opening files with a <strong>Gnome::Gio::Application</strong>, see [gapplication-example-open.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-open.c).</p><p>For an example of using actions with <strong>Gnome::Gio::Application</strong>, see [gapplication-example-actions.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-actions.c).</p><p>For an example of using extra D-Bus hooks with <strong>Gnome::Gio::Application</strong>, see [gapplication-example-dbushooks.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-dbushooks.c).</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Application.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-application"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">new-application</a></h2>
-<p>Creates a new <strong>Gnome::Gio::Application</strong> instance.</p><p>If non-undefined, the application id must be valid. See <code>.id-is-valid()</code>.</p><p>If no application ID is given then some features of <strong>Gnome::Gio::Application</strong> (most notably application uniqueness) will be disabled.</p><pre class="pod-block-code">method new-application ( Str $application-id, UInt $flags --&gt; Gnome::Gio::Application \)
-</pre><ul>
-<li><p>$application-id; the application id.</p></li>
-<li><p>$flags; the application flags.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="activate"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">activate</a></h2>
-<p>Activates the application.</p><p>In essence, this results in the <em>activate</em> signal being emitted in the primary instance.</p><p>The application must be registered before calling this function.</p><pre class="pod-block-code">method activate ( )
-</pre></section>
-<section name="pod">
-<h2 id="add-main-option_This_function_is_not_yet_available"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">add-main-option This function is not yet available</a></h2>
-<p>Add an option to be handled by <code>$application</code>.</p><p>Calling this function is the equivalent of calling <code>.add-main-option-entries()</code> with a single <strong>Gnome::Glib::N-OptionEntry</strong> that has its arg_data member set to undefined.</p><p>The parsed arguments will be packed into a <strong>Gnome::Glib::N-VariantDict</strong> which is passed to <em>handle-local-options</em>. If <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> is set, then it will also be sent to the primary instance. See <code>.add-main-option-entries()</code> for more details.</p><p>See <strong>Gnome::Glib::N-OptionEntry</strong> for more documentation of the arguments.</p><pre class="pod-block-code">method add-main-option ( Str $long-name, Int() $short-name, UInt $flags, GOptionArg  $arg, Str $description, Str $arg-description )
-</pre><ul>
-<li><p>$long-name; the long name of an option used to specify it in a commandline.</p></li>
-<li><p>$short-name; the short name of an option.</p></li>
-<li><p>$flags; flags from <strong>Gnome::Glib::T-option</strong>.</p></li>
-<li><p>$arg; the type of the option, as a <strong>Gnome::Glib::T-option</strong>.</p></li>
-<li><p>$description; the description for the option in `--help` output.</p></li>
-<li><p>$arg-description; the placeholder to use for the extra argument parsed by the option in `--help` output.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-main-option-entries"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">add-main-option-entries</a></h2>
-<p>Adds main option entries to be handled by <code>$application</code>.</p><p>This function is comparable to g_option_context_add_main_entries().</p><p>After the commandline arguments are parsed, the <em>handle-local-options</em> signal will be emitted. At this point, the application can inspect the values pointed to by <code>$arg-data</code> in the given <strong>GOptionEntrys</strong>.</p><p>Unlike <strong>GOptionContext</strong>, <strong>Gnome::Gio::Application</strong> supports giving a undefined <code>$arg-data</code> for a non-callback <strong>Gnome::Glib::N-OptionEntry</strong>. This results in the argument in question being packed into a <strong>Gnome::Glib::N-VariantDict</strong> which is also passed to <em>handle-local-options</em>, where it can be inspected and modified. If <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> is set, then the resulting dictionary is sent to the primary instance, where <code>.command-line-get-options-dict()</code> will return it. As it has been passed outside the process at this point, the types of all values in the options dict must be checked before being used. This &quot;packing&quot; is done according to the type of the argument -- booleans for normal flags, strings for strings, bytestrings for filenames, etc. The packing only occurs if the flag is given (ie: we do not pack a &quot;false&quot; <strong>Gnome::Glib::N-Variant</strong> in the case that a flag is missing).</p><p>In general, it is recommended that all commandline arguments are parsed locally. The options dictionary should then be used to transmit the result of the parsing to the primary instance, where g_variant_dict_lookup() can be used. For local options, it is possible to either use <code>$arg-data</code> in the usual way, or to consult (and potentially remove) the option from the options dictionary.</p><p>This function is new in GLib 2.40. Before then, the only real choice was to send all of the commandline arguments (options and all) to the primary instance for handling. <strong>Gnome::Gio::Application</strong> ignored them completely on the local side. Calling this function &quot;opts in&quot; to the new behaviour, and in particular, means that unrecognised options will be treated as errors. Unrecognised options have never been ignored when <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> is unset.</p><p>If <em>handle-local-options</em> needs to see the list of filenames, then the use of <code>G_OPTION_REMAINING</code> is recommended. If <code>$arg-data</code> is undefined then <code>G_OPTION_REMAINING</code> can be used as a key into the options dictionary. If you do use <code>G_OPTION_REMAINING</code> then you need to handle these arguments for yourself because once they are consumed, they will no longer be visible to the default handling (which treats them as filenames to be opened).</p><p>It is important to use the proper GVariant format when retrieving the options with g_variant_dict_lookup():</p><ul>
-<li><p>for <code>G_OPTION_ARG_NONE</code>, use <strong>b</strong></p></li>
-<li><p>for <code>G_OPTION_ARG_STRING</code>, use `&amp;s`</p></li>
-<li><p>for <code>G_OPTION_ARG_INT</code>, use <strong>i</strong></p></li>
-<li><p>for %G_OPTION_ARG_INT64, use <strong>x</strong></p></li>
-<li><p>for <code>G_OPTION_ARG_DOUBLE</code>, use <strong>d</strong></p></li>
-<li><p>for <code>G_OPTION_ARG_FILENAME</code>, use `^&amp;ay`</p></li>
-<li><p>for <code>G_OPTION_ARG_STRING_ARRAY</code>, use `^a&amp;s`</p></li>
-<li><p>for <code>G_OPTION_ARG_FILENAME_ARRAY</code>, use `^a&amp;ay`</p></li>
-</ul>
-<pre class="pod-block-code">method add-main-option-entries ( N-Object $entries )
-</pre><ul>
-<li><p>$entries; the main options for the application</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-option-group"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">add-option-group</a></h2>
-<p>Adds a <strong>Gnome::Glib::N-OptionGroup</strong> to the commandline handling of <code>$application</code>.</p><p>This function is comparable to g_option_context_add_group().</p><p>Unlike <code>.add-main-option-entries()</code>, this function does not deal with undefined <code>$arg-data</code> and never transmits options to the primary instance.</p><p>The reason for that is because, by the time the options arrive at the primary instance, it is typically too late to do anything with them. Taking the GTK option group as an example: GTK will already have been initialised by the time the <em>command-line</em> handler runs. In the case that this is not the first-running instance of the application, the existing instance may already have been running for a very long time.</p><p>This means that the options from <strong>Gnome::Glib::N-OptionGroup</strong> are only really usable in the case that the instance of the application being run is the first instance. Passing options like `--display=` or `--gdk-debug=` on future runs will have no effect on the existing primary instance.</p><p>Calling this function will cause the options in the supplied option group to be parsed, but it does not cause you to be &quot;opted in&quot; to the new functionality whereby unrecognised options are rejected even if <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> was given.</p><pre class="pod-block-code">method add-option-group ( N-Object $group )
-</pre><ul>
-<li><p>$group; (transfer ownership: full) a <strong>Gnome::Glib::N-OptionGroup</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="bind-busy-property"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">bind-busy-property</a></h2>
-<p>Marks <code>$application</code> as busy (see <code>.mark-busy()</code>) while <code>$property</code> on <code>$object</code> is <code>True</code>.</p><p>The binding holds a reference to <code>$application</code> while it is active, but not to <code>$object</code>. Instead, the binding is destroyed when <code>$object</code> is finalized.</p><pre class="pod-block-code">method bind-busy-property ( gpointer $object, Str $property )
-</pre><ul>
-<li><p>$object; a <strong>Gnome::GObject::Object</strong>.</p></li>
-<li><p>$property; the name of a boolean property of <code>$object</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-application-id"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-application-id</a></h2>
-<p>Gets the unique identifier for <code>$application</code>.</p><pre class="pod-block-code">method get-application-id (--&gt; Str )
-</pre><p>Return value; the identifier for <code>$application</code>, owned by <code>$application</code>. </p></section>
-<section name="pod">
-<h2 id="get-dbus-connection"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-dbus-connection</a></h2>
-<p>Gets the <strong>Gnome::Gio::DBusConnection</strong> being used by the application, or undefined.</p><p>If <strong>Gnome::Gio::Application</strong> is using its D-Bus backend then this function will return the <strong>Gnome::Gio::DBusConnection</strong> being used for uniqueness and communication with the desktop environment and other instances of the application.</p><p>If <strong>Gnome::Gio::Application</strong> is not using D-Bus then this function will return undefined. This includes the situation where the D-Bus backend would normally be in use but we were unable to connect to the bus.</p><p>This function must not be called before the application has been registered. See <code>.get-is-registered()</code>.</p><pre class="pod-block-code">method get-dbus-connection (--&gt; N-Object )
-</pre><p>Return value; a <strong>Gnome::Gio::DBusConnection</strong>, or undefined. </p></section>
-<section name="pod">
-<h2 id="get-dbus-object-path"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-dbus-object-path</a></h2>
-<p>Gets the D-Bus object path being used by the application, or undefined.</p><p>If <strong>Gnome::Gio::Application</strong> is using its D-Bus backend then this function will return the D-Bus object path that <strong>Gnome::Gio::Application</strong> is using. If the application is the primary instance then there is an object published at this path. If the application is not the primary instance then the result of this function is undefined.</p><p>If <strong>Gnome::Gio::Application</strong> is not using D-Bus then this function will return undefined. This includes the situation where the D-Bus backend would normally be in use but we were unable to connect to the bus.</p><p>This function must not be called before the application has been registered. See <code>.get-is-registered()</code>.</p><pre class="pod-block-code">method get-dbus-object-path (--&gt; Str )
-</pre><p>Return value; the object path, or undefined. </p></section>
-<section name="pod">
-<h2 id="get-flags"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-flags</a></h2>
-<p>Gets the flags for <code>$application</code>.</p><p>See <strong>Gnome::Gio::T-ioenums</strong>.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
-</pre><p>Return value; the flags for <code>$application</code>. </p></section>
-<section name="pod">
-<h2 id="get-inactivity-timeout"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-inactivity-timeout</a></h2>
-<p>Gets the current inactivity timeout for the application.</p><p>This is the amount of time (in milliseconds) after the last call to <code>.release()</code> before the application stops running.</p><pre class="pod-block-code">method get-inactivity-timeout (--&gt; UInt )
-</pre><p>Return value; the timeout, in milliseconds. </p></section>
-<section name="pod">
-<h2 id="get-is-busy"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-is-busy</a></h2>
-<p>Gets the application's current busy state, as set through <code>.mark-busy()</code> or <code>.bind-busy-property()</code>.</p><pre class="pod-block-code">method get-is-busy (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$application</code> is currently marked as busy. </p></section>
-<section name="pod">
-<h2 id="get-is-registered"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-is-registered</a></h2>
-<p>Checks if <code>$application</code> is registered.</p><p>An application is registered if <code>.register()</code> has been successfully called.</p><pre class="pod-block-code">method get-is-registered (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$application</code> is registered. </p></section>
-<section name="pod">
-<h2 id="get-is-remote"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-is-remote</a></h2>
-<p>Checks if <code>$application</code> is remote.</p><p>If <code>$application</code> is remote then it means that another instance of application already exists (the 'primary' instance). Calls to perform actions on <code>$application</code> will result in the actions being performed by the primary instance.</p><p>The value of this property cannot be accessed before <code>.register()</code> has been called. See <code>.get-is-registered()</code>.</p><pre class="pod-block-code">method get-is-remote (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$application</code> is remote. </p></section>
-<section name="pod">
-<h2 id="get-resource-base-path"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-resource-base-path</a></h2>
-<p>Gets the resource base path of <code>$application</code>.</p><p>See <code>.set-resource-base-path()</code> for more information.</p><pre class="pod-block-code">method get-resource-base-path (--&gt; Str )
-</pre><p>Return value; the base resource path, if one is set. </p></section>
-<section name="pod">
-<h2 id="get-version"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-version</a></h2>
-<p>Gets the version of <code>$application</code>.</p><pre class="pod-block-code">method get-version (--&gt; Str )
-</pre><p>Return value; the version of <code>$application</code>. </p></section>
-<section name="pod">
-<h2 id="hold"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">hold</a></h2>
-<p>Increases the use count of <code>$application</code>.</p><p>Use this function to indicate that the application has a reason to continue to run. For example, <code>.hold()</code> is called by GTK when a toplevel window is on the screen.</p><p>To cancel the hold, call <code>.release()</code>.</p><pre class="pod-block-code">method hold ( )
-</pre></section>
-<section name="pod">
-<h2 id="mark-busy"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">mark-busy</a></h2>
-<p>Increases the busy count of <code>$application</code>.</p><p>Use this function to indicate that the application is busy, for instance while a long running operation is pending.</p><p>The busy state will be exposed to other processes, so a session shell will use that information to indicate the state to the user (e.g. with a spinner).</p><p>To cancel the busy indication, use <code>.unmark-busy()</code>.</p><p>The application must be registered before calling this function.</p><pre class="pod-block-code">method mark-busy ( )
-</pre></section>
-<section name="pod">
-<h2 id="open"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">open</a></h2>
-<p>Opens the given files.</p><p>In essence, this results in the <em>open</em> signal being emitted in the primary instance. <code>$n-files</code> must be greater than zero. <code>$hint</code> is simply passed through to the <em>open</em> signal. It is intended to be used by applications that have multiple modes for opening files (eg: &quot;view&quot; vs &quot;edit&quot;, etc). Unless you have a need for this functionality, you should use &quot;&quot;.</p><p>The application must be registered before calling this function and it must have the <code>G_APPLICATION_HANDLES_OPEN</code> flag set.</p><pre class="pod-block-code">method open ( N-Object() $files, Int() $n-files, Str $hint )
-</pre><ul>
-<li><p>$files; an array of <strong>GFiles</strong> to open.</p></li>
-<li><p>$n-files; the length of the <code>$files</code> array.</p></li>
-<li><p>$hint; a hint (or &quot;&quot;), but never undefined.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="quit"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">quit</a></h2>
-<p>Immediately quits the application.</p><p>Upon return to the mainloop, <code>.run()</code> will return, calling only the 'shutdown' function before doing so.</p><p>The hold count is ignored. Take care if your code has called <code>.hold()</code> on the application and is therefore still expecting it to exist. (Note that you may have called <code>.hold()</code> indirectly, for example through gtk_application_add_window().)</p><p>The result of calling <code>.run()</code> again after it returns is unspecified.</p><pre class="pod-block-code">method quit ( )
-</pre></section>
-<section name="pod">
-<h2 id="register"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">register</a></h2>
-<p>Attempts registration of the application.</p><p>This is the point at which the application discovers if it is the primary instance or merely acting as a remote for an already-existing primary instance. This is implemented by attempting to acquire the application identifier as a unique bus name on the session bus using GDBus.</p><p>If there is no application ID or if <code>G_APPLICATION_NON_UNIQUE</code> was given, then this process will always become the primary instance.</p><p>Due to the internal architecture of GDBus, method calls can be dispatched at any time (even if a main loop is not running). For this reason, you must ensure that any object paths that you wish to register are registered before calling this function.</p><p>If the application has already been registered then <code>True</code> is returned with no work performed.</p><p>The <em>startup</em> signal is emitted if registration succeeds and <code>$application</code> is the primary instance (including the non-unique case).</p><p>In the event of an error (such as <code>$cancellable</code> being cancelled, or a failure to connect to the session bus), <code>False</code> is returned and <code>$error</code> is set appropriately.</p><p>Note: the return value of this function is not an indicator that this instance is or is not the primary instance of the application. See <code>.get-is-remote()</code> for that.</p><pre class="pod-block-code">method register ( N-Object() $cancellable, CArray[N-Error] $err --&gt; Bool )
-</pre><ul>
-<li><p>$cancellable; a <strong>Gnome::Gio::Cancellable</strong>, or undefined.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
-</ul>
-<p>Return value; <code>True</code> if registration succeeded. </p></section>
-<section name="pod">
-<h2 id="release"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">release</a></h2>
-<p>Decrease the use count of <code>$application</code>.</p><p>When the use count reaches zero, the application will stop running.</p><p>Never call this function except to cancel the effect of a previous call to <code>.hold()</code>.</p><pre class="pod-block-code">method release ( )
-</pre></section>
-<section name="pod">
-<h2 id="run"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">run</a></h2>
-<p>Runs the application.</p><p>This function is intended to be run from main() and its return value is intended to be returned by main(). Although you are expected to pass the <code>$argc</code>, <code>$argv</code> parameters from main() to this function, it is possible to pass undefined if <code>$argv</code> is not available or commandline handling is not required. Note that on Windows, <code>$argc</code> and <code>$argv</code> are ignored, and g_win32_get_command_line() is called internally (for proper support of Unicode commandline arguments).</p><p><strong>Gnome::Gio::Application</strong> will attempt to parse the commandline arguments. You can add commandline flags to the list of recognised options by way of <code>.add-main-option-entries()</code>. After this, the <em>handle-local-options</em> signal is emitted, from which the application can inspect the values of its <strong>GOptionEntrys</strong>.</p><pre class="pod-block-code">I&lt;handle-local-options&gt; is a good place to handle options</pre><p>such as `--version`, where an immediate reply from the local process is desired (instead of communicating with an already-running instance). A <em>handle-local-options</em> handler can stop further processing by returning a non-negative value, which then becomes the exit status of the process.</p><p>What happens next depends on the flags: if <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> was specified then the remaining commandline arguments are sent to the primary instance, where a <em>command-line</em> signal is emitted. Otherwise, the remaining commandline arguments are assumed to be a list of files. If there are no files listed, the application is activated via the <em>activate</em> signal. If there are one or more files, and <code>G_APPLICATION_HANDLES_OPEN</code> was specified then the files are opened via the <em>open</em> signal.</p><p>If you are interested in doing more complicated local handling of the commandline then you should implement your own <strong>Gnome::Gio::Application</strong> subclass and override local_command_line(). In this case, you most likely want to return <code>True</code> from your local_command_line() implementation to suppress the default handling. See gapplication-example-cmdline2.c for an example.</p><p>If, after the above is done, the use count of the application is zero then the exit status is returned immediately. If the use count is non-zero then the default main context is iterated until the use count falls to zero, at which point 0 is returned.</p><p>If the <code>G_APPLICATION_IS_SERVICE</code> flag is set, then the service will run for as much as 10 seconds with a use count of zero while waiting for the message that caused the activation to arrive. After that, if the use count falls to zero the application will exit immediately, except in the case that <code>.set-inactivity-timeout()</code> is in use.</p><p>This function sets the prgname (g_set_prgname()), if not already set, to the basename of argv[0].</p><p>Much like g_main_loop_run(), this function will acquire the main context for the duration that the application is running.</p><p>Since 2.40, applications that are not explicitly flagged as services or launchers (ie: neither <code>G_APPLICATION_IS_SERVICE</code> or <code>G_APPLICATION_IS_LAUNCHER</code> are given as flags) will check (from the default handler for local_command_line) if &quot;--gapplication-service&quot; was given in the command line. If this flag is present then normal commandline processing is interrupted and the <code>G_APPLICATION_IS_SERVICE</code> flag is set. This provides a &quot;compromise&quot; solution whereby running an application directly from the commandline will invoke it in the normal way (which can be useful for debugging) while still allowing applications to be D-Bus activated in service mode. The D-Bus service file should invoke the executable with &quot;--gapplication-service&quot; as the sole commandline argument. This approach is suitable for use by most graphical applications but should not be used from applications like editors that need precise control over when processes invoked via the commandline will exit and what their exit status will be.</p><pre class="pod-block-code">method run ( Int() $argc, Array[Str] $argv --&gt; Int )
-</pre><ul>
-<li><p>$argc; the argc from main() (or 0 if <code>$argv</code> is undefined).</p></li>
-<li><p>$argv; the argv from main(), or undefined.</p></li>
-</ul>
-<p>Return value; the exit status. </p></section>
-<section name="pod">
-<h2 id="send-notification"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">send-notification</a></h2>
-<p>Sends a notification on behalf of <code>$application</code> to the desktop shell. There is no guarantee that the notification is displayed immediately, or even at all.</p><p>Notifications may persist after the application exits. It will be D-Bus-activated when the notification or one of its actions is activated.</p><p>Modifying <code>$notification</code> after this call has no effect. However, the object can be reused for a later call to this function. <code>$id</code> may be any string that uniquely identifies the event for the application. It does not need to be in any special format. For example, &quot;new-message&quot; might be appropriate for a notification about new messages.</p><p>If a previous notification was sent with the same <code>$id</code>, it will be replaced with <code>$notification</code> and shown again as if it was a new notification. This works even for notifications sent from a previous execution of the application, as long as <code>$id</code> is the same string. <code>$id</code> may be undefined, but it is impossible to replace or withdraw notifications without an id.</p><p>If <code>$notification</code> is no longer relevant, it can be withdrawn with <code>.withdraw-notification()</code>.</p><p>It is an error to call this function if <code>$application</code> has no application ID.</p><pre class="pod-block-code">method send-notification ( Str $id, N-Object() $notification )
-</pre><ul>
-<li><p>$id; id of the notification, or undefined.</p></li>
-<li><p>$notification; the <strong>Gnome::Gio::Notification</strong> to send.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-action-group"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-action-group</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gio-lib() since version 2.32</strong></p><p>This used to be how actions were associated with a <strong>Gnome::Gio::Application</strong>. Now there is <strong>Gnome::Gio::R-ActionMap</strong> for that.</p><pre class="pod-block-code">method set-action-group ( N-Object() $action-group )
-</pre><ul>
-<li><p>$action-group; a <strong>Gnome::Gio::R-ActionGroup</strong>, or undefined.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-application-id"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-application-id</a></h2>
-<p>Sets the unique identifier for <code>$application</code>.</p><p>The application id can only be modified if <code>$application</code> has not yet been registered.</p><p>If non-undefined, the application id must be valid. See <code>.id-is-valid()</code>.</p><pre class="pod-block-code">method set-application-id ( Str $application-id )
-</pre><ul>
-<li><p>$application-id; the identifier for <code>$application</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-default</a></h2>
-<p>Sets or unsets the default application for the process, as returned by <code>.get-default()</code>.</p><p>This function does not take its own reference on <code>$application</code>. If <code>$application</code> is destroyed then the default application will revert back to undefined.</p><pre class="pod-block-code">method set-default ( )
-</pre></section>
-<section name="pod">
-<h2 id="set-flags"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-flags</a></h2>
-<p>Sets the flags for <code>$application</code>.</p><p>The flags can only be modified if <code>$application</code> has not yet been registered.</p><p>See <strong>Gnome::Gio::T-ioenums</strong>.</p><pre class="pod-block-code">method set-flags ( UInt $flags )
-</pre><ul>
-<li><p>$flags; the flags for <code>$application</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-inactivity-timeout"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-inactivity-timeout</a></h2>
-<p>Sets the current inactivity timeout for the application.</p><p>This is the amount of time (in milliseconds) after the last call to <code>.release()</code> before the application stops running.</p><p>This call has no side effects of its own. The value set here is only used for next time <code>.release()</code> drops the use count to zero. Any timeouts currently in progress are not impacted.</p><pre class="pod-block-code">method set-inactivity-timeout ( UInt() $inactivity-timeout )
-</pre><ul>
-<li><p>$inactivity-timeout; the timeout, in milliseconds.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-option-context-description"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-option-context-description</a></h2>
-<p>Adds a description to the <code>$application</code> option context.</p><p>See g_option_context_set_description() for more information.</p><pre class="pod-block-code">method set-option-context-description ( Str $description )
-</pre><ul>
-<li><p>$description; a string to be shown in `--help` output after the list of options, or undefined.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-option-context-parameter-string"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-option-context-parameter-string</a></h2>
-<p>Sets the parameter string to be used by the commandline handling of <code>$application</code>.</p><p>This function registers the argument to be passed to g_option_context_new() when the internal <strong>GOptionContext</strong> of <code>$application</code> is created.</p><p>See g_option_context_new() for more information about <code>$parameter-string</code>.</p><pre class="pod-block-code">method set-option-context-parameter-string ( Str $parameter-string )
-</pre><ul>
-<li><p>$parameter-string; a string which is displayed in the first line of `--help` output, after the usage summary <strong>programname</strong> [OPTION...]`..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-option-context-summary"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-option-context-summary</a></h2>
-<p>Adds a summary to the <code>$application</code> option context.</p><p>See g_option_context_set_summary() for more information.</p><pre class="pod-block-code">method set-option-context-summary ( Str $summary )
-</pre><ul>
-<li><p>$summary; a string to be shown in `--help` output before the list of options, or undefined.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-resource-base-path"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-resource-base-path</a></h2>
-<p>Sets (or unsets) the base resource path of <code>$application</code>.</p><p>The path is used to automatically load various application resources such as menu layouts and action descriptions. The various types of resources will be found at fixed names relative to the given base path.</p><p>By default, the resource base path is determined from the application ID by prefixing '/' and replacing each '.' with '/'. This is done at the time that the <strong>Gnome::Gio::Application</strong> object is constructed. Changes to the application ID after that point will not have an impact on the resource base path.</p><p>As an example, if the application has an ID of &quot;org.example.app&quot; then the default resource base path will be &quot;/org/example/app&quot;. If this is a <strong>GtkApplication</strong> (and you have not manually changed the path) then Gtk will then search for the menus of the application at &quot;/org/example/app/gtk/menus.ui&quot;.</p><p>See <strong>Gnome::Gio::N-Resource</strong> for more information about adding resources to your application.</p><p>You can disable automatic resource loading functionality by setting the path to undefined.</p><p>Changing the resource base path once the application is running is not recommended. The point at which the resource path is consulted for forming paths for various purposes is unspecified. When writing a sub-class of <strong>Gnome::Gio::Application</strong> you should either set the <strong>Gnome::Gio::Application</strong>:resource-base-path property at construction time, or call this function during the instance initialization. Alternatively, you can call this function in the <strong>GApplicationClass</strong>.startup virtual function, before chaining up to the parent implementation.</p><pre class="pod-block-code">method set-resource-base-path ( Str $resource-path )
-</pre><ul>
-<li><p>$resource-path; the resource path to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-version"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">set-version</a></h2>
-<p>Sets the version number of <code>$application</code>. This will be used to implement a `--version` command line argument</p><p>The application version can only be modified if <code>$application</code> has not yet been registered.</p><pre class="pod-block-code">method set-version ( Str $version )
-</pre><ul>
-<li><p>$version; the version of <code>$application</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unbind-busy-property"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">unbind-busy-property</a></h2>
-<p>Destroys a binding between <code>$property</code> and the busy state of <code>$application</code> that was previously created with <code>.bind-busy-property()</code>.</p><pre class="pod-block-code">method unbind-busy-property ( gpointer $object, Str $property )
-</pre><ul>
-<li><p>$object; a <strong>Gnome::GObject::Object</strong>.</p></li>
-<li><p>$property; the name of a boolean property of <code>$object</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unmark-busy"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">unmark-busy</a></h2>
-<p>Decreases the busy count of <code>$application</code>.</p><p>When the busy count reaches zero, the new state will be propagated to other processes.</p><p>This function must only be called to cancel the effect of a previous call to <code>.mark-busy()</code>.</p><pre class="pod-block-code">method unmark-busy ( )
-</pre></section>
-<section name="pod">
-<h2 id="withdraw-notification"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">withdraw-notification</a></h2>
-<p>Withdraws a notification that was sent with <code>.send-notification()</code>.</p><p>This call does nothing if a notification with <code>$id</code> doesn't exist or the notification was never sent.</p><p>This function works even for notifications sent in previous executions of this application, as long <code>$id</code> is the same as it was for the sent notification.</p><p>Note that notifications are dismissed when the user clicks on one of the buttons in a notification or triggers its default action, so there is no need to explicitly withdraw the notification in that case.</p><pre class="pod-block-code">method withdraw-notification ( Str $id )
-</pre><ul>
-<li><p>$id; id of a previously sent notification.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Functions"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Functions</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-default"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">get-default</a></h2>
-<p>Returns the default <strong>Gnome::Gio::Application</strong> instance for this process.</p><p>Normally there is only one <strong>Gnome::Gio::Application</strong> per process and it becomes the default when it is created. You can exercise more control over this by using <code>.set-default()</code>.</p><p>If there is no default application then undefined is returned.</p><pre class="pod-block-code">method get-default (--&gt; N-Object )
-</pre><p>Return value; the default application for this process, or undefined. </p></section>
-<section name="pod">
-<h2 id="id-is-valid"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">id-is-valid</a></h2>
-<p>Checks if <code>$application-id</code> is a valid application identifier.</p><p>A valid ID is required for calls to <code>.new-application()</code> and <code>.set-application-id()</code>.</p><p>Application identifiers follow the same format as [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus). For convenience, the restrictions on application identifiers are reproduced here:</p><ul>
-<li><p>Application identifiers are composed of 1 or more elements separated by a period (`.`) character. All elements must contain at least one character.</p></li>
-<li><p>Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`, with `-` discouraged in new application identifiers. Each element must not begin with a digit.</p></li>
-<li><p>Application identifiers must contain at least one `.` (period) character (and thus at least two elements).</p></li>
-<li><p>Application identifiers must not begin with a `.` (period) character.</p></li>
-<li><p>Application identifiers must not exceed 255 characters.</p></li>
-</ul>
-<p>Note that the hyphen (`-`) character is allowed in application identifiers, but is problematic or not allowed in various specifications and APIs that refer to D-Bus, such as [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers), the [<strong>DBusActivatable</strong> interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus), and the convention that an application's &quot;main&quot; interface and object path resemble its application identifier and bus name. To avoid situations that require special-case handling, it is recommended that new application identifiers consistently replace hyphens with underscores.</p><p>Like D-Bus interface names, application identifiers should start with the reversed DNS domain name of the author of the interface (in lower-case), and it is conventional for the rest of the application identifier to consist of words run together, with initial capital letters.</p><p>As with D-Bus interface names, if the author's DNS domain name contains hyphen/minus characters they should be replaced by underscores, and if it contains leading digits they should be escaped by prepending an underscore. For example, if the owner of 7-zip.org used an application identifier for an archiving application, it might be named <strong>org</strong>._7_zip.Archiver`.</p><pre class="pod-block-code">method id-is-valid ( Str $application-id --&gt; Bool )
-</pre><ul>
-<li><p>$application-id; a potential application identifier.</p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$application-id</code> is valid. </p></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate_0"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">activate</a></h3>
-<p>The <em>activate</em> signal is emitted on the primary instance when an activation occurs. See <code>.activate()</code>.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gio::Application"></div><h1 class="title">Gnome::Gio::Application</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-application">new-application</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#activate">activate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-main-option_This_function_is_not_yet_available">add-main-option This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-main-option-entries">add-main-option-entries</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-option-group">add-option-group</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#bind-busy-property">bind-busy-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-application-id">get-application-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-dbus-connection">get-dbus-connection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-dbus-object-path">get-dbus-object-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-flags">get-flags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-inactivity-timeout">get-inactivity-timeout</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-is-busy">get-is-busy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-is-registered">get-is-registered</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-is-remote">get-is-remote</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-resource-base-path">get-resource-base-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-version">get-version</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#hold">hold</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#mark-busy">mark-busy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#open">open</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#quit">quit</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#register">register</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#release">release</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#run">run</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#send-notification">send-notification</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-action-group">set-action-group</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-application-id">set-application-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default">set-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-flags">set-flags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-inactivity-timeout">set-inactivity-timeout</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-option-context-description">set-option-context-description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-option-context-parameter-string">set-option-context-parameter-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-option-context-summary">set-option-context-summary</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-resource-base-path">set-resource-base-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-version">set-version</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unbind-busy-property">unbind-busy-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unmark-busy">unmark-busy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#withdraw-notification">withdraw-notification</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default">get-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#id-is-valid">id-is-valid</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate_0">activate</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#command-line">command-line</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#handle-local-options">handle-local-options</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#name-lost">name-lost</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#open_0">open</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#shutdown">shutdown</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#startup">startup</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gio::Application</span> is the core class for application support. </p>
+
+<p>A <span class="basis">Gnome::Gio::Application</span> is the foundation of an application. It wraps some low-level platform-specific services and is intended to act as the foundation for higher-level application classes such as <span class="basis">GtkApplication</span> or <span class="basis">MxApplication</span>. In general, you should not use this class outside of a higher level framework. </p>
+
+<p><span class="basis">Gnome::Gio::Application</span> provides convenient life-cycle management by maintaining a &quot;use count&quot; for the primary application instance. The use count can be changed using <span class="code">.hold()</span> and <span class="code">.release()</span>. If it drops to zero, the application exits. Higher-level classes such as <span class="basis">GtkApplication</span> employ the use count to ensure that the application stays alive as long as it has any opened windows. </p>
+
+<p>Another feature that <span class="basis">Gnome::Gio::Application</span> (optionally) provides is process uniqueness. Applications can make use of this functionality by providing a unique application ID. If given, only one application with this ID can be running at a time per session. The session concept is platform-dependent, but corresponds roughly to a graphical desktop login. When your application is launched again, its arguments are passed through platform communication to the already running program. The already running instance of the program is called the &quot;primary instance&quot;; for non-unique applications this is always the current instance. On Linux, the D-Bus session bus is used for communication. </p>
+
+<p>The use of <span class="basis">Gnome::Gio::Application</span> differs from some other commonly-used uniqueness libraries (such as libunique) in important ways. The application is not expected to manually register itself and check if it is the primary instance. Instead, the main() function of a <span class="basis">Gnome::Gio::Application</span> should do very little more than instantiating the application instance, possibly connecting signal handlers, then calling <span class="code">.run()</span>. All checks for uniqueness are done internally. If the application is the primary instance then the startup signal is emitted and the mainloop runs. If the application is not the primary instance then a signal is sent to the primary instance and <span class="code">.run()</span> promptly returns. See the code examples below. </p>
+
+<p>If used, the expected form of an application identifier is the same as that of a [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus). Examples include: <span class="basis">com</span>.example.MyApp`, <span class="basis">org</span>.example.internal_apps.Calculator`, <span class="basis">org</span>._7_zip.Archiver`. For details on valid application identifiers, see <span class="code">.Application.id-is-valid() in package Gnome::Gio</span>. </p>
+
+<p>On Linux, the application identifier is claimed as a well-known bus name on the user's session bus. This means that the uniqueness of your application is scoped to the current session. It also means that your application may provide additional services (through registration of other object paths) at that bus name. The registration of these object paths should be done with the shared GDBus session bus. Note that due to the internal architecture of GDBus, method calls can be dispatched at any time (even if a main loop is not running). For this reason, you must ensure that any object paths that you wish to register are registered before <span class="basis">Gnome::Gio::Application</span> attempts to acquire the bus name of your application (which happens in <span class="code">.register()</span>). Unfortunately, this means that you cannot use <span class="important">is-remote defined in Gnome::Gio::Application</span> to decide if you want to register object paths. </p>
+
+<p><span class="basis">Gnome::Gio::Application</span> also implements the <span class="basis">Gnome::Gio::Application</span> and <span class="basis">Gnome::Gio::Application</span> interfaces and lets you easily export actions by adding them with <span class="code">.add-action()</span> in class <span class="code">Gnome::Gio::R-ActionMap</span>. When invoking an action by calling <span class="code">.activate-action()</span> in class <span class="code">Gnome::Gio::R-ActionGroup</span> on the application, it is always invoked in the primary instance. The actions are also exported on the session bus, and GIO provides the <span class="basis">Gnome::Gio::Application</span> wrapper to conveniently access them remotely. GIO provides a <span class="basis">Gnome::Gio::Application</span> wrapper for remote access to exported <span class="basis">Gnome::Gio::Application</span>s. </p>
+
+<p>Note: Due to the fact that actions are exported on the session bus, using <span class="basis">maybe</span> parameters is not supported, since D-Bus does not support <span class="basis">maybe</span> types. </p>
+
+<p>There is a number of different entry points into a <span class="basis">Gnome::Gio::Application</span>: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >via 'Activate' (i.e. just starting the application)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >via 'Open' (i.e. opening some files)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >by handling a command-line</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >via activating an action</li>
+</ul>
+
+<p>The [signal <span class="code">$Gio</span>.Application::startup] signal lets you handle the application initialization for all of these in a single place. </p>
+
+<p>Regardless of which of these entry points is used to start the application, <span class="basis">Gnome::Gio::Application</span> passes some ‘platform data’ from the launching instance to the primary instance, in the form of a <span class="basis">Variant</span>  dictionary mapping strings to variants. To use platform data, override the [vfunc <span class="code">$Gio</span>.Application.before_emit] or [vfunc <span class="code">$Gio</span>.Application.after_emit] virtual functions in your <span class="basis">Gnome::Gio::Application</span> subclass. When dealing with <span class="basis">Gnome::Gio::Application</span> objects, the platform data is directly available via <span class="code">.get-cwd()</span> in class <span class="code">Gnome::Gio::ApplicationCommandLine</span>, <span class="code">.get-environ()</span> in class <span class="code">Gnome::Gio::ApplicationCommandLine</span> and <span class="code">.get-platform-data()</span> in class <span class="code">Gnome::Gio::ApplicationCommandLine</span>. </p>
+
+<p>As the name indicates, the platform data may vary depending on the operating system, but it always includes the current directory (key <span class="basis">cwd</span>), and optionally the environment (ie the set of environment variables and their values) of the calling process (key <span class="basis">environ</span>). The environment is only added to the platform data if the <span class="basis">G_APPLICATION_SEND_ENVIRONMENT</span> flag is set. <span class="basis">Gnome::Gio::Application</span> subclasses can add their own platform data by overriding the [vfunc <span class="code">$Gio</span>.Application.add_platform_data] virtual function. For instance, <span class="basis">GtkApplication</span> adds startup notification data in this way. </p>
+
+<p>To parse commandline arguments you may handle the [signal <span class="code">$Gio</span>.Application::command-line] signal or override the [vfunc <span class="code">$Gio</span>.Application.local_command_line] virtual funcion, to parse them in either the primary instance or the local instance, respectively. </p>
+
+<p>For an example of opening files with a <span class="basis">Gnome::Gio::Application</span>, see [gapplication-example-open.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-open.c). </p>
+
+<p>For an example of using actions with <span class="basis">Gnome::Gio::Application</span>, see [gapplication-example-actions.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-actions.c). </p>
+
+<p>For an example of using extra D-Bus hooks with <span class="basis">Gnome::Gio::Application</span>, see [gapplication-example-dbushooks.c](https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-dbushooks.c). </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Application.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-application" class="heading "><a href="#" title="go to top of document">new-application</a><a class="raku-anchor" title="direct link" href="#new-application">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gio::Application</span> instance. </p>
+
+<p>If non-undefined, the application id must be valid. See <span class="code">.id-is-valid()</span>. </p>
+
+<p>If no application ID is given then some features of <span class="basis">Gnome::Gio::Application</span> (most notably application uniqueness) will be disabled. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-application ( Str $application-id, UInt $flags --&gt; Gnome::Gio::Application \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$application-id; the application id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the application flags.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h2>
+
+<p id="Para">Activates the application.</p>
+
+<p>In essence, this results in the <span class="important">activate</span> signal being emitted in the primary instance. </p>
+
+<p id="Para_0">The application must be registered before calling this function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method activate ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+
+<div class="id-target" id="add-main-option This function is not yet available"></div><h2 id="add-main-option_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">add-main-option This function is not yet available</a><a class="raku-anchor" title="direct link" href="#add-main-option This function is not yet available">§</a></h2>
+
+<p>Add an option to be handled by <span class="code">$application</span>. </p>
+
+<p>Calling this function is the equivalent of calling <span class="code">.add-main-option-entries()</span> with a single <span class="basis">Gnome::Glib::N-OptionEntry</span> that has its arg_data member set to undefined. </p>
+
+<p>The parsed arguments will be packed into a <span class="basis">Gnome::Glib::N-VariantDict</span> which is passed to <span class="important">handle-local-options</span>. If <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> is set, then it will also be sent to the primary instance. See <span class="code">.add-main-option-entries()</span> for more details. </p>
+
+<p>See <span class="basis">Gnome::Glib::N-OptionEntry</span> for more documentation of the arguments. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-main-option ( Str $long-name, Int() $short-name, UInt $flags, GOptionArg  $arg, Str $description, Str $arg-description )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$long-name; the long name of an option used to specify it in a commandline.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$short-name; the short name of an option.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; flags from <span class="basis">Gnome::Glib::T-option</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$arg; the type of the option, as a <span class="basis">Gnome::Glib::T-option</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$description; the description for the option in `--help` output.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$arg-description; the placeholder to use for the extra argument parsed by the option in `--help` output.</li>
+</ul>
+<h2 id="add-main-option-entries" class="heading "><a href="#" title="go to top of document">add-main-option-entries</a><a class="raku-anchor" title="direct link" href="#add-main-option-entries">§</a></h2>
+
+<p>Adds main option entries to be handled by <span class="code">$application</span>. </p>
+
+<p id="Para_1">This function is comparable to g_option_context_add_main_entries().</p>
+
+<p>After the commandline arguments are parsed, the <span class="important">handle-local-options</span> signal will be emitted. At this point, the application can inspect the values pointed to by <span class="code">$arg-data</span> in the given <span class="basis">GOptionEntrys</span>. </p>
+
+<p>Unlike <span class="basis">GOptionContext</span>, <span class="basis">Gnome::Gio::Application</span> supports giving a undefined <span class="code">$arg-data</span> for a non-callback <span class="basis">Gnome::Glib::N-OptionEntry</span>. This results in the argument in question being packed into a <span class="basis">Gnome::Glib::N-VariantDict</span> which is also passed to <span class="important">handle-local-options</span>, where it can be inspected and modified. If <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> is set, then the resulting dictionary is sent to the primary instance, where <span class="code">.command-line-get-options-dict()</span> will return it. As it has been passed outside the process at this point, the types of all values in the options dict must be checked before being used. This &quot;packing&quot; is done according to the type of the argument -- booleans for normal flags, strings for strings, bytestrings for filenames, etc. The packing only occurs if the flag is given (ie: we do not pack a &quot;false&quot; <span class="basis">Gnome::Glib::N-Variant</span> in the case that a flag is missing). </p>
+
+<p>In general, it is recommended that all commandline arguments are parsed locally. The options dictionary should then be used to transmit the result of the parsing to the primary instance, where g_variant_dict_lookup() can be used. For local options, it is possible to either use <span class="code">$arg-data</span> in the usual way, or to consult (and potentially remove) the option from the options dictionary. </p>
+
+<p>This function is new in GLib 2.40. Before then, the only real choice was to send all of the commandline arguments (options and all) to the primary instance for handling. <span class="basis">Gnome::Gio::Application</span> ignored them completely on the local side. Calling this function &quot;opts in&quot; to the new behaviour, and in particular, means that unrecognised options will be treated as errors. Unrecognised options have never been ignored when <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> is unset. </p>
+
+<p>If <span class="important">handle-local-options</span> needs to see the list of filenames, then the use of <span class="code">G_OPTION_REMAINING</span> is recommended. If <span class="code">$arg-data</span> is undefined then <span class="code">G_OPTION_REMAINING</span> can be used as a key into the options dictionary. If you do use <span class="code">G_OPTION_REMAINING</span> then you need to handle these arguments for yourself because once they are consumed, they will no longer be visible to the default handling (which treats them as filenames to be opened). </p>
+
+<p id="Para_2">It is important to use the proper GVariant format when retrieving the options with g_variant_dict_lookup():</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_NONE</span>, use <span class="basis">b</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_STRING</span>, use `&amp;s`</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_INT</span>, use <span class="basis">i</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for %G_OPTION_ARG_INT64, use <span class="basis">x</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_DOUBLE</span>, use <span class="basis">d</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_FILENAME</span>, use `^&amp;ay`</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_STRING_ARRAY</span>, use `^a&amp;s`</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >for <span class="code">G_OPTION_ARG_FILENAME_ARRAY</span>, use `^a&amp;ay`</li>
+</ul>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-main-option-entries ( N-Object $entries )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$entries; the main options for the application</li>
+</ul>
+<h2 id="add-option-group" class="heading "><a href="#" title="go to top of document">add-option-group</a><a class="raku-anchor" title="direct link" href="#add-option-group">§</a></h2>
+
+<p>Adds a <span class="basis">Gnome::Glib::N-OptionGroup</span> to the commandline handling of <span class="code">$application</span>. </p>
+
+<p id="Para_3">This function is comparable to g_option_context_add_group().</p>
+
+<p>Unlike <span class="code">.add-main-option-entries()</span>, this function does not deal with undefined <span class="code">$arg-data</span> and never transmits options to the primary instance. </p>
+
+<p>The reason for that is because, by the time the options arrive at the primary instance, it is typically too late to do anything with them. Taking the GTK option group as an example: GTK will already have been initialised by the time the <span class="important">command-line</span> handler runs. In the case that this is not the first-running instance of the application, the existing instance may already have been running for a very long time. </p>
+
+<p>This means that the options from <span class="basis">Gnome::Glib::N-OptionGroup</span> are only really usable in the case that the instance of the application being run is the first instance. Passing options like `--display=` or `--gdk-debug=` on future runs will have no effect on the existing primary instance. </p>
+
+<p>Calling this function will cause the options in the supplied option group to be parsed, but it does not cause you to be &quot;opted in&quot; to the new functionality whereby unrecognised options are rejected even if <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> was given. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-option-group ( N-Object $group )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$group; (transfer ownership: full) a <span class="basis">Gnome::Glib::N-OptionGroup</span></li>
+</ul>
+<h2 id="bind-busy-property" class="heading "><a href="#" title="go to top of document">bind-busy-property</a><a class="raku-anchor" title="direct link" href="#bind-busy-property">§</a></h2>
+
+<p>Marks <span class="code">$application</span> as busy (see <span class="code">.mark-busy()</span>) while <span class="code">$property</span> on <span class="code">$object</span> is <span class="code">True</span>. </p>
+
+<p>The binding holds a reference to <span class="code">$application</span> while it is active, but not to <span class="code">$object</span>. Instead, the binding is destroyed when <span class="code">$object</span> is finalized. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method bind-busy-property ( gpointer $object, Str $property )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; a <span class="basis">Gnome::GObject::Object</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$property; the name of a boolean property of <span class="code">$object</span>.</li>
+</ul>
+<h2 id="get-application-id" class="heading "><a href="#" title="go to top of document">get-application-id</a><a class="raku-anchor" title="direct link" href="#get-application-id">§</a></h2>
+
+<p>Gets the unique identifier for <span class="code">$application</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-application-id (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the identifier for <span class="code">$application</span>, owned by <span class="code">$application</span>. </p>
+<h2 id="get-dbus-connection" class="heading "><a href="#" title="go to top of document">get-dbus-connection</a><a class="raku-anchor" title="direct link" href="#get-dbus-connection">§</a></h2>
+
+<p>Gets the <span class="basis">Gnome::Gio::DBusConnection</span> being used by the application, or undefined. </p>
+
+<p>If <span class="basis">Gnome::Gio::Application</span> is using its D-Bus backend then this function will return the <span class="basis">Gnome::Gio::DBusConnection</span> being used for uniqueness and communication with the desktop environment and other instances of the application. </p>
+
+<p>If <span class="basis">Gnome::Gio::Application</span> is not using D-Bus then this function will return undefined. This includes the situation where the D-Bus backend would normally be in use but we were unable to connect to the bus. </p>
+
+<p>This function must not be called before the application has been registered. See <span class="code">.get-is-registered()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-dbus-connection (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <span class="basis">Gnome::Gio::DBusConnection</span>, or undefined. </p>
+<h2 id="get-dbus-object-path" class="heading "><a href="#" title="go to top of document">get-dbus-object-path</a><a class="raku-anchor" title="direct link" href="#get-dbus-object-path">§</a></h2>
+
+<p id="Para_4">Gets the D-Bus object path being used by the application, or undefined.</p>
+
+<p>If <span class="basis">Gnome::Gio::Application</span> is using its D-Bus backend then this function will return the D-Bus object path that <span class="basis">Gnome::Gio::Application</span> is using. If the application is the primary instance then there is an object published at this path. If the application is not the primary instance then the result of this function is undefined. </p>
+
+<p>If <span class="basis">Gnome::Gio::Application</span> is not using D-Bus then this function will return undefined. This includes the situation where the D-Bus backend would normally be in use but we were unable to connect to the bus. </p>
+
+<p>This function must not be called before the application has been registered. See <span class="code">.get-is-registered()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-dbus-object-path (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the object path, or undefined.</p>
+<h2 id="get-flags" class="heading "><a href="#" title="go to top of document">get-flags</a><a class="raku-anchor" title="direct link" href="#get-flags">§</a></h2>
+
+<p>Gets the flags for <span class="code">$application</span>. </p>
+
+<p>See <span class="basis">Gnome::Gio::T-ioenums</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-flags (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the flags for <span class="code">$application</span>. </p>
+<h2 id="get-inactivity-timeout" class="heading "><a href="#" title="go to top of document">get-inactivity-timeout</a><a class="raku-anchor" title="direct link" href="#get-inactivity-timeout">§</a></h2>
+
+<p id="Para_6">Gets the current inactivity timeout for the application.</p>
+
+<p>This is the amount of time (in milliseconds) after the last call to <span class="code">.release()</span> before the application stops running. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-inactivity-timeout (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the timeout, in milliseconds.</p>
+<h2 id="get-is-busy" class="heading "><a href="#" title="go to top of document">get-is-busy</a><a class="raku-anchor" title="direct link" href="#get-is-busy">§</a></h2>
+
+<p>Gets the application's current busy state, as set through <span class="code">.mark-busy()</span> or <span class="code">.bind-busy-property()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-is-busy (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$application</span> is currently marked as busy. </p>
+<h2 id="get-is-registered" class="heading "><a href="#" title="go to top of document">get-is-registered</a><a class="raku-anchor" title="direct link" href="#get-is-registered">§</a></h2>
+
+<p>Checks if <span class="code">$application</span> is registered. </p>
+
+<p>An application is registered if <span class="code">.register()</span> has been successfully called. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-is-registered (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$application</span> is registered. </p>
+<h2 id="get-is-remote" class="heading "><a href="#" title="go to top of document">get-is-remote</a><a class="raku-anchor" title="direct link" href="#get-is-remote">§</a></h2>
+
+<p>Checks if <span class="code">$application</span> is remote. </p>
+
+<p>If <span class="code">$application</span> is remote then it means that another instance of application already exists (the 'primary' instance). Calls to perform actions on <span class="code">$application</span> will result in the actions being performed by the primary instance. </p>
+
+<p>The value of this property cannot be accessed before <span class="code">.register()</span> has been called. See <span class="code">.get-is-registered()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-is-remote (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$application</span> is remote. </p>
+<h2 id="get-resource-base-path" class="heading "><a href="#" title="go to top of document">get-resource-base-path</a><a class="raku-anchor" title="direct link" href="#get-resource-base-path">§</a></h2>
+
+<p>Gets the resource base path of <span class="code">$application</span>. </p>
+
+<p>See <span class="code">.set-resource-base-path()</span> for more information. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-resource-base-path (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; the base resource path, if one is set.</p>
+<h2 id="get-version" class="heading "><a href="#" title="go to top of document">get-version</a><a class="raku-anchor" title="direct link" href="#get-version">§</a></h2>
+
+<p>Gets the version of <span class="code">$application</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-version (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the version of <span class="code">$application</span>. </p>
+<h2 id="hold" class="heading "><a href="#" title="go to top of document">hold</a><a class="raku-anchor" title="direct link" href="#hold">§</a></h2>
+
+<p>Increases the use count of <span class="code">$application</span>. </p>
+
+<p>Use this function to indicate that the application has a reason to continue to run. For example, <span class="code">.hold()</span> is called by GTK when a toplevel window is on the screen. </p>
+
+<p>To cancel the hold, call <span class="code">.release()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method hold ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="mark-busy" class="heading "><a href="#" title="go to top of document">mark-busy</a><a class="raku-anchor" title="direct link" href="#mark-busy">§</a></h2>
+
+<p>Increases the busy count of <span class="code">$application</span>. </p>
+
+<p id="Para_9">Use this function to indicate that the application is busy, for instance while a long running operation is pending.</p>
+
+<p id="Para_10">The busy state will be exposed to other processes, so a session shell will use that information to indicate the state to the user (e.g. with a spinner).</p>
+
+<p>To cancel the busy indication, use <span class="code">.unmark-busy()</span>. </p>
+
+<p id="Para_11">The application must be registered before calling this function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method mark-busy ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="open" class="heading "><a href="#" title="go to top of document">open</a><a class="raku-anchor" title="direct link" href="#open">§</a></h2>
+
+<p id="Para_12">Opens the given files.</p>
+
+<p>In essence, this results in the <span class="important">open</span> signal being emitted in the primary instance. <span class="code">$n-files</span> must be greater than zero. <span class="code">$hint</span> is simply passed through to the <span class="important">open</span> signal. It is intended to be used by applications that have multiple modes for opening files (eg: &quot;view&quot; vs &quot;edit&quot;, etc). Unless you have a need for this functionality, you should use &quot;&quot;. </p>
+
+<p>The application must be registered before calling this function and it must have the <span class="code">G_APPLICATION_HANDLES_OPEN</span> flag set. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method open ( N-Object() $files, Int() $n-files, Str $hint )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$files; an array of <span class="basis">GFiles</span> to open.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-files; the length of the <span class="code">$files</span> array.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hint; a hint (or &quot;&quot;), but never undefined.</li>
+</ul>
+<h2 id="quit" class="heading "><a href="#" title="go to top of document">quit</a><a class="raku-anchor" title="direct link" href="#quit">§</a></h2>
+
+<p id="Para_13">Immediately quits the application.</p>
+
+<p>Upon return to the mainloop, <span class="code">.run()</span> will return, calling only the 'shutdown' function before doing so. </p>
+
+<p>The hold count is ignored. Take care if your code has called <span class="code">.hold()</span> on the application and is therefore still expecting it to exist. (Note that you may have called <span class="code">.hold()</span> indirectly, for example through gtk_application_add_window().) </p>
+
+<p>The result of calling <span class="code">.run()</span> again after it returns is unspecified. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method quit ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="register" class="heading "><a href="#" title="go to top of document">register</a><a class="raku-anchor" title="direct link" href="#register">§</a></h2>
+
+<p id="Para_14">Attempts registration of the application.</p>
+
+<p id="Para_15">This is the point at which the application discovers if it is the primary instance or merely acting as a remote for an already-existing primary instance. This is implemented by attempting to acquire the application identifier as a unique bus name on the session bus using GDBus.</p>
+
+<p>If there is no application ID or if <span class="code">G_APPLICATION_NON_UNIQUE</span> was given, then this process will always become the primary instance. </p>
+
+<p id="Para_16">Due to the internal architecture of GDBus, method calls can be dispatched at any time (even if a main loop is not running). For this reason, you must ensure that any object paths that you wish to register are registered before calling this function.</p>
+
+<p>If the application has already been registered then <span class="code">True</span> is returned with no work performed. </p>
+
+<p>The <span class="important">startup</span> signal is emitted if registration succeeds and <span class="code">$application</span> is the primary instance (including the non-unique case). </p>
+
+<p>In the event of an error (such as <span class="code">$cancellable</span> being cancelled, or a failure to connect to the session bus), <span class="code">False</span> is returned and <span class="code">$error</span> is set appropriately. </p>
+
+<p>Note: the return value of this function is not an indicator that this instance is or is not the primary instance of the application. See <span class="code">.get-is-remote()</span> for that. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method register ( N-Object() $cancellable, CArray[N-Error] $err --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$cancellable; a <span class="basis">Gnome::Gio::Cancellable</span>, or undefined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if registration succeeded. </p>
+<h2 id="release" class="heading "><a href="#" title="go to top of document">release</a><a class="raku-anchor" title="direct link" href="#release">§</a></h2>
+
+<p>Decrease the use count of <span class="code">$application</span>. </p>
+
+<p id="Para_17">When the use count reaches zero, the application will stop running.</p>
+
+<p>Never call this function except to cancel the effect of a previous call to <span class="code">.hold()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method release ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="run" class="heading "><a href="#" title="go to top of document">run</a><a class="raku-anchor" title="direct link" href="#run">§</a></h2>
+
+<p id="Para_18">Runs the application.</p>
+
+<p>This function is intended to be run from main() and its return value is intended to be returned by main(). Although you are expected to pass the <span class="code">$argc</span>, <span class="code">$argv</span> parameters from main() to this function, it is possible to pass undefined if <span class="code">$argv</span> is not available or commandline handling is not required. Note that on Windows, <span class="code">$argc</span> and <span class="code">$argv</span> are ignored, and g_win32_get_command_line() is called internally (for proper support of Unicode commandline arguments). </p>
+
+<p><span class="basis">Gnome::Gio::Application</span> will attempt to parse the commandline arguments. You can add commandline flags to the list of recognised options by way of <span class="code">.add-main-option-entries()</span>. After this, the <span class="important">handle-local-options</span> signal is emitted, from which the application can inspect the values of its <span class="basis">GOptionEntrys</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">I&lt;handle-local-options&gt; is a good place to handle options</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>such as `--version`, where an immediate reply from the local process is desired (instead of communicating with an already-running instance). A <span class="important">handle-local-options</span> handler can stop further processing by returning a non-negative value, which then becomes the exit status of the process. </p>
+
+<p>What happens next depends on the flags: if <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> was specified then the remaining commandline arguments are sent to the primary instance, where a <span class="important">command-line</span> signal is emitted. Otherwise, the remaining commandline arguments are assumed to be a list of files. If there are no files listed, the application is activated via the <span class="important">activate</span> signal. If there are one or more files, and <span class="code">G_APPLICATION_HANDLES_OPEN</span> was specified then the files are opened via the <span class="important">open</span> signal. </p>
+
+<p>If you are interested in doing more complicated local handling of the commandline then you should implement your own <span class="basis">Gnome::Gio::Application</span> subclass and override local_command_line(). In this case, you most likely want to return <span class="code">True</span> from your local_command_line() implementation to suppress the default handling. See gapplication-example-cmdline2.c for an example. </p>
+
+<p id="Para_19">If, after the above is done, the use count of the application is zero then the exit status is returned immediately. If the use count is non-zero then the default main context is iterated until the use count falls to zero, at which point 0 is returned.</p>
+
+<p>If the <span class="code">G_APPLICATION_IS_SERVICE</span> flag is set, then the service will run for as much as 10 seconds with a use count of zero while waiting for the message that caused the activation to arrive. After that, if the use count falls to zero the application will exit immediately, except in the case that <span class="code">.set-inactivity-timeout()</span> is in use. </p>
+
+<p id="Para_20">This function sets the prgname (g_set_prgname()), if not already set, to the basename of argv[0].</p>
+
+<p id="Para_21">Much like g_main_loop_run(), this function will acquire the main context for the duration that the application is running.</p>
+
+<p>Since 2.40, applications that are not explicitly flagged as services or launchers (ie: neither <span class="code">G_APPLICATION_IS_SERVICE</span> or <span class="code">G_APPLICATION_IS_LAUNCHER</span> are given as flags) will check (from the default handler for local_command_line) if &quot;--gapplication-service&quot; was given in the command line. If this flag is present then normal commandline processing is interrupted and the <span class="code">G_APPLICATION_IS_SERVICE</span> flag is set. This provides a &quot;compromise&quot; solution whereby running an application directly from the commandline will invoke it in the normal way (which can be useful for debugging) while still allowing applications to be D-Bus activated in service mode. The D-Bus service file should invoke the executable with &quot;--gapplication-service&quot; as the sole commandline argument. This approach is suitable for use by most graphical applications but should not be used from applications like editors that need precise control over when processes invoked via the commandline will exit and what their exit status will be. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method run ( Int() $argc, Array[Str] $argv --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$argc; the argc from main() (or 0 if <span class="code">$argv</span> is undefined).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$argv; the argv from main(), or undefined.</li>
+</ul>
+
+<p id="Para_22">Return value; the exit status.</p>
+<h2 id="send-notification" class="heading "><a href="#" title="go to top of document">send-notification</a><a class="raku-anchor" title="direct link" href="#send-notification">§</a></h2>
+
+<p>Sends a notification on behalf of <span class="code">$application</span> to the desktop shell. There is no guarantee that the notification is displayed immediately, or even at all. </p>
+
+<p id="Para_23">Notifications may persist after the application exits. It will be D-Bus-activated when the notification or one of its actions is activated.</p>
+
+<p>Modifying <span class="code">$notification</span> after this call has no effect. However, the object can be reused for a later call to this function. <span class="code">$id</span> may be any string that uniquely identifies the event for the application. It does not need to be in any special format. For example, &quot;new-message&quot; might be appropriate for a notification about new messages. </p>
+
+<p>If a previous notification was sent with the same <span class="code">$id</span>, it will be replaced with <span class="code">$notification</span> and shown again as if it was a new notification. This works even for notifications sent from a previous execution of the application, as long as <span class="code">$id</span> is the same string. <span class="code">$id</span> may be undefined, but it is impossible to replace or withdraw notifications without an id. </p>
+
+<p>If <span class="code">$notification</span> is no longer relevant, it can be withdrawn with <span class="code">.withdraw-notification()</span>. </p>
+
+<p>It is an error to call this function if <span class="code">$application</span> has no application ID. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method send-notification ( Str $id, N-Object() $notification )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$id; id of the notification, or undefined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$notification; the <span class="basis">Gnome::Gio::Notification</span> to send.</li>
+</ul>
+<h2 id="set-action-group" class="heading "><a href="#" title="go to top of document">set-action-group</a><a class="raku-anchor" title="direct link" href="#set-action-group">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gio-lib() since version 2.32</span> </p>
+
+<p>This used to be how actions were associated with a <span class="basis">Gnome::Gio::Application</span>. Now there is <span class="basis">Gnome::Gio::R-ActionMap</span> for that. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-action-group ( N-Object() $action-group )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$action-group; a <span class="basis">Gnome::Gio::R-ActionGroup</span>, or undefined.</li>
+</ul>
+<h2 id="set-application-id" class="heading "><a href="#" title="go to top of document">set-application-id</a><a class="raku-anchor" title="direct link" href="#set-application-id">§</a></h2>
+
+<p>Sets the unique identifier for <span class="code">$application</span>. </p>
+
+<p>The application id can only be modified if <span class="code">$application</span> has not yet been registered. </p>
+
+<p>If non-undefined, the application id must be valid. See <span class="code">.id-is-valid()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-application-id ( Str $application-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$application-id; the identifier for <span class="code">$application</span>.</li>
+</ul>
+<h2 id="set-default" class="heading "><a href="#" title="go to top of document">set-default</a><a class="raku-anchor" title="direct link" href="#set-default">§</a></h2>
+
+<p>Sets or unsets the default application for the process, as returned by <span class="code">.get-default()</span>. </p>
+
+<p>This function does not take its own reference on <span class="code">$application</span>. If <span class="code">$application</span> is destroyed then the default application will revert back to undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="set-flags" class="heading "><a href="#" title="go to top of document">set-flags</a><a class="raku-anchor" title="direct link" href="#set-flags">§</a></h2>
+
+<p>Sets the flags for <span class="code">$application</span>. </p>
+
+<p>The flags can only be modified if <span class="code">$application</span> has not yet been registered. </p>
+
+<p>See <span class="basis">Gnome::Gio::T-ioenums</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-flags ( UInt $flags )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$flags; the flags for <span class="code">$application</span>.</li>
+</ul>
+<h2 id="set-inactivity-timeout" class="heading "><a href="#" title="go to top of document">set-inactivity-timeout</a><a class="raku-anchor" title="direct link" href="#set-inactivity-timeout">§</a></h2>
+
+<p id="Para_24">Sets the current inactivity timeout for the application.</p>
+
+<p>This is the amount of time (in milliseconds) after the last call to <span class="code">.release()</span> before the application stops running. </p>
+
+<p>This call has no side effects of its own. The value set here is only used for next time <span class="code">.release()</span> drops the use count to zero. Any timeouts currently in progress are not impacted. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-inactivity-timeout ( UInt() $inactivity-timeout )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$inactivity-timeout; the timeout, in milliseconds.</li>
+</ul>
+<h2 id="set-option-context-description" class="heading "><a href="#" title="go to top of document">set-option-context-description</a><a class="raku-anchor" title="direct link" href="#set-option-context-description">§</a></h2>
+
+<p>Adds a description to the <span class="code">$application</span> option context. </p>
+
+<p id="Para_25">See g_option_context_set_description() for more information.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-option-context-description ( Str $description )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$description; a string to be shown in `--help` output after the list of options, or undefined.</li>
+</ul>
+<h2 id="set-option-context-parameter-string" class="heading "><a href="#" title="go to top of document">set-option-context-parameter-string</a><a class="raku-anchor" title="direct link" href="#set-option-context-parameter-string">§</a></h2>
+
+<p>Sets the parameter string to be used by the commandline handling of <span class="code">$application</span>. </p>
+
+<p>This function registers the argument to be passed to g_option_context_new() when the internal <span class="basis">GOptionContext</span> of <span class="code">$application</span> is created. </p>
+
+<p>See g_option_context_new() for more information about <span class="code">$parameter-string</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-option-context-parameter-string ( Str $parameter-string )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$parameter-string; a string which is displayed in the first line of `--help` output, after the usage summary <span class="basis">programname</span> [OPTION...]`..</li>
+</ul>
+<h2 id="set-option-context-summary" class="heading "><a href="#" title="go to top of document">set-option-context-summary</a><a class="raku-anchor" title="direct link" href="#set-option-context-summary">§</a></h2>
+
+<p>Adds a summary to the <span class="code">$application</span> option context. </p>
+
+<p id="Para_26">See g_option_context_set_summary() for more information.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-option-context-summary ( Str $summary )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$summary; a string to be shown in `--help` output before the list of options, or undefined.</li>
+</ul>
+<h2 id="set-resource-base-path" class="heading "><a href="#" title="go to top of document">set-resource-base-path</a><a class="raku-anchor" title="direct link" href="#set-resource-base-path">§</a></h2>
+
+<p>Sets (or unsets) the base resource path of <span class="code">$application</span>. </p>
+
+<p id="Para_27">The path is used to automatically load various application resources such as menu layouts and action descriptions. The various types of resources will be found at fixed names relative to the given base path.</p>
+
+<p>By default, the resource base path is determined from the application ID by prefixing '/' and replacing each '.' with '/'. This is done at the time that the <span class="basis">Gnome::Gio::Application</span> object is constructed. Changes to the application ID after that point will not have an impact on the resource base path. </p>
+
+<p>As an example, if the application has an ID of &quot;org.example.app&quot; then the default resource base path will be &quot;/org/example/app&quot;. If this is a <span class="basis">GtkApplication</span> (and you have not manually changed the path) then Gtk will then search for the menus of the application at &quot;/org/example/app/gtk/menus.ui&quot;. </p>
+
+<p>See <span class="basis">Gnome::Gio::N-Resource</span> for more information about adding resources to your application. </p>
+
+<p id="Para_28">You can disable automatic resource loading functionality by setting the path to undefined.</p>
+
+<p>Changing the resource base path once the application is running is not recommended. The point at which the resource path is consulted for forming paths for various purposes is unspecified. When writing a sub-class of <span class="basis">Gnome::Gio::Application</span> you should either set the <span class="basis">Gnome::Gio::Application</span>:resource-base-path property at construction time, or call this function during the instance initialization. Alternatively, you can call this function in the <span class="basis">GApplicationClass</span>.startup virtual function, before chaining up to the parent implementation. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-resource-base-path ( Str $resource-path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$resource-path; the resource path to use.</li>
+</ul>
+<h2 id="set-version" class="heading "><a href="#" title="go to top of document">set-version</a><a class="raku-anchor" title="direct link" href="#set-version">§</a></h2>
+
+<p>Sets the version number of <span class="code">$application</span>. This will be used to implement a `--version` command line argument </p>
+
+<p>The application version can only be modified if <span class="code">$application</span> has not yet been registered. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-version ( Str $version )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$version; the version of <span class="code">$application</span>.</li>
+</ul>
+<h2 id="unbind-busy-property" class="heading "><a href="#" title="go to top of document">unbind-busy-property</a><a class="raku-anchor" title="direct link" href="#unbind-busy-property">§</a></h2>
+
+<p>Destroys a binding between <span class="code">$property</span> and the busy state of <span class="code">$application</span> that was previously created with <span class="code">.bind-busy-property()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unbind-busy-property ( gpointer $object, Str $property )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; a <span class="basis">Gnome::GObject::Object</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$property; the name of a boolean property of <span class="code">$object</span>.</li>
+</ul>
+<h2 id="unmark-busy" class="heading "><a href="#" title="go to top of document">unmark-busy</a><a class="raku-anchor" title="direct link" href="#unmark-busy">§</a></h2>
+
+<p>Decreases the busy count of <span class="code">$application</span>. </p>
+
+<p id="Para_29">When the busy count reaches zero, the new state will be propagated to other processes.</p>
+
+<p>This function must only be called to cancel the effect of a previous call to <span class="code">.mark-busy()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unmark-busy ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="withdraw-notification" class="heading "><a href="#" title="go to top of document">withdraw-notification</a><a class="raku-anchor" title="direct link" href="#withdraw-notification">§</a></h2>
+
+<p>Withdraws a notification that was sent with <span class="code">.send-notification()</span>. </p>
+
+<p>This call does nothing if a notification with <span class="code">$id</span> doesn't exist or the notification was never sent. </p>
+
+<p>This function works even for notifications sent in previous executions of this application, as long <span class="code">$id</span> is the same as it was for the sent notification. </p>
+
+<p id="Para_30">Note that notifications are dismissed when the user clicks on one of the buttons in a notification or triggers its default action, so there is no need to explicitly withdraw the notification in that case.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method withdraw-notification ( Str $id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$id; id of a previously sent notification.</li>
+</ul>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="get-default" class="heading "><a href="#" title="go to top of document">get-default</a><a class="raku-anchor" title="direct link" href="#get-default">§</a></h2>
+
+<p>Returns the default <span class="basis">Gnome::Gio::Application</span> instance for this process. </p>
+
+<p>Normally there is only one <span class="basis">Gnome::Gio::Application</span> per process and it becomes the default when it is created. You can exercise more control over this by using <span class="code">.set-default()</span>. </p>
+
+<p id="Para_31">If there is no default application then undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_32">Return value; the default application for this process, or undefined.</p>
+<h2 id="id-is-valid" class="heading "><a href="#" title="go to top of document">id-is-valid</a><a class="raku-anchor" title="direct link" href="#id-is-valid">§</a></h2>
+
+<p>Checks if <span class="code">$application-id</span> is a valid application identifier. </p>
+
+<p>A valid ID is required for calls to <span class="code">.new-application()</span> and <span class="code">.set-application-id()</span>. </p>
+
+<p id="Para_33">Application identifiers follow the same format as [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus). For convenience, the restrictions on application identifiers are reproduced here:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >Application identifiers are composed of 1 or more elements separated by a period (`.`) character. All elements must contain at least one character.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`, with `-` discouraged in new application identifiers. Each element must not begin with a digit.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Application identifiers must contain at least one `.` (period) character (and thus at least two elements).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Application identifiers must not begin with a `.` (period) character.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Application identifiers must not exceed 255 characters.</li>
+</ul>
+
+<p>Note that the hyphen (`-`) character is allowed in application identifiers, but is problematic or not allowed in various specifications and APIs that refer to D-Bus, such as [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers), the [<span class="basis">DBusActivatable</span> interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus), and the convention that an application's &quot;main&quot; interface and object path resemble its application identifier and bus name. To avoid situations that require special-case handling, it is recommended that new application identifiers consistently replace hyphens with underscores. </p>
+
+<p id="Para_34">Like D-Bus interface names, application identifiers should start with the reversed DNS domain name of the author of the interface (in lower-case), and it is conventional for the rest of the application identifier to consist of words run together, with initial capital letters.</p>
+
+<p>As with D-Bus interface names, if the author's DNS domain name contains hyphen/minus characters they should be replaced by underscores, and if it contains leading digits they should be escaped by prepending an underscore. For example, if the owner of 7-zip.org used an application identifier for an archiving application, it might be named <span class="basis">org</span>._7_zip.Archiver`. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method id-is-valid ( Str $application-id --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$application-id; a potential application identifier.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$application-id</span> is valid. </p>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+
+<div class="id-target" id="activate"></div><h3 id="activate_0" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h3>
+
+<p>The <span class="important">activate</span> signal is emitted on the primary instance when an activation occurs. See <span class="code">.activate()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="command-line"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">command-line</a></h3>
-<p>The <em>command-line</em> signal is emitted on the primary instance when a commandline is not handled locally. See <code>.run()</code> and the <strong>Gnome::Gio::ApplicationCommandLine</strong> documentation for more information.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
+</ul>
+<h3 id="command-line" class="heading "><a href="#" title="go to top of document">command-line</a><a class="raku-anchor" title="direct link" href="#command-line">§</a></h3>
+
+<p>The <span class="important">command-line</span> signal is emitted on the primary instance when a commandline is not handled locally. See <span class="code">.run()</span> and the <span class="basis">Gnome::Gio::ApplicationCommandLine</span> documentation for more information. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $command-line,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
   --&gt; gint
-)
-</pre><ul>
-<li><p>$command-line; a <strong>Gnome::Gio::ApplicationCommandLine</strong> representing the passed commandline.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$command-line; a <span class="basis">Gnome::Gio::ApplicationCommandLine</span> representing the passed commandline.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-<p>Return value; An integer that is set as the exit status for the calling process. See <code>.command-line-set-exit-status()</code>.</p>
-<h3 id="handle-local-options"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">handle-local-options</a></h3>
-<p>The <em>handle-local-options</em> signal is emitted on the local instance after the parsing of the commandline options has occurred.</p><p>You can add options to be recognised during commandline option parsing using <code>.add-main-option-entries()</code> and <code>.add-option-group()</code>.</p><p>Signal handlers can inspect <code>$options</code> (along with values pointed to from the <code>$arg-data</code> of an installed <strong>GOptionEntrys</strong>) in order to decide to perform certain actions, including direct local handling (which may be useful for options like --version).</p><p>In the event that the application is marked <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> the &quot;normal processing&quot; will send the <code>$options</code> dictionary to the primary instance where it can be read with <code>.command-line-get-options-dict()</code>. The signal handler can modify the dictionary before returning, and the modified dictionary will be sent.</p><p>In the event that <code>G_APPLICATION_HANDLES_COMMAND_LINE</code> is not set, &quot;normal processing&quot; will treat the remaining uncollected command line arguments as filenames or URIs. If there are no arguments, the application is activated by <code>.activate()</code>. One or more arguments results in a call to <code>.open()</code>.</p><p>If you want to handle the local commandline arguments for yourself by converting them to calls to <code>.open()</code> or g_action_group_activate_action() then you must be sure to register the application first. You should probably not call <code>.activate()</code> for yourself, however: just return -1 and allow the default handler to do it for you. This will ensure that the `--gapplication-service` switch works properly (i.e. no activation in that case).</p><p>Note that this signal is emitted from the default implementation of local_command_line(). If you override that function and don't chain up then this signal will never be emitted.</p><p>You can override local_command_line() if you need more powerful capabilities than what is provided here, but this should not normally be required.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; An integer that is set as the exit status for the calling process. See <span class="code">.command-line-set-exit-status()</span>. </p>
+<h3 id="handle-local-options" class="heading "><a href="#" title="go to top of document">handle-local-options</a><a class="raku-anchor" title="direct link" href="#handle-local-options">§</a></h3>
+
+<p>The <span class="important">handle-local-options</span> signal is emitted on the local instance after the parsing of the commandline options has occurred. </p>
+
+<p>You can add options to be recognised during commandline option parsing using <span class="code">.add-main-option-entries()</span> and <span class="code">.add-option-group()</span>. </p>
+
+<p>Signal handlers can inspect <span class="code">$options</span> (along with values pointed to from the <span class="code">$arg-data</span> of an installed <span class="basis">GOptionEntrys</span>) in order to decide to perform certain actions, including direct local handling (which may be useful for options like --version). </p>
+
+<p>In the event that the application is marked <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> the &quot;normal processing&quot; will send the <span class="code">$options</span> dictionary to the primary instance where it can be read with <span class="code">.command-line-get-options-dict()</span>. The signal handler can modify the dictionary before returning, and the modified dictionary will be sent. </p>
+
+<p>In the event that <span class="code">G_APPLICATION_HANDLES_COMMAND_LINE</span> is not set, &quot;normal processing&quot; will treat the remaining uncollected command line arguments as filenames or URIs. If there are no arguments, the application is activated by <span class="code">.activate()</span>. One or more arguments results in a call to <span class="code">.open()</span>. </p>
+
+<p>If you want to handle the local commandline arguments for yourself by converting them to calls to <span class="code">.open()</span> or g_action_group_activate_action() then you must be sure to register the application first. You should probably not call <span class="code">.activate()</span> for yourself, however: just return -1 and allow the default handler to do it for you. This will ensure that the `--gapplication-service` switch works properly (i.e. no activation in that case). </p>
+
+<p id="Para_35">Note that this signal is emitted from the default implementation of local_command_line(). If you override that function and don't chain up then this signal will never be emitted.</p>
+
+<p id="Para_36">You can override local_command_line() if you need more powerful capabilities than what is provided here, but this should not normally be required.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $options,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
   --&gt; gint
-)
-</pre><ul>
-<li><p>$options; the options dictionary.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$options; the options dictionary.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-<p>Return value; an exit code. If you have handled your options and want to exit the process, return a non-negative option, 0 for success, and a positive value for failure. To continue, return -1 to let the default option processing continue.</p>
-<h3 id="name-lost"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">name-lost</a></h3>
-<p>The <em>name-lost</em> signal is emitted only on the registered primary instance when a new instance has taken over. This can only happen if the application is using the <code>G_APPLICATION_ALLOW_REPLACEMENT</code> flag.</p><p>The default handler for this signal calls <code>.quit()</code>.</p><pre class="pod-block-code">method handler (
+
+<p id="Para_37">Return value; an exit code. If you have handled your options and want to exit the process, return a non-negative option, 0 for success, and a positive value for failure. To continue, return -1 to let the default option processing continue.</p>
+<h3 id="name-lost" class="heading "><a href="#" title="go to top of document">name-lost</a><a class="raku-anchor" title="direct link" href="#name-lost">§</a></h3>
+
+<p>The <span class="important">name-lost</span> signal is emitted only on the registered primary instance when a new instance has taken over. This can only happen if the application is using the <span class="code">G_APPLICATION_ALLOW_REPLACEMENT</span> flag. </p>
+
+<p>The default handler for this signal calls <span class="code">.quit()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-<p>Return value; <code>True</code> if the signal has been handled</p>
-<h3 id="open_0"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">open</a></h3>
-<p>The <em>open</em> signal is emitted on the primary instance when there are files to open. See <code>.open()</code> for more information.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> if the signal has been handled </p>
+
+<div class="id-target" id="open"></div><h3 id="open_0" class="heading "><a href="#" title="go to top of document">open</a><a class="raku-anchor" title="direct link" href="#open">§</a></h3>
+
+<p>The <span class="important">open</span> signal is emitted on the primary instance when there are files to open. See <span class="code">.open()</span> for more information. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gpointer $files,
   gint $n-files,
   Str $hint,
@@ -421,45 +1285,75 @@
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
-)
-</pre><ul>
-<li><p>$files; an array of <strong>GFiles</strong>.</p></li>
-<li><p>$n-files; the length of <code>$files</code>.</p></li>
-<li><p>$hint; a hint provided by the calling instance.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="shutdown"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">shutdown</a></h3>
-<p>The <em>shutdown</em> signal is emitted only on the registered primary instance immediately after the main loop terminates.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$files; an array of <span class="basis">GFiles</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-files; the length of <span class="code">$files</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hint; a hint provided by the calling instance.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
+</ul>
+<h3 id="shutdown" class="heading "><a href="#" title="go to top of document">shutdown</a><a class="raku-anchor" title="direct link" href="#shutdown">§</a></h3>
+
+<p>The <span class="important">shutdown</span> signal is emitted only on the registered primary instance immediately after the main loop terminates. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="startup"><a href="#Gnome::Gio::Application" class="u" title="go to top of document">startup</a></h3>
-<p>The <em>startup</em> signal is emitted on the primary instance immediately after registration. See <code>.register()</code>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
+</ul>
+<h3 id="startup" class="heading "><a href="#" title="go to top of document">startup</a><a class="raku-anchor" title="direct link" href="#startup">§</a></h3>
+
+<p>The <span class="important">startup</span> signal is emitted on the primary instance immediately after registration. See <span class="code">.register()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gio::Application :$_widget,
   *C&lt;user&gt;-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This a native <strong>Gnome::Gio::Application</strong> object.</p></li>
-<li><p>$_widget; The object which registered the signal. User code may have left the object going out of scope.</p></li>
-<li><p><code>user</code>-options; A list of named arguments provided at the <code>.register-signal()</code> method from <strong>Gnome::GObject::Object</strong>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This a native <span class="basis">Gnome::Gio::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_widget; The object which registered the signal. User code may have left the object going out of scope.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">user</span>-options; A list of named arguments provided at the <span class="code">.register-signal()</span> method from <span class="basis">Gnome::GObject::Object</span>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gio/doc/Application.rakudoc</span></div><div>at <span class="time">2025-04-15T13:41:07Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gio/doc/Application.rakudoc</span>
+<span class="footer-field">&nbsp;at 19:43 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>
