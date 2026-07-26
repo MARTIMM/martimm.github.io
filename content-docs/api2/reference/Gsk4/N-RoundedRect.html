@@ -4,7 +4,7 @@
 <html lang="en" class="rakudoc-singlepage">
     <head>
     <meta charset="UTF-8" />
-        <title>Gnome::Gsk4::N-ShaderArgsBuilder</title>
+        <title>Gnome::Gsk4::N-RoundedRect</title>
     <style>@charset "UTF-8";
 /* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
    Modified by Marcel Timmerman at 2026/07/20 for the github pages
@@ -374,31 +374,35 @@ div.extended-para p.extended-para {
 
     </head>
     <body>
-    <div id="Gnome::Gsk4::N-ShaderArgsBuilder"></div><h1 class="title">Gnome::Gsk4::N-ShaderArgsBuilder</h1>
+    <div id="Gnome::Gsk4::N-RoundedRect"></div><h1 class="title">Gnome::Gsk4::N-RoundedRect</h1>
 
 <div class="toc">
 <h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
 <div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
 <div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
 <div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-shaderargsbuilder">new-shaderargsbuilder</a></div>
 <div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-to-args">free-to-args</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ref">ref</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-bool">set-bool</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-float">set-float</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-int">set-int</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-uint">set-uint</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-vec2">set-vec2</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-vec3">set-vec3</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-vec4">set-vec4</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#to-args">to-args</a></div>
-<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unref">unref</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#contains-point">contains-point</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#contains-rect">contains-rect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#init">init</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#init-copy">init-copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#init-from-rect">init-from-rect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#intersects-rect">intersects-rect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-rectilinear">is-rectilinear</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#normalize">normalize</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#offset">offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#shrink">shrink</a></div>
 </div>
 
     <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
 
-<p>An object to build the uniforms data for a <span class="basis">Gnome::Gsk4::GLShader</span>. </p>
+<p id="Para">A rectangular region with rounded corners.</p>
+
+<p>Application code should normalize rectangles using <span class="code">.normalize()</span>; this function will ensure that the bounds of the rectangle are normalized and ensure that the corner values are positive and the corners do not overlap. </p>
+
+<p>All functions taking a <span class="basis">Gnome::Gsk4::N-RoundedRect</span> as an argument will internally operate on a normalized copy; all functions returning a <span class="basis">Gnome::Gsk4::N-RoundedRect</span> will always return a normalized one. </p>
+
+<p id="Para_0">The algorithm used for normalizing corner sizes is described in [the CSS specification](https://drafts.csswg.org/css-backgrounds-3/#border-radius).</p>
 
 <div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
 <h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
@@ -410,181 +414,169 @@ div.extended-para p.extended-para {
     <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
     <div class="code-caption">Code</div>
     </div>
-<h2 id="new-shaderargsbuilder" class="heading "><a href="#" title="go to top of document">new-shaderargsbuilder</a><a class="raku-anchor" title="direct link" href="#new-shaderargsbuilder">§</a></h2>
-
-<p id="Para">Allocates a builder that can be used to construct a new uniform data chunk.</p>
-    
-    <div class="raku-code">
-    <pre class="rakudoc">method new-shaderargsbuilder ( N-Object() $shader, N-Object $initial-values --&gt; Gnome::Gsk4::ShaderArgsBuilder \)</pre>
-    <div class="code-caption">Code</div>
-    </div>
-    
-
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$shader; a <span class="basis">Gnome::Gsk4::GLShader</span>.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$initial-values; optional <span class="basis">Gnome::Glib::N-Bytes</span> with initial values</li>
-</ul>
 <h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
-<h2 id="free-to-args" class="heading "><a href="#" title="go to top of document">free-to-args</a><a class="raku-anchor" title="direct link" href="#free-to-args">§</a></h2>
+<h2 id="contains-point" class="heading "><a href="#" title="go to top of document">contains-point</a><a class="raku-anchor" title="direct link" href="#contains-point">§</a></h2>
 
-<p>Creates a new <span class="basis">Gnome::Glib::N-Bytes</span> args from the current state of the given <span class="code">$builder</span>, and frees the <span class="code">$builder</span> instance. </p>
-
-<p>Any uniforms of the shader that have not been explicitly set on the <span class="code">$builder</span> are zero-initialized. </p>
+<p>Checks if the given <span class="code">$point</span> is inside the rounded rectangle. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method free-to-args (--&gt; N-Object )</pre>
+    <pre class="rakudoc">method contains-point ( N-Object $point --&gt; Bool )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<p>Return value; the newly allocated buffer with all the args added to <span class="code">$builder</span>. </p>
-<h2 id="ref" class="heading "><a href="#" title="go to top of document">ref</a><a class="raku-anchor" title="direct link" href="#ref">§</a></h2>
-
-<p>Increases the reference count of a <span class="basis">Gnome::Gsk4::N-ShaderArgsBuilder</span> by one. </p>
-    
-    <div class="raku-code">
-    <pre class="rakudoc">method ref (--&gt; N-Object )</pre>
-    <div class="code-caption">Code</div>
-    </div>
-    
-
-<p>Return value; the passed in <span class="basis">Gnome::Gsk4::N-ShaderArgsBuilder</span>. </p>
-<h2 id="set-bool" class="heading "><a href="#" title="go to top of document">set-bool</a><a class="raku-anchor" title="direct link" href="#set-bool">§</a></h2>
-
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
-
-<p id="Para_0">The uniform must be of bool type.</p>
-    
-    <div class="raku-code">
-    <pre class="rakudoc">method set-bool ( Int() $idx, Bool() $value )</pre>
-    <div class="code-caption">Code</div>
-    </div>
-    
-
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform to.</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$point; the point to check</li>
 </ul>
-<h2 id="set-float" class="heading "><a href="#" title="go to top of document">set-float</a><a class="raku-anchor" title="direct link" href="#set-float">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p>Return value; <span class="code">True</span> if the <span class="code">$point</span> is inside the rounded rectangle. </p>
+<h2 id="contains-rect" class="heading "><a href="#" title="go to top of document">contains-rect</a><a class="raku-anchor" title="direct link" href="#contains-rect">§</a></h2>
 
-<p id="Para_1">The uniform must be of float type.</p>
+<p>Checks if the given <span class="code">$rect</span> is contained inside the rounded rectangle. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-float ( Int() $idx, Num() $value )</pre>
+    <pre class="rakudoc">method contains-rect ( N-Object $rect --&gt; Bool )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform to.</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rect; the rectangle to check</li>
 </ul>
-<h2 id="set-int" class="heading "><a href="#" title="go to top of document">set-int</a><a class="raku-anchor" title="direct link" href="#set-int">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p>Return value; <span class="code">True</span> if the <span class="code">$rect</span> is fully contained inside the rounded rectangle. </p>
+<h2 id="init" class="heading "><a href="#" title="go to top of document">init</a><a class="raku-anchor" title="direct link" href="#init">§</a></h2>
 
-<p id="Para_2">The uniform must be of int type.</p>
+<p>Initializes the given <span class="basis">Gnome::Gsk4::N-RoundedRect</span> with the given values. </p>
+
+<p>This function will implicitly normalize the <span class="basis">Gnome::Gsk4::N-RoundedRect</span> before returning. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-int ( Int() $idx, Int() $value )</pre>
+    <pre class="rakudoc">method init ( N-Object $bounds, N-Object $top-left, N-Object $top-right, N-Object $bottom-right, N-Object $bottom-left --&gt; N-Object )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform to.</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; a <span class="basis">Gnome::Graphene::N-Rect</span> describing the bounds</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$top-left; the rounding radius of the top left corner</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$top-right; the rounding radius of the top right corner</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bottom-right; the rounding radius of the bottom right corner</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bottom-left; the rounding radius of the bottom left corner</li>
 </ul>
-<h2 id="set-uint" class="heading "><a href="#" title="go to top of document">set-uint</a><a class="raku-anchor" title="direct link" href="#set-uint">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p id="Para_1">Return value; the initialized rectangle.</p>
+<h2 id="init-copy" class="heading "><a href="#" title="go to top of document">init-copy</a><a class="raku-anchor" title="direct link" href="#init-copy">§</a></h2>
 
-<p id="Para_3">The uniform must be of uint type.</p>
+<p>Initializes <span class="code">$self</span> using the given <span class="code">$src</span> rectangle. </p>
+
+<p>This function will not normalize the <span class="basis">Gnome::Gsk4::N-RoundedRect</span>, so make sure the source is normalized. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-uint ( Int() $idx, UInt() $value )</pre>
+    <pre class="rakudoc">method init-copy ( N-Object $src --&gt; N-Object )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform to.</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$src; a <span class="basis">Gnome::Gsk4::N-RoundedRect</span></li>
 </ul>
-<h2 id="set-vec2" class="heading "><a href="#" title="go to top of document">set-vec2</a><a class="raku-anchor" title="direct link" href="#set-vec2">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p id="Para_2">Return value; the initialized rectangle.</p>
+<h2 id="init-from-rect" class="heading "><a href="#" title="go to top of document">init-from-rect</a><a class="raku-anchor" title="direct link" href="#init-from-rect">§</a></h2>
 
-<p id="Para_4">The uniform must be of vec2 type.</p>
+<p>Initializes <span class="code">$self</span> to the given <span class="code">$bounds</span> and sets the radius of all four corners to <span class="code">$radius</span>. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-vec2 ( Int() $idx, N-Object $value )</pre>
+    <pre class="rakudoc">method init-from-rect ( N-Object $bounds, Num() $radius --&gt; N-Object )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform too</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; a <span class="basis">Gnome::Graphene::N-Rect</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$radius; the border radius.</li>
 </ul>
-<h2 id="set-vec3" class="heading "><a href="#" title="go to top of document">set-vec3</a><a class="raku-anchor" title="direct link" href="#set-vec3">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p id="Para_3">Return value; the initialized rectangle.</p>
+<h2 id="intersects-rect" class="heading "><a href="#" title="go to top of document">intersects-rect</a><a class="raku-anchor" title="direct link" href="#intersects-rect">§</a></h2>
 
-<p id="Para_5">The uniform must be of vec3 type.</p>
+<p>Checks if part of the given <span class="code">$rect</span> is contained inside the rounded rectangle. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-vec3 ( Int() $idx, N-Object $value )</pre>
+    <pre class="rakudoc">method intersects-rect ( N-Object $rect --&gt; Bool )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform too</li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rect; the rectangle to check</li>
 </ul>
-<h2 id="set-vec4" class="heading "><a href="#" title="go to top of document">set-vec4</a><a class="raku-anchor" title="direct link" href="#set-vec4">§</a></h2>
 
-<p>Sets the value of the uniform <span class="code">$idx</span>. </p>
+<p>Return value; <span class="code">True</span> if the <span class="code">$rect</span> intersects with the rounded rectangle. </p>
+<h2 id="is-rectilinear" class="heading "><a href="#" title="go to top of document">is-rectilinear</a><a class="raku-anchor" title="direct link" href="#is-rectilinear">§</a></h2>
 
-<p id="Para_6">The uniform must be of vec4 type.</p>
+<p>Checks if all corners of <span class="code">$self</span> are right angles and the rectangle covers all of its bounds. </p>
+
+<p>This information can be used to decide if <span class="code">.newroundedrect()</span> in class <span class="code">Gnome::Gsk4::ClipNode</span> or <span class="code">.newroundedrect()</span> in class <span class="code">Gnome::Gsk4::RoundedClipNode</span> should be called. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method set-vec4 ( Int() $idx, N-Object $value )</pre>
+    <pre class="rakudoc">method is-rectilinear (--&gt; Bool )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
-<li class="item" data-bullet="•" style ="--level:0;"  >$value; value to set the uniform too</li>
+<p>Return value; <span class="code">True</span> if the rectangle is rectilinear. </p>
+<h2 id="normalize" class="heading "><a href="#" title="go to top of document">normalize</a><a class="raku-anchor" title="direct link" href="#normalize">§</a></h2>
+
+<p id="Para_4">Normalizes the passed rectangle.</p>
+
+<p id="Para_5">This function will ensure that the bounds of the rectangle are normalized and ensure that the corner values are positive and the corners do not overlap.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method normalize (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_6">Return value; the normalized rectangle.</p>
+<h2 id="offset" class="heading "><a href="#" title="go to top of document">offset</a><a class="raku-anchor" title="direct link" href="#offset">§</a></h2>
+
+<p>Offsets the bound's origin by <span class="code">$dx</span> and <span class="code">$dy</span>. </p>
+
+<p id="Para_7">The size and corners of the rectangle are unchanged.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method offset ( Num() $dx, Num() $dy --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$dx; the horizontal offset.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dy; the vertical offset.</li>
 </ul>
-<h2 id="to-args" class="heading "><a href="#" title="go to top of document">to-args</a><a class="raku-anchor" title="direct link" href="#to-args">§</a></h2>
 
-<p>Creates a new <span class="basis">Gnome::Glib::N-Bytes</span> args from the current state of the given <span class="code">$builder</span>. </p>
+<p id="Para_8">Return value; the offset rectangle.</p>
+<h2 id="shrink" class="heading "><a href="#" title="go to top of document">shrink</a><a class="raku-anchor" title="direct link" href="#shrink">§</a></h2>
 
-<p>Any uniforms of the shader that have not been explicitly set on the <span class="code">$builder</span> are zero-initialized. </p>
+<p id="Para_9">Shrinks (or grows) the given rectangle by moving the 4 sides according to the offsets given.</p>
 
-<p>The given <span class="basis">Gnome::Gsk4::N-ShaderArgsBuilder</span> is reset once this function returns; you cannot call this function multiple times on the same <span class="code">$builder</span> instance. </p>
+<p id="Para_10">The corner radii will be changed in a way that tries to keep the center of the corner circle intact. This emulates CSS behavior.</p>
 
-<p>This function is intended primarily for bindings. C code should use <span class="code">.free-to-args()</span>. </p>
+<p>This function also works for growing rectangles if you pass negative values for the <span class="code">$top</span>, <span class="code">$right</span>, <span class="code">$bottom</span> or <span class="code">$left</span>. </p>
     
     <div class="raku-code">
-    <pre class="rakudoc">method to-args (--&gt; N-Object )</pre>
+    <pre class="rakudoc">method shrink ( Num() $top, Num() $right, Num() $bottom, Num() $left --&gt; N-Object )</pre>
     <div class="code-caption">Code</div>
     </div>
     
 
-<p>Return value; the newly allocated buffer with all the args added to <span class="code">$builder</span>. </p>
-<h2 id="unref" class="heading "><a href="#" title="go to top of document">unref</a><a class="raku-anchor" title="direct link" href="#unref">§</a></h2>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$top; How far to move the top side downwards.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$right; How far to move the right side to the left.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bottom; How far to move the bottom side upwards.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$left; How far to move the left side to the right.</li>
+</ul>
 
-<p>Decreases the reference count of a <span class="basis">GskShaderArgBuilder</span> by one. </p>
-
-<p id="Para_7">If the resulting reference count is zero, frees the builder.</p>
-    
-    <div class="raku-code">
-    <pre class="rakudoc">method unref ( )</pre>
-    <div class="code-caption">Code</div>
-    </div>
+<p>Return value; the resized <span class="basis">Gnome::Gsk4::N-RoundedRect</span>. </p>
 
 
     
 <div class="footer">
-    Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/N-ShaderArgsBuilder.rakudoc/N-ShaderArgsBuilder</span>
+    Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/N-RoundedRect.rakudoc/N-RoundedRect</span>
 <span class="footer-field">&nbsp;at 08:40 UTC on 2026-07-26</span>
 <span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
 

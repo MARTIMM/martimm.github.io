@@ -1,207 +1,779 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gsk4::GLShader</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gsk4::GLShader</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gsk4::GLShader">Gnome::Gsk4::GLShader</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#An_example_shader">An example shader</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-bytes">new-from-bytes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-resource">new-from-resource</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#compile">compile</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#find-uniform-by-name">find-uniform-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#format-args_This_function_is_not_yet_available">format-args This function is not yet available</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#format-args-va_This_function_is_not_yet_available">format-args-va This function is not yet available</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-bool">get-arg-bool</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-float">get-arg-float</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-int">get-arg-int</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-uint">get-arg-uint</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-vec2">get-arg-vec2</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-vec3">get-arg-vec3</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-arg-vec4">get-arg-vec4</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-args-size">get-args-size</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-textures">get-n-textures</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-uniforms">get-n-uniforms</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-resource">get-resource</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-source">get-source</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uniform-name">get-uniform-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uniform-offset">get-uniform-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-uniform-type">get-uniform-type</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gsk4::GLShader</strong> is a snippet of GLSL that is meant to run in the fragment shader of the rendering pipeline.</p><p>A fragment shader gets the coordinates being rendered as input and produces the pixel values for that particular pixel. Additionally, the shader can declare a set of other input arguments, called uniforms (as they are uniform over all the calls to your shader in each instance of use). A shader can also receive up to 4 textures that it can use as input when producing the pixel data.</p><p><strong>Gnome::Gsk4::GLShader</strong> is usually used with gtk_snapshot_push_gl_shader() to produce a <strong>Gnome::Gsk4::GLShaderNode</strong> in the rendering hierarchy, and then its input textures are constructed by rendering the child nodes to textures before rendering the shader node itself. (You can pass texture nodes as children if you want to directly use a texture as input).</p><p>The actual shader code is GLSL code that gets combined with some other code into the fragment shader. Since the exact capabilities of the GPU driver differs between different OpenGL drivers and hardware, GTK adds some defines that you can use to ensure your GLSL code runs on as many drivers as it can.</p><p>If the OpenGL driver is GLES, then the shader language version is set to 100, and GSK_GLES will be defined in the shader.</p><p>Otherwise, if the OpenGL driver does not support the 3.2 core profile, then the shader will run with language version 110 for GL2 and 130 for GL3, and GSK_LEGACY will be defined in the shader.</p><p>If the OpenGL driver supports the 3.2 code profile, it will be used, the shader language version is set to 150, and GSK_GL3 will be defined in the shader.</p><p>The main function the shader must implement is:</p><p>Where the input <code>$fragCoord</code> is the coordinate of the pixel we're currently rendering, relative to the boundary rectangle that was specified in the <strong>Gnome::Gsk4::GLShaderNode</strong>, and <code>$resolution</code> is the width and height of that rectangle. This is in the typical GTK coordinate system with the origin in the top left. <code>$uv</code> contains the u and v coordinates that can be used to index a texture at the corresponding point. These coordinates are in the [0..1]x[0..1] region, with 0, 0 being in the lower left corder (which is typical for OpenGL).</p><p>The output <code>$fragColor</code> should be a RGBA color (with premultiplied alpha) that will be used as the output for the specified pixel location. Note that this output will be automatically clipped to the clip region of the glshader node.</p><p>In addition to the function arguments the shader can define up to 4 uniforms for textures which must be called u_textureN (i.e. u_texture1 to u_texture4) as well as any custom uniforms you want of types int, uint, bool, float, vec2, vec3 or vec4.</p><p>All textures sources contain premultiplied alpha colors, but if some there are outer sources of colors there is a gsk_premultiply() helper to compute premultiplication when needed.</p><p>Note that GTK parses the uniform declarations, so each uniform has to be on a line by itself with no other code, like so:</p><p>GTK uses the &quot;gsk&quot; namespace in the symbols it uses in the shader, so your code should not use any symbols with the prefix gsk or GSK. There are some helper functions declared that you can use:</p><p>This samples a texture (e.g. u_texture1) at the specified coordinates, and containes some helper ifdefs to ensure that it works on all OpenGL versions.</p><p>You can compile the shader yourself using <code>.compile()</code>, otherwise the GSK renderer will do it when it handling the glshader node. If errors occurs, the returned <code>$error</code> will include the glsl sources, so you can see what GSK was passing to the compiler. You can also set GSK_DEBUG=shaders in the environment to see the sources and other relevant information about all shaders that GSK is handling.</p>
-<h2 id="An_example_shader"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">An example shader</a></h2>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-from-bytes"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">new-from-bytes</a></h2>
-<p>Creates a <strong>Gnome::Gsk4::GLShader</strong> that will render pixels using the specified code.</p><pre class="pod-block-code">method new-from-bytes ( N-Object $sourcecode --&gt; Gnome::Gsk4::GLShader \)
-</pre><ul>
-<li><p>$sourcecode; GLSL sourcecode for the shader, as a <strong>Gnome::Glib::N-Bytes</strong></p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gsk4::GLShader"></div><h1 class="title">Gnome::Gsk4::GLShader</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#An_example_shader">An example shader</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-bytes">new-from-bytes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-resource">new-from-resource</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#compile">compile</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#find-uniform-by-name">find-uniform-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#format-args_This_function_is_not_yet_available">format-args This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#format-args-va_This_function_is_not_yet_available">format-args-va This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-bool">get-arg-bool</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-float">get-arg-float</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-int">get-arg-int</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-uint">get-arg-uint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-vec2">get-arg-vec2</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-vec3">get-arg-vec3</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-arg-vec4">get-arg-vec4</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-args-size">get-args-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-textures">get-n-textures</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-uniforms">get-n-uniforms</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-resource">get-resource</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-source">get-source</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uniform-name">get-uniform-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uniform-offset">get-uniform-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-uniform-type">get-uniform-type</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>A <span class="basis">Gnome::Gsk4::GLShader</span> is a snippet of GLSL that is meant to run in the fragment shader of the rendering pipeline. </p>
+
+<p id="Para">A fragment shader gets the coordinates being rendered as input and produces the pixel values for that particular pixel. Additionally, the shader can declare a set of other input arguments, called uniforms (as they are uniform over all the calls to your shader in each instance of use). A shader can also receive up to 4 textures that it can use as input when producing the pixel data.</p>
+
+<p><span class="basis">Gnome::Gsk4::GLShader</span> is usually used with gtk_snapshot_push_gl_shader() to produce a <span class="basis">Gnome::Gsk4::GLShaderNode</span> in the rendering hierarchy, and then its input textures are constructed by rendering the child nodes to textures before rendering the shader node itself. (You can pass texture nodes as children if you want to directly use a texture as input). </p>
+
+<p id="Para_0">The actual shader code is GLSL code that gets combined with some other code into the fragment shader. Since the exact capabilities of the GPU driver differs between different OpenGL drivers and hardware, GTK adds some defines that you can use to ensure your GLSL code runs on as many drivers as it can.</p>
+
+<p id="Para_1">If the OpenGL driver is GLES, then the shader language version is set to 100, and GSK_GLES will be defined in the shader.</p>
+
+<p id="Para_2">Otherwise, if the OpenGL driver does not support the 3.2 core profile, then the shader will run with language version 110 for GL2 and 130 for GL3, and GSK_LEGACY will be defined in the shader.</p>
+
+<p id="Para_3">If the OpenGL driver supports the 3.2 code profile, it will be used, the shader language version is set to 150, and GSK_GL3 will be defined in the shader.</p>
+
+<p id="Para_4">The main function the shader must implement is:</p>
+
+<p>Where the input <span class="code">$fragCoord</span> is the coordinate of the pixel we're currently rendering, relative to the boundary rectangle that was specified in the <span class="basis">Gnome::Gsk4::GLShaderNode</span>, and <span class="code">$resolution</span> is the width and height of that rectangle. This is in the typical GTK coordinate system with the origin in the top left. <span class="code">$uv</span> contains the u and v coordinates that can be used to index a texture at the corresponding point. These coordinates are in the [0..1]x[0..1] region, with 0, 0 being in the lower left corder (which is typical for OpenGL). </p>
+
+<p>The output <span class="code">$fragColor</span> should be a RGBA color (with premultiplied alpha) that will be used as the output for the specified pixel location. Note that this output will be automatically clipped to the clip region of the glshader node. </p>
+
+<p id="Para_5">In addition to the function arguments the shader can define up to 4 uniforms for textures which must be called u_textureN (i.e. u_texture1 to u_texture4) as well as any custom uniforms you want of types int, uint, bool, float, vec2, vec3 or vec4.</p>
+
+<p id="Para_6">All textures sources contain premultiplied alpha colors, but if some there are outer sources of colors there is a gsk_premultiply() helper to compute premultiplication when needed.</p>
+
+<p id="Para_7">Note that GTK parses the uniform declarations, so each uniform has to be on a line by itself with no other code, like so:</p>
+
+<p id="Para_8">GTK uses the &quot;gsk&quot; namespace in the symbols it uses in the shader, so your code should not use any symbols with the prefix gsk or GSK. There are some helper functions declared that you can use:</p>
+
+<p id="Para_9">This samples a texture (e.g. u_texture1) at the specified coordinates, and containes some helper ifdefs to ensure that it works on all OpenGL versions.</p>
+
+<p>You can compile the shader yourself using <span class="code">.compile()</span>, otherwise the GSK renderer will do it when it handling the glshader node. If errors occurs, the returned <span class="code">$error</span> will include the glsl sources, so you can see what GSK was passing to the compiler. You can also set GSK_DEBUG=shaders in the environment to see the sources and other relevant information about all shaders that GSK is handling. </p>
+
+<div class="id-target" id="An example shader"></div><h2 id="An_example_shader" class="heading "><a href="#" title="go to top of document">An example shader</a><a class="raku-anchor" title="direct link" href="#An example shader">§</a></h2>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-from-bytes" class="heading "><a href="#" title="go to top of document">new-from-bytes</a><a class="raku-anchor" title="direct link" href="#new-from-bytes">§</a></h2>
+
+<p>Creates a <span class="basis">Gnome::Gsk4::GLShader</span> that will render pixels using the specified code. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-bytes ( N-Object $sourcecode --&gt; Gnome::Gsk4::GLShader \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$sourcecode; GLSL sourcecode for the shader, as a <span class="basis">Gnome::Glib::N-Bytes</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-from-resource"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">new-from-resource</a></h2>
-<p>Creates a <strong>Gnome::Gsk4::GLShader</strong> that will render pixels using the specified code.</p><pre class="pod-block-code">method new-from-resource ( Str $resource-path --&gt; Gnome::Gsk4::GLShader \)
-</pre><ul>
-<li><p>$resource-path; path to a resource that contains the GLSL sourcecode for the shader.</p></li>
+<h2 id="new-from-resource" class="heading "><a href="#" title="go to top of document">new-from-resource</a><a class="raku-anchor" title="direct link" href="#new-from-resource">§</a></h2>
+
+<p>Creates a <span class="basis">Gnome::Gsk4::GLShader</span> that will render pixels using the specified code. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-resource ( Str $resource-path --&gt; Gnome::Gsk4::GLShader \)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$resource-path; path to a resource that contains the GLSL sourcecode for the shader.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="compile"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">compile</a></h2>
-<p>Tries to compile the <code>$shader</code> for the given <code>$renderer</code>.</p><p>If there is a problem, this function returns <code>False</code> and reports an error. You should use this function before relying on the shader for rendering and use a fallback with a simpler shader or without shaders if it fails.</p><p>Note that this will modify the rendering state (for example change the current GL context) and requires the renderer to be set up. This means that the widget has to be realized. Commonly you want to call this from the realize signal of a widget, or during widget snapshot.</p><pre class="pod-block-code">method compile ( N-Object() $renderer, CArray[N-Error] $err --&gt; Bool )
-</pre><ul>
-<li><p>$renderer; a <strong>Gnome::Gsk4::Renderer</strong>.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="compile" class="heading "><a href="#" title="go to top of document">compile</a><a class="raku-anchor" title="direct link" href="#compile">§</a></h2>
+
+<p>Tries to compile the <span class="code">$shader</span> for the given <span class="code">$renderer</span>. </p>
+
+<p>If there is a problem, this function returns <span class="code">False</span> and reports an error. You should use this function before relying on the shader for rendering and use a fallback with a simpler shader or without shaders if it fails. </p>
+
+<p id="Para_10">Note that this will modify the rendering state (for example change the current GL context) and requires the renderer to be set up. This means that the widget has to be realized. Commonly you want to call this from the realize signal of a widget, or during widget snapshot.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method compile ( N-Object() $renderer, CArray[N-Error] $err --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <span class="basis">Gnome::Gsk4::Renderer</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
 </ul>
-<p>Return value; <code>True</code> on success, <code>False</code> if an error occurred. </p></section>
-<section name="pod">
-<h2 id="find-uniform-by-name"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">find-uniform-by-name</a></h2>
-<p>Looks for a uniform by the name <code>$name</code>, and returns the index of the uniform, or -1 if it was not found.</p><pre class="pod-block-code">method find-uniform-by-name ( Str $name --&gt; Int )
-</pre><ul>
-<li><p>$name; uniform name.</p></li>
+
+<p>Return value; <span class="code">True</span> on success, <span class="code">False</span> if an error occurred. </p>
+<h2 id="find-uniform-by-name" class="heading "><a href="#" title="go to top of document">find-uniform-by-name</a><a class="raku-anchor" title="direct link" href="#find-uniform-by-name">§</a></h2>
+
+<p>Looks for a uniform by the name <span class="code">$name</span>, and returns the index of the uniform, or -1 if it was not found. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method find-uniform-by-name ( Str $name --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; uniform name.</li>
 </ul>
-<p>Return value; The index of the uniform, or -1. </p></section>
-<section name="pod">
-<h2 id="format-args_This_function_is_not_yet_available"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">format-args This function is not yet available</a></h2>
-<p>Formats the uniform data as needed for feeding the named uniforms values into the shader.</p><p>The argument list is a list of pairs of names, and values for the types that match the declared uniforms (i.e. double/int/guint/gboolean for primitive values and <strong>graphene_vecN_t</strong> *` for vecN uniforms).</p><p>Any uniforms of the shader that are not included in the argument list are zero-initialized.</p><pre class="pod-block-code">method format-args ( … --&gt; N-Object )
-</pre><ul>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+
+<p id="Para_11">Return value; The index of the uniform, or -1.</p>
+
+<div class="id-target" id="format-args This function is not yet available"></div><h2 id="format-args_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">format-args This function is not yet available</a><a class="raku-anchor" title="direct link" href="#format-args This function is not yet available">§</a></h2>
+
+<p id="Para_12">Formats the uniform data as needed for feeding the named uniforms values into the shader.</p>
+
+<p>The argument list is a list of pairs of names, and values for the types that match the declared uniforms (i.e. double/int/guint/gboolean for primitive values and <span class="basis">graphene_vecN_t</span> *` for vecN uniforms). </p>
+
+<p id="Para_13">Any uniforms of the shader that are not included in the argument list are zero-initialized.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method format-args ( … --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-<p>Return value; A newly allocated block of data which can be passed to <code>.newglshader() in class Gnome::Gsk4::GLShaderNode</code>.. </p></section>
-<section name="pod">
-<h2 id="format-args-va_This_function_is_not_yet_available"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">format-args-va This function is not yet available</a></h2>
-<p>Formats the uniform data as needed for feeding the named uniforms values into the shader.</p><p>The argument list is a list of pairs of names, and values for the types that match the declared uniforms (i.e. double/int/guint/gboolean for primitive values and <strong>graphene_vecN_t</strong> *` for vecN uniforms).</p><p>It is an error to pass a uniform name that is not declared by the shader.</p><p>Any uniforms of the shader that are not included in the argument list are zero-initialized.</p><pre class="pod-block-code">method format-args-va ( … --&gt; N-Object )
-</pre><ul>
-<li><p>uniforms; name-Value pairs for the uniforms of <code>$shader</code>, ending with a undefined name. Note that each argument must be specified as a type followed by its value!</p></li>
+
+<p>Return value; A newly allocated block of data which can be passed to <span class="code">.newglshader() in class Gnome::Gsk4::GLShaderNode</span>.. </p>
+
+<div class="id-target" id="format-args-va This function is not yet available"></div><h2 id="format-args-va_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">format-args-va This function is not yet available</a><a class="raku-anchor" title="direct link" href="#format-args-va This function is not yet available">§</a></h2>
+
+<p id="Para_14">Formats the uniform data as needed for feeding the named uniforms values into the shader.</p>
+
+<p>The argument list is a list of pairs of names, and values for the types that match the declared uniforms (i.e. double/int/guint/gboolean for primitive values and <span class="basis">graphene_vecN_t</span> *` for vecN uniforms). </p>
+
+<p id="Para_15">It is an error to pass a uniform name that is not declared by the shader.</p>
+
+<p id="Para_16">Any uniforms of the shader that are not included in the argument list are zero-initialized.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method format-args-va ( … --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >uniforms; name-Value pairs for the uniforms of <span class="code">$shader</span>, ending with a undefined name. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-<p>Return value; A newly allocated block of data which can be passed to <code>.newglshader() in class Gnome::Gsk4::GLShaderNode</code>.. </p></section>
-<section name="pod">
-<h2 id="get-arg-bool"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-bool</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of bool type.</p><pre class="pod-block-code">method get-arg-bool ( N-Object $args, Int() $idx --&gt; Bool )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p>Return value; A newly allocated block of data which can be passed to <span class="code">.newglshader() in class Gnome::Gsk4::GLShaderNode</span>.. </p>
+<h2 id="get-arg-bool" class="heading "><a href="#" title="go to top of document">get-arg-bool</a><a class="raku-anchor" title="direct link" href="#get-arg-bool">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_17">The uniform must be of bool type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-bool ( N-Object $args, Int() $idx --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The value. </p></section>
-<section name="pod">
-<h2 id="get-arg-float"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-float</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of float type.</p><pre class="pod-block-code">method get-arg-float ( N-Object $args, Int() $idx --&gt; Num )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p id="Para_18">Return value; The value.</p>
+<h2 id="get-arg-float" class="heading "><a href="#" title="go to top of document">get-arg-float</a><a class="raku-anchor" title="direct link" href="#get-arg-float">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_19">The uniform must be of float type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-float ( N-Object $args, Int() $idx --&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The value. </p></section>
-<section name="pod">
-<h2 id="get-arg-int"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-int</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of int type.</p><pre class="pod-block-code">method get-arg-int ( N-Object $args, Int() $idx --&gt; Int )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p id="Para_20">Return value; The value.</p>
+<h2 id="get-arg-int" class="heading "><a href="#" title="go to top of document">get-arg-int</a><a class="raku-anchor" title="direct link" href="#get-arg-int">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_21">The uniform must be of int type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-int ( N-Object $args, Int() $idx --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The value. </p></section>
-<section name="pod">
-<h2 id="get-arg-uint"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-uint</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of uint type.</p><pre class="pod-block-code">method get-arg-uint ( N-Object $args, Int() $idx --&gt; UInt )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p id="Para_22">Return value; The value.</p>
+<h2 id="get-arg-uint" class="heading "><a href="#" title="go to top of document">get-arg-uint</a><a class="raku-anchor" title="direct link" href="#get-arg-uint">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_23">The uniform must be of uint type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-uint ( N-Object $args, Int() $idx --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The value. </p></section>
-<section name="pod">
-<h2 id="get-arg-vec2"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-vec2</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of vec2 type.</p><pre class="pod-block-code">method get-arg-vec2 ( N-Object $args, Int() $idx, N-Object $out-value )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
-<li><p>$out-value; location to store the uniform value in</p></li>
+
+<p id="Para_24">Return value; The value.</p>
+<h2 id="get-arg-vec2" class="heading "><a href="#" title="go to top of document">get-arg-vec2</a><a class="raku-anchor" title="direct link" href="#get-arg-vec2">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_25">The uniform must be of vec2 type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-vec2 ( N-Object $args, Int() $idx, N-Object $out-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$out-value; location to store the uniform value in</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-arg-vec3"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-vec3</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of vec3 type.</p><pre class="pod-block-code">method get-arg-vec3 ( N-Object $args, Int() $idx, N-Object $out-value )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
-<li><p>$out-value; location to store the uniform value in</p></li>
+<h2 id="get-arg-vec3" class="heading "><a href="#" title="go to top of document">get-arg-vec3</a><a class="raku-anchor" title="direct link" href="#get-arg-vec3">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_26">The uniform must be of vec3 type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-vec3 ( N-Object $args, Int() $idx, N-Object $out-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$out-value; location to store the uniform value in</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-arg-vec4"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-arg-vec4</a></h2>
-<p>Gets the value of the uniform <code>$idx</code> in the <code>$args</code> block.</p><p>The uniform must be of vec4 type.</p><pre class="pod-block-code">method get-arg-vec4 ( N-Object $args, Int() $idx, N-Object $out-value )
-</pre><ul>
-<li><p>$args; uniform arguments</p></li>
-<li><p>$idx; index of the uniform.</p></li>
-<li><p>$out-value; location to store set the uniform value in</p></li>
+<h2 id="get-arg-vec4" class="heading "><a href="#" title="go to top of document">get-arg-vec4</a><a class="raku-anchor" title="direct link" href="#get-arg-vec4">§</a></h2>
+
+<p>Gets the value of the uniform <span class="code">$idx</span> in the <span class="code">$args</span> block. </p>
+
+<p id="Para_27">The uniform must be of vec4 type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-arg-vec4 ( N-Object $args, Int() $idx, N-Object $out-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$args; uniform arguments</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$out-value; location to store set the uniform value in</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-args-size"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-args-size</a></h2>
-<p>Get the size of the data block used to specify arguments for this shader.</p><pre class="pod-block-code">method get-args-size (--&gt; Int )
-</pre><p>Return value; The size of the data block. </p></section>
-<section name="pod">
-<h2 id="get-n-textures"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-n-textures</a></h2>
-<p>Returns the number of textures that the shader requires.</p><p>This can be used to check that the a passed shader works in your usecase. It is determined by looking at the highest u_textureN value that the shader defines.</p><pre class="pod-block-code">method get-n-textures (--&gt; Int )
-</pre><p>Return value; The number of texture inputs required by <code>$shader</code>. </p></section>
-<section name="pod">
-<h2 id="get-n-uniforms"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-n-uniforms</a></h2>
-<p>Get the number of declared uniforms for this shader.</p><pre class="pod-block-code">method get-n-uniforms (--&gt; Int )
-</pre><p>Return value; The number of declared uniforms. </p></section>
-<section name="pod">
-<h2 id="get-resource"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-resource</a></h2>
-<p>Gets the resource path for the GLSL sourcecode being used to render this shader.</p><pre class="pod-block-code">method get-resource (--&gt; Str )
-</pre><p>Return value; The resource path for the shader. </p></section>
-<section name="pod">
-<h2 id="get-source"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-source</a></h2>
-<p>Gets the GLSL sourcecode being used to render this shader.</p><pre class="pod-block-code">method get-source (--&gt; N-Object )
-</pre><p>Return value; The source code for the shader. </p></section>
-<section name="pod">
-<h2 id="get-uniform-name"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-uniform-name</a></h2>
-<p>Get the name of the declared uniform for this shader at index <code>$idx</code>.</p><pre class="pod-block-code">method get-uniform-name ( Int() $idx --&gt; Str )
-</pre><ul>
-<li><p>$idx; index of the uniform.</p></li>
+<h2 id="get-args-size" class="heading "><a href="#" title="go to top of document">get-args-size</a><a class="raku-anchor" title="direct link" href="#get-args-size">§</a></h2>
+
+<p id="Para_28">Get the size of the data block used to specify arguments for this shader.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-args-size (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_29">Return value; The size of the data block.</p>
+<h2 id="get-n-textures" class="heading "><a href="#" title="go to top of document">get-n-textures</a><a class="raku-anchor" title="direct link" href="#get-n-textures">§</a></h2>
+
+<p id="Para_30">Returns the number of textures that the shader requires.</p>
+
+<p id="Para_31">This can be used to check that the a passed shader works in your usecase. It is determined by looking at the highest u_textureN value that the shader defines.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-textures (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The number of texture inputs required by <span class="code">$shader</span>. </p>
+<h2 id="get-n-uniforms" class="heading "><a href="#" title="go to top of document">get-n-uniforms</a><a class="raku-anchor" title="direct link" href="#get-n-uniforms">§</a></h2>
+
+<p id="Para_32">Get the number of declared uniforms for this shader.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-uniforms (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_33">Return value; The number of declared uniforms.</p>
+<h2 id="get-resource" class="heading "><a href="#" title="go to top of document">get-resource</a><a class="raku-anchor" title="direct link" href="#get-resource">§</a></h2>
+
+<p id="Para_34">Gets the resource path for the GLSL sourcecode being used to render this shader.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-resource (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_35">Return value; The resource path for the shader.</p>
+<h2 id="get-source" class="heading "><a href="#" title="go to top of document">get-source</a><a class="raku-anchor" title="direct link" href="#get-source">§</a></h2>
+
+<p id="Para_36">Gets the GLSL sourcecode being used to render this shader.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-source (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_37">Return value; The source code for the shader.</p>
+<h2 id="get-uniform-name" class="heading "><a href="#" title="go to top of document">get-uniform-name</a><a class="raku-anchor" title="direct link" href="#get-uniform-name">§</a></h2>
+
+<p>Get the name of the declared uniform for this shader at index <span class="code">$idx</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uniform-name ( Int() $idx --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The name of the declared uniform. </p></section>
-<section name="pod">
-<h2 id="get-uniform-offset"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-uniform-offset</a></h2>
-<p>Get the offset into the data block where data for this uniforms is stored.</p><pre class="pod-block-code">method get-uniform-offset ( Int() $idx --&gt; Int )
-</pre><ul>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p id="Para_38">Return value; The name of the declared uniform.</p>
+<h2 id="get-uniform-offset" class="heading "><a href="#" title="go to top of document">get-uniform-offset</a><a class="raku-anchor" title="direct link" href="#get-uniform-offset">§</a></h2>
+
+<p id="Para_39">Get the offset into the data block where data for this uniforms is stored.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uniform-offset ( Int() $idx --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The data offset. </p></section>
-<section name="pod">
-<h2 id="get-uniform-type"><a href="#Gnome::Gsk4::GLShader" class="u" title="go to top of document">get-uniform-type</a></h2>
-<p>Get the type of the declared uniform for this shader at index <code>$idx</code>.</p><pre class="pod-block-code">method get-uniform-type ( Int() $idx --&gt; GskGLUniformType )
-</pre><ul>
-<li><p>$idx; index of the uniform.</p></li>
+
+<p id="Para_40">Return value; The data offset.</p>
+<h2 id="get-uniform-type" class="heading "><a href="#" title="go to top of document">get-uniform-type</a><a class="raku-anchor" title="direct link" href="#get-uniform-type">§</a></h2>
+
+<p>Get the type of the declared uniform for this shader at index <span class="code">$idx</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-uniform-type ( Int() $idx --&gt; GskGLUniformType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$idx; index of the uniform.</li>
 </ul>
-<p>Return value; The type of the declared uniform. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/GLShader.rakudoc</span></div><div>at <span class="time">2024-12-17T20:41:59Z</span></div></footer>
-	</body>
+
+<p id="Para_41">Return value; The type of the declared uniform.</p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gsk4/doc/GLShader.rakudoc/GLShader</span>
+<span class="footer-field">&nbsp;at 08:40 UTC on 2026-07-26</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>
