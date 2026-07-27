@@ -1,525 +1,1401 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Entry</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Entry</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Entry">Gnome::Gtk4::Entry</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkEntry_as_GtkBuildable">GtkEntry as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-entry">new-entry</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-buffer">new-with-buffer</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-activates-default">get-activates-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-alignment">get-alignment</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-attributes">get-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-buffer">get-buffer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-completion">get-completion</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-icon-drag-source">get-current-icon-drag-source</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-extra-menu">get-extra-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-frame">get-has-frame</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-activatable">get-icon-activatable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-area">get-icon-area</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-at-pos">get-icon-at-pos</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-gicon">get-icon-gicon</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-name">get-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-paintable">get-icon-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-sensitive">get-icon-sensitive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-storage-type">get-icon-storage-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-tooltip-markup">get-icon-tooltip-markup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-tooltip-text">get-icon-tooltip-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-input-hints">get-input-hints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-input-purpose">get-input-purpose</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-invisible-char">get-invisible-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-max-length">get-max-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-overwrite-mode">get-overwrite-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-placeholder-text">get-placeholder-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-progress-fraction">get-progress-fraction</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-progress-pulse-step">get-progress-pulse-step</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tabs">get-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-text-length">get-text-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visibility">get-visibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#grab-focus-without-selecting">grab-focus-without-selecting</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#progress-pulse">progress-pulse</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reset-im-context">reset-im-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-activates-default">set-activates-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-alignment">set-alignment</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-attributes">set-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-buffer">set-buffer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-completion">set-completion</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-extra-menu">set-extra-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-frame">set-has-frame</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-activatable">set-icon-activatable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-drag-source">set-icon-drag-source</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-from-gicon">set-icon-from-gicon</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-from-icon-name">set-icon-from-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-from-paintable">set-icon-from-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-sensitive">set-icon-sensitive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-tooltip-markup">set-icon-tooltip-markup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-tooltip-text">set-icon-tooltip-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-input-hints">set-input-hints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-input-purpose">set-input-purpose</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-invisible-char">set-invisible-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-max-length">set-max-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-overwrite-mode">set-overwrite-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-placeholder-text">set-placeholder-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-progress-fraction">set-progress-fraction</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-progress-pulse-step">set-progress-pulse-step</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tabs">set-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visibility">set-visibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unset-invisible-char">unset-invisible-char</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#icon-press">icon-press</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#icon-release">icon-release</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Entry</strong> is a single line text entry widget.</p><div class="image-container inline"><img src="asset_files/images/entry.png" width="30%" height="auto" alt="No caption"></div>
-<p>A fairly large set of key bindings are supported by default. If the entered text is longer than the allocation of the widget, the widget will scroll so that the cursor position is visible.</p><p>When using an entry for passwords and other sensitive information, it can be put into “password mode” using <a href="#set-visibility">.set-visibility()</a>. In this mode, entered text is displayed using a “invisible” character. By default, GTK picks the best invisible character that is available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>.</p><p><strong>Gnome::Gtk4::Entry</strong> has the ability to display progress or activity information behind the text. To make an entry display such information, use <a href="#set-progress-fraction">.set-progress-fraction()</a> or <a href="#set-progress-pulse-step">.set-progress-pulse-step()</a>.</p><p>Additionally, <strong>Gnome::Gtk4::Entry</strong> can show icons at either side of the entry. These icons can be activatable by clicking, can be set up as drag source and can have tooltips. To add an icon, use <a href="#set-icon-from-gicon">.set-icon-from-gicon()</a> or one of the various other functions that set an icon from an icon name or a paintable. To trigger an action when the user clicks an icon, connect to the <em>icon-press</em> signal. To allow DND operations from an icon, use <a href="#set-icon-drag-source">.set-icon-drag-source()</a>. To set a tooltip on an icon, use <a href="#set-icon-tooltip-text">.set-icon-tooltip-text()</a> or the corresponding function for markup.</p><p>Note that functionality or information that is only available by clicking on an icon in an entry may not be accessible at all to users which are not able to use a mouse or other pointing device. It is therefore recommended that any such functionality should also be available by other means, e.g. via the context menu of the entry.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Entry</strong> has a main node with the name entry. Depending on the properties of the entry, the style classes .read-only and .flat may appear. The style classes .warning and .error may also be used with entries.</p><p>When the entry shows icons, it adds subnodes with the name image and the style class .left or .right, depending on where the icon appears.</p><p>When the entry shows progress, it adds a subnode with the name progress. The node has the style class .pulse when the shown progress is pulsing.</p><p>For all the subnodes added to the text node in various situations, see <a href="/content-docs/api2/reference/Gtk4/Text.html">Gnome::Gtk4::Text</a>.</p>
-<h2 id="GtkEntry_as_GtkBuildable"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">GtkEntry as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::Entry</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports a custom `&lt;attributes&gt;` element, which supports any number of `&lt;attribute&gt;` elements. The `&lt;attribute&gt;` element has attributes named “name“, “value“, “start“ and “end“ and allows you to specify <strong>Gnome::Pango::N-Attribute</strong> values for this label.</p><p>An example of a UI definition fragment specifying Pango attributes:</p><p>The start and end attributes specify the range of characters to which the Pango attribute applies. If start and end are not specified, the attribute is applied to the whole text. Note that specifying ranges does not make much sense with translatable attributes. Use markup embedded in the translatable content instead.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Entry</strong> uses the <code>GTK_ACCESSIBLE_ROLE_TEXT_BOX</code> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Entry.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-entry"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">new-entry</a></h2>
-<p>Creates a new entry.</p><pre class="pod-block-code">method new-entry ( --&gt; Gnome::Gtk4::Entry )
-</pre></section>
-<section name="pod">
-<h2 id="new-with-buffer"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">new-with-buffer</a></h2>
-<p>Creates a new entry with the specified text buffer.</p><pre class="pod-block-code">method new-with-buffer ( N-Object() $buffer --&gt; Gnome::Gtk4::Entry )
-</pre><ul>
-<li><p>$buffer; The buffer to use for the new <strong>Gnome::Gtk4::Entry</strong>..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-activates-default"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-activates-default</a></h2>
-<p>Retrieves the value set by <code>.set-activates-default()</code>.</p><pre class="pod-block-code">method get-activates-default (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the entry will activate the default widget. </p></section>
-<section name="pod">
-<h2 id="get-alignment"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-alignment</a></h2>
-<p>Gets the value set by <code>.set-alignment()</code>.</p><p>See also: <em>xalign defined in Gnome::Gtk4::R-Editable</em></p><pre class="pod-block-code">method get-alignment (--&gt; Num )
-</pre><p>Return value; the alignment. </p></section>
-<section name="pod">
-<h2 id="get-attributes"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-attributes</a></h2>
-<p>Gets the attribute list of the <strong>Gnome::Gtk4::Entry</strong>.</p><p>See <a href="#set-attributes">.set-attributes()</a>.</p><pre class="pod-block-code">method get-attributes (--&gt; N-Object )
-</pre><p>Return value; the attribute list. </p></section>
-<section name="pod">
-<h2 id="get-buffer"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-buffer</a></h2>
-<p>Get the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget.</p><pre class="pod-block-code">method get-buffer (--&gt; N-Object )
-</pre><p>Return value; A <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object.. </p></section>
-<section name="pod">
-<h2 id="get-completion"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-completion</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the auxiliary completion object currently in use by <code>$entry</code>.</p><pre class="pod-block-code">method get-completion (--&gt; N-Object )
-</pre><p>Return value; The auxiliary completion object currently in use by <code>$entry</code>. </p></section>
-<section name="pod">
-<h2 id="get-current-icon-drag-source"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-current-icon-drag-source</a></h2>
-<p>Returns the index of the icon which is the source of the current DND operation, or -1.</p><pre class="pod-block-code">method get-current-icon-drag-source (--&gt; Int )
-</pre><p>Return value; index of the icon which is the source of the current DND operation, or -1.. </p></section>
-<section name="pod">
-<h2 id="get-extra-menu"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-extra-menu</a></h2>
-<p>Gets the menu model set with <code>.set-extra-menu()</code>.</p><pre class="pod-block-code">method get-extra-menu (--&gt; N-Object )
-</pre><p>Return value; the menu model. </p></section>
-<section name="pod">
-<h2 id="get-has-frame"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-has-frame</a></h2>
-<p>Gets the value set by <code>.set-has-frame()</code>.</p><pre class="pod-block-code">method get-has-frame (--&gt; Bool )
-</pre><p>Return value; whether the entry has a beveled frame. </p></section>
-<section name="pod">
-<h2 id="get-icon-activatable"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-activatable</a></h2>
-<p>Returns whether the icon is activatable.</p><pre class="pod-block-code">method get-icon-activatable ( GtkEntryIconPosition $icon-pos --&gt; Bool )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; <code>True</code> if the icon is activatable.. </p></section>
-<section name="pod">
-<h2 id="get-icon-area"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-area</a></h2>
-<p>Gets the area where entry’s icon at <code>$icon-pos</code> is drawn.</p><p>This function is useful when drawing something to the entry in a draw callback.</p><p>If the entry is not realized or has no icon at the given position, <code>$icon-area</code> is filled with zeros. Otherwise, <code>$icon-area</code> will be filled with the icon's allocation, relative to <code>$entry</code>'s allocation.</p><pre class="pod-block-code">method get-icon-area ( GtkEntryIconPosition $icon-pos, N-Object $icon-area )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-<li><p>$icon-area; Return location for the icon’s area</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-icon-at-pos"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-at-pos</a></h2>
-<p>Finds the icon at the given position and return its index.</p><p>The position’s coordinates are relative to the <code>$entry</code>’s top left corner. If <code>$x</code>, <code>$y</code> doesn’t lie inside an icon, -1 is returned. This function is intended for use in a <em>query-tooltip defined in Widget</em> signal handler.</p><pre class="pod-block-code">method get-icon-at-pos ( Int() $x, Int() $y --&gt; Int )
-</pre><ul>
-<li><p>$x; the x coordinate of the position to find, relative to <code>$entry</code>.</p></li>
-<li><p>$y; the y coordinate of the position to find, relative to <code>$entry</code>.</p></li>
-</ul>
-<p>Return value; the index of the icon at the given position, or -1. </p></section>
-<section name="pod">
-<h2 id="get-icon-gicon"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-gicon</a></h2>
-<p>Retrieves the <a href="/content-docs/api2/reference/Gio/R-Icon.html">Gnome::Gio::R-Icon</a> used for the icon.</p><p>undefined will be returned if there is no icon or if the icon was set by some other method (e.g., by <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> or icon name).</p><pre class="pod-block-code">method get-icon-gicon ( GtkEntryIconPosition $icon-pos --&gt; N-Object )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; A <a href="/content-docs/api2/reference/Gio/R-Icon.html">Gnome::Gio::R-Icon</a>. </p></section>
-<section name="pod">
-<h2 id="get-icon-name"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-name</a></h2>
-<p>Retrieves the icon name used for the icon.</p><p>undefined is returned if there is no icon or if the icon was set by some other method (e.g., by <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> or gicon).</p><pre class="pod-block-code">method get-icon-name ( GtkEntryIconPosition $icon-pos --&gt; Str )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; An icon name. </p></section>
-<section name="pod">
-<h2 id="get-icon-paintable"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-paintable</a></h2>
-<p>Retrieves the <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> used for the icon.</p><p>If no <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> was used for the icon, undefined is returned.</p><pre class="pod-block-code">method get-icon-paintable ( GtkEntryIconPosition $icon-pos --&gt; N-Object )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; A <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> if no icon is set for this position or the icon set is not a <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a>.. </p></section>
-<section name="pod">
-<h2 id="get-icon-sensitive"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-sensitive</a></h2>
-<p>Returns whether the icon appears sensitive or insensitive.</p><pre class="pod-block-code">method get-icon-sensitive ( GtkEntryIconPosition $icon-pos --&gt; Bool )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; <code>True</code> if the icon is sensitive.. </p></section>
-<section name="pod">
-<h2 id="get-icon-storage-type"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-storage-type</a></h2>
-<p>Gets the type of representation being used by the icon to store image data.</p><p>If the icon has no image data, the return value will be <code>GTK_IMAGE_EMPTY</code>.</p><pre class="pod-block-code">method get-icon-storage-type ( GtkEntryIconPosition $icon-pos --&gt; GtkImageType )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-</ul>
-<p>Return value; image representation being used. </p></section>
-<section name="pod">
-<h2 id="get-icon-tooltip-markup"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-tooltip-markup</a></h2>
-<p>Gets the contents of the tooltip on the icon at the specified position in <code>$entry</code>.</p><pre class="pod-block-code">method get-icon-tooltip-markup ( GtkEntryIconPosition $icon-pos --&gt; Str )
-</pre><ul>
-<li><p>$icon-pos; the icon position.</p></li>
-</ul>
-<p>Return value; the tooltip text. </p></section>
-<section name="pod">
-<h2 id="get-icon-tooltip-text"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-icon-tooltip-text</a></h2>
-<p>Gets the contents of the tooltip on the icon at the specified position in <code>$entry</code>.</p><pre class="pod-block-code">method get-icon-tooltip-text ( GtkEntryIconPosition $icon-pos --&gt; Str )
-</pre><ul>
-<li><p>$icon-pos; the icon position.</p></li>
-</ul>
-<p>Return value; the tooltip text. </p></section>
-<section name="pod">
-<h2 id="get-input-hints"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-input-hints</a></h2>
-<p>Gets the input hints of this <strong>Gnome::Gtk4::Entry</strong>.</p><pre class="pod-block-code">method get-input-hints (--&gt; UInt )
-</pre><p>Return value; the input hints. </p></section>
-<section name="pod">
-<h2 id="get-input-purpose"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-input-purpose</a></h2>
-<p>Gets the input purpose of the <strong>Gnome::Gtk4::Entry</strong>.</p><pre class="pod-block-code">method get-input-purpose (--&gt; GtkInputPurpose )
-</pre><p>Return value; the input purpose. </p></section>
-<section name="pod">
-<h2 id="get-invisible-char"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-invisible-char</a></h2>
-<p>Retrieves the character displayed in place of the actual text in “password mode”.</p><pre class="pod-block-code">method get-invisible-char (--&gt; UInt )
-</pre><p>Return value; the current invisible char, or 0, if the entry does not show invisible text at all.. </p></section>
-<section name="pod">
-<h2 id="get-max-length"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-max-length</a></h2>
-<p>Retrieves the maximum allowed length of the text in <code>$entry</code>.</p><p>See <a href="#set-max-length">.set-max-length()</a>.</p><pre class="pod-block-code">method get-max-length (--&gt; Int )
-</pre><p>Return value; the maximum allowed number of characters in <strong>Gnome::Gtk4::Entry</strong>, or 0 if there is no maximum.. </p></section>
-<section name="pod">
-<h2 id="get-overwrite-mode"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-overwrite-mode</a></h2>
-<p>Gets whether the <strong>Gnome::Gtk4::Entry</strong> is in overwrite mode.</p><pre class="pod-block-code">method get-overwrite-mode (--&gt; Bool )
-</pre><p>Return value; whether the text is overwritten when typing.. </p></section>
-<section name="pod">
-<h2 id="get-placeholder-text"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-placeholder-text</a></h2>
-<p>Retrieves the text that will be displayed when <code>$entry</code> is empty and unfocused</p><pre class="pod-block-code">method get-placeholder-text (--&gt; Str )
-</pre><p>Return value; a pointer to the placeholder text as a string. This string points to internally allocated storage in the widget and must not be freed, modified or stored. If no placeholder text has been set, undefined will be returned.. </p></section>
-<section name="pod">
-<h2 id="get-progress-fraction"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-progress-fraction</a></h2>
-<p>Returns the current fraction of the task that’s been completed.</p><p>See <a href="#set-progress-fraction">.set-progress-fraction()</a>.</p><pre class="pod-block-code">method get-progress-fraction (--&gt; Num )
-</pre><p>Return value; a fraction from 0.0 to 1.0. </p></section>
-<section name="pod">
-<h2 id="get-progress-pulse-step"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-progress-pulse-step</a></h2>
-<p>Retrieves the pulse step set with <code>.set-progress-pulse-step()</code>.</p><pre class="pod-block-code">method get-progress-pulse-step (--&gt; Num )
-</pre><p>Return value; a fraction from 0.0 to 1.0. </p></section>
-<section name="pod">
-<h2 id="get-tabs"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-tabs</a></h2>
-<p>Gets the tabstops of the <strong>Gnome::Gtk4::Entry</strong>.</p><p>See <a href="#set-tabs">.set-tabs()</a>.</p><pre class="pod-block-code">method get-tabs (--&gt; N-Object )
-</pre><p>Return value; the tabstops. </p></section>
-<section name="pod">
-<h2 id="get-text-length"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-text-length</a></h2>
-<p>Retrieves the current length of the text in <code>$entry</code>.</p><p>This is equivalent to getting <code>$entry</code>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html#get-length">.get-length() in class EntryBuffer</a> on it.</p><pre class="pod-block-code">method get-text-length (--&gt; UInt )
-</pre><p>Return value; the current number of characters in <strong>Gnome::Gtk4::Entry</strong>, or 0 if there are none.. </p></section>
-<section name="pod">
-<h2 id="get-visibility"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">get-visibility</a></h2>
-<p>Retrieves whether the text in <code>$entry</code> is visible.</p><p>See <a href="#set-visibility">.set-visibility()</a>.</p><pre class="pod-block-code">method get-visibility (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the text is currently visible. </p></section>
-<section name="pod">
-<h2 id="grab-focus-without-selecting"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">grab-focus-without-selecting</a></h2>
-<p>Causes <code>$entry</code> to have keyboard focus.</p><p>It behaves like <a href="/content-docs/api2/reference/Gtk4/Widget.html#grab-focus">.grab-focus() in class Widget</a>, except that it doesn't select the contents of the entry. You only want to call this on some special entries which the user usually doesn't want to replace all text in, such as search-as-you-type entries.</p><pre class="pod-block-code">method grab-focus-without-selecting (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if focus is now inside <code>$self</code>. </p></section>
-<section name="pod">
-<h2 id="progress-pulse"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">progress-pulse</a></h2>
-<p>Indicates that some progress is made, but you don’t know how much.</p><p>Causes the entry’s progress indicator to enter “activity mode”, where a block bounces back and forth. Each call to <code>.progress-pulse()</code> causes the block to move by a little bit (the amount of movement per pulse is determined by <a href="#set-progress-pulse-step">.set-progress-pulse-step()</a>).</p><pre class="pod-block-code">method progress-pulse ( )
-</pre></section>
-<section name="pod">
-<h2 id="reset-im-context"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">reset-im-context</a></h2>
-<p>Reset the input method context of the entry if needed.</p><p>This can be necessary in the case where modifying the buffer would confuse on-going input method behavior.</p><pre class="pod-block-code">method reset-im-context ( )
-</pre></section>
-<section name="pod">
-<h2 id="set-activates-default"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-activates-default</a></h2>
-<p>Sets whether pressing Enter in the <code>$entry</code> will activate the default widget for the window containing the entry.</p><p>This usually means that the dialog containing the entry will be closed, since the default widget is usually one of the dialog buttons.</p><pre class="pod-block-code">method set-activates-default ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; <code>True</code> to activate window’s default widget on Enter keypress.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-alignment"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-alignment</a></h2>
-<p>Sets the alignment for the contents of the entry.</p><p>This controls the horizontal positioning of the contents when the displayed text is shorter than the width of the entry.</p><p>See also: <em>xalign defined in Gnome::Gtk4::R-Editable</em></p><pre class="pod-block-code">method set-alignment ( Num() $xalign )
-</pre><ul>
-<li><p>$xalign; The horizontal alignment, from 0 (left) to 1 (right). Reversed for RTL layouts.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-attributes"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-attributes</a></h2>
-<p>Sets a <strong>Gnome::Pango::N-AttrList</strong>.</p><p>The attributes in the list are applied to the entry text.</p><p>Since the attributes will be applied to text that changes as the user types, it makes most sense to use attributes with unlimited extent.</p><pre class="pod-block-code">method set-attributes ( N-Object $attrs )
-</pre><ul>
-<li><p>$attrs; a <strong>Gnome::Pango::N-AttrList</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-buffer"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-buffer</a></h2>
-<p>Set the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget.</p><pre class="pod-block-code">method set-buffer ( N-Object() $buffer )
-</pre><ul>
-<li><p>$buffer; a <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-completion"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-completion</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$completion</code> to be the auxiliary completion object to use with <code>$entry</code>.</p><p>All further configuration of the completion mechanism is done on <code>$completion</code> using the <a href="/content-docs/api2/reference/Gtk4/EntryCompletion.html">Gnome::Gtk4::EntryCompletion</a> API. Completion is disabled if <code>$completion</code> is set to undefined.</p><pre class="pod-block-code">method set-completion ( N-Object() $completion )
-</pre><ul>
-<li><p>$completion; The <a href="/content-docs/api2/reference/Gtk4/EntryCompletion.html">Gnome::Gtk4::EntryCompletion</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-extra-menu"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-extra-menu</a></h2>
-<p>Sets a menu model to add when constructing the context menu for <code>$entry</code>.</p><pre class="pod-block-code">method set-extra-menu ( N-Object() $model )
-</pre><ul>
-<li><p>$model; a <a href="/content-docs/api2/reference/Gio/MenuModel.html">Gnome::Gio::MenuModel</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-has-frame"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-has-frame</a></h2>
-<p>Sets whether the entry has a beveled frame around it.</p><pre class="pod-block-code">method set-has-frame ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-activatable"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-activatable</a></h2>
-<p>Sets whether the icon is activatable.</p><pre class="pod-block-code">method set-icon-activatable ( GtkEntryIconPosition $icon-pos, Bool() $activatable )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-<li><p>$activatable; <code>True</code> if the icon should be activatable.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-drag-source"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-drag-source</a></h2>
-<p>Sets up the icon at the given position as drag source.</p><p>This makes it so that GTK will start a drag operation when the user clicks and drags the icon.</p><pre class="pod-block-code">method set-icon-drag-source ( GtkEntryIconPosition $icon-pos, N-Object() $provider, UInt $actions )
-</pre><ul>
-<li><p>$icon-pos; icon position.</p></li>
-<li><p>$provider; a <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a>.</p></li>
-<li><p>$actions; a bitmask of the allowed drag actions.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-from-gicon"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-from-gicon</a></h2>
-<p>Sets the icon shown in the entry at the specified position from the current icon theme.</p><p>If the icon isn’t known, a “broken image” icon will be displayed instead.</p><p>If <code>$icon</code> is undefined, no icon will be shown in the specified position.</p><pre class="pod-block-code">method set-icon-from-gicon ( GtkEntryIconPosition $icon-pos, N-Object() $icon )
-</pre><ul>
-<li><p>$icon-pos; The position at which to set the icon.</p></li>
-<li><p>$icon; The icon to set.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-from-icon-name"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-from-icon-name</a></h2>
-<p>Sets the icon shown in the entry at the specified position from the current icon theme.</p><p>If the icon name isn’t known, a “broken image” icon will be displayed instead.</p><p>If <code>$icon-name</code> is undefined, no icon will be shown in the specified position.</p><pre class="pod-block-code">method set-icon-from-icon-name ( GtkEntryIconPosition $icon-pos, Str $icon-name )
-</pre><ul>
-<li><p>$icon-pos; The position at which to set the icon.</p></li>
-<li><p>$icon-name; An icon name.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-from-paintable"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-from-paintable</a></h2>
-<p>Sets the icon shown in the specified position using a <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a>.</p><p>If <code>$paintable</code> is undefined, no icon will be shown in the specified position.</p><pre class="pod-block-code">method set-icon-from-paintable ( GtkEntryIconPosition $icon-pos, N-Object() $paintable )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-<li><p>$paintable; A <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-sensitive"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-sensitive</a></h2>
-<p>Sets the sensitivity for the specified icon.</p><pre class="pod-block-code">method set-icon-sensitive ( GtkEntryIconPosition $icon-pos, Bool() $sensitive )
-</pre><ul>
-<li><p>$icon-pos; Icon position.</p></li>
-<li><p>$sensitive; Specifies whether the icon should appear sensitive or insensitive.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-tooltip-markup"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-tooltip-markup</a></h2>
-<p>Sets <code>$tooltip</code> as the contents of the tooltip for the icon at the specified position. <code>$tooltip</code> is assumed to be marked up with Pango Markup.</p><p>Use undefined for <code>$tooltip</code> to remove an existing tooltip.</p><p>See also <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-tooltip-markup">.set-tooltip-markup() in class Widget</a> and <a href="#set-icon-tooltip-text">.set-icon-tooltip-text()</a>.</p><pre class="pod-block-code">method set-icon-tooltip-markup ( GtkEntryIconPosition $icon-pos, Str $tooltip )
-</pre><ul>
-<li><p>$icon-pos; the icon position.</p></li>
-<li><p>$tooltip; the contents of the tooltip for the icon.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-tooltip-text"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-icon-tooltip-text</a></h2>
-<p>Sets <code>$tooltip</code> as the contents of the tooltip for the icon at the specified position.</p><p>Use undefined for <code>$tooltip</code> to remove an existing tooltip.</p><p>See also <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-tooltip-text">.set-tooltip-text() in class Widget</a> and <a href="#set-icon-tooltip-markup">.set-icon-tooltip-markup()</a>.</p><p>If you unset the widget tooltip via <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-tooltip-text">.set-tooltip-text() in class Widget</a> or <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-tooltip-markup">.set-tooltip-markup() in class Widget</a>, this sets <em>has-tooltip defined in Gnome::Gtk4::Widget</em> to <code>False</code>, which suppresses icon tooltips too. You can resolve this by then calling <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-has-tooltip">.set-has-tooltip() in class Widget</a> to set <em>has-tooltip defined in Gnome::Gtk4::Widget</em> back to <code>True</code>, or setting at least one non-empty tooltip on any icon achieves the same result.</p><pre class="pod-block-code">method set-icon-tooltip-text ( GtkEntryIconPosition $icon-pos, Str $tooltip )
-</pre><ul>
-<li><p>$icon-pos; the icon position.</p></li>
-<li><p>$tooltip; the contents of the tooltip for the icon.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-input-hints"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-input-hints</a></h2>
-<p>Set additional hints which allow input methods to fine-tune their behavior.</p><pre class="pod-block-code">method set-input-hints ( UInt $hints )
-</pre><ul>
-<li><p>$hints; the hints.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-input-purpose"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-input-purpose</a></h2>
-<p>Sets the input purpose which can be used by input methods to adjust their behavior.</p><pre class="pod-block-code">method set-input-purpose ( GtkInputPurpose $purpose )
-</pre><ul>
-<li><p>$purpose; the purpose.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-invisible-char"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-invisible-char</a></h2>
-<p>Sets the character to use in place of the actual text in “password mode”.</p><p>See <a href="#set-visibility">.set-visibility()</a> for how to enable “password mode”.</p><p>By default, GTK picks the best invisible char available in the current font. If you set the invisible char to 0, then the user will get no feedback at all; there will be no text on the screen as they type.</p><pre class="pod-block-code">method set-invisible-char ( UInt() $ch )
-</pre><ul>
-<li><p>$ch; a Unicode character.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-max-length"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-max-length</a></h2>
-<p>Sets the maximum allowed length of the contents of the widget.</p><p>If the current contents are longer than the given length, then they will be truncated to fit. The length is in characters.</p><p>This is equivalent to getting <code>$entry</code>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html#set-max-length">.set-max-length() in class EntryBuffer</a> on it.</p><pre class="pod-block-code">method set-max-length ( Int() $max )
-</pre><ul>
-<li><p>$max; the maximum length of the entry, or 0 for no maximum. (other than the maximum length of entries.) The value passed in will be clamped to the range 0-65536..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-overwrite-mode"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-overwrite-mode</a></h2>
-<p>Sets whether the text is overwritten when typing in the <strong>Gnome::Gtk4::Entry</strong>.</p><pre class="pod-block-code">method set-overwrite-mode ( Bool() $overwrite )
-</pre><ul>
-<li><p>$overwrite; new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-placeholder-text"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-placeholder-text</a></h2>
-<p>Sets text to be displayed in <code>$entry</code> when it is empty.</p><p>This can be used to give a visual hint of the expected contents of the <strong>Gnome::Gtk4::Entry</strong>.</p><pre class="pod-block-code">method set-placeholder-text ( Str $text )
-</pre><ul>
-<li><p>$text; a string to be displayed when <code>$entry</code> is empty and unfocused.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-progress-fraction"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-progress-fraction</a></h2>
-<p>Causes the entry’s progress indicator to “fill in” the given fraction of the bar.</p><p>The fraction should be between 0.0 and 1.0, inclusive.</p><pre class="pod-block-code">method set-progress-fraction ( Num() $fraction )
-</pre><ul>
-<li><p>$fraction; fraction of the task that’s been completed.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-progress-pulse-step"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-progress-pulse-step</a></h2>
-<p>Sets the fraction of total entry width to move the progress bouncing block for each pulse.</p><p>Use <a href="#progress-pulse">.progress-pulse()</a> to pulse the progress.</p><pre class="pod-block-code">method set-progress-pulse-step ( Num() $fraction )
-</pre><ul>
-<li><p>$fraction; fraction between 0.0 and 1.0.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tabs"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-tabs</a></h2>
-<p>Sets a <strong>Gnome::Pango::N-TabArray</strong>.</p><p>The tabstops in the array are applied to the entry text.</p><pre class="pod-block-code">method set-tabs ( N-Object $tabs )
-</pre><ul>
-<li><p>$tabs; a <strong>Gnome::Pango::N-TabArray</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-visibility"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">set-visibility</a></h2>
-<p>Sets whether the contents of the entry are visible or not.</p><p>When visibility is set to <code>False</code>, characters are displayed as the invisible char, and will also appear that way when the text in the entry widget is copied elsewhere.</p><p>By default, GTK picks the best invisible character available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>.</p><p>Note that you probably want to set <em>input-purpose</em> to <code>GTK_INPUT_PURPOSE_PASSWORD</code> or <code>GTK_INPUT_PURPOSE_PIN</code> to inform input methods about the purpose of this entry, in addition to setting visibility to <code>False</code>.</p><pre class="pod-block-code">method set-visibility ( Bool() $visible )
-</pre><ul>
-<li><p>$visible; <code>True</code> if the contents of the entry are displayed as plaintext.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unset-invisible-char"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">unset-invisible-char</a></h2>
-<p>Unsets the invisible char, so that the default invisible char is used again. See <a href="#set-invisible-char">.set-invisible-char()</a>.</p><pre class="pod-block-code">method unset-invisible-char ( )
-</pre></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">activate</a></h3>
-<p>Emitted when the entry is activated.</p><p>The keybindings for this signal are all forms of the Enter key.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Entry"></div><h1 class="title">Gnome::Gtk4::Entry</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkEntry_as_GtkBuildable">GtkEntry as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-entry">new-entry</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-buffer">new-with-buffer</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-activates-default">get-activates-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-alignment">get-alignment</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-attributes">get-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-buffer">get-buffer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-completion">get-completion</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-icon-drag-source">get-current-icon-drag-source</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-extra-menu">get-extra-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-has-frame">get-has-frame</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-activatable">get-icon-activatable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-area">get-icon-area</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-at-pos">get-icon-at-pos</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-gicon">get-icon-gicon</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-name">get-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-paintable">get-icon-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-sensitive">get-icon-sensitive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-storage-type">get-icon-storage-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-tooltip-markup">get-icon-tooltip-markup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-tooltip-text">get-icon-tooltip-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-input-hints">get-input-hints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-input-purpose">get-input-purpose</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-invisible-char">get-invisible-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-max-length">get-max-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-overwrite-mode">get-overwrite-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-placeholder-text">get-placeholder-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-progress-fraction">get-progress-fraction</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-progress-pulse-step">get-progress-pulse-step</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tabs">get-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-text-length">get-text-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visibility">get-visibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#grab-focus-without-selecting">grab-focus-without-selecting</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#progress-pulse">progress-pulse</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reset-im-context">reset-im-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-activates-default">set-activates-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-alignment">set-alignment</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-attributes">set-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-buffer">set-buffer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-completion">set-completion</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-extra-menu">set-extra-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-has-frame">set-has-frame</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-activatable">set-icon-activatable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-drag-source">set-icon-drag-source</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-from-gicon">set-icon-from-gicon</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-from-icon-name">set-icon-from-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-from-paintable">set-icon-from-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-sensitive">set-icon-sensitive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-tooltip-markup">set-icon-tooltip-markup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-tooltip-text">set-icon-tooltip-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-input-hints">set-input-hints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-input-purpose">set-input-purpose</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-invisible-char">set-invisible-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-max-length">set-max-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-overwrite-mode">set-overwrite-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-placeholder-text">set-placeholder-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-progress-fraction">set-progress-fraction</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-progress-pulse-step">set-progress-pulse-step</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tabs">set-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visibility">set-visibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unset-invisible-char">unset-invisible-char</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate">activate</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#icon-press">icon-press</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#icon-release">icon-release</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Entry</span> is a single line text entry widget. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/entry.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p id="Para">A fairly large set of key bindings are supported by default. If the entered text is longer than the allocation of the widget, the widget will scroll so that the cursor position is visible.</p>
+
+<p>When using an entry for passwords and other sensitive information, it can be put into “password mode” using <a href="#set-visibility">.set-visibility()</a>. In this mode, entered text is displayed using a “invisible” character. By default, GTK picks the best invisible character that is available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+
+<p><span class="basis">Gnome::Gtk4::Entry</span> has the ability to display progress or activity information behind the text. To make an entry display such information, use <a href="#set-progress-fraction">.set-progress-fraction()</a> or <a href="#set-progress-pulse-step">.set-progress-pulse-step()</a>. </p>
+
+<p>Additionally, <span class="basis">Gnome::Gtk4::Entry</span> can show icons at either side of the entry. These icons can be activatable by clicking, can be set up as drag source and can have tooltips. To add an icon, use <a href="#set-icon-from-gicon">.set-icon-from-gicon()</a> or one of the various other functions that set an icon from an icon name or a paintable. To trigger an action when the user clicks an icon, connect to the <span class="important">icon-press</span> signal. To allow DND operations from an icon, use <a href="#set-icon-drag-source">.set-icon-drag-source()</a>. To set a tooltip on an icon, use <a href="#set-icon-tooltip-text">.set-icon-tooltip-text()</a> or the corresponding function for markup. </p>
+
+<p id="Para_0">Note that functionality or information that is only available by clicking on an icon in an entry may not be accessible at all to users which are not able to use a mouse or other pointing device. It is therefore recommended that any such functionality should also be available by other means, e.g. via the context menu of the entry.</p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Entry</span> has a main node with the name entry. Depending on the properties of the entry, the style classes .read-only and .flat may appear. The style classes .warning and .error may also be used with entries. </p>
+
+<p id="Para_1">When the entry shows icons, it adds subnodes with the name image and the style class .left or .right, depending on where the icon appears.</p>
+
+<p id="Para_2">When the entry shows progress, it adds a subnode with the name progress. The node has the style class .pulse when the shown progress is pulsing.</p>
+
+<p>For all the subnodes added to the text node in various situations, see <a href="/content-docs/api2/reference/Gtk4/Text">Gnome::Gtk4::Text</a>. </p>
+
+<div class="id-target" id="GtkEntry as GtkBuildable"></div><h2 id="GtkEntry_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkEntry as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkEntry as GtkBuildable">§</a></h2>
+
+<p>The <span class="basis">Gnome::Gtk4::Entry</span> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable">Gnome::Gtk4::R-Buildable</a> interface supports a custom `&lt;attributes&gt;` element, which supports any number of `&lt;attribute&gt;` elements. The `&lt;attribute&gt;` element has attributes named “name“, “value“, “start“ and “end“ and allows you to specify <span class="basis">Gnome::Pango::N-Attribute</span> values for this label. </p>
+
+<p id="Para_3">An example of a UI definition fragment specifying Pango attributes:</p>
+
+<p id="Para_4">The start and end attributes specify the range of characters to which the Pango attribute applies. If start and end are not specified, the attribute is applied to the whole text. Note that specifying ranges does not make much sense with translatable attributes. Use markup embedded in the translatable content instead.</p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Entry</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_TEXT_BOX</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Entry.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-entry" class="heading "><a href="#" title="go to top of document">new-entry</a><a class="raku-anchor" title="direct link" href="#new-entry">§</a></h2>
+
+<p id="Para_5">Creates a new entry.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-entry ( --&gt; Gnome::Gtk4::Entry )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-with-buffer" class="heading "><a href="#" title="go to top of document">new-with-buffer</a><a class="raku-anchor" title="direct link" href="#new-with-buffer">§</a></h2>
+
+<p id="Para_6">Creates a new entry with the specified text buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-buffer ( N-Object() $buffer --&gt; Gnome::Gtk4::Entry )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$buffer; The buffer to use for the new <span class="basis">Gnome::Gtk4::Entry</span>..</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-activates-default" class="heading "><a href="#" title="go to top of document">get-activates-default</a><a class="raku-anchor" title="direct link" href="#get-activates-default">§</a></h2>
+
+<p>Retrieves the value set by <span class="code">.set-activates-default()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-activates-default (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the entry will activate the default widget. </p>
+<h2 id="get-alignment" class="heading "><a href="#" title="go to top of document">get-alignment</a><a class="raku-anchor" title="direct link" href="#get-alignment">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-alignment()</span>. </p>
+
+<p>See also: <span class="important">xalign defined in Gnome::Gtk4::R-Editable</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-alignment (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the alignment.</p>
+<h2 id="get-attributes" class="heading "><a href="#" title="go to top of document">get-attributes</a><a class="raku-anchor" title="direct link" href="#get-attributes">§</a></h2>
+
+<p>Gets the attribute list of the <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+
+<p>See <a href="#set-attributes">.set-attributes()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-attributes (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; the attribute list.</p>
+<h2 id="get-buffer" class="heading "><a href="#" title="go to top of document">get-buffer</a><a class="raku-anchor" title="direct link" href="#get-buffer">§</a></h2>
+
+<p>Get the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-buffer (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; A <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object.. </p>
+<h2 id="get-completion" class="heading "><a href="#" title="go to top of document">get-completion</a><a class="raku-anchor" title="direct link" href="#get-completion">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the auxiliary completion object currently in use by <span class="code">$entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-completion (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The auxiliary completion object currently in use by <span class="code">$entry</span>. </p>
+<h2 id="get-current-icon-drag-source" class="heading "><a href="#" title="go to top of document">get-current-icon-drag-source</a><a class="raku-anchor" title="direct link" href="#get-current-icon-drag-source">§</a></h2>
+
+<p id="Para_9">Returns the index of the icon which is the source of the current DND operation, or -1.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-icon-drag-source (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_10">Return value; index of the icon which is the source of the current DND operation, or -1..</p>
+<h2 id="get-extra-menu" class="heading "><a href="#" title="go to top of document">get-extra-menu</a><a class="raku-anchor" title="direct link" href="#get-extra-menu">§</a></h2>
+
+<p>Gets the menu model set with <span class="code">.set-extra-menu()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-extra-menu (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; the menu model.</p>
+<h2 id="get-has-frame" class="heading "><a href="#" title="go to top of document">get-has-frame</a><a class="raku-anchor" title="direct link" href="#get-has-frame">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-has-frame()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-has-frame (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; whether the entry has a beveled frame.</p>
+<h2 id="get-icon-activatable" class="heading "><a href="#" title="go to top of document">get-icon-activatable</a><a class="raku-anchor" title="direct link" href="#get-icon-activatable">§</a></h2>
+
+<p id="Para_13">Returns whether the icon is activatable.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-activatable ( GtkEntryIconPosition $icon-pos --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the icon is activatable.. </p>
+<h2 id="get-icon-area" class="heading "><a href="#" title="go to top of document">get-icon-area</a><a class="raku-anchor" title="direct link" href="#get-icon-area">§</a></h2>
+
+<p>Gets the area where entry’s icon at <span class="code">$icon-pos</span> is drawn. </p>
+
+<p id="Para_14">This function is useful when drawing something to the entry in a draw callback.</p>
+
+<p>If the entry is not realized or has no icon at the given position, <span class="code">$icon-area</span> is filled with zeros. Otherwise, <span class="code">$icon-area</span> will be filled with the icon's allocation, relative to <span class="code">$entry</span>'s allocation. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-area ( GtkEntryIconPosition $icon-pos, N-Object $icon-area )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$icon-area; Return location for the icon’s area</li>
+</ul>
+<h2 id="get-icon-at-pos" class="heading "><a href="#" title="go to top of document">get-icon-at-pos</a><a class="raku-anchor" title="direct link" href="#get-icon-at-pos">§</a></h2>
+
+<p id="Para_15">Finds the icon at the given position and return its index.</p>
+
+<p>The position’s coordinates are relative to the <span class="code">$entry</span>’s top left corner. If <span class="code">$x</span>, <span class="code">$y</span> doesn’t lie inside an icon, -1 is returned. This function is intended for use in a <span class="important">query-tooltip defined in Widget</span> signal handler. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-at-pos ( Int() $x, Int() $y --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x; the x coordinate of the position to find, relative to <span class="code">$entry</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the y coordinate of the position to find, relative to <span class="code">$entry</span>.</li>
+</ul>
+
+<p id="Para_16">Return value; the index of the icon at the given position, or -1.</p>
+<h2 id="get-icon-gicon" class="heading "><a href="#" title="go to top of document">get-icon-gicon</a><a class="raku-anchor" title="direct link" href="#get-icon-gicon">§</a></h2>
+
+<p>Retrieves the <a href="/content-docs/api2/reference/Gio/R-Icon">Gnome::Gio::R-Icon</a> used for the icon. </p>
+
+<p>undefined will be returned if there is no icon or if the icon was set by some other method (e.g., by <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> or icon name). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-gicon ( GtkEntryIconPosition $icon-pos --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p>Return value; A <a href="/content-docs/api2/reference/Gio/R-Icon">Gnome::Gio::R-Icon</a>. </p>
+<h2 id="get-icon-name" class="heading "><a href="#" title="go to top of document">get-icon-name</a><a class="raku-anchor" title="direct link" href="#get-icon-name">§</a></h2>
+
+<p id="Para_17">Retrieves the icon name used for the icon.</p>
+
+<p>undefined is returned if there is no icon or if the icon was set by some other method (e.g., by <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> or gicon). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-name ( GtkEntryIconPosition $icon-pos --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p id="Para_18">Return value; An icon name.</p>
+<h2 id="get-icon-paintable" class="heading "><a href="#" title="go to top of document">get-icon-paintable</a><a class="raku-anchor" title="direct link" href="#get-icon-paintable">§</a></h2>
+
+<p>Retrieves the <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> used for the icon. </p>
+
+<p>If no <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> was used for the icon, undefined is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-paintable ( GtkEntryIconPosition $icon-pos --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p>Return value; A <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> if no icon is set for this position or the icon set is not a <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a>.. </p>
+<h2 id="get-icon-sensitive" class="heading "><a href="#" title="go to top of document">get-icon-sensitive</a><a class="raku-anchor" title="direct link" href="#get-icon-sensitive">§</a></h2>
+
+<p id="Para_19">Returns whether the icon appears sensitive or insensitive.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-sensitive ( GtkEntryIconPosition $icon-pos --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the icon is sensitive.. </p>
+<h2 id="get-icon-storage-type" class="heading "><a href="#" title="go to top of document">get-icon-storage-type</a><a class="raku-anchor" title="direct link" href="#get-icon-storage-type">§</a></h2>
+
+<p id="Para_20">Gets the type of representation being used by the icon to store image data.</p>
+
+<p>If the icon has no image data, the return value will be <span class="code">GTK_IMAGE_EMPTY</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-storage-type ( GtkEntryIconPosition $icon-pos --&gt; GtkImageType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+</ul>
+
+<p id="Para_21">Return value; image representation being used.</p>
+<h2 id="get-icon-tooltip-markup" class="heading "><a href="#" title="go to top of document">get-icon-tooltip-markup</a><a class="raku-anchor" title="direct link" href="#get-icon-tooltip-markup">§</a></h2>
+
+<p>Gets the contents of the tooltip on the icon at the specified position in <span class="code">$entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-tooltip-markup ( GtkEntryIconPosition $icon-pos --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; the icon position.</li>
+</ul>
+
+<p id="Para_22">Return value; the tooltip text.</p>
+<h2 id="get-icon-tooltip-text" class="heading "><a href="#" title="go to top of document">get-icon-tooltip-text</a><a class="raku-anchor" title="direct link" href="#get-icon-tooltip-text">§</a></h2>
+
+<p>Gets the contents of the tooltip on the icon at the specified position in <span class="code">$entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-tooltip-text ( GtkEntryIconPosition $icon-pos --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; the icon position.</li>
+</ul>
+
+<p id="Para_23">Return value; the tooltip text.</p>
+<h2 id="get-input-hints" class="heading "><a href="#" title="go to top of document">get-input-hints</a><a class="raku-anchor" title="direct link" href="#get-input-hints">§</a></h2>
+
+<p>Gets the input hints of this <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-input-hints (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_24">Return value; the input hints.</p>
+<h2 id="get-input-purpose" class="heading "><a href="#" title="go to top of document">get-input-purpose</a><a class="raku-anchor" title="direct link" href="#get-input-purpose">§</a></h2>
+
+<p>Gets the input purpose of the <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-input-purpose (--&gt; GtkInputPurpose )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_25">Return value; the input purpose.</p>
+<h2 id="get-invisible-char" class="heading "><a href="#" title="go to top of document">get-invisible-char</a><a class="raku-anchor" title="direct link" href="#get-invisible-char">§</a></h2>
+
+<p id="Para_26">Retrieves the character displayed in place of the actual text in “password mode”.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-invisible-char (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_27">Return value; the current invisible char, or 0, if the entry does not show invisible text at all..</p>
+<h2 id="get-max-length" class="heading "><a href="#" title="go to top of document">get-max-length</a><a class="raku-anchor" title="direct link" href="#get-max-length">§</a></h2>
+
+<p>Retrieves the maximum allowed length of the text in <span class="code">$entry</span>. </p>
+
+<p>See <a href="#set-max-length">.set-max-length()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-max-length (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the maximum allowed number of characters in <span class="basis">Gnome::Gtk4::Entry</span>, or 0 if there is no maximum.. </p>
+<h2 id="get-overwrite-mode" class="heading "><a href="#" title="go to top of document">get-overwrite-mode</a><a class="raku-anchor" title="direct link" href="#get-overwrite-mode">§</a></h2>
+
+<p>Gets whether the <span class="basis">Gnome::Gtk4::Entry</span> is in overwrite mode. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-overwrite-mode (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_28">Return value; whether the text is overwritten when typing..</p>
+<h2 id="get-placeholder-text" class="heading "><a href="#" title="go to top of document">get-placeholder-text</a><a class="raku-anchor" title="direct link" href="#get-placeholder-text">§</a></h2>
+
+<p>Retrieves the text that will be displayed when <span class="code">$entry</span> is empty and unfocused </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-placeholder-text (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_29">Return value; a pointer to the placeholder text as a string. This string points to internally allocated storage in the widget and must not be freed, modified or stored. If no placeholder text has been set, undefined will be returned..</p>
+<h2 id="get-progress-fraction" class="heading "><a href="#" title="go to top of document">get-progress-fraction</a><a class="raku-anchor" title="direct link" href="#get-progress-fraction">§</a></h2>
+
+<p id="Para_30">Returns the current fraction of the task that’s been completed.</p>
+
+<p>See <a href="#set-progress-fraction">.set-progress-fraction()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-progress-fraction (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_31">Return value; a fraction from 0.0 to 1.0.</p>
+<h2 id="get-progress-pulse-step" class="heading "><a href="#" title="go to top of document">get-progress-pulse-step</a><a class="raku-anchor" title="direct link" href="#get-progress-pulse-step">§</a></h2>
+
+<p>Retrieves the pulse step set with <span class="code">.set-progress-pulse-step()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-progress-pulse-step (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_32">Return value; a fraction from 0.0 to 1.0.</p>
+<h2 id="get-tabs" class="heading "><a href="#" title="go to top of document">get-tabs</a><a class="raku-anchor" title="direct link" href="#get-tabs">§</a></h2>
+
+<p>Gets the tabstops of the <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+
+<p>See <a href="#set-tabs">.set-tabs()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tabs (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_33">Return value; the tabstops.</p>
+<h2 id="get-text-length" class="heading "><a href="#" title="go to top of document">get-text-length</a><a class="raku-anchor" title="direct link" href="#get-text-length">§</a></h2>
+
+<p>Retrieves the current length of the text in <span class="code">$entry</span>. </p>
+
+<p>This is equivalent to getting <span class="code">$entry</span>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/EntryBuffer#get-length">.get-length() in class EntryBuffer</a> on it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-text-length (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the current number of characters in <span class="basis">Gnome::Gtk4::Entry</span>, or 0 if there are none.. </p>
+<h2 id="get-visibility" class="heading "><a href="#" title="go to top of document">get-visibility</a><a class="raku-anchor" title="direct link" href="#get-visibility">§</a></h2>
+
+<p>Retrieves whether the text in <span class="code">$entry</span> is visible. </p>
+
+<p>See <a href="#set-visibility">.set-visibility()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visibility (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the text is currently visible. </p>
+<h2 id="grab-focus-without-selecting" class="heading "><a href="#" title="go to top of document">grab-focus-without-selecting</a><a class="raku-anchor" title="direct link" href="#grab-focus-without-selecting">§</a></h2>
+
+<p>Causes <span class="code">$entry</span> to have keyboard focus. </p>
+
+<p>It behaves like <a href="/content-docs/api2/reference/Gtk4/Widget#grab-focus">.grab-focus() in class Widget</a>, except that it doesn't select the contents of the entry. You only want to call this on some special entries which the user usually doesn't want to replace all text in, such as search-as-you-type entries. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method grab-focus-without-selecting (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if focus is now inside <span class="code">$self</span>. </p>
+<h2 id="progress-pulse" class="heading "><a href="#" title="go to top of document">progress-pulse</a><a class="raku-anchor" title="direct link" href="#progress-pulse">§</a></h2>
+
+<p id="Para_34">Indicates that some progress is made, but you don’t know how much.</p>
+
+<p>Causes the entry’s progress indicator to enter “activity mode”, where a block bounces back and forth. Each call to <span class="code">.progress-pulse()</span> causes the block to move by a little bit (the amount of movement per pulse is determined by <a href="#set-progress-pulse-step">.set-progress-pulse-step()</a>). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method progress-pulse ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="reset-im-context" class="heading "><a href="#" title="go to top of document">reset-im-context</a><a class="raku-anchor" title="direct link" href="#reset-im-context">§</a></h2>
+
+<p id="Para_35">Reset the input method context of the entry if needed.</p>
+
+<p id="Para_36">This can be necessary in the case where modifying the buffer would confuse on-going input method behavior.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reset-im-context ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="set-activates-default" class="heading "><a href="#" title="go to top of document">set-activates-default</a><a class="raku-anchor" title="direct link" href="#set-activates-default">§</a></h2>
+
+<p>Sets whether pressing Enter in the <span class="code">$entry</span> will activate the default widget for the window containing the entry. </p>
+
+<p id="Para_37">This usually means that the dialog containing the entry will be closed, since the default widget is usually one of the dialog buttons.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-activates-default ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> to activate window’s default widget on Enter keypress.</li>
+</ul>
+<h2 id="set-alignment" class="heading "><a href="#" title="go to top of document">set-alignment</a><a class="raku-anchor" title="direct link" href="#set-alignment">§</a></h2>
+
+<p id="Para_38">Sets the alignment for the contents of the entry.</p>
+
+<p id="Para_39">This controls the horizontal positioning of the contents when the displayed text is shorter than the width of the entry.</p>
+
+<p>See also: <span class="important">xalign defined in Gnome::Gtk4::R-Editable</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-alignment ( Num() $xalign )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$xalign; The horizontal alignment, from 0 (left) to 1 (right). Reversed for RTL layouts.</li>
+</ul>
+<h2 id="set-attributes" class="heading "><a href="#" title="go to top of document">set-attributes</a><a class="raku-anchor" title="direct link" href="#set-attributes">§</a></h2>
+
+<p>Sets a <span class="basis">Gnome::Pango::N-AttrList</span>. </p>
+
+<p id="Para_40">The attributes in the list are applied to the entry text.</p>
+
+<p id="Para_41">Since the attributes will be applied to text that changes as the user types, it makes most sense to use attributes with unlimited extent.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-attributes ( N-Object $attrs )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$attrs; a <span class="basis">Gnome::Pango::N-AttrList</span></li>
+</ul>
+<h2 id="set-buffer" class="heading "><a href="#" title="go to top of document">set-buffer</a><a class="raku-anchor" title="direct link" href="#set-buffer">§</a></h2>
+
+<p>Set the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-buffer ( N-Object() $buffer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$buffer; a <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a>.</li>
+</ul>
+<h2 id="set-completion" class="heading "><a href="#" title="go to top of document">set-completion</a><a class="raku-anchor" title="direct link" href="#set-completion">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$completion</span> to be the auxiliary completion object to use with <span class="code">$entry</span>. </p>
+
+<p>All further configuration of the completion mechanism is done on <span class="code">$completion</span> using the <a href="/content-docs/api2/reference/Gtk4/EntryCompletion">Gnome::Gtk4::EntryCompletion</a> API. Completion is disabled if <span class="code">$completion</span> is set to undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-completion ( N-Object() $completion )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$completion; The <a href="/content-docs/api2/reference/Gtk4/EntryCompletion">Gnome::Gtk4::EntryCompletion</a>.</li>
+</ul>
+<h2 id="set-extra-menu" class="heading "><a href="#" title="go to top of document">set-extra-menu</a><a class="raku-anchor" title="direct link" href="#set-extra-menu">§</a></h2>
+
+<p>Sets a menu model to add when constructing the context menu for <span class="code">$entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-extra-menu ( N-Object() $model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; a <a href="/content-docs/api2/reference/Gio/MenuModel">Gnome::Gio::MenuModel</a>.</li>
+</ul>
+<h2 id="set-has-frame" class="heading "><a href="#" title="go to top of document">set-has-frame</a><a class="raku-anchor" title="direct link" href="#set-has-frame">§</a></h2>
+
+<p id="Para_42">Sets whether the entry has a beveled frame around it.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-has-frame ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; new value.</li>
+</ul>
+<h2 id="set-icon-activatable" class="heading "><a href="#" title="go to top of document">set-icon-activatable</a><a class="raku-anchor" title="direct link" href="#set-icon-activatable">§</a></h2>
+
+<p id="Para_43">Sets whether the icon is activatable.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-activatable ( GtkEntryIconPosition $icon-pos, Bool() $activatable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$activatable; <span class="code">True</span> if the icon should be activatable.</li>
+</ul>
+<h2 id="set-icon-drag-source" class="heading "><a href="#" title="go to top of document">set-icon-drag-source</a><a class="raku-anchor" title="direct link" href="#set-icon-drag-source">§</a></h2>
+
+<p id="Para_44">Sets up the icon at the given position as drag source.</p>
+
+<p id="Para_45">This makes it so that GTK will start a drag operation when the user clicks and drags the icon.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-drag-source ( GtkEntryIconPosition $icon-pos, N-Object() $provider, UInt $actions )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$provider; a <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$actions; a bitmask of the allowed drag actions.</li>
+</ul>
+<h2 id="set-icon-from-gicon" class="heading "><a href="#" title="go to top of document">set-icon-from-gicon</a><a class="raku-anchor" title="direct link" href="#set-icon-from-gicon">§</a></h2>
+
+<p id="Para_46">Sets the icon shown in the entry at the specified position from the current icon theme.</p>
+
+<p id="Para_47">If the icon isn’t known, a “broken image” icon will be displayed instead.</p>
+
+<p>If <span class="code">$icon</span> is undefined, no icon will be shown in the specified position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-from-gicon ( GtkEntryIconPosition $icon-pos, N-Object() $icon )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; The position at which to set the icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$icon; The icon to set.</li>
+</ul>
+<h2 id="set-icon-from-icon-name" class="heading "><a href="#" title="go to top of document">set-icon-from-icon-name</a><a class="raku-anchor" title="direct link" href="#set-icon-from-icon-name">§</a></h2>
+
+<p id="Para_48">Sets the icon shown in the entry at the specified position from the current icon theme.</p>
+
+<p id="Para_49">If the icon name isn’t known, a “broken image” icon will be displayed instead.</p>
+
+<p>If <span class="code">$icon-name</span> is undefined, no icon will be shown in the specified position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-from-icon-name ( GtkEntryIconPosition $icon-pos, Str $icon-name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; The position at which to set the icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$icon-name; An icon name.</li>
+</ul>
+<h2 id="set-icon-from-paintable" class="heading "><a href="#" title="go to top of document">set-icon-from-paintable</a><a class="raku-anchor" title="direct link" href="#set-icon-from-paintable">§</a></h2>
+
+<p>Sets the icon shown in the specified position using a <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a>. </p>
+
+<p>If <span class="code">$paintable</span> is undefined, no icon will be shown in the specified position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-from-paintable ( GtkEntryIconPosition $icon-pos, N-Object() $paintable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$paintable; A <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a>.</li>
+</ul>
+<h2 id="set-icon-sensitive" class="heading "><a href="#" title="go to top of document">set-icon-sensitive</a><a class="raku-anchor" title="direct link" href="#set-icon-sensitive">§</a></h2>
+
+<p id="Para_50">Sets the sensitivity for the specified icon.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-sensitive ( GtkEntryIconPosition $icon-pos, Bool() $sensitive )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; Icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sensitive; Specifies whether the icon should appear sensitive or insensitive.</li>
+</ul>
+<h2 id="set-icon-tooltip-markup" class="heading "><a href="#" title="go to top of document">set-icon-tooltip-markup</a><a class="raku-anchor" title="direct link" href="#set-icon-tooltip-markup">§</a></h2>
+
+<p>Sets <span class="code">$tooltip</span> as the contents of the tooltip for the icon at the specified position. <span class="code">$tooltip</span> is assumed to be marked up with Pango Markup. </p>
+
+<p>Use undefined for <span class="code">$tooltip</span> to remove an existing tooltip. </p>
+
+<p>See also <a href="/content-docs/api2/reference/Gtk4/Widget#set-tooltip-markup">.set-tooltip-markup() in class Widget</a> and <a href="#set-icon-tooltip-text">.set-icon-tooltip-text()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-tooltip-markup ( GtkEntryIconPosition $icon-pos, Str $tooltip )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; the icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tooltip; the contents of the tooltip for the icon.</li>
+</ul>
+<h2 id="set-icon-tooltip-text" class="heading "><a href="#" title="go to top of document">set-icon-tooltip-text</a><a class="raku-anchor" title="direct link" href="#set-icon-tooltip-text">§</a></h2>
+
+<p>Sets <span class="code">$tooltip</span> as the contents of the tooltip for the icon at the specified position. </p>
+
+<p>Use undefined for <span class="code">$tooltip</span> to remove an existing tooltip. </p>
+
+<p>See also <a href="/content-docs/api2/reference/Gtk4/Widget#set-tooltip-text">.set-tooltip-text() in class Widget</a> and <a href="#set-icon-tooltip-markup">.set-icon-tooltip-markup()</a>. </p>
+
+<p>If you unset the widget tooltip via <a href="/content-docs/api2/reference/Gtk4/Widget#set-tooltip-text">.set-tooltip-text() in class Widget</a> or <a href="/content-docs/api2/reference/Gtk4/Widget#set-tooltip-markup">.set-tooltip-markup() in class Widget</a>, this sets <span class="important">has-tooltip defined in Gnome::Gtk4::Widget</span> to <span class="code">False</span>, which suppresses icon tooltips too. You can resolve this by then calling <a href="/content-docs/api2/reference/Gtk4/Widget#set-has-tooltip">.set-has-tooltip() in class Widget</a> to set <span class="important">has-tooltip defined in Gnome::Gtk4::Widget</span> back to <span class="code">True</span>, or setting at least one non-empty tooltip on any icon achieves the same result. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-tooltip-text ( GtkEntryIconPosition $icon-pos, Str $tooltip )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; the icon position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tooltip; the contents of the tooltip for the icon.</li>
+</ul>
+<h2 id="set-input-hints" class="heading "><a href="#" title="go to top of document">set-input-hints</a><a class="raku-anchor" title="direct link" href="#set-input-hints">§</a></h2>
+
+<p id="Para_51">Set additional hints which allow input methods to fine-tune their behavior.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-input-hints ( UInt $hints )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$hints; the hints.</li>
+</ul>
+<h2 id="set-input-purpose" class="heading "><a href="#" title="go to top of document">set-input-purpose</a><a class="raku-anchor" title="direct link" href="#set-input-purpose">§</a></h2>
+
+<p id="Para_52">Sets the input purpose which can be used by input methods to adjust their behavior.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-input-purpose ( GtkInputPurpose $purpose )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$purpose; the purpose.</li>
+</ul>
+<h2 id="set-invisible-char" class="heading "><a href="#" title="go to top of document">set-invisible-char</a><a class="raku-anchor" title="direct link" href="#set-invisible-char">§</a></h2>
+
+<p id="Para_53">Sets the character to use in place of the actual text in “password mode”.</p>
+
+<p>See <a href="#set-visibility">.set-visibility()</a> for how to enable “password mode”. </p>
+
+<p id="Para_54">By default, GTK picks the best invisible char available in the current font. If you set the invisible char to 0, then the user will get no feedback at all; there will be no text on the screen as they type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-invisible-char ( UInt() $ch )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ch; a Unicode character.</li>
+</ul>
+<h2 id="set-max-length" class="heading "><a href="#" title="go to top of document">set-max-length</a><a class="raku-anchor" title="direct link" href="#set-max-length">§</a></h2>
+
+<p id="Para_55">Sets the maximum allowed length of the contents of the widget.</p>
+
+<p id="Para_56">If the current contents are longer than the given length, then they will be truncated to fit. The length is in characters.</p>
+
+<p>This is equivalent to getting <span class="code">$entry</span>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/EntryBuffer#set-max-length">.set-max-length() in class EntryBuffer</a> on it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-max-length ( Int() $max )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$max; the maximum length of the entry, or 0 for no maximum. (other than the maximum length of entries.) The value passed in will be clamped to the range 0-65536..</li>
+</ul>
+<h2 id="set-overwrite-mode" class="heading "><a href="#" title="go to top of document">set-overwrite-mode</a><a class="raku-anchor" title="direct link" href="#set-overwrite-mode">§</a></h2>
+
+<p>Sets whether the text is overwritten when typing in the <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-overwrite-mode ( Bool() $overwrite )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$overwrite; new value.</li>
+</ul>
+<h2 id="set-placeholder-text" class="heading "><a href="#" title="go to top of document">set-placeholder-text</a><a class="raku-anchor" title="direct link" href="#set-placeholder-text">§</a></h2>
+
+<p>Sets text to be displayed in <span class="code">$entry</span> when it is empty. </p>
+
+<p>This can be used to give a visual hint of the expected contents of the <span class="basis">Gnome::Gtk4::Entry</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-placeholder-text ( Str $text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; a string to be displayed when <span class="code">$entry</span> is empty and unfocused.</li>
+</ul>
+<h2 id="set-progress-fraction" class="heading "><a href="#" title="go to top of document">set-progress-fraction</a><a class="raku-anchor" title="direct link" href="#set-progress-fraction">§</a></h2>
+
+<p id="Para_57">Causes the entry’s progress indicator to “fill in” the given fraction of the bar.</p>
+
+<p id="Para_58">The fraction should be between 0.0 and 1.0, inclusive.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-progress-fraction ( Num() $fraction )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$fraction; fraction of the task that’s been completed.</li>
+</ul>
+<h2 id="set-progress-pulse-step" class="heading "><a href="#" title="go to top of document">set-progress-pulse-step</a><a class="raku-anchor" title="direct link" href="#set-progress-pulse-step">§</a></h2>
+
+<p id="Para_59">Sets the fraction of total entry width to move the progress bouncing block for each pulse.</p>
+
+<p>Use <a href="#progress-pulse">.progress-pulse()</a> to pulse the progress. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-progress-pulse-step ( Num() $fraction )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$fraction; fraction between 0.0 and 1.0.</li>
+</ul>
+<h2 id="set-tabs" class="heading "><a href="#" title="go to top of document">set-tabs</a><a class="raku-anchor" title="direct link" href="#set-tabs">§</a></h2>
+
+<p>Sets a <span class="basis">Gnome::Pango::N-TabArray</span>. </p>
+
+<p id="Para_60">The tabstops in the array are applied to the entry text.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tabs ( N-Object $tabs )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tabs; a <span class="basis">Gnome::Pango::N-TabArray</span></li>
+</ul>
+<h2 id="set-visibility" class="heading "><a href="#" title="go to top of document">set-visibility</a><a class="raku-anchor" title="direct link" href="#set-visibility">§</a></h2>
+
+<p id="Para_61">Sets whether the contents of the entry are visible or not.</p>
+
+<p>When visibility is set to <span class="code">False</span>, characters are displayed as the invisible char, and will also appear that way when the text in the entry widget is copied elsewhere. </p>
+
+<p>By default, GTK picks the best invisible character available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+
+<p>Note that you probably want to set <span class="important">input-purpose</span> to <span class="code">GTK_INPUT_PURPOSE_PASSWORD</span> or <span class="code">GTK_INPUT_PURPOSE_PIN</span> to inform input methods about the purpose of this entry, in addition to setting visibility to <span class="code">False</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visibility ( Bool() $visible )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$visible; <span class="code">True</span> if the contents of the entry are displayed as plaintext.</li>
+</ul>
+<h2 id="unset-invisible-char" class="heading "><a href="#" title="go to top of document">unset-invisible-char</a><a class="raku-anchor" title="direct link" href="#unset-invisible-char">§</a></h2>
+
+<p>Unsets the invisible char, so that the default invisible char is used again. See <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unset-invisible-char ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h3>
+
+<p id="Para_62">Emitted when the entry is activated.</p>
+
+<p id="Para_63">The keybindings for this signal are all forms of the Enter key.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Entry :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Entry</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="icon-press"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">icon-press</a></h3>
-<p>Emitted when an activatable icon is clicked.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Entry</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="icon-press" class="heading "><a href="#" title="go to top of document">icon-press</a><a class="raku-anchor" title="direct link" href="#icon-press">§</a></h3>
+
+<p id="Para_64">Emitted when an activatable icon is clicked.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $icon-pos,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Entry :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$icon-pos; The position of the clicked icon.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Entry</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="icon-release"><a href="#Gnome::Gtk4::Entry" class="u" title="go to top of document">icon-release</a></h3>
-<p>Emitted on the button release from a mouse click over an activatable icon.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; The position of the clicked icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Entry</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="icon-release" class="heading "><a href="#" title="go to top of document">icon-release</a><a class="raku-anchor" title="direct link" href="#icon-release">§</a></h3>
+
+<p id="Para_65">Emitted on the button release from a mouse click over an activatable icon.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $icon-pos,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Entry :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$icon-pos; The position of the clicked icon.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Entry</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$icon-pos; The position of the clicked icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Entry</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Entry.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:19Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Entry.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

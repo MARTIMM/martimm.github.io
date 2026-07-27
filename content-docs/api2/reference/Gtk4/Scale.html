@@ -1,167 +1,689 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Scale</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Scale</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Scale">Gnome::Gtk4::Scale</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkScale_as_GtkBuildable">GtkScale as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-scale">new-scale</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-range">new-with-range</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-mark">add-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#clear-marks">clear-marks</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-digits">get-digits</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-draw-value">get-draw-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-origin">get-has-origin</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-layout">get-layout</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-layout-offsets">get-layout-offsets</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-value-pos">get-value-pos</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-digits">set-digits</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-draw-value">set-draw-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-format-value-func">set-format-value-func</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-origin">set-has-origin</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-value-pos">set-value-pos</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gtk4::Scale</strong> is a slider control used to select a numeric value.</p><div class="image-container inline"><img src="asset_files/images/scales.png" width="30%" height="auto" alt="No caption"></div>
-<p>To use it, you’ll probably want to investigate the methods on its base class, <a href="/content-docs/api2/reference/Gtk4/Range.html">Gnome::Gtk4::Range</a>, in addition to the methods for <strong>Gnome::Gtk4::Scale</strong> itself. To set the value of a scale, you would normally use <a href="/content-docs/api2/reference/Gtk4/Range.html#set-value">.set-value() in class Range</a>. To detect changes to the value, you would normally use the <em>value-changed defined in Range</em> signal.</p><p>Note that using the same upper and lower bounds for the <strong>Gnome::Gtk4::Scale</strong> (through the <a href="/content-docs/api2/reference/Gtk4/Range.html">Gnome::Gtk4::Range</a> methods) will hide the slider itself. This is useful for applications that want to show an undeterminate value on the scale, without changing the layout of the application (such as movie or music players).</p>
-<h2 id="GtkScale_as_GtkBuildable"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">GtkScale as GtkBuildable</a></h2>
-<p><strong>Gnome::Gtk4::Scale</strong> supports a custom `&lt;marks&gt;` element, which can contain multiple `&lt;mark\&gt;` elements. The “value” and “position” attributes have the same meaning as <a href="#add-mark">.add-mark()</a> parameters of the same name. If the element is not empty, its content is taken as the markup to show at the mark. It can be translated with the usual ”translatable” and “context” attributes.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Scale</strong> has a main CSS node with name scale and a subnode for its contents, with subnodes named trough and slider.</p><p>The main node gets the style class .fine-tune added when the scale is in 'fine-tuning' mode.</p><p>If the scale has an origin (see <a href="#set-has-origin">.set-has-origin()</a>), there is a subnode with name highlight below the trough node that is used for rendering the highlighted part of the trough.</p><p>If the scale is showing a fill level (see <a href="/content-docs/api2/reference/Gtk4/Range.html#set-show-fill-level">.set-show-fill-level() in class Range</a>), there is a subnode with name fill below the trough node that is used for rendering the filled in part of the trough.</p><p>If marks are present, there is a marks subnode before or after the trough node, below which each mark gets a node with name mark. The marks nodes get either the .top or .bottom style class.</p><p>The mark node has a subnode named indicator. If the mark has text, it also has a subnode named label. When the mark is either above or left of the scale, the label subnode is the first when present. Otherwise, the indicator subnode is the first.</p><p>The main CSS node gets the 'marks-before' and/or 'marks-after' style classes added depending on what marks are present.</p><p>If the scale is displaying the value (see <em>draw-value</em>), there is subnode with name value. This node will get the .top or .bottom style classes similar to the marks node.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Scale</strong> uses the <code>GTK_ACCESSIBLE_ROLE_SLIDER</code> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Scale.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-scale"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">new-scale</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Scale</strong>.</p><pre class="pod-block-code">method new-scale ( GtkOrientation $orientation, N-Object() $adjustment --&gt; Gnome::Gtk4::Scale )
-</pre><ul>
-<li><p>$orientation; the scale’s orientation..</p></li>
-<li><p>$adjustment; the <a href="/content-docs/api2/reference/Gtk4/Adjustment.html">Gnome::Gtk4::Adjustment</a> which sets the range of the scale, or undefined to create a new adjustment..</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Scale"></div><h1 class="title">Gnome::Gtk4::Scale</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkScale_as_GtkBuildable">GtkScale as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-scale">new-scale</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-range">new-with-range</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-mark">add-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#clear-marks">clear-marks</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-digits">get-digits</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-draw-value">get-draw-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-has-origin">get-has-origin</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-layout">get-layout</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-layout-offsets">get-layout-offsets</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-value-pos">get-value-pos</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-digits">set-digits</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-draw-value">set-draw-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-format-value-func">set-format-value-func</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-has-origin">set-has-origin</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-value-pos">set-value-pos</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>A <span class="basis">Gnome::Gtk4::Scale</span> is a slider control used to select a numeric value. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/scales.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>To use it, you’ll probably want to investigate the methods on its base class, <a href="/content-docs/api2/reference/Gtk4/Range">Gnome::Gtk4::Range</a>, in addition to the methods for <span class="basis">Gnome::Gtk4::Scale</span> itself. To set the value of a scale, you would normally use <a href="/content-docs/api2/reference/Gtk4/Range#set-value">.set-value() in class Range</a>. To detect changes to the value, you would normally use the <span class="important">value-changed defined in Range</span> signal. </p>
+
+<p>Note that using the same upper and lower bounds for the <span class="basis">Gnome::Gtk4::Scale</span> (through the <a href="/content-docs/api2/reference/Gtk4/Range">Gnome::Gtk4::Range</a> methods) will hide the slider itself. This is useful for applications that want to show an undeterminate value on the scale, without changing the layout of the application (such as movie or music players). </p>
+
+<div class="id-target" id="GtkScale as GtkBuildable"></div><h2 id="GtkScale_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkScale as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkScale as GtkBuildable">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Scale</span> supports a custom `&lt;marks&gt;` element, which can contain multiple `&lt;mark\&gt;` elements. The “value” and “position” attributes have the same meaning as <a href="#add-mark">.add-mark()</a> parameters of the same name. If the element is not empty, its content is taken as the markup to show at the mark. It can be translated with the usual ”translatable” and “context” attributes. </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Scale</span> has a main CSS node with name scale and a subnode for its contents, with subnodes named trough and slider. </p>
+
+<p id="Para">The main node gets the style class .fine-tune added when the scale is in 'fine-tuning' mode.</p>
+
+<p>If the scale has an origin (see <a href="#set-has-origin">.set-has-origin()</a>), there is a subnode with name highlight below the trough node that is used for rendering the highlighted part of the trough. </p>
+
+<p>If the scale is showing a fill level (see <a href="/content-docs/api2/reference/Gtk4/Range#set-show-fill-level">.set-show-fill-level() in class Range</a>), there is a subnode with name fill below the trough node that is used for rendering the filled in part of the trough. </p>
+
+<p id="Para_0">If marks are present, there is a marks subnode before or after the trough node, below which each mark gets a node with name mark. The marks nodes get either the .top or .bottom style class.</p>
+
+<p id="Para_1">The mark node has a subnode named indicator. If the mark has text, it also has a subnode named label. When the mark is either above or left of the scale, the label subnode is the first when present. Otherwise, the indicator subnode is the first.</p>
+
+<p id="Para_2">The main CSS node gets the 'marks-before' and/or 'marks-after' style classes added depending on what marks are present.</p>
+
+<p>If the scale is displaying the value (see <span class="important">draw-value</span>), there is subnode with name value. This node will get the .top or .bottom style classes similar to the marks node. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Scale</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_SLIDER</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Scale.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-scale" class="heading "><a href="#" title="go to top of document">new-scale</a><a class="raku-anchor" title="direct link" href="#new-scale">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Scale</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-scale ( GtkOrientation $orientation, N-Object() $adjustment --&gt; Gnome::Gtk4::Scale )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$orientation; the scale’s orientation..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$adjustment; the <a href="/content-docs/api2/reference/Gtk4/Adjustment">Gnome::Gtk4::Adjustment</a> which sets the range of the scale, or undefined to create a new adjustment..</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-with-range"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">new-with-range</a></h2>
-<p>Creates a new scale widget with a range from <code>$min</code> to <code>$max</code>.</p><p>The returns scale will have the given orientation and will let the user input a number between <code>$min</code> and <code>$max</code> (including <code>$min</code> and <code>$max</code>) with the increment <code>$step</code>. <code>$step</code> must be nonzero; it’s the distance the slider moves when using the arrow keys to adjust the scale value.</p><p>Note that the way in which the precision is derived works best if <code>$step</code> is a power of ten. If the resulting precision is not suitable for your needs, use <a href="#set-digits">.set-digits()</a> to correct it.</p><pre class="pod-block-code">method new-with-range ( GtkOrientation $orientation, Num() $min, Num() $max, Num() $step --&gt; Gnome::Gtk4::Scale )
-</pre><ul>
-<li><p>$orientation; the scale’s orientation..</p></li>
-<li><p>$min; minimum value.</p></li>
-<li><p>$max; maximum value.</p></li>
-<li><p>$step; step increment (tick size) used with keyboard shortcuts.</p></li>
+<h2 id="new-with-range" class="heading "><a href="#" title="go to top of document">new-with-range</a><a class="raku-anchor" title="direct link" href="#new-with-range">§</a></h2>
+
+<p>Creates a new scale widget with a range from <span class="code">$min</span> to <span class="code">$max</span>. </p>
+
+<p>The returns scale will have the given orientation and will let the user input a number between <span class="code">$min</span> and <span class="code">$max</span> (including <span class="code">$min</span> and <span class="code">$max</span>) with the increment <span class="code">$step</span>. <span class="code">$step</span> must be nonzero; it’s the distance the slider moves when using the arrow keys to adjust the scale value. </p>
+
+<p>Note that the way in which the precision is derived works best if <span class="code">$step</span> is a power of ten. If the resulting precision is not suitable for your needs, use <a href="#set-digits">.set-digits()</a> to correct it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-range ( GtkOrientation $orientation, Num() $min, Num() $max, Num() $step --&gt; Gnome::Gtk4::Scale )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$orientation; the scale’s orientation..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$min; minimum value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$max; maximum value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$step; step increment (tick size) used with keyboard shortcuts.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-mark"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">add-mark</a></h2>
-<p>Adds a mark at <code>$value</code>.</p><p>A mark is indicated visually by drawing a tick mark next to the scale, and GTK makes it easy for the user to position the scale exactly at the marks value.</p><p>If <code>$markup</code> is defined, text is shown next to the tick mark.</p><p>To remove marks from a scale, use <a href="#clear-marks">.clear-marks()</a>.</p><pre class="pod-block-code">method add-mark ( Num() $value, GtkPositionType $position, Str $markup )
-</pre><ul>
-<li><p>$value; the value at which the mark is placed, must be between the lower and upper limits of the scales’ adjustment.</p></li>
-<li><p>$position; where to draw the mark. For a horizontal scale, <code>GTK_POS_TOP</code> and <code>GTK_POS_LEFT</code> are drawn above the scale, anything else below. For a vertical scale, <code>GTK_POS_LEFT</code> and <code>GTK_POS_TOP</code> are drawn to the left of the scale, anything else to the right..</p></li>
-<li><p>$markup; Text to be shown at the mark, using Pango markup.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-mark" class="heading "><a href="#" title="go to top of document">add-mark</a><a class="raku-anchor" title="direct link" href="#add-mark">§</a></h2>
+
+<p>Adds a mark at <span class="code">$value</span>. </p>
+
+<p id="Para_3">A mark is indicated visually by drawing a tick mark next to the scale, and GTK makes it easy for the user to position the scale exactly at the marks value.</p>
+
+<p>If <span class="code">$markup</span> is defined, text is shown next to the tick mark. </p>
+
+<p>To remove marks from a scale, use <a href="#clear-marks">.clear-marks()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-mark ( Num() $value, GtkPositionType $position, Str $markup )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$value; the value at which the mark is placed, must be between the lower and upper limits of the scales’ adjustment.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; where to draw the mark. For a horizontal scale, <span class="code">GTK_POS_TOP</span> and <span class="code">GTK_POS_LEFT</span> are drawn above the scale, anything else below. For a vertical scale, <span class="code">GTK_POS_LEFT</span> and <span class="code">GTK_POS_TOP</span> are drawn to the left of the scale, anything else to the right..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$markup; Text to be shown at the mark, using Pango markup.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="clear-marks"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">clear-marks</a></h2>
-<p>Removes any marks that have been added.</p><pre class="pod-block-code">method clear-marks ( )
-</pre></section>
-<section name="pod">
-<h2 id="get-digits"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-digits</a></h2>
-<p>Gets the number of decimal places that are displayed in the value.</p><pre class="pod-block-code">method get-digits (--&gt; Int )
-</pre><p>Return value; the number of decimal places that are displayed. </p></section>
-<section name="pod">
-<h2 id="get-draw-value"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-draw-value</a></h2>
-<p>Returns whether the current value is displayed as a string next to the slider.</p><pre class="pod-block-code">method get-draw-value (--&gt; Bool )
-</pre><p>Return value; whether the current value is displayed as a string. </p></section>
-<section name="pod">
-<h2 id="get-has-origin"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-has-origin</a></h2>
-<p>Returns whether the scale has an origin.</p><pre class="pod-block-code">method get-has-origin (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the scale has an origin.. </p></section>
-<section name="pod">
-<h2 id="get-layout"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-layout</a></h2>
-<p>Gets the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> used to display the scale.</p><p>The returned object is owned by the scale so does not need to be freed by the caller.</p><pre class="pod-block-code">method get-layout (--&gt; N-Object )
-</pre><p>Return value; the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> for this scale, or undefined if the <em>draw-value</em> property is <code>False</code>.. </p></section>
-<section name="pod">
-<h2 id="get-layout-offsets"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-layout-offsets</a></h2>
-<p>Obtains the coordinates where the scale will draw the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> representing the text in the scale.</p><p>Remember when using the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> function you need to convert to and from pixels using <strong>PANGO_PIXELS</strong>()` or <strong>Gnome::Pango::T-types</strong>.</p><p>If the <em>draw-value</em> property is <code>False</code>, the return values are undefined.</p><pre class="pod-block-code">method get-layout-offsets ( Array[Int] $x, Array[Int] $y )
-</pre><ul>
-<li><p>$x; (transfer ownership: full) location to store X offset of layout.</p></li>
-<li><p>$y; (transfer ownership: full) location to store Y offset of layout.</p></li>
+<h2 id="clear-marks" class="heading "><a href="#" title="go to top of document">clear-marks</a><a class="raku-anchor" title="direct link" href="#clear-marks">§</a></h2>
+
+<p id="Para_4">Removes any marks that have been added.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method clear-marks ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-digits" class="heading "><a href="#" title="go to top of document">get-digits</a><a class="raku-anchor" title="direct link" href="#get-digits">§</a></h2>
+
+<p id="Para_5">Gets the number of decimal places that are displayed in the value.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-digits (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_6">Return value; the number of decimal places that are displayed.</p>
+<h2 id="get-draw-value" class="heading "><a href="#" title="go to top of document">get-draw-value</a><a class="raku-anchor" title="direct link" href="#get-draw-value">§</a></h2>
+
+<p id="Para_7">Returns whether the current value is displayed as a string next to the slider.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-draw-value (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; whether the current value is displayed as a string.</p>
+<h2 id="get-has-origin" class="heading "><a href="#" title="go to top of document">get-has-origin</a><a class="raku-anchor" title="direct link" href="#get-has-origin">§</a></h2>
+
+<p id="Para_9">Returns whether the scale has an origin.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-has-origin (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the scale has an origin.. </p>
+<h2 id="get-layout" class="heading "><a href="#" title="go to top of document">get-layout</a><a class="raku-anchor" title="direct link" href="#get-layout">§</a></h2>
+
+<p>Gets the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> used to display the scale. </p>
+
+<p id="Para_10">The returned object is owned by the scale so does not need to be freed by the caller.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-layout (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> for this scale, or undefined if the <span class="important">draw-value</span> property is <span class="code">False</span>.. </p>
+<h2 id="get-layout-offsets" class="heading "><a href="#" title="go to top of document">get-layout-offsets</a><a class="raku-anchor" title="direct link" href="#get-layout-offsets">§</a></h2>
+
+<p>Obtains the coordinates where the scale will draw the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> representing the text in the scale. </p>
+
+<p>Remember when using the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> function you need to convert to and from pixels using <span class="basis">PANGO_PIXELS</span>()` or <span class="basis">Gnome::Pango::T-types</span>. </p>
+
+<p>If the <span class="important">draw-value</span> property is <span class="code">False</span>, the return values are undefined. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-layout-offsets ( Array[Int] $x, Array[Int] $y )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x; (transfer ownership: full) location to store X offset of layout.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; (transfer ownership: full) location to store Y offset of layout.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-value-pos"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">get-value-pos</a></h2>
-<p>Gets the position in which the current value is displayed.</p><pre class="pod-block-code">method get-value-pos (--&gt; GtkPositionType )
-</pre><p>Return value; the position in which the current value is displayed. </p></section>
-<section name="pod">
-<h2 id="set-digits"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">set-digits</a></h2>
-<p>Sets the number of decimal places that are displayed in the value.</p><p>Also causes the value of the adjustment to be rounded to this number of digits, so the retrieved value matches the displayed one, if <em>draw-value</em> is <code>True</code> when the value changes. If you want to enforce rounding the value when <em>draw-value</em> is <code>False</code>, you can set <em>round-digits defined in Gnome::Gtk4::Range</em> instead.</p><p>Note that rounding to a small number of digits can interfere with the smooth autoscrolling that is built into <strong>Gnome::Gtk4::Scale</strong>. As an alternative, you can use <a href="#set-format-value-func">.set-format-value-func()</a> to format the displayed value yourself.</p><pre class="pod-block-code">method set-digits ( Int() $digits )
-</pre><ul>
-<li><p>$digits; the number of decimal places to display, e.g. use 1 to display 1.0, 2 to display 1.00, etc.</p></li>
+<h2 id="get-value-pos" class="heading "><a href="#" title="go to top of document">get-value-pos</a><a class="raku-anchor" title="direct link" href="#get-value-pos">§</a></h2>
+
+<p id="Para_11">Gets the position in which the current value is displayed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-value-pos (--&gt; GtkPositionType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; the position in which the current value is displayed.</p>
+<h2 id="set-digits" class="heading "><a href="#" title="go to top of document">set-digits</a><a class="raku-anchor" title="direct link" href="#set-digits">§</a></h2>
+
+<p id="Para_13">Sets the number of decimal places that are displayed in the value.</p>
+
+<p>Also causes the value of the adjustment to be rounded to this number of digits, so the retrieved value matches the displayed one, if <span class="important">draw-value</span> is <span class="code">True</span> when the value changes. If you want to enforce rounding the value when <span class="important">draw-value</span> is <span class="code">False</span>, you can set <span class="important">round-digits defined in Gnome::Gtk4::Range</span> instead. </p>
+
+<p>Note that rounding to a small number of digits can interfere with the smooth autoscrolling that is built into <span class="basis">Gnome::Gtk4::Scale</span>. As an alternative, you can use <a href="#set-format-value-func">.set-format-value-func()</a> to format the displayed value yourself. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-digits ( Int() $digits )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$digits; the number of decimal places to display, e.g. use 1 to display 1.0, 2 to display 1.00, etc.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-draw-value"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">set-draw-value</a></h2>
-<p>Specifies whether the current value is displayed as a string next to the slider.</p><pre class="pod-block-code">method set-draw-value ( Bool() $draw-value )
-</pre><ul>
-<li><p>$draw-value; <code>True</code> to draw the value.</p></li>
+<h2 id="set-draw-value" class="heading "><a href="#" title="go to top of document">set-draw-value</a><a class="raku-anchor" title="direct link" href="#set-draw-value">§</a></h2>
+
+<p id="Para_14">Specifies whether the current value is displayed as a string next to the slider.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-draw-value ( Bool() $draw-value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$draw-value; <span class="code">True</span> to draw the value.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-format-value-func"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">set-format-value-func</a></h2>
-<pre class="pod-block-code">C&lt;$func&gt; allows you to change how the scale value is displayed.</pre><p>The given function will return an allocated string representing <code>$value</code>. That string will then be used to display the scale's value.</p><p>If #NULL is passed as <code>$func</code>, the value will be displayed on its own, rounded according to the value of the <em>digits</em> property.</p><pre class="pod-block-code">method set-format-value-func ( GtkScaleFormatValueFunc &amp;func, gpointer $user-data, GDestroyNotify &amp;destroy-notify )
-</pre><ul>
-<li><p>GtkScaleFormatValueFunc &amp;func; function that formats the value. The function must be specified with the following signature; <code>:( N-Object $scale, gdouble $value, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data to pass to <code>$func</code>.</p></li>
-<li><p>GDestroyNotify &amp;destroy-notify; destroy function for <code>$user-data</code>. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
+<h2 id="set-format-value-func" class="heading "><a href="#" title="go to top of document">set-format-value-func</a><a class="raku-anchor" title="direct link" href="#set-format-value-func">§</a></h2>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">C&lt;$func&gt; allows you to change how the scale value is displayed.</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>The given function will return an allocated string representing <span class="code">$value</span>. That string will then be used to display the scale's value. </p>
+
+<p>If #NULL is passed as <span class="code">$func</span>, the value will be displayed on its own, rounded according to the value of the <span class="important">digits</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-format-value-func ( GtkScaleFormatValueFunc &amp;func, gpointer $user-data, GDestroyNotify &amp;destroy-notify )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkScaleFormatValueFunc &amp;func; function that formats the value. The function must be specified with the following signature; <span class="code">:( N-Object $scale, gdouble $value, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data to pass to <span class="code">$func</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GDestroyNotify &amp;destroy-notify; destroy function for <span class="code">$user-data</span>. The function must be specified with the following signature; <span class="code">:( gpointer $data )</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-has-origin"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">set-has-origin</a></h2>
-<p>Sets whether the scale has an origin.</p><p>If <em>has-origin</em> is set to <code>True</code> (the default), the scale will highlight the part of the trough between the origin (bottom or left side) and the current value.</p><pre class="pod-block-code">method set-has-origin ( Bool() $has-origin )
-</pre><ul>
-<li><p>$has-origin; <code>True</code> if the scale has an origin.</p></li>
+<h2 id="set-has-origin" class="heading "><a href="#" title="go to top of document">set-has-origin</a><a class="raku-anchor" title="direct link" href="#set-has-origin">§</a></h2>
+
+<p id="Para_15">Sets whether the scale has an origin.</p>
+
+<p>If <span class="important">has-origin</span> is set to <span class="code">True</span> (the default), the scale will highlight the part of the trough between the origin (bottom or left side) and the current value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-has-origin ( Bool() $has-origin )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$has-origin; <span class="code">True</span> if the scale has an origin.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-value-pos"><a href="#Gnome::Gtk4::Scale" class="u" title="go to top of document">set-value-pos</a></h2>
-<p>Sets the position in which the current value is displayed.</p><pre class="pod-block-code">method set-value-pos ( GtkPositionType $pos )
-</pre><ul>
-<li><p>$pos; the position in which the current value is displayed.</p></li>
+<h2 id="set-value-pos" class="heading "><a href="#" title="go to top of document">set-value-pos</a><a class="raku-anchor" title="direct link" href="#set-value-pos">§</a></h2>
+
+<p id="Para_16">Sets the position in which the current value is displayed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-value-pos ( GtkPositionType $pos )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pos; the position in which the current value is displayed.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Scale.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:56Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Scale.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

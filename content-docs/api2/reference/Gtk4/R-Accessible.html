@@ -1,185 +1,707 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::R-Accessible</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::R-Accessible</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::R-Accessible">Gnome::Gtk4::R-Accessible</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#announce">announce</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-accessible-parent">get-accessible-parent</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-accessible-role">get-accessible-role</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-at-context">get-at-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-bounds">get-bounds</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-first-accessible-child">get-first-accessible-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-next-accessible-sibling">get-next-accessible-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-platform-state">get-platform-state</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reset-property">reset-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reset-relation">reset-relation</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reset-state">reset-state</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-accessible-parent">set-accessible-parent</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-next-accessible-sibling">update-next-accessible-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-property">update-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-property-value">update-property-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-relation">update-relation</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-relation-value">update-relation-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-state">update-state</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#update-state-value">update-state-value</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">Description</a></h1>
-<p><a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> is an interface for describing UI elements for Assistive Technologies.</p><p>Every accessible implementation has:</p><ul>
-<li><p>a “role”, represented by a value of the enumeration <code>AccessibleRole</code> from <code>Gnome::Gtk4::T-enums</code> enumeration</p></li>
-<li><p>an “attribute”, represented by a set of enumeration <code>AccessibleState</code> from <code>Gnome::Gtk4::T-enums</code> , enumeration <code>AccessibleProperty</code> from <code>Gnome::Gtk4::T-enums</code> and enumeration <code>AccessibleRelation</code> from <code>Gnome::Gtk4::T-enums</code> values</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::R-Accessible"></div><h1 class="title">Gnome::Gtk4::R-Accessible</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#announce">announce</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-accessible-parent">get-accessible-parent</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-accessible-role">get-accessible-role</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-at-context">get-at-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-bounds">get-bounds</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-first-accessible-child">get-first-accessible-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-next-accessible-sibling">get-next-accessible-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-platform-state">get-platform-state</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reset-property">reset-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reset-relation">reset-relation</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reset-state">reset-state</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-accessible-parent">set-accessible-parent</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-next-accessible-sibling">update-next-accessible-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-property">update-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-property-value">update-property-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-relation">update-relation</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-relation-value">update-relation-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-state">update-state</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#update-state-value">update-state-value</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> is an interface for describing UI elements for Assistive Technologies. </p>
+
+<p id="Para">Every accessible implementation has:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >a “role”, represented by a value of the enumeration <span class="code">AccessibleRole</span> from <span class="code">Gnome::Gtk4::T-enums</span>  enumeration</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >an “attribute”, represented by a set of enumeration <span class="code">AccessibleState</span> from <span class="code">Gnome::Gtk4::T-enums</span> , enumeration <span class="code">AccessibleProperty</span> from <span class="code">Gnome::Gtk4::T-enums</span>  and enumeration <span class="code">AccessibleRelation</span> from <span class="code">Gnome::Gtk4::T-enums</span>  values</li>
 </ul>
-<p>The role cannot be changed after instantiating a <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> implementation.</p><p>The attributes are updated every time a UI element's state changes in a way that should be reflected by assistive technologies. For instance, if a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> visibility changes, the <code>GTK_ACCESSIBLE_STATE_HIDDEN</code> state will also change to reflect the <em>visible defined in Gnome::Gtk4::Widget</em> property.</p><p>Every accessible implementation is part of a tree of accessible objects. Normally, this tree corresponds to the widget tree, but can be customized by reimplementing the [vfunc <code>$Gtk</code>.Accessible.get_accessible_parent], [vfunc <code>$Gtk</code>.Accessible.get_first_accessible_child] and [vfunc <code>$Gtk</code>.Accessible.get_next_accessible_sibling] virtual functions. Note that you can not create a top-level accessible object as of now, which means that you must always have a parent accessible object. Also note that when an accessible object does not correspond to a widget, and it has children, whose implementation you don't control, it is necessary to ensure the correct shape of the a11y tree by calling <a href="#set-accessible-parent">.set-accessible-parent()</a> and updating the sibling by <a href="#update-next-accessible-sibling">.update-next-accessible-sibling()</a>.</p></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="announce"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">announce</a></h2>
-<p>Requests the user's screen reader to announce the given message.</p><p>This kind of notification is useful for messages that either have only a visual representation or that are not exposed visually at all, e.g. a notification about a successful operation.</p><p>Also, by using this API, you can ensure that the message does not interrupts the user's current screen reader output.</p><pre class="pod-block-code">method announce ( Str $message, GtkAccessibleAnnouncementPriority $priority )
-</pre><ul>
-<li><p>$message; the string to announce.</p></li>
-<li><p>$priority; the priority of the announcement.</p></li>
+
+<p>The role cannot be changed after instantiating a <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> implementation. </p>
+
+<p>The attributes are updated every time a UI element's state changes in a way that should be reflected by assistive technologies. For instance, if a <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> visibility changes, the <span class="code">GTK_ACCESSIBLE_STATE_HIDDEN</span> state will also change to reflect the <span class="important">visible defined in Gnome::Gtk4::Widget</span> property. </p>
+
+<p>Every accessible implementation is part of a tree of accessible objects. Normally, this tree corresponds to the widget tree, but can be customized by reimplementing the [vfunc <span class="code">$Gtk</span>.Accessible.get_accessible_parent], [vfunc <span class="code">$Gtk</span>.Accessible.get_first_accessible_child] and [vfunc <span class="code">$Gtk</span>.Accessible.get_next_accessible_sibling] virtual functions. Note that you can not create a top-level accessible object as of now, which means that you must always have a parent accessible object. Also note that when an accessible object does not correspond to a widget, and it has children, whose implementation you don't control, it is necessary to ensure the correct shape of the a11y tree by calling <a href="#set-accessible-parent">.set-accessible-parent()</a> and updating the sibling by <a href="#update-next-accessible-sibling">.update-next-accessible-sibling()</a>. </p>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="announce" class="heading "><a href="#" title="go to top of document">announce</a><a class="raku-anchor" title="direct link" href="#announce">§</a></h2>
+
+<p id="Para_0">Requests the user's screen reader to announce the given message.</p>
+
+<p id="Para_1">This kind of notification is useful for messages that either have only a visual representation or that are not exposed visually at all, e.g. a notification about a successful operation.</p>
+
+<p id="Para_2">Also, by using this API, you can ensure that the message does not interrupts the user's current screen reader output.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method announce ( Str $message, GtkAccessibleAnnouncementPriority $priority )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$message; the string to announce.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the announcement.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-accessible-parent"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-accessible-parent</a></h2>
-<p>Retrieves the accessible parent for an accessible object.</p><p>This function returns undefined for top level widgets.</p><pre class="pod-block-code">method get-accessible-parent (--&gt; N-Object )
-</pre><p>Return value; the accessible parent. </p></section>
-<section name="pod">
-<h2 id="get-accessible-role"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-accessible-role</a></h2>
-<p>Retrieves the accessible role of an accessible object.</p><pre class="pod-block-code">method get-accessible-role (--&gt; GtkAccessibleRole )
-</pre><p>Return value; the accessible role. </p></section>
-<section name="pod">
-<h2 id="get-at-context"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-at-context</a></h2>
-<p>Retrieves the accessible implementation for the given <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a>.</p><pre class="pod-block-code">method get-at-context (--&gt; N-Object )
-</pre><p>Return value; the accessible implementation object. </p></section>
-<section name="pod">
-<h2 id="get-bounds"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-bounds</a></h2>
-<p>Queries the coordinates and dimensions of this accessible</p><p>This functionality can be overridden by <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> implementations, e.g. to get the bounds from an ignored child widget.</p><pre class="pod-block-code">method get-bounds ( Array[Int] $x, Array[Int] $y, Array[Int] $width, Array[Int] $height --&gt; Bool )
-</pre><ul>
-<li><p>$x; (transfer ownership: full) the x coordinate of the top left corner of the accessible.</p></li>
-<li><p>$y; (transfer ownership: full) the y coordinate of the top left corner of the widget.</p></li>
-<li><p>$width; (transfer ownership: full) the width of the accessible object.</p></li>
-<li><p>$height; (transfer ownership: full) the height of the accessible object.</p></li>
+<h2 id="get-accessible-parent" class="heading "><a href="#" title="go to top of document">get-accessible-parent</a><a class="raku-anchor" title="direct link" href="#get-accessible-parent">§</a></h2>
+
+<p id="Para_3">Retrieves the accessible parent for an accessible object.</p>
+
+<p id="Para_4">This function returns undefined for top level widgets.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-accessible-parent (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the accessible parent.</p>
+<h2 id="get-accessible-role" class="heading "><a href="#" title="go to top of document">get-accessible-role</a><a class="raku-anchor" title="direct link" href="#get-accessible-role">§</a></h2>
+
+<p id="Para_6">Retrieves the accessible role of an accessible object.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-accessible-role (--&gt; GtkAccessibleRole )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the accessible role.</p>
+<h2 id="get-at-context" class="heading "><a href="#" title="go to top of document">get-at-context</a><a class="raku-anchor" title="direct link" href="#get-at-context">§</a></h2>
+
+<p>Retrieves the accessible implementation for the given <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-at-context (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; the accessible implementation object.</p>
+<h2 id="get-bounds" class="heading "><a href="#" title="go to top of document">get-bounds</a><a class="raku-anchor" title="direct link" href="#get-bounds">§</a></h2>
+
+<p id="Para_9">Queries the coordinates and dimensions of this accessible</p>
+
+<p>This functionality can be overridden by <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> implementations, e.g. to get the bounds from an ignored child widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-bounds ( Array[Int] $x, Array[Int] $y, Array[Int] $width, Array[Int] $height --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x; (transfer ownership: full) the x coordinate of the top left corner of the accessible.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; (transfer ownership: full) the y coordinate of the top left corner of the widget.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$width; (transfer ownership: full) the width of the accessible object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; (transfer ownership: full) the height of the accessible object.</li>
 </ul>
-<p>Return value; true if the bounds are valid, and false otherwise. </p></section>
-<section name="pod">
-<h2 id="get-first-accessible-child"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-first-accessible-child</a></h2>
-<p>Retrieves the first accessible child of an accessible object.</p><pre class="pod-block-code">method get-first-accessible-child (--&gt; N-Object )
-</pre><p>Return value; the first accessible child. </p></section>
-<section name="pod">
-<h2 id="get-next-accessible-sibling"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-next-accessible-sibling</a></h2>
-<p>Retrieves the next accessible sibling of an accessible object</p><pre class="pod-block-code">method get-next-accessible-sibling (--&gt; N-Object )
-</pre><p>Return value; the next accessible sibling. </p></section>
-<section name="pod">
-<h2 id="get-platform-state"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">get-platform-state</a></h2>
-<p>Query a platform state, such as focus.</p><p>See <code>.platform-changed()</code>.</p><p>This functionality can be overridden by <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> implementations, e.g. to get platform state from an ignored child widget, as is the case for <a href="/content-docs/api2/reference/Gtk4/Text.html">Gnome::Gtk4::Text</a> wrappers.</p><pre class="pod-block-code">method get-platform-state ( GtkAccessiblePlatformState $state --&gt; Bool )
-</pre><ul>
-<li><p>$state; platform state to query.</p></li>
+
+<p id="Para_10">Return value; true if the bounds are valid, and false otherwise.</p>
+<h2 id="get-first-accessible-child" class="heading "><a href="#" title="go to top of document">get-first-accessible-child</a><a class="raku-anchor" title="direct link" href="#get-first-accessible-child">§</a></h2>
+
+<p id="Para_11">Retrieves the first accessible child of an accessible object.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-first-accessible-child (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; the first accessible child.</p>
+<h2 id="get-next-accessible-sibling" class="heading "><a href="#" title="go to top of document">get-next-accessible-sibling</a><a class="raku-anchor" title="direct link" href="#get-next-accessible-sibling">§</a></h2>
+
+<p id="Para_13">Retrieves the next accessible sibling of an accessible object</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-next-accessible-sibling (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_14">Return value; the next accessible sibling.</p>
+<h2 id="get-platform-state" class="heading "><a href="#" title="go to top of document">get-platform-state</a><a class="raku-anchor" title="direct link" href="#get-platform-state">§</a></h2>
+
+<p id="Para_15">Query a platform state, such as focus.</p>
+
+<p>See <span class="code">.platform-changed()</span>. </p>
+
+<p>This functionality can be overridden by <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> implementations, e.g. to get platform state from an ignored child widget, as is the case for <a href="/content-docs/api2/reference/Gtk4/Text">Gnome::Gtk4::Text</a> wrappers. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-platform-state ( GtkAccessiblePlatformState $state --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$state; platform state to query.</li>
 </ul>
-<p>Return value; the value of <code>$state</code> for the accessible. </p></section>
-<section name="pod">
-<h2 id="reset-property"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">reset-property</a></h2>
-<p>Resets the accessible <code>$property</code> to its default value.</p><pre class="pod-block-code">method reset-property ( GtkAccessibleProperty $property )
-</pre><ul>
-<li><p>$property; a <code>enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</code>.</p></li>
+
+<p>Return value; the value of <span class="code">$state</span> for the accessible. </p>
+<h2 id="reset-property" class="heading "><a href="#" title="go to top of document">reset-property</a><a class="raku-anchor" title="direct link" href="#reset-property">§</a></h2>
+
+<p>Resets the accessible <span class="code">$property</span> to its default value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reset-property ( GtkAccessibleProperty $property )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$property; a <span class="code">enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="reset-relation"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">reset-relation</a></h2>
-<p>Resets the accessible <code>$relation</code> to its default value.</p><pre class="pod-block-code">method reset-relation ( GtkAccessibleRelation $relation )
-</pre><ul>
-<li><p>$relation; a <code>enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</code>.</p></li>
+<h2 id="reset-relation" class="heading "><a href="#" title="go to top of document">reset-relation</a><a class="raku-anchor" title="direct link" href="#reset-relation">§</a></h2>
+
+<p>Resets the accessible <span class="code">$relation</span> to its default value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reset-relation ( GtkAccessibleRelation $relation )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$relation; a <span class="code">enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="reset-state"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">reset-state</a></h2>
-<p>Resets the accessible <code>$state</code> to its default value.</p><pre class="pod-block-code">method reset-state ( GtkAccessibleState $state )
-</pre><ul>
-<li><p>$state; a <code>enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</code>.</p></li>
+<h2 id="reset-state" class="heading "><a href="#" title="go to top of document">reset-state</a><a class="raku-anchor" title="direct link" href="#reset-state">§</a></h2>
+
+<p>Resets the accessible <span class="code">$state</span> to its default value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reset-state ( GtkAccessibleState $state )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$state; a <span class="code">enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-accessible-parent"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">set-accessible-parent</a></h2>
-<p>Sets the parent and sibling of an accessible object.</p><p>This function is meant to be used by accessible implementations that are not part of the widget hierarchy, and but act as a logical bridge between widgets. For instance, if a widget creates an object that holds metadata for each child, and you want that object to implement the <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> interface, you will use this function to ensure that the parent of each child widget is the metadata object, and the parent of each metadata object is the container widget.</p><pre class="pod-block-code">method set-accessible-parent ( N-Object() $parent, N-Object() $next-sibling )
-</pre><ul>
-<li><p>$parent; the parent accessible object.</p></li>
-<li><p>$next-sibling; the sibling accessible object.</p></li>
+<h2 id="set-accessible-parent" class="heading "><a href="#" title="go to top of document">set-accessible-parent</a><a class="raku-anchor" title="direct link" href="#set-accessible-parent">§</a></h2>
+
+<p id="Para_16">Sets the parent and sibling of an accessible object.</p>
+
+<p>This function is meant to be used by accessible implementations that are not part of the widget hierarchy, and but act as a logical bridge between widgets. For instance, if a widget creates an object that holds metadata for each child, and you want that object to implement the <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> interface, you will use this function to ensure that the parent of each child widget is the metadata object, and the parent of each metadata object is the container widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-accessible-parent ( N-Object() $parent, N-Object() $next-sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$parent; the parent accessible object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$next-sibling; the sibling accessible object.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-next-accessible-sibling"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-next-accessible-sibling</a></h2>
-<p>Updates the next accessible sibling of <code>$self</code>.</p><p>That might be useful when a new child of a custom <a href="/content-docs/api2/reference/Gtk4/R-Accessible.html">Gnome::Gtk4::R-Accessible</a> is created, and it needs to be linked to a previous child.</p><pre class="pod-block-code">method update-next-accessible-sibling ( N-Object() $new-sibling )
-</pre><ul>
-<li><p>$new-sibling; the new next accessible sibling to set.</p></li>
+<h2 id="update-next-accessible-sibling" class="heading "><a href="#" title="go to top of document">update-next-accessible-sibling</a><a class="raku-anchor" title="direct link" href="#update-next-accessible-sibling">§</a></h2>
+
+<p>Updates the next accessible sibling of <span class="code">$self</span>. </p>
+
+<p>That might be useful when a new child of a custom <a href="/content-docs/api2/reference/Gtk4/R-Accessible">Gnome::Gtk4::R-Accessible</a> is created, and it needs to be linked to a previous child. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-next-accessible-sibling ( N-Object() $new-sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$new-sibling; the new next accessible sibling to set.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-property"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-property</a></h2>
-<p>Updates a list of accessible properties.</p><p>See the enumeration <code>AccessibleProperty</code> from <code>Gnome::Gtk4::T-enums</code> documentation for the value types of accessible properties.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible property change must be communicated to assistive technologies.</p><p>Example:</p><pre class="pod-block-code">method update-property ( GtkAccessibleProperty $first-property, … )
-</pre><ul>
-<li><p>$first-property; the first <code>enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="update-property" class="heading "><a href="#" title="go to top of document">update-property</a><a class="raku-anchor" title="direct link" href="#update-property">§</a></h2>
+
+<p id="Para_17">Updates a list of accessible properties.</p>
+
+<p>See the enumeration <span class="code">AccessibleProperty</span> from <span class="code">Gnome::Gtk4::T-enums</span>  documentation for the value types of accessible properties. </p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible property change must be communicated to assistive technologies. </p>
+
+<p id="Para_18">Example:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-property ( GtkAccessibleProperty $first-property, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$first-property; the first <span class="code">enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-property-value"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-property-value</a></h2>
-<p>Updates an array of accessible properties.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible property change must be communicated to assistive technologies.</p><p>This function is meant to be used by language bindings.</p><pre class="pod-block-code">method update-property-value ( Int() $n-properties, GtkAccessibleProperty $properties, N-Object $values )
-</pre><ul>
-<li><p>$n-properties; the number of accessible properties to set.</p></li>
-<li><p>$properties; an array of <code>enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>$values; an array of <strong>GValues</strong>, one for each property</p></li>
+
+<h2 id="update-property-value" class="heading "><a href="#" title="go to top of document">update-property-value</a><a class="raku-anchor" title="direct link" href="#update-property-value">§</a></h2>
+
+<p id="Para_19">Updates an array of accessible properties.</p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible property change must be communicated to assistive technologies. </p>
+
+<p id="Para_20">This function is meant to be used by language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-property-value ( Int() $n-properties, GtkAccessibleProperty $properties, N-Object $values )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-properties; the number of accessible properties to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$properties; an array of <span class="code">enumeration GtkAccessibleProperty defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$values; an array of <span class="basis">GValues</span>, one for each property</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-relation"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-relation</a></h2>
-<p>Updates a list of accessible relations.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible relation change must be communicated to assistive technologies.</p><p>If the enumeration <code>AccessibleRelation</code> from <code>Gnome::Gtk4::T-enums</code> requires a list of references, you should pass each reference individually, followed by undefined, e.g.</p><pre class="pod-block-code">method update-relation ( GtkAccessibleRelation $first-relation, … )
-</pre><ul>
-<li><p>$first-relation; the first <code>enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+
+<h2 id="update-relation" class="heading "><a href="#" title="go to top of document">update-relation</a><a class="raku-anchor" title="direct link" href="#update-relation">§</a></h2>
+
+<p id="Para_21">Updates a list of accessible relations.</p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible relation change must be communicated to assistive technologies. </p>
+
+<p>If the enumeration <span class="code">AccessibleRelation</span> from <span class="code">Gnome::Gtk4::T-enums</span>  requires a list of references, you should pass each reference individually, followed by undefined, e.g. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-relation ( GtkAccessibleRelation $first-relation, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$first-relation; the first <span class="code">enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-relation-value"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-relation-value</a></h2>
-<p>Updates an array of accessible relations.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible relation change must be communicated to assistive technologies.</p><p>This function is meant to be used by language bindings.</p><pre class="pod-block-code">method update-relation-value ( Int() $n-relations, GtkAccessibleRelation $relations, N-Object $values )
-</pre><ul>
-<li><p>$n-relations; the number of accessible relations to set.</p></li>
-<li><p>$relations; an array of <code>enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>$values; an array of <strong>GValues</strong>, one for each relation</p></li>
+
+<h2 id="update-relation-value" class="heading "><a href="#" title="go to top of document">update-relation-value</a><a class="raku-anchor" title="direct link" href="#update-relation-value">§</a></h2>
+
+<p id="Para_22">Updates an array of accessible relations.</p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible relation change must be communicated to assistive technologies. </p>
+
+<p id="Para_23">This function is meant to be used by language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-relation-value ( Int() $n-relations, GtkAccessibleRelation $relations, N-Object $values )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-relations; the number of accessible relations to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$relations; an array of <span class="code">enumeration GtkAccessibleRelation defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$values; an array of <span class="basis">GValues</span>, one for each relation</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-state"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-state</a></h2>
-<p>Updates a list of accessible states. See the enumeration <code>AccessibleState</code> from <code>Gnome::Gtk4::T-enums</code> documentation for the value types of accessible states.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible state change must be communicated to assistive technologies.</p><p>Example:</p><pre class="pod-block-code">method update-state ( GtkAccessibleState $first-state, … )
-</pre><ul>
-<li><p>$first-state; the first <code>enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+
+<h2 id="update-state" class="heading "><a href="#" title="go to top of document">update-state</a><a class="raku-anchor" title="direct link" href="#update-state">§</a></h2>
+
+<p>Updates a list of accessible states. See the enumeration <span class="code">AccessibleState</span> from <span class="code">Gnome::Gtk4::T-enums</span>  documentation for the value types of accessible states. </p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible state change must be communicated to assistive technologies. </p>
+
+<p id="Para_24">Example:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-state ( GtkAccessibleState $first-state, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$first-state; the first <span class="code">enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="update-state-value"><a href="#Gnome::Gtk4::R-Accessible" class="u" title="go to top of document">update-state-value</a></h2>
-<p>Updates an array of accessible states.</p><p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> types whenever an accessible state change must be communicated to assistive technologies.</p><p>This function is meant to be used by language bindings.</p><pre class="pod-block-code">method update-state-value ( Int() $n-states, GtkAccessibleState $states, N-Object $values )
-</pre><ul>
-<li><p>$n-states; the number of accessible states to set.</p></li>
-<li><p>$states; an array of <code>enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>$values; an array of <strong>GValues</strong>, one for each state</p></li>
+
+<h2 id="update-state-value" class="heading "><a href="#" title="go to top of document">update-state-value</a><a class="raku-anchor" title="direct link" href="#update-state-value">§</a></h2>
+
+<p id="Para_25">Updates an array of accessible states.</p>
+
+<p>This function should be called by <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> types whenever an accessible state change must be communicated to assistive technologies. </p>
+
+<p id="Para_26">This function is meant to be used by language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method update-state-value ( Int() $n-states, GtkAccessibleState $states, N-Object $values )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-states; the number of accessible states to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$states; an array of <span class="code">enumeration GtkAccessibleState defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$values; an array of <span class="basis">GValues</span>, one for each state</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-Accessible.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:36Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-Accessible.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>

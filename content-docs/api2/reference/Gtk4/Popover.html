@@ -1,225 +1,779 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Popover</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Popover</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Popover">Gnome::Gtk4::Popover</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#GtkPopover_as_menu_replacement">GtkPopover as menu replacement</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-popover">new-popover</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-autohide">get-autohide</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-cascade-popdown">get-cascade-popdown</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-arrow">get-has-arrow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-mnemonics-visible">get-mnemonics-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-offset">get-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-pointing-to">get-pointing-to</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-position">get-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#popdown">popdown</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#popup">popup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#present">present</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-autohide">set-autohide</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-cascade-popdown">set-cascade-popdown</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-child">set-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-widget">set-default-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-arrow">set-has-arrow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-mnemonics-visible">set-mnemonics-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-offset">set-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-pointing-to">set-pointing-to</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-position">set-position</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate-default">activate-default</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#closed">closed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Popover</strong> is a bubble-like context popup.</p><div class="image-container inline"><img src="asset_files/images/popover.png" width="30%" height="auto" alt="No caption"></div>
-<p>It is primarily meant to provide context-dependent information or options. Popovers are attached to a parent widget. By default, they point to the whole widget area, although this behavior can be changed with <a href="#set-pointing-to">.set-pointing-to()</a>.</p><p>The position of a popover relative to the widget it is attached to can also be changed with <a href="#set-position">.set-position()</a></p><p>By default, <strong>Gnome::Gtk4::Popover</strong> performs a grab, in order to ensure input events get redirected to it while it is shown, and also so the popover is dismissed in the expected situations (clicks outside the popover, or the Escape key being pressed). If no such modal behavior is desired on a popover, <a href="#set-autohide">.set-autohide()</a> may be called on it to tweak its behavior.</p>
-<h3 id="GtkPopover_as_menu_replacement"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">GtkPopover as menu replacement</a></h3>
-<p><strong>Gnome::Gtk4::Popover</strong> is often used to replace menus. The best way to do this is to use the <a href="/content-docs/api2/reference/Gtk4/PopoverMenu.html">Gnome::Gtk4::PopoverMenu</a> subclass which supports being populated from a <a href="/content-docs/api2/reference/Gio/MenuModel.html">Gnome::Gio::MenuModel</a> with <a href="/content-docs/api2/reference/Gtk4/PopoverMenu.html#new-from-model">.new-from-model() in class PopoverMenu</a>.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Popover</strong> has a main node with name <strong>popover</strong>, an arrow with name <strong>arrow</strong>, and another node for the content named <strong>contents</strong>. The <strong>popover</strong> node always gets the `.background` style class. It also gets the `.menu` style class if the popover is menu-like, e.g. is a <a href="/content-docs/api2/reference/Gtk4/PopoverMenu.html">Gnome::Gtk4::PopoverMenu</a>.</p><p>Particular uses of <strong>Gnome::Gtk4::Popover</strong>, such as touch selection popups or magnifiers in <a href="/content-docs/api2/reference/Gtk4/Entry.html">Gnome::Gtk4::Entry</a> or <a href="/content-docs/api2/reference/Gtk4/TextView.html">Gnome::Gtk4::TextView</a> get style classes like `.touch-selection` or `.magnifier` to differentiate from plain popovers.</p><p>When styling a popover directly, the <strong>popover</strong> node should usually not have any background. The visible part of the popover can have a shadow. To specify it in CSS, set the box-shadow of the <strong>contents</strong> node.</p><p>Note that, in order to accomplish appropriate arrow visuals, <strong>Gnome::Gtk4::Popover</strong> uses custom drawing for the <strong>arrow</strong> node. This makes it possible for the arrow to change its shape dynamically, but it also limits the possibilities of styling it using CSS. In particular, the <strong>arrow</strong> gets drawn over the <strong>content</strong> node's border and shadow, so they look like one shape, which means that the border width of the <strong>content</strong> node and the <strong>arrow</strong> node should be the same. The arrow also does not support any border shape other than solid, no border-radius, only one border width (border-bottom-width is used) and no box-shadow.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Popover.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-popover"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">new-popover</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Popover</strong>.</p><pre class="pod-block-code">method new-popover ( --&gt; Gnome::Gtk4::Popover )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-autohide"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-autohide</a></h2>
-<p>Returns whether the popover is modal.</p><p>See <a href="#set-autohide">.set-autohide()</a> for the implications of this.</p><pre class="pod-block-code">method get-autohide (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$popover</code> is modal. </p></section>
-<section name="pod">
-<h2 id="get-cascade-popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-cascade-popdown</a></h2>
-<p>Returns whether the popover will close after a modal child is closed.</p><pre class="pod-block-code">method get-cascade-popdown (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$popover</code> will close after a modal child.. </p></section>
-<section name="pod">
-<h2 id="get-child"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-child</a></h2>
-<p>Gets the child widget of <code>$popover</code>.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
-</pre><p>Return value; the child widget of <code>$popover</code>. </p></section>
-<section name="pod">
-<h2 id="get-has-arrow"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-has-arrow</a></h2>
-<p>Gets whether this popover is showing an arrow pointing at the widget that it is relative to.</p><pre class="pod-block-code">method get-has-arrow (--&gt; Bool )
-</pre><p>Return value; whether the popover has an arrow. </p></section>
-<section name="pod">
-<h2 id="get-mnemonics-visible"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-mnemonics-visible</a></h2>
-<p>Gets whether mnemonics are visible.</p><pre class="pod-block-code">method get-mnemonics-visible (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if mnemonics are supposed to be visible in this popover. </p></section>
-<section name="pod">
-<h2 id="get-offset"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-offset</a></h2>
-<p>Gets the offset previous set with <a href="#set-offset()">.set-offset()()</a>.</p><pre class="pod-block-code">method get-offset ( Array[Int] $x-offset, Array[Int] $y-offset )
-</pre><ul>
-<li><p>$x-offset; (transfer ownership: full) a location for the x_offset.</p></li>
-<li><p>$y-offset; (transfer ownership: full) a location for the y_offset.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-pointing-to"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-pointing-to</a></h2>
-<p>Gets the rectangle that the popover points to.</p><p>If a rectangle to point to has been set, this function will return <code>True</code> and fill in <code>$rect</code> with such rectangle, otherwise it will return <code>False</code> and fill in <code>$rect</code> with the parent widget coordinates.</p><pre class="pod-block-code">method get-pointing-to ( N-Object $rect --&gt; Bool )
-</pre><ul>
-<li><p>$rect; location to store the rectangle</p></li>
-</ul>
-<p>Return value; <code>True</code> if a rectangle to point to was set.. </p></section>
-<section name="pod">
-<h2 id="get-position"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">get-position</a></h2>
-<p>Returns the preferred position of <code>$popover</code>.</p><pre class="pod-block-code">method get-position (--&gt; GtkPositionType )
-</pre><p>Return value; The preferred position.. </p></section>
-<section name="pod">
-<h2 id="popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">popdown</a></h2>
-<p>Pops <code>$popover</code> down.</p><p>This may have the side-effect of closing a parent popover as well. See <em>cascade-popdown</em>.</p><pre class="pod-block-code">method popdown ( )
-</pre></section>
-<section name="pod">
-<h2 id="popup"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">popup</a></h2>
-<p>Pops <code>$popover</code> up.</p><pre class="pod-block-code">method popup ( )
-</pre></section>
-<section name="pod">
-<h2 id="present"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">present</a></h2>
-<p>Allocate a size for the <strong>Gnome::Gtk4::Popover</strong>.</p><p>This function needs to be called in size-allocate by widgets who have a <strong>Gnome::Gtk4::Popover</strong> as child. When using a layout manager, this is happening automatically.</p><p>To make a popover appear on screen, use <a href="#popup">.popup()</a>.</p><pre class="pod-block-code">method present ( )
-</pre></section>
-<section name="pod">
-<h2 id="set-autohide"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-autohide</a></h2>
-<p>Sets whether <code>$popover</code> is modal.</p><p>A modal popover will grab the keyboard focus on it when being displayed. Focus will wrap around within the popover. Clicking outside the popover area or pressing Esc will dismiss the popover.</p><p>Called this function on an already showing popup with a new autohide value different from the current one, will cause the popup to be hidden.</p><pre class="pod-block-code">method set-autohide ( Bool() $autohide )
-</pre><ul>
-<li><p>$autohide; <code>True</code> to dismiss the popover on outside clicks.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-cascade-popdown"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-cascade-popdown</a></h2>
-<p>If <code>$cascade-popdown</code> is <code>True</code>, the popover will be closed when a child modal popover is closed.</p><p>If <code>False</code>, <code>$popover</code> will stay visible.</p><pre class="pod-block-code">method set-cascade-popdown ( Bool() $cascade-popdown )
-</pre><ul>
-<li><p>$cascade-popdown; <code>True</code> if the popover should follow a child closing.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-child"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-child</a></h2>
-<p>Sets the child widget of <code>$popover</code>.</p><pre class="pod-block-code">method set-child ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the child widget.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default-widget"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-default-widget</a></h2>
-<p>Sets the default widget of a <strong>Gnome::Gtk4::Popover</strong>.</p><p>The default widget is the widget that’s activated when the user presses Enter in a dialog (for example). This function sets or unsets the default widget for a <strong>Gnome::Gtk4::Popover</strong>.</p><pre class="pod-block-code">method set-default-widget ( N-Object() $widget )
-</pre><ul>
-<li><p>$widget; a child widget of <code>$popover</code> to set as the default, or undefined to unset the default widget for the popover.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-has-arrow"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-has-arrow</a></h2>
-<p>Sets whether this popover should draw an arrow pointing at the widget it is relative to.</p><pre class="pod-block-code">method set-has-arrow ( Bool() $has-arrow )
-</pre><ul>
-<li><p>$has-arrow; <code>True</code> to draw an arrow.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-mnemonics-visible"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-mnemonics-visible</a></h2>
-<p>Sets whether mnemonics should be visible.</p><pre class="pod-block-code">method set-mnemonics-visible ( Bool() $mnemonics-visible )
-</pre><ul>
-<li><p>$mnemonics-visible; the new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-offset"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-offset</a></h2>
-<p>Sets the offset to use when calculating the position of the popover.</p><p>These values are used when preparing the <strong>Gnome::Gdk4::N-PopupLayout</strong> for positioning the popover.</p><pre class="pod-block-code">method set-offset ( Int() $x-offset, Int() $y-offset )
-</pre><ul>
-<li><p>$x-offset; the x offset to adjust the position by.</p></li>
-<li><p>$y-offset; the y offset to adjust the position by.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-pointing-to"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-pointing-to</a></h2>
-<p>Sets the rectangle that <code>$popover</code> points to.</p><p>This is in the coordinate space of the <code>$popover</code> parent.</p><pre class="pod-block-code">method set-pointing-to ( N-Object $rect )
-</pre><ul>
-<li><p>$rect; rectangle to point to</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-position"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">set-position</a></h2>
-<p>Sets the preferred position for <code>$popover</code> to appear.</p><p>If the <code>$popover</code> is currently visible, it will be immediately updated.</p><p>This preference will be respected where possible, although on lack of space (eg. if close to the window edges), the <strong>Gnome::Gtk4::Popover</strong> may choose to appear on the opposite side.</p><pre class="pod-block-code">method set-position ( GtkPositionType $position )
-</pre><ul>
-<li><p>$position; preferred popover position.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate-default"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">activate-default</a></h3>
-<p>Emitted whend the user activates the default widget.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Popover"></div><h1 class="title">Gnome::Gtk4::Popover</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#GtkPopover_as_menu_replacement">GtkPopover as menu replacement</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-popover">new-popover</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-autohide">get-autohide</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-cascade-popdown">get-cascade-popdown</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-child">get-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-has-arrow">get-has-arrow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-mnemonics-visible">get-mnemonics-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-offset">get-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-pointing-to">get-pointing-to</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-position">get-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#popdown">popdown</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#popup">popup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#present">present</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-autohide">set-autohide</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-cascade-popdown">set-cascade-popdown</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-child">set-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default-widget">set-default-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-has-arrow">set-has-arrow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-mnemonics-visible">set-mnemonics-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-offset">set-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-pointing-to">set-pointing-to</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-position">set-position</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate-default">activate-default</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#closed">closed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Popover</span> is a bubble-like context popup. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/popover.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>It is primarily meant to provide context-dependent information or options. Popovers are attached to a parent widget. By default, they point to the whole widget area, although this behavior can be changed with <a href="#set-pointing-to">.set-pointing-to()</a>. </p>
+
+<p>The position of a popover relative to the widget it is attached to can also be changed with <a href="#set-position">.set-position()</a> </p>
+
+<p>By default, <span class="basis">Gnome::Gtk4::Popover</span> performs a grab, in order to ensure input events get redirected to it while it is shown, and also so the popover is dismissed in the expected situations (clicks outside the popover, or the Escape key being pressed). If no such modal behavior is desired on a popover, <a href="#set-autohide">.set-autohide()</a> may be called on it to tweak its behavior. </p>
+
+<div class="id-target" id="GtkPopover as menu replacement"></div><h3 id="GtkPopover_as_menu_replacement" class="heading "><a href="#" title="go to top of document">GtkPopover as menu replacement</a><a class="raku-anchor" title="direct link" href="#GtkPopover as menu replacement">§</a></h3>
+
+<p><span class="basis">Gnome::Gtk4::Popover</span> is often used to replace menus. The best way to do this is to use the <a href="/content-docs/api2/reference/Gtk4/PopoverMenu">Gnome::Gtk4::PopoverMenu</a> subclass which supports being populated from a <a href="/content-docs/api2/reference/Gio/MenuModel">Gnome::Gio::MenuModel</a> with <a href="/content-docs/api2/reference/Gtk4/PopoverMenu#new-from-model">.new-from-model() in class PopoverMenu</a>. </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Popover</span> has a main node with name <span class="basis">popover</span>, an arrow with name <span class="basis">arrow</span>, and another node for the content named <span class="basis">contents</span>. The <span class="basis">popover</span> node always gets the `.background` style class. It also gets the `.menu` style class if the popover is menu-like, e.g. is a <a href="/content-docs/api2/reference/Gtk4/PopoverMenu">Gnome::Gtk4::PopoverMenu</a>. </p>
+
+<p>Particular uses of <span class="basis">Gnome::Gtk4::Popover</span>, such as touch selection popups or magnifiers in <a href="/content-docs/api2/reference/Gtk4/Entry">Gnome::Gtk4::Entry</a> or <a href="/content-docs/api2/reference/Gtk4/TextView">Gnome::Gtk4::TextView</a> get style classes like `.touch-selection` or `.magnifier` to differentiate from plain popovers. </p>
+
+<p>When styling a popover directly, the <span class="basis">popover</span> node should usually not have any background. The visible part of the popover can have a shadow. To specify it in CSS, set the box-shadow of the <span class="basis">contents</span> node. </p>
+
+<p>Note that, in order to accomplish appropriate arrow visuals, <span class="basis">Gnome::Gtk4::Popover</span> uses custom drawing for the <span class="basis">arrow</span> node. This makes it possible for the arrow to change its shape dynamically, but it also limits the possibilities of styling it using CSS. In particular, the <span class="basis">arrow</span> gets drawn over the <span class="basis">content</span> node's border and shadow, so they look like one shape, which means that the border width of the <span class="basis">content</span> node and the <span class="basis">arrow</span> node should be the same. The arrow also does not support any border shape other than solid, no border-radius, only one border width (border-bottom-width is used) and no box-shadow. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Popover.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-popover" class="heading "><a href="#" title="go to top of document">new-popover</a><a class="raku-anchor" title="direct link" href="#new-popover">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Popover</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-popover ( --&gt; Gnome::Gtk4::Popover )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-autohide" class="heading "><a href="#" title="go to top of document">get-autohide</a><a class="raku-anchor" title="direct link" href="#get-autohide">§</a></h2>
+
+<p id="Para">Returns whether the popover is modal.</p>
+
+<p>See <a href="#set-autohide">.set-autohide()</a> for the implications of this. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-autohide (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$popover</span> is modal. </p>
+<h2 id="get-cascade-popdown" class="heading "><a href="#" title="go to top of document">get-cascade-popdown</a><a class="raku-anchor" title="direct link" href="#get-cascade-popdown">§</a></h2>
+
+<p id="Para_0">Returns whether the popover will close after a modal child is closed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-cascade-popdown (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$popover</span> will close after a modal child.. </p>
+<h2 id="get-child" class="heading "><a href="#" title="go to top of document">get-child</a><a class="raku-anchor" title="direct link" href="#get-child">§</a></h2>
+
+<p>Gets the child widget of <span class="code">$popover</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-child (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the child widget of <span class="code">$popover</span>. </p>
+<h2 id="get-has-arrow" class="heading "><a href="#" title="go to top of document">get-has-arrow</a><a class="raku-anchor" title="direct link" href="#get-has-arrow">§</a></h2>
+
+<p id="Para_1">Gets whether this popover is showing an arrow pointing at the widget that it is relative to.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-has-arrow (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; whether the popover has an arrow.</p>
+<h2 id="get-mnemonics-visible" class="heading "><a href="#" title="go to top of document">get-mnemonics-visible</a><a class="raku-anchor" title="direct link" href="#get-mnemonics-visible">§</a></h2>
+
+<p id="Para_3">Gets whether mnemonics are visible.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-mnemonics-visible (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if mnemonics are supposed to be visible in this popover. </p>
+<h2 id="get-offset" class="heading "><a href="#" title="go to top of document">get-offset</a><a class="raku-anchor" title="direct link" href="#get-offset">§</a></h2>
+
+<p>Gets the offset previous set with <a href="#set-offset()">.set-offset()()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-offset ( Array[Int] $x-offset, Array[Int] $y-offset )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x-offset; (transfer ownership: full) a location for the x_offset.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y-offset; (transfer ownership: full) a location for the y_offset.</li>
+</ul>
+<h2 id="get-pointing-to" class="heading "><a href="#" title="go to top of document">get-pointing-to</a><a class="raku-anchor" title="direct link" href="#get-pointing-to">§</a></h2>
+
+<p id="Para_4">Gets the rectangle that the popover points to.</p>
+
+<p>If a rectangle to point to has been set, this function will return <span class="code">True</span> and fill in <span class="code">$rect</span> with such rectangle, otherwise it will return <span class="code">False</span> and fill in <span class="code">$rect</span> with the parent widget coordinates. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-pointing-to ( N-Object $rect --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rect; location to store the rectangle</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if a rectangle to point to was set.. </p>
+<h2 id="get-position" class="heading "><a href="#" title="go to top of document">get-position</a><a class="raku-anchor" title="direct link" href="#get-position">§</a></h2>
+
+<p>Returns the preferred position of <span class="code">$popover</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-position (--&gt; GtkPositionType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; The preferred position..</p>
+<h2 id="popdown" class="heading "><a href="#" title="go to top of document">popdown</a><a class="raku-anchor" title="direct link" href="#popdown">§</a></h2>
+
+<p>Pops <span class="code">$popover</span> down. </p>
+
+<p>This may have the side-effect of closing a parent popover as well. See <span class="important">cascade-popdown</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method popdown ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="popup" class="heading "><a href="#" title="go to top of document">popup</a><a class="raku-anchor" title="direct link" href="#popup">§</a></h2>
+
+<p>Pops <span class="code">$popover</span> up. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method popup ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="present" class="heading "><a href="#" title="go to top of document">present</a><a class="raku-anchor" title="direct link" href="#present">§</a></h2>
+
+<p>Allocate a size for the <span class="basis">Gnome::Gtk4::Popover</span>. </p>
+
+<p>This function needs to be called in size-allocate by widgets who have a <span class="basis">Gnome::Gtk4::Popover</span> as child. When using a layout manager, this is happening automatically. </p>
+
+<p>To make a popover appear on screen, use <a href="#popup">.popup()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method present ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="set-autohide" class="heading "><a href="#" title="go to top of document">set-autohide</a><a class="raku-anchor" title="direct link" href="#set-autohide">§</a></h2>
+
+<p>Sets whether <span class="code">$popover</span> is modal. </p>
+
+<p id="Para_6">A modal popover will grab the keyboard focus on it when being displayed. Focus will wrap around within the popover. Clicking outside the popover area or pressing Esc will dismiss the popover.</p>
+
+<p id="Para_7">Called this function on an already showing popup with a new autohide value different from the current one, will cause the popup to be hidden.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-autohide ( Bool() $autohide )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$autohide; <span class="code">True</span> to dismiss the popover on outside clicks.</li>
+</ul>
+<h2 id="set-cascade-popdown" class="heading "><a href="#" title="go to top of document">set-cascade-popdown</a><a class="raku-anchor" title="direct link" href="#set-cascade-popdown">§</a></h2>
+
+<p>If <span class="code">$cascade-popdown</span> is <span class="code">True</span>, the popover will be closed when a child modal popover is closed. </p>
+
+<p>If <span class="code">False</span>, <span class="code">$popover</span> will stay visible. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-cascade-popdown ( Bool() $cascade-popdown )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$cascade-popdown; <span class="code">True</span> if the popover should follow a child closing.</li>
+</ul>
+<h2 id="set-child" class="heading "><a href="#" title="go to top of document">set-child</a><a class="raku-anchor" title="direct link" href="#set-child">§</a></h2>
+
+<p>Sets the child widget of <span class="code">$popover</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-child ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child widget.</li>
+</ul>
+<h2 id="set-default-widget" class="heading "><a href="#" title="go to top of document">set-default-widget</a><a class="raku-anchor" title="direct link" href="#set-default-widget">§</a></h2>
+
+<p>Sets the default widget of a <span class="basis">Gnome::Gtk4::Popover</span>. </p>
+
+<p>The default widget is the widget that’s activated when the user presses Enter in a dialog (for example). This function sets or unsets the default widget for a <span class="basis">Gnome::Gtk4::Popover</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default-widget ( N-Object() $widget )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$widget; a child widget of <span class="code">$popover</span> to set as the default, or undefined to unset the default widget for the popover.</li>
+</ul>
+<h2 id="set-has-arrow" class="heading "><a href="#" title="go to top of document">set-has-arrow</a><a class="raku-anchor" title="direct link" href="#set-has-arrow">§</a></h2>
+
+<p id="Para_8">Sets whether this popover should draw an arrow pointing at the widget it is relative to.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-has-arrow ( Bool() $has-arrow )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$has-arrow; <span class="code">True</span> to draw an arrow.</li>
+</ul>
+<h2 id="set-mnemonics-visible" class="heading "><a href="#" title="go to top of document">set-mnemonics-visible</a><a class="raku-anchor" title="direct link" href="#set-mnemonics-visible">§</a></h2>
+
+<p id="Para_9">Sets whether mnemonics should be visible.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-mnemonics-visible ( Bool() $mnemonics-visible )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mnemonics-visible; the new value.</li>
+</ul>
+<h2 id="set-offset" class="heading "><a href="#" title="go to top of document">set-offset</a><a class="raku-anchor" title="direct link" href="#set-offset">§</a></h2>
+
+<p id="Para_10">Sets the offset to use when calculating the position of the popover.</p>
+
+<p>These values are used when preparing the <span class="basis">Gnome::Gdk4::N-PopupLayout</span>  for positioning the popover. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-offset ( Int() $x-offset, Int() $y-offset )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x-offset; the x offset to adjust the position by.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y-offset; the y offset to adjust the position by.</li>
+</ul>
+<h2 id="set-pointing-to" class="heading "><a href="#" title="go to top of document">set-pointing-to</a><a class="raku-anchor" title="direct link" href="#set-pointing-to">§</a></h2>
+
+<p>Sets the rectangle that <span class="code">$popover</span> points to. </p>
+
+<p>This is in the coordinate space of the <span class="code">$popover</span> parent. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-pointing-to ( N-Object $rect )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rect; rectangle to point to</li>
+</ul>
+<h2 id="set-position" class="heading "><a href="#" title="go to top of document">set-position</a><a class="raku-anchor" title="direct link" href="#set-position">§</a></h2>
+
+<p>Sets the preferred position for <span class="code">$popover</span> to appear. </p>
+
+<p>If the <span class="code">$popover</span> is currently visible, it will be immediately updated. </p>
+
+<p>This preference will be respected where possible, although on lack of space (eg. if close to the window edges), the <span class="basis">Gnome::Gtk4::Popover</span> may choose to appear on the opposite side. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-position ( GtkPositionType $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; preferred popover position.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate-default" class="heading "><a href="#" title="go to top of document">activate-default</a><a class="raku-anchor" title="direct link" href="#activate-default">§</a></h3>
+
+<p id="Para_11">Emitted whend the user activates the default widget.</p>
+
+<p id="Para_12">This is a [keybinding signal](class.SignalAction.html).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Popover :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Popover</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="closed"><a href="#Gnome::Gtk4::Popover" class="u" title="go to top of document">closed</a></h3>
-<p>Emitted when the popover is closed.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Popover</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="closed" class="heading "><a href="#" title="go to top of document">closed</a><a class="raku-anchor" title="direct link" href="#closed">§</a></h3>
+
+<p id="Para_13">Emitted when the popover is closed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Popover :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Popover</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Popover</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Popover.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:30Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Popover.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

@@ -1,182 +1,734 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Dialog</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Dialog</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Dialog">Gnome::Gtk4::Dialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkDialog_as_GtkBuildable">GtkDialog as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-dialog">new-dialog</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-buttons">new-with-buttons</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-action-widget">add-action-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-button">add-button</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-buttons">add-buttons</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-content-area">get-content-area</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-header-bar">get-header-bar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-response-for-widget">get-response-for-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-widget-for-response">get-widget-for-response</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#response">response</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-response">set-default-response</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-response-sensitive">set-response-sensitive</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#close">close</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#response_0">response</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Description</a></h1>
-<p>Dialogs are a convenient way to prompt the user for a small amount of input.</p><div class="image-container inline"><img src="asset_files/images/dialog.png" width="30%" height="auto" alt="No caption"></div>
-<p>Typical uses are to display a message, ask a question, or anything else that does not require extensive effort on the user’s part.</p><p>The main area of a <strong>Gnome::Gtk4::Dialog</strong> is called the &quot;content area&quot;, and is yours to populate with widgets such a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a> or <a href="/content-docs/api2/reference/Gtk4/Entry.html">Gnome::Gtk4::Entry</a>, to present your information, questions, or tasks to the user.</p><p>In addition, dialogs allow you to add &quot;action widgets&quot;. Most commonly, action widgets are buttons. Depending on the platform, action widgets may be presented in the header bar at the top of the window, or at the bottom of the window. To add action widgets, create your <strong>Gnome::Gtk4::Dialog</strong> using <a href="#new-with-buttons">.new-with-buttons()</a>, or use <a href="#add-button">.add-button()</a>, <a href="#add-buttons">.add-buttons()</a>, or <a href="#add-action-widget">.add-action-widget()</a>.</p><p><strong>GtkDialogs</strong> uses some heuristics to decide whether to add a close button to the window decorations. If any of the action buttons use the response ID <code>GTK_RESPONSE_CLOSE</code> or <code>GTK_RESPONSE_CANCEL</code>, the close button is omitted.</p><p>Clicking a button that was added as an action widget will emit the <em>response</em> signal with a response ID that you specified. GTK will never assign a meaning to positive response IDs; these are entirely user-defined. But for convenience, you can use the response IDs in the enumeration <code>ResponseType</code> from <code>Gnome::Gtk4::T-dialog</code> enumeration (these all have values less than zero). If a dialog receives a delete event, the <em>response</em> signal will be emitted with the <code>GTK_RESPONSE_DELETE_EVENT</code> response ID.</p><p>Dialogs are created with a call to <a href="#newdialog">.newdialog()</a> or <a href="#new-with-buttons">.new-with-buttons()</a>. The latter is recommended; it allows you to set the dialog title, some convenient flags, and add buttons.</p><p>A “modal” dialog (that is, one which freezes the rest of the application from user input), can be created by calling <a href="/content-docs/api2/reference/Gtk4/Window.html#set-modal">.set-modal() in class Window</a> on the dialog. When using <a href="#new-with-buttons">.new-with-buttons()</a>, you can also pass the <code>GTK_DIALOG_MODAL</code> flag to make a dialog modal.</p><p>For the simple dialog in the following example, a <a href="/content-docs/api2/reference/Gtk4/MessageDialog.html">Gnome::Gtk4::MessageDialog</a> would save some effort. But you’d need to create the dialog contents manually if you had more than a simple message in the dialog.</p><p>An example for simple <strong>Gnome::Gtk4::Dialog</strong> usage:</p>
-<h2 id="GtkDialog_as_GtkBuildable"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">GtkDialog as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::Dialog</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface exposes the <code>$content-area</code> as an internal child with the name “content_area”.</p><p><strong>Gnome::Gtk4::Dialog</strong> supports a custom `&lt;action-widgets&gt;` element, which can contain multiple `&lt;action-widget&gt;` elements. The “response” attribute specifies a numeric response, and the content of the element is the id of widget (which should be a child of the dialogs <code>$action-area</code>). To mark a response as default, set the “default” attribute of the `&lt;action-widget&gt;` element to true.</p><p><strong>Gnome::Gtk4::Dialog</strong> supports adding action widgets by specifying “action” as the “type” attribute of a `&lt;child&gt;` element. The widget will be added either to the action area or the headerbar of the dialog, depending on the “use-header-bar” property. The response id has to be associated with the action widget using the `&lt;action-widgets&gt;` element.</p><p>An example of a <strong>Gnome::Gtk4::Dialog</strong> UI definition fragment:</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Dialog</strong> uses the <code>GTK_ACCESSIBLE_ROLE_DIALOG</code> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Dialog.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-dialog"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">new-dialog</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new dialog box.</p><p>Widgets should not be packed into the <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> directly, but into the <code>$content-area</code> and <code>$action-area</code>, as described above.</p><pre class="pod-block-code">method new-dialog ( --&gt; Gnome::Gtk4::Dialog )
-</pre></section>
-<section name="pod">
-<h2 id="new-with-buttons"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">new-with-buttons</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::Dialog</strong> with the given title and transient parent.</p><p>The <code>$flags</code> argument can be used to make the dialog modal, have it destroyed along with its transient parent, or make it use a headerbar.</p><p>Button text/response ID pairs should be listed in pairs, with a undefined pointer ending the list. Button text can be arbitrary text. A response ID can be any positive number, or one of the values in the enumeration <code>ResponseType</code> from <code>Gnome::Gtk4::T-dialog</code> enumeration. If the user clicks one of these buttons, <strong>Gnome::Gtk4::Dialog</strong> will emit the <em>response</em> signal with the corresponding response ID.</p><p>If a <strong>Gnome::Gtk4::Dialog</strong> receives a delete event, it will emit <em>response</em> with a response ID of <code>GTK_RESPONSE_DELETE_EVENT</code>.</p><p>However, destroying a dialog does not emit the <em>response</em> signal; so be careful relying on <em>response</em> when using the <code>GTK_DIALOG_DESTROY_WITH_PARENT</code> flag.</p><p>Here’s a simple example:</p><pre class="pod-block-code">method new-with-buttons ( Str $title, N-Object() $parent, UInt $flags, Str $first-button-text, … --&gt; Gnome::Gtk4::Dialog )
-</pre><ul>
-<li><p>$title; Title of the dialog.</p></li>
-<li><p>$parent; Transient parent of the dialog.</p></li>
-<li><p>$flags; from <code>bit field GtkDialogFlags defined in Gnome::Gtk4::T-dialog</code>.</p></li>
-<li><p>$first-button-text; text to go in first button.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-action-widget"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">add-action-widget</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds an activatable widget to the action area of a <strong>Gnome::Gtk4::Dialog</strong>.</p><p>GTK connects a signal handler that will emit the <em>response</em> signal on the dialog when the widget is activated. The widget is appended to the end of the dialog’s action area.</p><p>If you want to add a non-activatable widget, simply pack it into the <code>$action-area</code> field of the <strong>Gnome::Gtk4::Dialog</strong> struct.</p><pre class="pod-block-code">method add-action-widget ( N-Object() $child, Int() $response-id )
-</pre><ul>
-<li><p>$child; an activatable widget.</p></li>
-<li><p>$response-id; response ID for <code>$child</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-button"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">add-button</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds a button with the given text.</p><p>GTK arranges things so that clicking the button will emit the <em>response</em> signal with the given <code>$response-id</code>. The button is appended to the end of the dialog’s action area. The button widget is returned, but usually you don’t need it.</p><pre class="pod-block-code">method add-button ( Str $button-text, Int() $response-id --&gt; N-Object )
-</pre><ul>
-<li><p>$button-text; text of button.</p></li>
-<li><p>$response-id; response ID for the button.</p></li>
-</ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/Button.html">Gnome::Gtk4::Button</a> widget that was added. </p></section>
-<section name="pod">
-<h2 id="add-buttons"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">add-buttons</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds multiple buttons.</p><p>This is the same as calling <a href="#add-button">.add-button()</a> repeatedly. The variable argument list should be undefined-terminated as with <a href="#new-with-buttons">.new-with-buttons()</a>. Each button must have both text and response ID.</p><pre class="pod-block-code">method add-buttons ( Str $first-button-text, … )
-</pre><ul>
-<li><p>$first-button-text; button text.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-content-area"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">get-content-area</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the content area of <code>$dialog</code>.</p><pre class="pod-block-code">method get-content-area (--&gt; N-Object )
-</pre><p>Return value; the content area <a href="/content-docs/api2/reference/Gtk4/Box.html">Gnome::Gtk4::Box</a>.. </p></section>
-<section name="pod">
-<h2 id="get-header-bar"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">get-header-bar</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the header bar of <code>$dialog</code>.</p><p>Note that the headerbar is only used by the dialog if the <em>use-header-bar</em> property is <code>True</code>.</p><pre class="pod-block-code">method get-header-bar (--&gt; N-Object )
-</pre><p>Return value; the header bar. </p></section>
-<section name="pod">
-<h2 id="get-response-for-widget"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">get-response-for-widget</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the response id of a widget in the action area of a dialog.</p><pre class="pod-block-code">method get-response-for-widget ( N-Object() $widget --&gt; Int )
-</pre><ul>
-<li><p>$widget; a widget in the action area of <code>$dialog</code>.</p></li>
-</ul>
-<p>Return value; the response id of <code>$widget</code>, or <code>GTK_RESPONSE_NONE</code> if <code>$widget</code> doesn’t have a response id set.. </p></section>
-<section name="pod">
-<h2 id="get-widget-for-response"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">get-widget-for-response</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the widget button that uses the given response ID in the action area of a dialog.</p><pre class="pod-block-code">method get-widget-for-response ( Int() $response-id --&gt; N-Object )
-</pre><ul>
-<li><p>$response-id; the response ID used by the <code>$dialog</code> widget.</p></li>
-</ul>
-<p>Return value; the <code>$widget</code> button that uses the given <code>$response-id</code>. </p></section>
-<section name="pod">
-<h2 id="response"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">response</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>response</em> signal with the given response ID.</p><p>Used to indicate that the user has responded to the dialog in some way.</p><pre class="pod-block-code">method response ( Int() $response-id )
-</pre><ul>
-<li><p>$response-id; response ID.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default-response"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">set-default-response</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the default widget for the dialog based on the response ID.</p><p>Pressing “Enter” normally activates the default widget.</p><pre class="pod-block-code">method set-default-response ( Int() $response-id )
-</pre><ul>
-<li><p>$response-id; a response ID.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-response-sensitive"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">set-response-sensitive</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>A convenient way to sensitize/desensitize dialog buttons.</p><p>Calls <strong>gtk_widget_set_sensitive</strong> (widget, <code>$setting</code>)` for each widget in the dialog’s action area with the given <code>$response-id</code>.</p><pre class="pod-block-code">method set-response-sensitive ( Int() $response-id, Bool() $setting )
-</pre><ul>
-<li><p>$response-id; a response ID.</p></li>
-<li><p>$setting; <code>True</code> for sensitive.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">Signals</a></h1>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id="close"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">close</a></h3>
-<p>Emitted when the user uses a keybinding to close the dialog.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default binding for this signal is the Escape key.</p><pre class="pod-block-code">method handler (
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Dialog"></div><h1 class="title">Gnome::Gtk4::Dialog</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkDialog_as_GtkBuildable">GtkDialog as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-dialog">new-dialog</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-buttons">new-with-buttons</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-action-widget">add-action-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-button">add-button</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-buttons">add-buttons</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-content-area">get-content-area</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-header-bar">get-header-bar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-response-for-widget">get-response-for-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-widget-for-response">get-widget-for-response</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#response">response</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default-response">set-default-response</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-response-sensitive">set-response-sensitive</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#close">close</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#response_0">response</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">Dialogs are a convenient way to prompt the user for a small amount of input.</p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/dialog.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p id="Para_0">Typical uses are to display a message, ask a question, or anything else that does not require extensive effort on the user’s part.</p>
+
+<p>The main area of a <span class="basis">Gnome::Gtk4::Dialog</span> is called the &quot;content area&quot;, and is yours to populate with widgets such a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a> or <a href="/content-docs/api2/reference/Gtk4/Entry">Gnome::Gtk4::Entry</a>, to present your information, questions, or tasks to the user. </p>
+
+<p>In addition, dialogs allow you to add &quot;action widgets&quot;. Most commonly, action widgets are buttons. Depending on the platform, action widgets may be presented in the header bar at the top of the window, or at the bottom of the window. To add action widgets, create your <span class="basis">Gnome::Gtk4::Dialog</span> using <a href="#new-with-buttons">.new-with-buttons()</a>, or use <a href="#add-button">.add-button()</a>, <a href="#add-buttons">.add-buttons()</a>, or <a href="#add-action-widget">.add-action-widget()</a>. </p>
+
+<p><span class="basis">GtkDialogs</span> uses some heuristics to decide whether to add a close button to the window decorations. If any of the action buttons use the response ID <span class="code">GTK_RESPONSE_CLOSE</span> or <span class="code">GTK_RESPONSE_CANCEL</span>, the close button is omitted. </p>
+
+<p>Clicking a button that was added as an action widget will emit the <span class="important">response</span> signal with a response ID that you specified. GTK will never assign a meaning to positive response IDs; these are entirely user-defined. But for convenience, you can use the response IDs in the enumeration <span class="code">ResponseType</span> from <span class="code">Gnome::Gtk4::T-dialog</span>  enumeration (these all have values less than zero). If a dialog receives a delete event, the <span class="important">response</span> signal will be emitted with the <span class="code">GTK_RESPONSE_DELETE_EVENT</span> response ID. </p>
+
+<p>Dialogs are created with a call to <a href="#newdialog">.newdialog()</a> or <a href="#new-with-buttons">.new-with-buttons()</a>. The latter is recommended; it allows you to set the dialog title, some convenient flags, and add buttons. </p>
+
+<p>A “modal” dialog (that is, one which freezes the rest of the application from user input), can be created by calling <a href="/content-docs/api2/reference/Gtk4/Window#set-modal">.set-modal() in class Window</a> on the dialog. When using <a href="#new-with-buttons">.new-with-buttons()</a>, you can also pass the <span class="code">GTK_DIALOG_MODAL</span> flag to make a dialog modal. </p>
+
+<p>For the simple dialog in the following example, a <a href="/content-docs/api2/reference/Gtk4/MessageDialog">Gnome::Gtk4::MessageDialog</a> would save some effort. But you’d need to create the dialog contents manually if you had more than a simple message in the dialog. </p>
+
+<p>An example for simple <span class="basis">Gnome::Gtk4::Dialog</span> usage: </p>
+
+<div class="id-target" id="GtkDialog as GtkBuildable"></div><h2 id="GtkDialog_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkDialog as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkDialog as GtkBuildable">§</a></h2>
+
+<p>The <span class="basis">Gnome::Gtk4::Dialog</span> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable">Gnome::Gtk4::R-Buildable</a> interface exposes the <span class="code">$content-area</span> as an internal child with the name “content_area”. </p>
+
+<p><span class="basis">Gnome::Gtk4::Dialog</span> supports a custom `&lt;action-widgets&gt;` element, which can contain multiple `&lt;action-widget&gt;` elements. The “response” attribute specifies a numeric response, and the content of the element is the id of widget (which should be a child of the dialogs <span class="code">$action-area</span>). To mark a response as default, set the “default” attribute of the `&lt;action-widget&gt;` element to true. </p>
+
+<p><span class="basis">Gnome::Gtk4::Dialog</span> supports adding action widgets by specifying “action” as the “type” attribute of a `&lt;child&gt;` element. The widget will be added either to the action area or the headerbar of the dialog, depending on the “use-header-bar” property. The response id has to be associated with the action widget using the `&lt;action-widgets&gt;` element. </p>
+
+<p>An example of a <span class="basis">Gnome::Gtk4::Dialog</span> UI definition fragment: </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Dialog</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_DIALOG</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Dialog.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-dialog" class="heading "><a href="#" title="go to top of document">new-dialog</a><a class="raku-anchor" title="direct link" href="#new-dialog">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_1">Creates a new dialog box.</p>
+
+<p>Widgets should not be packed into the <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> directly, but into the <span class="code">$content-area</span> and <span class="code">$action-area</span>, as described above. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-dialog ( --&gt; Gnome::Gtk4::Dialog )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-with-buttons" class="heading "><a href="#" title="go to top of document">new-with-buttons</a><a class="raku-anchor" title="direct link" href="#new-with-buttons">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Dialog</span> with the given title and transient parent. </p>
+
+<p>The <span class="code">$flags</span> argument can be used to make the dialog modal, have it destroyed along with its transient parent, or make it use a headerbar. </p>
+
+<p>Button text/response ID pairs should be listed in pairs, with a undefined pointer ending the list. Button text can be arbitrary text. A response ID can be any positive number, or one of the values in the enumeration <span class="code">ResponseType</span> from <span class="code">Gnome::Gtk4::T-dialog</span>  enumeration. If the user clicks one of these buttons, <span class="basis">Gnome::Gtk4::Dialog</span> will emit the <span class="important">response</span> signal with the corresponding response ID. </p>
+
+<p>If a <span class="basis">Gnome::Gtk4::Dialog</span> receives a delete event, it will emit <span class="important">response</span> with a response ID of <span class="code">GTK_RESPONSE_DELETE_EVENT</span>. </p>
+
+<p>However, destroying a dialog does not emit the <span class="important">response</span> signal; so be careful relying on <span class="important">response</span> when using the <span class="code">GTK_DIALOG_DESTROY_WITH_PARENT</span> flag. </p>
+
+<p id="Para_2">Here’s a simple example:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-buttons ( Str $title, N-Object() $parent, UInt $flags, Str $first-button-text, … --&gt; Gnome::Gtk4::Dialog )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$title; Title of the dialog.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; Transient parent of the dialog.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; from <span class="code">bit field GtkDialogFlags defined in Gnome::Gtk4::T-dialog</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-button-text; text to go in first button.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-action-widget" class="heading "><a href="#" title="go to top of document">add-action-widget</a><a class="raku-anchor" title="direct link" href="#add-action-widget">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds an activatable widget to the action area of a <span class="basis">Gnome::Gtk4::Dialog</span>. </p>
+
+<p>GTK connects a signal handler that will emit the <span class="important">response</span> signal on the dialog when the widget is activated. The widget is appended to the end of the dialog’s action area. </p>
+
+<p>If you want to add a non-activatable widget, simply pack it into the <span class="code">$action-area</span> field of the <span class="basis">Gnome::Gtk4::Dialog</span> struct. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-action-widget ( N-Object() $child, Int() $response-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; an activatable widget.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$response-id; response ID for <span class="code">$child</span>.</li>
+</ul>
+<h2 id="add-button" class="heading "><a href="#" title="go to top of document">add-button</a><a class="raku-anchor" title="direct link" href="#add-button">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_3">Adds a button with the given text.</p>
+
+<p>GTK arranges things so that clicking the button will emit the <span class="important">response</span> signal with the given <span class="code">$response-id</span>. The button is appended to the end of the dialog’s action area. The button widget is returned, but usually you don’t need it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-button ( Str $button-text, Int() $response-id --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$button-text; text of button.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$response-id; response ID for the button.</li>
+</ul>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/Button">Gnome::Gtk4::Button</a> widget that was added. </p>
+<h2 id="add-buttons" class="heading "><a href="#" title="go to top of document">add-buttons</a><a class="raku-anchor" title="direct link" href="#add-buttons">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_4">Adds multiple buttons.</p>
+
+<p>This is the same as calling <a href="#add-button">.add-button()</a> repeatedly. The variable argument list should be undefined-terminated as with <a href="#new-with-buttons">.new-with-buttons()</a>. Each button must have both text and response ID. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-buttons ( Str $first-button-text, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$first-button-text; button text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="get-content-area" class="heading "><a href="#" title="go to top of document">get-content-area</a><a class="raku-anchor" title="direct link" href="#get-content-area">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the content area of <span class="code">$dialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-content-area (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the content area <a href="/content-docs/api2/reference/Gtk4/Box">Gnome::Gtk4::Box</a>.. </p>
+<h2 id="get-header-bar" class="heading "><a href="#" title="go to top of document">get-header-bar</a><a class="raku-anchor" title="direct link" href="#get-header-bar">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the header bar of <span class="code">$dialog</span>. </p>
+
+<p>Note that the headerbar is only used by the dialog if the <span class="important">use-header-bar</span> property is <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-header-bar (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the header bar.</p>
+<h2 id="get-response-for-widget" class="heading "><a href="#" title="go to top of document">get-response-for-widget</a><a class="raku-anchor" title="direct link" href="#get-response-for-widget">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_6">Gets the response id of a widget in the action area of a dialog.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-response-for-widget ( N-Object() $widget --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$widget; a widget in the action area of <span class="code">$dialog</span>.</li>
+</ul>
+
+<p>Return value; the response id of <span class="code">$widget</span>, or <span class="code">GTK_RESPONSE_NONE</span> if <span class="code">$widget</span> doesn’t have a response id set.. </p>
+<h2 id="get-widget-for-response" class="heading "><a href="#" title="go to top of document">get-widget-for-response</a><a class="raku-anchor" title="direct link" href="#get-widget-for-response">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_7">Gets the widget button that uses the given response ID in the action area of a dialog.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-widget-for-response ( Int() $response-id --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$response-id; the response ID used by the <span class="code">$dialog</span> widget.</li>
+</ul>
+
+<p>Return value; the <span class="code">$widget</span> button that uses the given <span class="code">$response-id</span>. </p>
+<h2 id="response" class="heading "><a href="#" title="go to top of document">response</a><a class="raku-anchor" title="direct link" href="#response">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">response</span> signal with the given response ID. </p>
+
+<p id="Para_8">Used to indicate that the user has responded to the dialog in some way.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method response ( Int() $response-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$response-id; response ID.</li>
+</ul>
+<h2 id="set-default-response" class="heading "><a href="#" title="go to top of document">set-default-response</a><a class="raku-anchor" title="direct link" href="#set-default-response">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_9">Sets the default widget for the dialog based on the response ID.</p>
+
+<p id="Para_10">Pressing “Enter” normally activates the default widget.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default-response ( Int() $response-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$response-id; a response ID.</li>
+</ul>
+<h2 id="set-response-sensitive" class="heading "><a href="#" title="go to top of document">set-response-sensitive</a><a class="raku-anchor" title="direct link" href="#set-response-sensitive">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_11">A convenient way to sensitize/desensitize dialog buttons.</p>
+
+<p>Calls <span class="basis">gtk_widget_set_sensitive</span> (widget, <span class="code">$setting</span>)` for each widget in the dialog’s action area with the given <span class="code">$response-id</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-response-sensitive ( Int() $response-id, Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$response-id; a response ID.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> for sensitive.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="close" class="heading "><a href="#" title="go to top of document">close</a><a class="raku-anchor" title="direct link" href="#close">§</a></h3>
+
+<p id="Para_12">Emitted when the user uses a keybinding to close the dialog.</p>
+
+<p id="Para_13">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_14">The default binding for this signal is the Escape key.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Dialog :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Dialog</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Dialog</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="response_0"><a href="#Gnome::Gtk4::Dialog" class="u" title="go to top of document">response</a></h3>
-<p>Emitted when an action widget is clicked.</p><p>The signal is also emitted when the dialog receives a delete event, and when <a href="#response">.response()</a> is called. On a delete event, the response ID is <code>GTK_RESPONSE_DELETE_EVENT</code>. Otherwise, it depends on which action widget was clicked.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="response"></div><h3 id="response_0" class="heading "><a href="#" title="go to top of document">response</a><a class="raku-anchor" title="direct link" href="#response">§</a></h3>
+
+<p id="Para_15">Emitted when an action widget is clicked.</p>
+
+<p>The signal is also emitted when the dialog receives a delete event, and when <a href="#response">.response()</a> is called. On a delete event, the response ID is <span class="code">GTK_RESPONSE_DELETE_EVENT</span>. Otherwise, it depends on which action widget was clicked. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gint $response-id,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Dialog :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$response-id; the response ID.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Dialog</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$response-id; the response ID.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Dialog</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Dialog.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:11Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Dialog.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

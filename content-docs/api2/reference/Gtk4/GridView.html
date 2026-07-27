@@ -1,181 +1,685 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::GridView</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::GridView</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::GridView">Gnome::Gtk4::GridView</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-gridview">new-gridview</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-enable-rubberband">get-enable-rubberband</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-factory">get-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-max-columns">get-max-columns</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-min-columns">get-min-columns</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-single-click-activate">get-single-click-activate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-behavior">get-tab-behavior</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#scroll-to">scroll-to</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-enable-rubberband">set-enable-rubberband</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-factory">set-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-max-columns">set-max-columns</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-min-columns">set-min-columns</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-model">set-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-single-click-activate">set-single-click-activate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-behavior">set-tab-behavior</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::GridView</strong> presents a large dynamic grid of items.</p><p><strong>Gnome::Gtk4::GridView</strong> uses its factory to generate one child widget for each visible item and shows them in a grid. The orientation of the grid view determines if the grid reflows vertically or horizontally.</p><p><strong>Gnome::Gtk4::GridView</strong> allows the user to select items according to the selection characteristics of the model. For models that allow multiple selected items, it is possible to turn on _rubberband selection_, using <em>enable-rubberband</em>.</p><p>To learn more about the list widget framework, see the [overview](section-list-widget.html).</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::GridView</strong> uses a single CSS node with name <strong>gridview</strong>. Each child uses a single CSS node with name <strong>child</strong>. If the <em>activatable defined in Gnome::Gtk4::ListItem</em> property is set, the corresponding row will have the `.activatable` style class. For rubberband selection, a subnode with name <strong>rubberband</strong> is used.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::GridView</strong> uses the <code>GTK_ACCESSIBLE_ROLE_GRID</code> role, and the items use the <code>GTK_ACCESSIBLE_ROLE_GRID_CELL</code> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/GridView.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-gridview"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">new-gridview</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::GridView</strong> that uses the given <code>$factory</code> for mapping items to widgets.</p><p>The function takes ownership of the arguments, so you can write code like</p><pre class="pod-block-code">method new-gridview ( N-Object() $model, N-Object() $factory --&gt; Gnome::Gtk4::GridView )
-</pre><ul>
-<li><p>$model; (transfer ownership: full) the model to use.</p></li>
-<li><p>$factory; (transfer ownership: full) The factory to populate items with.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-enable-rubberband"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-enable-rubberband</a></h2>
-<p>Returns whether rows can be selected by dragging with the mouse.</p><pre class="pod-block-code">method get-enable-rubberband (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if rubberband selection is enabled. </p></section>
-<section name="pod">
-<h2 id="get-factory"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-factory</a></h2>
-<p>Gets the factory that's currently used to populate list items.</p><pre class="pod-block-code">method get-factory (--&gt; N-Object )
-</pre><p>Return value; The factory in use. </p></section>
-<section name="pod">
-<h2 id="get-max-columns"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-max-columns</a></h2>
-<p>Gets the maximum number of columns that the grid will use.</p><pre class="pod-block-code">method get-max-columns (--&gt; UInt )
-</pre><p>Return value; The maximum number of columns. </p></section>
-<section name="pod">
-<h2 id="get-min-columns"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-min-columns</a></h2>
-<p>Gets the minimum number of columns that the grid will use.</p><pre class="pod-block-code">method get-min-columns (--&gt; UInt )
-</pre><p>Return value; The minimum number of columns. </p></section>
-<section name="pod">
-<h2 id="get-model"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-model</a></h2>
-<p>Gets the model that's currently used to read the items displayed.</p><pre class="pod-block-code">method get-model (--&gt; N-Object )
-</pre><p>Return value; The model in use. </p></section>
-<section name="pod">
-<h2 id="get-single-click-activate"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-single-click-activate</a></h2>
-<p>Returns whether items will be activated on single click and selected on hover.</p><pre class="pod-block-code">method get-single-click-activate (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if items are activated on single click. </p></section>
-<section name="pod">
-<h2 id="get-tab-behavior"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">get-tab-behavior</a></h2>
-<p>Gets the behavior set for the &lt;kbd&gt;Tab&lt;/kbd&gt; key.</p><pre class="pod-block-code">method get-tab-behavior (--&gt; GtkListTabBehavior )
-</pre><p>Return value; The behavior of the &lt;kbd&gt;Tab&lt;/kbd&gt; key. </p></section>
-<section name="pod">
-<h2 id="scroll-to"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">scroll-to</a></h2>
-<p>Scrolls to the item at the given position and performs the actions specified in <code>$flags</code>.</p><p>This function works no matter if the gridview is shown or focused. If it isn't, then the changes will take effect once that happens.</p><pre class="pod-block-code">method scroll-to ( UInt() $pos, UInt $flags, N-Object $scroll )
-</pre><ul>
-<li><p>$pos; position of the item. Must be less than the number of items in the view..</p></li>
-<li><p>$flags; actions to perform.</p></li>
-<li><p>$scroll; (transfer ownership: full) details of how to perform the scroll operation or undefined to scroll into view</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-enable-rubberband"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-enable-rubberband</a></h2>
-<p>Sets whether selections can be changed by dragging with the mouse.</p><pre class="pod-block-code">method set-enable-rubberband ( Bool() $enable-rubberband )
-</pre><ul>
-<li><p>$enable-rubberband; <code>True</code> to enable rubberband selection.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-factory"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-factory</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a> to use for populating list items.</p><pre class="pod-block-code">method set-factory ( N-Object() $factory )
-</pre><ul>
-<li><p>$factory; the factory to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-max-columns"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-max-columns</a></h2>
-<p>Sets the maximum number of columns to use.</p><p>This number must be at least 1.</p><p>If <code>$max-columns</code> is smaller than the minimum set via <a href="#set-min-columns">.set-min-columns()</a>, that value is used instead.</p><pre class="pod-block-code">method set-max-columns ( UInt() $max-columns )
-</pre><ul>
-<li><p>$max-columns; The maximum number of columns.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-min-columns"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-min-columns</a></h2>
-<p>Sets the minimum number of columns to use.</p><p>This number must be at least 1.</p><p>If <code>$min-columns</code> is smaller than the minimum set via <a href="#set-max-columns">.set-max-columns()</a>, that value is ignored.</p><pre class="pod-block-code">method set-min-columns ( UInt() $min-columns )
-</pre><ul>
-<li><p>$min-columns; The minimum number of columns.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-model"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-model</a></h2>
-<p>Sets the model to use.</p><p>This must be a <a href="/content-docs/api2/reference/Gnome/Gtk4/R-SelectionModel.html"></a>.</p><pre class="pod-block-code">method set-model ( N-Object() $model )
-</pre><ul>
-<li><p>$model; the model to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-single-click-activate"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-single-click-activate</a></h2>
-<p>Sets whether items should be activated on single click and selected on hover.</p><pre class="pod-block-code">method set-single-click-activate ( Bool() $single-click-activate )
-</pre><ul>
-<li><p>$single-click-activate; <code>True</code> to activate items on single click.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-behavior"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">set-tab-behavior</a></h2>
-<p>Sets the behavior of the &lt;kbd&gt;Tab&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; keys.</p><pre class="pod-block-code">method set-tab-behavior ( GtkListTabBehavior $tab-behavior )
-</pre><ul>
-<li><p>$tab-behavior; The desired tab behavior.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate"><a href="#Gnome::Gtk4::GridView" class="u" title="go to top of document">activate</a></h3>
-<p>Emitted when a cell has been activated by the user, usually via activating the GtkGridView|list.activate-item action.</p><p>This allows for a convenient way to handle activation in a gridview. See <em>activatable defined in Gnome::Gtk4::ListItem</em> for details on how to use this signal.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::GridView"></div><h1 class="title">Gnome::Gtk4::GridView</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-gridview">new-gridview</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-enable-rubberband">get-enable-rubberband</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-factory">get-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-max-columns">get-max-columns</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-min-columns">get-min-columns</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-model">get-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-single-click-activate">get-single-click-activate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-behavior">get-tab-behavior</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#scroll-to">scroll-to</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-enable-rubberband">set-enable-rubberband</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-factory">set-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-max-columns">set-max-columns</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-min-columns">set-min-columns</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-model">set-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-single-click-activate">set-single-click-activate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-behavior">set-tab-behavior</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate">activate</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::GridView</span> presents a large dynamic grid of items. </p>
+
+<p><span class="basis">Gnome::Gtk4::GridView</span> uses its factory to generate one child widget for each visible item and shows them in a grid. The orientation of the grid view determines if the grid reflows vertically or horizontally. </p>
+
+<p><span class="basis">Gnome::Gtk4::GridView</span> allows the user to select items according to the selection characteristics of the model. For models that allow multiple selected items, it is possible to turn on _rubberband selection_, using <span class="important">enable-rubberband</span>. </p>
+
+<p id="Para">To learn more about the list widget framework, see the [overview](section-list-widget.html).</p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::GridView</span> uses a single CSS node with name <span class="basis">gridview</span>. Each child uses a single CSS node with name <span class="basis">child</span>. If the <span class="important">activatable defined in Gnome::Gtk4::ListItem</span> property is set, the corresponding row will have the `.activatable` style class. For rubberband selection, a subnode with name <span class="basis">rubberband</span> is used. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::GridView</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_GRID</span> role, and the items use the <span class="code">GTK_ACCESSIBLE_ROLE_GRID_CELL</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/GridView.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-gridview" class="heading "><a href="#" title="go to top of document">new-gridview</a><a class="raku-anchor" title="direct link" href="#new-gridview">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::GridView</span> that uses the given <span class="code">$factory</span> for mapping items to widgets. </p>
+
+<p id="Para_0">The function takes ownership of the arguments, so you can write code like</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-gridview ( N-Object() $model, N-Object() $factory --&gt; Gnome::Gtk4::GridView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; (transfer ownership: full) the model to use.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$factory; (transfer ownership: full) The factory to populate items with.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-enable-rubberband" class="heading "><a href="#" title="go to top of document">get-enable-rubberband</a><a class="raku-anchor" title="direct link" href="#get-enable-rubberband">§</a></h2>
+
+<p id="Para_1">Returns whether rows can be selected by dragging with the mouse.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-enable-rubberband (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if rubberband selection is enabled. </p>
+<h2 id="get-factory" class="heading "><a href="#" title="go to top of document">get-factory</a><a class="raku-anchor" title="direct link" href="#get-factory">§</a></h2>
+
+<p id="Para_2">Gets the factory that's currently used to populate list items.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-factory (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; The factory in use.</p>
+<h2 id="get-max-columns" class="heading "><a href="#" title="go to top of document">get-max-columns</a><a class="raku-anchor" title="direct link" href="#get-max-columns">§</a></h2>
+
+<p id="Para_4">Gets the maximum number of columns that the grid will use.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-max-columns (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; The maximum number of columns.</p>
+<h2 id="get-min-columns" class="heading "><a href="#" title="go to top of document">get-min-columns</a><a class="raku-anchor" title="direct link" href="#get-min-columns">§</a></h2>
+
+<p id="Para_6">Gets the minimum number of columns that the grid will use.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-min-columns (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; The minimum number of columns.</p>
+<h2 id="get-model" class="heading "><a href="#" title="go to top of document">get-model</a><a class="raku-anchor" title="direct link" href="#get-model">§</a></h2>
+
+<p id="Para_8">Gets the model that's currently used to read the items displayed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-model (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_9">Return value; The model in use.</p>
+<h2 id="get-single-click-activate" class="heading "><a href="#" title="go to top of document">get-single-click-activate</a><a class="raku-anchor" title="direct link" href="#get-single-click-activate">§</a></h2>
+
+<p id="Para_10">Returns whether items will be activated on single click and selected on hover.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-single-click-activate (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if items are activated on single click. </p>
+<h2 id="get-tab-behavior" class="heading "><a href="#" title="go to top of document">get-tab-behavior</a><a class="raku-anchor" title="direct link" href="#get-tab-behavior">§</a></h2>
+
+<p id="Para_11">Gets the behavior set for the &lt;kbd&gt;Tab&lt;/kbd&gt; key.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-behavior (--&gt; GtkListTabBehavior )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; The behavior of the &lt;kbd&gt;Tab&lt;/kbd&gt; key.</p>
+<h2 id="scroll-to" class="heading "><a href="#" title="go to top of document">scroll-to</a><a class="raku-anchor" title="direct link" href="#scroll-to">§</a></h2>
+
+<p>Scrolls to the item at the given position and performs the actions specified in <span class="code">$flags</span>. </p>
+
+<p id="Para_13">This function works no matter if the gridview is shown or focused. If it isn't, then the changes will take effect once that happens.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method scroll-to ( UInt() $pos, UInt $flags, N-Object $scroll )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pos; position of the item. Must be less than the number of items in the view..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; actions to perform.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$scroll; (transfer ownership: full) details of how to perform the scroll operation or undefined to scroll into view</li>
+</ul>
+<h2 id="set-enable-rubberband" class="heading "><a href="#" title="go to top of document">set-enable-rubberband</a><a class="raku-anchor" title="direct link" href="#set-enable-rubberband">§</a></h2>
+
+<p id="Para_14">Sets whether selections can be changed by dragging with the mouse.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-enable-rubberband ( Bool() $enable-rubberband )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$enable-rubberband; <span class="code">True</span> to enable rubberband selection.</li>
+</ul>
+<h2 id="set-factory" class="heading "><a href="#" title="go to top of document">set-factory</a><a class="raku-anchor" title="direct link" href="#set-factory">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory">Gnome::Gtk4::ListItemFactory</a> to use for populating list items. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-factory ( N-Object() $factory )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factory; the factory to use.</li>
+</ul>
+<h2 id="set-max-columns" class="heading "><a href="#" title="go to top of document">set-max-columns</a><a class="raku-anchor" title="direct link" href="#set-max-columns">§</a></h2>
+
+<p id="Para_15">Sets the maximum number of columns to use.</p>
+
+<p id="Para_16">This number must be at least 1.</p>
+
+<p>If <span class="code">$max-columns</span> is smaller than the minimum set via <a href="#set-min-columns">.set-min-columns()</a>, that value is used instead. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-max-columns ( UInt() $max-columns )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$max-columns; The maximum number of columns.</li>
+</ul>
+<h2 id="set-min-columns" class="heading "><a href="#" title="go to top of document">set-min-columns</a><a class="raku-anchor" title="direct link" href="#set-min-columns">§</a></h2>
+
+<p id="Para_17">Sets the minimum number of columns to use.</p>
+
+<p id="Para_18">This number must be at least 1.</p>
+
+<p>If <span class="code">$min-columns</span> is smaller than the minimum set via <a href="#set-max-columns">.set-max-columns()</a>, that value is ignored. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-min-columns ( UInt() $min-columns )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$min-columns; The minimum number of columns.</li>
+</ul>
+<h2 id="set-model" class="heading "><a href="#" title="go to top of document">set-model</a><a class="raku-anchor" title="direct link" href="#set-model">§</a></h2>
+
+<p id="Para_19">Sets the model to use.</p>
+
+<p>This must be a <a href="/content-docs/api2/reference/Gnome::Gtk4::R-SelectionModel">/content-docs/api2/reference/Gnome::Gtk4::R-SelectionModel</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-model ( N-Object() $model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; the model to use.</li>
+</ul>
+<h2 id="set-single-click-activate" class="heading "><a href="#" title="go to top of document">set-single-click-activate</a><a class="raku-anchor" title="direct link" href="#set-single-click-activate">§</a></h2>
+
+<p id="Para_20">Sets whether items should be activated on single click and selected on hover.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-single-click-activate ( Bool() $single-click-activate )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$single-click-activate; <span class="code">True</span> to activate items on single click.</li>
+</ul>
+<h2 id="set-tab-behavior" class="heading "><a href="#" title="go to top of document">set-tab-behavior</a><a class="raku-anchor" title="direct link" href="#set-tab-behavior">§</a></h2>
+
+<p id="Para_21">Sets the behavior of the &lt;kbd&gt;Tab&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Tab&lt;/kbd&gt; keys.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-behavior ( GtkListTabBehavior $tab-behavior )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tab-behavior; The desired tab behavior.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h3>
+
+<p id="Para_22">Emitted when a cell has been activated by the user, usually via activating the GtkGridView|list.activate-item action.</p>
+
+<p>This allows for a convenient way to handle activation in a gridview. See <span class="important">activatable defined in Gnome::Gtk4::ListItem</span> for details on how to use this signal. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   guint $position,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::GridView :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$position; position of item to activate.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::GridView</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; position of item to activate.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::GridView</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GridView.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:45Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GridView.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

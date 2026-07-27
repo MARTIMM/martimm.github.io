@@ -1,355 +1,1074 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::R-TreeModel</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::R-TreeModel</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::R-TreeModel">Gnome::Gtk4::R-TreeModel</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Acquiring_a_Gnome::Gtk4::N-TreeIter">Acquiring a Gnome::Gtk4::N-TreeIter</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Reading_data_from_a_Gnome::Gtk4::R-TreeModel">Reading data from a Gnome::Gtk4::R-TreeModel</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#filter-new">filter-new</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#foreach">foreach</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get">get</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-column-type">get-column-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-flags">get-flags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter">get-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-first">get-iter-first</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-from-string">get-iter-from-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-columns">get-n-columns</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-path">get-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-string-from-iter">get-string-from-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-valist">get-valist</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-value">get-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-children">iter-children</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-has-child">iter-has-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-n-children">iter-n-children</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-next">iter-next</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-nth-child">iter-nth-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-parent">iter-parent</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-previous">iter-previous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ref-node">ref-node</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#row-changed">row-changed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#row-deleted">row-deleted</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#row-has-child-toggled">row-has-child-toggled</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#row-inserted">row-inserted</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#rows-reordered">rows-reordered</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#rows-reordered-with-length">rows-reordered-with-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unref-node">unref-node</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#row-changed_0">row-changed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#row-deleted_0">row-deleted</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#row-has-child-toggled_0">row-has-child-toggled</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#row-inserted_0">row-inserted</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#rows-reordered_0">rows-reordered</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Description</a></h1>
-<p>The tree interface used by GtkTreeView</p><p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface defines a generic tree interface for use by the <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget.</p><p>The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. <code>G_TYPE_INT</code>, <code>GTK_TYPE_BUTTON</code>, <code>G_TYPE_POINTER</code>, etc). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made.</p><p>In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided — the <a href="/content-docs/api2/reference/Gtk4/TreeStore.html">Gnome::Gtk4::TreeStore</a> and the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient.</p><p>Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the <strong>Gnome::Gtk4::N-TreePath</strong> and the <strong>Gnome::Gtk4::N-TreeIter</strong> (“iter” is short for iterator). Most of the interface consists of operations on a <strong>Gnome::Gtk4::N-TreeIter</strong> .</p><p>A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. A <strong>Gnome::Gtk4::N-TreePath</strong> can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path <strong>0</strong> refers to the root node and the path <strong>2</strong>:4` refers to the fifth child of the third node.</p><p>By contrast, a <strong>Gnome::Gtk4::N-TreeIter</strong> is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling <code>.get-iter()</code>. These iterators are the primary way of accessing a model and are similar to the iterators used by <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a>. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model.</p><p>It is expected that models fill in the iterator with private data. For example, the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a> model, which is internally a simple linked list, stores a list node in one of the pointers. The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>Sort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model.</p><p>The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn’t emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user’s point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the <a href="/content-docs/api2/reference/Gtk4/TreeStore.html">Gnome::Gtk4::TreeStore</a> and <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the <code>GTK_TREE_MODEL_ITERS_PERSIST</code> flag was added to indicate this behavior.</p><p>To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location <strong>3</strong>:2:5`. While the first method shown is easier, the second is much more common, as you often get paths from callbacks.</p>
-<h3 id="Acquiring_a_Gnome::Gtk4::N-TreeIter"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Acquiring a <strong>Gnome::Gtk4::N-TreeIter</strong></a></h3>
-<p>This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model() function used below is not shown, as it is specific to the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a>. For information on how to write such a function, see the <a href="/content-docs/api2/reference/Gtk4/ListStore.html">Gnome::Gtk4::ListStore</a> documentation.</p>
-<h3 id="Reading_data_from_a_Gnome::Gtk4::R-TreeModel"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Reading data from a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a></a></h3>
-<p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface contains two methods for reference counting: <code>.ref-node()</code> and <code>.unref-node()</code>. These two methods are optional to implement. The reference counting is meant as a way for views to let models know when nodes are being displayed. <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> will take a reference on a node when it is visible, which means the node is either in the toplevel or expanded. Being displayed does not mean that the node is currently directly visible to the user in the viewport. Based on this reference counting scheme a caching model, for example, can decide whether or not to cache a node based on the reference count. A file-system based model would not want to keep the entire file hierarchy in memory, but just the folders that are currently expanded in every current view.</p><p>When working with reference counting, the following rules must be taken into account:</p><ul>
-<li><p>Never take a reference on a node without owning a reference on its parent. This means that all parent nodes of a referenced node must be referenced as well.</p></li>
-<li><p>Outstanding references on a deleted node are not released. This is not possible because the node has already been deleted by the time the row-deleted signal is received.</p></li>
-<li><p>Models are not obligated to emit a signal on rows of which none of its siblings are referenced. To phrase this differently, signals are only required for levels in which nodes are referenced. For the root level however, signals must be emitted at all times (however the root level is always referenced when any view is attached).</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="filter-new"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">filter-new</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>, with <code>$child-model</code> as the child_model and <code>$root</code> as the virtual root.</p><pre class="pod-block-code">method filter-new ( N-Object $root --&gt; N-Object )
-</pre><ul>
-<li><p>$root; A <strong>Gnome::Gtk4::N-TreePath</strong></p></li>
-</ul>
-<p>Return value; A new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.. </p></section>
-<section name="pod">
-<h2 id="foreach"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">foreach</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls <code>$func</code> on each node in model in a depth-first fashion.</p><p>If <code>$func</code> returns <code>True</code>, then the tree ceases to be walked, and <code>.foreach()</code> returns.</p><pre class="pod-block-code">method foreach ( GtkTreeModelForeachFunc &amp;func, gpointer $user-data )
-</pre><ul>
-<li><p>GtkTreeModelForeachFunc &amp;func; a function to be called on each row. The function must be specified with the following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</code>.</p></li>
-<li><p>$user-data; user data to passed to <code>$func</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>The variable argument list should contain integer column numbers, each column number followed by a place to store the value being retrieved. The list is terminated by a -1. For example, to get a value from column 0 with type <code>G_TYPE_STRING</code>, you would write: <strong>gtk_tree_model_get</strong> (model, iter, 0, &amp;place_string_here, -1)`, where <strong>place_string_here</strong> is a #gchararray to be filled with the string.</p><p>Returned values with type <code>G_TYPE_OBJECT</code> have to be unreferenced, values with type <code>G_TYPE_STRING</code> or <code>G_TYPE_BOXED</code> have to be freed. Other values are passed by value.</p><pre class="pod-block-code">method get ( N-Object $iter, … )
-</pre><ul>
-<li><p>$iter; a row in <code>$tree-model</code></p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-column-type"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-column-type</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the type of the column.</p><pre class="pod-block-code">method get-column-type ( Int() $index --&gt; GType )
-</pre><ul>
-<li><p>$index; the column index.</p></li>
-</ul>
-<p>Return value; the type of the column. </p></section>
-<section name="pod">
-<h2 id="get-flags"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-flags</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a set of flags supported by this interface.</p><p>The flags are a bitwise combination of <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>Flags. The flags supported should not change during the lifetime of the <code>$tree-model</code>.</p><pre class="pod-block-code">method get-flags (--&gt; UInt )
-</pre><p>Return value; the flags supported by this interface. </p></section>
-<section name="pod">
-<h2 id="get-iter"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-iter</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to a valid iterator pointing to <code>$path</code>.</p><p>If <code>$path</code> does not exist, <code>$iter</code> is set to an invalid iterator and <code>False</code> is returned.</p><pre class="pod-block-code">method get-iter ( N-Object $iter, N-Object $path --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the uninitialized <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$path; the <strong>Gnome::Gtk4::N-TreePath</strong></p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> was set. </p></section>
-<section name="pod">
-<h2 id="get-iter-first"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-iter-first</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Initializes <code>$iter</code> with the first iterator in the tree (the one at the path &quot;0&quot;).</p><p>Returns <code>False</code> if the tree is empty, <code>True</code> otherwise.</p><pre class="pod-block-code">method get-iter-first ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the uninitialized <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> was set. </p></section>
-<section name="pod">
-<h2 id="get-iter-from-string"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-iter-from-string</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to a valid iterator pointing to <code>$path-string</code>, if it exists.</p><p>Otherwise, <code>$iter</code> is left invalid and <code>False</code> is returned.</p><pre class="pod-block-code">method get-iter-from-string ( N-Object $iter, Str $path-string --&gt; Bool )
-</pre><ul>
-<li><p>$iter; an uninitialized <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$path-string; a string representation of a <strong>Gnome::Gtk4::N-TreePath</strong>.</p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> was set. </p></section>
-<section name="pod">
-<h2 id="get-n-columns"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-n-columns</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the number of columns supported by <code>$tree-model</code>.</p><pre class="pod-block-code">method get-n-columns (--&gt; Int )
-</pre><p>Return value; the number of columns. </p></section>
-<section name="pod">
-<h2 id="get-path"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-path</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a newly-created <strong>Gnome::Gtk4::N-TreePath</strong> referenced by <code>$iter</code>.</p><p>This path should be freed with gtk_tree_path_free().</p><pre class="pod-block-code">method get-path ( N-Object $iter --&gt; N-Object )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; a newly-created <strong>Gnome::Gtk4::N-TreePath</strong>. </p></section>
-<section name="pod">
-<h2 id="get-string-from-iter"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-string-from-iter</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Generates a string representation of the iter.</p><p>This string is a “:” separated list of numbers. For example, “4:10:0:3” would be an acceptable return value for this string.</p><pre class="pod-block-code">method get-string-from-iter ( N-Object $iter --&gt; Str )
-</pre><ul>
-<li><p>$iter; a <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; a newly-allocated string. </p></section>
-<section name="pod">
-<h2 id="get-valist"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-valist</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>See <a href="#get">.get()</a>, this version takes a va_list for language bindings to use.</p><pre class="pod-block-code">method get-valist ( N-Object $iter, … )
-</pre><ul>
-<li><p>$iter; a row in <code>$tree-model</code></p></li>
-<li><p>var-args; va_list of column/return location pairs. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-value"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">get-value</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Initializes and sets <code>$value</code> to that at <code>$column</code>.</p><p>When done with <code>$value</code>, g_value_unset() needs to be called to free any allocated memory.</p><pre class="pod-block-code">method get-value ( N-Object $iter, Int() $column, N-Object $value )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$column; the column to lookup the value at.</p></li>
-<li><p>$value; an empty <strong>Gnome::GObject::N-Value</strong> to set</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="iter-children"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-children</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to point to the first child of <code>$parent</code>.</p><p>If <code>$parent</code> has no children, <code>False</code> is returned and <code>$iter</code> is set to be invalid. <code>$parent</code> will remain a valid node after this function has been called.</p><p>If <code>$parent</code> is undefined returns the first node, equivalent to <strong>gtk_tree_model_get_iter_first</strong> (tree_model, iter);`</p><pre class="pod-block-code">method iter-children ( N-Object $iter, N-Object $parent --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the new <strong>Gnome::Gtk4::N-TreeIter</strong> to be set to the child</p></li>
-<li><p>$parent; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> has been set to the first child. </p></section>
-<section name="pod">
-<h2 id="iter-has-child"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-has-child</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if <code>$iter</code> has children, <code>False</code> otherwise.</p><pre class="pod-block-code">method iter-has-child ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong> to test for children</p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$iter</code> has children. </p></section>
-<section name="pod">
-<h2 id="iter-n-children"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-n-children</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the number of children that <code>$iter</code> has.</p><p>As a special case, if <code>$iter</code> is undefined, then the number of toplevel nodes is returned.</p><pre class="pod-block-code">method iter-n-children ( N-Object $iter --&gt; Int )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; the number of children of <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="iter-next"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-next</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to point to the node following it at the current level.</p><p>If there is no next <code>$iter</code>, <code>False</code> is returned and <code>$iter</code> is set to be invalid.</p><pre class="pod-block-code">method iter-next ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$iter</code> has been changed to the next node. </p></section>
-<section name="pod">
-<h2 id="iter-nth-child"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-nth-child</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to be the child of <code>$parent</code>, using the given index.</p><p>The first index is 0. If <code>$n</code> is too big, or <code>$parent</code> has no children, <code>$iter</code> is set to an invalid iterator and <code>False</code> is returned. <code>$parent</code> will remain a valid node after this function has been called. As a special case, if <code>$parent</code> is undefined, then the <code>$n</code>-th root node is set.</p><pre class="pod-block-code">method iter-nth-child ( N-Object $iter, N-Object $parent, Int() $n --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the nth child</p></li>
-<li><p>$parent; the <strong>Gnome::Gtk4::N-TreeIter</strong> to get the child from</p></li>
-<li><p>$n; the index of the desired child.</p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$parent</code> has an <code>$n</code>-th child. </p></section>
-<section name="pod">
-<h2 id="iter-parent"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-parent</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to be the parent of <code>$child</code>.</p><p>If <code>$child</code> is at the toplevel, and doesn’t have a parent, then <code>$iter</code> is set to an invalid iterator and <code>False</code> is returned. <code>$child</code> will remain a valid node after this function has been called. <code>$iter</code> will be initialized before the lookup is performed, so <code>$child</code> and <code>$iter</code> cannot point to the same memory location.</p><pre class="pod-block-code">method iter-parent ( N-Object $iter, N-Object $child --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the new <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the parent</p></li>
-<li><p>$child; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> is set to the parent of <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="iter-previous"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">iter-previous</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to point to the previous node at the current level.</p><p>If there is no previous <code>$iter</code>, <code>False</code> is returned and <code>$iter</code> is set to be invalid.</p><pre class="pod-block-code">method iter-previous ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$iter</code> has been changed to the previous node. </p></section>
-<section name="pod">
-<h2 id="ref-node"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">ref-node</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Lets the tree ref the node.</p><p>This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons.</p><p>This function is primarily meant as a way for views to let caching models know when nodes are being displayed (and hence, whether or not to cache that node). Being displayed means a node is in an expanded branch, regardless of whether the node is currently visible in the viewport. For example, a file-system based model would not want to keep the entire file-hierarchy in memory, just the sections that are currently being displayed by every current view.</p><p>A model should be expected to be able to get an iter independent of its reffed state.</p><pre class="pod-block-code">method ref-node ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="row-changed"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-changed</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>row-changed</em> signal on <code>$tree-model</code>.</p><p>See <em>row-changed</em>.</p><pre class="pod-block-code">method row-changed ( N-Object $path, N-Object $iter )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the changed row</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the changed row</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="row-deleted"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-deleted</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>row-deleted</em> signal on <code>$tree-model</code>.</p><p>See <em>row-deleted</em>.</p><p>This should be called by models after a row has been removed. The location pointed to by <code>$path</code> should be the location that the row previously was at. It may not be a valid location anymore.</p><p>Nodes that are deleted are not unreffed, this means that any outstanding references on the deleted node should not be released.</p><pre class="pod-block-code">method row-deleted ( N-Object $path )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the previous location of the deleted row</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="row-has-child-toggled"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-has-child-toggled</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>row-has-child-toggled</em> signal on <code>$tree-model</code>.</p><p>See <em>row-has-child-toggled</em>.</p><p>This should be called by models after the child state of a node changes.</p><pre class="pod-block-code">method row-has-child-toggled ( N-Object $path, N-Object $iter )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the changed row</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the changed row</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="row-inserted"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-inserted</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>row-inserted</em> signal on <code>$tree-model</code>.</p><p>See <em>row-inserted</em>.</p><pre class="pod-block-code">method row-inserted ( N-Object $path, N-Object $iter )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the inserted row</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the inserted row</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="rows-reordered"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">rows-reordered</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>rows-reordered</em> signal on <code>$tree-model</code>.</p><p>See <em>rows-reordered</em>.</p><p>This should be called by models when their rows have been reordered.</p><pre class="pod-block-code">method rows-reordered ( N-Object $path, N-Object $iter, Array[Int] $new-order )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the tree node whose children have been reordered</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the node whose children have been reordered, or undefined if the depth of <code>$path</code> is 0</p></li>
-<li><p>$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <code>$new-order</code>`[newpos] = oldpos`.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="rows-reordered-with-length"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">rows-reordered-with-length</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Emits the <em>rows-reordered</em> signal on <code>$tree-model</code>.</p><p>See <em>rows-reordered</em>.</p><p>This should be called by models when their rows have been reordered.</p><pre class="pod-block-code">method rows-reordered-with-length ( N-Object $path, N-Object $iter, Array[Int] $new-order, Int() $length )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> pointing to the tree node whose children have been reordered</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the node whose children have been reordered, or undefined if the depth of <code>$path</code> is 0</p></li>
-<li><p>$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <code>$new-order</code>`[newpos] = oldpos`.</p></li>
-<li><p>$length; length of <code>$new-order</code> array.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unref-node"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">unref-node</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Lets the tree unref the node.</p><p>This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons. For more information on what this means, see <code>.ref-node()</code>.</p><p>Please note that nodes that are deleted are not unreffed.</p><pre class="pod-block-code">method unref-node ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">Signals</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id="row-changed_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-changed</a></h3>
-<p>This signal is emitted when a row in the model has changed.</p><pre class="pod-block-code">method handler (
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::R-TreeModel"></div><h1 class="title">Gnome::Gtk4::R-TreeModel</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Acquiring_a_Gnome::Gtk4::N-TreeIter">Acquiring a Gnome::Gtk4::N-TreeIter </a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Reading_data_from_a_Gnome::Gtk4::R-TreeModel">Reading data from a Gnome::Gtk4::R-TreeModel </a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#filter-new">filter-new</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#foreach">foreach</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get">get</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-column-type">get-column-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-flags">get-flags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter">get-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-first">get-iter-first</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-from-string">get-iter-from-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-columns">get-n-columns</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-path">get-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-string-from-iter">get-string-from-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-valist">get-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-value">get-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-children">iter-children</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-has-child">iter-has-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-n-children">iter-n-children</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-next">iter-next</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-nth-child">iter-nth-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-parent">iter-parent</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-previous">iter-previous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ref-node">ref-node</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#row-changed">row-changed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#row-deleted">row-deleted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#row-has-child-toggled">row-has-child-toggled</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#row-inserted">row-inserted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#rows-reordered">rows-reordered</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#rows-reordered-with-length">rows-reordered-with-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unref-node">unref-node</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#row-changed_0">row-changed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#row-deleted_0">row-deleted</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#row-has-child-toggled_0">row-has-child-toggled</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#row-inserted_0">row-inserted</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#rows-reordered_0">rows-reordered</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">The tree interface used by GtkTreeView</p>
+
+<p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> interface defines a generic tree interface for use by the <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget. It is an abstract interface, and is designed to be usable with any appropriate data structure. The programmer just has to implement this interface on their own data type for it to be viewable by a <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget. </p>
+
+<p>The model is represented as a hierarchical tree of strongly-typed, columned data. In other words, the model can be seen as a tree where every node has different values depending on which column is being queried. The type of data found in a column is determined by using the GType system (ie. <span class="code">G_TYPE_INT</span>, <span class="code">GTK_TYPE_BUTTON</span>, <span class="code">G_TYPE_POINTER</span>, etc). The types are homogeneous per column across all nodes. It is important to note that this interface only provides a way of examining a model and observing changes. The implementation of each individual model decides how and if changes are made. </p>
+
+<p>In order to make life simpler for programmers who do not need to write their own specialized model, two generic models are provided — the <a href="/content-docs/api2/reference/Gtk4/TreeStore">Gnome::Gtk4::TreeStore</a> and the <a href="/content-docs/api2/reference/Gtk4/ListStore">Gnome::Gtk4::ListStore</a>. To use these, the developer simply pushes data into these models as necessary. These models provide the data structure as well as all appropriate tree interfaces. As a result, implementing drag and drop, sorting, and storing data is trivial. For the vast majority of trees and lists, these two models are sufficient. </p>
+
+<p>Models are accessed on a node/column level of granularity. One can query for the value of a model at a certain node and a certain column on that node. There are two structures used to reference a particular node in a model. They are the <span class="basis">Gnome::Gtk4::N-TreePath</span>  and the <span class="basis">Gnome::Gtk4::N-TreeIter</span>  (“iter” is short for iterator). Most of the interface consists of operations on a <span class="basis">Gnome::Gtk4::N-TreeIter</span> . </p>
+
+<p>A path is essentially a potential node. It is a location on a model that may or may not actually correspond to a node on a specific model. A <span class="basis">Gnome::Gtk4::N-TreePath</span>  can be converted into either an array of unsigned integers or a string. The string form is a list of numbers separated by a colon. Each number refers to the offset at that level. Thus, the path <span class="basis">0</span> refers to the root node and the path <span class="basis">2</span>:4` refers to the fifth child of the third node. </p>
+
+<p>By contrast, a <span class="basis">Gnome::Gtk4::N-TreeIter</span>  is a reference to a specific node on a specific model. It is a generic struct with an integer and three generic pointers. These are filled in by the model in a model-specific way. One can convert a path to an iterator by calling <span class="code">.get-iter()</span>. These iterators are the primary way of accessing a model and are similar to the iterators used by <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a>. They are generally statically allocated on the stack and only used for a short time. The model interface defines a set of operations using them for navigating the model. </p>
+
+<p>It is expected that models fill in the iterator with private data. For example, the <a href="/content-docs/api2/reference/Gtk4/ListStore">Gnome::Gtk4::ListStore</a> model, which is internally a simple linked list, stores a list node in one of the pointers. The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>Sort stores an array and an offset in two of the pointers. Additionally, there is an integer field. This field is generally filled with a unique stamp per model. This stamp is for catching errors resulting from using invalid iterators with a model. </p>
+
+<p>The lifecycle of an iterator can be a little confusing at first. Iterators are expected to always be valid for as long as the model is unchanged (and doesn’t emit a signal). The model is considered to own all outstanding iterators and nothing needs to be done to free them from the user’s point of view. Additionally, some models guarantee that an iterator is valid for as long as the node it refers to is valid (most notably the <a href="/content-docs/api2/reference/Gtk4/TreeStore">Gnome::Gtk4::TreeStore</a> and <a href="/content-docs/api2/reference/Gtk4/ListStore">Gnome::Gtk4::ListStore</a>). Although generally uninteresting, as one always has to allow for the case where iterators do not persist beyond a signal, some very important performance enhancements were made in the sort model. As a result, the <span class="code">GTK_TREE_MODEL_ITERS_PERSIST</span> flag was added to indicate this behavior. </p>
+
+<p>To help show some common operation of a model, some examples are provided. The first example shows three ways of getting the iter at the location <span class="basis">3</span>:2:5`. While the first method shown is easier, the second is much more common, as you often get paths from callbacks. </p>
+
+<div class="id-target" id="Acquiring a Gnome::Gtk4::N-TreeIter"></div><h3 id="Acquiring_a_Gnome::Gtk4::N-TreeIter" class="heading "><a href="#" title="go to top of document">Acquiring a Gnome::Gtk4::N-TreeIter</a><a class="raku-anchor" title="direct link" href="#Acquiring a Gnome::Gtk4::N-TreeIter">§</a></h3>
+
+<p>This second example shows a quick way of iterating through a list and getting a string and an integer from each row. The populate_model() function used below is not shown, as it is specific to the <a href="/content-docs/api2/reference/Gtk4/ListStore">Gnome::Gtk4::ListStore</a>. For information on how to write such a function, see the <a href="/content-docs/api2/reference/Gtk4/ListStore">Gnome::Gtk4::ListStore</a> documentation. </p>
+
+<div class="id-target" id="Reading data from a Gnome::Gtk4::R-TreeModel"></div><h3 id="Reading_data_from_a_Gnome::Gtk4::R-TreeModel" class="heading "><a href="#" title="go to top of document">Reading data from a Gnome::Gtk4::R-TreeModel</a><a class="raku-anchor" title="direct link" href="#Reading data from a Gnome::Gtk4::R-TreeModel">§</a></h3>
+
+<p>The <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> interface contains two methods for reference counting: <span class="code">.ref-node()</span> and <span class="code">.unref-node()</span>. These two methods are optional to implement. The reference counting is meant as a way for views to let models know when nodes are being displayed. <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> will take a reference on a node when it is visible, which means the node is either in the toplevel or expanded. Being displayed does not mean that the node is currently directly visible to the user in the viewport. Based on this reference counting scheme a caching model, for example, can decide whether or not to cache a node based on the reference count. A file-system based model would not want to keep the entire file hierarchy in memory, but just the folders that are currently expanded in every current view. </p>
+
+<p id="Para_0">When working with reference counting, the following rules must be taken into account:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >Never take a reference on a node without owning a reference on its parent. This means that all parent nodes of a referenced node must be referenced as well.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Outstanding references on a deleted node are not released. This is not possible because the node has already been deleted by the time the row-deleted signal is received.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Models are not obligated to emit a signal on rows of which none of its siblings are referenced. To phrase this differently, signals are only required for levels in which nodes are referenced. For the root level however, signals must be emitted at all times (however the root level is always referenced when any view is attached).</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="filter-new" class="heading "><a href="#" title="go to top of document">filter-new</a><a class="raku-anchor" title="direct link" href="#filter-new">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>, with <span class="code">$child-model</span> as the child_model and <span class="code">$root</span> as the virtual root. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method filter-new ( N-Object $root --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$root; A <span class="basis">Gnome::Gtk4::N-TreePath</span></li>
+</ul>
+
+<p>Return value; A new <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>.. </p>
+<h2 id="foreach" class="heading "><a href="#" title="go to top of document">foreach</a><a class="raku-anchor" title="direct link" href="#foreach">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Calls <span class="code">$func</span> on each node in model in a depth-first fashion. </p>
+
+<p>If <span class="code">$func</span> returns <span class="code">True</span>, then the tree ceases to be walked, and <span class="code">.foreach()</span> returns. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method foreach ( GtkTreeModelForeachFunc &amp;func, gpointer $user-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkTreeModelForeachFunc &amp;func; a function to be called on each row. The function must be specified with the following signature; <span class="code">:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data to passed to <span class="code">$func</span>.</li>
+</ul>
+<h2 id="get" class="heading "><a href="#" title="go to top of document">get</a><a class="raku-anchor" title="direct link" href="#get">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the value of one or more cells in the row referenced by <span class="code">$iter</span>. </p>
+
+<p>The variable argument list should contain integer column numbers, each column number followed by a place to store the value being retrieved. The list is terminated by a -1. For example, to get a value from column 0 with type <span class="code">G_TYPE_STRING</span>, you would write: <span class="basis">gtk_tree_model_get</span> (model, iter, 0, &amp;place_string_here, -1)`, where <span class="basis">place_string_here</span> is a #gchararray to be filled with the string. </p>
+
+<p>Returned values with type <span class="code">G_TYPE_OBJECT</span> have to be unreferenced, values with type <span class="code">G_TYPE_STRING</span> or <span class="code">G_TYPE_BOXED</span> have to be freed. Other values are passed by value. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get ( N-Object $iter, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a row in <span class="code">$tree-model</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="get-column-type" class="heading "><a href="#" title="go to top of document">get-column-type</a><a class="raku-anchor" title="direct link" href="#get-column-type">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_1">Returns the type of the column.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-column-type ( Int() $index --&gt; GType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$index; the column index.</li>
+</ul>
+
+<p id="Para_2">Return value; the type of the column.</p>
+<h2 id="get-flags" class="heading "><a href="#" title="go to top of document">get-flags</a><a class="raku-anchor" title="direct link" href="#get-flags">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_3">Returns a set of flags supported by this interface.</p>
+
+<p>The flags are a bitwise combination of <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>Flags. The flags supported should not change during the lifetime of the <span class="code">$tree-model</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-flags (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_4">Return value; the flags supported by this interface.</p>
+<h2 id="get-iter" class="heading "><a href="#" title="go to top of document">get-iter</a><a class="raku-anchor" title="direct link" href="#get-iter">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to a valid iterator pointing to <span class="code">$path</span>. </p>
+
+<p>If <span class="code">$path</span> does not exist, <span class="code">$iter</span> is set to an invalid iterator and <span class="code">False</span> is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter ( N-Object $iter, N-Object $path --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the uninitialized <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$path; the <span class="basis">Gnome::Gtk4::N-TreePath</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> was set. </p>
+<h2 id="get-iter-first" class="heading "><a href="#" title="go to top of document">get-iter-first</a><a class="raku-anchor" title="direct link" href="#get-iter-first">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Initializes <span class="code">$iter</span> with the first iterator in the tree (the one at the path &quot;0&quot;). </p>
+
+<p>Returns <span class="code">False</span> if the tree is empty, <span class="code">True</span> otherwise. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-first ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the uninitialized <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> was set. </p>
+<h2 id="get-iter-from-string" class="heading "><a href="#" title="go to top of document">get-iter-from-string</a><a class="raku-anchor" title="direct link" href="#get-iter-from-string">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to a valid iterator pointing to <span class="code">$path-string</span>, if it exists. </p>
+
+<p>Otherwise, <span class="code">$iter</span> is left invalid and <span class="code">False</span> is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-from-string ( N-Object $iter, Str $path-string --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; an uninitialized <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$path-string; a string representation of a <span class="basis">Gnome::Gtk4::N-TreePath</span>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> was set. </p>
+<h2 id="get-n-columns" class="heading "><a href="#" title="go to top of document">get-n-columns</a><a class="raku-anchor" title="direct link" href="#get-n-columns">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the number of columns supported by <span class="code">$tree-model</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-columns (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the number of columns.</p>
+<h2 id="get-path" class="heading "><a href="#" title="go to top of document">get-path</a><a class="raku-anchor" title="direct link" href="#get-path">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns a newly-created <span class="basis">Gnome::Gtk4::N-TreePath</span> referenced by <span class="code">$iter</span>. </p>
+
+<p id="Para_6">This path should be freed with gtk_tree_path_free().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-path ( N-Object $iter --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; a newly-created <span class="basis">Gnome::Gtk4::N-TreePath</span>. </p>
+<h2 id="get-string-from-iter" class="heading "><a href="#" title="go to top of document">get-string-from-iter</a><a class="raku-anchor" title="direct link" href="#get-string-from-iter">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_7">Generates a string representation of the iter.</p>
+
+<p id="Para_8">This string is a “:” separated list of numbers. For example, “4:10:0:3” would be an acceptable return value for this string.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-string-from-iter ( N-Object $iter --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p id="Para_9">Return value; a newly-allocated string.</p>
+<h2 id="get-valist" class="heading "><a href="#" title="go to top of document">get-valist</a><a class="raku-anchor" title="direct link" href="#get-valist">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the value of one or more cells in the row referenced by <span class="code">$iter</span>. </p>
+
+<p>See <a href="#get">.get()</a>, this version takes a va_list for language bindings to use. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-valist ( N-Object $iter, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a row in <span class="code">$tree-model</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >var-args; va_list of column/return location pairs. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="get-value" class="heading "><a href="#" title="go to top of document">get-value</a><a class="raku-anchor" title="direct link" href="#get-value">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Initializes and sets <span class="code">$value</span> to that at <span class="code">$column</span>. </p>
+
+<p>When done with <span class="code">$value</span>, g_value_unset() needs to be called to free any allocated memory. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-value ( N-Object $iter, Int() $column, N-Object $value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$column; the column to lookup the value at.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; an empty <span class="basis">Gnome::GObject::N-Value</span> to set</li>
+</ul>
+<h2 id="iter-children" class="heading "><a href="#" title="go to top of document">iter-children</a><a class="raku-anchor" title="direct link" href="#iter-children">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to point to the first child of <span class="code">$parent</span>. </p>
+
+<p>If <span class="code">$parent</span> has no children, <span class="code">False</span> is returned and <span class="code">$iter</span> is set to be invalid. <span class="code">$parent</span> will remain a valid node after this function has been called. </p>
+
+<p>If <span class="code">$parent</span> is undefined returns the first node, equivalent to <span class="basis">gtk_tree_model_get_iter_first</span> (tree_model, iter);` </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-children ( N-Object $iter, N-Object $parent --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the new <span class="basis">Gnome::Gtk4::N-TreeIter</span> to be set to the child</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> has been set to the first child. </p>
+<h2 id="iter-has-child" class="heading "><a href="#" title="go to top of document">iter-has-child</a><a class="raku-anchor" title="direct link" href="#iter-has-child">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> has children, <span class="code">False</span> otherwise. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-has-child ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span> to test for children</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> has children. </p>
+<h2 id="iter-n-children" class="heading "><a href="#" title="go to top of document">iter-n-children</a><a class="raku-anchor" title="direct link" href="#iter-n-children">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the number of children that <span class="code">$iter</span> has. </p>
+
+<p>As a special case, if <span class="code">$iter</span> is undefined, then the number of toplevel nodes is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-n-children ( N-Object $iter --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; the number of children of <span class="code">$iter</span>. </p>
+<h2 id="iter-next" class="heading "><a href="#" title="go to top of document">iter-next</a><a class="raku-anchor" title="direct link" href="#iter-next">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to point to the node following it at the current level. </p>
+
+<p>If there is no next <span class="code">$iter</span>, <span class="code">False</span> is returned and <span class="code">$iter</span> is set to be invalid. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-next ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> has been changed to the next node. </p>
+<h2 id="iter-nth-child" class="heading "><a href="#" title="go to top of document">iter-nth-child</a><a class="raku-anchor" title="direct link" href="#iter-nth-child">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to be the child of <span class="code">$parent</span>, using the given index. </p>
+
+<p>The first index is 0. If <span class="code">$n</span> is too big, or <span class="code">$parent</span> has no children, <span class="code">$iter</span> is set to an invalid iterator and <span class="code">False</span> is returned. <span class="code">$parent</span> will remain a valid node after this function has been called. As a special case, if <span class="code">$parent</span> is undefined, then the <span class="code">$n</span>-th root node is set. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-nth-child ( N-Object $iter, N-Object $parent, Int() $n --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the nth child</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; the <span class="basis">Gnome::Gtk4::N-TreeIter</span> to get the child from</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n; the index of the desired child.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$parent</span> has an <span class="code">$n</span>-th child. </p>
+<h2 id="iter-parent" class="heading "><a href="#" title="go to top of document">iter-parent</a><a class="raku-anchor" title="direct link" href="#iter-parent">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to be the parent of <span class="code">$child</span>. </p>
+
+<p>If <span class="code">$child</span> is at the toplevel, and doesn’t have a parent, then <span class="code">$iter</span> is set to an invalid iterator and <span class="code">False</span> is returned. <span class="code">$child</span> will remain a valid node after this function has been called. <span class="code">$iter</span> will be initialized before the lookup is performed, so <span class="code">$child</span> and <span class="code">$iter</span> cannot point to the same memory location. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-parent ( N-Object $iter, N-Object $child --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the new <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the parent</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$child; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> is set to the parent of <span class="code">$child</span>. </p>
+<h2 id="iter-previous" class="heading "><a href="#" title="go to top of document">iter-previous</a><a class="raku-anchor" title="direct link" href="#iter-previous">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to point to the previous node at the current level. </p>
+
+<p>If there is no previous <span class="code">$iter</span>, <span class="code">False</span> is returned and <span class="code">$iter</span> is set to be invalid. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-previous ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> has been changed to the previous node. </p>
+<h2 id="ref-node" class="heading "><a href="#" title="go to top of document">ref-node</a><a class="raku-anchor" title="direct link" href="#ref-node">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_10">Lets the tree ref the node.</p>
+
+<p id="Para_11">This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons.</p>
+
+<p id="Para_12">This function is primarily meant as a way for views to let caching models know when nodes are being displayed (and hence, whether or not to cache that node). Being displayed means a node is in an expanded branch, regardless of whether the node is currently visible in the viewport. For example, a file-system based model would not want to keep the entire file-hierarchy in memory, just the sections that are currently being displayed by every current view.</p>
+
+<p id="Para_13">A model should be expected to be able to get an iter independent of its reffed state.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ref-node ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+<h2 id="row-changed" class="heading "><a href="#" title="go to top of document">row-changed</a><a class="raku-anchor" title="direct link" href="#row-changed">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">row-changed</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">row-changed</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method row-changed ( N-Object $path, N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the changed row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the changed row</li>
+</ul>
+<h2 id="row-deleted" class="heading "><a href="#" title="go to top of document">row-deleted</a><a class="raku-anchor" title="direct link" href="#row-deleted">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">row-deleted</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">row-deleted</span>. </p>
+
+<p>This should be called by models after a row has been removed. The location pointed to by <span class="code">$path</span> should be the location that the row previously was at. It may not be a valid location anymore. </p>
+
+<p id="Para_14">Nodes that are deleted are not unreffed, this means that any outstanding references on the deleted node should not be released.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method row-deleted ( N-Object $path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the previous location of the deleted row</li>
+</ul>
+<h2 id="row-has-child-toggled" class="heading "><a href="#" title="go to top of document">row-has-child-toggled</a><a class="raku-anchor" title="direct link" href="#row-has-child-toggled">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">row-has-child-toggled</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">row-has-child-toggled</span>. </p>
+
+<p id="Para_15">This should be called by models after the child state of a node changes.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method row-has-child-toggled ( N-Object $path, N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the changed row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the changed row</li>
+</ul>
+<h2 id="row-inserted" class="heading "><a href="#" title="go to top of document">row-inserted</a><a class="raku-anchor" title="direct link" href="#row-inserted">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">row-inserted</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">row-inserted</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method row-inserted ( N-Object $path, N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the inserted row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the inserted row</li>
+</ul>
+<h2 id="rows-reordered" class="heading "><a href="#" title="go to top of document">rows-reordered</a><a class="raku-anchor" title="direct link" href="#rows-reordered">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">rows-reordered</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">rows-reordered</span>. </p>
+
+<p id="Para_16">This should be called by models when their rows have been reordered.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method rows-reordered ( N-Object $path, N-Object $iter, Array[Int] $new-order )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the tree node whose children have been reordered</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the node whose children have been reordered, or undefined if the depth of <span class="code">$path</span> is 0</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <span class="code">$new-order</span>`[newpos] = oldpos`.</li>
+</ul>
+<h2 id="rows-reordered-with-length" class="heading "><a href="#" title="go to top of document">rows-reordered-with-length</a><a class="raku-anchor" title="direct link" href="#rows-reordered-with-length">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Emits the <span class="important">rows-reordered</span> signal on <span class="code">$tree-model</span>. </p>
+
+<p>See <span class="important">rows-reordered</span>. </p>
+
+<p id="Para_17">This should be called by models when their rows have been reordered.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method rows-reordered-with-length ( N-Object $path, N-Object $iter, Array[Int] $new-order, Int() $length )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> pointing to the tree node whose children have been reordered</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the node whose children have been reordered, or undefined if the depth of <span class="code">$path</span> is 0</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <span class="code">$new-order</span>`[newpos] = oldpos`.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$length; length of <span class="code">$new-order</span> array.</li>
+</ul>
+<h2 id="unref-node" class="heading "><a href="#" title="go to top of document">unref-node</a><a class="raku-anchor" title="direct link" href="#unref-node">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_18">Lets the tree unref the node.</p>
+
+<p>This is an optional method for models to implement. To be more specific, models may ignore this call as it exists primarily for performance reasons. For more information on what this means, see <span class="code">.ref-node()</span>. </p>
+
+<p id="Para_19">Please note that nodes that are deleted are not unreffed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unref-node ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+
+<div class="id-target" id="row-changed"></div><h3 id="row-changed_0" class="heading "><a href="#" title="go to top of document">row-changed</a><a class="raku-anchor" title="direct link" href="#row-changed">§</a></h3>
+
+<p id="Para_20">This signal is emitted when a row in the model has changed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $path,
   N-Object $iter,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the changed row.</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the changed row.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> identifying the changed row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the changed row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="row-deleted_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-deleted</a></h3>
-<p>This signal is emitted when a row has been deleted.</p><p>Note that no iterator is passed to the signal handler, since the row is already deleted.</p><p>This should be called by models after a row has been removed. The location pointed to by <code>$path</code> should be the location that the row previously was at. It may not be a valid location anymore.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="row-deleted"></div><h3 id="row-deleted_0" class="heading "><a href="#" title="go to top of document">row-deleted</a><a class="raku-anchor" title="direct link" href="#row-deleted">§</a></h3>
+
+<p id="Para_21">This signal is emitted when a row has been deleted.</p>
+
+<p id="Para_22">Note that no iterator is passed to the signal handler, since the row is already deleted.</p>
+
+<p>This should be called by models after a row has been removed. The location pointed to by <span class="code">$path</span> should be the location that the row previously was at. It may not be a valid location anymore. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $path,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the row.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> identifying the row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="row-has-child-toggled_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-has-child-toggled</a></h3>
-<p>This signal is emitted when a row has gotten the first child row or lost its last child row.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="row-has-child-toggled"></div><h3 id="row-has-child-toggled_0" class="heading "><a href="#" title="go to top of document">row-has-child-toggled</a><a class="raku-anchor" title="direct link" href="#row-has-child-toggled">§</a></h3>
+
+<p id="Para_23">This signal is emitted when a row has gotten the first child row or lost its last child row.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $path,
   N-Object $iter,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the row.</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the row.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> identifying the row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="row-inserted_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">row-inserted</a></h3>
-<p>This signal is emitted when a new row has been inserted in the model.</p><p>Note that the row may still be empty at this point, since it is a common pattern to first insert an empty row, and then fill it with the desired values.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="row-inserted"></div><h3 id="row-inserted_0" class="heading "><a href="#" title="go to top of document">row-inserted</a><a class="raku-anchor" title="direct link" href="#row-inserted">§</a></h3>
+
+<p id="Para_24">This signal is emitted when a new row has been inserted in the model.</p>
+
+<p id="Para_25">Note that the row may still be empty at this point, since it is a common pattern to first insert an empty row, and then fill it with the desired values.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $path,
   N-Object $iter,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the new row.</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the new row.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> identifying the new row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the new row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="rows-reordered_0"><a href="#Gnome::Gtk4::R-TreeModel" class="u" title="go to top of document">rows-reordered</a></h3>
-<p>This signal is emitted when the children of a node in the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> have been reordered.</p><p>Note that this signal is not emitted when rows are reordered by DND, since this is implemented by removing and then reinserting the row.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="rows-reordered"></div><h3 id="rows-reordered_0" class="heading "><a href="#" title="go to top of document">rows-reordered</a><a class="raku-anchor" title="direct link" href="#rows-reordered">§</a></h3>
+
+<p>This signal is emitted when the children of a node in the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> have been reordered. </p>
+
+<p id="Para_26">Note that this signal is not emitted when rows are reordered by DND, since this is implemented by removing and then reinserting the row.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $path,
   N-Object $iter,
   gpointer $new-order,
@@ -357,16 +1076,27 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeModel :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> identifying the tree node whose children have been reordered.</p></li>
-<li><p>$iter; a valid <strong>Gnome::Gtk4::N-TreeIter</strong> pointing to the node whose children have been reordered, or undefined if the depth of <code>$path</code> is 0.</p></li>
-<li><p>$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <code>$new-order</code>`[newpos] = oldpos`.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeModel</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> identifying the tree node whose children have been reordered.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; a valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> pointing to the node whose children have been reordered, or undefined if the depth of <span class="code">$path</span> is 0.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$new-order; an array of integers mapping the current position of each child to its old position before the re-ordering, i.e. <span class="code">$new-order</span>`[newpos] = oldpos`.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeModel</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-TreeModel.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:53Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/R-TreeModel.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>

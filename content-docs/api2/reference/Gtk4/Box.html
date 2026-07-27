@@ -1,156 +1,642 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Box</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Box</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Box">Gnome::Gtk4::Box</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-box">new-box</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-baseline-child">get-baseline-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-baseline-position">get-baseline-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-homogeneous">get-homogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-spacing">get-spacing</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-child-after">insert-child-after</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prepend">prepend</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reorder-child-after">reorder-child-after</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-baseline-child">set-baseline-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-baseline-position">set-baseline-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-homogeneous">set-homogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-spacing">set-spacing</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">Description</a></h1>
-<p>The <strong>Gnome::Gtk4::Box</strong> widget arranges child widgets into a single row or column.</p><div class="image-container inline"><img src="asset_files/images/box.png" width="30%" height="auto" alt="No caption"></div>
-<p>Whether it is a row or column depends on the value of its <em>orientation defined in Gnome::Gtk4::R-Orientable</em> property. Within the other dimension, all children are allocated the same size. Of course, the <em>halign defined in Gnome::Gtk4::Widget</em> and <em>valign defined in Gnome::Gtk4::Widget</em> properties can be used on the children to influence their allocation.</p><p>Use repeated calls to <a href="#append">.append()</a> to pack widgets into a <strong>Gnome::Gtk4::Box</strong> from start to end. Use <a href="#remove">.remove()</a> to remove widgets from the <strong>Gnome::Gtk4::Box</strong>. <a href="#insert-child-after">.insert-child-after()</a> can be used to add a child at a particular position.</p><p>Use <a href="#set-homogeneous">.set-homogeneous()</a> to specify whether or not all children of the <strong>Gnome::Gtk4::Box</strong> are forced to get the same amount of space.</p><p>Use <a href="#set-spacing">.set-spacing()</a> to determine how much space will be minimally placed between all children in the <strong>Gnome::Gtk4::Box</strong>. Note that spacing is added *between* the children.</p><p>Use <a href="#reorder-child-after">.reorder-child-after()</a> to move a child to a different place in the box.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Box</strong> uses a single CSS node with name box.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">Accessibility</a></h2>
-<p>Until GTK 4.10, <strong>Gnome::Gtk4::Box</strong> used the <strong>GTK_ACCESSIBLE_ROLE_GROUP</strong> role.</p><p>Starting from GTK 4.12, <strong>Gnome::Gtk4::Box</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_GENERIC</strong> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Box.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-box"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">new-box</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Box</strong>.</p><pre class="pod-block-code">method new-box ( GtkOrientation $orientation, Int() $spacing --&gt; Gnome::Gtk4::Box )
-</pre><ul>
-<li><p>$orientation; the box’s orientation.</p></li>
-<li><p>$spacing; the number of pixels to place by default between children.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Box"></div><h1 class="title">Gnome::Gtk4::Box</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-box">new-box</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append">append</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-baseline-child">get-baseline-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-baseline-position">get-baseline-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-homogeneous">get-homogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-spacing">get-spacing</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-child-after">insert-child-after</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend">prepend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reorder-child-after">reorder-child-after</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-baseline-child">set-baseline-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-baseline-position">set-baseline-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-homogeneous">set-homogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-spacing">set-spacing</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>The <span class="basis">Gnome::Gtk4::Box</span> widget arranges child widgets into a single row or column. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/box.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>Whether it is a row or column depends on the value of its <span class="important">orientation defined in Gnome::Gtk4::R-Orientable</span> property. Within the other dimension, all children are allocated the same size. Of course, the <span class="important">halign defined in Gnome::Gtk4::Widget</span> and <span class="important">valign defined in Gnome::Gtk4::Widget</span> properties can be used on the children to influence their allocation. </p>
+
+<p>Use repeated calls to <a href="#append">.append()</a> to pack widgets into a <span class="basis">Gnome::Gtk4::Box</span> from start to end. Use <a href="#remove">.remove()</a> to remove widgets from the <span class="basis">Gnome::Gtk4::Box</span>. <a href="#insert-child-after">.insert-child-after()</a> can be used to add a child at a particular position. </p>
+
+<p>Use <a href="#set-homogeneous">.set-homogeneous()</a> to specify whether or not all children of the <span class="basis">Gnome::Gtk4::Box</span> are forced to get the same amount of space. </p>
+
+<p>Use <a href="#set-spacing">.set-spacing()</a> to determine how much space will be minimally placed between all children in the <span class="basis">Gnome::Gtk4::Box</span>. Note that spacing is added *between* the children. </p>
+
+<p>Use <a href="#reorder-child-after">.reorder-child-after()</a> to move a child to a different place in the box. </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Box</span> uses a single CSS node with name box. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p>Until GTK 4.10, <span class="basis">Gnome::Gtk4::Box</span> used the <span class="basis">GTK_ACCESSIBLE_ROLE_GROUP</span> role. </p>
+
+<p>Starting from GTK 4.12, <span class="basis">Gnome::Gtk4::Box</span> uses the <span class="basis">GTK_ACCESSIBLE_ROLE_GENERIC</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Box.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-box" class="heading "><a href="#" title="go to top of document">new-box</a><a class="raku-anchor" title="direct link" href="#new-box">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Box</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-box ( GtkOrientation $orientation, Int() $spacing --&gt; Gnome::Gtk4::Box )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$orientation; the box’s orientation.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$spacing; the number of pixels to place by default between children.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="append"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">append</a></h2>
-<p>Adds <code>$child</code> as the last child to <code>$box</code>.</p><pre class="pod-block-code">method append ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to append.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="append" class="heading "><a href="#" title="go to top of document">append</a><a class="raku-anchor" title="direct link" href="#append">§</a></h2>
+
+<p>Adds <span class="code">$child</span> as the last child to <span class="code">$box</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to append.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-baseline-child"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">get-baseline-child</a></h2>
-<p>Gets the value set by <code>.set-baseline-child()</code>.</p><pre class="pod-block-code">method get-baseline-child (--&gt; Int )
-</pre><p>Return value; the baseline child. </p></section>
-<section name="pod">
-<h2 id="get-baseline-position"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">get-baseline-position</a></h2>
-<p>Gets the value set by <code>.set-baseline-position()</code>.</p><pre class="pod-block-code">method get-baseline-position (--&gt; GtkBaselinePosition )
-</pre><p>Return value; the baseline position. </p></section>
-<section name="pod">
-<h2 id="get-homogeneous"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">get-homogeneous</a></h2>
-<p>Returns whether the box is homogeneous (all children are the same size).</p><pre class="pod-block-code">method get-homogeneous (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the box is homogeneous.. </p></section>
-<section name="pod">
-<h2 id="get-spacing"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">get-spacing</a></h2>
-<p>Gets the value set by <code>.set-spacing()</code>.</p><pre class="pod-block-code">method get-spacing (--&gt; Int )
-</pre><p>Return value; spacing between children. </p></section>
-<section name="pod">
-<h2 id="insert-child-after"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">insert-child-after</a></h2>
-<p>Inserts <code>$child</code> in the position after <code>$sibling</code> in the list of <code>$box</code> children.</p><p>If <code>$sibling</code> is undefined, insert <code>$child</code> at the first position.</p><pre class="pod-block-code">method insert-child-after ( N-Object() $child, N-Object() $sibling )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to insert.</p></li>
-<li><p>$sibling; the sibling after which to insert <code>$child</code>.</p></li>
+<h2 id="get-baseline-child" class="heading "><a href="#" title="go to top of document">get-baseline-child</a><a class="raku-anchor" title="direct link" href="#get-baseline-child">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-baseline-child()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-baseline-child (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para">Return value; the baseline child.</p>
+<h2 id="get-baseline-position" class="heading "><a href="#" title="go to top of document">get-baseline-position</a><a class="raku-anchor" title="direct link" href="#get-baseline-position">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-baseline-position()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-baseline-position (--&gt; GtkBaselinePosition )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_0">Return value; the baseline position.</p>
+<h2 id="get-homogeneous" class="heading "><a href="#" title="go to top of document">get-homogeneous</a><a class="raku-anchor" title="direct link" href="#get-homogeneous">§</a></h2>
+
+<p id="Para_1">Returns whether the box is homogeneous (all children are the same size).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-homogeneous (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the box is homogeneous.. </p>
+<h2 id="get-spacing" class="heading "><a href="#" title="go to top of document">get-spacing</a><a class="raku-anchor" title="direct link" href="#get-spacing">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-spacing()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-spacing (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; spacing between children.</p>
+<h2 id="insert-child-after" class="heading "><a href="#" title="go to top of document">insert-child-after</a><a class="raku-anchor" title="direct link" href="#insert-child-after">§</a></h2>
+
+<p>Inserts <span class="code">$child</span> in the position after <span class="code">$sibling</span> in the list of <span class="code">$box</span> children. </p>
+
+<p>If <span class="code">$sibling</span> is undefined, insert <span class="code">$child</span> at the first position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-child-after ( N-Object() $child, N-Object() $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to insert.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; the sibling after which to insert <span class="code">$child</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="prepend"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">prepend</a></h2>
-<p>Adds <code>$child</code> as the first child to <code>$box</code>.</p><pre class="pod-block-code">method prepend ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to prepend.</p></li>
+<h2 id="prepend" class="heading "><a href="#" title="go to top of document">prepend</a><a class="raku-anchor" title="direct link" href="#prepend">§</a></h2>
+
+<p>Adds <span class="code">$child</span> as the first child to <span class="code">$box</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to prepend.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">remove</a></h2>
-<p>Removes a child widget from <code>$box</code>.</p><p>The child must have been added before with <a href="#append">.append()</a>, <a href="#prepend">.prepend()</a>, or <a href="#insert-child-after">.insert-child-after()</a>.</p><pre class="pod-block-code">method remove ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the child to remove.</p></li>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p>Removes a child widget from <span class="code">$box</span>. </p>
+
+<p>The child must have been added before with <a href="#append">.append()</a>, <a href="#prepend">.prepend()</a>, or <a href="#insert-child-after">.insert-child-after()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child to remove.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="reorder-child-after"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">reorder-child-after</a></h2>
-<p>Moves <code>$child</code> to the position after <code>$sibling</code> in the list of <code>$box</code> children.</p><p>If <code>$sibling</code> is undefined, move <code>$child</code> to the first position.</p><pre class="pod-block-code">method reorder-child-after ( N-Object() $child, N-Object() $sibling )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to move, must be a child of <code>$box</code>.</p></li>
-<li><p>$sibling; the sibling to move <code>$child</code> after.</p></li>
+<h2 id="reorder-child-after" class="heading "><a href="#" title="go to top of document">reorder-child-after</a><a class="raku-anchor" title="direct link" href="#reorder-child-after">§</a></h2>
+
+<p>Moves <span class="code">$child</span> to the position after <span class="code">$sibling</span> in the list of <span class="code">$box</span> children. </p>
+
+<p>If <span class="code">$sibling</span> is undefined, move <span class="code">$child</span> to the first position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reorder-child-after ( N-Object() $child, N-Object() $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to move, must be a child of <span class="code">$box</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; the sibling to move <span class="code">$child</span> after.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-baseline-child"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">set-baseline-child</a></h2>
-<p>Sets the baseline child of a box.</p><p>This affects only vertical boxes.</p><pre class="pod-block-code">method set-baseline-child ( Int() $child )
-</pre><ul>
-<li><p>$child; a child, or -1.</p></li>
+<h2 id="set-baseline-child" class="heading "><a href="#" title="go to top of document">set-baseline-child</a><a class="raku-anchor" title="direct link" href="#set-baseline-child">§</a></h2>
+
+<p id="Para_3">Sets the baseline child of a box.</p>
+
+<p id="Para_4">This affects only vertical boxes.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-baseline-child ( Int() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child, or -1.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-baseline-position"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">set-baseline-position</a></h2>
-<p>Sets the baseline position of a box.</p><p>This affects only horizontal boxes with at least one baseline aligned child. If there is more vertical space available than requested, and the baseline is not allocated by the parent then <code>$position</code> is used to allocate the baseline with respect to the extra space available.</p><pre class="pod-block-code">method set-baseline-position ( GtkBaselinePosition $position )
-</pre><ul>
-<li><p>$position; a <code>enumeration GtkBaselinePosition defined in Gnome::Gtk4::T-enums</code>.</p></li>
+<h2 id="set-baseline-position" class="heading "><a href="#" title="go to top of document">set-baseline-position</a><a class="raku-anchor" title="direct link" href="#set-baseline-position">§</a></h2>
+
+<p id="Para_5">Sets the baseline position of a box.</p>
+
+<p>This affects only horizontal boxes with at least one baseline aligned child. If there is more vertical space available than requested, and the baseline is not allocated by the parent then <span class="code">$position</span> is used to allocate the baseline with respect to the extra space available. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-baseline-position ( GtkBaselinePosition $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; a <span class="code">enumeration GtkBaselinePosition defined in Gnome::Gtk4::T-enums</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-homogeneous"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">set-homogeneous</a></h2>
-<p>Sets whether or not all children of <code>$box</code> are given equal space in the box.</p><pre class="pod-block-code">method set-homogeneous ( Bool() $homogeneous )
-</pre><ul>
-<li><p>$homogeneous; a boolean value, <code>True</code> to create equal allotments, <code>False</code> for variable allotments.</p></li>
+<h2 id="set-homogeneous" class="heading "><a href="#" title="go to top of document">set-homogeneous</a><a class="raku-anchor" title="direct link" href="#set-homogeneous">§</a></h2>
+
+<p>Sets whether or not all children of <span class="code">$box</span> are given equal space in the box. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-homogeneous ( Bool() $homogeneous )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$homogeneous; a boolean value, <span class="code">True</span> to create equal allotments, <span class="code">False</span> for variable allotments.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-spacing"><a href="#Gnome::Gtk4::Box" class="u" title="go to top of document">set-spacing</a></h2>
-<p>Sets the number of pixels to place between children of <code>$box</code>.</p><pre class="pod-block-code">method set-spacing ( Int() $spacing )
-</pre><ul>
-<li><p>$spacing; the number of pixels to put between children.</p></li>
+
+<h2 id="set-spacing" class="heading "><a href="#" title="go to top of document">set-spacing</a><a class="raku-anchor" title="direct link" href="#set-spacing">§</a></h2>
+
+<p>Sets the number of pixels to place between children of <span class="code">$box</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-spacing ( Int() $spacing )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$spacing; the number of pixels to put between children.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Box.rakudoc</span></div><div>at <span class="time">2026-05-03T10:25:26Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Box.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

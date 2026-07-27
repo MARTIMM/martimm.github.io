@@ -1,213 +1,786 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::StyleContext</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::StyleContext</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::StyleContext">Gnome::Gtk4::StyleContext</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Style_Classes">Style Classes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Custom_styling_in_UI_libraries_and_applications">Custom styling in UI libraries and applications</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-class">add-class</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-provider">add-provider</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-border">get-border</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-color">get-color</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-display">get-display</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-margin">get-margin</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-padding">get-padding</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-scale">get-scale</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-state">get-state</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#has-class">has-class</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#lookup-color">lookup-color</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-class">remove-class</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-provider">remove-provider</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#restore">restore</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save">save</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-display">set-display</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-scale">set-scale</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-state">set-state</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#to-string">to-string</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-provider-for-display">add-provider-for-display</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-provider-for-display">remove-provider-for-display</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::StyleContext</strong> stores styling information affecting a widget.</p><p>In order to construct the final style information, <strong>Gnome::Gtk4::StyleContext</strong> queries information from all attached <strong>GtkStyleProviders</strong>. Style providers can be either attached explicitly to the context through <a href="#add-provider">.add-provider()</a>, or to the display through <a href="/content-docs/api2/reference/Gtk4/T-stylecontext.html#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>. The resulting style is a combination of all providers’ information in priority order.</p><p>For GTK widgets, any <strong>Gnome::Gtk4::StyleContext</strong> returned by <a href="/content-docs/api2/reference/Gtk4/Widget.html#get-style-context">.get-style-context() in class Widget</a> will already have a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> and RTL/LTR information set. The style context will also be updated automatically if any of these settings change on the widget.</p>
-<h3 id="Style_Classes"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Style Classes</a></h3>
-<p>Widgets can add style classes to their context, which can be used to associate different styles by class. The documentation for individual widgets lists which style classes it uses itself, and which style classes may be added by applications to affect their appearance.</p>
-<h2 id="Custom_styling_in_UI_libraries_and_applications"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Custom styling in UI libraries and applications</a></h2>
-<p>If you are developing a library with custom widgets that render differently than standard components, you may need to add a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a> yourself with the <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> priority, either a <a href="/content-docs/api2/reference/Gtk4/CssProvider.html">Gnome::Gtk4::CssProvider</a> or a custom object implementing the <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a> interface. This way themes may still attempt to style your UI elements in a different way if needed so.</p><p>If you are using custom styling on an applications, you probably want then to make your style information prevail to the theme’s, so you must use a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a> with the <code>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</code> priority, keep in mind that the user settings in <strong>XDG_CONFIG_HOME</strong>/gtk-4.0/gtk.css` will still take precedence over your changes, as it uses the <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code> priority.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/StyleContext.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-class"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">add-class</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds a style class to <code>$context</code>, so later uses of the style context will make use of this new class for styling.</p><p>In the CSS file format, a <a href="/content-docs/api2/reference/Gtk4/Entry.html">Gnome::Gtk4::Entry</a> defining a “search” class, would be matched by:</p><p>While any widget defining a “search” class would be matched by:</p><pre class="pod-block-code">method add-class ( Str $class-name )
-</pre><ul>
-<li><p>$class-name; class name to use in styling.</p></li>
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::StyleContext"></div><h1 class="title">Gnome::Gtk4::StyleContext</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Style_Classes">Style Classes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Custom_styling_in_UI_libraries_and_applications">Custom styling in UI libraries and applications</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-class">add-class</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-provider">add-provider</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-border">get-border</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-color">get-color</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-display">get-display</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-margin">get-margin</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-padding">get-padding</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-scale">get-scale</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-state">get-state</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#has-class">has-class</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#lookup-color">lookup-color</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-class">remove-class</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-provider">remove-provider</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#restore">restore</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save">save</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-display">set-display</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-scale">set-scale</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-state">set-state</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#to-string">to-string</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-provider-for-display">add-provider-for-display</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-provider-for-display">remove-provider-for-display</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::StyleContext</span> stores styling information affecting a widget. </p>
+
+<p>In order to construct the final style information, <span class="basis">Gnome::Gtk4::StyleContext</span> queries information from all attached <span class="basis">GtkStyleProviders</span>. Style providers can be either attached explicitly to the context through <a href="#add-provider">.add-provider()</a>, or to the display through <a href="/content-docs/api2/reference/Gtk4/T-stylecontext#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>. The resulting style is a combination of all providers’ information in priority order. </p>
+
+<p>For GTK widgets, any <span class="basis">Gnome::Gtk4::StyleContext</span> returned by <a href="/content-docs/api2/reference/Gtk4/Widget#get-style-context">.get-style-context() in class Widget</a> will already have a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a> and RTL/LTR information set. The style context will also be updated automatically if any of these settings change on the widget. </p>
+
+<div class="id-target" id="Style Classes"></div><h3 id="Style_Classes" class="heading "><a href="#" title="go to top of document">Style Classes</a><a class="raku-anchor" title="direct link" href="#Style Classes">§</a></h3>
+
+<p id="Para">Widgets can add style classes to their context, which can be used to associate different styles by class. The documentation for individual widgets lists which style classes it uses itself, and which style classes may be added by applications to affect their appearance.</p>
+
+<div class="id-target" id="Custom styling in UI libraries and applications"></div><h2 id="Custom_styling_in_UI_libraries_and_applications" class="heading "><a href="#" title="go to top of document">Custom styling in UI libraries and applications</a><a class="raku-anchor" title="direct link" href="#Custom styling in UI libraries and applications">§</a></h2>
+
+<p>If you are developing a library with custom widgets that render differently than standard components, you may need to add a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a> yourself with the <span class="code">GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> priority, either a <a href="/content-docs/api2/reference/Gtk4/CssProvider">Gnome::Gtk4::CssProvider</a> or a custom object implementing the <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a> interface. This way themes may still attempt to style your UI elements in a different way if needed so. </p>
+
+<p>If you are using custom styling on an applications, you probably want then to make your style information prevail to the theme’s, so you must use a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a> with the <span class="code">GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</span> priority, keep in mind that the user settings in <span class="basis">XDG_CONFIG_HOME</span>/gtk-4.0/gtk.css` will still take precedence over your changes, as it uses the <span class="code">GTK_STYLE_PROVIDER_PRIORITY_USER</span> priority. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/StyleContext.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-class" class="heading "><a href="#" title="go to top of document">add-class</a><a class="raku-anchor" title="direct link" href="#add-class">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds a style class to <span class="code">$context</span>, so later uses of the style context will make use of this new class for styling. </p>
+
+<p>In the CSS file format, a <a href="/content-docs/api2/reference/Gtk4/Entry">Gnome::Gtk4::Entry</a> defining a “search” class, would be matched by: </p>
+
+<p id="Para_0">While any widget defining a “search” class would be matched by:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-class ( Str $class-name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$class-name; class name to use in styling.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="add-provider"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">add-provider</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds a style provider to <code>$context</code>, to be used in style construction.</p><p>Note that a style provider added by this function only affects the style of the widget to which <code>$context</code> belongs. If you want to affect the style of all widgets, use <a href="/content-docs/api2/reference/Gtk4/T-stylecontext.html#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>.</p><p>Note: If both priorities are the same, a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a> added through this function takes precedence over another added through <a href="/content-docs/api2/reference/Gtk4/T-stylecontext.html#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>.</p><pre class="pod-block-code">method add-provider ( N-Object() $provider, UInt() $priority )
-</pre><ul>
-<li><p>$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a>.</p></li>
-<li><p>$priority; the priority of the style provider. The lower it is, the earlier it will be used in the style construction. Typically this will be in the range between <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> and <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code>.</p></li>
+<h2 id="add-provider" class="heading "><a href="#" title="go to top of document">add-provider</a><a class="raku-anchor" title="direct link" href="#add-provider">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds a style provider to <span class="code">$context</span>, to be used in style construction. </p>
+
+<p>Note that a style provider added by this function only affects the style of the widget to which <span class="code">$context</span> belongs. If you want to affect the style of all widgets, use <a href="/content-docs/api2/reference/Gtk4/T-stylecontext#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>. </p>
+
+<p>Note: If both priorities are the same, a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a> added through this function takes precedence over another added through <a href="/content-docs/api2/reference/Gtk4/T-stylecontext#StyleContext.add-provider-for-display">.StyleContext.add-provider-for-display().StyleContext.add-provider-for-display() in package Gnome::Gtk4</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-provider ( N-Object() $provider, UInt() $priority )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the style provider. The lower it is, the earlier it will be used in the style construction. Typically this will be in the range between <span class="code">GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> and <span class="code">GTK_STYLE_PROVIDER_PRIORITY_USER</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-border"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-border</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the border for a given state as a <strong>Gnome::Gtk4::N-Border</strong>.</p><pre class="pod-block-code">method get-border ( N-Object $border )
-</pre><ul>
-<li><p>$border; return value for the border settings</p></li>
+<h2 id="get-border" class="heading "><a href="#" title="go to top of document">get-border</a><a class="raku-anchor" title="direct link" href="#get-border">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the border for a given state as a <span class="basis">Gnome::Gtk4::N-Border</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-border ( N-Object $border )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$border; return value for the border settings</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-color"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-color</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the foreground color for a given state.</p><pre class="pod-block-code">method get-color ( N-Object $color )
-</pre><ul>
-<li><p>$color; return value for the foreground color</p></li>
+<h2 id="get-color" class="heading "><a href="#" title="go to top of document">get-color</a><a class="raku-anchor" title="direct link" href="#get-color">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_1">Gets the foreground color for a given state.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-color ( N-Object $color )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$color; return value for the foreground color</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-display</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> to which <code>$context</code> is attached.</p><pre class="pod-block-code">method get-display (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>.. </p></section>
-<section name="pod">
-<h2 id="get-margin"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-margin</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the margin for a given state as a <strong>Gnome::Gtk4::N-Border</strong>.</p><pre class="pod-block-code">method get-margin ( N-Object $margin )
-</pre><ul>
-<li><p>$margin; return value for the margin settings</p></li>
+<h2 id="get-display" class="heading "><a href="#" title="go to top of document">get-display</a><a class="raku-anchor" title="direct link" href="#get-display">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a> to which <span class="code">$context</span> is attached. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-display (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a>.. </p>
+<h2 id="get-margin" class="heading "><a href="#" title="go to top of document">get-margin</a><a class="raku-anchor" title="direct link" href="#get-margin">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the margin for a given state as a <span class="basis">Gnome::Gtk4::N-Border</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-margin ( N-Object $margin )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$margin; return value for the margin settings</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-padding"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-padding</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the padding for a given state as a <strong>Gnome::Gtk4::N-Border</strong>.</p><pre class="pod-block-code">method get-padding ( N-Object $padding )
-</pre><ul>
-<li><p>$padding; return value for the padding settings</p></li>
+<h2 id="get-padding" class="heading "><a href="#" title="go to top of document">get-padding</a><a class="raku-anchor" title="direct link" href="#get-padding">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the padding for a given state as a <span class="basis">Gnome::Gtk4::N-Border</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-padding ( N-Object $padding )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$padding; return value for the padding settings</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-scale"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-scale</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the scale used for assets.</p><pre class="pod-block-code">method get-scale (--&gt; Int )
-</pre><p>Return value; the scale. </p></section>
-<section name="pod">
-<h2 id="get-state"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">get-state</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the state used for style matching.</p><p>This method should only be used to retrieve the <code>bit field GtkStateFlags defined in Gnome::Gtk4::T-enums</code> to pass to <strong>Gnome::Gtk4::StyleContext</strong> methods, like <a href="#get-padding">.get-padding()</a>. If you need to retrieve the current state of a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>, use <a href="/content-docs/api2/reference/Gtk4/Widget.html#get-state-flags">.get-state-flags() in class Widget</a>.</p><pre class="pod-block-code">method get-state (--&gt; UInt )
-</pre><p>Return value; the state flags. </p></section>
-<section name="pod">
-<h2 id="has-class"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">has-class</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if <code>$context</code> currently has defined the given class name.</p><pre class="pod-block-code">method has-class ( Str $class-name --&gt; Bool )
-</pre><ul>
-<li><p>$class-name; a class name.</p></li>
+<h2 id="get-scale" class="heading "><a href="#" title="go to top of document">get-scale</a><a class="raku-anchor" title="direct link" href="#get-scale">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_2">Returns the scale used for assets.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-scale (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; the scale.</p>
+<h2 id="get-state" class="heading "><a href="#" title="go to top of document">get-state</a><a class="raku-anchor" title="direct link" href="#get-state">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_4">Returns the state used for style matching.</p>
+
+<p>This method should only be used to retrieve the <span class="code">bit field GtkStateFlags defined in Gnome::Gtk4::T-enums</span> to pass to <span class="basis">Gnome::Gtk4::StyleContext</span> methods, like <a href="#get-padding">.get-padding()</a>. If you need to retrieve the current state of a <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>, use <a href="/content-docs/api2/reference/Gtk4/Widget#get-state-flags">.get-state-flags() in class Widget</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-state (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; the state flags.</p>
+<h2 id="has-class" class="heading "><a href="#" title="go to top of document">has-class</a><a class="raku-anchor" title="direct link" href="#has-class">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns <span class="code">True</span> if <span class="code">$context</span> currently has defined the given class name. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method has-class ( Str $class-name --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$class-name; a class name.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$context</code> has <code>$class-name</code> defined. </p></section>
-<section name="pod">
-<h2 id="lookup-color"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">lookup-color</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Looks up and resolves a color name in the <code>$context</code> color map.</p><pre class="pod-block-code">method lookup-color ( Str $color-name, N-Object $color --&gt; Bool )
-</pre><ul>
-<li><p>$color-name; color name to lookup.</p></li>
-<li><p>$color; Return location for the looked up color</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$context</span> has <span class="code">$class-name</span> defined. </p>
+<h2 id="lookup-color" class="heading "><a href="#" title="go to top of document">lookup-color</a><a class="raku-anchor" title="direct link" href="#lookup-color">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Looks up and resolves a color name in the <span class="code">$context</span> color map. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method lookup-color ( Str $color-name, N-Object $color --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$color-name; color name to lookup.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color; Return location for the looked up color</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$color-name</code> was found and resolved, <code>False</code> otherwise. </p></section>
-<section name="pod">
-<h2 id="remove-class"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">remove-class</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes <code>$class-name</code> from <code>$context</code>.</p><pre class="pod-block-code">method remove-class ( Str $class-name )
-</pre><ul>
-<li><p>$class-name; class name to remove.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$color-name</span> was found and resolved, <span class="code">False</span> otherwise. </p>
+<h2 id="remove-class" class="heading "><a href="#" title="go to top of document">remove-class</a><a class="raku-anchor" title="direct link" href="#remove-class">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes <span class="code">$class-name</span> from <span class="code">$context</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-class ( Str $class-name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$class-name; class name to remove.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove-provider"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">remove-provider</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes <code>$provider</code> from the style providers list in <code>$context</code>.</p><pre class="pod-block-code">method remove-provider ( N-Object() $provider )
-</pre><ul>
-<li><p>$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a>.</p></li>
+<h2 id="remove-provider" class="heading "><a href="#" title="go to top of document">remove-provider</a><a class="raku-anchor" title="direct link" href="#remove-provider">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes <span class="code">$provider</span> from the style providers list in <span class="code">$context</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-provider ( N-Object() $provider )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="restore"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">restore</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Restores <code>$context</code> state to a previous stage.</p><p>See <a href="#save">.save()</a>.</p><pre class="pod-block-code">method restore ( )
-</pre></section>
-<section name="pod">
-<h2 id="save"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">save</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Saves the <code>$context</code> state.</p><p>This allows temporary modifications done through <a href="#add-class">.add-class()</a>, <a href="#remove-class">.remove-class()</a>, <a href="#set-state">.set-state()</a> to be quickly reverted in one go through <a href="#restore">.restore()</a>.</p><p>The matching call to <a href="#restore">.restore()</a> must be done before GTK returns to the main loop.</p><pre class="pod-block-code">method save ( )
-</pre></section>
-<section name="pod">
-<h2 id="set-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">set-display</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Attaches <code>$context</code> to the given display.</p><p>The display is used to add style information from “global” style providers, such as the display's <a href="/content-docs/api2/reference/Gtk4/Settings.html">Gnome::Gtk4::Settings</a> instance.</p><p>If you are using a <strong>Gnome::Gtk4::StyleContext</strong> returned from <a href="/content-docs/api2/reference/Gtk4/Widget.html#get-style-context">.get-style-context() in class Widget</a>, you do not need to call this yourself.</p><pre class="pod-block-code">method set-display ( N-Object() $display )
-</pre><ul>
-<li><p>$display; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>.</p></li>
+<h2 id="restore" class="heading "><a href="#" title="go to top of document">restore</a><a class="raku-anchor" title="direct link" href="#restore">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Restores <span class="code">$context</span> state to a previous stage. </p>
+
+<p>See <a href="#save">.save()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method restore ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="save" class="heading "><a href="#" title="go to top of document">save</a><a class="raku-anchor" title="direct link" href="#save">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Saves the <span class="code">$context</span> state. </p>
+
+<p>This allows temporary modifications done through <a href="#add-class">.add-class()</a>, <a href="#remove-class">.remove-class()</a>, <a href="#set-state">.set-state()</a> to be quickly reverted in one go through <a href="#restore">.restore()</a>. </p>
+
+<p>The matching call to <a href="#restore">.restore()</a> must be done before GTK returns to the main loop. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="set-display" class="heading "><a href="#" title="go to top of document">set-display</a><a class="raku-anchor" title="direct link" href="#set-display">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Attaches <span class="code">$context</span> to the given display. </p>
+
+<p>The display is used to add style information from “global” style providers, such as the display's <a href="/content-docs/api2/reference/Gtk4/Settings">Gnome::Gtk4::Settings</a> instance. </p>
+
+<p>If you are using a <span class="basis">Gnome::Gtk4::StyleContext</span> returned from <a href="/content-docs/api2/reference/Gtk4/Widget#get-style-context">.get-style-context() in class Widget</a>, you do not need to call this yourself. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-display ( N-Object() $display )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$display; a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-scale"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">set-scale</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the scale to use when getting image assets for the style.</p><pre class="pod-block-code">method set-scale ( Int() $scale )
-</pre><ul>
-<li><p>$scale; scale.</p></li>
+<h2 id="set-scale" class="heading "><a href="#" title="go to top of document">set-scale</a><a class="raku-anchor" title="direct link" href="#set-scale">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_6">Sets the scale to use when getting image assets for the style.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-scale ( Int() $scale )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$scale; scale.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-state"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">set-state</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the state to be used for style matching.</p><pre class="pod-block-code">method set-state ( UInt $flags )
-</pre><ul>
-<li><p>$flags; state to represent.</p></li>
+<h2 id="set-state" class="heading "><a href="#" title="go to top of document">set-state</a><a class="raku-anchor" title="direct link" href="#set-state">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_7">Sets the state to be used for style matching.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-state ( UInt $flags )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$flags; state to represent.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="to-string"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">to-string</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Converts the style context into a string representation.</p><p>The string representation always includes information about the name, state, id, visibility and style classes of the CSS node that is backing <code>$context</code>. Depending on the flags, more information may be included.</p><p>This function is intended for testing and debugging of the CSS implementation in GTK. There are no guarantees about the format of the returned string, it may change.</p><pre class="pod-block-code">method to-string ( UInt $flags --&gt; Str )
-</pre><ul>
-<li><p>$flags; Flags that determine what to print.</p></li>
+<h2 id="to-string" class="heading "><a href="#" title="go to top of document">to-string</a><a class="raku-anchor" title="direct link" href="#to-string">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_8">Converts the style context into a string representation.</p>
+
+<p>The string representation always includes information about the name, state, id, visibility and style classes of the CSS node that is backing <span class="code">$context</span>. Depending on the flags, more information may be included. </p>
+
+<p id="Para_9">This function is intended for testing and debugging of the CSS implementation in GTK. There are no guarantees about the format of the returned string, it may change.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method to-string ( UInt $flags --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$flags; Flags that determine what to print.</li>
 </ul>
-<p>Return value; a newly allocated string representing <code>$context</code>. </p></section>
-<section name="pod">
-<h1 id="Functions"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">Functions</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-provider-for-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">add-provider-for-display</a></h2>
-<p>Adds a global style provider to <code>$display</code>, which will be used in style construction for all <strong>GtkStyleContexts</strong> under <code>$display</code>.</p><p>GTK uses this to make styling information from <a href="/content-docs/api2/reference/Gtk4/Settings.html">Gnome::Gtk4::Settings</a> available.</p><p>Note: If both priorities are the same, A <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a> added through <a href="#add-provider">.add-provider()</a> takes precedence over another added through this function.</p><pre class="pod-block-code">method add-provider-for-display ( N-Object() $display, N-Object() $provider, UInt() $priority )
-</pre><ul>
-<li><p>$display; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>.</p></li>
-<li><p>$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a>.</p></li>
-<li><p>$priority; the priority of the style provider. The lower it is, the earlier it will be used in the style construction. Typically this will be in the range between <code>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</code> and <code>GTK_STYLE_PROVIDER_PRIORITY_USER</code>.</p></li>
+
+<p>Return value; a newly allocated string representing <span class="code">$context</span>. </p>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="add-provider-for-display" class="heading "><a href="#" title="go to top of document">add-provider-for-display</a><a class="raku-anchor" title="direct link" href="#add-provider-for-display">§</a></h2>
+
+<p>Adds a global style provider to <span class="code">$display</span>, which will be used in style construction for all <span class="basis">GtkStyleContexts</span> under <span class="code">$display</span>. </p>
+
+<p>GTK uses this to make styling information from <a href="/content-docs/api2/reference/Gtk4/Settings">Gnome::Gtk4::Settings</a> available. </p>
+
+<p>Note: If both priorities are the same, A <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a> added through <a href="#add-provider">.add-provider()</a> takes precedence over another added through this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-provider-for-display ( N-Object() $display, N-Object() $provider, UInt() $priority )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$display; a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$priority; the priority of the style provider. The lower it is, the earlier it will be used in the style construction. Typically this will be in the range between <span class="code">GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</span> and <span class="code">GTK_STYLE_PROVIDER_PRIORITY_USER</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove-provider-for-display"><a href="#Gnome::Gtk4::StyleContext" class="u" title="go to top of document">remove-provider-for-display</a></h2>
-<p>Removes <code>$provider</code> from the global style providers list in <code>$display</code>.</p><pre class="pod-block-code">method remove-provider-for-display ( N-Object() $display, N-Object() $provider )
-</pre><ul>
-<li><p>$display; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>.</p></li>
-<li><p>$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider.html">Gnome::Gtk4::R-StyleProvider</a>.</p></li>
+<h2 id="remove-provider-for-display" class="heading "><a href="#" title="go to top of document">remove-provider-for-display</a><a class="raku-anchor" title="direct link" href="#remove-provider-for-display">§</a></h2>
+
+<p>Removes <span class="code">$provider</span> from the global style providers list in <span class="code">$display</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-provider-for-display ( N-Object() $display, N-Object() $provider )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$display; a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$provider; a <a href="/content-docs/api2/reference/Gtk4/R-StyleProvider">Gnome::Gtk4::R-StyleProvider</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StyleContext.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:22Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/StyleContext.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

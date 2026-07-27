@@ -1,121 +1,569 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::DragSource</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::DragSource</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::DragSource">Gnome::Gtk4::DragSource</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-dragsource">new-dragsource</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#drag-cancel">drag-cancel</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-actions">get-actions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-content">get-content</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-drag">get-drag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-actions">set-actions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-content">set-content</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon">set-icon</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-begin">drag-begin</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-cancel_0">drag-cancel</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-end">drag-end</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#prepare">prepare</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::DragSource</strong> is an event controller to initiate Drag-And-Drop operations.</p><p><strong>Gnome::Gtk4::DragSource</strong> can be set up with the necessary ingredients for a DND operation ahead of time. This includes the source for the data that is being transferred, in the form of a <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a>, the desired action, and the icon to use during the drag operation. After setting it up, the drag source must be added to a widget as an event controller, using <a href="/content-docs/api2/reference/Gtk4/Widget.html#add-controller">.add-controller() in class Widget</a>.</p><p>Setting up the content provider and icon ahead of time only makes sense when the data does not change. More commonly, you will want to set them up just in time. To do so, <strong>Gnome::Gtk4::DragSource</strong> has <em>prepare</em> and <em>drag-begin</em> signals.</p><p>The <em>prepare</em> signal is emitted before a drag is started, and can be used to set the content provider and actions that the drag should be started with.</p><p>The <em>drag-begin</em> signal is emitted after the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object has been created, and can be used to set up the drag icon.</p><p>During the DND operation, <strong>Gnome::Gtk4::DragSource</strong> emits signals that can be used to obtain updates about the status of the operation, but it is not normally necessary to connect to any signals, except for one case: when the supported actions include <code>GDK_ACTION_MOVE</code>, you need to listen for the <em>drag-end</em> signal and delete the data after it has been transferred.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/DragSource.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-dragsource"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">new-dragsource</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::DragSource</strong> object.</p><pre class="pod-block-code">method new-dragsource ( --&gt; Gnome::Gtk4::DragSource )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="drag-cancel"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">drag-cancel</a></h2>
-<p>Cancels a currently ongoing drag operation.</p><pre class="pod-block-code">method drag-cancel ( )
-</pre></section>
-<section name="pod">
-<h2 id="get-actions"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">get-actions</a></h2>
-<p>Gets the actions that are currently set on the <strong>Gnome::Gtk4::DragSource</strong>.</p><pre class="pod-block-code">method get-actions (--&gt; UInt )
-</pre><p>Return value; the actions set on <code>$source</code>. </p></section>
-<section name="pod">
-<h2 id="get-content"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">get-content</a></h2>
-<p>Gets the current content provider of a <strong>Gnome::Gtk4::DragSource</strong>.</p><pre class="pod-block-code">method get-content (--&gt; N-Object )
-</pre><p>Return value; the <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a> of <code>$source</code>. </p></section>
-<section name="pod">
-<h2 id="get-drag"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">get-drag</a></h2>
-<p>Returns the underlying <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object for an ongoing drag.</p><pre class="pod-block-code">method get-drag (--&gt; N-Object )
-</pre><p>Return value; the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> of the current drag operation. </p></section>
-<section name="pod">
-<h2 id="set-actions"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">set-actions</a></h2>
-<p>Sets the actions on the <strong>Gnome::Gtk4::DragSource</strong>.</p><p>During a DND operation, the actions are offered to potential drop targets. If <code>$actions</code> include <code>GDK_ACTION_MOVE</code>, you need to listen to the <em>drag-end</em> signal and handle <code>$delete-data</code> being <code>True</code>.</p><p>This function can be called before a drag is started, or in a handler for the <em>prepare</em> signal.</p><pre class="pod-block-code">method set-actions ( UInt $actions )
-</pre><ul>
-<li><p>$actions; the actions to offer.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::DragSource"></div><h1 class="title">Gnome::Gtk4::DragSource</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-dragsource">new-dragsource</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#drag-cancel">drag-cancel</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-actions">get-actions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-content">get-content</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-drag">get-drag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-actions">set-actions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-content">set-content</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon">set-icon</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-begin">drag-begin</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-cancel_0">drag-cancel</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-end">drag-end</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#prepare">prepare</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::DragSource</span> is an event controller to initiate Drag-And-Drop operations. </p>
+
+<p><span class="basis">Gnome::Gtk4::DragSource</span> can be set up with the necessary ingredients for a DND operation ahead of time. This includes the source for the data that is being transferred, in the form of a <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a>, the desired action, and the icon to use during the drag operation. After setting it up, the drag source must be added to a widget as an event controller, using <a href="/content-docs/api2/reference/Gtk4/Widget#add-controller">.add-controller() in class Widget</a>. </p>
+
+<p>Setting up the content provider and icon ahead of time only makes sense when the data does not change. More commonly, you will want to set them up just in time. To do so, <span class="basis">Gnome::Gtk4::DragSource</span> has <span class="important">prepare</span> and <span class="important">drag-begin</span> signals. </p>
+
+<p>The <span class="important">prepare</span> signal is emitted before a drag is started, and can be used to set the content provider and actions that the drag should be started with. </p>
+
+<p>The <span class="important">drag-begin</span> signal is emitted after the <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> object has been created, and can be used to set up the drag icon. </p>
+
+<p>During the DND operation, <span class="basis">Gnome::Gtk4::DragSource</span> emits signals that can be used to obtain updates about the status of the operation, but it is not normally necessary to connect to any signals, except for one case: when the supported actions include <span class="code">GDK_ACTION_MOVE</span>, you need to listen for the <span class="important">drag-end</span> signal and delete the data after it has been transferred. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/DragSource.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-dragsource" class="heading "><a href="#" title="go to top of document">new-dragsource</a><a class="raku-anchor" title="direct link" href="#new-dragsource">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::DragSource</span> object. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-dragsource ( --&gt; Gnome::Gtk4::DragSource )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="drag-cancel" class="heading "><a href="#" title="go to top of document">drag-cancel</a><a class="raku-anchor" title="direct link" href="#drag-cancel">§</a></h2>
+
+<p id="Para">Cancels a currently ongoing drag operation.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method drag-cancel ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-actions" class="heading "><a href="#" title="go to top of document">get-actions</a><a class="raku-anchor" title="direct link" href="#get-actions">§</a></h2>
+
+<p>Gets the actions that are currently set on the <span class="basis">Gnome::Gtk4::DragSource</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-actions (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the actions set on <span class="code">$source</span>. </p>
+<h2 id="get-content" class="heading "><a href="#" title="go to top of document">get-content</a><a class="raku-anchor" title="direct link" href="#get-content">§</a></h2>
+
+<p>Gets the current content provider of a <span class="basis">Gnome::Gtk4::DragSource</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-content (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a> of <span class="code">$source</span>. </p>
+<h2 id="get-drag" class="heading "><a href="#" title="go to top of document">get-drag</a><a class="raku-anchor" title="direct link" href="#get-drag">§</a></h2>
+
+<p>Returns the underlying <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> object for an ongoing drag. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-drag (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> of the current drag operation. </p>
+<h2 id="set-actions" class="heading "><a href="#" title="go to top of document">set-actions</a><a class="raku-anchor" title="direct link" href="#set-actions">§</a></h2>
+
+<p>Sets the actions on the <span class="basis">Gnome::Gtk4::DragSource</span>. </p>
+
+<p>During a DND operation, the actions are offered to potential drop targets. If <span class="code">$actions</span> include <span class="code">GDK_ACTION_MOVE</span>, you need to listen to the <span class="important">drag-end</span> signal and handle <span class="code">$delete-data</span> being <span class="code">True</span>. </p>
+
+<p>This function can be called before a drag is started, or in a handler for the <span class="important">prepare</span> signal. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-actions ( UInt $actions )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$actions; the actions to offer.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-content"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">set-content</a></h2>
-<p>Sets a content provider on a <strong>Gnome::Gtk4::DragSource</strong>.</p><p>When the data is requested in the cause of a DND operation, it will be obtained from the content provider.</p><p>This function can be called before a drag is started, or in a handler for the <em>prepare</em> signal.</p><p>You may consider setting the content provider back to undefined in a <em>drag-end</em> signal handler.</p><pre class="pod-block-code">method set-content ( N-Object() $content )
-</pre><ul>
-<li><p>$content; a <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">set-icon</a></h2>
-<p>Sets a paintable to use as icon during DND operations.</p><p>The hotspot coordinates determine the point on the icon that gets aligned with the hotspot of the cursor.</p><p>If <code>$paintable</code> is undefined, a default icon is used.</p><p>This function can be called before a drag is started, or in a <em>prepare</em> or <em>drag-begin</em> signal handler.</p><pre class="pod-block-code">method set-icon ( N-Object() $paintable, Int() $hot-x, Int() $hot-y )
-</pre><ul>
-<li><p>$paintable; the <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> to use as icon.</p></li>
-<li><p>$hot-x; the hotspot X coordinate on the icon.</p></li>
-<li><p>$hot-y; the hotspot Y coordinate on the icon.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">Signals</a></h1>
+<h2 id="set-content" class="heading "><a href="#" title="go to top of document">set-content</a><a class="raku-anchor" title="direct link" href="#set-content">§</a></h2>
 
-<h3 id="drag-begin"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">drag-begin</a></h3>
-<p>Emitted on the drag source when a drag is started.</p><p>It can be used to e.g. set a custom drag icon with <a href="#set-icon">.set-icon()</a>.</p><pre class="pod-block-code">method handler (
+<p>Sets a content provider on a <span class="basis">Gnome::Gtk4::DragSource</span>. </p>
+
+<p id="Para_0">When the data is requested in the cause of a DND operation, it will be obtained from the content provider.</p>
+
+<p>This function can be called before a drag is started, or in a handler for the <span class="important">prepare</span> signal. </p>
+
+<p>You may consider setting the content provider back to undefined in a <span class="important">drag-end</span> signal handler. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-content ( N-Object() $content )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$content; a <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a>.</li>
+</ul>
+<h2 id="set-icon" class="heading "><a href="#" title="go to top of document">set-icon</a><a class="raku-anchor" title="direct link" href="#set-icon">§</a></h2>
+
+<p id="Para_1">Sets a paintable to use as icon during DND operations.</p>
+
+<p id="Para_2">The hotspot coordinates determine the point on the icon that gets aligned with the hotspot of the cursor.</p>
+
+<p>If <span class="code">$paintable</span> is undefined, a default icon is used. </p>
+
+<p>This function can be called before a drag is started, or in a <span class="important">prepare</span> or <span class="important">drag-begin</span> signal handler. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon ( N-Object() $paintable, Int() $hot-x, Int() $hot-y )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$paintable; the <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> to use as icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hot-x; the hotspot X coordinate on the icon.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hot-y; the hotspot Y coordinate on the icon.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="drag-begin" class="heading "><a href="#" title="go to top of document">drag-begin</a><a class="raku-anchor" title="direct link" href="#drag-begin">§</a></h3>
+
+<p id="Para_3">Emitted on the drag source when a drag is started.</p>
+
+<p>It can be used to e.g. set a custom drag icon with <a href="#set-icon">.set-icon()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drag,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DragSource :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DragSource</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DragSource</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="drag-cancel_0"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">drag-cancel</a></h3>
-<p>Emitted on the drag source when a drag has failed.</p><p>The signal handler may handle a failed drag operation based on the type of error. It should return <code>True</code> if the failure has been handled and the default &quot;drag operation failed&quot; animation should not be shown.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="drag-cancel"></div><h3 id="drag-cancel_0" class="heading "><a href="#" title="go to top of document">drag-cancel</a><a class="raku-anchor" title="direct link" href="#drag-cancel">§</a></h3>
+
+<p id="Para_4">Emitted on the drag source when a drag has failed.</p>
+
+<p>The signal handler may handle a failed drag operation based on the type of error. It should return <span class="code">True</span> if the failure has been handled and the default &quot;drag operation failed&quot; animation should not be shown. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drag,
    $reason,
   Int :$_handle_id,
@@ -123,49 +571,86 @@
   Gnome::Gtk4::DragSource :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object.</p></li>
-<li><p>$reason; information on why the drag failed.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DragSource</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$reason; information on why the drag failed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DragSource</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; <code>True</code> if the failed drag operation has been already handled</p>
-<h3 id="drag-end"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">drag-end</a></h3>
-<p>Emitted on the drag source when a drag is finished.</p><p>A typical reason to connect to this signal is to undo things done in <em>prepare</em> or <em>drag-begin</em> handlers.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> if the failed drag operation has been already handled </p>
+<h3 id="drag-end" class="heading "><a href="#" title="go to top of document">drag-end</a><a class="raku-anchor" title="direct link" href="#drag-end">§</a></h3>
+
+<p id="Para_5">Emitted on the drag source when a drag is finished.</p>
+
+<p>A typical reason to connect to this signal is to undo things done in <span class="important">prepare</span> or <span class="important">drag-begin</span> handlers. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drag,
   gboolean $delete-data,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DragSource :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag.html">Gnome::Gdk4::Drag</a> object.</p></li>
-<li><p>$delete-data; <code>True</code> if the drag was performing <code>GDK_ACTION_MOVE</code>, and the data should be deleted.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DragSource</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="prepare"><a href="#Gnome::Gtk4::DragSource" class="u" title="go to top of document">prepare</a></h3>
-<p>Emitted when a drag is about to be initiated.</p><p>It returns the <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a> to use for the drag that is about to start. The default handler for this signal returns the value of the <em>content</em> property, so if you set up that property ahead of time, you don't need to connect to this signal.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drag; the <a href="/content-docs/api2/reference/Gdk4/Drag">Gnome::Gdk4::Drag</a> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$delete-data; <span class="code">True</span> if the drag was performing <span class="code">GDK_ACTION_MOVE</span>, and the data should be deleted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DragSource</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="prepare" class="heading "><a href="#" title="go to top of document">prepare</a><a class="raku-anchor" title="direct link" href="#prepare">§</a></h3>
+
+<p id="Para_6">Emitted when a drag is about to be initiated.</p>
+
+<p>It returns the <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a> to use for the drag that is about to start. The default handler for this signal returns the value of the <span class="important">content</span> property, so if you set up that property ahead of time, you don't need to connect to this signal. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gdouble $x,
   gdouble $y,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DragSource :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$x; the X coordinate of the drag starting point.</p></li>
-<li><p>$y; the Y coordinate of the drag starting point.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DragSource</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$x; the X coordinate of the drag starting point.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the Y coordinate of the drag starting point.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DragSource</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DragSource.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:12Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DragSource.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

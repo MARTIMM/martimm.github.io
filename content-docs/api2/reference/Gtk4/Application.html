@@ -1,216 +1,807 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Application</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Application</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Application">Gnome::Gtk4::Application</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Automatic_resources">Automatic resources</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#A_simple_application">A simple application</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#See_Also">See Also</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-application">new-application</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-window">add-window</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-accels-for-action">get-accels-for-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-actions-for-accel">get-actions-for-accel</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-active-window">get-active-window</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-menu-by-id">get-menu-by-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-menubar">get-menubar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-window-by-id">get-window-by-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-windows">get-windows</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#inhibit">inhibit</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#list-action-descriptions">list-action-descriptions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-window">remove-window</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-accels-for-action">set-accels-for-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-menubar">set-menubar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#uninhibit">uninhibit</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#query-end">query-end</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#window-added">window-added</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#window-removed">window-removed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Application</strong> is a high-level API for writing applications.</p><p>It supports many aspects of writing a GTK application in a convenient fashion, without enforcing a one-size-fits-all model.</p><p>Currently, <strong>Gnome::Gtk4::Application</strong> handles GTK initialization, application uniqueness, session management, provides some basic scriptability and desktop shell integration by exporting actions and menus and manages a list of toplevel windows whose life-cycle is automatically tied to the life-cycle of your application.</p><p>While <strong>Gnome::Gtk4::Application</strong> works fine with plain <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>s, it is recommended to use it together with <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow.html">Gnome::Gtk4::ApplicationWindow</a>.</p>
-<h3 id="Automatic_resources"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Automatic resources</a></h3>
-<p><strong>Gnome::Gtk4::Application</strong> will automatically load menus from the <a href="/content-docs/api2/reference/Gtk4/Builder.html">Gnome::Gtk4::Builder</a> resource located at &quot;gtk/menus.ui&quot;, relative to the application's resource base path (see <a href="/content-docs/api2/reference/Gio/Application.html#set-resource-base-path">.set-resource-base-path() in class Application</a>). The menu with the ID &quot;menubar&quot; is taken as the application's menubar. Additional menus (most interesting submenus) can be named and accessed via <a href="#get-menu-by-id">.get-menu-by-id()</a> which allows for dynamic population of a part of the menu structure.</p><p>Note that automatic resource loading uses the resource base path that is set at construction time and will not work if the resource base path is changed at a later time.</p><p>It is also possible to provide the menubar manually using <a href="#set-menubar">.set-menubar()</a>.</p><p><strong>Gnome::Gtk4::Application</strong> will also automatically setup an icon search path for the default icon theme by appending &quot;icons&quot; to the resource base path. This allows your application to easily store its icons as resources. See <a href="/content-docs/api2/reference/Gtk4/IconTheme.html#add-resource-path">.add-resource-path() in class IconTheme</a> for more information.</p><p>If there is a resource located at <strong>gtk</strong>/help-overlay.ui` which defines a <a href="/content-docs/api2/reference/Gtk4/ShortcutsWindow.html">Gnome::Gtk4::ShortcutsWindow</a> with ID <strong>help_overlay</strong> then <strong>Gnome::Gtk4::Application</strong> associates an instance of this shortcuts window with each <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow.html">Gnome::Gtk4::ApplicationWindow</a> and sets up the keyboard accelerator &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;?&lt;/kbd&gt; to open it. To create a menu item that displays the shortcuts window, associate the item with the action <strong>win</strong>.show-help-overlay`.</p>
-<h3 id="A_simple_application"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">A simple application</a></h3>
-<p>[A simple example](https://gitlab.gnome.org/GNOME/gtk/tree/main/examples/bp/bloatpad.c) is available in the GTK source code repository</p><p><strong>Gnome::Gtk4::Application</strong> optionally registers with a session manager of the users session (if you set the <em>register-session</em> property) and offers various functionality related to the session life-cycle.</p><p>An application can block various ways to end the session with the <a href="#inhibit">.inhibit()</a> function. Typical use cases for this kind of inhibiting are long-running, uninterruptible operations, such as burning a CD or performing a disk backup. The session manager may not honor the inhibitor, but it can be expected to inform the user about the negative consequences of ending the session while inhibitors are present.</p>
-<h3 id="See_Also"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">See Also</a></h3>
-<p>[HowDoI: Using GtkApplication](https://wiki.gnome.org/HowDoI/GtkApplication), [Getting Started with GTK: Basics](getting_started.html#basics)</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Application.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-application"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">new-application</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Application</strong> instance.</p><p>When using <strong>Gnome::Gtk4::Application</strong>, it is not necessary to call <a href="/content-docs/api2/reference/Gtk4/T-application.html#init">.init().init() in package Gnome::Gtk4</a> manually. It is called as soon as the application gets registered as the primary instance.</p><p>Concretely, <a href="/content-docs/api2/reference/Gtk4/T-application.html#init">.init().init() in package Gnome::Gtk4</a> is called in the default handler for the <a href="/content-docs/api2/reference/Gio/Application.html">Gnome::Gio::Application</a>::startup` signal. Therefore, <strong>Gnome::Gtk4::Application</strong> subclasses should always chain up in their <a href="/content-docs/api2/reference/Gio/Application.html">Gnome::Gio::Application</a>::startup` handler before using any GTK API.</p><p>Note that commandline arguments are not passed to <a href="/content-docs/api2/reference/Gtk4/T-application.html#init">.init().init() in package Gnome::Gtk4</a>.</p><p>If <strong>application_id</strong> is defined, then it must be valid. See <strong>g_application_id_is_valid</strong>()`.</p><p>If no application ID is given then some features (most notably application uniqueness) will be disabled.</p><pre class="pod-block-code">method new-application ( Str $application-id, UInt $flags --&gt; Gnome::Gtk4::Application )
-</pre><ul>
-<li><p>$application-id; The application ID.</p></li>
-<li><p>$flags; the application flags.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-window"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">add-window</a></h2>
-<p>Adds a window to <strong>application</strong>.</p><p>This call can only happen after the <strong>application</strong> has started; typically, you should add new application windows in response to the emission of the <a href="/content-docs/api2/reference/Gio/Application.html">Gnome::Gio::Application</a>::activate` signal.</p><p>This call is equivalent to setting the <em>application defined in Gnome::Gtk4::Window</em> property of <strong>window</strong> to <strong>application</strong>.</p><p>Normally, the connection between the application and the window will remain until the window is destroyed, but you can explicitly remove it with <a href="#remove-window">.remove-window()</a>.</p><p>GTK will keep the <strong>application</strong> running as long as it has any windows.</p><pre class="pod-block-code">method add-window ( N-Object() $window )
-</pre><ul>
-<li><p>$window; a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-accels-for-action"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-accels-for-action</a></h2>
-<p>Gets the accelerators that are currently associated with the given action.</p><pre class="pod-block-code">method get-accels-for-action ( Str $detailed-action-name --&gt; Array[Str] )
-</pre><ul>
-<li><p>$detailed-action-name; a detailed action name, specifying an action and target to obtain accelerators for.</p></li>
-</ul>
-<p>Return value; accelerators for <strong>detailed_action_name</strong>. </p></section>
-<section name="pod">
-<h2 id="get-actions-for-accel"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-actions-for-accel</a></h2>
-<p>Returns the list of actions (possibly empty) that <strong>accel</strong> maps to.</p><p>Each item in the list is a detailed action name in the usual form.</p><p>This might be useful to discover if an accel already exists in order to prevent installation of a conflicting accelerator (from an accelerator editor or a plugin system, for example). Note that having more than one action per accelerator may not be a bad thing and might make sense in cases where the actions never appear in the same context.</p><p>In case there are no actions for a given accelerator, an empty array is returned. undefined is never returned.</p><p>It is a programmer error to pass an invalid accelerator string.</p><p>If you are unsure, check it with <a href="/content-docs/api2/reference/Gtk4/T-application.html#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a> first.</p><pre class="pod-block-code">method get-actions-for-accel ( Str $accel --&gt; Array[Str] )
-</pre><ul>
-<li><p>$accel; an accelerator that can be parsed by <a href="/content-docs/api2/reference/Gtk4/T-application.html#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a>.</p></li>
-</ul>
-<p>Return value; a actions array for <strong>accel</strong>. </p></section>
-<section name="pod">
-<h2 id="get-active-window"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-active-window</a></h2>
-<p>Gets the “active” window for the application.</p><p>The active window is the one that was most recently focused (within the application). This window may not have the focus at the moment if another application has it — this is just the most recently-focused window within this application.</p><pre class="pod-block-code">method get-active-window (--&gt; N-Object )
-</pre><p>Return value; the active window. </p></section>
-<section name="pod">
-<h2 id="get-menu-by-id"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-menu-by-id</a></h2>
-<p>Gets a menu from automatically loaded resources.</p><p>See [the section on Automatic resources](class.Application.html#automatic-resources) for more information.</p><pre class="pod-block-code">method get-menu-by-id ( Str $id --&gt; N-Object )
-</pre><ul>
-<li><p>$id; the id of the menu to look up.</p></li>
-</ul>
-<p>Return value; Gets the menu with the given id from the automatically loaded resources. </p></section>
-<section name="pod">
-<h2 id="get-menubar"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-menubar</a></h2>
-<p>Returns the menu model that has been set with <a href="#set-menubar">.set-menubar()</a>.</p><pre class="pod-block-code">method get-menubar (--&gt; N-Object )
-</pre><p>Return value; the menubar for windows of <strong>application</strong>. </p></section>
-<section name="pod">
-<h2 id="get-window-by-id"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-window-by-id</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow.html">Gnome::Gtk4::ApplicationWindow</a> with the given ID.</p><p>The ID of a <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow.html">Gnome::Gtk4::ApplicationWindow</a> can be retrieved with <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow.html#get-id">.get-id() in class ApplicationWindow</a>.</p><pre class="pod-block-code">method get-window-by-id ( UInt() $id --&gt; N-Object )
-</pre><ul>
-<li><p>$id; an identifier number.</p></li>
-</ul>
-<p>Return value; the window for the given <strong>id</strong>. </p></section>
-<section name="pod">
-<h2 id="get-windows"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">get-windows</a></h2>
-<p>Gets a list of the <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> instances associated with <strong>application</strong>.</p><p>The list is sorted by most recently focused window, such that the first element is the currently focused window. (Useful for choosing a parent for a transient window.)</p><p>The list that is returned should not be modified in any way. It will only remain valid until the next focus change or window creation or deletion.</p><pre class="pod-block-code">method get-windows (--&gt; N-List )
-</pre><p>Return value; a <strong>Gnome::Glib::N-List</strong> of <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> instances. </p></section>
-<section name="pod">
-<h2 id="inhibit"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">inhibit</a></h2>
-<p>Inform the session manager that certain types of actions should be inhibited.</p><p>This is not guaranteed to work on all platforms and for all types of actions.</p><p>Applications should invoke this method when they begin an operation that should not be interrupted, such as creating a CD or DVD. The types of actions that may be blocked are specified by the <strong>flags</strong> parameter. When the application completes the operation it should call <a href="#uninhibit">.uninhibit()</a> to remove the inhibitor. Note that an application can have multiple inhibitors, and all of them must be individually removed. Inhibitors are also cleared when the application exits.</p><p>Applications should not expect that they will always be able to block the action. In most cases, users will be given the option to force the action to take place.</p><p>The <strong>reason</strong> message should be short and to the point.</p><p>If <strong>window</strong> is given, the session manager may point the user to this window to find out more about why the action is inhibited.</p><pre class="pod-block-code">method inhibit ( N-Object() $window, UInt $flags, Str $reason --&gt; UInt )
-</pre><ul>
-<li><p>$window; a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>.</p></li>
-<li><p>$flags; what types of actions should be inhibited.</p></li>
-<li><p>$reason; a short, human-readable string that explains why these operations are inhibited.</p></li>
-</ul>
-<p>Return value; A non-zero cookie that is used to uniquely identify this request. It should be used as an argument to <a href="#uninhibit">.uninhibit()</a> in order to remove the request. If the platform does not support inhibiting or the request failed for some reason, 0 is returned.. </p></section>
-<section name="pod">
-<h2 id="list-action-descriptions"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">list-action-descriptions</a></h2>
-<p>Lists the detailed action names which have associated accelerators.</p><p>See <a href="#set-accels-for-action">.set-accels-for-action()</a>.</p><pre class="pod-block-code">method list-action-descriptions (--&gt; Array[Str] )
-</pre><p>Return value; the detailed action names. </p></section>
-<section name="pod">
-<h2 id="remove-window"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">remove-window</a></h2>
-<p>Remove a window from <strong>application</strong>.</p><p>If <strong>window</strong> belongs to <strong>application</strong> then this call is equivalent to setting the <em>application defined in Gnome::Gtk4::Window</em> property of <strong>window</strong> to undefined.</p><p>The application may stop running as a result of a call to this function, if <strong>window</strong> was the last window of the <strong>application</strong>.</p><pre class="pod-block-code">method remove-window ( N-Object() $window )
-</pre><ul>
-<li><p>$window; a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-accels-for-action"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">set-accels-for-action</a></h2>
-<p>Sets zero or more keyboard accelerators that will trigger the given action.</p><p>The first item in <strong>accels</strong> will be the primary accelerator, which may be displayed in the UI.</p><p>To remove all accelerators for an action, use an empty, zero-terminated array for <strong>accels</strong>.</p><p>For the <strong>detailed_action_name</strong>, see <strong>Gnome::Gio::T-action</strong>()` and <strong>Gnome::Gio::T-action</strong>()`.</p><pre class="pod-block-code">method set-accels-for-action ( Str $detailed-action-name, Array[Str] $accels )
-</pre><ul>
-<li><p>$detailed-action-name; a detailed action name, specifying an action and target to associate accelerators with.</p></li>
-<li><p>$accels; a list of accelerators in the format understood by <a href="/content-docs/api2/reference/Gtk4/T-application.html#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-menubar"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">set-menubar</a></h2>
-<p>Sets or unsets the menubar for windows of <strong>application</strong>.</p><p>This is a menubar in the traditional sense.</p><p>This can only be done in the primary instance of the application, after it has been registered. <a href="/content-docs/api2/reference/Gio/Application.html">Gnome::Gio::Application</a>::startup` is a good place to call this.</p><p>Depending on the desktop environment, this may appear at the top of each window, or at the top of the screen. In some environments, if both the application menu and the menubar are set, the application menu will be presented as if it were the first item of the menubar. Other environments treat the two as completely separate — for example, the application menu may be rendered by the desktop shell while the menubar (if set) remains in each individual window.</p><p>Use the base <a href="/content-docs/api2/reference/Gio/R-ActionMap.html">Gnome::Gio::R-ActionMap</a> interface to add actions, to respond to the user selecting these menu items.</p><pre class="pod-block-code">method set-menubar ( N-Object() $menubar )
-</pre><ul>
-<li><p>$menubar; a <a href="/content-docs/api2/reference/Gio/MenuModel.html">Gnome::Gio::MenuModel</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="uninhibit"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">uninhibit</a></h2>
-<p>Removes an inhibitor that has been previously established.</p><p>See <a href="#inhibit">.inhibit()</a>.</p><p>Inhibitors are also cleared when the application exits.</p><pre class="pod-block-code">method uninhibit ( UInt() $cookie )
-</pre><ul>
-<li><p>$cookie; a cookie that was returned by <a href="#inhibit">.inhibit()</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="query-end"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">query-end</a></h3>
-<p>Emitted when the session manager is about to end the session.</p><p>This signal is only emitted if <em>register-session</em> is <code>True</code>. Applications can connect to this signal and call <a href="#inhibit">.inhibit()</a> with <strong>GTK_APPLICATION_INHIBIT_LOGOUT</strong> to delay the end of the session until state has been saved.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Application"></div><h1 class="title">Gnome::Gtk4::Application</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Automatic_resources">Automatic resources</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#A_simple_application">A simple application</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#See_Also">See Also</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-application">new-application</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-window">add-window</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-accels-for-action">get-accels-for-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-actions-for-accel">get-actions-for-accel</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-active-window">get-active-window</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-menu-by-id">get-menu-by-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-menubar">get-menubar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-window-by-id">get-window-by-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-windows">get-windows</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#inhibit">inhibit</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#list-action-descriptions">list-action-descriptions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-window">remove-window</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-accels-for-action">set-accels-for-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-menubar">set-menubar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#uninhibit">uninhibit</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#query-end">query-end</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#window-added">window-added</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#window-removed">window-removed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Application</span> is a high-level API for writing applications. </p>
+
+<p id="Para">It supports many aspects of writing a GTK application in a convenient fashion, without enforcing a one-size-fits-all model.</p>
+
+<p>Currently, <span class="basis">Gnome::Gtk4::Application</span> handles GTK initialization, application uniqueness, session management, provides some basic scriptability and desktop shell integration by exporting actions and menus and manages a list of toplevel windows whose life-cycle is automatically tied to the life-cycle of your application. </p>
+
+<p>While <span class="basis">Gnome::Gtk4::Application</span> works fine with plain <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a>s, it is recommended to use it together with <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow">Gnome::Gtk4::ApplicationWindow</a>. </p>
+
+<div class="id-target" id="Automatic resources"></div><h3 id="Automatic_resources" class="heading "><a href="#" title="go to top of document">Automatic resources</a><a class="raku-anchor" title="direct link" href="#Automatic resources">§</a></h3>
+
+<p><span class="basis">Gnome::Gtk4::Application</span> will automatically load menus from the <a href="/content-docs/api2/reference/Gtk4/Builder">Gnome::Gtk4::Builder</a> resource located at &quot;gtk/menus.ui&quot;, relative to the application's resource base path (see <a href="/content-docs/api2/reference/Gio/Application#set-resource-base-path">.set-resource-base-path() in class Application</a>). The menu with the ID &quot;menubar&quot; is taken as the application's menubar. Additional menus (most interesting submenus) can be named and accessed via <a href="#get-menu-by-id">.get-menu-by-id()</a> which allows for dynamic population of a part of the menu structure. </p>
+
+<p id="Para_0">Note that automatic resource loading uses the resource base path that is set at construction time and will not work if the resource base path is changed at a later time.</p>
+
+<p>It is also possible to provide the menubar manually using <a href="#set-menubar">.set-menubar()</a>. </p>
+
+<p><span class="basis">Gnome::Gtk4::Application</span> will also automatically setup an icon search path for the default icon theme by appending &quot;icons&quot; to the resource base path. This allows your application to easily store its icons as resources. See <a href="/content-docs/api2/reference/Gtk4/IconTheme#add-resource-path">.add-resource-path() in class IconTheme</a> for more information. </p>
+
+<p>If there is a resource located at <span class="basis">gtk</span>/help-overlay.ui` which defines a <a href="/content-docs/api2/reference/Gtk4/ShortcutsWindow">Gnome::Gtk4::ShortcutsWindow</a> with ID <span class="basis">help_overlay</span> then <span class="basis">Gnome::Gtk4::Application</span> associates an instance of this shortcuts window with each <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow">Gnome::Gtk4::ApplicationWindow</a> and sets up the keyboard accelerator &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;?&lt;/kbd&gt; to open it. To create a menu item that displays the shortcuts window, associate the item with the action <span class="basis">win</span>.show-help-overlay`. </p>
+
+<div class="id-target" id="A simple application"></div><h3 id="A_simple_application" class="heading "><a href="#" title="go to top of document">A simple application</a><a class="raku-anchor" title="direct link" href="#A simple application">§</a></h3>
+
+<p id="Para_1">[A simple example](https://gitlab.gnome.org/GNOME/gtk/tree/main/examples/bp/bloatpad.c) is available in the GTK source code repository</p>
+
+<p><span class="basis">Gnome::Gtk4::Application</span> optionally registers with a session manager of the users session (if you set the <span class="important">register-session</span> property) and offers various functionality related to the session life-cycle. </p>
+
+<p>An application can block various ways to end the session with the <a href="#inhibit">.inhibit()</a> function. Typical use cases for this kind of inhibiting are long-running, uninterruptible operations, such as burning a CD or performing a disk backup. The session manager may not honor the inhibitor, but it can be expected to inform the user about the negative consequences of ending the session while inhibitors are present. </p>
+
+<div class="id-target" id="See Also"></div><h3 id="See_Also" class="heading "><a href="#" title="go to top of document">See Also</a><a class="raku-anchor" title="direct link" href="#See Also">§</a></h3>
+
+<p id="Para_2">[HowDoI: Using GtkApplication](https://wiki.gnome.org/HowDoI/GtkApplication), [Getting Started with GTK: Basics](getting_started.html#basics)</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Application.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-application" class="heading "><a href="#" title="go to top of document">new-application</a><a class="raku-anchor" title="direct link" href="#new-application">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Application</span> instance. </p>
+
+<p>When using <span class="basis">Gnome::Gtk4::Application</span>, it is not necessary to call <a href="/content-docs/api2/reference/Gtk4/T-application#init">.init().init() in package Gnome::Gtk4</a> manually. It is called as soon as the application gets registered as the primary instance. </p>
+
+<p>Concretely, <a href="/content-docs/api2/reference/Gtk4/T-application#init">.init().init() in package Gnome::Gtk4</a> is called in the default handler for the <a href="/content-docs/api2/reference/Gio/Application">Gnome::Gio::Application</a>::startup` signal. Therefore, <span class="basis">Gnome::Gtk4::Application</span> subclasses should always chain up in their <a href="/content-docs/api2/reference/Gio/Application">Gnome::Gio::Application</a>::startup` handler before using any GTK API. </p>
+
+<p>Note that commandline arguments are not passed to <a href="/content-docs/api2/reference/Gtk4/T-application#init">.init().init() in package Gnome::Gtk4</a>. </p>
+
+<p>If <span class="basis">application_id</span> is defined, then it must be valid. See <span class="basis">g_application_id_is_valid</span>()`. </p>
+
+<p id="Para_3">If no application ID is given then some features (most notably application uniqueness) will be disabled.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-application ( Str $application-id, UInt $flags --&gt; Gnome::Gtk4::Application )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$application-id; The application ID.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the application flags.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-window" class="heading "><a href="#" title="go to top of document">add-window</a><a class="raku-anchor" title="direct link" href="#add-window">§</a></h2>
+
+<p>Adds a window to <span class="basis">application</span>. </p>
+
+<p>This call can only happen after the <span class="basis">application</span> has started; typically, you should add new application windows in response to the emission of the <a href="/content-docs/api2/reference/Gio/Application">Gnome::Gio::Application</a>::activate` signal. </p>
+
+<p>This call is equivalent to setting the <span class="important">application defined in Gnome::Gtk4::Window</span> property of <span class="basis">window</span> to <span class="basis">application</span>. </p>
+
+<p>Normally, the connection between the application and the window will remain until the window is destroyed, but you can explicitly remove it with <a href="#remove-window">.remove-window()</a>. </p>
+
+<p>GTK will keep the <span class="basis">application</span> running as long as it has any windows. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-window ( N-Object() $window )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$window; a <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a>.</li>
+</ul>
+<h2 id="get-accels-for-action" class="heading "><a href="#" title="go to top of document">get-accels-for-action</a><a class="raku-anchor" title="direct link" href="#get-accels-for-action">§</a></h2>
+
+<p id="Para_4">Gets the accelerators that are currently associated with the given action.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-accels-for-action ( Str $detailed-action-name --&gt; Array[Str] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$detailed-action-name; a detailed action name, specifying an action and target to obtain accelerators for.</li>
+</ul>
+
+<p>Return value; accelerators for <span class="basis">detailed_action_name</span>. </p>
+<h2 id="get-actions-for-accel" class="heading "><a href="#" title="go to top of document">get-actions-for-accel</a><a class="raku-anchor" title="direct link" href="#get-actions-for-accel">§</a></h2>
+
+<p>Returns the list of actions (possibly empty) that <span class="basis">accel</span> maps to. </p>
+
+<p id="Para_5">Each item in the list is a detailed action name in the usual form.</p>
+
+<p id="Para_6">This might be useful to discover if an accel already exists in order to prevent installation of a conflicting accelerator (from an accelerator editor or a plugin system, for example). Note that having more than one action per accelerator may not be a bad thing and might make sense in cases where the actions never appear in the same context.</p>
+
+<p id="Para_7">In case there are no actions for a given accelerator, an empty array is returned. undefined is never returned.</p>
+
+<p id="Para_8">It is a programmer error to pass an invalid accelerator string.</p>
+
+<p>If you are unsure, check it with <a href="/content-docs/api2/reference/Gtk4/T-application#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a> first. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-actions-for-accel ( Str $accel --&gt; Array[Str] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$accel; an accelerator that can be parsed by <a href="/content-docs/api2/reference/Gtk4/T-application#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a>.</li>
+</ul>
+
+<p>Return value; a actions array for <span class="basis">accel</span>. </p>
+<h2 id="get-active-window" class="heading "><a href="#" title="go to top of document">get-active-window</a><a class="raku-anchor" title="direct link" href="#get-active-window">§</a></h2>
+
+<p id="Para_9">Gets the “active” window for the application.</p>
+
+<p id="Para_10">The active window is the one that was most recently focused (within the application). This window may not have the focus at the moment if another application has it — this is just the most recently-focused window within this application.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-active-window (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; the active window.</p>
+<h2 id="get-menu-by-id" class="heading "><a href="#" title="go to top of document">get-menu-by-id</a><a class="raku-anchor" title="direct link" href="#get-menu-by-id">§</a></h2>
+
+<p id="Para_12">Gets a menu from automatically loaded resources.</p>
+
+<p id="Para_13">See [the section on Automatic resources](class.Application.html#automatic-resources) for more information.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-menu-by-id ( Str $id --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$id; the id of the menu to look up.</li>
+</ul>
+
+<p id="Para_14">Return value; Gets the menu with the given id from the automatically loaded resources.</p>
+<h2 id="get-menubar" class="heading "><a href="#" title="go to top of document">get-menubar</a><a class="raku-anchor" title="direct link" href="#get-menubar">§</a></h2>
+
+<p>Returns the menu model that has been set with <a href="#set-menubar">.set-menubar()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-menubar (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the menubar for windows of <span class="basis">application</span>. </p>
+<h2 id="get-window-by-id" class="heading "><a href="#" title="go to top of document">get-window-by-id</a><a class="raku-anchor" title="direct link" href="#get-window-by-id">§</a></h2>
+
+<p>Returns the <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow">Gnome::Gtk4::ApplicationWindow</a> with the given ID. </p>
+
+<p>The ID of a <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow">Gnome::Gtk4::ApplicationWindow</a> can be retrieved with <a href="/content-docs/api2/reference/Gtk4/ApplicationWindow#get-id">.get-id() in class ApplicationWindow</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-window-by-id ( UInt() $id --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$id; an identifier number.</li>
+</ul>
+
+<p>Return value; the window for the given <span class="basis">id</span>. </p>
+<h2 id="get-windows" class="heading "><a href="#" title="go to top of document">get-windows</a><a class="raku-anchor" title="direct link" href="#get-windows">§</a></h2>
+
+<p>Gets a list of the <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> instances associated with <span class="basis">application</span>. </p>
+
+<p id="Para_15">The list is sorted by most recently focused window, such that the first element is the currently focused window. (Useful for choosing a parent for a transient window.)</p>
+
+<p id="Para_16">The list that is returned should not be modified in any way. It will only remain valid until the next focus change or window creation or deletion.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-windows (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <span class="basis">Gnome::Glib::N-List</span> of <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> instances. </p>
+<h2 id="inhibit" class="heading "><a href="#" title="go to top of document">inhibit</a><a class="raku-anchor" title="direct link" href="#inhibit">§</a></h2>
+
+<p id="Para_17">Inform the session manager that certain types of actions should be inhibited.</p>
+
+<p id="Para_18">This is not guaranteed to work on all platforms and for all types of actions.</p>
+
+<p>Applications should invoke this method when they begin an operation that should not be interrupted, such as creating a CD or DVD. The types of actions that may be blocked are specified by the <span class="basis">flags</span> parameter. When the application completes the operation it should call <a href="#uninhibit">.uninhibit()</a> to remove the inhibitor. Note that an application can have multiple inhibitors, and all of them must be individually removed. Inhibitors are also cleared when the application exits. </p>
+
+<p id="Para_19">Applications should not expect that they will always be able to block the action. In most cases, users will be given the option to force the action to take place.</p>
+
+<p>The <span class="basis">reason</span> message should be short and to the point. </p>
+
+<p>If <span class="basis">window</span> is given, the session manager may point the user to this window to find out more about why the action is inhibited. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method inhibit ( N-Object() $window, UInt $flags, Str $reason --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$window; a <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; what types of actions should be inhibited.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$reason; a short, human-readable string that explains why these operations are inhibited.</li>
+</ul>
+
+<p>Return value; A non-zero cookie that is used to uniquely identify this request. It should be used as an argument to <a href="#uninhibit">.uninhibit()</a> in order to remove the request. If the platform does not support inhibiting or the request failed for some reason, 0 is returned.. </p>
+<h2 id="list-action-descriptions" class="heading "><a href="#" title="go to top of document">list-action-descriptions</a><a class="raku-anchor" title="direct link" href="#list-action-descriptions">§</a></h2>
+
+<p id="Para_20">Lists the detailed action names which have associated accelerators.</p>
+
+<p>See <a href="#set-accels-for-action">.set-accels-for-action()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method list-action-descriptions (--&gt; Array[Str] )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_21">Return value; the detailed action names.</p>
+<h2 id="remove-window" class="heading "><a href="#" title="go to top of document">remove-window</a><a class="raku-anchor" title="direct link" href="#remove-window">§</a></h2>
+
+<p>Remove a window from <span class="basis">application</span>. </p>
+
+<p>If <span class="basis">window</span> belongs to <span class="basis">application</span> then this call is equivalent to setting the <span class="important">application defined in Gnome::Gtk4::Window</span> property of <span class="basis">window</span> to undefined. </p>
+
+<p>The application may stop running as a result of a call to this function, if <span class="basis">window</span> was the last window of the <span class="basis">application</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-window ( N-Object() $window )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$window; a <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a>.</li>
+</ul>
+<h2 id="set-accels-for-action" class="heading "><a href="#" title="go to top of document">set-accels-for-action</a><a class="raku-anchor" title="direct link" href="#set-accels-for-action">§</a></h2>
+
+<p id="Para_22">Sets zero or more keyboard accelerators that will trigger the given action.</p>
+
+<p>The first item in <span class="basis">accels</span> will be the primary accelerator, which may be displayed in the UI. </p>
+
+<p>To remove all accelerators for an action, use an empty, zero-terminated array for <span class="basis">accels</span>. </p>
+
+<p>For the <span class="basis">detailed_action_name</span>, see <span class="basis">Gnome::Gio::T-action</span>()` and <span class="basis">Gnome::Gio::T-action</span>()`. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-accels-for-action ( Str $detailed-action-name, Array[Str] $accels )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$detailed-action-name; a detailed action name, specifying an action and target to associate accelerators with.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$accels; a list of accelerators in the format understood by <a href="/content-docs/api2/reference/Gtk4/T-application#accelerator-parse">.accelerator-parse().accelerator-parse() in package Gnome::Gtk4</a>.</li>
+</ul>
+<h2 id="set-menubar" class="heading "><a href="#" title="go to top of document">set-menubar</a><a class="raku-anchor" title="direct link" href="#set-menubar">§</a></h2>
+
+<p>Sets or unsets the menubar for windows of <span class="basis">application</span>. </p>
+
+<p id="Para_23">This is a menubar in the traditional sense.</p>
+
+<p>This can only be done in the primary instance of the application, after it has been registered. <a href="/content-docs/api2/reference/Gio/Application">Gnome::Gio::Application</a>::startup` is a good place to call this. </p>
+
+<p id="Para_24">Depending on the desktop environment, this may appear at the top of each window, or at the top of the screen. In some environments, if both the application menu and the menubar are set, the application menu will be presented as if it were the first item of the menubar. Other environments treat the two as completely separate — for example, the application menu may be rendered by the desktop shell while the menubar (if set) remains in each individual window.</p>
+
+<p>Use the base <a href="/content-docs/api2/reference/Gio/R-ActionMap">Gnome::Gio::R-ActionMap</a> interface to add actions, to respond to the user selecting these menu items. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-menubar ( N-Object() $menubar )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$menubar; a <a href="/content-docs/api2/reference/Gio/MenuModel">Gnome::Gio::MenuModel</a>.</li>
+</ul>
+<h2 id="uninhibit" class="heading "><a href="#" title="go to top of document">uninhibit</a><a class="raku-anchor" title="direct link" href="#uninhibit">§</a></h2>
+
+<p id="Para_25">Removes an inhibitor that has been previously established.</p>
+
+<p>See <a href="#inhibit">.inhibit()</a>. </p>
+
+<p id="Para_26">Inhibitors are also cleared when the application exits.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method uninhibit ( UInt() $cookie )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$cookie; a cookie that was returned by <a href="#inhibit">.inhibit()</a>.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="query-end" class="heading "><a href="#" title="go to top of document">query-end</a><a class="raku-anchor" title="direct link" href="#query-end">§</a></h3>
+
+<p id="Para_27">Emitted when the session manager is about to end the session.</p>
+
+<p>This signal is only emitted if <span class="important">register-session</span> is <span class="code">True</span>. Applications can connect to this signal and call <a href="#inhibit">.inhibit()</a> with <span class="basis">GTK_APPLICATION_INHIBIT_LOGOUT</span> to delay the end of the session until state has been saved. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Application :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Application</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="window-added"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">window-added</a></h3>
-<p>Emitted when a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> is added to <strong>application</strong> through <a href="#add-window">.add-window()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="window-added" class="heading "><a href="#" title="go to top of document">window-added</a><a class="raku-anchor" title="direct link" href="#window-added">§</a></h3>
+
+<p>Emitted when a <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> is added to <span class="basis">application</span> through <a href="#add-window">.add-window()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $window,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Application :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$window; the newly-added <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Application</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="window-removed"><a href="#Gnome::Gtk4::Application" class="u" title="go to top of document">window-removed</a></h3>
-<p>Emitted when a <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> is removed from <strong>application</strong>.</p><p>This can happen as a side-effect of the window being destroyed or explicitly through <a href="#remove-window">.remove-window()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$window; the newly-added <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="window-removed" class="heading "><a href="#" title="go to top of document">window-removed</a><a class="raku-anchor" title="direct link" href="#window-removed">§</a></h3>
+
+<p>Emitted when a <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> is removed from <span class="basis">application</span>. </p>
+
+<p>This can happen as a side-effect of the window being destroyed or explicitly through <a href="#remove-window">.remove-window()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $window,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Application :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$window; the <a href="/content-docs/api2/reference/Gtk4/Window.html">Gnome::Gtk4::Window</a> that is being removed.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Application</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$window; the <a href="/content-docs/api2/reference/Gtk4/Window">Gnome::Gtk4::Window</a> that is being removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Application</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Application.rakudoc</span></div><div>at <span class="time">2026-05-03T10:25:21Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Application.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

@@ -1,527 +1,1297 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Snapshot</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Snapshot</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Snapshot">Gnome::Gtk4::Snapshot</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-snapshot">new-snapshot</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-border">append-border</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-cairo">append-cairo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-color">append-color</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-conic-gradient">append-conic-gradient</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-fill">append-fill</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-inset-shadow">append-inset-shadow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-layout">append-layout</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-linear-gradient">append-linear-gradient</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-node">append-node</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-outset-shadow">append-outset-shadow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-radial-gradient">append-radial-gradient</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-repeating-linear-gradient">append-repeating-linear-gradient</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-repeating-radial-gradient">append-repeating-radial-gradient</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-scaled-texture">append-scaled-texture</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-stroke">append-stroke</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-texture">append-texture</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#free-to-node">free-to-node</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#free-to-paintable">free-to-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#gl-shader-pop-texture">gl-shader-pop-texture</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#perspective">perspective</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#pop">pop</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-blend">push-blend</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-blur">push-blur</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-clip">push-clip</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-color-matrix">push-color-matrix</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-cross-fade">push-cross-fade</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-debug">push-debug</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-fill">push-fill</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-gl-shader">push-gl-shader</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-mask">push-mask</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-opacity">push-opacity</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-repeat">push-repeat</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-rounded-clip">push-rounded-clip</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-shadow">push-shadow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#push-stroke">push-stroke</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#render-background">render-background</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#render-focus">render-focus</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#render-frame">render-frame</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#render-insertion-cursor">render-insertion-cursor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#render-layout">render-layout</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#restore">restore</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#rotate">rotate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#rotate3d">rotate3d</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save">save</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#scale">scale</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#scale3d">scale3d</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#to-node">to-node</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#to-paintable">to-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#transform">transform</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#transform-matrix">transform-matrix</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#translate">translate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#translate3d">translate3d</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Snapshot</strong> assists in creating <a href="/content-docs/api2/reference/Gsk4/RenderNode.html">Gnome::Gsk4::RenderNode</a>s for widgets.</p><p>It functions in a similar way to a cairo context, and maintains a stack of render nodes and their associated transformations.</p><p>The node at the top of the stack is the one that <strong>gtk_snapshot_append_</strong>…()` functions operate on. Use the <strong>gtk_snapshot_push_</strong>…()` functions and [method <code>$Snapshot</code>.pop] to change the current node.</p><p>The typical way to obtain a <strong>Gnome::Gtk4::Snapshot</strong> object is as an argument to the [vfunc <code>$Gtk</code>.Widget.snapshot] vfunc. If you need to create your own <strong>Gnome::Gtk4::Snapshot</strong>, use <a href="#newsnapshot">.newsnapshot()</a>.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Snapshot.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-snapshot"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">new-snapshot</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Snapshot</strong>.</p><pre class="pod-block-code">method new-snapshot ( --&gt; Gnome::Gtk4::Snapshot )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="append-border"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-border</a></h2>
-<p>Appends a stroked border rectangle inside the given <code>$outline</code>.</p><p>The four sides of the border can have different widths and colors.</p><pre class="pod-block-code">method append-border ( N-Object $outline, Num() $border-width, N-Object $border-color )
-</pre><ul>
-<li><p>$outline; the outline of the border</p></li>
-<li><p>$border-width; the stroke width of the border on the top, right, bottom and left side respectively..</p></li>
-<li><p>$border-color; the color used on the top, right, bottom and left side.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Snapshot"></div><h1 class="title">Gnome::Gtk4::Snapshot</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-snapshot">new-snapshot</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-border">append-border</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-cairo">append-cairo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-color">append-color</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-conic-gradient">append-conic-gradient</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-fill">append-fill</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-inset-shadow">append-inset-shadow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-layout">append-layout</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-linear-gradient">append-linear-gradient</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-node">append-node</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-outset-shadow">append-outset-shadow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-radial-gradient">append-radial-gradient</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-repeating-linear-gradient">append-repeating-linear-gradient</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-repeating-radial-gradient">append-repeating-radial-gradient</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-scaled-texture">append-scaled-texture</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-stroke">append-stroke</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-texture">append-texture</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-to-node">free-to-node</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free-to-paintable">free-to-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#gl-shader-pop-texture">gl-shader-pop-texture</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#perspective">perspective</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#pop">pop</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-blend">push-blend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-blur">push-blur</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-clip">push-clip</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-color-matrix">push-color-matrix</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-cross-fade">push-cross-fade</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-debug">push-debug</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-fill">push-fill</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-gl-shader">push-gl-shader</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-mask">push-mask</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-opacity">push-opacity</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-repeat">push-repeat</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-rounded-clip">push-rounded-clip</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-shadow">push-shadow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#push-stroke">push-stroke</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#render-background">render-background</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#render-focus">render-focus</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#render-frame">render-frame</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#render-insertion-cursor">render-insertion-cursor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#render-layout">render-layout</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#restore">restore</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#rotate">rotate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#rotate3d">rotate3d</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save">save</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#scale">scale</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#scale3d">scale3d</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#to-node">to-node</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#to-paintable">to-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#transform">transform</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#transform-matrix">transform-matrix</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#translate">translate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#translate3d">translate3d</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Snapshot</span> assists in creating <a href="/content-docs/api2/reference/Gsk4/RenderNode">Gnome::Gsk4::RenderNode</a>s for widgets. </p>
+
+<p id="Para">It functions in a similar way to a cairo context, and maintains a stack of render nodes and their associated transformations.</p>
+
+<p>The node at the top of the stack is the one that <span class="basis">gtk_snapshot_append_</span>…()` functions operate on. Use the <span class="basis">gtk_snapshot_push_</span>…()` functions and [method <span class="code">$Snapshot</span>.pop] to change the current node. </p>
+
+<p>The typical way to obtain a <span class="basis">Gnome::Gtk4::Snapshot</span> object is as an argument to the [vfunc <span class="code">$Gtk</span>.Widget.snapshot] vfunc. If you need to create your own <span class="basis">Gnome::Gtk4::Snapshot</span>, use <a href="#newsnapshot">.newsnapshot()</a>. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Snapshot.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-snapshot" class="heading "><a href="#" title="go to top of document">new-snapshot</a><a class="raku-anchor" title="direct link" href="#new-snapshot">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-snapshot ( --&gt; Gnome::Gtk4::Snapshot )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="append-border" class="heading "><a href="#" title="go to top of document">append-border</a><a class="raku-anchor" title="direct link" href="#append-border">§</a></h2>
+
+<p>Appends a stroked border rectangle inside the given <span class="code">$outline</span>. </p>
+
+<p id="Para_0">The four sides of the border can have different widths and colors.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-border ( N-Object $outline, Num() $border-width, N-Object $border-color )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$outline; the outline of the border</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$border-width; the stroke width of the border on the top, right, bottom and left side respectively..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$border-color; the color used on the top, right, bottom and left side.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-cairo"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-cairo</a></h2>
-<p>Creates a new <strong>Cairo::cairo_t</strong> and appends it to the current render node of <code>$snapshot</code>, without changing the current node.</p><pre class="pod-block-code">method append-cairo ( N-Object $bounds --&gt; Cairo::cairo_t )
-</pre><ul>
-<li><p>$bounds; the bounds for the new node</p></li>
+<h2 id="append-cairo" class="heading "><a href="#" title="go to top of document">append-cairo</a><a class="raku-anchor" title="direct link" href="#append-cairo">§</a></h2>
+
+<p>Creates a new <span class="basis">Cairo::cairo_t</span> and appends it to the current render node of <span class="code">$snapshot</span>, without changing the current node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-cairo ( N-Object $bounds --&gt; Cairo::cairo_t )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the bounds for the new node</li>
 </ul>
-<p>Return value; a <strong>Cairo::cairo_t</strong> suitable for drawing the contents of the newly created render node. </p></section>
-<section name="pod">
-<h2 id="append-color"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-color</a></h2>
-<p>Creates a new render node drawing the <code>$color</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>You should try to avoid calling this function if <code>$color</code> is transparent.</p><pre class="pod-block-code">method append-color ( N-Object $color, N-Object $bounds )
-</pre><ul>
-<li><p>$color; the color to draw</p></li>
-<li><p>$bounds; the bounds for the new node</p></li>
+
+<p>Return value; a <span class="basis">Cairo::cairo_t</span> suitable for drawing the contents of the newly created render node. </p>
+<h2 id="append-color" class="heading "><a href="#" title="go to top of document">append-color</a><a class="raku-anchor" title="direct link" href="#append-color">§</a></h2>
+
+<p>Creates a new render node drawing the <span class="code">$color</span> into the given <span class="code">$bounds</span> and appends it to the current render node of <span class="code">$snapshot</span>. </p>
+
+<p>You should try to avoid calling this function if <span class="code">$color</span> is transparent. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-color ( N-Object $color, N-Object $bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$color; the color to draw</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the bounds for the new node</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-conic-gradient"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-conic-gradient</a></h2>
-<p>Appends a conic gradient node with the given stops to <code>$snapshot</code>.</p><pre class="pod-block-code">method append-conic-gradient ( N-Object $bounds, N-Object $center, Num() $rotation, N-Object $stops, Int() $n-stops )
-</pre><ul>
-<li><p>$bounds; the rectangle to render the gradient into</p></li>
-<li><p>$center; the center point of the conic gradient</p></li>
-<li><p>$rotation; the clockwise rotation in degrees of the starting angle. 0 means the starting angle is the top..</p></li>
-<li><p>$stops; the color stops defining the gradient</p></li>
-<li><p>$n-stops; the number of elements in <code>$stops</code>.</p></li>
+<h2 id="append-conic-gradient" class="heading "><a href="#" title="go to top of document">append-conic-gradient</a><a class="raku-anchor" title="direct link" href="#append-conic-gradient">§</a></h2>
+
+<p>Appends a conic gradient node with the given stops to <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-conic-gradient ( N-Object $bounds, N-Object $center, Num() $rotation, N-Object $stops, Int() $n-stops )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render the gradient into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$center; the center point of the conic gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$rotation; the clockwise rotation in degrees of the starting angle. 0 means the starting angle is the top..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stops; the color stops defining the gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-stops; the number of elements in <span class="code">$stops</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-fill"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-fill</a></h2>
-<p>A convenience method to fill a path with a color.</p><p>See <a href="#push-fill">.push-fill()</a> if you need to fill a path with more complex content than a color.</p><pre class="pod-block-code">method append-fill ( N-Object $path, GskFillRule $fill-rule, N-Object $color )
-</pre><ul>
-<li><p>$path; The path describing the area to fill</p></li>
-<li><p>$fill-rule; The fill rule to use.</p></li>
-<li><p>$color; the color to fill the path with</p></li>
+<h2 id="append-fill" class="heading "><a href="#" title="go to top of document">append-fill</a><a class="raku-anchor" title="direct link" href="#append-fill">§</a></h2>
+
+<p id="Para_1">A convenience method to fill a path with a color.</p>
+
+<p>See <a href="#push-fill">.push-fill()</a> if you need to fill a path with more complex content than a color. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-fill ( N-Object $path, GskFillRule $fill-rule, N-Object $color )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The path describing the area to fill</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$fill-rule; The fill rule to use.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color; the color to fill the path with</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-inset-shadow"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-inset-shadow</a></h2>
-<p>Appends an inset shadow into the box given by <code>$outline</code>.</p><pre class="pod-block-code">method append-inset-shadow ( N-Object $outline, N-Object $color, Num() $dx, Num() $dy, Num() $spread, Num() $blur-radius )
-</pre><ul>
-<li><p>$outline; outline of the region surrounded by shadow</p></li>
-<li><p>$color; color of the shadow</p></li>
-<li><p>$dx; horizontal offset of shadow.</p></li>
-<li><p>$dy; vertical offset of shadow.</p></li>
-<li><p>$spread; how far the shadow spreads towards the inside.</p></li>
-<li><p>$blur-radius; how much blur to apply to the shadow.</p></li>
+<h2 id="append-inset-shadow" class="heading "><a href="#" title="go to top of document">append-inset-shadow</a><a class="raku-anchor" title="direct link" href="#append-inset-shadow">§</a></h2>
+
+<p>Appends an inset shadow into the box given by <span class="code">$outline</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-inset-shadow ( N-Object $outline, N-Object $color, Num() $dx, Num() $dy, Num() $spread, Num() $blur-radius )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$outline; outline of the region surrounded by shadow</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color; color of the shadow</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dx; horizontal offset of shadow.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dy; vertical offset of shadow.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$spread; how far the shadow spreads towards the inside.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$blur-radius; how much blur to apply to the shadow.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-layout"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-layout</a></h2>
-<p>No documentation of method.</p><pre class="pod-block-code">method append-layout ( N-Object() $layout, N-Object $color )
-</pre><ul>
-<li><p>$layout; .</p></li>
-<li><p>$color; </p></li>
+<h2 id="append-layout" class="heading "><a href="#" title="go to top of document">append-layout</a><a class="raku-anchor" title="direct link" href="#append-layout">§</a></h2>
+
+<p id="Para_2">No documentation of method.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-layout ( N-Object() $layout, N-Object $color )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$layout; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color;</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-linear-gradient"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-linear-gradient</a></h2>
-<p>Appends a linear gradient node with the given stops to <code>$snapshot</code>.</p><pre class="pod-block-code">method append-linear-gradient ( N-Object $bounds, N-Object $start-point, N-Object $end-point, N-Object $stops, Int() $n-stops )
-</pre><ul>
-<li><p>$bounds; the rectangle to render the linear gradient into</p></li>
-<li><p>$start-point; the point at which the linear gradient will begin</p></li>
-<li><p>$end-point; the point at which the linear gradient will finish</p></li>
-<li><p>$stops; the color stops defining the gradient</p></li>
-<li><p>$n-stops; the number of elements in <code>$stops</code>.</p></li>
+<h2 id="append-linear-gradient" class="heading "><a href="#" title="go to top of document">append-linear-gradient</a><a class="raku-anchor" title="direct link" href="#append-linear-gradient">§</a></h2>
+
+<p>Appends a linear gradient node with the given stops to <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-linear-gradient ( N-Object $bounds, N-Object $start-point, N-Object $end-point, N-Object $stops, Int() $n-stops )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render the linear gradient into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start-point; the point at which the linear gradient will begin</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end-point; the point at which the linear gradient will finish</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stops; the color stops defining the gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-stops; the number of elements in <span class="code">$stops</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-node"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-node</a></h2>
-<p>Appends <code>$node</code> to the current render node of <code>$snapshot</code>, without changing the current node.</p><p>If <code>$snapshot</code> does not have a current node yet, <code>$node</code> will become the initial node.</p><pre class="pod-block-code">method append-node ( N-Object() $node )
-</pre><ul>
-<li><p>$node; a <a href="/content-docs/api2/reference/Gsk4/RenderNode.html">Gnome::Gsk4::RenderNode</a>.</p></li>
+<h2 id="append-node" class="heading "><a href="#" title="go to top of document">append-node</a><a class="raku-anchor" title="direct link" href="#append-node">§</a></h2>
+
+<p>Appends <span class="code">$node</span> to the current render node of <span class="code">$snapshot</span>, without changing the current node. </p>
+
+<p>If <span class="code">$snapshot</span> does not have a current node yet, <span class="code">$node</span> will become the initial node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-node ( N-Object() $node )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$node; a <a href="/content-docs/api2/reference/Gsk4/RenderNode">Gnome::Gsk4::RenderNode</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-outset-shadow"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-outset-shadow</a></h2>
-<p>Appends an outset shadow node around the box given by <code>$outline</code>.</p><pre class="pod-block-code">method append-outset-shadow ( N-Object $outline, N-Object $color, Num() $dx, Num() $dy, Num() $spread, Num() $blur-radius )
-</pre><ul>
-<li><p>$outline; outline of the region surrounded by shadow</p></li>
-<li><p>$color; color of the shadow</p></li>
-<li><p>$dx; horizontal offset of shadow.</p></li>
-<li><p>$dy; vertical offset of shadow.</p></li>
-<li><p>$spread; how far the shadow spreads towards the outside.</p></li>
-<li><p>$blur-radius; how much blur to apply to the shadow.</p></li>
+<h2 id="append-outset-shadow" class="heading "><a href="#" title="go to top of document">append-outset-shadow</a><a class="raku-anchor" title="direct link" href="#append-outset-shadow">§</a></h2>
+
+<p>Appends an outset shadow node around the box given by <span class="code">$outline</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-outset-shadow ( N-Object $outline, N-Object $color, Num() $dx, Num() $dy, Num() $spread, Num() $blur-radius )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$outline; outline of the region surrounded by shadow</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color; color of the shadow</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dx; horizontal offset of shadow.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$dy; vertical offset of shadow.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$spread; how far the shadow spreads towards the outside.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$blur-radius; how much blur to apply to the shadow.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-radial-gradient"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-radial-gradient</a></h2>
-<p>Appends a radial gradient node with the given stops to <code>$snapshot</code>.</p><pre class="pod-block-code">method append-radial-gradient ( N-Object $bounds, N-Object $center, Num() $hradius, Num() $vradius, Num() $start, Num() $end, N-Object $stops, Int() $n-stops )
-</pre><ul>
-<li><p>$bounds; the rectangle to render the readial gradient into</p></li>
-<li><p>$center; the center point for the radial gradient</p></li>
-<li><p>$hradius; the horizontal radius.</p></li>
-<li><p>$vradius; the vertical radius.</p></li>
-<li><p>$start; the start position (on the horizontal axis).</p></li>
-<li><p>$end; the end position (on the horizontal axis).</p></li>
-<li><p>$stops; the color stops defining the gradient</p></li>
-<li><p>$n-stops; the number of elements in <code>$stops</code>.</p></li>
+<h2 id="append-radial-gradient" class="heading "><a href="#" title="go to top of document">append-radial-gradient</a><a class="raku-anchor" title="direct link" href="#append-radial-gradient">§</a></h2>
+
+<p>Appends a radial gradient node with the given stops to <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-radial-gradient ( N-Object $bounds, N-Object $center, Num() $hradius, Num() $vradius, Num() $start, Num() $end, N-Object $stops, Int() $n-stops )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render the readial gradient into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$center; the center point for the radial gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hradius; the horizontal radius.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$vradius; the vertical radius.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; the start position (on the horizontal axis).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; the end position (on the horizontal axis).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stops; the color stops defining the gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-stops; the number of elements in <span class="code">$stops</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-repeating-linear-gradient"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-repeating-linear-gradient</a></h2>
-<p>Appends a repeating linear gradient node with the given stops to <code>$snapshot</code>.</p><pre class="pod-block-code">method append-repeating-linear-gradient ( N-Object $bounds, N-Object $start-point, N-Object $end-point, N-Object $stops, Int() $n-stops )
-</pre><ul>
-<li><p>$bounds; the rectangle to render the linear gradient into</p></li>
-<li><p>$start-point; the point at which the linear gradient will begin</p></li>
-<li><p>$end-point; the point at which the linear gradient will finish</p></li>
-<li><p>$stops; the color stops defining the gradient</p></li>
-<li><p>$n-stops; the number of elements in <code>$stops</code>.</p></li>
+<h2 id="append-repeating-linear-gradient" class="heading "><a href="#" title="go to top of document">append-repeating-linear-gradient</a><a class="raku-anchor" title="direct link" href="#append-repeating-linear-gradient">§</a></h2>
+
+<p>Appends a repeating linear gradient node with the given stops to <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-repeating-linear-gradient ( N-Object $bounds, N-Object $start-point, N-Object $end-point, N-Object $stops, Int() $n-stops )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render the linear gradient into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start-point; the point at which the linear gradient will begin</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end-point; the point at which the linear gradient will finish</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stops; the color stops defining the gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-stops; the number of elements in <span class="code">$stops</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-repeating-radial-gradient"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-repeating-radial-gradient</a></h2>
-<p>Appends a repeating radial gradient node with the given stops to <code>$snapshot</code>.</p><pre class="pod-block-code">method append-repeating-radial-gradient ( N-Object $bounds, N-Object $center, Num() $hradius, Num() $vradius, Num() $start, Num() $end, N-Object $stops, Int() $n-stops )
-</pre><ul>
-<li><p>$bounds; the rectangle to render the readial gradient into</p></li>
-<li><p>$center; the center point for the radial gradient</p></li>
-<li><p>$hradius; the horizontal radius.</p></li>
-<li><p>$vradius; the vertical radius.</p></li>
-<li><p>$start; the start position (on the horizontal axis).</p></li>
-<li><p>$end; the end position (on the horizontal axis).</p></li>
-<li><p>$stops; the color stops defining the gradient</p></li>
-<li><p>$n-stops; the number of elements in <code>$stops</code>.</p></li>
+<h2 id="append-repeating-radial-gradient" class="heading "><a href="#" title="go to top of document">append-repeating-radial-gradient</a><a class="raku-anchor" title="direct link" href="#append-repeating-radial-gradient">§</a></h2>
+
+<p>Appends a repeating radial gradient node with the given stops to <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-repeating-radial-gradient ( N-Object $bounds, N-Object $center, Num() $hradius, Num() $vradius, Num() $start, Num() $end, N-Object $stops, Int() $n-stops )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render the readial gradient into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$center; the center point for the radial gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hradius; the horizontal radius.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$vradius; the vertical radius.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; the start position (on the horizontal axis).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; the end position (on the horizontal axis).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stops; the color stops defining the gradient</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-stops; the number of elements in <span class="code">$stops</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-scaled-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-scaled-texture</a></h2>
-<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>In contrast to <a href="#append-texture">.append-texture()</a>, this function provides control about how the filter that is used when scaling.</p><pre class="pod-block-code">method append-scaled-texture ( N-Object() $texture, GskScalingFilter $filter, N-Object $bounds )
-</pre><ul>
-<li><p>$texture; the texture to render.</p></li>
-<li><p>$filter; the filter to use.</p></li>
-<li><p>$bounds; the bounds for the new node</p></li>
+<h2 id="append-scaled-texture" class="heading "><a href="#" title="go to top of document">append-scaled-texture</a><a class="raku-anchor" title="direct link" href="#append-scaled-texture">§</a></h2>
+
+<p>Creates a new render node drawing the <span class="code">$texture</span> into the given <span class="code">$bounds</span> and appends it to the current render node of <span class="code">$snapshot</span>. </p>
+
+<p>In contrast to <a href="#append-texture">.append-texture()</a>, this function provides control about how the filter that is used when scaling. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-scaled-texture ( N-Object() $texture, GskScalingFilter $filter, N-Object $bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$texture; the texture to render.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$filter; the filter to use.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the bounds for the new node</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-stroke"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-stroke</a></h2>
-<p>A convenience method to stroke a path with a color.</p><p>See <a href="#push-stroke">.push-stroke()</a> if you need to stroke a path with more complex content than a color.</p><pre class="pod-block-code">method append-stroke ( N-Object $path, N-Object $stroke, N-Object $color )
-</pre><ul>
-<li><p>$path; The path describing the area to fill</p></li>
-<li><p>$stroke; The stroke attributes</p></li>
-<li><p>$color; the color to fill the path with</p></li>
+<h2 id="append-stroke" class="heading "><a href="#" title="go to top of document">append-stroke</a><a class="raku-anchor" title="direct link" href="#append-stroke">§</a></h2>
+
+<p id="Para_3">A convenience method to stroke a path with a color.</p>
+
+<p>See <a href="#push-stroke">.push-stroke()</a> if you need to stroke a path with more complex content than a color. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-stroke ( N-Object $path, N-Object $stroke, N-Object $color )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The path describing the area to fill</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stroke; The stroke attributes</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color; the color to fill the path with</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="append-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">append-texture</a></h2>
-<p>Creates a new render node drawing the <code>$texture</code> into the given <code>$bounds</code> and appends it to the current render node of <code>$snapshot</code>.</p><p>If the texture needs to be scaled to fill <code>$bounds</code>, linear filtering is used. See <a href="#append-scaled-texture">.append-scaled-texture()</a> if you need other filtering, such as nearest-neighbour.</p><pre class="pod-block-code">method append-texture ( N-Object() $texture, N-Object $bounds )
-</pre><ul>
-<li><p>$texture; the texture to render.</p></li>
-<li><p>$bounds; the bounds for the new node</p></li>
+<h2 id="append-texture" class="heading "><a href="#" title="go to top of document">append-texture</a><a class="raku-anchor" title="direct link" href="#append-texture">§</a></h2>
+
+<p>Creates a new render node drawing the <span class="code">$texture</span> into the given <span class="code">$bounds</span> and appends it to the current render node of <span class="code">$snapshot</span>. </p>
+
+<p>If the texture needs to be scaled to fill <span class="code">$bounds</span>, linear filtering is used. See <a href="#append-scaled-texture">.append-scaled-texture()</a> if you need other filtering, such as nearest-neighbour. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-texture ( N-Object() $texture, N-Object $bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$texture; the texture to render.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the bounds for the new node</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="free-to-node"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">free-to-node</a></h2>
-<p>Returns the node that was constructed by <code>$snapshot</code> and frees <code>$snapshot</code>.</p><p>See also <a href="#to-node">.to-node()</a>.</p><pre class="pod-block-code">method free-to-node (--&gt; N-Object )
-</pre><p>Return value; a newly-created <a href="/content-docs/api2/reference/Gsk4/RenderNode.html">Gnome::Gsk4::RenderNode</a>. </p></section>
-<section name="pod">
-<h2 id="free-to-paintable"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">free-to-paintable</a></h2>
-<p>Returns a paintable for the node that was constructed by <code>$snapshot</code> and frees <code>$snapshot</code>.</p><pre class="pod-block-code">method free-to-paintable ( N-Object $size --&gt; N-Object )
-</pre><ul>
-<li><p>$size; The size of the resulting paintable or undefined to use the bounds of the snapshot</p></li>
+<h2 id="free-to-node" class="heading "><a href="#" title="go to top of document">free-to-node</a><a class="raku-anchor" title="direct link" href="#free-to-node">§</a></h2>
+
+<p>Returns the node that was constructed by <span class="code">$snapshot</span> and frees <span class="code">$snapshot</span>. </p>
+
+<p>See also <a href="#to-node">.to-node()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free-to-node (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a newly-created <a href="/content-docs/api2/reference/Gsk4/RenderNode">Gnome::Gsk4::RenderNode</a>. </p>
+<h2 id="free-to-paintable" class="heading "><a href="#" title="go to top of document">free-to-paintable</a><a class="raku-anchor" title="direct link" href="#free-to-paintable">§</a></h2>
+
+<p>Returns a paintable for the node that was constructed by <span class="code">$snapshot</span> and frees <span class="code">$snapshot</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free-to-paintable ( N-Object $size --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$size; The size of the resulting paintable or undefined to use the bounds of the snapshot</li>
 </ul>
-<p>Return value; a newly-created <a href="/content-docs/api2/reference/Gnome/Gdk4/R-Paintable.html">Gnome::Gsk4::GLShader</a>. </p></section>
-<section name="pod">
-<h2 id="gl-shader-pop-texture"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">gl-shader-pop-texture</a></h2>
-<p>Removes the top element from the stack of render nodes and adds it to the nearest <a href="/content-docs/api2/reference/Gsk4/GLShaderNode.html">Gnome::Gsk4::GLShaderNode</a> below it.</p><p>This must be called the same number of times as the number of textures is needed for the shader in <a href="#push-gl-shader">.push-gl-shader()</a>.</p><pre class="pod-block-code">method gl-shader-pop-texture ( )
-</pre></section>
-<section name="pod">
-<h2 id="perspective"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">perspective</a></h2>
-<p>Applies a perspective projection transform.</p><p>See <a href="/content-docs/api2/reference/Gsk4/Transform.html#perspective">.perspective() in class Transform</a> for a discussion on the details.</p><pre class="pod-block-code">method perspective ( Num() $depth )
-</pre><ul>
-<li><p>$depth; distance of the z=0 plane.</p></li>
+
+<p>Return value; a newly-created <a href="/content-docs/api2/reference/Gnome::Gdk4::R-Paintable">Gnome::Gsk4::GLShader</a>. </p>
+<h2 id="gl-shader-pop-texture" class="heading "><a href="#" title="go to top of document">gl-shader-pop-texture</a><a class="raku-anchor" title="direct link" href="#gl-shader-pop-texture">§</a></h2>
+
+<p>Removes the top element from the stack of render nodes and adds it to the nearest <a href="/content-docs/api2/reference/Gsk4/GLShaderNode">Gnome::Gsk4::GLShaderNode</a> below it. </p>
+
+<p>This must be called the same number of times as the number of textures is needed for the shader in <a href="#push-gl-shader">.push-gl-shader()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method gl-shader-pop-texture ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="perspective" class="heading "><a href="#" title="go to top of document">perspective</a><a class="raku-anchor" title="direct link" href="#perspective">§</a></h2>
+
+<p id="Para_4">Applies a perspective projection transform.</p>
+
+<p>See <a href="/content-docs/api2/reference/Gsk4/Transform#perspective">.perspective() in class Transform</a> for a discussion on the details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method perspective ( Num() $depth )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$depth; distance of the z=0 plane.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="pop"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">pop</a></h2>
-<p>Removes the top element from the stack of render nodes, and appends it to the node underneath it.</p><pre class="pod-block-code">method pop ( )
-</pre></section>
-<section name="pod">
-<h2 id="push-blend"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-blend</a></h2>
-<p>Blends together two images with the given blend mode.</p><p>Until the first call to <a href="#pop">.pop()</a>, the bottom image for the blend operation will be recorded. After that call, the top image to be blended will be recorded until the second call to <a href="#pop">.pop()</a>.</p><p>Calling this function requires two subsequent calls to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-blend ( GskBlendMode $blend-mode )
-</pre><ul>
-<li><p>$blend-mode; blend mode to use.</p></li>
+<h2 id="pop" class="heading "><a href="#" title="go to top of document">pop</a><a class="raku-anchor" title="direct link" href="#pop">§</a></h2>
+
+<p id="Para_5">Removes the top element from the stack of render nodes, and appends it to the node underneath it.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method pop ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="push-blend" class="heading "><a href="#" title="go to top of document">push-blend</a><a class="raku-anchor" title="direct link" href="#push-blend">§</a></h2>
+
+<p id="Para_6">Blends together two images with the given blend mode.</p>
+
+<p>Until the first call to <a href="#pop">.pop()</a>, the bottom image for the blend operation will be recorded. After that call, the top image to be blended will be recorded until the second call to <a href="#pop">.pop()</a>. </p>
+
+<p>Calling this function requires two subsequent calls to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-blend ( GskBlendMode $blend-mode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$blend-mode; blend mode to use.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-blur"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-blur</a></h2>
-<p>Blurs an image.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-blur ( Num() $radius )
-</pre><ul>
-<li><p>$radius; the blur radius to use. Must be positive.</p></li>
+<h2 id="push-blur" class="heading "><a href="#" title="go to top of document">push-blur</a><a class="raku-anchor" title="direct link" href="#push-blur">§</a></h2>
+
+<p id="Para_7">Blurs an image.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-blur ( Num() $radius )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$radius; the blur radius to use. Must be positive.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-clip"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-clip</a></h2>
-<p>Clips an image to a rectangle.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-clip ( N-Object $bounds )
-</pre><ul>
-<li><p>$bounds; the rectangle to clip to</p></li>
+<h2 id="push-clip" class="heading "><a href="#" title="go to top of document">push-clip</a><a class="raku-anchor" title="direct link" href="#push-clip">§</a></h2>
+
+<p id="Para_8">Clips an image to a rectangle.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-clip ( N-Object $bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to clip to</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-color-matrix"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-color-matrix</a></h2>
-<p>Modifies the colors of an image by applying an affine transformation in RGB space.</p><p>In particular, the colors will be transformed by applying</p><pre class="pod-block-code">pixel = transpose(color_matrix) * pixel + color_offset</pre><p>for every pixel. The transformation operates on unpremultiplied colors, with color components ordered R, G, B, A.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-color-matrix ( N-Object $color-matrix, N-Object $color-offset )
-</pre><ul>
-<li><p>$color-matrix; the color matrix to use</p></li>
-<li><p>$color-offset; the color offset to use</p></li>
+<h2 id="push-color-matrix" class="heading "><a href="#" title="go to top of document">push-color-matrix</a><a class="raku-anchor" title="direct link" href="#push-color-matrix">§</a></h2>
+
+<p id="Para_9">Modifies the colors of an image by applying an affine transformation in RGB space.</p>
+
+<p id="Para_10">In particular, the colors will be transformed by applying</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">pixel = transpose(color_matrix) * pixel + color_offset</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">for every pixel. The transformation operates on unpremultiplied colors, with color components ordered R, G, B, A.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-color-matrix ( N-Object $color-matrix, N-Object $color-offset )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$color-matrix; the color matrix to use</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$color-offset; the color offset to use</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-cross-fade"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-cross-fade</a></h2>
-<p>Snapshots a cross-fade operation between two images with the given <code>$progress</code>.</p><p>Until the first call to <a href="#pop">.pop()</a>, the start image will be snapshot. After that call, the end image will be recorded until the second call to <a href="#pop">.pop()</a>.</p><p>Calling this function requires two subsequent calls to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-cross-fade ( Num() $progress )
-</pre><ul>
-<li><p>$progress; progress between 0.0 and 1.0.</p></li>
+<h2 id="push-cross-fade" class="heading "><a href="#" title="go to top of document">push-cross-fade</a><a class="raku-anchor" title="direct link" href="#push-cross-fade">§</a></h2>
+
+<p>Snapshots a cross-fade operation between two images with the given <span class="code">$progress</span>. </p>
+
+<p>Until the first call to <a href="#pop">.pop()</a>, the start image will be snapshot. After that call, the end image will be recorded until the second call to <a href="#pop">.pop()</a>. </p>
+
+<p>Calling this function requires two subsequent calls to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-cross-fade ( Num() $progress )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$progress; progress between 0.0 and 1.0.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-debug"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-debug</a></h2>
-<p>Inserts a debug node with a message.</p><p>Debug nodes don't affect the rendering at all, but can be helpful in identifying parts of a render node tree dump, for example in the GTK inspector.</p><pre class="pod-block-code">method push-debug ( Str $message, … )
-</pre><ul>
-<li><p>$message; a printf-style format string.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="push-debug" class="heading "><a href="#" title="go to top of document">push-debug</a><a class="raku-anchor" title="direct link" href="#push-debug">§</a></h2>
+
+<p id="Para_12">Inserts a debug node with a message.</p>
+
+<p id="Para_13">Debug nodes don't affect the rendering at all, but can be helpful in identifying parts of a render node tree dump, for example in the GTK inspector.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-debug ( Str $message, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$message; a printf-style format string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-fill"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-fill</a></h2>
-<p>Fills the area given by <code>$path</code> and <code>$fill-rule</code> with an image and discards everything outside of it.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><p>If you want to fill the path with a color, <a href="#append-fill">.append-fill()</a> may be more convenient.</p><pre class="pod-block-code">method push-fill ( N-Object $path, GskFillRule $fill-rule )
-</pre><ul>
-<li><p>$path; The path describing the area to fill</p></li>
-<li><p>$fill-rule; The fill rule to use.</p></li>
+<h2 id="push-fill" class="heading "><a href="#" title="go to top of document">push-fill</a><a class="raku-anchor" title="direct link" href="#push-fill">§</a></h2>
+
+<p>Fills the area given by <span class="code">$path</span> and <span class="code">$fill-rule</span> with an image and discards everything outside of it. </p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+
+<p>If you want to fill the path with a color, <a href="#append-fill">.append-fill()</a> may be more convenient. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-fill ( N-Object $path, GskFillRule $fill-rule )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The path describing the area to fill</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$fill-rule; The fill rule to use.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-gl-shader"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-gl-shader</a></h2>
-<p>Push a <a href="/content-docs/api2/reference/Gsk4/GLShaderNode.html">Gnome::Gsk4::GLShaderNode</a>.</p><p>The node uses the given <a href="/content-docs/api2/reference/Gsk4/GLShader.html">Gnome::Gsk4::GLShader</a> and uniform values Additionally this takes a list of <code>$n-children</code> other nodes which will be passed to the <a href="/content-docs/api2/reference/Gsk4/GLShaderNode.html">Gnome::Gsk4::GLShaderNode</a>.</p><p>The <code>$take-args</code> argument is a block of data to use for uniform arguments, as per types and offsets defined by the <code>$shader</code>. Normally this is generated by <a href="/content-docs/api2/reference/Gsk4/GLShader.html#format-args">.format-args() in class GLShader</a> or <strong>Gnome::Gsk4::N-ShaderArgsBuilder</strong> .</p><p>The snapshotter takes ownership of <code>$take-args</code>, so the caller should not free it after this.</p><p>If the renderer doesn't support GL shaders, or if there is any problem when compiling the shader, then the node will draw pink. You should use <a href="/content-docs/api2/reference/Gsk4/GLShader.html#compile">.compile() in class GLShader</a> to ensure the <code>$shader</code> will work for the renderer before using it.</p><p>If the shader requires textures (see <a href="/content-docs/api2/reference/Gsk4/GLShader.html#get-n-textures">.get-n-textures() in class GLShader</a>), then it is expected that you call <a href="#gl-shader-pop-texture">.gl-shader-pop-texture()</a> the number of times that are required. Each of these calls will generate a node that is added as a child to the <a href="/content-docs/api2/reference/Gsk4/GLShaderNode.html">Gnome::Gsk4::GLShaderNode</a>, which in turn will render these offscreen and pass as a texture to the shader.</p><p>Once all textures (if any) are pop:ed, you must call the regular <a href="#pop">.pop()</a>.</p><p>If you want to use pre-existing textures as input to the shader rather than rendering new ones, use <a href="#append-texture">.append-texture()</a> to push a texture node. These will be used directly rather than being re-rendered.</p><p>For details on how to write shaders, see <a href="/content-docs/api2/reference/Gsk4/GLShader.html">Gnome::Gsk4::GLShader</a>.</p><pre class="pod-block-code">method push-gl-shader ( N-Object() $shader, N-Object $bounds, N-Object $take-args )
-</pre><ul>
-<li><p>$shader; The code to run.</p></li>
-<li><p>$bounds; the rectangle to render into</p></li>
-<li><p>$take-args; (transfer ownership: full) Data block with arguments for the shader.</p></li>
+<h2 id="push-gl-shader" class="heading "><a href="#" title="go to top of document">push-gl-shader</a><a class="raku-anchor" title="direct link" href="#push-gl-shader">§</a></h2>
+
+<p>Push a <a href="/content-docs/api2/reference/Gsk4/GLShaderNode">Gnome::Gsk4::GLShaderNode</a>. </p>
+
+<p>The node uses the given <a href="/content-docs/api2/reference/Gsk4/GLShader">Gnome::Gsk4::GLShader</a> and uniform values Additionally this takes a list of <span class="code">$n-children</span> other nodes which will be passed to the <a href="/content-docs/api2/reference/Gsk4/GLShaderNode">Gnome::Gsk4::GLShaderNode</a>. </p>
+
+<p>The <span class="code">$take-args</span> argument is a block of data to use for uniform arguments, as per types and offsets defined by the <span class="code">$shader</span>. Normally this is generated by <a href="/content-docs/api2/reference/Gsk4/GLShader#format-args">.format-args() in class GLShader</a> or <span class="basis">Gnome::Gsk4::N-ShaderArgsBuilder</span> . </p>
+
+<p>The snapshotter takes ownership of <span class="code">$take-args</span>, so the caller should not free it after this. </p>
+
+<p>If the renderer doesn't support GL shaders, or if there is any problem when compiling the shader, then the node will draw pink. You should use <a href="/content-docs/api2/reference/Gsk4/GLShader#compile">.compile() in class GLShader</a> to ensure the <span class="code">$shader</span> will work for the renderer before using it. </p>
+
+<p>If the shader requires textures (see <a href="/content-docs/api2/reference/Gsk4/GLShader#get-n-textures">.get-n-textures() in class GLShader</a>), then it is expected that you call <a href="#gl-shader-pop-texture">.gl-shader-pop-texture()</a> the number of times that are required. Each of these calls will generate a node that is added as a child to the <a href="/content-docs/api2/reference/Gsk4/GLShaderNode">Gnome::Gsk4::GLShaderNode</a>, which in turn will render these offscreen and pass as a texture to the shader. </p>
+
+<p>Once all textures (if any) are pop:ed, you must call the regular <a href="#pop">.pop()</a>. </p>
+
+<p>If you want to use pre-existing textures as input to the shader rather than rendering new ones, use <a href="#append-texture">.append-texture()</a> to push a texture node. These will be used directly rather than being re-rendered. </p>
+
+<p>For details on how to write shaders, see <a href="/content-docs/api2/reference/Gsk4/GLShader">Gnome::Gsk4::GLShader</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-gl-shader ( N-Object() $shader, N-Object $bounds, N-Object $take-args )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$shader; The code to run.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rectangle to render into</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$take-args; (transfer ownership: full) Data block with arguments for the shader.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-mask"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-mask</a></h2>
-<p>Until the first call to <a href="#pop">.pop()</a>, the mask image for the mask operation will be recorded.</p><p>After that call, the source image will be recorded until the second call to <a href="#pop">.pop()</a>.</p><p>Calling this function requires 2 subsequent calls to <code>.pop()</code>.</p><pre class="pod-block-code">method push-mask ( GskMaskMode $mask-mode )
-</pre><ul>
-<li><p>$mask-mode; mask mode to use.</p></li>
+<h2 id="push-mask" class="heading "><a href="#" title="go to top of document">push-mask</a><a class="raku-anchor" title="direct link" href="#push-mask">§</a></h2>
+
+<p>Until the first call to <a href="#pop">.pop()</a>, the mask image for the mask operation will be recorded. </p>
+
+<p>After that call, the source image will be recorded until the second call to <a href="#pop">.pop()</a>. </p>
+
+<p>Calling this function requires 2 subsequent calls to <span class="code">.pop()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-mask ( GskMaskMode $mask-mode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mask-mode; mask mode to use.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-opacity"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-opacity</a></h2>
-<p>Modifies the opacity of an image.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-opacity ( Num() $opacity )
-</pre><ul>
-<li><p>$opacity; the opacity to use.</p></li>
+<h2 id="push-opacity" class="heading "><a href="#" title="go to top of document">push-opacity</a><a class="raku-anchor" title="direct link" href="#push-opacity">§</a></h2>
+
+<p id="Para_14">Modifies the opacity of an image.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-opacity ( Num() $opacity )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$opacity; the opacity to use.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-repeat"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-repeat</a></h2>
-<p>Creates a node that repeats the child node.</p><p>The child is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-repeat ( N-Object $bounds, N-Object $child-bounds )
-</pre><ul>
-<li><p>$bounds; the bounds within which to repeat</p></li>
-<li><p>$child-bounds; the bounds of the child or undefined to use the full size of the collected child node</p></li>
+<h2 id="push-repeat" class="heading "><a href="#" title="go to top of document">push-repeat</a><a class="raku-anchor" title="direct link" href="#push-repeat">§</a></h2>
+
+<p id="Para_15">Creates a node that repeats the child node.</p>
+
+<p>The child is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-repeat ( N-Object $bounds, N-Object $child-bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the bounds within which to repeat</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$child-bounds; the bounds of the child or undefined to use the full size of the collected child node</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-rounded-clip"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-rounded-clip</a></h2>
-<p>Clips an image to a rounded rectangle.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-rounded-clip ( N-Object $bounds )
-</pre><ul>
-<li><p>$bounds; the rounded rectangle to clip to</p></li>
+<h2 id="push-rounded-clip" class="heading "><a href="#" title="go to top of document">push-rounded-clip</a><a class="raku-anchor" title="direct link" href="#push-rounded-clip">§</a></h2>
+
+<p id="Para_16">Clips an image to a rounded rectangle.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-rounded-clip ( N-Object $bounds )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bounds; the rounded rectangle to clip to</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-shadow"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-shadow</a></h2>
-<p>Applies a shadow to an image.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><pre class="pod-block-code">method push-shadow ( N-Object $shadow, Int() $n-shadows )
-</pre><ul>
-<li><p>$shadow; the first shadow specification</p></li>
-<li><p>$n-shadows; number of shadow specifications.</p></li>
+<h2 id="push-shadow" class="heading "><a href="#" title="go to top of document">push-shadow</a><a class="raku-anchor" title="direct link" href="#push-shadow">§</a></h2>
+
+<p id="Para_17">Applies a shadow to an image.</p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-shadow ( N-Object $shadow, Int() $n-shadows )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$shadow; the first shadow specification</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-shadows; number of shadow specifications.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="push-stroke"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">push-stroke</a></h2>
-<p>Strokes the given <code>$path</code> with the attributes given by <code>$stroke</code> and an image.</p><p>The image is recorded until the next call to <a href="#pop">.pop()</a>.</p><p>Note that the strokes are subject to the same transformation as everything else, so uneven scaling will cause horizontal and vertical strokes to have different widths.</p><p>If you want to stroke the path with a color, <a href="#append-stroke">.append-stroke()</a> may be more convenient.</p><pre class="pod-block-code">method push-stroke ( N-Object $path, N-Object $stroke )
-</pre><ul>
-<li><p>$path; The path to stroke</p></li>
-<li><p>$stroke; The stroke attributes</p></li>
+<h2 id="push-stroke" class="heading "><a href="#" title="go to top of document">push-stroke</a><a class="raku-anchor" title="direct link" href="#push-stroke">§</a></h2>
+
+<p>Strokes the given <span class="code">$path</span> with the attributes given by <span class="code">$stroke</span> and an image. </p>
+
+<p>The image is recorded until the next call to <a href="#pop">.pop()</a>. </p>
+
+<p id="Para_18">Note that the strokes are subject to the same transformation as everything else, so uneven scaling will cause horizontal and vertical strokes to have different widths.</p>
+
+<p>If you want to stroke the path with a color, <a href="#append-stroke">.append-stroke()</a> may be more convenient. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method push-stroke ( N-Object $path, N-Object $stroke )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The path to stroke</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stroke; The stroke attributes</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="render-background"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">render-background</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a render node for the CSS background according to <code>$context</code>, and appends it to the current node of <code>$snapshot</code>, without changing the current node.</p><pre class="pod-block-code">method render-background ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )
-</pre><ul>
-<li><p>$context; the style context that defines the background.</p></li>
-<li><p>$x; X origin of the rectangle.</p></li>
-<li><p>$y; Y origin of the rectangle.</p></li>
-<li><p>$width; rectangle width.</p></li>
-<li><p>$height; rectangle height.</p></li>
+<h2 id="render-background" class="heading "><a href="#" title="go to top of document">render-background</a><a class="raku-anchor" title="direct link" href="#render-background">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a render node for the CSS background according to <span class="code">$context</span>, and appends it to the current node of <span class="code">$snapshot</span>, without changing the current node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method render-background ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the style context that defines the background.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; X origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; Y origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$width; rectangle width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; rectangle height.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="render-focus"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">render-focus</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a render node for the focus outline according to <code>$context</code>, and appends it to the current node of <code>$snapshot</code>, without changing the current node.</p><pre class="pod-block-code">method render-focus ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )
-</pre><ul>
-<li><p>$context; the style context that defines the focus ring.</p></li>
-<li><p>$x; X origin of the rectangle.</p></li>
-<li><p>$y; Y origin of the rectangle.</p></li>
-<li><p>$width; rectangle width.</p></li>
-<li><p>$height; rectangle height.</p></li>
+<h2 id="render-focus" class="heading "><a href="#" title="go to top of document">render-focus</a><a class="raku-anchor" title="direct link" href="#render-focus">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a render node for the focus outline according to <span class="code">$context</span>, and appends it to the current node of <span class="code">$snapshot</span>, without changing the current node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method render-focus ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the style context that defines the focus ring.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; X origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; Y origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$width; rectangle width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; rectangle height.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="render-frame"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">render-frame</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a render node for the CSS border according to <code>$context</code>, and appends it to the current node of <code>$snapshot</code>, without changing the current node.</p><pre class="pod-block-code">method render-frame ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )
-</pre><ul>
-<li><p>$context; the style context that defines the frame.</p></li>
-<li><p>$x; X origin of the rectangle.</p></li>
-<li><p>$y; Y origin of the rectangle.</p></li>
-<li><p>$width; rectangle width.</p></li>
-<li><p>$height; rectangle height.</p></li>
+<h2 id="render-frame" class="heading "><a href="#" title="go to top of document">render-frame</a><a class="raku-anchor" title="direct link" href="#render-frame">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a render node for the CSS border according to <span class="code">$context</span>, and appends it to the current node of <span class="code">$snapshot</span>, without changing the current node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method render-frame ( N-Object() $context, Num() $x, Num() $y, Num() $width, Num() $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the style context that defines the frame.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; X origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; Y origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$width; rectangle width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; rectangle height.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="render-insertion-cursor"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">render-insertion-cursor</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Draws a text caret using <code>$snapshot</code> at the specified index of <code>$layout</code>.</p><pre class="pod-block-code">method render-insertion-cursor ( N-Object() $context, Num() $x, Num() $y, N-Object() $layout, Int() $index, PangoDirection $direction )
-</pre><ul>
-<li><p>$context; a <a href="/content-docs/api2/reference/Gtk4/StyleContext.html">Gnome::Gtk4::StyleContext</a>.</p></li>
-<li><p>$x; X origin.</p></li>
-<li><p>$y; Y origin.</p></li>
-<li><p>$layout; the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> of the text.</p></li>
-<li><p>$index; the index in the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a>.</p></li>
-<li><p>$direction; the <code>enumeration PangoDirection defined in Gnome::Pango::T-direction</code> of the text.</p></li>
+<h2 id="render-insertion-cursor" class="heading "><a href="#" title="go to top of document">render-insertion-cursor</a><a class="raku-anchor" title="direct link" href="#render-insertion-cursor">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Draws a text caret using <span class="code">$snapshot</span> at the specified index of <span class="code">$layout</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method render-insertion-cursor ( N-Object() $context, Num() $x, Num() $y, N-Object() $layout, Int() $index, PangoDirection $direction )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; a <a href="/content-docs/api2/reference/Gtk4/StyleContext">Gnome::Gtk4::StyleContext</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; X origin.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; Y origin.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$layout; the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> of the text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$index; the index in the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$direction; the <span class="code">enumeration PangoDirection defined in Gnome::Pango::T-direction</span> of the text.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="render-layout"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">render-layout</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a render node for rendering <code>$layout</code> according to the style information in <code>$context</code>, and appends it to the current node of <code>$snapshot</code>, without changing the current node.</p><pre class="pod-block-code">method render-layout ( N-Object() $context, Num() $x, Num() $y, N-Object() $layout )
-</pre><ul>
-<li><p>$context; the style context that defines the text.</p></li>
-<li><p>$x; X origin of the rectangle.</p></li>
-<li><p>$y; Y origin of the rectangle.</p></li>
-<li><p>$layout; the <a href="/content-docs/api2/reference/Pango/Layout.html">Gnome::Pango::Layout</a> to render.</p></li>
+<h2 id="render-layout" class="heading "><a href="#" title="go to top of document">render-layout</a><a class="raku-anchor" title="direct link" href="#render-layout">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a render node for rendering <span class="code">$layout</span> according to the style information in <span class="code">$context</span>, and appends it to the current node of <span class="code">$snapshot</span>, without changing the current node. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method render-layout ( N-Object() $context, Num() $x, Num() $y, N-Object() $layout )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the style context that defines the text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; X origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; Y origin of the rectangle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$layout; the <a href="/content-docs/api2/reference/Pango/Layout">Gnome::Pango::Layout</a> to render.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="restore"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">restore</a></h2>
-<p>Restores <code>$snapshot</code> to the state saved by a preceding call to [method <code>$Snapshot</code>.save] and removes that state from the stack of saved states.</p><pre class="pod-block-code">method restore ( )
-</pre></section>
-<section name="pod">
-<h2 id="rotate"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">rotate</a></h2>
-<p>Rotates @ <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees in 2D space - or in 3D speak, rotates around the Z axis. The rotation happens around the origin point of (0, 0) in the <code>$snapshot</code>'s current coordinate system.</p><p>To rotate around axes other than the Z axis, use <a href="/content-docs/api2/reference/Gsk4/Transform.html#rotate3d">.rotate3d() in class Transform</a>.</p><pre class="pod-block-code">method rotate ( Num() $angle )
-</pre><ul>
-<li><p>$angle; the rotation angle, in degrees (clockwise).</p></li>
+<h2 id="restore" class="heading "><a href="#" title="go to top of document">restore</a><a class="raku-anchor" title="direct link" href="#restore">§</a></h2>
+
+<p>Restores <span class="code">$snapshot</span> to the state saved by a preceding call to [method <span class="code">$Snapshot</span>.save] and removes that state from the stack of saved states. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method restore ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="rotate" class="heading "><a href="#" title="go to top of document">rotate</a><a class="raku-anchor" title="direct link" href="#rotate">§</a></h2>
+
+<p>Rotates @ <span class="code">$snapshot</span>'s coordinate system by <span class="code">$angle</span> degrees in 2D space - or in 3D speak, rotates around the Z axis. The rotation happens around the origin point of (0, 0) in the <span class="code">$snapshot</span>'s current coordinate system. </p>
+
+<p>To rotate around axes other than the Z axis, use <a href="/content-docs/api2/reference/Gsk4/Transform#rotate3d">.rotate3d() in class Transform</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method rotate ( Num() $angle )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$angle; the rotation angle, in degrees (clockwise).</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="rotate3d"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">rotate3d</a></h2>
-<p>Rotates <code>$snapshot</code>'s coordinate system by <code>$angle</code> degrees around <code>$axis</code>.</p><p>For a rotation in 2D space, use <a href="/content-docs/api2/reference/Gsk4/Transform.html#rotate">.rotate() in class Transform</a>.</p><pre class="pod-block-code">method rotate3d ( Num() $angle, N-Object $axis )
-</pre><ul>
-<li><p>$angle; the rotation angle, in degrees (clockwise).</p></li>
-<li><p>$axis; The rotation axis</p></li>
+<h2 id="rotate3d" class="heading "><a href="#" title="go to top of document">rotate3d</a><a class="raku-anchor" title="direct link" href="#rotate3d">§</a></h2>
+
+<p>Rotates <span class="code">$snapshot</span>'s coordinate system by <span class="code">$angle</span> degrees around <span class="code">$axis</span>. </p>
+
+<p>For a rotation in 2D space, use <a href="/content-docs/api2/reference/Gsk4/Transform#rotate">.rotate() in class Transform</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method rotate3d ( Num() $angle, N-Object $axis )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$angle; the rotation angle, in degrees (clockwise).</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$axis; The rotation axis</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="save"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">save</a></h2>
-<p>Makes a copy of the current state of <code>$snapshot</code> and saves it on an internal stack.</p><p>When <a href="#restore">.restore()</a> is called, <code>$snapshot</code> will be restored to the saved state.</p><p>Multiple calls to <a href="#save">.save()</a> and <a href="#restore">.restore()</a> can be nested; each call to <strong>C</strong>&lt;.restore()&gt;` restores the state from the matching paired <strong>C</strong>&lt;.save()&gt;`.</p><p>It is necessary to clear all saved states with corresponding calls to <strong>C</strong>&lt;.restore()&gt;`.</p><pre class="pod-block-code">method save ( )
-</pre></section>
-<section name="pod">
-<h2 id="scale"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">scale</a></h2>
-<p>Scales <code>$snapshot</code>'s coordinate system in 2-dimensional space by the given factors.</p><p>Use <a href="#scale3d">.scale3d()</a> to scale in all 3 dimensions.</p><pre class="pod-block-code">method scale ( Num() $factor-x, Num() $factor-y )
-</pre><ul>
-<li><p>$factor-x; scaling factor on the X axis.</p></li>
-<li><p>$factor-y; scaling factor on the Y axis.</p></li>
+<h2 id="save" class="heading "><a href="#" title="go to top of document">save</a><a class="raku-anchor" title="direct link" href="#save">§</a></h2>
+
+<p>Makes a copy of the current state of <span class="code">$snapshot</span> and saves it on an internal stack. </p>
+
+<p>When <a href="#restore">.restore()</a> is called, <span class="code">$snapshot</span> will be restored to the saved state. </p>
+
+<p>Multiple calls to <a href="#save">.save()</a> and <a href="#restore">.restore()</a> can be nested; each call to <span class="basis">C</span>&lt;.restore()&gt;` restores the state from the matching paired <span class="basis">C</span>&lt;.save()&gt;`. </p>
+
+<p>It is necessary to clear all saved states with corresponding calls to <span class="basis">C</span>&lt;.restore()&gt;`. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="scale" class="heading "><a href="#" title="go to top of document">scale</a><a class="raku-anchor" title="direct link" href="#scale">§</a></h2>
+
+<p>Scales <span class="code">$snapshot</span>'s coordinate system in 2-dimensional space by the given factors. </p>
+
+<p>Use <a href="#scale3d">.scale3d()</a> to scale in all 3 dimensions. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method scale ( Num() $factor-x, Num() $factor-y )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factor-x; scaling factor on the X axis.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$factor-y; scaling factor on the Y axis.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="scale3d"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">scale3d</a></h2>
-<p>Scales <code>$snapshot</code>'s coordinate system by the given factors.</p><pre class="pod-block-code">method scale3d ( Num() $factor-x, Num() $factor-y, Num() $factor-z )
-</pre><ul>
-<li><p>$factor-x; scaling factor on the X axis.</p></li>
-<li><p>$factor-y; scaling factor on the Y axis.</p></li>
-<li><p>$factor-z; scaling factor on the Z axis.</p></li>
+<h2 id="scale3d" class="heading "><a href="#" title="go to top of document">scale3d</a><a class="raku-anchor" title="direct link" href="#scale3d">§</a></h2>
+
+<p>Scales <span class="code">$snapshot</span>'s coordinate system by the given factors. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method scale3d ( Num() $factor-x, Num() $factor-y, Num() $factor-z )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factor-x; scaling factor on the X axis.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$factor-y; scaling factor on the Y axis.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$factor-z; scaling factor on the Z axis.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="to-node"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">to-node</a></h2>
-<p>Returns the render node that was constructed by <code>$snapshot</code>.</p><p>Note that this function may return undefined if nothing has been added to the snapshot or if its content does not produce pixels to be rendered.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <a href="/content-docs/api2/reference/GObject/Object.html#unref">.unref() in class Object</a>.</p><pre class="pod-block-code">method to-node (--&gt; N-Object )
-</pre><p>Return value; the constructed <a href="/content-docs/api2/reference/Gsk4/RenderNode.html">Gnome::Gsk4::RenderNode</a> or undefined if there are no nodes to render.. </p></section>
-<section name="pod">
-<h2 id="to-paintable"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">to-paintable</a></h2>
-<p>Returns a paintable encapsulating the render node that was constructed by <code>$snapshot</code>.</p><p>After calling this function, it is no longer possible to add more nodes to <code>$snapshot</code>. The only function that should be called after this is <a href="/content-docs/api2/reference/GObject/Object.html#unref">.unref() in class Object</a>.</p><pre class="pod-block-code">method to-paintable ( N-Object $size --&gt; N-Object )
-</pre><ul>
-<li><p>$size; The size of the resulting paintable or undefined to use the bounds of the snapshot</p></li>
+<h2 id="to-node" class="heading "><a href="#" title="go to top of document">to-node</a><a class="raku-anchor" title="direct link" href="#to-node">§</a></h2>
+
+<p>Returns the render node that was constructed by <span class="code">$snapshot</span>. </p>
+
+<p id="Para_19">Note that this function may return undefined if nothing has been added to the snapshot or if its content does not produce pixels to be rendered.</p>
+
+<p>After calling this function, it is no longer possible to add more nodes to <span class="code">$snapshot</span>. The only function that should be called after this is <a href="/content-docs/api2/reference/GObject/Object#unref">.unref() in class Object</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method to-node (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the constructed <a href="/content-docs/api2/reference/Gsk4/RenderNode">Gnome::Gsk4::RenderNode</a> or undefined if there are no nodes to render.. </p>
+<h2 id="to-paintable" class="heading "><a href="#" title="go to top of document">to-paintable</a><a class="raku-anchor" title="direct link" href="#to-paintable">§</a></h2>
+
+<p>Returns a paintable encapsulating the render node that was constructed by <span class="code">$snapshot</span>. </p>
+
+<p>After calling this function, it is no longer possible to add more nodes to <span class="code">$snapshot</span>. The only function that should be called after this is <a href="/content-docs/api2/reference/GObject/Object#unref">.unref() in class Object</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method to-paintable ( N-Object $size --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$size; The size of the resulting paintable or undefined to use the bounds of the snapshot</li>
 </ul>
-<p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a>. </p></section>
-<section name="pod">
-<h2 id="transform"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">transform</a></h2>
-<p>Transforms <code>$snapshot</code>'s coordinate system with the given <code>$transform</code>.</p><pre class="pod-block-code">method transform ( N-Object $transform )
-</pre><ul>
-<li><p>$transform; the transform to apply</p></li>
+
+<p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a>. </p>
+<h2 id="transform" class="heading "><a href="#" title="go to top of document">transform</a><a class="raku-anchor" title="direct link" href="#transform">§</a></h2>
+
+<p>Transforms <span class="code">$snapshot</span>'s coordinate system with the given <span class="code">$transform</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method transform ( N-Object $transform )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$transform; the transform to apply</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="transform-matrix"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">transform-matrix</a></h2>
-<p>Transforms <code>$snapshot</code>'s coordinate system with the given <code>$matrix</code>.</p><pre class="pod-block-code">method transform-matrix ( N-Object $matrix )
-</pre><ul>
-<li><p>$matrix; the matrix to multiply the transform with</p></li>
+<h2 id="transform-matrix" class="heading "><a href="#" title="go to top of document">transform-matrix</a><a class="raku-anchor" title="direct link" href="#transform-matrix">§</a></h2>
+
+<p>Transforms <span class="code">$snapshot</span>'s coordinate system with the given <span class="code">$matrix</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method transform-matrix ( N-Object $matrix )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$matrix; the matrix to multiply the transform with</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="translate"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">translate</a></h2>
-<p>Translates <code>$snapshot</code>'s coordinate system by <code>$point</code> in 2-dimensional space.</p><pre class="pod-block-code">method translate ( N-Object $point )
-</pre><ul>
-<li><p>$point; the point to translate the snapshot by</p></li>
+<h2 id="translate" class="heading "><a href="#" title="go to top of document">translate</a><a class="raku-anchor" title="direct link" href="#translate">§</a></h2>
+
+<p>Translates <span class="code">$snapshot</span>'s coordinate system by <span class="code">$point</span> in 2-dimensional space. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method translate ( N-Object $point )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$point; the point to translate the snapshot by</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="translate3d"><a href="#Gnome::Gtk4::Snapshot" class="u" title="go to top of document">translate3d</a></h2>
-<p>Translates <code>$snapshot</code>'s coordinate system by <code>$point</code>.</p><pre class="pod-block-code">method translate3d ( N-Object $point )
-</pre><ul>
-<li><p>$point; the point to translate the snapshot by</p></li>
+<h2 id="translate3d" class="heading "><a href="#" title="go to top of document">translate3d</a><a class="raku-anchor" title="direct link" href="#translate3d">§</a></h2>
+
+<p>Translates <span class="code">$snapshot</span>'s coordinate system by <span class="code">$point</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method translate3d ( N-Object $point )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$point; the point to translate the snapshot by</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Snapshot.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:11Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Snapshot.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

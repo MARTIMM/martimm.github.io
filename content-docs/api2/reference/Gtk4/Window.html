@@ -1,538 +1,1488 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Window</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Window</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Window">Gnome::Gtk4::Window</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkWindow_as_GtkBuildable">GtkWindow as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Actions">Actions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-window">new-window</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#close">close</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#destroy">destroy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#fullscreen">fullscreen</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#fullscreen-on-monitor">fullscreen-on-monitor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-application">get-application</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-child">get-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-decorated">get-decorated</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-size">get-default-size</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-widget">get-default-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-deletable">get-deletable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-destroy-with-parent">get-destroy-with-parent</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus">get-focus</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus-visible">get-focus-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-group">get-group</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-handle-menubar-accel">get-handle-menubar-accel</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-hide-on-close">get-hide-on-close</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-icon-name">get-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-mnemonics-visible">get-mnemonics-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-modal">get-modal</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-resizable">get-resizable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-title">get-title</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-titlebar">get-titlebar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-transient-for">get-transient-for</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#has-group">has-group</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-active">is-active</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-fullscreen">is-fullscreen</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-maximized">is-maximized</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-suspended">is-suspended</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#maximize">maximize</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#minimize">minimize</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#present">present</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#present-with-time">present-with-time</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-application">set-application</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-child">set-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-decorated">set-decorated</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-size">set-default-size</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-widget">set-default-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-deletable">set-deletable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-destroy-with-parent">set-destroy-with-parent</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-display">set-display</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-focus">set-focus</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-focus-visible">set-focus-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-handle-menubar-accel">set-handle-menubar-accel</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-hide-on-close">set-hide-on-close</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-icon-name">set-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-mnemonics-visible">set-mnemonics-visible</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-modal">set-modal</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-resizable">set-resizable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-startup-id">set-startup-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-title">set-title</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-titlebar">set-titlebar</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-transient-for">set-transient-for</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unfullscreen">unfullscreen</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unmaximize">unmaximize</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unminimize">unminimize</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-icon-name">get-default-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-toplevels">get-toplevels</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#list-toplevels">list-toplevels</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-auto-startup-notification">set-auto-startup-notification</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-default-icon-name">set-default-icon-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-interactive-debugging">set-interactive-debugging</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate-default">activate-default</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate-focus">activate-focus</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#close-request">close-request</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#enable-debugging">enable-debugging</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#keys-changed">keys-changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Description</a></h1>
-<p>A <strong>Gnome::Gtk4::Window</strong> is a toplevel window which can contain other widgets.</p><div class="image-container inline"><img src="asset_files/images/window.png" width="30%" height="auto" alt="No caption"></div>
-<p>Windows normally have decorations that are under the control of the windowing system and allow the user to manipulate the window (resize it, move it, close it,...).</p>
-<h2 id="GtkWindow_as_GtkBuildable"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">GtkWindow as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::Window</strong> implementation of the <a href="/content-docs/api2/reference/gtk/Gnome-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports setting a child as the titlebar by specifying “titlebar” as the “type” attribute of a `&lt;child&gt;` element.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Window</strong> has a main CSS node with name window and style class .background.</p><p>Style classes that are typically used with the main CSS node are .csd (when client-side decorations are in use), .solid-csd (for client-side decorations without invisible borders), .ssd (used by mutter when rendering server-side decorations). GtkWindow also represents window states with the following style classes on the main node: .maximized, .fullscreen, .tiled (when supported, also .tiled-top, .tiled-left, .tiled-right, .tiled-bottom).</p><p><strong>Gnome::Gtk4::Window</strong> subclasses often add their own discriminating style classes, such as .dialog, .popup or .tooltip.</p><p>Generally, some CSS properties don't make sense on the toplevel window node, such as margins or padding. When client-side decorations without invisible borders are in use (i.e. the .solid-csd style class is added to the main window node), the CSS border of the toplevel window is used for resize drags. In the .csd case, the shadow area outside of the window can be used to resize it.</p><p><strong>Gnome::Gtk4::Window</strong> adds the .titlebar and .default-decoration style classes to the widget that is added as a titlebar child.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Accessibility</a></h2>
-<p>Until GTK 4.10, <strong>Gnome::Gtk4::Window</strong> used the <strong>GTK_ACCESSIBLE_ROLE_WINDOW</strong> role.</p><p>Since GTK 4.12, <strong>Gnome::Gtk4::Window</strong> uses the <strong>GTK_ACCESSIBLE_ROLE_APPLICATION</strong> role.</p>
-<h2 id="Actions"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Actions</a></h2>
-<p><strong>Gnome::Gtk4::Window</strong> defines a set of built-in actions:</p><ul>
-<li><p><strong>default</strong>.activate`: Activate the default widget.</p></li>
-<li><p><strong>window</strong>.minimize`: Minimize the window.</p></li>
-<li><p><strong>window</strong>.toggle-maximized`: Maximize or restore the window.</p></li>
-<li><p><strong>window</strong>.close`: Close the window.</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Window"></div><h1 class="title">Gnome::Gtk4::Window</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkWindow_as_GtkBuildable">GtkWindow as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Actions">Actions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-window">new-window</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#close">close</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#destroy">destroy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#fullscreen">fullscreen</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#fullscreen-on-monitor">fullscreen-on-monitor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-application">get-application</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-child">get-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-decorated">get-decorated</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default-size">get-default-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default-widget">get-default-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-deletable">get-deletable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-destroy-with-parent">get-destroy-with-parent</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-focus">get-focus</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-focus-visible">get-focus-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-group">get-group</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-handle-menubar-accel">get-handle-menubar-accel</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-hide-on-close">get-hide-on-close</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-icon-name">get-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-mnemonics-visible">get-mnemonics-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-modal">get-modal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-resizable">get-resizable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-title">get-title</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-titlebar">get-titlebar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-transient-for">get-transient-for</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#has-group">has-group</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-active">is-active</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-fullscreen">is-fullscreen</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-maximized">is-maximized</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-suspended">is-suspended</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#maximize">maximize</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#minimize">minimize</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#present">present</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#present-with-time">present-with-time</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-application">set-application</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-child">set-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-decorated">set-decorated</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default-size">set-default-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default-widget">set-default-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-deletable">set-deletable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-destroy-with-parent">set-destroy-with-parent</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-display">set-display</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-focus">set-focus</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-focus-visible">set-focus-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-handle-menubar-accel">set-handle-menubar-accel</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-hide-on-close">set-hide-on-close</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-icon-name">set-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-mnemonics-visible">set-mnemonics-visible</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-modal">set-modal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-resizable">set-resizable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-startup-id">set-startup-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-title">set-title</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-titlebar">set-titlebar</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-transient-for">set-transient-for</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unfullscreen">unfullscreen</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unmaximize">unmaximize</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unminimize">unminimize</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default-icon-name">get-default-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-toplevels">get-toplevels</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#list-toplevels">list-toplevels</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-auto-startup-notification">set-auto-startup-notification</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-default-icon-name">set-default-icon-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-interactive-debugging">set-interactive-debugging</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate-default">activate-default</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate-focus">activate-focus</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#close-request">close-request</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#enable-debugging">enable-debugging</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#keys-changed">keys-changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>A <span class="basis">Gnome::Gtk4::Window</span> is a toplevel window which can contain other widgets. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/window.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p id="Para">Windows normally have decorations that are under the control of the windowing system and allow the user to manipulate the window (resize it, move it, close it,...).</p>
+
+<div class="id-target" id="GtkWindow as GtkBuildable"></div><h2 id="GtkWindow_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkWindow as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkWindow as GtkBuildable">§</a></h2>
+
+<p>The <span class="basis">Gnome::Gtk4::Window</span> implementation of the <a href="/content-docs/api2/reference/gtk/Gnome-Buildable">Gnome::Gtk4::R-Buildable</a> interface supports setting a child as the titlebar by specifying “titlebar” as the “type” attribute of a `&lt;child&gt;` element. </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Window</span> has a main CSS node with name window and style class .background. </p>
+
+<p id="Para_0">Style classes that are typically used with the main CSS node are .csd (when client-side decorations are in use), .solid-csd (for client-side decorations without invisible borders), .ssd (used by mutter when rendering server-side decorations). GtkWindow also represents window states with the following style classes on the main node: .maximized, .fullscreen, .tiled (when supported, also .tiled-top, .tiled-left, .tiled-right, .tiled-bottom).</p>
+
+<p><span class="basis">Gnome::Gtk4::Window</span> subclasses often add their own discriminating style classes, such as .dialog, .popup or .tooltip. </p>
+
+<p id="Para_1">Generally, some CSS properties don't make sense on the toplevel window node, such as margins or padding. When client-side decorations without invisible borders are in use (i.e. the .solid-csd style class is added to the main window node), the CSS border of the toplevel window is used for resize drags. In the .csd case, the shadow area outside of the window can be used to resize it.</p>
+
+<p><span class="basis">Gnome::Gtk4::Window</span> adds the .titlebar and .default-decoration style classes to the widget that is added as a titlebar child. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p>Until GTK 4.10, <span class="basis">Gnome::Gtk4::Window</span> used the <span class="basis">GTK_ACCESSIBLE_ROLE_WINDOW</span> role. </p>
+
+<p>Since GTK 4.12, <span class="basis">Gnome::Gtk4::Window</span> uses the <span class="basis">GTK_ACCESSIBLE_ROLE_APPLICATION</span> role. </p>
+<h2 id="Actions" class="heading "><a href="#" title="go to top of document">Actions</a><a class="raku-anchor" title="direct link" href="#Actions">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Window</span> defines a set of built-in actions: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">default</span>.activate`: Activate the default widget.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">window</span>.minimize`: Minimize the window.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">window</span>.toggle-maximized`: Maximize or restore the window.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="basis">window</span>.close`: Close the window.</li>
 </ul>
 
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Window.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Class initialization</a></h1>
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
 
-<h2 id="new"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">new</a></h2>
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Window.png&gt; :width&lt;70\%&gt;<br><br>
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-window"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">new-window</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Window</strong>.</p><p>To get an undecorated window (no window borders), use <a href="#set-decorated">.set-decorated()</a>.</p><p>All top-level windows created by <code>.new-window()</code> are stored in an internal top-level window list. This list can be obtained from <a href="/content-docs/api2/reference/Gtk4/T-window.html#Window.list-toplevels">.Window.list-toplevels().Window.list-toplevels() in package Gnome::Gtk4</a>. Due to GTK keeping a reference to the window internally, <code>.new-window()</code> does not return a reference to the caller.</p><p>To delete a <strong>Gnome::Gtk4::Window</strong>, call <a href="#destroy">.destroy()</a>.</p><pre class="pod-block-code">method new-window ( --&gt; Gnome::Gtk4::Window )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="close"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">close</a></h2>
-<p>Requests that the window is closed.</p><p>This is similar to what happens when a window manager close button is clicked.</p><p>This function can be used with close buttons in custom titlebars.</p><pre class="pod-block-code">method close ( )
-</pre></section>
-<section name="pod">
-<h2 id="destroy"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">destroy</a></h2>
-<p>Drop the internal reference GTK holds on toplevel windows.</p><pre class="pod-block-code">method destroy ( )
-</pre></section>
-<section name="pod">
-<h2 id="fullscreen"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">fullscreen</a></h2>
-<p>Asks to place <code>$window</code> in the fullscreen state.</p><p>Note that you shouldn’t assume the window is definitely fullscreen afterward, because other entities (e.g. the user or window manager) unfullscreen it again, and not all window managers honor requests to fullscreen windows.</p><p>You can track the result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property, or by listening to notifications of the <em>fullscreened</em> property.</p><pre class="pod-block-code">method fullscreen ( )
-</pre></section>
-<section name="pod">
-<h2 id="fullscreen-on-monitor"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">fullscreen-on-monitor</a></h2>
-<p>Asks to place <code>$window</code> in the fullscreen state on the given <code>$monitor</code>.</p><p>Note that you shouldn't assume the window is definitely fullscreen afterward, or that the windowing system allows fullscreen windows on any given monitor.</p><p>You can track the result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property, or by listening to notifications of the <em>fullscreened</em> property.</p><pre class="pod-block-code">method fullscreen-on-monitor ( N-Object() $monitor )
-</pre><ul>
-<li><p>$monitor; which monitor to go fullscreen on.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-application"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-application</a></h2>
-<p>Gets the <a href="/content-docs/api2/reference/Gtk4/Application.html">Gnome::Gtk4::Application</a> associated with the window.</p><pre class="pod-block-code">method get-application (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Application.html">Gnome::Gtk4::Application</a>. </p></section>
-<section name="pod">
-<h2 id="get-child"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-child</a></h2>
-<p>Gets the child widget of <code>$window</code>.</p><pre class="pod-block-code">method get-child (--&gt; N-Object )
-</pre><p>Return value; the child widget of <code>$window</code>. </p></section>
-<section name="pod">
-<h2 id="get-decorated"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-decorated</a></h2>
-<p>Returns whether the window has been set to have decorations.</p><pre class="pod-block-code">method get-decorated (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window has been set to have decorations. </p></section>
-<section name="pod">
-<h2 id="get-default-size"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-default-size</a></h2>
-<p>Gets the default size of the window.</p><p>A value of 0 for the width or height indicates that a default size has not been explicitly set for that dimension, so the “natural” size of the window will be used.</p><p>This function is the recommended way for [saving window state across restarts of applications](https://developer.gnome.org/documentation/tutorials/save-state.html).</p><pre class="pod-block-code">method get-default-size ( Array[Int] $width, Array[Int] $height )
-</pre><ul>
-<li><p>$width; (transfer ownership: full) location to store the default width.</p></li>
-<li><p>$height; (transfer ownership: full) location to store the default height.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-default-widget"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-default-widget</a></h2>
-<p>Returns the default widget for <code>$window</code>.</p><pre class="pod-block-code">method get-default-widget (--&gt; N-Object )
-</pre><p>Return value; the default widget. </p></section>
-<section name="pod">
-<h2 id="get-deletable"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-deletable</a></h2>
-<p>Returns whether the window has been set to have a close button.</p><pre class="pod-block-code">method get-deletable (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window has been set to have a close button. </p></section>
-<section name="pod">
-<h2 id="get-destroy-with-parent"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-destroy-with-parent</a></h2>
-<p>Returns whether the window will be destroyed with its transient parent.</p><pre class="pod-block-code">method get-destroy-with-parent (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window will be destroyed with its transient parent.. </p></section>
-<section name="pod">
-<h2 id="get-focus"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-focus</a></h2>
-<p>Retrieves the current focused widget within the window.</p><p>Note that this is the widget that would have the focus if the toplevel window focused; if the toplevel window is not focused then <strong>gtk_widget_has_focus</strong> (widget)` will not be <code>True</code> for the widget.</p><pre class="pod-block-code">method get-focus (--&gt; N-Object )
-</pre><p>Return value; the currently focused widget. </p></section>
-<section name="pod">
-<h2 id="get-focus-visible"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-focus-visible</a></h2>
-<p>Gets whether “focus rectangles” are supposed to be visible.</p><pre class="pod-block-code">method get-focus-visible (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if “focus rectangles” are supposed to be visible in this window.. </p></section>
-<section name="pod">
-<h2 id="get-group"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-group</a></h2>
-<p>Returns the group for <code>$window</code>.</p><p>If the window has no group, then the default group is returned.</p><pre class="pod-block-code">method get-group (--&gt; N-Object )
-</pre><p>Return value; the <a href="/content-docs/api2/reference/Gtk4/WindowGroup.html">Gnome::Gtk4::WindowGroup</a> for a window or the default group. </p></section>
-<section name="pod">
-<h2 id="get-handle-menubar-accel"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-handle-menubar-accel</a></h2>
-<p>Returns whether this window reacts to F10 key presses by activating a menubar it contains.</p><pre class="pod-block-code">method get-handle-menubar-accel (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window handles F10. </p></section>
-<section name="pod">
-<h2 id="get-hide-on-close"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-hide-on-close</a></h2>
-<p>Returns whether the window will be hidden when the close button is clicked.</p><pre class="pod-block-code">method get-hide-on-close (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window will be hidden. </p></section>
-<section name="pod">
-<h2 id="get-icon-name"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-icon-name</a></h2>
-<p>Returns the name of the themed icon for the window.</p><pre class="pod-block-code">method get-icon-name (--&gt; Str )
-</pre><p>Return value; the icon name. </p></section>
-<section name="pod">
-<h2 id="get-mnemonics-visible"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-mnemonics-visible</a></h2>
-<p>Gets whether mnemonics are supposed to be visible.</p><pre class="pod-block-code">method get-mnemonics-visible (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if mnemonics are supposed to be visible in this window.. </p></section>
-<section name="pod">
-<h2 id="get-modal"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-modal</a></h2>
-<p>Returns whether the window is modal.</p><pre class="pod-block-code">method get-modal (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window is set to be modal and establishes a grab when shown. </p></section>
-<section name="pod">
-<h2 id="get-resizable"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-resizable</a></h2>
-<p>Gets the value set by <code>.set-resizable()</code>.</p><pre class="pod-block-code">method get-resizable (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the user can resize the window. </p></section>
-<section name="pod">
-<h2 id="get-title"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-title</a></h2>
-<p>Retrieves the title of the window.</p><pre class="pod-block-code">method get-title (--&gt; Str )
-</pre><p>Return value; the title of the window. </p></section>
-<section name="pod">
-<h2 id="get-titlebar"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-titlebar</a></h2>
-<p>Returns the custom titlebar that has been set with <code>.set-titlebar()</code>.</p><pre class="pod-block-code">method get-titlebar (--&gt; N-Object )
-</pre><p>Return value; the custom titlebar. </p></section>
-<section name="pod">
-<h2 id="get-transient-for"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-transient-for</a></h2>
-<p>Fetches the transient parent for this window.</p><pre class="pod-block-code">method get-transient-for (--&gt; N-Object )
-</pre><p>Return value; the transient parent for this window. </p></section>
-<section name="pod">
-<h2 id="has-group"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">has-group</a></h2>
-<p>Returns whether <code>$window</code> has an explicit window group.</p><pre class="pod-block-code">method has-group (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$window</code> has an explicit window group.. </p></section>
-<section name="pod">
-<h2 id="is-active"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">is-active</a></h2>
-<p>Returns whether the window is part of the current active toplevel.</p><p>The active toplevel is the window receiving keystrokes.</p><p>The return value is <code>True</code> if the window is active toplevel itself. You might use this function if you wanted to draw a widget differently in an active window from a widget in an inactive window.</p><pre class="pod-block-code">method is-active (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the window part of the current active window.. </p></section>
-<section name="pod">
-<h2 id="is-fullscreen"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">is-fullscreen</a></h2>
-<p>Retrieves the current fullscreen state of <code>$window</code>.</p><p>Note that since fullscreening is ultimately handled by the window manager and happens asynchronously to an application request, you shouldn’t assume the return value of this function changing immediately (or at all), as an effect of calling <a href="#fullscreen">.fullscreen()</a> or <a href="#unfullscreen">.unfullscreen()</a>.</p><p>If the window isn't yet mapped, the value returned will whether the initial requested state is fullscreen.</p><pre class="pod-block-code">method is-fullscreen (--&gt; Bool )
-</pre><p>Return value; whether the window has a fullscreen state.. </p></section>
-<section name="pod">
-<h2 id="is-maximized"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">is-maximized</a></h2>
-<p>Retrieves the current maximized state of <code>$window</code>.</p><p>Note that since maximization is ultimately handled by the window manager and happens asynchronously to an application request, you shouldn’t assume the return value of this function changing immediately (or at all), as an effect of calling <a href="#maximize">.maximize()</a> or <a href="#unmaximize">.unmaximize()</a>.</p><p>If the window isn't yet mapped, the value returned will whether the initial requested state is maximized.</p><pre class="pod-block-code">method is-maximized (--&gt; Bool )
-</pre><p>Return value; whether the window has a maximized state.. </p></section>
-<section name="pod">
-<h2 id="is-suspended"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">is-suspended</a></h2>
-<p>Retrieves the current suspended state of <code>$window</code>.</p><p>A window being suspended means it's currently not visible to the user, for example by being on a inactive workspace, minimized, obstructed.</p><pre class="pod-block-code">method is-suspended (--&gt; Bool )
-</pre><p>Return value; whether the window is suspended.. </p></section>
-<section name="pod">
-<h2 id="maximize"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">maximize</a></h2>
-<p>Asks to maximize <code>$window</code>, so that it fills the screen.</p><p>Note that you shouldn’t assume the window is definitely maximized afterward, because other entities (e.g. the user or window manager) could unmaximize it again, and not all window managers support maximization.</p><p>It’s permitted to call this function before showing a window, in which case the window will be maximized when it appears onscreen initially.</p><p>You can track the result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property, or by listening to notifications on the <em>maximized</em> property.</p><pre class="pod-block-code">method maximize ( )
-</pre></section>
-<section name="pod">
-<h2 id="minimize"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">minimize</a></h2>
-<p>Asks to minimize the specified <code>$window</code>.</p><p>Note that you shouldn’t assume the window is definitely minimized afterward, because the windowing system might not support this functionality; other entities (e.g. the user or the window manager) could unminimize it again, or there may not be a window manager in which case minimization isn’t possible, etc.</p><p>It’s permitted to call this function before showing a window, in which case the window will be minimized before it ever appears onscreen.</p><p>You can track result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property.</p><pre class="pod-block-code">method minimize ( )
-</pre></section>
-<section name="pod">
-<h2 id="present"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">present</a></h2>
-<p>Presents a window to the user.</p><p>This may mean raising the window in the stacking order, unminimizing it, moving it to the current desktop and/or giving it the keyboard focus (possibly dependent on the user’s platform, window manager and preferences).</p><p>If <code>$window</code> is hidden, this function also makes it visible.</p><pre class="pod-block-code">method present ( )
-</pre></section>
-<section name="pod">
-<h2 id="present-with-time"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">present-with-time</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.14</strong></p><p>Presents a window to the user in response to an user interaction.</p><p>See <a href="#present">.present()</a> for more details.</p><p>The timestamp should be gathered when the window was requested to be shown (when clicking a link for example), rather than once the window is ready to be shown.</p><pre class="pod-block-code">method present-with-time ( UInt() $timestamp )
-</pre><ul>
-<li><p>$timestamp; the timestamp of the user interaction (typically a button or key press event) which triggered this call.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-application"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-application</a></h2>
-<p>Sets or unsets the <a href="/content-docs/api2/reference/Gtk4/Application.html">Gnome::Gtk4::Application</a> associated with the window.</p><p>The application will be kept alive for at least as long as it has any windows associated with it (see g_application_hold() for a way to keep it alive without windows).</p><p>Normally, the connection between the application and the window will remain until the window is destroyed, but you can explicitly remove it by setting the <code>$application</code> to undefined.</p><p>This is equivalent to calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#remove-window">.remove-window() in class Gnome</a> and/or <a href="/content-docs/api2/reference/Gtk4/Gnome.html#add-window">.add-window() in class Gnome</a> on the old/new applications as relevant.</p><pre class="pod-block-code">method set-application ( N-Object() $application )
-</pre><ul>
-<li><p>$application; a <a href="/content-docs/api2/reference/Gtk4/Application.html">Gnome::Gtk4::Application</a>, or undefined to unset.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-child"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-child</a></h2>
-<p>Sets the child widget of <code>$window</code>.</p><pre class="pod-block-code">method set-child ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the child widget.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-decorated"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-decorated</a></h2>
-<p>Sets whether the window should be decorated.</p><p>By default, windows are decorated with a title bar, resize controls, etc. Some window managers allow GTK to disable these decorations, creating a borderless window. If you set the decorated property to <code>False</code> using this function, GTK will do its best to convince the window manager not to decorate the window. Depending on the system, this function may not have any effect when called on a window that is already visible, so you should call it before calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#show">.show() in class Gnome</a>.</p><p>On Windows, this function always works, since there’s no window manager policy involved.</p><pre class="pod-block-code">method set-decorated ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; <code>True</code> to decorate the window.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default-size"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-default-size</a></h2>
-<p>Sets the default size of a window.</p><p>The default size of a window is the size that will be used if no other constraints apply.</p><p>The default size will be updated whenever the window is resized to reflect the new size, unless the window is forced to a size, like when it is maximized or fullscreened.</p><p>If the window’s minimum size request is larger than the default, the default will be ignored.</p><p>Setting the default size to a value &lt;= 0 will cause it to be ignored and the natural size request will be used instead. It is possible to do this while the window is showing to &quot;reset&quot; it to its initial size.</p><p>Unlike <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-size-request">.set-size-request() in class Gnome</a>, which sets a size request for a widget and thus would keep users from shrinking the window, this function only sets the initial size, just as if the user had resized the window themselves. Users can still shrink the window again as they normally would. Setting a default size of -1 means to use the “natural” default size (the size request of the window).</p><p>If you use this function to reestablish a previously saved window size, note that the appropriate size to save is the one returned by <a href="#get-default-size">.get-default-size()</a>. Using the window allocation directly will not work in all circumstances and can lead to growing or shrinking windows.</p><pre class="pod-block-code">method set-default-size ( Int() $width, Int() $height )
-</pre><ul>
-<li><p>$width; width in pixels, or -1 to unset the default width.</p></li>
-<li><p>$height; height in pixels, or -1 to unset the default height.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default-widget"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-default-widget</a></h2>
-<p>Sets the default widget.</p><p>The default widget is the widget that is activated when the user presses Enter in a dialog (for example).</p><pre class="pod-block-code">method set-default-widget ( N-Object() $default-widget )
-</pre><ul>
-<li><p>$default-widget; widget to be the default to unset the default widget for the toplevel.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-deletable"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-deletable</a></h2>
-<p>Sets whether the window should be deletable.</p><p>By default, windows have a close button in the window frame. Some window managers allow GTK to disable this button. If you set the deletable property to <code>False</code> using this function, GTK will do its best to convince the window manager not to show a close button. Depending on the system, this function may not have any effect when called on a window that is already visible, so you should call it before calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#show">.show() in class Gnome</a>.</p><p>On Windows, this function always works, since there’s no window manager policy involved.</p><pre class="pod-block-code">method set-deletable ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; <code>True</code> to decorate the window as deletable.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-destroy-with-parent"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-destroy-with-parent</a></h2>
-<p>If <code>$setting</code> is <code>True</code>, then destroying the transient parent of <code>$window</code> will also destroy <code>$window</code> itself.</p><p>This is useful for dialogs that shouldn’t persist beyond the lifetime of the main window they are associated with, for example.</p><pre class="pod-block-code">method set-destroy-with-parent ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; whether to destroy <code>$window</code> with its transient parent.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-display"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-display</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a> where the <code>$window</code> is displayed.</p><p>If the window is already mapped, it will be unmapped, and then remapped on the new display.</p><pre class="pod-block-code">method set-display ( N-Object() $display )
-</pre><ul>
-<li><p>$display; a <a href="/content-docs/api2/reference/Gdk4/Display.html">Gnome::Gdk4::Display</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-focus"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-focus</a></h2>
-<p>Sets the focus widget.</p><p>If <code>$focus</code> is not the current focus widget, and is focusable, sets it as the focus widget for the window. If <code>$focus</code> is undefined, unsets the focus widget for this window. To set the focus to a particular widget in the toplevel, it is usually more convenient to use <a href="/content-docs/api2/reference/Gtk4/Gnome.html#grab-focus">.grab-focus() in class Gnome</a> instead of this function.</p><pre class="pod-block-code">method set-focus ( N-Object() $focus )
-</pre><ul>
-<li><p>$focus; widget to be the new focus widget, or undefined to unset any focus widget for the toplevel window..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-focus-visible"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-focus-visible</a></h2>
-<p>Sets whether “focus rectangles” are supposed to be visible.</p><p>This property is maintained by GTK based on user input, and should not be set by applications.</p><pre class="pod-block-code">method set-focus-visible ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; the new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-handle-menubar-accel"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-handle-menubar-accel</a></h2>
-<p>Sets whether this window should react to F10 key presses by activating a menubar it contains.</p><pre class="pod-block-code">method set-handle-menubar-accel ( Bool() $handle-menubar-accel )
-</pre><ul>
-<li><p>$handle-menubar-accel; <code>True</code> to make <code>$window</code> handle F10.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-hide-on-close"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-hide-on-close</a></h2>
-<p>If <code>$setting</code> is <code>True</code>, then clicking the close button on the window will not destroy it, but only hide it.</p><pre class="pod-block-code">method set-hide-on-close ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; whether to hide the window when it is closed.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-icon-name"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-icon-name</a></h2>
-<p>Sets the icon for the window from a named themed icon.</p><p>See the docs for <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::IconTheme</a> for more details. On some platforms, the window icon is not used at all.</p><p>Note that this has nothing to do with the WM_ICON_NAME property which is mentioned in the ICCCM.</p><pre class="pod-block-code">method set-icon-name ( Str $name )
-</pre><ul>
-<li><p>$name; the name of the themed icon.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-mnemonics-visible"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-mnemonics-visible</a></h2>
-<p>Sets whether mnemonics are supposed to be visible.</p><p>This property is maintained by GTK based on user input, and should not be set by applications.</p><pre class="pod-block-code">method set-mnemonics-visible ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; the new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-modal"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-modal</a></h2>
-<p>Sets a window modal or non-modal.</p><p>Modal windows prevent interaction with other windows in the same application. To keep modal dialogs on top of main application windows, use <a href="#set-transient-for">.set-transient-for()</a> to make the dialog transient for the parent; most window managers will then disallow lowering the dialog below the parent.</p><pre class="pod-block-code">method set-modal ( Bool() $modal )
-</pre><ul>
-<li><p>$modal; whether the window is modal.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-resizable"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-resizable</a></h2>
-<p>Sets whether the user can resize a window.</p><p>Windows are user resizable by default.</p><pre class="pod-block-code">method set-resizable ( Bool() $resizable )
-</pre><ul>
-<li><p>$resizable; <code>True</code> if the user can resize this window.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-startup-id"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-startup-id</a></h2>
-<p>Sets the startup notification ID.</p><p>Startup notification identifiers are used by desktop environment to track application startup, to provide user feedback and other features. This function changes the corresponding property on the underlying <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a>.</p><p>Normally, startup identifier is managed automatically and you should only use this function in special cases like transferring focus from other processes. You should use this function before calling <a href="#present">.present()</a> or any equivalent function generating a window map event.</p><p>This function is only useful on X11, not with other GTK targets.</p><pre class="pod-block-code">method set-startup-id ( Str $startup-id )
-</pre><ul>
-<li><p>$startup-id; a string with startup-notification identifier.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-title"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-title</a></h2>
-<p>Sets the title of the <strong>Gnome::Gtk4::Window</strong>.</p><p>The title of a window will be displayed in its title bar; on the X Window System, the title bar is rendered by the window manager so exactly how the title appears to users may vary according to a user’s exact configuration. The title should help a user distinguish this window from other windows they may have open. A good title might include the application name and current document filename, for example.</p><p>Passing undefined does the same as setting the title to an empty string.</p><pre class="pod-block-code">method set-title ( Str $title )
-</pre><ul>
-<li><p>$title; title of the window.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-titlebar"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-titlebar</a></h2>
-<p>Sets a custom titlebar for <code>$window</code>.</p><p>A typical widget used here is <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::HeaderBar</a>, as it provides various features expected of a titlebar while allowing the addition of child widgets to it.</p><p>If you set a custom titlebar, GTK will do its best to convince the window manager not to put its own titlebar on the window. Depending on the system, this function may not work for a window that is already visible, so you set the titlebar before calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#show">.show() in class Gnome</a>.</p><pre class="pod-block-code">method set-titlebar ( N-Object() $titlebar )
-</pre><ul>
-<li><p>$titlebar; the widget to use as titlebar.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-transient-for"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-transient-for</a></h2>
-<p>Dialog windows should be set transient for the main application window they were spawned from. This allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window. <a href="/content-docs/api2/reference/Gtk4/Gnome.html#new-with-buttons">.new-with-buttons() in class Gnome</a> and other convenience functions in GTK will sometimes call <code>.set-transient-for()</code> on your behalf.</p><p>Passing undefined for <code>$parent</code> unsets the current transient window.</p><p>On Windows, this function puts the child window on top of the parent, much as the window manager would have done on X.</p><pre class="pod-block-code">method set-transient-for ( N-Object() $parent )
-</pre><ul>
-<li><p>$parent; parent window.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unfullscreen"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">unfullscreen</a></h2>
-<p>Asks to remove the fullscreen state for <code>$window</code>, and return to its previous state.</p><p>Note that you shouldn’t assume the window is definitely not fullscreen afterward, because other entities (e.g. the user or window manager) could fullscreen it again, and not all window managers honor requests to unfullscreen windows; normally the window will end up restored to its normal state. Just don’t write code that crashes if not.</p><p>You can track the result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property, or by listening to notifications of the <em>fullscreened</em> property.</p><pre class="pod-block-code">method unfullscreen ( )
-</pre></section>
-<section name="pod">
-<h2 id="unmaximize"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">unmaximize</a></h2>
-<p>Asks to unmaximize <code>$window</code>.</p><p>Note that you shouldn’t assume the window is definitely unmaximized afterward, because other entities (e.g. the user or window manager) maximize it again, and not all window managers honor requests to unmaximize.</p><p>You can track the result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property, or by listening to notifications on the <em>maximized</em> property.</p><pre class="pod-block-code">method unmaximize ( )
-</pre></section>
-<section name="pod">
-<h2 id="unminimize"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">unminimize</a></h2>
-<p>Asks to unminimize the specified <code>$window</code>.</p><p>Note that you shouldn’t assume the window is definitely unminimized afterward, because the windowing system might not support this functionality; other entities (e.g. the user or the window manager) could minimize it again, or there may not be a window manager in which case minimization isn’t possible, etc.</p><p>You can track result of this operation via the <em>state defined in Gnome::Gdk4::R-Toplevel</em> property.</p><pre class="pod-block-code">method unminimize ( )
-</pre></section>
-<section name="pod">
-<h1 id="Functions"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Functions</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-default-icon-name"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-default-icon-name</a></h2>
-<p>Returns the fallback icon name for windows.</p><p>The returned string is owned by GTK and should not be modified. It is only valid until the next call to <a href="/content-docs/api2/reference/Gtk4/T-window.html#Window.set-default-icon-name">.Window.set-default-icon-name().Window.set-default-icon-name() in package Gnome::Gtk4</a>.</p><pre class="pod-block-code">method get-default-icon-name (--&gt; Str )
-</pre><p>Return value; the fallback icon name for windows. </p></section>
-<section name="pod">
-<h2 id="get-toplevels"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">get-toplevels</a></h2>
-<p>Returns a list of all existing toplevel windows.</p><p>If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets or add new ones, be aware that the list of toplevels will change and emit the &quot;items-changed&quot; signal.</p><pre class="pod-block-code">method get-toplevels (--&gt; N-List )
-</pre><p>Return value; the list of toplevel widgets. </p></section>
-<section name="pod">
-<h2 id="list-toplevels"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">list-toplevels</a></h2>
-<p>Returns a list of all existing toplevel windows.</p><p>The widgets in the list are not individually referenced. If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets, you must call <strong>g_list_foreach</strong> (result, (GFunc)g_object_ref, NULL)` first, and then unref all the widgets afterwards.</p><pre class="pod-block-code">method list-toplevels (--&gt; N-List )
-</pre><p>Return value; list of toplevel widgets. </p></section>
-<section name="pod">
-<h2 id="set-auto-startup-notification"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-auto-startup-notification</a></h2>
-<p>Sets whether the window should request startup notification.</p><p>By default, after showing the first <strong>Gnome::Gtk4::Window</strong>, GTK calls <a href="/content-docs/api2/reference/Gdk4/Gnome-Toplevel.html#set-startup-id">.set-startup-id() in class Gnome-Toplevel</a>. Call this function to disable the automatic startup notification. You might do this if your first window is a splash screen, and you want to delay notification until after your real main window has been shown, for example.</p><p>In that example, you would disable startup notification temporarily, show your splash screen, then re-enable it so that showing the main window would automatically result in notification.</p><pre class="pod-block-code">method set-auto-startup-notification ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; <code>True</code> to automatically do startup notification.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-default-icon-name"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-default-icon-name</a></h2>
-<p>Sets an icon to be used as fallback.</p><p>The fallback icon is used for windows that haven't had <a href="#set-icon-name">.set-icon-name()</a> called on them.</p><pre class="pod-block-code">method set-default-icon-name ( Str $name )
-</pre><ul>
-<li><p>$name; the name of the themed icon.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-interactive-debugging"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">set-interactive-debugging</a></h2>
-<p>Opens or closes the [interactive debugger](running.html#interactive-debugging).</p><p>The debugger offers access to the widget hierarchy of the application and to useful debugging tools.</p><p>This function allows applications that already use &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;<em>/kbd</em> (or &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;
-<span class="RakudocNoFormatCode"><span>unknown format-code D</span>&lt;<span>/kbd</span>|<span></span>&gt;</span>) for their own key shortcuts to add a different shortcut to open the Inspector.</p><p>If you are not overriding the default key shortcuts for the Inspector, you should not use this function.</p><pre class="pod-block-code">method set-interactive-debugging ( Bool() $enable )
-</pre><ul>
-<li><p>$enable; <code>True</code> to enable interactive debugging.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">Signals</a></h1>
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
 
-<h3 id="activate-default"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">activate-default</a></h3>
-<p>Emitted when the user activates the default widget of <code>$window</code>.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><pre class="pod-block-code">method handler (
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-window" class="heading "><a href="#" title="go to top of document">new-window</a><a class="raku-anchor" title="direct link" href="#new-window">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Window</span>. </p>
+
+<p>To get an undecorated window (no window borders), use <a href="#set-decorated">.set-decorated()</a>. </p>
+
+<p>All top-level windows created by <span class="code">.new-window()</span> are stored in an internal top-level window list. This list can be obtained from <a href="/content-docs/api2/reference/Gtk4/T-window#Window.list-toplevels">.Window.list-toplevels().Window.list-toplevels() in package Gnome::Gtk4</a>. Due to GTK keeping a reference to the window internally, <span class="code">.new-window()</span> does not return a reference to the caller. </p>
+
+<p>To delete a <span class="basis">Gnome::Gtk4::Window</span>, call <a href="#destroy">.destroy()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-window ( --&gt; Gnome::Gtk4::Window )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="close" class="heading "><a href="#" title="go to top of document">close</a><a class="raku-anchor" title="direct link" href="#close">§</a></h2>
+
+<p id="Para_2">Requests that the window is closed.</p>
+
+<p id="Para_3">This is similar to what happens when a window manager close button is clicked.</p>
+
+<p id="Para_4">This function can be used with close buttons in custom titlebars.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method close ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="destroy" class="heading "><a href="#" title="go to top of document">destroy</a><a class="raku-anchor" title="direct link" href="#destroy">§</a></h2>
+
+<p id="Para_5">Drop the internal reference GTK holds on toplevel windows.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method destroy ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="fullscreen" class="heading "><a href="#" title="go to top of document">fullscreen</a><a class="raku-anchor" title="direct link" href="#fullscreen">§</a></h2>
+
+<p>Asks to place <span class="code">$window</span> in the fullscreen state. </p>
+
+<p id="Para_6">Note that you shouldn’t assume the window is definitely fullscreen afterward, because other entities (e.g. the user or window manager) unfullscreen it again, and not all window managers honor requests to fullscreen windows.</p>
+
+<p>You can track the result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property, or by listening to notifications of the <span class="important">fullscreened</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method fullscreen ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="fullscreen-on-monitor" class="heading "><a href="#" title="go to top of document">fullscreen-on-monitor</a><a class="raku-anchor" title="direct link" href="#fullscreen-on-monitor">§</a></h2>
+
+<p>Asks to place <span class="code">$window</span> in the fullscreen state on the given <span class="code">$monitor</span>. </p>
+
+<p id="Para_7">Note that you shouldn't assume the window is definitely fullscreen afterward, or that the windowing system allows fullscreen windows on any given monitor.</p>
+
+<p>You can track the result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property, or by listening to notifications of the <span class="important">fullscreened</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method fullscreen-on-monitor ( N-Object() $monitor )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$monitor; which monitor to go fullscreen on.</li>
+</ul>
+<h2 id="get-application" class="heading "><a href="#" title="go to top of document">get-application</a><a class="raku-anchor" title="direct link" href="#get-application">§</a></h2>
+
+<p>Gets the <a href="/content-docs/api2/reference/Gtk4/Application">Gnome::Gtk4::Application</a> associated with the window. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-application (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Application">Gnome::Gtk4::Application</a>. </p>
+<h2 id="get-child" class="heading "><a href="#" title="go to top of document">get-child</a><a class="raku-anchor" title="direct link" href="#get-child">§</a></h2>
+
+<p>Gets the child widget of <span class="code">$window</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-child (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the child widget of <span class="code">$window</span>. </p>
+<h2 id="get-decorated" class="heading "><a href="#" title="go to top of document">get-decorated</a><a class="raku-anchor" title="direct link" href="#get-decorated">§</a></h2>
+
+<p id="Para_8">Returns whether the window has been set to have decorations.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-decorated (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window has been set to have decorations. </p>
+<h2 id="get-default-size" class="heading "><a href="#" title="go to top of document">get-default-size</a><a class="raku-anchor" title="direct link" href="#get-default-size">§</a></h2>
+
+<p id="Para_9">Gets the default size of the window.</p>
+
+<p id="Para_10">A value of 0 for the width or height indicates that a default size has not been explicitly set for that dimension, so the “natural” size of the window will be used.</p>
+
+<p id="Para_11">This function is the recommended way for [saving window state across restarts of applications](https://developer.gnome.org/documentation/tutorials/save-state.html).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default-size ( Array[Int] $width, Array[Int] $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$width; (transfer ownership: full) location to store the default width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; (transfer ownership: full) location to store the default height.</li>
+</ul>
+<h2 id="get-default-widget" class="heading "><a href="#" title="go to top of document">get-default-widget</a><a class="raku-anchor" title="direct link" href="#get-default-widget">§</a></h2>
+
+<p>Returns the default widget for <span class="code">$window</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default-widget (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_12">Return value; the default widget.</p>
+<h2 id="get-deletable" class="heading "><a href="#" title="go to top of document">get-deletable</a><a class="raku-anchor" title="direct link" href="#get-deletable">§</a></h2>
+
+<p id="Para_13">Returns whether the window has been set to have a close button.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-deletable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window has been set to have a close button. </p>
+<h2 id="get-destroy-with-parent" class="heading "><a href="#" title="go to top of document">get-destroy-with-parent</a><a class="raku-anchor" title="direct link" href="#get-destroy-with-parent">§</a></h2>
+
+<p id="Para_14">Returns whether the window will be destroyed with its transient parent.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-destroy-with-parent (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window will be destroyed with its transient parent.. </p>
+<h2 id="get-focus" class="heading "><a href="#" title="go to top of document">get-focus</a><a class="raku-anchor" title="direct link" href="#get-focus">§</a></h2>
+
+<p id="Para_15">Retrieves the current focused widget within the window.</p>
+
+<p>Note that this is the widget that would have the focus if the toplevel window focused; if the toplevel window is not focused then <span class="basis">gtk_widget_has_focus</span> (widget)` will not be <span class="code">True</span> for the widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-focus (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_16">Return value; the currently focused widget.</p>
+<h2 id="get-focus-visible" class="heading "><a href="#" title="go to top of document">get-focus-visible</a><a class="raku-anchor" title="direct link" href="#get-focus-visible">§</a></h2>
+
+<p id="Para_17">Gets whether “focus rectangles” are supposed to be visible.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-focus-visible (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if “focus rectangles” are supposed to be visible in this window.. </p>
+<h2 id="get-group" class="heading "><a href="#" title="go to top of document">get-group</a><a class="raku-anchor" title="direct link" href="#get-group">§</a></h2>
+
+<p>Returns the group for <span class="code">$window</span>. </p>
+
+<p id="Para_18">If the window has no group, then the default group is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-group (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/WindowGroup">Gnome::Gtk4::WindowGroup</a> for a window or the default group. </p>
+<h2 id="get-handle-menubar-accel" class="heading "><a href="#" title="go to top of document">get-handle-menubar-accel</a><a class="raku-anchor" title="direct link" href="#get-handle-menubar-accel">§</a></h2>
+
+<p id="Para_19">Returns whether this window reacts to F10 key presses by activating a menubar it contains.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-handle-menubar-accel (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window handles F10. </p>
+<h2 id="get-hide-on-close" class="heading "><a href="#" title="go to top of document">get-hide-on-close</a><a class="raku-anchor" title="direct link" href="#get-hide-on-close">§</a></h2>
+
+<p id="Para_20">Returns whether the window will be hidden when the close button is clicked.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-hide-on-close (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window will be hidden. </p>
+<h2 id="get-icon-name" class="heading "><a href="#" title="go to top of document">get-icon-name</a><a class="raku-anchor" title="direct link" href="#get-icon-name">§</a></h2>
+
+<p id="Para_21">Returns the name of the themed icon for the window.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-icon-name (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_22">Return value; the icon name.</p>
+<h2 id="get-mnemonics-visible" class="heading "><a href="#" title="go to top of document">get-mnemonics-visible</a><a class="raku-anchor" title="direct link" href="#get-mnemonics-visible">§</a></h2>
+
+<p id="Para_23">Gets whether mnemonics are supposed to be visible.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-mnemonics-visible (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if mnemonics are supposed to be visible in this window.. </p>
+<h2 id="get-modal" class="heading "><a href="#" title="go to top of document">get-modal</a><a class="raku-anchor" title="direct link" href="#get-modal">§</a></h2>
+
+<p id="Para_24">Returns whether the window is modal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-modal (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window is set to be modal and establishes a grab when shown. </p>
+<h2 id="get-resizable" class="heading "><a href="#" title="go to top of document">get-resizable</a><a class="raku-anchor" title="direct link" href="#get-resizable">§</a></h2>
+
+<p>Gets the value set by <span class="code">.set-resizable()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-resizable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the user can resize the window. </p>
+<h2 id="get-title" class="heading "><a href="#" title="go to top of document">get-title</a><a class="raku-anchor" title="direct link" href="#get-title">§</a></h2>
+
+<p id="Para_25">Retrieves the title of the window.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-title (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_26">Return value; the title of the window.</p>
+<h2 id="get-titlebar" class="heading "><a href="#" title="go to top of document">get-titlebar</a><a class="raku-anchor" title="direct link" href="#get-titlebar">§</a></h2>
+
+<p>Returns the custom titlebar that has been set with <span class="code">.set-titlebar()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-titlebar (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_27">Return value; the custom titlebar.</p>
+<h2 id="get-transient-for" class="heading "><a href="#" title="go to top of document">get-transient-for</a><a class="raku-anchor" title="direct link" href="#get-transient-for">§</a></h2>
+
+<p id="Para_28">Fetches the transient parent for this window.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-transient-for (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_29">Return value; the transient parent for this window.</p>
+<h2 id="has-group" class="heading "><a href="#" title="go to top of document">has-group</a><a class="raku-anchor" title="direct link" href="#has-group">§</a></h2>
+
+<p>Returns whether <span class="code">$window</span> has an explicit window group. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method has-group (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$window</span> has an explicit window group.. </p>
+<h2 id="is-active" class="heading "><a href="#" title="go to top of document">is-active</a><a class="raku-anchor" title="direct link" href="#is-active">§</a></h2>
+
+<p id="Para_30">Returns whether the window is part of the current active toplevel.</p>
+
+<p id="Para_31">The active toplevel is the window receiving keystrokes.</p>
+
+<p>The return value is <span class="code">True</span> if the window is active toplevel itself. You might use this function if you wanted to draw a widget differently in an active window from a widget in an inactive window. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-active (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the window part of the current active window.. </p>
+<h2 id="is-fullscreen" class="heading "><a href="#" title="go to top of document">is-fullscreen</a><a class="raku-anchor" title="direct link" href="#is-fullscreen">§</a></h2>
+
+<p>Retrieves the current fullscreen state of <span class="code">$window</span>. </p>
+
+<p>Note that since fullscreening is ultimately handled by the window manager and happens asynchronously to an application request, you shouldn’t assume the return value of this function changing immediately (or at all), as an effect of calling <a href="#fullscreen">.fullscreen()</a> or <a href="#unfullscreen">.unfullscreen()</a>. </p>
+
+<p id="Para_32">If the window isn't yet mapped, the value returned will whether the initial requested state is fullscreen.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-fullscreen (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_33">Return value; whether the window has a fullscreen state..</p>
+<h2 id="is-maximized" class="heading "><a href="#" title="go to top of document">is-maximized</a><a class="raku-anchor" title="direct link" href="#is-maximized">§</a></h2>
+
+<p>Retrieves the current maximized state of <span class="code">$window</span>. </p>
+
+<p>Note that since maximization is ultimately handled by the window manager and happens asynchronously to an application request, you shouldn’t assume the return value of this function changing immediately (or at all), as an effect of calling <a href="#maximize">.maximize()</a> or <a href="#unmaximize">.unmaximize()</a>. </p>
+
+<p id="Para_34">If the window isn't yet mapped, the value returned will whether the initial requested state is maximized.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-maximized (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_35">Return value; whether the window has a maximized state..</p>
+<h2 id="is-suspended" class="heading "><a href="#" title="go to top of document">is-suspended</a><a class="raku-anchor" title="direct link" href="#is-suspended">§</a></h2>
+
+<p>Retrieves the current suspended state of <span class="code">$window</span>. </p>
+
+<p id="Para_36">A window being suspended means it's currently not visible to the user, for example by being on a inactive workspace, minimized, obstructed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-suspended (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_37">Return value; whether the window is suspended..</p>
+<h2 id="maximize" class="heading "><a href="#" title="go to top of document">maximize</a><a class="raku-anchor" title="direct link" href="#maximize">§</a></h2>
+
+<p>Asks to maximize <span class="code">$window</span>, so that it fills the screen. </p>
+
+<p id="Para_38">Note that you shouldn’t assume the window is definitely maximized afterward, because other entities (e.g. the user or window manager) could unmaximize it again, and not all window managers support maximization.</p>
+
+<p id="Para_39">It’s permitted to call this function before showing a window, in which case the window will be maximized when it appears onscreen initially.</p>
+
+<p>You can track the result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property, or by listening to notifications on the <span class="important">maximized</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method maximize ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="minimize" class="heading "><a href="#" title="go to top of document">minimize</a><a class="raku-anchor" title="direct link" href="#minimize">§</a></h2>
+
+<p>Asks to minimize the specified <span class="code">$window</span>. </p>
+
+<p id="Para_40">Note that you shouldn’t assume the window is definitely minimized afterward, because the windowing system might not support this functionality; other entities (e.g. the user or the window manager) could unminimize it again, or there may not be a window manager in which case minimization isn’t possible, etc.</p>
+
+<p id="Para_41">It’s permitted to call this function before showing a window, in which case the window will be minimized before it ever appears onscreen.</p>
+
+<p>You can track result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method minimize ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="present" class="heading "><a href="#" title="go to top of document">present</a><a class="raku-anchor" title="direct link" href="#present">§</a></h2>
+
+<p id="Para_42">Presents a window to the user.</p>
+
+<p id="Para_43">This may mean raising the window in the stacking order, unminimizing it, moving it to the current desktop and/or giving it the keyboard focus (possibly dependent on the user’s platform, window manager and preferences).</p>
+
+<p>If <span class="code">$window</span> is hidden, this function also makes it visible. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method present ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="present-with-time" class="heading "><a href="#" title="go to top of document">present-with-time</a><a class="raku-anchor" title="direct link" href="#present-with-time">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.14</span> </p>
+
+<p id="Para_44">Presents a window to the user in response to an user interaction.</p>
+
+<p>See <a href="#present">.present()</a> for more details. </p>
+
+<p id="Para_45">The timestamp should be gathered when the window was requested to be shown (when clicking a link for example), rather than once the window is ready to be shown.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method present-with-time ( UInt() $timestamp )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$timestamp; the timestamp of the user interaction (typically a button or key press event) which triggered this call.</li>
+</ul>
+<h2 id="set-application" class="heading "><a href="#" title="go to top of document">set-application</a><a class="raku-anchor" title="direct link" href="#set-application">§</a></h2>
+
+<p>Sets or unsets the <a href="/content-docs/api2/reference/Gtk4/Application">Gnome::Gtk4::Application</a> associated with the window. </p>
+
+<p id="Para_46">The application will be kept alive for at least as long as it has any windows associated with it (see g_application_hold() for a way to keep it alive without windows).</p>
+
+<p>Normally, the connection between the application and the window will remain until the window is destroyed, but you can explicitly remove it by setting the <span class="code">$application</span> to undefined. </p>
+
+<p>This is equivalent to calling <a href="/content-docs/api2/reference/Gtk4/Gnome#remove-window">.remove-window() in class Gnome</a> and/or <a href="/content-docs/api2/reference/Gtk4/Gnome#add-window">.add-window() in class Gnome</a> on the old/new applications as relevant. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-application ( N-Object() $application )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$application; a <a href="/content-docs/api2/reference/Gtk4/Application">Gnome::Gtk4::Application</a>, or undefined to unset.</li>
+</ul>
+<h2 id="set-child" class="heading "><a href="#" title="go to top of document">set-child</a><a class="raku-anchor" title="direct link" href="#set-child">§</a></h2>
+
+<p>Sets the child widget of <span class="code">$window</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-child ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child widget.</li>
+</ul>
+<h2 id="set-decorated" class="heading "><a href="#" title="go to top of document">set-decorated</a><a class="raku-anchor" title="direct link" href="#set-decorated">§</a></h2>
+
+<p id="Para_47">Sets whether the window should be decorated.</p>
+
+<p>By default, windows are decorated with a title bar, resize controls, etc. Some window managers allow GTK to disable these decorations, creating a borderless window. If you set the decorated property to <span class="code">False</span> using this function, GTK will do its best to convince the window manager not to decorate the window. Depending on the system, this function may not have any effect when called on a window that is already visible, so you should call it before calling <a href="/content-docs/api2/reference/Gtk4/Gnome#show">.show() in class Gnome</a>. </p>
+
+<p id="Para_48">On Windows, this function always works, since there’s no window manager policy involved.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-decorated ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> to decorate the window.</li>
+</ul>
+<h2 id="set-default-size" class="heading "><a href="#" title="go to top of document">set-default-size</a><a class="raku-anchor" title="direct link" href="#set-default-size">§</a></h2>
+
+<p id="Para_49">Sets the default size of a window.</p>
+
+<p id="Para_50">The default size of a window is the size that will be used if no other constraints apply.</p>
+
+<p id="Para_51">The default size will be updated whenever the window is resized to reflect the new size, unless the window is forced to a size, like when it is maximized or fullscreened.</p>
+
+<p id="Para_52">If the window’s minimum size request is larger than the default, the default will be ignored.</p>
+
+<p id="Para_53">Setting the default size to a value &lt;= 0 will cause it to be ignored and the natural size request will be used instead. It is possible to do this while the window is showing to &quot;reset&quot; it to its initial size.</p>
+
+<p>Unlike <a href="/content-docs/api2/reference/Gtk4/Gnome#set-size-request">.set-size-request() in class Gnome</a>, which sets a size request for a widget and thus would keep users from shrinking the window, this function only sets the initial size, just as if the user had resized the window themselves. Users can still shrink the window again as they normally would. Setting a default size of -1 means to use the “natural” default size (the size request of the window). </p>
+
+<p>If you use this function to reestablish a previously saved window size, note that the appropriate size to save is the one returned by <a href="#get-default-size">.get-default-size()</a>. Using the window allocation directly will not work in all circumstances and can lead to growing or shrinking windows. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default-size ( Int() $width, Int() $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$width; width in pixels, or -1 to unset the default width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; height in pixels, or -1 to unset the default height.</li>
+</ul>
+<h2 id="set-default-widget" class="heading "><a href="#" title="go to top of document">set-default-widget</a><a class="raku-anchor" title="direct link" href="#set-default-widget">§</a></h2>
+
+<p id="Para_54">Sets the default widget.</p>
+
+<p id="Para_55">The default widget is the widget that is activated when the user presses Enter in a dialog (for example).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default-widget ( N-Object() $default-widget )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$default-widget; widget to be the default to unset the default widget for the toplevel.</li>
+</ul>
+<h2 id="set-deletable" class="heading "><a href="#" title="go to top of document">set-deletable</a><a class="raku-anchor" title="direct link" href="#set-deletable">§</a></h2>
+
+<p id="Para_56">Sets whether the window should be deletable.</p>
+
+<p>By default, windows have a close button in the window frame. Some window managers allow GTK to disable this button. If you set the deletable property to <span class="code">False</span> using this function, GTK will do its best to convince the window manager not to show a close button. Depending on the system, this function may not have any effect when called on a window that is already visible, so you should call it before calling <a href="/content-docs/api2/reference/Gtk4/Gnome#show">.show() in class Gnome</a>. </p>
+
+<p id="Para_57">On Windows, this function always works, since there’s no window manager policy involved.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-deletable ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> to decorate the window as deletable.</li>
+</ul>
+<h2 id="set-destroy-with-parent" class="heading "><a href="#" title="go to top of document">set-destroy-with-parent</a><a class="raku-anchor" title="direct link" href="#set-destroy-with-parent">§</a></h2>
+
+<p>If <span class="code">$setting</span> is <span class="code">True</span>, then destroying the transient parent of <span class="code">$window</span> will also destroy <span class="code">$window</span> itself. </p>
+
+<p id="Para_58">This is useful for dialogs that shouldn’t persist beyond the lifetime of the main window they are associated with, for example.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-destroy-with-parent ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; whether to destroy <span class="code">$window</span> with its transient parent.</li>
+</ul>
+<h2 id="set-display" class="heading "><a href="#" title="go to top of document">set-display</a><a class="raku-anchor" title="direct link" href="#set-display">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a> where the <span class="code">$window</span> is displayed. </p>
+
+<p id="Para_59">If the window is already mapped, it will be unmapped, and then remapped on the new display.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-display ( N-Object() $display )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$display; a <a href="/content-docs/api2/reference/Gdk4/Display">Gnome::Gdk4::Display</a>.</li>
+</ul>
+<h2 id="set-focus" class="heading "><a href="#" title="go to top of document">set-focus</a><a class="raku-anchor" title="direct link" href="#set-focus">§</a></h2>
+
+<p id="Para_60">Sets the focus widget.</p>
+
+<p>If <span class="code">$focus</span> is not the current focus widget, and is focusable, sets it as the focus widget for the window. If <span class="code">$focus</span> is undefined, unsets the focus widget for this window. To set the focus to a particular widget in the toplevel, it is usually more convenient to use <a href="/content-docs/api2/reference/Gtk4/Gnome#grab-focus">.grab-focus() in class Gnome</a> instead of this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-focus ( N-Object() $focus )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$focus; widget to be the new focus widget, or undefined to unset any focus widget for the toplevel window..</li>
+</ul>
+<h2 id="set-focus-visible" class="heading "><a href="#" title="go to top of document">set-focus-visible</a><a class="raku-anchor" title="direct link" href="#set-focus-visible">§</a></h2>
+
+<p id="Para_61">Sets whether “focus rectangles” are supposed to be visible.</p>
+
+<p id="Para_62">This property is maintained by GTK based on user input, and should not be set by applications.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-focus-visible ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; the new value.</li>
+</ul>
+<h2 id="set-handle-menubar-accel" class="heading "><a href="#" title="go to top of document">set-handle-menubar-accel</a><a class="raku-anchor" title="direct link" href="#set-handle-menubar-accel">§</a></h2>
+
+<p id="Para_63">Sets whether this window should react to F10 key presses by activating a menubar it contains.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-handle-menubar-accel ( Bool() $handle-menubar-accel )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$handle-menubar-accel; <span class="code">True</span> to make <span class="code">$window</span> handle F10.</li>
+</ul>
+<h2 id="set-hide-on-close" class="heading "><a href="#" title="go to top of document">set-hide-on-close</a><a class="raku-anchor" title="direct link" href="#set-hide-on-close">§</a></h2>
+
+<p>If <span class="code">$setting</span> is <span class="code">True</span>, then clicking the close button on the window will not destroy it, but only hide it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-hide-on-close ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; whether to hide the window when it is closed.</li>
+</ul>
+<h2 id="set-icon-name" class="heading "><a href="#" title="go to top of document">set-icon-name</a><a class="raku-anchor" title="direct link" href="#set-icon-name">§</a></h2>
+
+<p id="Para_64">Sets the icon for the window from a named themed icon.</p>
+
+<p>See the docs for <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::IconTheme</a> for more details. On some platforms, the window icon is not used at all. </p>
+
+<p id="Para_65">Note that this has nothing to do with the WM_ICON_NAME property which is mentioned in the ICCCM.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-icon-name ( Str $name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the themed icon.</li>
+</ul>
+<h2 id="set-mnemonics-visible" class="heading "><a href="#" title="go to top of document">set-mnemonics-visible</a><a class="raku-anchor" title="direct link" href="#set-mnemonics-visible">§</a></h2>
+
+<p id="Para_66">Sets whether mnemonics are supposed to be visible.</p>
+
+<p id="Para_67">This property is maintained by GTK based on user input, and should not be set by applications.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-mnemonics-visible ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; the new value.</li>
+</ul>
+<h2 id="set-modal" class="heading "><a href="#" title="go to top of document">set-modal</a><a class="raku-anchor" title="direct link" href="#set-modal">§</a></h2>
+
+<p id="Para_68">Sets a window modal or non-modal.</p>
+
+<p>Modal windows prevent interaction with other windows in the same application. To keep modal dialogs on top of main application windows, use <a href="#set-transient-for">.set-transient-for()</a> to make the dialog transient for the parent; most window managers will then disallow lowering the dialog below the parent. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-modal ( Bool() $modal )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$modal; whether the window is modal.</li>
+</ul>
+<h2 id="set-resizable" class="heading "><a href="#" title="go to top of document">set-resizable</a><a class="raku-anchor" title="direct link" href="#set-resizable">§</a></h2>
+
+<p id="Para_69">Sets whether the user can resize a window.</p>
+
+<p id="Para_70">Windows are user resizable by default.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-resizable ( Bool() $resizable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$resizable; <span class="code">True</span> if the user can resize this window.</li>
+</ul>
+<h2 id="set-startup-id" class="heading "><a href="#" title="go to top of document">set-startup-id</a><a class="raku-anchor" title="direct link" href="#set-startup-id">§</a></h2>
+
+<p id="Para_71">Sets the startup notification ID.</p>
+
+<p>Startup notification identifiers are used by desktop environment to track application startup, to provide user feedback and other features. This function changes the corresponding property on the underlying <a href="/content-docs/api2/reference/Gdk4/Surface">Gnome::Gdk4::Surface</a>. </p>
+
+<p>Normally, startup identifier is managed automatically and you should only use this function in special cases like transferring focus from other processes. You should use this function before calling <a href="#present">.present()</a> or any equivalent function generating a window map event. </p>
+
+<p id="Para_72">This function is only useful on X11, not with other GTK targets.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-startup-id ( Str $startup-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$startup-id; a string with startup-notification identifier.</li>
+</ul>
+<h2 id="set-title" class="heading "><a href="#" title="go to top of document">set-title</a><a class="raku-anchor" title="direct link" href="#set-title">§</a></h2>
+
+<p>Sets the title of the <span class="basis">Gnome::Gtk4::Window</span>. </p>
+
+<p id="Para_73">The title of a window will be displayed in its title bar; on the X Window System, the title bar is rendered by the window manager so exactly how the title appears to users may vary according to a user’s exact configuration. The title should help a user distinguish this window from other windows they may have open. A good title might include the application name and current document filename, for example.</p>
+
+<p id="Para_74">Passing undefined does the same as setting the title to an empty string.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-title ( Str $title )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$title; title of the window.</li>
+</ul>
+<h2 id="set-titlebar" class="heading "><a href="#" title="go to top of document">set-titlebar</a><a class="raku-anchor" title="direct link" href="#set-titlebar">§</a></h2>
+
+<p>Sets a custom titlebar for <span class="code">$window</span>. </p>
+
+<p>A typical widget used here is <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::HeaderBar</a>, as it provides various features expected of a titlebar while allowing the addition of child widgets to it. </p>
+
+<p>If you set a custom titlebar, GTK will do its best to convince the window manager not to put its own titlebar on the window. Depending on the system, this function may not work for a window that is already visible, so you set the titlebar before calling <a href="/content-docs/api2/reference/Gtk4/Gnome#show">.show() in class Gnome</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-titlebar ( N-Object() $titlebar )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$titlebar; the widget to use as titlebar.</li>
+</ul>
+<h2 id="set-transient-for" class="heading "><a href="#" title="go to top of document">set-transient-for</a><a class="raku-anchor" title="direct link" href="#set-transient-for">§</a></h2>
+
+<p>Dialog windows should be set transient for the main application window they were spawned from. This allows window managers to e.g. keep the dialog on top of the main window, or center the dialog over the main window. <a href="/content-docs/api2/reference/Gtk4/Gnome#new-with-buttons">.new-with-buttons() in class Gnome</a> and other convenience functions in GTK will sometimes call <span class="code">.set-transient-for()</span> on your behalf. </p>
+
+<p>Passing undefined for <span class="code">$parent</span> unsets the current transient window. </p>
+
+<p id="Para_75">On Windows, this function puts the child window on top of the parent, much as the window manager would have done on X.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-transient-for ( N-Object() $parent )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$parent; parent window.</li>
+</ul>
+<h2 id="unfullscreen" class="heading "><a href="#" title="go to top of document">unfullscreen</a><a class="raku-anchor" title="direct link" href="#unfullscreen">§</a></h2>
+
+<p>Asks to remove the fullscreen state for <span class="code">$window</span>, and return to its previous state. </p>
+
+<p id="Para_76">Note that you shouldn’t assume the window is definitely not fullscreen afterward, because other entities (e.g. the user or window manager) could fullscreen it again, and not all window managers honor requests to unfullscreen windows; normally the window will end up restored to its normal state. Just don’t write code that crashes if not.</p>
+
+<p>You can track the result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property, or by listening to notifications of the <span class="important">fullscreened</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unfullscreen ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="unmaximize" class="heading "><a href="#" title="go to top of document">unmaximize</a><a class="raku-anchor" title="direct link" href="#unmaximize">§</a></h2>
+
+<p>Asks to unmaximize <span class="code">$window</span>. </p>
+
+<p id="Para_77">Note that you shouldn’t assume the window is definitely unmaximized afterward, because other entities (e.g. the user or window manager) maximize it again, and not all window managers honor requests to unmaximize.</p>
+
+<p>You can track the result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property, or by listening to notifications on the <span class="important">maximized</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unmaximize ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="unminimize" class="heading "><a href="#" title="go to top of document">unminimize</a><a class="raku-anchor" title="direct link" href="#unminimize">§</a></h2>
+
+<p>Asks to unminimize the specified <span class="code">$window</span>. </p>
+
+<p id="Para_78">Note that you shouldn’t assume the window is definitely unminimized afterward, because the windowing system might not support this functionality; other entities (e.g. the user or the window manager) could minimize it again, or there may not be a window manager in which case minimization isn’t possible, etc.</p>
+
+<p>You can track result of this operation via the <span class="important">state defined in Gnome::Gdk4::R-Toplevel</span> property. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unminimize ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="get-default-icon-name" class="heading "><a href="#" title="go to top of document">get-default-icon-name</a><a class="raku-anchor" title="direct link" href="#get-default-icon-name">§</a></h2>
+
+<p id="Para_79">Returns the fallback icon name for windows.</p>
+
+<p>The returned string is owned by GTK and should not be modified. It is only valid until the next call to <a href="/content-docs/api2/reference/Gtk4/T-window#Window.set-default-icon-name">.Window.set-default-icon-name().Window.set-default-icon-name() in package Gnome::Gtk4</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default-icon-name (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_80">Return value; the fallback icon name for windows.</p>
+<h2 id="get-toplevels" class="heading "><a href="#" title="go to top of document">get-toplevels</a><a class="raku-anchor" title="direct link" href="#get-toplevels">§</a></h2>
+
+<p id="Para_81">Returns a list of all existing toplevel windows.</p>
+
+<p id="Para_82">If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets or add new ones, be aware that the list of toplevels will change and emit the &quot;items-changed&quot; signal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-toplevels (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_83">Return value; the list of toplevel widgets.</p>
+<h2 id="list-toplevels" class="heading "><a href="#" title="go to top of document">list-toplevels</a><a class="raku-anchor" title="direct link" href="#list-toplevels">§</a></h2>
+
+<p id="Para_84">Returns a list of all existing toplevel windows.</p>
+
+<p>The widgets in the list are not individually referenced. If you want to iterate through the list and perform actions involving callbacks that might destroy the widgets, you must call <span class="basis">g_list_foreach</span> (result, (GFunc)g_object_ref, NULL)` first, and then unref all the widgets afterwards. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method list-toplevels (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_85">Return value; list of toplevel widgets.</p>
+<h2 id="set-auto-startup-notification" class="heading "><a href="#" title="go to top of document">set-auto-startup-notification</a><a class="raku-anchor" title="direct link" href="#set-auto-startup-notification">§</a></h2>
+
+<p id="Para_86">Sets whether the window should request startup notification.</p>
+
+<p>By default, after showing the first <span class="basis">Gnome::Gtk4::Window</span>, GTK calls <a href="/content-docs/api2/reference/Gdk4/Gnome-Toplevel#set-startup-id">.set-startup-id() in class Gnome-Toplevel</a>. Call this function to disable the automatic startup notification. You might do this if your first window is a splash screen, and you want to delay notification until after your real main window has been shown, for example. </p>
+
+<p id="Para_87">In that example, you would disable startup notification temporarily, show your splash screen, then re-enable it so that showing the main window would automatically result in notification.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-auto-startup-notification ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> to automatically do startup notification.</li>
+</ul>
+<h2 id="set-default-icon-name" class="heading "><a href="#" title="go to top of document">set-default-icon-name</a><a class="raku-anchor" title="direct link" href="#set-default-icon-name">§</a></h2>
+
+<p id="Para_88">Sets an icon to be used as fallback.</p>
+
+<p>The fallback icon is used for windows that haven't had <a href="#set-icon-name">.set-icon-name()</a> called on them. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-default-icon-name ( Str $name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the themed icon.</li>
+</ul>
+<h2 id="set-interactive-debugging" class="heading "><a href="#" title="go to top of document">set-interactive-debugging</a><a class="raku-anchor" title="direct link" href="#set-interactive-debugging">§</a></h2>
+
+<p id="Para_89">Opens or closes the [interactive debugger](running.html#interactive-debugging).</p>
+
+<p id="Para_90">The debugger offers access to the widget hierarchy of the application and to useful debugging tools.</p>
+
+<p>This function allows applications that already use &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;<span class="important">/kbd</span> (or &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;<span class="basis">/kbd</span>) for their own key shortcuts to add a different shortcut to open the Inspector. </p>
+
+<p id="Para_91">If you are not overriding the default key shortcuts for the Inspector, you should not use this function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-interactive-debugging ( Bool() $enable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$enable; <span class="code">True</span> to enable interactive debugging.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate-default" class="heading "><a href="#" title="go to top of document">activate-default</a><a class="raku-anchor" title="direct link" href="#activate-default">§</a></h3>
+
+<p>Emitted when the user activates the default widget of <span class="code">$window</span>. </p>
+
+<p id="Para_92">This is a [keybinding signal](class.SignalAction.html).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Window :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Window</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="activate-focus"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">activate-focus</a></h3>
-<p>Emitted when the user activates the currently focused widget of <code>$window</code>.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Window</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="activate-focus" class="heading "><a href="#" title="go to top of document">activate-focus</a><a class="raku-anchor" title="direct link" href="#activate-focus">§</a></h3>
+
+<p>Emitted when the user activates the currently focused widget of <span class="code">$window</span>. </p>
+
+<p id="Para_93">This is a [keybinding signal](class.SignalAction.html).</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Window :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Window</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="close-request"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">close-request</a></h3>
-<p>Emitted when the user clicks on the close button of the window.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Window</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="close-request" class="heading "><a href="#" title="go to top of document">close-request</a><a class="raku-anchor" title="direct link" href="#close-request">§</a></h3>
+
+<p id="Para_94">Emitted when the user clicks on the close button of the window.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Window :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Window</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Window</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-<p>Return value; <code>True</code> to stop other handlers from being invoked for the signal</p>
-<h3 id="enable-debugging"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">enable-debugging</a></h3>
-<p>Emitted when the user enables or disables interactive debugging.</p><p>When <code>$toggle</code> is <code>True</code>, interactive debugging is toggled on or off, when it is <code>False</code>, the debugger will be pointed at the widget under the pointer.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are Ctrl-Shift-I and Ctrl-Shift-D.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> to stop other handlers from being invoked for the signal </p>
+<h3 id="enable-debugging" class="heading "><a href="#" title="go to top of document">enable-debugging</a><a class="raku-anchor" title="direct link" href="#enable-debugging">§</a></h3>
+
+<p id="Para_95">Emitted when the user enables or disables interactive debugging.</p>
+
+<p>When <span class="code">$toggle</span> is <span class="code">True</span>, interactive debugging is toggled on or off, when it is <span class="code">False</span>, the debugger will be pointed at the widget under the pointer. </p>
+
+<p id="Para_96">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_97">The default bindings for this signal are Ctrl-Shift-I and Ctrl-Shift-D.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gboolean $toggle,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Window :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$toggle; toggle the debugger.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Window</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$toggle; toggle the debugger.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Window</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-<p>Return value; <code>True</code> if the key binding was handled</p>
-<h3 id="keys-changed"><a href="#Gnome::Gtk4::Window" class="u" title="go to top of document">keys-changed</a></h3>
-<p>emitted when the set of accelerators or mnemonics that are associated with <code>$window</code> changes.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> if the key binding was handled </p>
+<h3 id="keys-changed" class="heading "><a href="#" title="go to top of document">keys-changed</a><a class="raku-anchor" title="direct link" href="#keys-changed">§</a></h3>
+
+<p>emitted when the set of accelerators or mnemonics that are associated with <span class="code">$window</span> changes. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Window :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Window</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Window</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Window.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:37Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Window.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

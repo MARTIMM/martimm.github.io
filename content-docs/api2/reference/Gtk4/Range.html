@@ -1,222 +1,773 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Range</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Range</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Range">Gnome::Gtk4::Range</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-adjustment">get-adjustment</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-fill-level">get-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-flippable">get-flippable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-inverted">get-inverted</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-range-rect">get-range-rect</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-restrict-to-fill-level">get-restrict-to-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-round-digits">get-round-digits</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-fill-level">get-show-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-slider-range">get-slider-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-slider-size-fixed">get-slider-size-fixed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-value">get-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-adjustment">set-adjustment</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-fill-level">set-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-flippable">set-flippable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-increments">set-increments</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-inverted">set-inverted</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-range">set-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-restrict-to-fill-level">set-restrict-to-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-round-digits">set-round-digits</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-fill-level">set-show-fill-level</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-slider-size-fixed">set-slider-size-fixed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-value">set-value</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#adjust-bounds">adjust-bounds</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#change-value">change-value</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#move-slider">move-slider</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#value-changed">value-changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Range</strong> is the common base class for widgets which visualize an adjustment.</p><p>Widgets that are derived from <strong>Gnome::Gtk4::Range</strong> include <a href="/content-docs/api2/reference/Gtk4/Scale.html">Gnome::Gtk4::Scale</a> and <a href="/content-docs/api2/reference/Gtk4/Scrollbar.html">Gnome::Gtk4::Scrollbar</a>.</p><p>Apart from signals for monitoring the parameters of the adjustment, <strong>Gnome::Gtk4::Range</strong> provides properties and methods for setting a “fill level” on range widgets. See <a href="#set-fill-level">.set-fill-level()</a>.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Range.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-adjustment"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-adjustment</a></h2>
-<p>Get the adjustment which is the “model” object for <strong>Gnome::Gtk4::Range</strong>.</p><pre class="pod-block-code">method get-adjustment (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Adjustment.html">Gnome::Gtk4::Adjustment</a>. </p></section>
-<section name="pod">
-<h2 id="get-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-fill-level</a></h2>
-<p>Gets the current position of the fill level indicator.</p><pre class="pod-block-code">method get-fill-level (--&gt; Num )
-</pre><p>Return value; The current fill level. </p></section>
-<section name="pod">
-<h2 id="get-flippable"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-flippable</a></h2>
-<p>Gets whether the <strong>Gnome::Gtk4::Range</strong> respects text direction.</p><p>See <a href="#set-flippable">.set-flippable()</a>.</p><pre class="pod-block-code">method get-flippable (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the range is flippable. </p></section>
-<section name="pod">
-<h2 id="get-inverted"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-inverted</a></h2>
-<p>Gets whether the range is inverted.</p><p>See <a href="#set-inverted">.set-inverted()</a>.</p><pre class="pod-block-code">method get-inverted (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the range is inverted. </p></section>
-<section name="pod">
-<h2 id="get-range-rect"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-range-rect</a></h2>
-<p>This function returns the area that contains the range’s trough, in coordinates relative to <code>$range</code>'s origin.</p><p>This function is useful mainly for <strong>Gnome::Gtk4::Range</strong> subclasses.</p><pre class="pod-block-code">method get-range-rect ( N-Object $range-rect )
-</pre><ul>
-<li><p>$range-rect; return location for the range rectangle</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-restrict-to-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-restrict-to-fill-level</a></h2>
-<p>Gets whether the range is restricted to the fill level.</p><pre class="pod-block-code">method get-restrict-to-fill-level (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$range</code> is restricted to the fill level.. </p></section>
-<section name="pod">
-<h2 id="get-round-digits"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-round-digits</a></h2>
-<p>Gets the number of digits to round the value to when it changes.</p><p>See <em>change-value</em>.</p><pre class="pod-block-code">method get-round-digits (--&gt; Int )
-</pre><p>Return value; the number of digits to round to. </p></section>
-<section name="pod">
-<h2 id="get-show-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-show-fill-level</a></h2>
-<p>Gets whether the range displays the fill level graphically.</p><pre class="pod-block-code">method get-show-fill-level (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$range</code> shows the fill level.. </p></section>
-<section name="pod">
-<h2 id="get-slider-range"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-slider-range</a></h2>
-<p>This function returns sliders range along the long dimension, in widget-&gt;window coordinates.</p><p>This function is useful mainly for <strong>Gnome::Gtk4::Range</strong> subclasses.</p><pre class="pod-block-code">method get-slider-range ( Array[Int] $slider-start, Array[Int] $slider-end )
-</pre><ul>
-<li><p>$slider-start; (transfer ownership: full) return location for the slider's start.</p></li>
-<li><p>$slider-end; (transfer ownership: full) return location for the slider's end.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-slider-size-fixed"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-slider-size-fixed</a></h2>
-<p>This function is useful mainly for <strong>Gnome::Gtk4::Range</strong> subclasses.</p><p>See <a href="#set-slider-size-fixed">.set-slider-size-fixed()</a>.</p><pre class="pod-block-code">method get-slider-size-fixed (--&gt; Bool )
-</pre><p>Return value; whether the range’s slider has a fixed size.. </p></section>
-<section name="pod">
-<h2 id="get-value"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">get-value</a></h2>
-<p>Gets the current value of the range.</p><pre class="pod-block-code">method get-value (--&gt; Num )
-</pre><p>Return value; current value of the range.. </p></section>
-<section name="pod">
-<h2 id="set-adjustment"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-adjustment</a></h2>
-<p>Sets the adjustment to be used as the “model” object for the <strong>Gnome::Gtk4::Range</strong></p><p>The adjustment indicates the current range value, the minimum and maximum range values, the step/page increments used for keybindings and scrolling, and the page size.</p><p>The page size is normally 0 for <a href="/content-docs/api2/reference/Gtk4/Scale.html">Gnome::Gtk4::Scale</a> and nonzero for <a href="/content-docs/api2/reference/Gtk4/Scrollbar.html">Gnome::Gtk4::Scrollbar</a>, and indicates the size of the visible area of the widget being scrolled. The page size affects the size of the scrollbar slider.</p><pre class="pod-block-code">method set-adjustment ( N-Object() $adjustment )
-</pre><ul>
-<li><p>$adjustment; a <a href="/content-docs/api2/reference/Gtk4/Adjustment.html">Gnome::Gtk4::Adjustment</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-fill-level</a></h2>
-<p>Set the new position of the fill level indicator.</p><p>The “fill level” is probably best described by its most prominent use case, which is an indicator for the amount of pre-buffering in a streaming media player. In that use case, the value of the range would indicate the current play position, and the fill level would be the position up to which the file/stream has been downloaded.</p><p>This amount of prebuffering can be displayed on the range’s trough and is themeable separately from the trough. To enable fill level display, use <a href="#set-show-fill-level">.set-show-fill-level()</a>. The range defaults to not showing the fill level.</p><p>Additionally, it’s possible to restrict the range’s slider position to values which are smaller than the fill level. This is controlled by <a href="#set-restrict-to-fill-level">.set-restrict-to-fill-level()</a> and is by default enabled.</p><pre class="pod-block-code">method set-fill-level ( Num() $fill-level )
-</pre><ul>
-<li><p>$fill-level; the new position of the fill level indicator.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-flippable"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-flippable</a></h2>
-<p>Sets whether the <strong>Gnome::Gtk4::Range</strong> respects text direction.</p><p>If a range is flippable, it will switch its direction if it is horizontal and its direction is <code>GTK_TEXT_DIR_RTL</code>.</p><p>See <a href="/content-docs/api2/reference/Gtk4/Widget.html#get-direction">.get-direction() in class Widget</a>.</p><pre class="pod-block-code">method set-flippable ( Bool() $flippable )
-</pre><ul>
-<li><p>$flippable; <code>True</code> to make the range flippable.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-increments"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-increments</a></h2>
-<p>Sets the step and page sizes for the range.</p><p>The step size is used when the user clicks the <a href="/content-docs/api2/reference/Gtk4/Scrollbar.html">Gnome::Gtk4::Scrollbar</a> arrows or moves a <a href="/content-docs/api2/reference/Gtk4/Scale.html">Gnome::Gtk4::Scale</a> via arrow keys. The page size is used for example when moving via Page Up or Page Down keys.</p><pre class="pod-block-code">method set-increments ( Num() $step, Num() $page )
-</pre><ul>
-<li><p>$step; step size.</p></li>
-<li><p>$page; page size.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-inverted"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-inverted</a></h2>
-<p>Sets whether to invert the range.</p><p>Ranges normally move from lower to higher values as the slider moves from top to bottom or left to right. Inverted ranges have higher values at the top or on the right rather than on the bottom or left.</p><pre class="pod-block-code">method set-inverted ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; <code>True</code> to invert the range.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-range"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-range</a></h2>
-<p>Sets the allowable values in the <strong>Gnome::Gtk4::Range</strong>.</p><p>The range value is clamped to be between <code>$min</code> and <code>$max</code>. (If the range has a non-zero page size, it is clamped between <code>$min</code> and <code>$max</code> - page-size.)</p><pre class="pod-block-code">method set-range ( Num() $min, Num() $max )
-</pre><ul>
-<li><p>$min; minimum range value.</p></li>
-<li><p>$max; maximum range value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-restrict-to-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-restrict-to-fill-level</a></h2>
-<p>Sets whether the slider is restricted to the fill level.</p><p>See <a href="#set-fill-level">.set-fill-level()</a> for a general description of the fill level concept.</p><pre class="pod-block-code">method set-restrict-to-fill-level ( Bool() $restrict-to-fill-level )
-</pre><ul>
-<li><p>$restrict-to-fill-level; Whether the fill level restricts slider movement..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-round-digits"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-round-digits</a></h2>
-<p>Sets the number of digits to round the value to when it changes.</p><p>See <em>change-value</em>.</p><pre class="pod-block-code">method set-round-digits ( Int() $round-digits )
-</pre><ul>
-<li><p>$round-digits; the precision in digits, or -1.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-show-fill-level"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-show-fill-level</a></h2>
-<p>Sets whether a graphical fill level is show on the trough.</p><p>See <a href="#set-fill-level">.set-fill-level()</a> for a general description of the fill level concept.</p><pre class="pod-block-code">method set-show-fill-level ( Bool() $show-fill-level )
-</pre><ul>
-<li><p>$show-fill-level; Whether a fill level indicator graphics is shown..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-slider-size-fixed"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-slider-size-fixed</a></h2>
-<p>Sets whether the range’s slider has a fixed size, or a size that depends on its adjustment’s page size.</p><p>This function is useful mainly for <strong>Gnome::Gtk4::Range</strong> subclasses.</p><pre class="pod-block-code">method set-slider-size-fixed ( Bool() $size-fixed )
-</pre><ul>
-<li><p>$size-fixed; <code>True</code> to make the slider size constant.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-value"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">set-value</a></h2>
-<p>Sets the current value of the range.</p><p>If the value is outside the minimum or maximum range values, it will be clamped to fit inside them. The range emits the <em>value-changed</em> signal if the value changes.</p><pre class="pod-block-code">method set-value ( Num() $value )
-</pre><ul>
-<li><p>$value; new value of the range.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="adjust-bounds"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">adjust-bounds</a></h3>
-<p>Emitted before clamping a value, to give the application a chance to adjust the bounds.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Range"></div><h1 class="title">Gnome::Gtk4::Range</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-adjustment">get-adjustment</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-fill-level">get-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-flippable">get-flippable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-inverted">get-inverted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-range-rect">get-range-rect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-restrict-to-fill-level">get-restrict-to-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-round-digits">get-round-digits</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-show-fill-level">get-show-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-slider-range">get-slider-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-slider-size-fixed">get-slider-size-fixed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-value">get-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-adjustment">set-adjustment</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-fill-level">set-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-flippable">set-flippable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-increments">set-increments</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-inverted">set-inverted</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-range">set-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-restrict-to-fill-level">set-restrict-to-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-round-digits">set-round-digits</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-show-fill-level">set-show-fill-level</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-slider-size-fixed">set-slider-size-fixed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-value">set-value</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#adjust-bounds">adjust-bounds</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#change-value">change-value</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#move-slider">move-slider</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#value-changed">value-changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Range</span> is the common base class for widgets which visualize an adjustment. </p>
+
+<p>Widgets that are derived from <span class="basis">Gnome::Gtk4::Range</span> include <a href="/content-docs/api2/reference/Gtk4/Scale">Gnome::Gtk4::Scale</a> and <a href="/content-docs/api2/reference/Gtk4/Scrollbar">Gnome::Gtk4::Scrollbar</a>. </p>
+
+<p>Apart from signals for monitoring the parameters of the adjustment, <span class="basis">Gnome::Gtk4::Range</span> provides properties and methods for setting a “fill level” on range widgets. See <a href="#set-fill-level">.set-fill-level()</a>. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Range.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-adjustment" class="heading "><a href="#" title="go to top of document">get-adjustment</a><a class="raku-anchor" title="direct link" href="#get-adjustment">§</a></h2>
+
+<p>Get the adjustment which is the “model” object for <span class="basis">Gnome::Gtk4::Range</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-adjustment (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Adjustment">Gnome::Gtk4::Adjustment</a>. </p>
+<h2 id="get-fill-level" class="heading "><a href="#" title="go to top of document">get-fill-level</a><a class="raku-anchor" title="direct link" href="#get-fill-level">§</a></h2>
+
+<p id="Para">Gets the current position of the fill level indicator.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-fill-level (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_0">Return value; The current fill level.</p>
+<h2 id="get-flippable" class="heading "><a href="#" title="go to top of document">get-flippable</a><a class="raku-anchor" title="direct link" href="#get-flippable">§</a></h2>
+
+<p>Gets whether the <span class="basis">Gnome::Gtk4::Range</span> respects text direction. </p>
+
+<p>See <a href="#set-flippable">.set-flippable()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-flippable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the range is flippable. </p>
+<h2 id="get-inverted" class="heading "><a href="#" title="go to top of document">get-inverted</a><a class="raku-anchor" title="direct link" href="#get-inverted">§</a></h2>
+
+<p id="Para_1">Gets whether the range is inverted.</p>
+
+<p>See <a href="#set-inverted">.set-inverted()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-inverted (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the range is inverted. </p>
+<h2 id="get-range-rect" class="heading "><a href="#" title="go to top of document">get-range-rect</a><a class="raku-anchor" title="direct link" href="#get-range-rect">§</a></h2>
+
+<p>This function returns the area that contains the range’s trough, in coordinates relative to <span class="code">$range</span>'s origin. </p>
+
+<p>This function is useful mainly for <span class="basis">Gnome::Gtk4::Range</span> subclasses. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-range-rect ( N-Object $range-rect )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$range-rect; return location for the range rectangle</li>
+</ul>
+<h2 id="get-restrict-to-fill-level" class="heading "><a href="#" title="go to top of document">get-restrict-to-fill-level</a><a class="raku-anchor" title="direct link" href="#get-restrict-to-fill-level">§</a></h2>
+
+<p id="Para_2">Gets whether the range is restricted to the fill level.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-restrict-to-fill-level (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$range</span> is restricted to the fill level.. </p>
+<h2 id="get-round-digits" class="heading "><a href="#" title="go to top of document">get-round-digits</a><a class="raku-anchor" title="direct link" href="#get-round-digits">§</a></h2>
+
+<p id="Para_3">Gets the number of digits to round the value to when it changes.</p>
+
+<p>See <span class="important">change-value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-round-digits (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_4">Return value; the number of digits to round to.</p>
+<h2 id="get-show-fill-level" class="heading "><a href="#" title="go to top of document">get-show-fill-level</a><a class="raku-anchor" title="direct link" href="#get-show-fill-level">§</a></h2>
+
+<p id="Para_5">Gets whether the range displays the fill level graphically.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-show-fill-level (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$range</span> shows the fill level.. </p>
+<h2 id="get-slider-range" class="heading "><a href="#" title="go to top of document">get-slider-range</a><a class="raku-anchor" title="direct link" href="#get-slider-range">§</a></h2>
+
+<p id="Para_6">This function returns sliders range along the long dimension, in widget-&gt;window coordinates.</p>
+
+<p>This function is useful mainly for <span class="basis">Gnome::Gtk4::Range</span> subclasses. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-slider-range ( Array[Int] $slider-start, Array[Int] $slider-end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$slider-start; (transfer ownership: full) return location for the slider's start.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$slider-end; (transfer ownership: full) return location for the slider's end.</li>
+</ul>
+<h2 id="get-slider-size-fixed" class="heading "><a href="#" title="go to top of document">get-slider-size-fixed</a><a class="raku-anchor" title="direct link" href="#get-slider-size-fixed">§</a></h2>
+
+<p>This function is useful mainly for <span class="basis">Gnome::Gtk4::Range</span> subclasses. </p>
+
+<p>See <a href="#set-slider-size-fixed">.set-slider-size-fixed()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-slider-size-fixed (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; whether the range’s slider has a fixed size..</p>
+<h2 id="get-value" class="heading "><a href="#" title="go to top of document">get-value</a><a class="raku-anchor" title="direct link" href="#get-value">§</a></h2>
+
+<p id="Para_8">Gets the current value of the range.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-value (--&gt; Num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_9">Return value; current value of the range..</p>
+<h2 id="set-adjustment" class="heading "><a href="#" title="go to top of document">set-adjustment</a><a class="raku-anchor" title="direct link" href="#set-adjustment">§</a></h2>
+
+<p>Sets the adjustment to be used as the “model” object for the <span class="basis">Gnome::Gtk4::Range</span> </p>
+
+<p id="Para_10">The adjustment indicates the current range value, the minimum and maximum range values, the step/page increments used for keybindings and scrolling, and the page size.</p>
+
+<p>The page size is normally 0 for <a href="/content-docs/api2/reference/Gtk4/Scale">Gnome::Gtk4::Scale</a> and nonzero for <a href="/content-docs/api2/reference/Gtk4/Scrollbar">Gnome::Gtk4::Scrollbar</a>, and indicates the size of the visible area of the widget being scrolled. The page size affects the size of the scrollbar slider. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-adjustment ( N-Object() $adjustment )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$adjustment; a <a href="/content-docs/api2/reference/Gtk4/Adjustment">Gnome::Gtk4::Adjustment</a>.</li>
+</ul>
+<h2 id="set-fill-level" class="heading "><a href="#" title="go to top of document">set-fill-level</a><a class="raku-anchor" title="direct link" href="#set-fill-level">§</a></h2>
+
+<p id="Para_11">Set the new position of the fill level indicator.</p>
+
+<p id="Para_12">The “fill level” is probably best described by its most prominent use case, which is an indicator for the amount of pre-buffering in a streaming media player. In that use case, the value of the range would indicate the current play position, and the fill level would be the position up to which the file/stream has been downloaded.</p>
+
+<p>This amount of prebuffering can be displayed on the range’s trough and is themeable separately from the trough. To enable fill level display, use <a href="#set-show-fill-level">.set-show-fill-level()</a>. The range defaults to not showing the fill level. </p>
+
+<p>Additionally, it’s possible to restrict the range’s slider position to values which are smaller than the fill level. This is controlled by <a href="#set-restrict-to-fill-level">.set-restrict-to-fill-level()</a> and is by default enabled. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-fill-level ( Num() $fill-level )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$fill-level; the new position of the fill level indicator.</li>
+</ul>
+<h2 id="set-flippable" class="heading "><a href="#" title="go to top of document">set-flippable</a><a class="raku-anchor" title="direct link" href="#set-flippable">§</a></h2>
+
+<p>Sets whether the <span class="basis">Gnome::Gtk4::Range</span> respects text direction. </p>
+
+<p>If a range is flippable, it will switch its direction if it is horizontal and its direction is <span class="code">GTK_TEXT_DIR_RTL</span>. </p>
+
+<p>See <a href="/content-docs/api2/reference/Gtk4/Widget#get-direction">.get-direction() in class Widget</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-flippable ( Bool() $flippable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$flippable; <span class="code">True</span> to make the range flippable.</li>
+</ul>
+<h2 id="set-increments" class="heading "><a href="#" title="go to top of document">set-increments</a><a class="raku-anchor" title="direct link" href="#set-increments">§</a></h2>
+
+<p id="Para_13">Sets the step and page sizes for the range.</p>
+
+<p>The step size is used when the user clicks the <a href="/content-docs/api2/reference/Gtk4/Scrollbar">Gnome::Gtk4::Scrollbar</a> arrows or moves a <a href="/content-docs/api2/reference/Gtk4/Scale">Gnome::Gtk4::Scale</a> via arrow keys. The page size is used for example when moving via Page Up or Page Down keys. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-increments ( Num() $step, Num() $page )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$step; step size.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$page; page size.</li>
+</ul>
+<h2 id="set-inverted" class="heading "><a href="#" title="go to top of document">set-inverted</a><a class="raku-anchor" title="direct link" href="#set-inverted">§</a></h2>
+
+<p id="Para_14">Sets whether to invert the range.</p>
+
+<p id="Para_15">Ranges normally move from lower to higher values as the slider moves from top to bottom or left to right. Inverted ranges have higher values at the top or on the right rather than on the bottom or left.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-inverted ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; <span class="code">True</span> to invert the range.</li>
+</ul>
+<h2 id="set-range" class="heading "><a href="#" title="go to top of document">set-range</a><a class="raku-anchor" title="direct link" href="#set-range">§</a></h2>
+
+<p>Sets the allowable values in the <span class="basis">Gnome::Gtk4::Range</span>. </p>
+
+<p>The range value is clamped to be between <span class="code">$min</span> and <span class="code">$max</span>. (If the range has a non-zero page size, it is clamped between <span class="code">$min</span> and <span class="code">$max</span> - page-size.) </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-range ( Num() $min, Num() $max )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$min; minimum range value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$max; maximum range value.</li>
+</ul>
+<h2 id="set-restrict-to-fill-level" class="heading "><a href="#" title="go to top of document">set-restrict-to-fill-level</a><a class="raku-anchor" title="direct link" href="#set-restrict-to-fill-level">§</a></h2>
+
+<p id="Para_16">Sets whether the slider is restricted to the fill level.</p>
+
+<p>See <a href="#set-fill-level">.set-fill-level()</a> for a general description of the fill level concept. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-restrict-to-fill-level ( Bool() $restrict-to-fill-level )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$restrict-to-fill-level; Whether the fill level restricts slider movement..</li>
+</ul>
+<h2 id="set-round-digits" class="heading "><a href="#" title="go to top of document">set-round-digits</a><a class="raku-anchor" title="direct link" href="#set-round-digits">§</a></h2>
+
+<p id="Para_17">Sets the number of digits to round the value to when it changes.</p>
+
+<p>See <span class="important">change-value</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-round-digits ( Int() $round-digits )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$round-digits; the precision in digits, or -1.</li>
+</ul>
+<h2 id="set-show-fill-level" class="heading "><a href="#" title="go to top of document">set-show-fill-level</a><a class="raku-anchor" title="direct link" href="#set-show-fill-level">§</a></h2>
+
+<p id="Para_18">Sets whether a graphical fill level is show on the trough.</p>
+
+<p>See <a href="#set-fill-level">.set-fill-level()</a> for a general description of the fill level concept. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-show-fill-level ( Bool() $show-fill-level )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$show-fill-level; Whether a fill level indicator graphics is shown..</li>
+</ul>
+<h2 id="set-slider-size-fixed" class="heading "><a href="#" title="go to top of document">set-slider-size-fixed</a><a class="raku-anchor" title="direct link" href="#set-slider-size-fixed">§</a></h2>
+
+<p id="Para_19">Sets whether the range’s slider has a fixed size, or a size that depends on its adjustment’s page size.</p>
+
+<p>This function is useful mainly for <span class="basis">Gnome::Gtk4::Range</span> subclasses. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-slider-size-fixed ( Bool() $size-fixed )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$size-fixed; <span class="code">True</span> to make the slider size constant.</li>
+</ul>
+<h2 id="set-value" class="heading "><a href="#" title="go to top of document">set-value</a><a class="raku-anchor" title="direct link" href="#set-value">§</a></h2>
+
+<p id="Para_20">Sets the current value of the range.</p>
+
+<p>If the value is outside the minimum or maximum range values, it will be clamped to fit inside them. The range emits the <span class="important">value-changed</span> signal if the value changes. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-value ( Num() $value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$value; new value of the range.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="adjust-bounds" class="heading "><a href="#" title="go to top of document">adjust-bounds</a><a class="raku-anchor" title="direct link" href="#adjust-bounds">§</a></h3>
+
+<p id="Para_21">Emitted before clamping a value, to give the application a chance to adjust the bounds.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gdouble $value,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Range :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$value; the value before we clamp.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Range</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="change-value"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">change-value</a></h3>
-<p>Emitted when a scroll action is performed on a range.</p><p>It allows an application to determine the type of scroll event that occurred and the resultant new value. The application can handle the event itself and return <code>True</code> to prevent further processing. Or, by returning <code>False</code>, it can pass the event to other handlers until the default GTK handler is reached.</p><p>The value parameter is unrounded. An application that overrides the <em>change-value</em> signal is responsible for clamping the value to the desired number of decimal digits; the default GTK handler clamps the value based on <em>round-digits</em>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$value; the value before we clamp.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Range</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="change-value" class="heading "><a href="#" title="go to top of document">change-value</a><a class="raku-anchor" title="direct link" href="#change-value">§</a></h3>
+
+<p id="Para_22">Emitted when a scroll action is performed on a range.</p>
+
+<p>It allows an application to determine the type of scroll event that occurred and the resultant new value. The application can handle the event itself and return <span class="code">True</span> to prevent further processing. Or, by returning <span class="code">False</span>, it can pass the event to other handlers until the default GTK handler is reached. </p>
+
+<p>The value parameter is unrounded. An application that overrides the <span class="important">change-value</span> signal is responsible for clamping the value to the desired number of decimal digits; the default GTK handler clamps the value based on <span class="important">round-digits</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $scroll,
   gdouble $value,
   Int :$_handle_id,
@@ -224,43 +775,78 @@
   Gnome::Gtk4::Range :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$scroll; the type of scroll action that was performed.</p></li>
-<li><p>$value; the new value resulting from the scroll action.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Range</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$scroll; the type of scroll action that was performed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; the new value resulting from the scroll action.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Range</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; <code>True</code> to prevent other handlers from being invoked for the signal, <code>False</code> to propagate the signal further</p>
-<h3 id="move-slider"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">move-slider</a></h3>
-<p>Virtual function that moves the slider.</p><p>Used for keybindings.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> to prevent other handlers from being invoked for the signal, <span class="code">False</span> to propagate the signal further </p>
+<h3 id="move-slider" class="heading "><a href="#" title="go to top of document">move-slider</a><a class="raku-anchor" title="direct link" href="#move-slider">§</a></h3>
+
+<p id="Para_23">Virtual function that moves the slider.</p>
+
+<p id="Para_24">Used for keybindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $step,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Range :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$step; how to move the slider.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Range</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="value-changed"><a href="#Gnome::Gtk4::Range" class="u" title="go to top of document">value-changed</a></h3>
-<p>Emitted when the range value changes.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$step; how to move the slider.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Range</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="value-changed" class="heading "><a href="#" title="go to top of document">value-changed</a><a class="raku-anchor" title="direct link" href="#value-changed">§</a></h3>
+
+<p id="Para_25">Emitted when the range value changes.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Range :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Range</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Range</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Range.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:55Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Range.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

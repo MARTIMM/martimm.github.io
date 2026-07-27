@@ -1,208 +1,762 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::TreeSelection</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::TreeSelection</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TreeSelection">Gnome::Gtk4::TreeSelection</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#count-selected-rows">count-selected-rows</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-mode">get-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-select-function">get-select-function</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected">get-selected</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected-rows">get-selected-rows</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tree-view">get-tree-view</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-user-data">get-user-data</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-is-selected">iter-is-selected</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#path-is-selected">path-is-selected</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#select-all">select-all</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#select-iter">select-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#select-path">select-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#select-range">select-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#selected-foreach">selected-foreach</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-mode">set-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-select-function">set-select-function</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-all">unselect-all</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-iter">unselect-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-path">unselect-path</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unselect-range">unselect-range</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Description</a></h1>
-<p>The selection object for GtkTreeView</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is a helper object to manage the selection for a <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget. The <strong>Gnome::Gtk4::TreeSelection</strong> object is automatically created when a new <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget is created, and cannot exist independently of this widget. The primary reason the <strong>Gnome::Gtk4::TreeSelection</strong> objects exists is for cleanliness of code and API. That is, there is no conceptual reason all these functions could not be methods on the <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget instead of a separate function.</p><p>The <strong>Gnome::Gtk4::TreeSelection</strong> object is gotten from a <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> by calling gtk_tree_view_get_selection(). It can be manipulated to check the selection status of the tree, as well as select and deselect individual rows. Selection is done completely view side. As a result, multiple views of the same model can have completely different selections. Additionally, you cannot change the selection of a row on the model that is not currently displayed by the view without expanding its parents first.</p><p>One of the important things to remember when monitoring the selection of a view is that the <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal is mostly a hint. That is, it may only emit one signal when a range of rows is selected. Additionally, it may on occasion emit a <strong>Gnome::Gtk4::TreeSelection</strong>::changed signal when nothing has happened (mostly as a result of programmers calling select_row on an already selected row).</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/TreeSelection.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="count-selected-rows"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">count-selected-rows</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the number of rows that have been selected in <code>$tree</code>.</p><pre class="pod-block-code">method count-selected-rows (--&gt; Int )
-</pre><p>Return value; The number of rows selected.. </p></section>
-<section name="pod">
-<h2 id="get-mode"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-mode</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the selection mode for <code>$selection</code>. See <code>.set-mode()</code>.</p><pre class="pod-block-code">method get-mode (--&gt; GtkSelectionMode )
-</pre><p>Return value; the current selection mode. </p></section>
-<section name="pod">
-<h2 id="get-select-function"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-select-function</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the current selection function.</p><pre class="pod-block-code">method get-select-function (--&gt;  )
-</pre><p>Return value; The function.. </p></section>
-<section name="pod">
-<h2 id="get-selected"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-selected</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets <code>$iter</code> to the currently selected node if <code>$selection</code> is set to <code>GTK_SELECTION_SINGLE</code> or <code>GTK_SELECTION_BROWSE</code>. <code>$iter</code> may be NULL if you just want to test if <code>$selection</code> has any selected nodes. <code>$model</code> is filled with the current model as a convenience. This function will not work if you use <code>$selection</code> is <code>GTK_SELECTION_MULTIPLE</code>.</p><pre class="pod-block-code">method get-selected ( N-Object() $model, N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$model; A pointer to set to the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.</p></li>
-<li><p>$iter; The <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; TRUE, if there is a selected node.. </p></section>
-<section name="pod">
-<h2 id="get-selected-rows"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-selected-rows</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a list of path of all selected rows. Additionally, if you are planning on modifying the model after calling this function, you may want to convert the returned list into a list of <strong>Gnome::Gtk4::N-TreeRowReference</strong>s. To do this, you can use gtk_tree_row_reference_new().</p><p>To free the return value, use:</p><pre class="pod-block-code">method get-selected-rows ( N-Object() $model --&gt; N-List )
-</pre><ul>
-<li><p>$model; A pointer to set to the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.</p></li>
-</ul>
-<p>Return value; A <strong>Gnome::Glib::N-List</strong> containing a <strong>Gnome::Gtk4::N-TreePath</strong> for each selected row.. </p></section>
-<section name="pod">
-<h2 id="get-tree-view"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-tree-view</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the tree view associated with <code>$selection</code>.</p><pre class="pod-block-code">method get-tree-view (--&gt; N-Object )
-</pre><p>Return value; A <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a>. </p></section>
-<section name="pod">
-<h2 id="get-user-data"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">get-user-data</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the user data for the selection function.</p><pre class="pod-block-code">method get-user-data (--&gt; gpointer )
-</pre><p>Return value; The user data.. </p></section>
-<section name="pod">
-<h2 id="iter-is-selected"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">iter-is-selected</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if the row at <code>$iter</code> is currently selected.</p><pre class="pod-block-code">method iter-is-selected ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-</ul>
-<p>Return value; <code>True</code>, if <code>$iter</code> is selected. </p></section>
-<section name="pod">
-<h2 id="path-is-selected"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">path-is-selected</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns <code>True</code> if the row pointed to by <code>$path</code> is currently selected. If <code>$path</code> does not point to a valid location, <code>False</code> is returned</p><pre class="pod-block-code">method path-is-selected ( N-Object $path --&gt; Bool )
-</pre><ul>
-<li><p>$path; A <strong>Gnome::Gtk4::N-TreePath</strong> to check selection on.</p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$path</code> is selected.. </p></section>
-<section name="pod">
-<h2 id="select-all"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">select-all</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Selects all the nodes. <code>$selection</code> must be set to <code>GTK_SELECTION_MULTIPLE</code> mode.</p><pre class="pod-block-code">method select-all ( )
-</pre></section>
-<section name="pod">
-<h2 id="select-iter"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">select-iter</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Selects the specified iterator.</p><pre class="pod-block-code">method select-iter ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; The <strong>Gnome::Gtk4::N-TreeIter</strong> to be selected.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="select-path"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">select-path</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Select the row at <code>$path</code>.</p><pre class="pod-block-code">method select-path ( N-Object $path )
-</pre><ul>
-<li><p>$path; The <strong>Gnome::Gtk4::N-TreePath</strong> to be selected.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="select-range"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">select-range</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Selects a range of nodes, determined by <code>$start-path</code> and <code>$end-path</code> inclusive. <code>$selection</code> must be set to <code>GTK_SELECTION_MULTIPLE</code> mode.</p><pre class="pod-block-code">method select-range ( N-Object $start-path, N-Object $end-path )
-</pre><ul>
-<li><p>$start-path; The initial node of the range.</p></li>
-<li><p>$end-path; The final node of the range.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="selected-foreach"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">selected-foreach</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls a function for each selected node. Note that you cannot modify the tree or selection from within this function. As a result, <code>.get-selected-rows()</code> might be more useful.</p><pre class="pod-block-code">method selected-foreach ( GtkTreeSelectionForeachFunc &amp;func, gpointer $data )
-</pre><ul>
-<li><p>GtkTreeSelectionForeachFunc &amp;func; The function to call for each selected node.. The function must be specified with the following signature; <code>:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</code>.</p></li>
-<li><p>$data; user data to pass to the function..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-mode"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">set-mode</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the selection mode of the <code>$selection</code>. If the previous type was <code>GTK_SELECTION_MULTIPLE</code>, then the anchor is kept selected, if it was previously selected.</p><pre class="pod-block-code">method set-mode ( GtkSelectionMode $type )
-</pre><ul>
-<li><p>$type; The selection mode.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-select-function"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">set-select-function</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the selection function.</p><p>If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return <code>True</code> if the state of the node may be toggled, and <code>False</code> if the state of the node should be left unchanged.</p><pre class="pod-block-code">method set-select-function ( GtkTreeSelectionFunc &amp;func, gpointer $data, GDestroyNotify &amp;destroy )
-</pre><ul>
-<li><p>GtkTreeSelectionFunc &amp;func; The selection function. May be undefined. The function must be specified with the following signature; <code>:( N-Object $selection, N-Object $model, N-Object $path, gboolean $path-currently-selected, gpointer $data )</code>.</p></li>
-<li><p>$data; The selection function’s data. May be undefined.</p></li>
-<li><p>GDestroyNotify &amp;destroy; The destroy function for user data. May be undefined. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unselect-all"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">unselect-all</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Unselects all the nodes.</p><pre class="pod-block-code">method unselect-all ( )
-</pre></section>
-<section name="pod">
-<h2 id="unselect-iter"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">unselect-iter</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Unselects the specified iterator.</p><pre class="pod-block-code">method unselect-iter ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; The <strong>Gnome::Gtk4::N-TreeIter</strong> to be unselected.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unselect-path"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">unselect-path</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Unselects the row at <code>$path</code>.</p><pre class="pod-block-code">method unselect-path ( N-Object $path )
-</pre><ul>
-<li><p>$path; The <strong>Gnome::Gtk4::N-TreePath</strong> to be unselected.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unselect-range"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">unselect-range</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Unselects a range of nodes, determined by <code>$start-path</code> and <code>$end-path</code> inclusive.</p><pre class="pod-block-code">method unselect-range ( N-Object $start-path, N-Object $end-path )
-</pre><ul>
-<li><p>$start-path; The initial node of the range.</p></li>
-<li><p>$end-path; The initial node of the range.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">Signals</a></h1>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id="changed"><a href="#Gnome::Gtk4::TreeSelection" class="u" title="go to top of document">changed</a></h3>
-<p>Emitted whenever the selection has (possibly) changed. Please note that this signal is mostly a hint. It may only be emitted once when a range of rows are selected, and it may occasionally be emitted when nothing has happened.</p><pre class="pod-block-code">method handler (
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::TreeSelection"></div><h1 class="title">Gnome::Gtk4::TreeSelection</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#count-selected-rows">count-selected-rows</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-mode">get-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-select-function">get-select-function</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selected">get-selected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selected-rows">get-selected-rows</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tree-view">get-tree-view</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-user-data">get-user-data</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-is-selected">iter-is-selected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#path-is-selected">path-is-selected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#select-all">select-all</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#select-iter">select-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#select-path">select-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#select-range">select-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#selected-foreach">selected-foreach</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-mode">set-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-select-function">set-select-function</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unselect-all">unselect-all</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unselect-iter">unselect-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unselect-path">unselect-path</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unselect-range">unselect-range</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#changed">changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">The selection object for GtkTreeView</p>
+
+<p>The <span class="basis">Gnome::Gtk4::TreeSelection</span> object is a helper object to manage the selection for a <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget. The <span class="basis">Gnome::Gtk4::TreeSelection</span> object is automatically created when a new <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget is created, and cannot exist independently of this widget. The primary reason the <span class="basis">Gnome::Gtk4::TreeSelection</span> objects exists is for cleanliness of code and API. That is, there is no conceptual reason all these functions could not be methods on the <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget instead of a separate function. </p>
+
+<p>The <span class="basis">Gnome::Gtk4::TreeSelection</span> object is gotten from a <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> by calling gtk_tree_view_get_selection(). It can be manipulated to check the selection status of the tree, as well as select and deselect individual rows. Selection is done completely view side. As a result, multiple views of the same model can have completely different selections. Additionally, you cannot change the selection of a row on the model that is not currently displayed by the view without expanding its parents first. </p>
+
+<p>One of the important things to remember when monitoring the selection of a view is that the <span class="basis">Gnome::Gtk4::TreeSelection</span>::changed signal is mostly a hint. That is, it may only emit one signal when a range of rows is selected. Additionally, it may on occasion emit a <span class="basis">Gnome::Gtk4::TreeSelection</span>::changed signal when nothing has happened (mostly as a result of programmers calling select_row on an already selected row). </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/TreeSelection.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="count-selected-rows" class="heading "><a href="#" title="go to top of document">count-selected-rows</a><a class="raku-anchor" title="direct link" href="#count-selected-rows">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the number of rows that have been selected in <span class="code">$tree</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method count-selected-rows (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_0">Return value; The number of rows selected..</p>
+<h2 id="get-mode" class="heading "><a href="#" title="go to top of document">get-mode</a><a class="raku-anchor" title="direct link" href="#get-mode">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the selection mode for <span class="code">$selection</span>. See <span class="code">.set-mode()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-mode (--&gt; GtkSelectionMode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_1">Return value; the current selection mode.</p>
+<h2 id="get-select-function" class="heading "><a href="#" title="go to top of document">get-select-function</a><a class="raku-anchor" title="direct link" href="#get-select-function">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_2">Returns the current selection function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-select-function (--&gt;  )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; The function..</p>
+<h2 id="get-selected" class="heading "><a href="#" title="go to top of document">get-selected</a><a class="raku-anchor" title="direct link" href="#get-selected">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets <span class="code">$iter</span> to the currently selected node if <span class="code">$selection</span> is set to <span class="code">GTK_SELECTION_SINGLE</span> or <span class="code">GTK_SELECTION_BROWSE</span>. <span class="code">$iter</span> may be NULL if you just want to test if <span class="code">$selection</span> has any selected nodes. <span class="code">$model</span> is filled with the current model as a convenience. This function will not work if you use <span class="code">$selection</span> is <span class="code">GTK_SELECTION_MULTIPLE</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selected ( N-Object() $model, N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; A pointer to set to the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; The <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p id="Para_4">Return value; TRUE, if there is a selected node..</p>
+<h2 id="get-selected-rows" class="heading "><a href="#" title="go to top of document">get-selected-rows</a><a class="raku-anchor" title="direct link" href="#get-selected-rows">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a list of path of all selected rows. Additionally, if you are planning on modifying the model after calling this function, you may want to convert the returned list into a list of <span class="basis">Gnome::Gtk4::N-TreeRowReference</span>s. To do this, you can use gtk_tree_row_reference_new(). </p>
+
+<p id="Para_5">To free the return value, use:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selected-rows ( N-Object() $model --&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; A pointer to set to the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>.</li>
+</ul>
+
+<p>Return value; A <span class="basis">Gnome::Glib::N-List</span> containing a <span class="basis">Gnome::Gtk4::N-TreePath</span> for each selected row.. </p>
+<h2 id="get-tree-view" class="heading "><a href="#" title="go to top of document">get-tree-view</a><a class="raku-anchor" title="direct link" href="#get-tree-view">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the tree view associated with <span class="code">$selection</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tree-view (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; A <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a>. </p>
+<h2 id="get-user-data" class="heading "><a href="#" title="go to top of document">get-user-data</a><a class="raku-anchor" title="direct link" href="#get-user-data">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_6">Returns the user data for the selection function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-user-data (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; The user data..</p>
+<h2 id="iter-is-selected" class="heading "><a href="#" title="go to top of document">iter-is-selected</a><a class="raku-anchor" title="direct link" href="#iter-is-selected">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns <span class="code">True</span> if the row at <span class="code">$iter</span> is currently selected. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-is-selected ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+</ul>
+
+<p>Return value; <span class="code">True</span>, if <span class="code">$iter</span> is selected. </p>
+<h2 id="path-is-selected" class="heading "><a href="#" title="go to top of document">path-is-selected</a><a class="raku-anchor" title="direct link" href="#path-is-selected">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns <span class="code">True</span> if the row pointed to by <span class="code">$path</span> is currently selected. If <span class="code">$path</span> does not point to a valid location, <span class="code">False</span> is returned </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method path-is-selected ( N-Object $path --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; A <span class="basis">Gnome::Gtk4::N-TreePath</span> to check selection on.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$path</span> is selected.. </p>
+<h2 id="select-all" class="heading "><a href="#" title="go to top of document">select-all</a><a class="raku-anchor" title="direct link" href="#select-all">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Selects all the nodes. <span class="code">$selection</span> must be set to <span class="code">GTK_SELECTION_MULTIPLE</span> mode. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method select-all ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="select-iter" class="heading "><a href="#" title="go to top of document">select-iter</a><a class="raku-anchor" title="direct link" href="#select-iter">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_8">Selects the specified iterator.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method select-iter ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; The <span class="basis">Gnome::Gtk4::N-TreeIter</span> to be selected.</li>
+</ul>
+<h2 id="select-path" class="heading "><a href="#" title="go to top of document">select-path</a><a class="raku-anchor" title="direct link" href="#select-path">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Select the row at <span class="code">$path</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method select-path ( N-Object $path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The <span class="basis">Gnome::Gtk4::N-TreePath</span> to be selected.</li>
+</ul>
+<h2 id="select-range" class="heading "><a href="#" title="go to top of document">select-range</a><a class="raku-anchor" title="direct link" href="#select-range">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Selects a range of nodes, determined by <span class="code">$start-path</span> and <span class="code">$end-path</span> inclusive. <span class="code">$selection</span> must be set to <span class="code">GTK_SELECTION_MULTIPLE</span> mode. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method select-range ( N-Object $start-path, N-Object $end-path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start-path; The initial node of the range.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end-path; The final node of the range.</li>
+</ul>
+<h2 id="selected-foreach" class="heading "><a href="#" title="go to top of document">selected-foreach</a><a class="raku-anchor" title="direct link" href="#selected-foreach">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Calls a function for each selected node. Note that you cannot modify the tree or selection from within this function. As a result, <span class="code">.get-selected-rows()</span> might be more useful. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method selected-foreach ( GtkTreeSelectionForeachFunc &amp;func, gpointer $data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkTreeSelectionForeachFunc &amp;func; The function to call for each selected node.. The function must be specified with the following signature; <span class="code">:( N-Object $model, N-Object $path, N-Object $iter, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; user data to pass to the function..</li>
+</ul>
+<h2 id="set-mode" class="heading "><a href="#" title="go to top of document">set-mode</a><a class="raku-anchor" title="direct link" href="#set-mode">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets the selection mode of the <span class="code">$selection</span>. If the previous type was <span class="code">GTK_SELECTION_MULTIPLE</span>, then the anchor is kept selected, if it was previously selected. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-mode ( GtkSelectionMode $type )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$type; The selection mode.</li>
+</ul>
+<h2 id="set-select-function" class="heading "><a href="#" title="go to top of document">set-select-function</a><a class="raku-anchor" title="direct link" href="#set-select-function">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_9">Sets the selection function.</p>
+
+<p>If set, this function is called before any node is selected or unselected, giving some control over which nodes are selected. The select function should return <span class="code">True</span> if the state of the node may be toggled, and <span class="code">False</span> if the state of the node should be left unchanged. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-select-function ( GtkTreeSelectionFunc &amp;func, gpointer $data, GDestroyNotify &amp;destroy )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkTreeSelectionFunc &amp;func; The selection function. May be undefined. The function must be specified with the following signature; <span class="code">:( N-Object $selection, N-Object $model, N-Object $path, gboolean $path-currently-selected, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$data; The selection function’s data. May be undefined.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GDestroyNotify &amp;destroy; The destroy function for user data. May be undefined. The function must be specified with the following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+<h2 id="unselect-all" class="heading "><a href="#" title="go to top of document">unselect-all</a><a class="raku-anchor" title="direct link" href="#unselect-all">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_10">Unselects all the nodes.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unselect-all ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="unselect-iter" class="heading "><a href="#" title="go to top of document">unselect-iter</a><a class="raku-anchor" title="direct link" href="#unselect-iter">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_11">Unselects the specified iterator.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unselect-iter ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; The <span class="basis">Gnome::Gtk4::N-TreeIter</span> to be unselected.</li>
+</ul>
+<h2 id="unselect-path" class="heading "><a href="#" title="go to top of document">unselect-path</a><a class="raku-anchor" title="direct link" href="#unselect-path">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Unselects the row at <span class="code">$path</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unselect-path ( N-Object $path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; The <span class="basis">Gnome::Gtk4::N-TreePath</span> to be unselected.</li>
+</ul>
+<h2 id="unselect-range" class="heading "><a href="#" title="go to top of document">unselect-range</a><a class="raku-anchor" title="direct link" href="#unselect-range">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Unselects a range of nodes, determined by <span class="code">$start-path</span> and <span class="code">$end-path</span> inclusive. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unselect-range ( N-Object $start-path, N-Object $end-path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start-path; The initial node of the range.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end-path; The initial node of the range.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="changed" class="heading "><a href="#" title="go to top of document">changed</a><a class="raku-anchor" title="direct link" href="#changed">§</a></h3>
+
+<p id="Para_12">Emitted whenever the selection has (possibly) changed. Please note that this signal is mostly a hint. It may only be emitted once when a range of rows are selected, and it may occasionally be emitted when nothing has happened.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TreeSelection :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TreeSelection</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TreeSelection</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeSelection.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:23Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeSelection.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

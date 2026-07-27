@@ -1,220 +1,792 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Stack</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Stack</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Stack">Gnome::Gtk4::Stack</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkStack_as_GtkBuildable">GtkStack as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-stack">new-stack</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-child">add-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-named">add-named</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-titled">add-titled</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-child-by-name">get-child-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-hhomogeneous">get-hhomogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-interpolate-size">get-interpolate-size</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-page">get-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-pages">get-pages</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-transition-duration">get-transition-duration</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-transition-running">get-transition-running</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-transition-type">get-transition-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-vhomogeneous">get-vhomogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-child">get-visible-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-child-name">get-visible-child-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-hhomogeneous">set-hhomogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-interpolate-size">set-interpolate-size</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-transition-duration">set-transition-duration</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-transition-type">set-transition-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-vhomogeneous">set-vhomogeneous</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-child">set-visible-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-child-full">set-visible-child-full</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-child-name">set-visible-child-name</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Stack</strong> is a container which only shows one of its children at a time.</p><p>In contrast to <a href="/content-docs/api2/reference/Gtk4/Notebook.html">Gnome::Gtk4::Notebook</a>, <strong>Gnome::Gtk4::Stack</strong> does not provide a means for users to change the visible child. Instead, a separate widget such as <a href="/content-docs/api2/reference/Gtk4/StackSwitcher.html">Gnome::Gtk4::StackSwitcher</a> or <a href="/content-docs/api2/reference/Gtk4/StackSidebar.html">Gnome::Gtk4::StackSidebar</a> can be used with <strong>Gnome::Gtk4::Stack</strong> to provide this functionality.</p><p>Transitions between pages can be animated as slides or fades. This can be controlled with <a href="#set-transition-type">.set-transition-type()</a>. These animations respect the <em>gtk-enable-animations defined in Gnome::Gtk4::Settings</em> setting.</p><p><strong>Gnome::Gtk4::Stack</strong> maintains a <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> object for each added child, which holds additional per-child properties. You obtain the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> for a child with <a href="#get-page">.get-page()</a> and you can obtain a <a href="/content-docs/api2/reference/Gtk4/R-SelectionModel.html">Gnome::Gtk4::R-SelectionModel</a> containing all the pages with <a href="#get-pages">.get-pages()</a>.</p>
-<h2 id="GtkStack_as_GtkBuildable"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">GtkStack as GtkBuildable</a></h2>
-<p>To set child-specific properties in a .ui file, create <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> objects explicitly, and set the child widget as a property on it:</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Stack</strong> has a single CSS node named stack.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Stack</strong> uses the <code>GTK_ACCESSIBLE_ROLE_TAB_PANEL</code> for the stack pages, which are the accessible parent objects of the child widgets.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Stack.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-stack"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">new-stack</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Stack</strong>.</p><pre class="pod-block-code">method new-stack ( --&gt; Gnome::Gtk4::Stack )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-child"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">add-child</a></h2>
-<p>Adds a child to <code>$stack</code>.</p><pre class="pod-block-code">method add-child ( N-Object() $child --&gt; N-Object )
-</pre><ul>
-<li><p>$child; the widget to add.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Stack"></div><h1 class="title">Gnome::Gtk4::Stack</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkStack_as_GtkBuildable">GtkStack as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-stack">new-stack</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-child">add-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-named">add-named</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-titled">add-titled</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-child-by-name">get-child-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-hhomogeneous">get-hhomogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-interpolate-size">get-interpolate-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-page">get-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-pages">get-pages</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-transition-duration">get-transition-duration</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-transition-running">get-transition-running</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-transition-type">get-transition-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-vhomogeneous">get-vhomogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-child">get-visible-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-child-name">get-visible-child-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-hhomogeneous">set-hhomogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-interpolate-size">set-interpolate-size</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-transition-duration">set-transition-duration</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-transition-type">set-transition-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-vhomogeneous">set-vhomogeneous</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visible-child">set-visible-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visible-child-full">set-visible-child-full</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visible-child-name">set-visible-child-name</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Stack</span> is a container which only shows one of its children at a time. </p>
+
+<p>In contrast to <a href="/content-docs/api2/reference/Gtk4/Notebook">Gnome::Gtk4::Notebook</a>, <span class="basis">Gnome::Gtk4::Stack</span> does not provide a means for users to change the visible child. Instead, a separate widget such as <a href="/content-docs/api2/reference/Gtk4/StackSwitcher">Gnome::Gtk4::StackSwitcher</a> or <a href="/content-docs/api2/reference/Gtk4/StackSidebar">Gnome::Gtk4::StackSidebar</a> can be used with <span class="basis">Gnome::Gtk4::Stack</span> to provide this functionality. </p>
+
+<p>Transitions between pages can be animated as slides or fades. This can be controlled with <a href="#set-transition-type">.set-transition-type()</a>. These animations respect the <span class="important">gtk-enable-animations defined in Gnome::Gtk4::Settings</span> setting. </p>
+
+<p><span class="basis">Gnome::Gtk4::Stack</span> maintains a <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> object for each added child, which holds additional per-child properties. You obtain the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> for a child with <a href="#get-page">.get-page()</a> and you can obtain a <a href="/content-docs/api2/reference/Gtk4/R-SelectionModel">Gnome::Gtk4::R-SelectionModel</a> containing all the pages with <a href="#get-pages">.get-pages()</a>. </p>
+
+<div class="id-target" id="GtkStack as GtkBuildable"></div><h2 id="GtkStack_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkStack as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkStack as GtkBuildable">§</a></h2>
+
+<p>To set child-specific properties in a .ui file, create <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> objects explicitly, and set the child widget as a property on it: </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Stack</span> has a single CSS node named stack. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Stack</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_TAB_PANEL</span> for the stack pages, which are the accessible parent objects of the child widgets. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Stack.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-stack" class="heading "><a href="#" title="go to top of document">new-stack</a><a class="raku-anchor" title="direct link" href="#new-stack">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-stack ( --&gt; Gnome::Gtk4::Stack )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-child" class="heading "><a href="#" title="go to top of document">add-child</a><a class="raku-anchor" title="direct link" href="#add-child">§</a></h2>
+
+<p>Adds a child to <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-child ( N-Object() $child --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the widget to add.</li>
 </ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> for <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="add-named"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">add-named</a></h2>
-<p>Adds a child to <code>$stack</code>.</p><p>The child is identified by the <code>$name</code>.</p><pre class="pod-block-code">method add-named ( N-Object() $child, Str $name --&gt; N-Object )
-</pre><ul>
-<li><p>$child; the widget to add.</p></li>
-<li><p>$name; the name for <code>$child</code>.</p></li>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> for <span class="code">$child</span>. </p>
+<h2 id="add-named" class="heading "><a href="#" title="go to top of document">add-named</a><a class="raku-anchor" title="direct link" href="#add-named">§</a></h2>
+
+<p>Adds a child to <span class="code">$stack</span>. </p>
+
+<p>The child is identified by the <span class="code">$name</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-named ( N-Object() $child, Str $name --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the widget to add.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$name; the name for <span class="code">$child</span>.</li>
 </ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> for <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="add-titled"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">add-titled</a></h2>
-<p>Adds a child to <code>$stack</code>.</p><p>The child is identified by the <code>$name</code>. The <code>$title</code> will be used by <a href="/content-docs/api2/reference/Gtk4/StackSwitcher.html">Gnome::Gtk4::StackSwitcher</a> to represent <code>$child</code> in a tab bar, so it should be short.</p><pre class="pod-block-code">method add-titled ( N-Object() $child, Str $name, Str $title --&gt; N-Object )
-</pre><ul>
-<li><p>$child; the widget to add.</p></li>
-<li><p>$name; the name for <code>$child</code>.</p></li>
-<li><p>$title; a human-readable title for <code>$child</code>.</p></li>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> for <span class="code">$child</span>. </p>
+<h2 id="add-titled" class="heading "><a href="#" title="go to top of document">add-titled</a><a class="raku-anchor" title="direct link" href="#add-titled">§</a></h2>
+
+<p>Adds a child to <span class="code">$stack</span>. </p>
+
+<p>The child is identified by the <span class="code">$name</span>. The <span class="code">$title</span> will be used by <a href="/content-docs/api2/reference/Gtk4/StackSwitcher">Gnome::Gtk4::StackSwitcher</a> to represent <span class="code">$child</span> in a tab bar, so it should be short. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-titled ( N-Object() $child, Str $name, Str $title --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the widget to add.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$name; the name for <span class="code">$child</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$title; a human-readable title for <span class="code">$child</span>.</li>
 </ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> for <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="get-child-by-name"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-child-by-name</a></h2>
-<p>Finds the child with the name given as the argument.</p><p>Returns undefined if there is no child with this name.</p><pre class="pod-block-code">method get-child-by-name ( Str $name --&gt; N-Object )
-</pre><ul>
-<li><p>$name; the name of the child to find.</p></li>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> for <span class="code">$child</span>. </p>
+<h2 id="get-child-by-name" class="heading "><a href="#" title="go to top of document">get-child-by-name</a><a class="raku-anchor" title="direct link" href="#get-child-by-name">§</a></h2>
+
+<p id="Para">Finds the child with the name given as the argument.</p>
+
+<p id="Para_0">Returns undefined if there is no child with this name.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-child-by-name ( Str $name --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the child to find.</li>
 </ul>
-<p>Return value; the requested child of the <strong>Gnome::Gtk4::Stack</strong>. </p></section>
-<section name="pod">
-<h2 id="get-hhomogeneous"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-hhomogeneous</a></h2>
-<p>Gets whether <code>$stack</code> is horizontally homogeneous.</p><pre class="pod-block-code">method get-hhomogeneous (--&gt; Bool )
-</pre><p>Return value; whether <code>$stack</code> is horizontally homogeneous.. </p></section>
-<section name="pod">
-<h2 id="get-interpolate-size"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-interpolate-size</a></h2>
-<p>Returns whether the <strong>Gnome::Gtk4::Stack</strong> is set up to interpolate between the sizes of children on page switch.</p><pre class="pod-block-code">method get-interpolate-size (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if child sizes are interpolated. </p></section>
-<section name="pod">
-<h2 id="get-page"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-page</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> object for <code>$child</code>.</p><pre class="pod-block-code">method get-page ( N-Object() $child --&gt; N-Object )
-</pre><ul>
-<li><p>$child; a child of <code>$stack</code>.</p></li>
+
+<p>Return value; the requested child of the <span class="basis">Gnome::Gtk4::Stack</span>. </p>
+<h2 id="get-hhomogeneous" class="heading "><a href="#" title="go to top of document">get-hhomogeneous</a><a class="raku-anchor" title="direct link" href="#get-hhomogeneous">§</a></h2>
+
+<p>Gets whether <span class="code">$stack</span> is horizontally homogeneous. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-hhomogeneous (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$stack</span> is horizontally homogeneous.. </p>
+<h2 id="get-interpolate-size" class="heading "><a href="#" title="go to top of document">get-interpolate-size</a><a class="raku-anchor" title="direct link" href="#get-interpolate-size">§</a></h2>
+
+<p>Returns whether the <span class="basis">Gnome::Gtk4::Stack</span> is set up to interpolate between the sizes of children on page switch. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-interpolate-size (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if child sizes are interpolated. </p>
+<h2 id="get-page" class="heading "><a href="#" title="go to top of document">get-page</a><a class="raku-anchor" title="direct link" href="#get-page">§</a></h2>
+
+<p>Returns the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> object for <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-page ( N-Object() $child --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child of <span class="code">$stack</span>.</li>
 </ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage.html">Gnome::Gtk4::StackPage</a> for <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="get-pages"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-pages</a></h2>
-<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> that contains the pages of the stack.</p><p>This can be used to keep an up-to-date view. The model also implements <a href="/content-docs/api2/reference/Gnome/Gtk4/R-SelectionModel.html">Gnome::Gtk4::StackPage</a> and can be used to track and modify the visible page.</p><pre class="pod-block-code">method get-pages (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/R-SelectionModel.html">Gnome::Gtk4::R-SelectionModel</a> for the stack's children. </p></section>
-<section name="pod">
-<h2 id="get-transition-duration"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-transition-duration</a></h2>
-<p>Returns the amount of time (in milliseconds) that transitions between pages in <code>$stack</code> will take.</p><pre class="pod-block-code">method get-transition-duration (--&gt; UInt )
-</pre><p>Return value; the transition duration. </p></section>
-<section name="pod">
-<h2 id="get-transition-running"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-transition-running</a></h2>
-<p>Returns whether the <code>$stack</code> is currently in a transition from one page to another.</p><pre class="pod-block-code">method get-transition-running (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the transition is currently running, <code>False</code> otherwise.. </p></section>
-<section name="pod">
-<h2 id="get-transition-type"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-transition-type</a></h2>
-<p>Gets the type of animation that will be used for transitions between pages in <code>$stack</code>.</p><pre class="pod-block-code">method get-transition-type (--&gt; GtkStackTransitionType )
-</pre><p>Return value; the current transition type of <code>$stack</code>. </p></section>
-<section name="pod">
-<h2 id="get-vhomogeneous"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-vhomogeneous</a></h2>
-<p>Gets whether <code>$stack</code> is vertically homogeneous.</p><pre class="pod-block-code">method get-vhomogeneous (--&gt; Bool )
-</pre><p>Return value; whether <code>$stack</code> is vertically homogeneous.. </p></section>
-<section name="pod">
-<h2 id="get-visible-child"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-visible-child</a></h2>
-<p>Gets the currently visible child of <code>$stack</code>.</p><p>Returns undefined if there are no visible children.</p><pre class="pod-block-code">method get-visible-child (--&gt; N-Object )
-</pre><p>Return value; the visible child of the <strong>Gnome::Gtk4::Stack</strong>. </p></section>
-<section name="pod">
-<h2 id="get-visible-child-name"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">get-visible-child-name</a></h2>
-<p>Returns the name of the currently visible child of <code>$stack</code>.</p><p>Returns undefined if there is no visible child.</p><pre class="pod-block-code">method get-visible-child-name (--&gt; Str )
-</pre><p>Return value; the name of the visible child of the <strong>Gnome::Gtk4::Stack</strong>. </p></section>
-<section name="pod">
-<h2 id="remove"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">remove</a></h2>
-<p>Removes a child widget from <code>$stack</code>.</p><pre class="pod-block-code">method remove ( N-Object() $child )
-</pre><ul>
-<li><p>$child; the child to remove.</p></li>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/StackPage">Gnome::Gtk4::StackPage</a> for <span class="code">$child</span>. </p>
+<h2 id="get-pages" class="heading "><a href="#" title="go to top of document">get-pages</a><a class="raku-anchor" title="direct link" href="#get-pages">§</a></h2>
+
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> that contains the pages of the stack. </p>
+
+<p>This can be used to keep an up-to-date view. The model also implements <a href="/content-docs/api2/reference/Gnome::Gtk4::R-SelectionModel">Gnome::Gtk4::StackPage</a> and can be used to track and modify the visible page. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-pages (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/R-SelectionModel">Gnome::Gtk4::R-SelectionModel</a> for the stack's children. </p>
+<h2 id="get-transition-duration" class="heading "><a href="#" title="go to top of document">get-transition-duration</a><a class="raku-anchor" title="direct link" href="#get-transition-duration">§</a></h2>
+
+<p>Returns the amount of time (in milliseconds) that transitions between pages in <span class="code">$stack</span> will take. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-transition-duration (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_1">Return value; the transition duration.</p>
+<h2 id="get-transition-running" class="heading "><a href="#" title="go to top of document">get-transition-running</a><a class="raku-anchor" title="direct link" href="#get-transition-running">§</a></h2>
+
+<p>Returns whether the <span class="code">$stack</span> is currently in a transition from one page to another. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-transition-running (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the transition is currently running, <span class="code">False</span> otherwise.. </p>
+<h2 id="get-transition-type" class="heading "><a href="#" title="go to top of document">get-transition-type</a><a class="raku-anchor" title="direct link" href="#get-transition-type">§</a></h2>
+
+<p>Gets the type of animation that will be used for transitions between pages in <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-transition-type (--&gt; GtkStackTransitionType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the current transition type of <span class="code">$stack</span>. </p>
+<h2 id="get-vhomogeneous" class="heading "><a href="#" title="go to top of document">get-vhomogeneous</a><a class="raku-anchor" title="direct link" href="#get-vhomogeneous">§</a></h2>
+
+<p>Gets whether <span class="code">$stack</span> is vertically homogeneous. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-vhomogeneous (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$stack</span> is vertically homogeneous.. </p>
+<h2 id="get-visible-child" class="heading "><a href="#" title="go to top of document">get-visible-child</a><a class="raku-anchor" title="direct link" href="#get-visible-child">§</a></h2>
+
+<p>Gets the currently visible child of <span class="code">$stack</span>. </p>
+
+<p id="Para_2">Returns undefined if there are no visible children.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-child (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the visible child of the <span class="basis">Gnome::Gtk4::Stack</span>. </p>
+<h2 id="get-visible-child-name" class="heading "><a href="#" title="go to top of document">get-visible-child-name</a><a class="raku-anchor" title="direct link" href="#get-visible-child-name">§</a></h2>
+
+<p>Returns the name of the currently visible child of <span class="code">$stack</span>. </p>
+
+<p id="Para_3">Returns undefined if there is no visible child.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-child-name (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the name of the visible child of the <span class="basis">Gnome::Gtk4::Stack</span>. </p>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p>Removes a child widget from <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child to remove.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-hhomogeneous"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-hhomogeneous</a></h2>
-<p>Sets the <strong>Gnome::Gtk4::Stack</strong> to be horizontally homogeneous or not.</p><p>If it is homogeneous, the <strong>Gnome::Gtk4::Stack</strong> will request the same width for all its children. If it isn't, the stack may change width when a different child becomes visible.</p><pre class="pod-block-code">method set-hhomogeneous ( Bool() $hhomogeneous )
-</pre><ul>
-<li><p>$hhomogeneous; <code>True</code> to make <code>$stack</code> horizontally homogeneous.</p></li>
+<h2 id="set-hhomogeneous" class="heading "><a href="#" title="go to top of document">set-hhomogeneous</a><a class="raku-anchor" title="direct link" href="#set-hhomogeneous">§</a></h2>
+
+<p>Sets the <span class="basis">Gnome::Gtk4::Stack</span> to be horizontally homogeneous or not. </p>
+
+<p>If it is homogeneous, the <span class="basis">Gnome::Gtk4::Stack</span> will request the same width for all its children. If it isn't, the stack may change width when a different child becomes visible. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-hhomogeneous ( Bool() $hhomogeneous )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$hhomogeneous; <span class="code">True</span> to make <span class="code">$stack</span> horizontally homogeneous.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-interpolate-size"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-interpolate-size</a></h2>
-<p>Sets whether or not <code>$stack</code> will interpolate its size when changing the visible child.</p><p>If the <em>interpolate-size</em> property is set to <code>True</code>, <code>$stack</code> will interpolate its size between the current one and the one it'll take after changing the visible child, according to the set transition duration.</p><pre class="pod-block-code">method set-interpolate-size ( Bool() $interpolate-size )
-</pre><ul>
-<li><p>$interpolate-size; the new value.</p></li>
+<h2 id="set-interpolate-size" class="heading "><a href="#" title="go to top of document">set-interpolate-size</a><a class="raku-anchor" title="direct link" href="#set-interpolate-size">§</a></h2>
+
+<p>Sets whether or not <span class="code">$stack</span> will interpolate its size when changing the visible child. </p>
+
+<p>If the <span class="important">interpolate-size</span> property is set to <span class="code">True</span>, <span class="code">$stack</span> will interpolate its size between the current one and the one it'll take after changing the visible child, according to the set transition duration. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-interpolate-size ( Bool() $interpolate-size )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interpolate-size; the new value.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-transition-duration"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-transition-duration</a></h2>
-<p>Sets the duration that transitions between pages in <code>$stack</code> will take.</p><pre class="pod-block-code">method set-transition-duration ( UInt() $duration )
-</pre><ul>
-<li><p>$duration; the new duration, in milliseconds.</p></li>
+<h2 id="set-transition-duration" class="heading "><a href="#" title="go to top of document">set-transition-duration</a><a class="raku-anchor" title="direct link" href="#set-transition-duration">§</a></h2>
+
+<p>Sets the duration that transitions between pages in <span class="code">$stack</span> will take. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-transition-duration ( UInt() $duration )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$duration; the new duration, in milliseconds.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-transition-type"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-transition-type</a></h2>
-<p>Sets the type of animation that will be used for transitions between pages in <code>$stack</code>.</p><p>Available types include various kinds of fades and slides.</p><p>The transition type can be changed without problems at runtime, so it is possible to change the animation based on the page that is about to become current.</p><pre class="pod-block-code">method set-transition-type ( GtkStackTransitionType $transition )
-</pre><ul>
-<li><p>$transition; the new transition type.</p></li>
+<h2 id="set-transition-type" class="heading "><a href="#" title="go to top of document">set-transition-type</a><a class="raku-anchor" title="direct link" href="#set-transition-type">§</a></h2>
+
+<p>Sets the type of animation that will be used for transitions between pages in <span class="code">$stack</span>. </p>
+
+<p id="Para_4">Available types include various kinds of fades and slides.</p>
+
+<p id="Para_5">The transition type can be changed without problems at runtime, so it is possible to change the animation based on the page that is about to become current.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-transition-type ( GtkStackTransitionType $transition )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$transition; the new transition type.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-vhomogeneous"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-vhomogeneous</a></h2>
-<p>Sets the <strong>Gnome::Gtk4::Stack</strong> to be vertically homogeneous or not.</p><p>If it is homogeneous, the <strong>Gnome::Gtk4::Stack</strong> will request the same height for all its children. If it isn't, the stack may change height when a different child becomes visible.</p><pre class="pod-block-code">method set-vhomogeneous ( Bool() $vhomogeneous )
-</pre><ul>
-<li><p>$vhomogeneous; <code>True</code> to make <code>$stack</code> vertically homogeneous.</p></li>
+<h2 id="set-vhomogeneous" class="heading "><a href="#" title="go to top of document">set-vhomogeneous</a><a class="raku-anchor" title="direct link" href="#set-vhomogeneous">§</a></h2>
+
+<p>Sets the <span class="basis">Gnome::Gtk4::Stack</span> to be vertically homogeneous or not. </p>
+
+<p>If it is homogeneous, the <span class="basis">Gnome::Gtk4::Stack</span> will request the same height for all its children. If it isn't, the stack may change height when a different child becomes visible. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-vhomogeneous ( Bool() $vhomogeneous )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$vhomogeneous; <span class="code">True</span> to make <span class="code">$stack</span> vertically homogeneous.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-visible-child"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-visible-child</a></h2>
-<p>Makes <code>$child</code> the visible child of <code>$stack</code>.</p><p>If <code>$child</code> is different from the currently visible child, the transition between the two will be animated with the current transition type of <code>$stack</code>.</p><p>Note that the <code>$child</code> widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget.html#show">.show() in class Widget</a>) in order to become the visible child of <code>$stack</code>.</p><pre class="pod-block-code">method set-visible-child ( N-Object() $child )
-</pre><ul>
-<li><p>$child; a child of <code>$stack</code>.</p></li>
+<h2 id="set-visible-child" class="heading "><a href="#" title="go to top of document">set-visible-child</a><a class="raku-anchor" title="direct link" href="#set-visible-child">§</a></h2>
+
+<p>Makes <span class="code">$child</span> the visible child of <span class="code">$stack</span>. </p>
+
+<p>If <span class="code">$child</span> is different from the currently visible child, the transition between the two will be animated with the current transition type of <span class="code">$stack</span>. </p>
+
+<p>Note that the <span class="code">$child</span> widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget#show">.show() in class Widget</a>) in order to become the visible child of <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visible-child ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child of <span class="code">$stack</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-visible-child-full"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-visible-child-full</a></h2>
-<p>Makes the child with the given name visible.</p><p>Note that the child widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget.html#show">.show() in class Widget</a>) in order to become the visible child of <code>$stack</code>.</p><pre class="pod-block-code">method set-visible-child-full ( Str $name, GtkStackTransitionType $transition )
-</pre><ul>
-<li><p>$name; the name of the child to make visible.</p></li>
-<li><p>$transition; the transition type to use.</p></li>
+<h2 id="set-visible-child-full" class="heading "><a href="#" title="go to top of document">set-visible-child-full</a><a class="raku-anchor" title="direct link" href="#set-visible-child-full">§</a></h2>
+
+<p id="Para_6">Makes the child with the given name visible.</p>
+
+<p>Note that the child widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget#show">.show() in class Widget</a>) in order to become the visible child of <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visible-child-full ( Str $name, GtkStackTransitionType $transition )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the child to make visible.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$transition; the transition type to use.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-visible-child-name"><a href="#Gnome::Gtk4::Stack" class="u" title="go to top of document">set-visible-child-name</a></h2>
-<p>Makes the child with the given name visible.</p><p>If <code>$child</code> is different from the currently visible child, the transition between the two will be animated with the current transition type of <code>$stack</code>.</p><p>Note that the child widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget.html#show">.show() in class Widget</a>) in order to become the visible child of <code>$stack</code>.</p><pre class="pod-block-code">method set-visible-child-name ( Str $name )
-</pre><ul>
-<li><p>$name; the name of the child to make visible.</p></li>
+<h2 id="set-visible-child-name" class="heading "><a href="#" title="go to top of document">set-visible-child-name</a><a class="raku-anchor" title="direct link" href="#set-visible-child-name">§</a></h2>
+
+<p id="Para_7">Makes the child with the given name visible.</p>
+
+<p>If <span class="code">$child</span> is different from the currently visible child, the transition between the two will be animated with the current transition type of <span class="code">$stack</span>. </p>
+
+<p>Note that the child widget has to be visible itself (see <a href="/content-docs/api2/reference/Gtk4/Widget#show">.show() in class Widget</a>) in order to become the visible child of <span class="code">$stack</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visible-child-name ( Str $name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the child to make visible.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Stack.rakudoc</span></div><div>at <span class="time">2025-11-14T20:58:15Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Stack.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

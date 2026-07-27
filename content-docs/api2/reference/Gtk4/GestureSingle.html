@@ -1,88 +1,532 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::GestureSingle</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::GestureSingle</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="/asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header>
-<img id="Camelia_bug" src="/asset_files/images/Camelia.svg"><h1 class="title">Gnome::Gtk4::GestureSingle</h1></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Example">Example</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-button">get-button</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-button">get-current-button</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-sequence">get-current-sequence</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-exclusive">get-exclusive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-touch-only">get-touch-only</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-button">set-button</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-exclusive">set-exclusive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-touch-only">set-touch-only</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::GestureSingle</strong> is a <strong>GtkGestures</strong> subclass optimized for singe-touch and mouse gestures.</p><p>Under interaction, these gestures stick to the first interacting sequence, which is accessible through <a href="#get-current-sequence">.get-current-sequence()</a> while the gesture is being interacted with.</p><p>By default gestures react to both <code>GDK_BUTTON_PRIMARY</code> and touch events. <a href="#set-touch-only">.set-touch-only()</a> can be used to change the touch behavior. Callers may also specify a different mouse button number to interact with through <a href="#set-button">.set-button()</a>, or react to any mouse button by setting it to 0. While the gesture is active, the button being currently pressed can be known through <a href="#get-current-button">.get-current-button()</a>.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/GestureSingle.png" width="70%" height="auto" alt="No caption"></div>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="Example"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">Example</a></h2>
-<p>An example is given in <a href="/content-docs/api2/reference/Gtk4/GestureClick.html">Gnome::Gtk4::GestureClick</a> documentation.</p>
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">Class initialization</a></h1>
+span.weighty {
+  font-variant: small-caps; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">new</a></h2>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre>
-<h1 id="Methods"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">Methods</a></h1>
+span.overstrike {
+  text-decoration: line-through; }
 
-<h2 id="get-button"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">get-button</a></h2>
-<p>Returns the button number this object listens for. If this is 0, the gesture reacts to any button press.</p><pre class="pod-block-code">method get-button ( --&gt; UInt )
-</pre><p>Return value; The button number, or 0 for any button. </p>
-<h2 id="get-current-button"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">get-current-button</a></h2>
-<p>Returns the button number currently interacting with <code>$gesture</code>, or 0 if there is none.</p><pre class="pod-block-code">method get-current-button ( --&gt; UInt )
-</pre><p>Return value; The current button number. </p>
-<h2 id="get-current-sequence"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">get-current-sequence</a></h2>
-<p>Returns the event sequence currently interacting with this object. This is only meaningful if <a href="/content-docs/api2/reference/Gtk4/Gesture.html#is-active">.is-active() in class Gesture</a> returns <code>True</code>.</p><pre class="pod-block-code">method get-current-sequence ( --&gt; N-Object )
-</pre><p>Return value; the current sequence. </p>
-<h2 id="get-exclusive"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">get-exclusive</a></h2>
-<p>Gets whether a gesture is exclusive. For more information, see <a href="#set-exclusive">.set-exclusive()</a>.</p><pre class="pod-block-code">method get-exclusive ( --&gt; Bool )
-</pre><p>Return value; Whether the gesture is exclusive. </p>
-<h2 id="get-touch-only"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">get-touch-only</a></h2>
-<p>Returns <code>True</code> if the gesture is only triggered by touch events.</p><pre class="pod-block-code">method get-touch-only ( --&gt; Bool )
-</pre><p>Return value; <code>True</code> if the gesture only handles touch events. </p>
-<h2 id="set-button"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">set-button</a></h2>
-<p>Sets the button number <code>$gesture</code> listens to. If non-0, every button press from a different button number will be ignored. Touch events implicitly match with button 1.</p><pre class="pod-block-code">method set-button ( UInt() $button )
-</pre><ul>
-<li><p>$button; button number to listen to, or 0 for any button.</p></li>
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::GestureSingle"></div><h1 class="title">Gnome::Gtk4::GestureSingle</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Example">Example</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-button">get-button</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-button">get-current-button</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-sequence">get-current-sequence</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-exclusive">get-exclusive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-touch-only">get-touch-only</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-button">set-button</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-exclusive">set-exclusive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-touch-only">set-touch-only</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::GestureSingle</span> is a <span class="basis">GtkGestures</span> subclass optimized for singe-touch and mouse gestures. </p>
+
+<p>Under interaction, these gestures stick to the first interacting sequence, which is accessible through <a href="#get-current-sequence">.get-current-sequence()</a> while the gesture is being interacted with. </p>
+
+<p>By default gestures react to both <span class="code">GDK_BUTTON_PRIMARY</span> and touch events. <a href="#set-touch-only">.set-touch-only()</a> can be used to change the touch behavior. Callers may also specify a different mouse button number to interact with through <a href="#set-button">.set-button()</a>, or react to any mouse button by setting it to 0. While the gesture is active, the button being currently pressed can be known through <a href="#get-current-button">.get-current-button()</a>. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/GestureSingle.png&gt; :width&lt;70\%&gt;<br><br>
+
+<h2 id="Example" class="heading "><a href="#" title="go to top of document">Example</a><a class="raku-anchor" title="direct link" href="#Example">§</a></h2>
+
+<p>An example is given in <a href="/content-docs/api2/reference/Gtk4/GestureClick">Gnome::Gtk4::GestureClick</a> documentation. </p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-button" class="heading "><a href="#" title="go to top of document">get-button</a><a class="raku-anchor" title="direct link" href="#get-button">§</a></h2>
+
+<p id="Para">Returns the button number this object listens for. If this is 0, the gesture reacts to any button press.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-button ( --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_0">Return value; The button number, or 0 for any button.</p>
+<h2 id="get-current-button" class="heading "><a href="#" title="go to top of document">get-current-button</a><a class="raku-anchor" title="direct link" href="#get-current-button">§</a></h2>
+
+<p>Returns the button number currently interacting with <span class="code">$gesture</span>, or 0 if there is none. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-button ( --&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_1">Return value; The current button number.</p>
+<h2 id="get-current-sequence" class="heading "><a href="#" title="go to top of document">get-current-sequence</a><a class="raku-anchor" title="direct link" href="#get-current-sequence">§</a></h2>
+
+<p>Returns the event sequence currently interacting with this object. This is only meaningful if <a href="/content-docs/api2/reference/Gtk4/Gesture#is-active">.is-active() in class Gesture</a> returns <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-sequence ( --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; the current sequence.</p>
+<h2 id="get-exclusive" class="heading "><a href="#" title="go to top of document">get-exclusive</a><a class="raku-anchor" title="direct link" href="#get-exclusive">§</a></h2>
+
+<p>Gets whether a gesture is exclusive. For more information, see <a href="#set-exclusive">.set-exclusive()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-exclusive ( --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; Whether the gesture is exclusive.</p>
+<h2 id="get-touch-only" class="heading "><a href="#" title="go to top of document">get-touch-only</a><a class="raku-anchor" title="direct link" href="#get-touch-only">§</a></h2>
+
+<p>Returns <span class="code">True</span> if the gesture is only triggered by touch events. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-touch-only ( --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the gesture only handles touch events. </p>
+<h2 id="set-button" class="heading "><a href="#" title="go to top of document">set-button</a><a class="raku-anchor" title="direct link" href="#set-button">§</a></h2>
+
+<p>Sets the button number <span class="code">$gesture</span> listens to. If non-0, every button press from a different button number will be ignored. Touch events implicitly match with button 1. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-button ( UInt() $button )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$button; button number to listen to, or 0 for any button.</li>
 </ul>
 
-<h2 id="set-exclusive"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">set-exclusive</a></h2>
-<p>Sets whether <code>$gesture</code> is exclusive. An exclusive gesture will only handle pointer and &quot;pointer emulated&quot; touch events, so at any given time, there is only one sequence able to interact with those.</p><pre class="pod-block-code">method set-exclusive ( Bool() $exclusive )
-</pre><ul>
-<li><p>$exclusive; <code>True</code> to make <code>$gesture</code> exclusive.</p></li>
+<h2 id="set-exclusive" class="heading "><a href="#" title="go to top of document">set-exclusive</a><a class="raku-anchor" title="direct link" href="#set-exclusive">§</a></h2>
+
+<p>Sets whether <span class="code">$gesture</span> is exclusive. An exclusive gesture will only handle pointer and &quot;pointer emulated&quot; touch events, so at any given time, there is only one sequence able to interact with those. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-exclusive ( Bool() $exclusive )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$exclusive; <span class="code">True</span> to make <span class="code">$gesture</span> exclusive.</li>
 </ul>
 
-<h2 id="set-touch-only"><a href="#Gnome::Gtk4::GestureSingle" class="u" title="go to top of document">set-touch-only</a></h2>
-<p>Sets whether to handle only touch events. If <code>$touch-only</code> is <code>True</code>, <code>$gesture</code> will only handle events of type <code>GDK_TOUCH_BEGIN</code>, <code>GDK_TOUCH_UPDATE</code> or <code>GDK_TOUCH_END</code>. If <code>False</code>, mouse events will be handled too.</p><pre class="pod-block-code">method set-touch-only ( Bool() $touch-only )
-</pre><ul>
-<li><p>$touch-only; whether <code>$gesture</code> handles only touch events.</p></li>
+<h2 id="set-touch-only" class="heading "><a href="#" title="go to top of document">set-touch-only</a><a class="raku-anchor" title="direct link" href="#set-touch-only">§</a></h2>
+
+<p>Sets whether to handle only touch events. If <span class="code">$touch-only</span> is <span class="code">True</span>, <span class="code">$gesture</span> will only handle events of type <span class="code">GDK_TOUCH_BEGIN</span>, <span class="code">GDK_TOUCH_UPDATE</span> or <span class="code">GDK_TOUCH_END</span>. If <span class="code">False</span>, mouse events will be handled too. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-touch-only ( Bool() $touch-only )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$touch-only; whether <span class="code">$gesture</span> handles only touch events.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GestureSingle.rakudoc</span></div><div>at <span class="time">2026-07-06T18:03:30Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/GestureSingle.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 17:50 UTC on 2026-07-06</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

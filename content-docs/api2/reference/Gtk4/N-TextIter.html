@@ -1,635 +1,1812 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::N-TextIter</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::N-TextIter</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::N-TextIter">Gnome::Gtk4::N-TextIter</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#assign">assign</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-char">backward-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-chars">backward-chars</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-cursor-position">backward-cursor-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-cursor-positions">backward-cursor-positions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-find-char">backward-find-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-line">backward-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-lines">backward-lines</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-search">backward-search</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-sentence-start">backward-sentence-start</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-sentence-starts">backward-sentence-starts</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-to-tag-toggle">backward-to-tag-toggle</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-cursor-position">backward-visible-cursor-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-cursor-positions">backward-visible-cursor-positions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-line">backward-visible-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-lines">backward-visible-lines</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-word-start">backward-visible-word-start</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-visible-word-starts">backward-visible-word-starts</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-word-start">backward-word-start</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backward-word-starts">backward-word-starts</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#can-insert">can-insert</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#compare">compare</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#copy">copy</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#editable">editable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ends-line">ends-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ends-sentence">ends-sentence</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ends-tag">ends-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ends-word">ends-word</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#equal">equal</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-char">forward-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-chars">forward-chars</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-cursor-position">forward-cursor-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-cursor-positions">forward-cursor-positions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-find-char">forward-find-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-line">forward-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-lines">forward-lines</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-search">forward-search</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-sentence-end">forward-sentence-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-sentence-ends">forward-sentence-ends</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-to-end">forward-to-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-to-line-end">forward-to-line-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-to-tag-toggle">forward-to-tag-toggle</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-cursor-position">forward-visible-cursor-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-cursor-positions">forward-visible-cursor-positions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-line">forward-visible-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-lines">forward-visible-lines</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-word-end">forward-visible-word-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-visible-word-ends">forward-visible-word-ends</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-word-end">forward-word-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#forward-word-ends">forward-word-ends</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#free">free</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-buffer">get-buffer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-bytes-in-line">get-bytes-in-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-char">get-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-chars-in-line">get-chars-in-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-child-anchor">get-child-anchor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-language">get-language</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-line">get-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-line-index">get-line-index</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-line-offset">get-line-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-marks">get-marks</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-offset">get-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-paintable">get-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-slice">get-slice</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tags">get-tags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-text">get-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-toggled-tags">get-toggled-tags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-line-index">get-visible-line-index</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-line-offset">get-visible-line-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-slice">get-visible-slice</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visible-text">get-visible-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#has-tag">has-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#in-range">in-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#inside-sentence">inside-sentence</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#inside-word">inside-word</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-cursor-position">is-cursor-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-end">is-end</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-start">is-start</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#order">order</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-line">set-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-line-index">set-line-index</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-line-offset">set-line-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-offset">set-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-line-index">set-visible-line-index</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visible-line-offset">set-visible-line-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#starts-line">starts-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#starts-sentence">starts-sentence</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#starts-tag">starts-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#starts-word">starts-word</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#toggles-tag">toggles-tag</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">Description</a></h1>
-<p>An iterator for the contents of a <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a>.</p><p>You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p></section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="assign"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">assign</a></h2>
-<p>Assigns the value of <code>$other</code> to <code>$iter</code>.</p><p>This function is not useful in applications, because iterators can be assigned with <strong>Gnome::Gtk4::N-TextIter</strong> i = j;`.</p><p>The function is used by language bindings.</p><pre class="pod-block-code">method assign ( N-Object $other )
-</pre><ul>
-<li><p>$other; another <strong>Gnome::Gtk4::N-TextIter</strong></p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::N-TextIter"></div><h1 class="title">Gnome::Gtk4::N-TextIter</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#assign">assign</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-char">backward-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-chars">backward-chars</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-cursor-position">backward-cursor-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-cursor-positions">backward-cursor-positions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-find-char">backward-find-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-line">backward-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-lines">backward-lines</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-search">backward-search</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-sentence-start">backward-sentence-start</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-sentence-starts">backward-sentence-starts</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-to-tag-toggle">backward-to-tag-toggle</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-cursor-position">backward-visible-cursor-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-cursor-positions">backward-visible-cursor-positions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-line">backward-visible-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-lines">backward-visible-lines</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-word-start">backward-visible-word-start</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-visible-word-starts">backward-visible-word-starts</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-word-start">backward-word-start</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backward-word-starts">backward-word-starts</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#can-insert">can-insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#compare">compare</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy">copy</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#editable">editable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ends-line">ends-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ends-sentence">ends-sentence</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ends-tag">ends-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ends-word">ends-word</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#equal">equal</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-char">forward-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-chars">forward-chars</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-cursor-position">forward-cursor-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-cursor-positions">forward-cursor-positions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-find-char">forward-find-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-line">forward-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-lines">forward-lines</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-search">forward-search</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-sentence-end">forward-sentence-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-sentence-ends">forward-sentence-ends</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-to-end">forward-to-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-to-line-end">forward-to-line-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-to-tag-toggle">forward-to-tag-toggle</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-cursor-position">forward-visible-cursor-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-cursor-positions">forward-visible-cursor-positions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-line">forward-visible-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-lines">forward-visible-lines</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-word-end">forward-visible-word-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-visible-word-ends">forward-visible-word-ends</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-word-end">forward-word-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#forward-word-ends">forward-word-ends</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#free">free</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-buffer">get-buffer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-bytes-in-line">get-bytes-in-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-char">get-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-chars-in-line">get-chars-in-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-child-anchor">get-child-anchor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-language">get-language</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-line">get-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-line-index">get-line-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-line-offset">get-line-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-marks">get-marks</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-offset">get-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-paintable">get-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-slice">get-slice</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tags">get-tags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-text">get-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-toggled-tags">get-toggled-tags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-line-index">get-visible-line-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-line-offset">get-visible-line-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-slice">get-visible-slice</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visible-text">get-visible-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#has-tag">has-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#in-range">in-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#inside-sentence">inside-sentence</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#inside-word">inside-word</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-cursor-position">is-cursor-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-end">is-end</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-start">is-start</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#order">order</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-line">set-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-line-index">set-line-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-line-offset">set-line-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-offset">set-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visible-line-index">set-visible-line-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visible-line-offset">set-visible-line-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#starts-line">starts-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#starts-sentence">starts-sentence</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#starts-tag">starts-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#starts-word">starts-word</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#toggles-tag">toggles-tag</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>An iterator for the contents of a <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a>. </p>
+
+<p id="Para">You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="assign" class="heading "><a href="#" title="go to top of document">assign</a><a class="raku-anchor" title="direct link" href="#assign">§</a></h2>
+
+<p>Assigns the value of <span class="code">$other</span> to <span class="code">$iter</span>. </p>
+
+<p>This function is not useful in applications, because iterators can be assigned with <span class="basis">Gnome::Gtk4::N-TextIter</span> i = j;`. </p>
+
+<p id="Para_0">The function is used by language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method assign ( N-Object $other )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$other; another <span class="basis">Gnome::Gtk4::N-TextIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="backward-char"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-char</a></h2>
-<p>Moves backward by one character offset.</p><p>Returns <code>True</code> if movement was possible; if <code>$iter</code> was the first in the buffer (character offset 0), this function returns <code>False</code> for convenience when writing loops.</p><pre class="pod-block-code">method backward-char (--&gt; Bool )
-</pre><p>Return value; whether movement was possible. </p></section>
-<section name="pod">
-<h2 id="backward-chars"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-chars</a></h2>
-<p>Moves <code>$count</code> characters backward, if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <code>False</code> is returned. If <code>$count</code> is 0, the function does nothing and returns <code>False</code>.</p><pre class="pod-block-code">method backward-chars ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of characters to move.</p></li>
+<h2 id="backward-char" class="heading "><a href="#" title="go to top of document">backward-char</a><a class="raku-anchor" title="direct link" href="#backward-char">§</a></h2>
+
+<p id="Para_1">Moves backward by one character offset.</p>
+
+<p>Returns <span class="code">True</span> if movement was possible; if <span class="code">$iter</span> was the first in the buffer (character offset 0), this function returns <span class="code">False</span> for convenience when writing loops. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-char (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; whether movement was possible.</p>
+<h2 id="backward-chars" class="heading "><a href="#" title="go to top of document">backward-chars</a><a class="raku-anchor" title="direct link" href="#backward-chars">§</a></h2>
+
+<p>Moves <span class="code">$count</span> characters backward, if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <span class="code">False</span> is returned. If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-chars ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of characters to move.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-cursor-position"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-cursor-position</a></h2>
-<p>Like <a href="#forward-cursor-position">.forward-cursor-position()</a>, but moves backward.</p><pre class="pod-block-code">method backward-cursor-position (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if we moved. </p></section>
-<section name="pod">
-<h2 id="backward-cursor-positions"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-cursor-positions</a></h2>
-<p>Moves up to <code>$count</code> cursor positions.</p><p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details.</p><pre class="pod-block-code">method backward-cursor-positions ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of positions to move.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="backward-cursor-position" class="heading "><a href="#" title="go to top of document">backward-cursor-position</a><a class="raku-anchor" title="direct link" href="#backward-cursor-position">§</a></h2>
+
+<p>Like <a href="#forward-cursor-position">.forward-cursor-position()</a>, but moves backward. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-cursor-position (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if we moved. </p>
+<h2 id="backward-cursor-positions" class="heading "><a href="#" title="go to top of document">backward-cursor-positions</a><a class="raku-anchor" title="direct link" href="#backward-cursor-positions">§</a></h2>
+
+<p>Moves up to <span class="code">$count</span> cursor positions. </p>
+
+<p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-cursor-positions ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of positions to move.</li>
 </ul>
-<p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-find-char"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-find-char</a></h2>
-<p>Same as <a href="#forward-find-char">.forward-find-char()</a>, but goes backward from <code>$iter</code>.</p><pre class="pod-block-code">method backward-find-char ( GtkTextCharPredicate &amp;pred, gpointer $user-data, N-Object $limit --&gt; Bool )
-</pre><ul>
-<li><p>GtkTextCharPredicate &amp;pred; function to be called on each character. The function must be specified with the following signature; <code>:( gunichar $ch, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data for <code>$pred</code>.</p></li>
-<li><p>$limit; search limit</p></li>
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="backward-find-char" class="heading "><a href="#" title="go to top of document">backward-find-char</a><a class="raku-anchor" title="direct link" href="#backward-find-char">§</a></h2>
+
+<p>Same as <a href="#forward-find-char">.forward-find-char()</a>, but goes backward from <span class="code">$iter</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-find-char ( GtkTextCharPredicate &amp;pred, gpointer $user-data, N-Object $limit --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkTextCharPredicate &amp;pred; function to be called on each character. The function must be specified with the following signature; <span class="code">:( gunichar $ch, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data for <span class="code">$pred</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$limit; search limit</li>
 </ul>
-<p>Return value; whether a match was found. </p></section>
-<section name="pod">
-<h2 id="backward-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-line</a></h2>
-<p>Moves <code>$iter</code> to the start of the previous line.</p><p>Returns <code>True</code> if <code>$iter</code> could be moved; i.e. if <code>$iter</code> was at character offset 0, this function returns <code>False</code>. Therefore, if <code>$iter</code> was already on line 0, but not at the start of the line, <code>$iter</code> is snapped to the start of the line and the function returns <code>True</code>. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.)</p><pre class="pod-block-code">method backward-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> moved. </p></section>
-<section name="pod">
-<h2 id="backward-lines"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-lines</a></h2>
-<p>Moves <code>$count</code> lines backward, if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <code>False</code> is returned. If <code>$count</code> is 0, the function does nothing and returns <code>False</code>. If <code>$count</code> is negative, moves forward by 0 - <code>$count</code> lines.</p><pre class="pod-block-code">method backward-lines ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of lines to move backward.</p></li>
+
+<p id="Para_3">Return value; whether a match was found.</p>
+<h2 id="backward-line" class="heading "><a href="#" title="go to top of document">backward-line</a><a class="raku-anchor" title="direct link" href="#backward-line">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> to the start of the previous line. </p>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> could be moved; i.e. if <span class="code">$iter</span> was at character offset 0, this function returns <span class="code">False</span>. Therefore, if <span class="code">$iter</span> was already on line 0, but not at the start of the line, <span class="code">$iter</span> is snapped to the start of the line and the function returns <span class="code">True</span>. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.) </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> moved. </p>
+<h2 id="backward-lines" class="heading "><a href="#" title="go to top of document">backward-lines</a><a class="raku-anchor" title="direct link" href="#backward-lines">§</a></h2>
+
+<p>Moves <span class="code">$count</span> lines backward, if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <span class="code">False</span> is returned. If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. If <span class="code">$count</span> is negative, moves forward by 0 - <span class="code">$count</span> lines. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-lines ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of lines to move backward.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-search"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-search</a></h2>
-<p>Same as <a href="#forward-search">.forward-search()</a>, but moves backward. <code>$match-end</code> will never be set to a <strong>Gnome::Gtk4::N-TextIter</strong> located after <code>$iter</code>, even if there is a possible <code>$match-start</code> before or at <code>$iter</code>.</p><pre class="pod-block-code">method backward-search ( Str $str, UInt $flags, N-Object $match-start, N-Object $match-end, N-Object $limit --&gt; Bool )
-</pre><ul>
-<li><p>$str; search string.</p></li>
-<li><p>$flags; bitmask of flags affecting the search.</p></li>
-<li><p>$match-start; return location for start of match</p></li>
-<li><p>$match-end; return location for end of match</p></li>
-<li><p>$limit; location of last possible <code>$match-start</code>, or undefined for start of buffer</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="backward-search" class="heading "><a href="#" title="go to top of document">backward-search</a><a class="raku-anchor" title="direct link" href="#backward-search">§</a></h2>
+
+<p>Same as <a href="#forward-search">.forward-search()</a>, but moves backward. <span class="code">$match-end</span> will never be set to a <span class="basis">Gnome::Gtk4::N-TextIter</span> located after <span class="code">$iter</span>, even if there is a possible <span class="code">$match-start</span> before or at <span class="code">$iter</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-search ( Str $str, UInt $flags, N-Object $match-start, N-Object $match-end, N-Object $limit --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$str; search string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; bitmask of flags affecting the search.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$match-start; return location for start of match</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$match-end; return location for end of match</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$limit; location of last possible <span class="code">$match-start</span>, or undefined for start of buffer</li>
 </ul>
-<p>Return value; whether a match was found. </p></section>
-<section name="pod">
-<h2 id="backward-sentence-start"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-sentence-start</a></h2>
-<p>Moves backward to the previous sentence start.</p><p>If <code>$iter</code> is already at the start of a sentence, moves backward to the next one.</p><p>Sentence boundaries are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method backward-sentence-start (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="backward-sentence-starts"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-sentence-starts</a></h2>
-<p>Calls <a href="#backward-sentence-start">.backward-sentence-start()</a> up to <code>$count</code> times.</p><p>If <code>$count</code> is negative, moves forward instead of backward.</p><pre class="pod-block-code">method backward-sentence-starts ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of sentences to move.</p></li>
+
+<p id="Para_4">Return value; whether a match was found.</p>
+<h2 id="backward-sentence-start" class="heading "><a href="#" title="go to top of document">backward-sentence-start</a><a class="raku-anchor" title="direct link" href="#backward-sentence-start">§</a></h2>
+
+<p id="Para_5">Moves backward to the previous sentence start.</p>
+
+<p>If <span class="code">$iter</span> is already at the start of a sentence, moves backward to the next one. </p>
+
+<p id="Para_6">Sentence boundaries are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-sentence-start (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="backward-sentence-starts" class="heading "><a href="#" title="go to top of document">backward-sentence-starts</a><a class="raku-anchor" title="direct link" href="#backward-sentence-starts">§</a></h2>
+
+<p>Calls <a href="#backward-sentence-start">.backward-sentence-start()</a> up to <span class="code">$count</span> times. </p>
+
+<p>If <span class="code">$count</span> is negative, moves forward instead of backward. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-sentence-starts ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of sentences to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="backward-to-tag-toggle"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-to-tag-toggle</a></h2>
-<p>Moves backward to the next toggle (on or off) of the <code>$tag</code>, or to the next toggle of any tag if <code>$tag</code> is undefined.</p><p>If no matching tag toggles are found, returns <code>False</code>, otherwise <code>True</code>. Does not return toggles located at <code>$iter</code>, only toggles before <code>$iter</code>. Sets <code>$iter</code> to the location of the toggle, or the start of the buffer if no toggle is found.</p><pre class="pod-block-code">method backward-to-tag-toggle ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="backward-to-tag-toggle" class="heading "><a href="#" title="go to top of document">backward-to-tag-toggle</a><a class="raku-anchor" title="direct link" href="#backward-to-tag-toggle">§</a></h2>
+
+<p>Moves backward to the next toggle (on or off) of the <span class="code">$tag</span>, or to the next toggle of any tag if <span class="code">$tag</span> is undefined. </p>
+
+<p>If no matching tag toggles are found, returns <span class="code">False</span>, otherwise <span class="code">True</span>. Does not return toggles located at <span class="code">$iter</span>, only toggles before <span class="code">$iter</span>. Sets <span class="code">$iter</span> to the location of the toggle, or the start of the buffer if no toggle is found. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-to-tag-toggle ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether we found a tag toggle before <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="backward-visible-cursor-position"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-cursor-position</a></h2>
-<p>Moves <code>$iter</code> backward to the previous visible cursor position.</p><p>See <a href="#backward-cursor-position">.backward-cursor-position()</a> for details.</p><pre class="pod-block-code">method backward-visible-cursor-position (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-visible-cursor-positions"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-cursor-positions</a></h2>
-<p>Moves up to <code>$count</code> visible cursor positions.</p><p>See <a href="#backward-cursor-position">.backward-cursor-position()</a> for details.</p><pre class="pod-block-code">method backward-visible-cursor-positions ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of positions to move.</p></li>
+
+<p>Return value; whether we found a tag toggle before <span class="code">$iter</span>. </p>
+<h2 id="backward-visible-cursor-position" class="heading "><a href="#" title="go to top of document">backward-visible-cursor-position</a><a class="raku-anchor" title="direct link" href="#backward-visible-cursor-position">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> backward to the previous visible cursor position. </p>
+
+<p>See <a href="#backward-cursor-position">.backward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-cursor-position (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="backward-visible-cursor-positions" class="heading "><a href="#" title="go to top of document">backward-visible-cursor-positions</a><a class="raku-anchor" title="direct link" href="#backward-visible-cursor-positions">§</a></h2>
+
+<p>Moves up to <span class="code">$count</span> visible cursor positions. </p>
+
+<p>See <a href="#backward-cursor-position">.backward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-cursor-positions ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of positions to move.</li>
 </ul>
-<p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-visible-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-line</a></h2>
-<p>Moves <code>$iter</code> to the start of the previous visible line.</p><p>Returns <code>True</code> if <code>$iter</code> could be moved; i.e. if <code>$iter</code> was at character offset 0, this function returns <code>False</code>. Therefore if <code>$iter</code> was already on line 0, but not at the start of the line, <code>$iter</code> is snapped to the start of the line and the function returns <code>True</code>. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.)</p><pre class="pod-block-code">method backward-visible-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> moved. </p></section>
-<section name="pod">
-<h2 id="backward-visible-lines"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-lines</a></h2>
-<p>Moves <code>$count</code> visible lines backward, if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <code>False</code> is returned. If <code>$count</code> is 0, the function does nothing and returns <code>False</code>. If <code>$count</code> is negative, moves forward by 0 - <code>$count</code> lines.</p><pre class="pod-block-code">method backward-visible-lines ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of lines to move backward.</p></li>
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="backward-visible-line" class="heading "><a href="#" title="go to top of document">backward-visible-line</a><a class="raku-anchor" title="direct link" href="#backward-visible-line">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> to the start of the previous visible line. </p>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> could be moved; i.e. if <span class="code">$iter</span> was at character offset 0, this function returns <span class="code">False</span>. Therefore if <span class="code">$iter</span> was already on line 0, but not at the start of the line, <span class="code">$iter</span> is snapped to the start of the line and the function returns <span class="code">True</span>. (Note that this implies that in a loop calling this function, the line number may not change on every iteration, if your first iteration is on line 0.) </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> moved. </p>
+<h2 id="backward-visible-lines" class="heading "><a href="#" title="go to top of document">backward-visible-lines</a><a class="raku-anchor" title="direct link" href="#backward-visible-lines">§</a></h2>
+
+<p>Moves <span class="code">$count</span> visible lines backward, if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <span class="code">False</span> is returned. If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. If <span class="code">$count</span> is negative, moves forward by 0 - <span class="code">$count</span> lines. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-lines ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of lines to move backward.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="backward-visible-word-start"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-word-start</a></h2>
-<p>Moves backward to the previous visible word start.</p><p>If <code>$iter</code> is currently on a word start, moves backward to the next one after that.</p><p>Word breaks are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method backward-visible-word-start (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="backward-visible-word-starts"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-visible-word-starts</a></h2>
-<p>Calls <a href="#backward-visible-word-start">.backward-visible-word-start()</a> up to <code>$count</code> times.</p><pre class="pod-block-code">method backward-visible-word-starts ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of times to move.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="backward-visible-word-start" class="heading "><a href="#" title="go to top of document">backward-visible-word-start</a><a class="raku-anchor" title="direct link" href="#backward-visible-word-start">§</a></h2>
+
+<p id="Para_7">Moves backward to the previous visible word start.</p>
+
+<p>If <span class="code">$iter</span> is currently on a word start, moves backward to the next one after that. </p>
+
+<p id="Para_8">Word breaks are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-word-start (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="backward-visible-word-starts" class="heading "><a href="#" title="go to top of document">backward-visible-word-starts</a><a class="raku-anchor" title="direct link" href="#backward-visible-word-starts">§</a></h2>
+
+<p>Calls <a href="#backward-visible-word-start">.backward-visible-word-start()</a> up to <span class="code">$count</span> times. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-visible-word-starts ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of times to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="backward-word-start"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-word-start</a></h2>
-<p>Moves backward to the previous word start.</p><p>If <code>$iter</code> is currently on a word start, moves backward to the next one after that.</p><p>Word breaks are determined by Pango and should be correct for nearly any language</p><pre class="pod-block-code">method backward-word-start (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="backward-word-starts"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">backward-word-starts</a></h2>
-<p>Calls <a href="#backward-word-start">.backward-word-start()</a> up to <code>$count</code> times.</p><pre class="pod-block-code">method backward-word-starts ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of times to move.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="backward-word-start" class="heading "><a href="#" title="go to top of document">backward-word-start</a><a class="raku-anchor" title="direct link" href="#backward-word-start">§</a></h2>
+
+<p id="Para_9">Moves backward to the previous word start.</p>
+
+<p>If <span class="code">$iter</span> is currently on a word start, moves backward to the next one after that. </p>
+
+<p id="Para_10">Word breaks are determined by Pango and should be correct for nearly any language</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-word-start (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="backward-word-starts" class="heading "><a href="#" title="go to top of document">backward-word-starts</a><a class="raku-anchor" title="direct link" href="#backward-word-starts">§</a></h2>
+
+<p>Calls <a href="#backward-word-start">.backward-word-start()</a> up to <span class="code">$count</span> times. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backward-word-starts ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of times to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="can-insert"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">can-insert</a></h2>
-<p>Considering the default editability of the buffer, and tags that affect editability, determines whether text inserted at <code>$iter</code> would be editable.</p><p>If text inserted at <code>$iter</code> would be editable then the user should be allowed to insert text at <code>$iter</code>. <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html#insert-interactive">.insert-interactive() in class TextBuffer</a> uses this function to decide whether insertions are allowed at a given position.</p><pre class="pod-block-code">method can-insert ( Bool() $default-editability --&gt; Bool )
-</pre><ul>
-<li><p>$default-editability; <code>True</code> if text is editable by default.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="can-insert" class="heading "><a href="#" title="go to top of document">can-insert</a><a class="raku-anchor" title="direct link" href="#can-insert">§</a></h2>
+
+<p>Considering the default editability of the buffer, and tags that affect editability, determines whether text inserted at <span class="code">$iter</span> would be editable. </p>
+
+<p>If text inserted at <span class="code">$iter</span> would be editable then the user should be allowed to insert text at <span class="code">$iter</span>. <a href="/content-docs/api2/reference/Gtk4/TextBuffer#insert-interactive">.insert-interactive() in class TextBuffer</a> uses this function to decide whether insertions are allowed at a given position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method can-insert ( Bool() $default-editability --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$default-editability; <span class="code">True</span> if text is editable by default.</li>
 </ul>
-<p>Return value; whether text inserted at <code>$iter</code> would be editable. </p></section>
-<section name="pod">
-<h2 id="compare"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">compare</a></h2>
-<p>A qsort()-style function that returns negative if <code>$lhs</code> is less than <code>$rhs</code>, positive if <code>$lhs</code> is greater than <code>$rhs</code>, and 0 if they’re equal.</p><p>Ordering is in character offset order, i.e. the first character in the buffer is less than the second character in the buffer.</p><pre class="pod-block-code">method compare ( N-Object $rhs --&gt; Int )
-</pre><ul>
-<li><p>$rhs; another <strong>Gnome::Gtk4::N-TextIter</strong></p></li>
+
+<p>Return value; whether text inserted at <span class="code">$iter</span> would be editable. </p>
+<h2 id="compare" class="heading "><a href="#" title="go to top of document">compare</a><a class="raku-anchor" title="direct link" href="#compare">§</a></h2>
+
+<p>A qsort()-style function that returns negative if <span class="code">$lhs</span> is less than <span class="code">$rhs</span>, positive if <span class="code">$lhs</span> is greater than <span class="code">$rhs</span>, and 0 if they’re equal. </p>
+
+<p id="Para_11">Ordering is in character offset order, i.e. the first character in the buffer is less than the second character in the buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method compare ( N-Object $rhs --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rhs; another <span class="basis">Gnome::Gtk4::N-TextIter</span></li>
 </ul>
-<p>Return value; -1 if <code>$lhs</code> is less than <code>$rhs</code>, 1 if <code>$lhs</code> is greater, 0 if they are equal. </p></section>
-<section name="pod">
-<h2 id="copy"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">copy</a></h2>
-<p>Creates a dynamically-allocated copy of an iterator.</p><p>This function is not useful in applications, because iterators can be copied with a simple assignment (<strong>Gnome::Gtk4::N-TextIter</strong> i = j;`).</p><p>The function is used by language bindings.</p><pre class="pod-block-code">method copy (--&gt; N-Object )
-</pre><p>Return value; a copy of the <code>$iter</code>, free with <a href="#free">.free()</a>. </p></section>
-<section name="pod">
-<h2 id="editable"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">editable</a></h2>
-<p>Returns whether the character at <code>$iter</code> is within an editable region of text.</p><p>Non-editable text is “locked” and can’t be changed by the user via <a href="/content-docs/api2/reference/Gtk4/TextView.html">Gnome::Gtk4::TextView</a>. If no tags applied to this text affect editability, <code>$default-setting</code> will be returned.</p><p>You don’t want to use this function to decide whether text can be inserted at <code>$iter</code>, because for insertion you don’t want to know whether the char at <code>$iter</code> is inside an editable range, you want to know whether a new character inserted at <code>$iter</code> would be inside an editable range. Use <a href="#can-insert">.can-insert()</a> to handle this case.</p><pre class="pod-block-code">method editable ( Bool() $default-setting --&gt; Bool )
-</pre><ul>
-<li><p>$default-setting; <code>True</code> if text is editable by default.</p></li>
+
+<p>Return value; -1 if <span class="code">$lhs</span> is less than <span class="code">$rhs</span>, 1 if <span class="code">$lhs</span> is greater, 0 if they are equal. </p>
+<h2 id="copy" class="heading "><a href="#" title="go to top of document">copy</a><a class="raku-anchor" title="direct link" href="#copy">§</a></h2>
+
+<p id="Para_12">Creates a dynamically-allocated copy of an iterator.</p>
+
+<p>This function is not useful in applications, because iterators can be copied with a simple assignment (<span class="basis">Gnome::Gtk4::N-TextIter</span> i = j;`). </p>
+
+<p id="Para_13">The function is used by language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a copy of the <span class="code">$iter</span>, free with <a href="#free">.free()</a>. </p>
+<h2 id="editable" class="heading "><a href="#" title="go to top of document">editable</a><a class="raku-anchor" title="direct link" href="#editable">§</a></h2>
+
+<p>Returns whether the character at <span class="code">$iter</span> is within an editable region of text. </p>
+
+<p>Non-editable text is “locked” and can’t be changed by the user via <a href="/content-docs/api2/reference/Gtk4/TextView">Gnome::Gtk4::TextView</a>. If no tags applied to this text affect editability, <span class="code">$default-setting</span> will be returned. </p>
+
+<p>You don’t want to use this function to decide whether text can be inserted at <span class="code">$iter</span>, because for insertion you don’t want to know whether the char at <span class="code">$iter</span> is inside an editable range, you want to know whether a new character inserted at <span class="code">$iter</span> would be inside an editable range. Use <a href="#can-insert">.can-insert()</a> to handle this case. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method editable ( Bool() $default-setting --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$default-setting; <span class="code">True</span> if text is editable by default.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> is inside an editable range. </p></section>
-<section name="pod">
-<h2 id="ends-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">ends-line</a></h2>
-<p>Returns <code>True</code> if <code>$iter</code> points to the start of the paragraph delimiter characters for a line.</p><p>Delimiters will be either a newline, a carriage return, a carriage return followed by a newline, or a Unicode paragraph separator character.</p><p>Note that an iterator pointing to the \n of a \r\n pair will not be counted as the end of a line, the line ends before the \r. The end iterator is considered to be at the end of a line, even though there are no paragraph delimiter chars there.</p><pre class="pod-block-code">method ends-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> is at the end of a line. </p></section>
-<section name="pod">
-<h2 id="ends-sentence"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">ends-sentence</a></h2>
-<p>Determines whether <code>$iter</code> ends a sentence.</p><p>Sentence boundaries are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method ends-sentence (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is at the end of a sentence.. </p></section>
-<section name="pod">
-<h2 id="ends-tag"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">ends-tag</a></h2>
-<p>Returns <code>True</code> if <code>$tag</code> is toggled off at exactly this point.</p><p>If <code>$tag</code> is undefined, returns <code>True</code> if any tag is toggled off at this point.</p><p>Note that if this function returns <code>True</code>, it means that <code>$iter</code> is at the end of the tagged range, but that the character at <code>$iter</code> is outside the tagged range. In other words, unlike <a href="#starts-tag">.starts-tag()</a>, if this function returns <code>True</code>, <a href="#has-tag">.has-tag()</a> will return <code>False</code> for the same parameters.</p><pre class="pod-block-code">method ends-tag ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> is inside an editable range. </p>
+<h2 id="ends-line" class="heading "><a href="#" title="go to top of document">ends-line</a><a class="raku-anchor" title="direct link" href="#ends-line">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> points to the start of the paragraph delimiter characters for a line. </p>
+
+<p id="Para_14">Delimiters will be either a newline, a carriage return, a carriage return followed by a newline, or a Unicode paragraph separator character.</p>
+
+<p id="Para_15">Note that an iterator pointing to the \n of a \r\n pair will not be counted as the end of a line, the line ends before the \r. The end iterator is considered to be at the end of a line, even though there are no paragraph delimiter chars there.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ends-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> is at the end of a line. </p>
+<h2 id="ends-sentence" class="heading "><a href="#" title="go to top of document">ends-sentence</a><a class="raku-anchor" title="direct link" href="#ends-sentence">§</a></h2>
+
+<p>Determines whether <span class="code">$iter</span> ends a sentence. </p>
+
+<p id="Para_16">Sentence boundaries are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ends-sentence (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is at the end of a sentence.. </p>
+<h2 id="ends-tag" class="heading "><a href="#" title="go to top of document">ends-tag</a><a class="raku-anchor" title="direct link" href="#ends-tag">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$tag</span> is toggled off at exactly this point. </p>
+
+<p>If <span class="code">$tag</span> is undefined, returns <span class="code">True</span> if any tag is toggled off at this point. </p>
+
+<p>Note that if this function returns <span class="code">True</span>, it means that <span class="code">$iter</span> is at the end of the tagged range, but that the character at <span class="code">$iter</span> is outside the tagged range. In other words, unlike <a href="#starts-tag">.starts-tag()</a>, if this function returns <span class="code">True</span>, <a href="#has-tag">.has-tag()</a> will return <span class="code">False</span> for the same parameters. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ends-tag ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> is the end of a range tagged with <code>$tag</code>. </p></section>
-<section name="pod">
-<h2 id="ends-word"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">ends-word</a></h2>
-<p>Determines whether <code>$iter</code> ends a natural-language word.</p><p>Word breaks are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method ends-word (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is at the end of a word. </p></section>
-<section name="pod">
-<h2 id="equal"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">equal</a></h2>
-<p>Tests whether two iterators are equal, using the fastest possible mechanism.</p><p>This function is very fast; you can expect it to perform better than e.g. getting the character offset for each iterator and comparing the offsets yourself. Also, it’s a bit faster than <a href="#compare">.compare()</a>.</p><pre class="pod-block-code">method equal ( N-Object $rhs --&gt; Bool )
-</pre><ul>
-<li><p>$rhs; another <strong>Gnome::Gtk4::N-TextIter</strong></p></li>
+
+<p>Return value; whether <span class="code">$iter</span> is the end of a range tagged with <span class="code">$tag</span>. </p>
+<h2 id="ends-word" class="heading "><a href="#" title="go to top of document">ends-word</a><a class="raku-anchor" title="direct link" href="#ends-word">§</a></h2>
+
+<p>Determines whether <span class="code">$iter</span> ends a natural-language word. </p>
+
+<p id="Para_17">Word breaks are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ends-word (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is at the end of a word. </p>
+<h2 id="equal" class="heading "><a href="#" title="go to top of document">equal</a><a class="raku-anchor" title="direct link" href="#equal">§</a></h2>
+
+<p id="Para_18">Tests whether two iterators are equal, using the fastest possible mechanism.</p>
+
+<p>This function is very fast; you can expect it to perform better than e.g. getting the character offset for each iterator and comparing the offsets yourself. Also, it’s a bit faster than <a href="#compare">.compare()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method equal ( N-Object $rhs --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$rhs; another <span class="basis">Gnome::Gtk4::N-TextIter</span></li>
 </ul>
-<p>Return value; <code>True</code> if the iterators point to the same place in the buffer. </p></section>
-<section name="pod">
-<h2 id="forward-char"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-char</a></h2>
-<p>Moves <code>$iter</code> forward by one character offset.</p><p>Note that images embedded in the buffer occupy 1 character slot, so this function may actually move onto an image instead of a character, if you have images in your buffer. If <code>$iter</code> is the end iterator or one character before it, <code>$iter</code> will now point at the end iterator, and this function returns <code>False</code> for convenience when writing loops.</p><pre class="pod-block-code">method forward-char (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-chars"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-chars</a></h2>
-<p>Moves <code>$count</code> characters if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the new position of <code>$iter</code> is different from its original position, and dereferenceable (the last iterator in the buffer is not dereferenceable). If <code>$count</code> is 0, the function does nothing and returns <code>False</code>.</p><pre class="pod-block-code">method forward-chars ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of characters to move, may be negative.</p></li>
+
+<p>Return value; <span class="code">True</span> if the iterators point to the same place in the buffer. </p>
+<h2 id="forward-char" class="heading "><a href="#" title="go to top of document">forward-char</a><a class="raku-anchor" title="direct link" href="#forward-char">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> forward by one character offset. </p>
+
+<p>Note that images embedded in the buffer occupy 1 character slot, so this function may actually move onto an image instead of a character, if you have images in your buffer. If <span class="code">$iter</span> is the end iterator or one character before it, <span class="code">$iter</span> will now point at the end iterator, and this function returns <span class="code">False</span> for convenience when writing loops. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-char (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="forward-chars" class="heading "><a href="#" title="go to top of document">forward-chars</a><a class="raku-anchor" title="direct link" href="#forward-chars">§</a></h2>
+
+<p>Moves <span class="code">$count</span> characters if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the new position of <span class="code">$iter</span> is different from its original position, and dereferenceable (the last iterator in the buffer is not dereferenceable). If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-chars ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of characters to move, may be negative.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-cursor-position"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-cursor-position</a></h2>
-<p>Moves <code>$iter</code> forward by a single cursor position.</p><p>Cursor positions are (unsurprisingly) positions where the cursor can appear. Perhaps surprisingly, there may not be a cursor position between all characters. The most common example for European languages would be a carriage return/newline sequence.</p><p>For some Unicode characters, the equivalent of say the letter “a” with an accent mark will be represented as two characters, first the letter then a &quot;combining mark&quot; that causes the accent to be rendered; so the cursor can’t go between those two characters.</p><p>See also the <strong>Gnome::Pango::N-LogAttr</strong> struct and the <a href="/content-docs/api2/reference/Pango/T-textiter.html#break">.break().break() in package Gnome::Pango</a> function.</p><pre class="pod-block-code">method forward-cursor-position (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-cursor-positions"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-cursor-positions</a></h2>
-<p>Moves up to <code>$count</code> cursor positions.</p><p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details.</p><pre class="pod-block-code">method forward-cursor-positions ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of positions to move.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="forward-cursor-position" class="heading "><a href="#" title="go to top of document">forward-cursor-position</a><a class="raku-anchor" title="direct link" href="#forward-cursor-position">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> forward by a single cursor position. </p>
+
+<p id="Para_19">Cursor positions are (unsurprisingly) positions where the cursor can appear. Perhaps surprisingly, there may not be a cursor position between all characters. The most common example for European languages would be a carriage return/newline sequence.</p>
+
+<p id="Para_20">For some Unicode characters, the equivalent of say the letter “a” with an accent mark will be represented as two characters, first the letter then a &quot;combining mark&quot; that causes the accent to be rendered; so the cursor can’t go between those two characters.</p>
+
+<p>See also the <span class="basis">Gnome::Pango::N-LogAttr</span>  struct and the <a href="/content-docs/api2/reference/Pango/T-textiter#break">.break().break() in package Gnome::Pango</a> function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-cursor-position (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="forward-cursor-positions" class="heading "><a href="#" title="go to top of document">forward-cursor-positions</a><a class="raku-anchor" title="direct link" href="#forward-cursor-positions">§</a></h2>
+
+<p>Moves up to <span class="code">$count</span> cursor positions. </p>
+
+<p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-cursor-positions ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of positions to move.</li>
 </ul>
-<p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-find-char"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-find-char</a></h2>
-<p>Advances <code>$iter</code>, calling <code>$pred</code> on each character.</p><p>If <code>$pred</code> returns <code>True</code>, returns <code>True</code> and stops scanning. If <code>$pred</code> never returns <code>True</code>, <code>$iter</code> is set to <code>$limit</code> if <code>$limit</code> is non-undefined, otherwise to the end iterator.</p><pre class="pod-block-code">method forward-find-char ( GtkTextCharPredicate &amp;pred, gpointer $user-data, N-Object $limit --&gt; Bool )
-</pre><ul>
-<li><p>GtkTextCharPredicate &amp;pred; a function to be called on each character. The function must be specified with the following signature; <code>:( gunichar $ch, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data for <code>$pred</code>.</p></li>
-<li><p>$limit; search limit</p></li>
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="forward-find-char" class="heading "><a href="#" title="go to top of document">forward-find-char</a><a class="raku-anchor" title="direct link" href="#forward-find-char">§</a></h2>
+
+<p>Advances <span class="code">$iter</span>, calling <span class="code">$pred</span> on each character. </p>
+
+<p>If <span class="code">$pred</span> returns <span class="code">True</span>, returns <span class="code">True</span> and stops scanning. If <span class="code">$pred</span> never returns <span class="code">True</span>, <span class="code">$iter</span> is set to <span class="code">$limit</span> if <span class="code">$limit</span> is non-undefined, otherwise to the end iterator. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-find-char ( GtkTextCharPredicate &amp;pred, gpointer $user-data, N-Object $limit --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkTextCharPredicate &amp;pred; a function to be called on each character. The function must be specified with the following signature; <span class="code">:( gunichar $ch, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data for <span class="code">$pred</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$limit; search limit</li>
 </ul>
-<p>Return value; whether a match was found. </p></section>
-<section name="pod">
-<h2 id="forward-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-line</a></h2>
-<p>Moves <code>$iter</code> to the start of the next line.</p><p>If the iter is already on the last line of the buffer, moves the iter to the end of the current line. If after the operation, the iter is at the end of the buffer and not dereferenceable, returns <code>False</code>. Otherwise, returns <code>True</code>.</p><pre class="pod-block-code">method forward-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> can be dereferenced. </p></section>
-<section name="pod">
-<h2 id="forward-lines"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-lines</a></h2>
-<p>Moves <code>$count</code> lines forward, if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <code>False</code> is returned. If <code>$count</code> is 0, the function does nothing and returns <code>False</code>. If <code>$count</code> is negative, moves backward by 0 - <code>$count</code> lines.</p><pre class="pod-block-code">method forward-lines ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of lines to move forward.</p></li>
+
+<p id="Para_21">Return value; whether a match was found.</p>
+<h2 id="forward-line" class="heading "><a href="#" title="go to top of document">forward-line</a><a class="raku-anchor" title="direct link" href="#forward-line">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> to the start of the next line. </p>
+
+<p>If the iter is already on the last line of the buffer, moves the iter to the end of the current line. If after the operation, the iter is at the end of the buffer and not dereferenceable, returns <span class="code">False</span>. Otherwise, returns <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> can be dereferenced. </p>
+<h2 id="forward-lines" class="heading "><a href="#" title="go to top of document">forward-lines</a><a class="raku-anchor" title="direct link" href="#forward-lines">§</a></h2>
+
+<p>Moves <span class="code">$count</span> lines forward, if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <span class="code">False</span> is returned. If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. If <span class="code">$count</span> is negative, moves backward by 0 - <span class="code">$count</span> lines. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-lines ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of lines to move forward.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-search"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-search</a></h2>
-<p>Searches forward for <code>$str</code>.</p><p>Any match is returned by setting <code>$match-start</code> to the first character of the match and <code>$match-end</code> to the first character after the match. The search will not continue past <code>$limit</code>. Note that a search is a linear or O(n) operation, so you may wish to use <code>$limit</code> to avoid locking up your UI on large buffers. <code>$match-start</code> will never be set to a <strong>Gnome::Gtk4::N-TextIter</strong> located before <code>$iter</code>, even if there is a possible <code>$match-end</code> after or at <code>$iter</code>.</p><pre class="pod-block-code">method forward-search ( Str $str, UInt $flags, N-Object $match-start, N-Object $match-end, N-Object $limit --&gt; Bool )
-</pre><ul>
-<li><p>$str; a search string.</p></li>
-<li><p>$flags; flags affecting how the search is done.</p></li>
-<li><p>$match-start; return location for start of match</p></li>
-<li><p>$match-end; return location for end of match</p></li>
-<li><p>$limit; location of last possible <code>$match-end</code>, or undefined for the end of the buffer</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="forward-search" class="heading "><a href="#" title="go to top of document">forward-search</a><a class="raku-anchor" title="direct link" href="#forward-search">§</a></h2>
+
+<p>Searches forward for <span class="code">$str</span>. </p>
+
+<p>Any match is returned by setting <span class="code">$match-start</span> to the first character of the match and <span class="code">$match-end</span> to the first character after the match. The search will not continue past <span class="code">$limit</span>. Note that a search is a linear or O(n) operation, so you may wish to use <span class="code">$limit</span> to avoid locking up your UI on large buffers. <span class="code">$match-start</span> will never be set to a <span class="basis">Gnome::Gtk4::N-TextIter</span> located before <span class="code">$iter</span>, even if there is a possible <span class="code">$match-end</span> after or at <span class="code">$iter</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-search ( Str $str, UInt $flags, N-Object $match-start, N-Object $match-end, N-Object $limit --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$str; a search string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; flags affecting how the search is done.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$match-start; return location for start of match</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$match-end; return location for end of match</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$limit; location of last possible <span class="code">$match-end</span>, or undefined for the end of the buffer</li>
 </ul>
-<p>Return value; whether a match was found. </p></section>
-<section name="pod">
-<h2 id="forward-sentence-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-sentence-end</a></h2>
-<p>Moves forward to the next sentence end.</p><p>If <code>$iter</code> is at the end of a sentence, moves to the next end of sentence.</p><p>Sentence boundaries are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method forward-sentence-end (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-sentence-ends"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-sentence-ends</a></h2>
-<p>Calls <a href="#forward-sentence-end">.forward-sentence-end()</a> <code>$count</code> times.</p><p>If <code>$count</code> is negative, moves backward instead of forward.</p><pre class="pod-block-code">method forward-sentence-ends ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of sentences to move.</p></li>
+
+<p id="Para_22">Return value; whether a match was found.</p>
+<h2 id="forward-sentence-end" class="heading "><a href="#" title="go to top of document">forward-sentence-end</a><a class="raku-anchor" title="direct link" href="#forward-sentence-end">§</a></h2>
+
+<p id="Para_23">Moves forward to the next sentence end.</p>
+
+<p>If <span class="code">$iter</span> is at the end of a sentence, moves to the next end of sentence. </p>
+
+<p id="Para_24">Sentence boundaries are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-sentence-end (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="forward-sentence-ends" class="heading "><a href="#" title="go to top of document">forward-sentence-ends</a><a class="raku-anchor" title="direct link" href="#forward-sentence-ends">§</a></h2>
+
+<p>Calls <a href="#forward-sentence-end">.forward-sentence-end()</a> <span class="code">$count</span> times. </p>
+
+<p>If <span class="code">$count</span> is negative, moves backward instead of forward. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-sentence-ends ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of sentences to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-to-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-to-end</a></h2>
-<p>Moves <code>$iter</code> forward to the “end iterator”, which points one past the last valid character in the buffer.</p><p><a href="#get-char">.get-char()</a> called on the end iterator returns 0, which is convenient for writing loops.</p><pre class="pod-block-code">method forward-to-end ( )
-</pre></section>
-<section name="pod">
-<h2 id="forward-to-line-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-to-line-end</a></h2>
-<p>Moves the iterator to point to the paragraph delimiter characters.</p><p>The possible characters are either a newline, a carriage return, a carriage return/newline in sequence, or the Unicode paragraph separator character.</p><p>If the iterator is already at the paragraph delimiter characters, moves to the paragraph delimiter characters for the next line. If <code>$iter</code> is on the last line in the buffer, which does not end in paragraph delimiters, moves to the end iterator (end of the last line), and returns <code>False</code>.</p><pre class="pod-block-code">method forward-to-line-end (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if we moved and the new location is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-to-tag-toggle"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-to-tag-toggle</a></h2>
-<p>Moves forward to the next toggle (on or off) of the <code>$tag</code>, or to the next toggle of any tag if <code>$tag</code> is undefined.</p><p>If no matching tag toggles are found, returns <code>False</code>, otherwise <code>True</code>. Does not return toggles located at <code>$iter</code>, only toggles after <code>$iter</code>. Sets <code>$iter</code> to the location of the toggle, or to the end of the buffer if no toggle is found.</p><pre class="pod-block-code">method forward-to-tag-toggle ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="forward-to-end" class="heading "><a href="#" title="go to top of document">forward-to-end</a><a class="raku-anchor" title="direct link" href="#forward-to-end">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> forward to the “end iterator”, which points one past the last valid character in the buffer. </p>
+
+<p><a href="#get-char">.get-char()</a> called on the end iterator returns 0, which is convenient for writing loops. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-to-end ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="forward-to-line-end" class="heading "><a href="#" title="go to top of document">forward-to-line-end</a><a class="raku-anchor" title="direct link" href="#forward-to-line-end">§</a></h2>
+
+<p id="Para_25">Moves the iterator to point to the paragraph delimiter characters.</p>
+
+<p id="Para_26">The possible characters are either a newline, a carriage return, a carriage return/newline in sequence, or the Unicode paragraph separator character.</p>
+
+<p>If the iterator is already at the paragraph delimiter characters, moves to the paragraph delimiter characters for the next line. If <span class="code">$iter</span> is on the last line in the buffer, which does not end in paragraph delimiters, moves to the end iterator (end of the last line), and returns <span class="code">False</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-to-line-end (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if we moved and the new location is not the end iterator. </p>
+<h2 id="forward-to-tag-toggle" class="heading "><a href="#" title="go to top of document">forward-to-tag-toggle</a><a class="raku-anchor" title="direct link" href="#forward-to-tag-toggle">§</a></h2>
+
+<p>Moves forward to the next toggle (on or off) of the <span class="code">$tag</span>, or to the next toggle of any tag if <span class="code">$tag</span> is undefined. </p>
+
+<p>If no matching tag toggles are found, returns <span class="code">False</span>, otherwise <span class="code">True</span>. Does not return toggles located at <span class="code">$iter</span>, only toggles after <span class="code">$iter</span>. Sets <span class="code">$iter</span> to the location of the toggle, or to the end of the buffer if no toggle is found. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-to-tag-toggle ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether we found a tag toggle after <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="forward-visible-cursor-position"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-cursor-position</a></h2>
-<p>Moves <code>$iter</code> forward to the next visible cursor position.</p><p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details.</p><pre class="pod-block-code">method forward-visible-cursor-position (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-visible-cursor-positions"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-cursor-positions</a></h2>
-<p>Moves up to <code>$count</code> visible cursor positions.</p><p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details.</p><pre class="pod-block-code">method forward-visible-cursor-positions ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of positions to move.</p></li>
+
+<p>Return value; whether we found a tag toggle after <span class="code">$iter</span>. </p>
+<h2 id="forward-visible-cursor-position" class="heading "><a href="#" title="go to top of document">forward-visible-cursor-position</a><a class="raku-anchor" title="direct link" href="#forward-visible-cursor-position">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> forward to the next visible cursor position. </p>
+
+<p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-cursor-position (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="forward-visible-cursor-positions" class="heading "><a href="#" title="go to top of document">forward-visible-cursor-positions</a><a class="raku-anchor" title="direct link" href="#forward-visible-cursor-positions">§</a></h2>
+
+<p>Moves up to <span class="code">$count</span> visible cursor positions. </p>
+
+<p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-cursor-positions ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of positions to move.</li>
 </ul>
-<p>Return value; <code>True</code> if we moved and the new position is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-visible-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-line</a></h2>
-<p>Moves <code>$iter</code> to the start of the next visible line.</p><p>Returns <code>True</code> if there was a next line to move to, and <code>False</code> if <code>$iter</code> was simply moved to the end of the buffer and is now not dereferenceable, or if <code>$iter</code> was already at the end of the buffer.</p><pre class="pod-block-code">method forward-visible-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> can be dereferenced. </p></section>
-<section name="pod">
-<h2 id="forward-visible-lines"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-lines</a></h2>
-<p>Moves <code>$count</code> visible lines forward, if possible.</p><p>If <code>$count</code> would move past the start or end of the buffer, moves to the start or end of the buffer.</p><p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <code>False</code> is returned. If <code>$count</code> is 0, the function does nothing and returns <code>False</code>. If <code>$count</code> is negative, moves backward by 0 - <code>$count</code> lines.</p><pre class="pod-block-code">method forward-visible-lines ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of lines to move forward.</p></li>
+
+<p>Return value; <span class="code">True</span> if we moved and the new position is dereferenceable. </p>
+<h2 id="forward-visible-line" class="heading "><a href="#" title="go to top of document">forward-visible-line</a><a class="raku-anchor" title="direct link" href="#forward-visible-line">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> to the start of the next visible line. </p>
+
+<p>Returns <span class="code">True</span> if there was a next line to move to, and <span class="code">False</span> if <span class="code">$iter</span> was simply moved to the end of the buffer and is now not dereferenceable, or if <span class="code">$iter</span> was already at the end of the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> can be dereferenced. </p>
+<h2 id="forward-visible-lines" class="heading "><a href="#" title="go to top of document">forward-visible-lines</a><a class="raku-anchor" title="direct link" href="#forward-visible-lines">§</a></h2>
+
+<p>Moves <span class="code">$count</span> visible lines forward, if possible. </p>
+
+<p>If <span class="code">$count</span> would move past the start or end of the buffer, moves to the start or end of the buffer. </p>
+
+<p>The return value indicates whether the iterator moved onto a dereferenceable position; if the iterator didn’t move, or moved onto the end iterator, then <span class="code">False</span> is returned. If <span class="code">$count</span> is 0, the function does nothing and returns <span class="code">False</span>. If <span class="code">$count</span> is negative, moves backward by 0 - <span class="code">$count</span> lines. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-lines ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of lines to move forward.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> moved and is dereferenceable. </p></section>
-<section name="pod">
-<h2 id="forward-visible-word-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-word-end</a></h2>
-<p>Moves forward to the next visible word end.</p><p>If <code>$iter</code> is currently on a word end, moves forward to the next one after that.</p><p>Word breaks are determined by Pango and should be correct for nearly any language</p><pre class="pod-block-code">method forward-visible-word-end (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-visible-word-ends"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-visible-word-ends</a></h2>
-<p>Calls <a href="#forward-visible-word-end">.forward-visible-word-end()</a> up to <code>$count</code> times.</p><pre class="pod-block-code">method forward-visible-word-ends ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of times to move.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> moved and is dereferenceable. </p>
+<h2 id="forward-visible-word-end" class="heading "><a href="#" title="go to top of document">forward-visible-word-end</a><a class="raku-anchor" title="direct link" href="#forward-visible-word-end">§</a></h2>
+
+<p id="Para_27">Moves forward to the next visible word end.</p>
+
+<p>If <span class="code">$iter</span> is currently on a word end, moves forward to the next one after that. </p>
+
+<p id="Para_28">Word breaks are determined by Pango and should be correct for nearly any language</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-word-end (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="forward-visible-word-ends" class="heading "><a href="#" title="go to top of document">forward-visible-word-ends</a><a class="raku-anchor" title="direct link" href="#forward-visible-word-ends">§</a></h2>
+
+<p>Calls <a href="#forward-visible-word-end">.forward-visible-word-end()</a> up to <span class="code">$count</span> times. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-visible-word-ends ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of times to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-word-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-word-end</a></h2>
-<p>Moves forward to the next word end.</p><p>If <code>$iter</code> is currently on a word end, moves forward to the next one after that.</p><p>Word breaks are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method forward-word-end (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="forward-word-ends"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">forward-word-ends</a></h2>
-<p>Calls <a href="#forward-word-end">.forward-word-end()</a> up to <code>$count</code> times.</p><pre class="pod-block-code">method forward-word-ends ( Int() $count --&gt; Bool )
-</pre><ul>
-<li><p>$count; number of times to move.</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="forward-word-end" class="heading "><a href="#" title="go to top of document">forward-word-end</a><a class="raku-anchor" title="direct link" href="#forward-word-end">§</a></h2>
+
+<p id="Para_29">Moves forward to the next word end.</p>
+
+<p>If <span class="code">$iter</span> is currently on a word end, moves forward to the next one after that. </p>
+
+<p id="Para_30">Word breaks are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-word-end (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="forward-word-ends" class="heading "><a href="#" title="go to top of document">forward-word-ends</a><a class="raku-anchor" title="direct link" href="#forward-word-ends">§</a></h2>
+
+<p>Calls <a href="#forward-word-end">.forward-word-end()</a> up to <span class="code">$count</span> times. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method forward-word-ends ( Int() $count --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$count; number of times to move.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> moved and is not the end iterator. </p></section>
-<section name="pod">
-<h2 id="free"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">free</a></h2>
-<p>Free an iterator allocated on the heap.</p><p>This function is intended for use in language bindings, and is not especially useful for applications, because iterators can simply be allocated on the stack.</p><pre class="pod-block-code">method free ( )
-</pre></section>
-<section name="pod">
-<h2 id="get-buffer"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-buffer</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a> this iterator is associated with.</p><pre class="pod-block-code">method get-buffer (--&gt; N-Object )
-</pre><p>Return value; the buffer. </p></section>
-<section name="pod">
-<h2 id="get-bytes-in-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-bytes-in-line</a></h2>
-<p>Returns the number of bytes in the line containing <code>$iter</code>, including the paragraph delimiters.</p><pre class="pod-block-code">method get-bytes-in-line (--&gt; Int )
-</pre><p>Return value; number of bytes in the line. </p></section>
-<section name="pod">
-<h2 id="get-char"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-char</a></h2>
-<p>The Unicode character at this iterator is returned.</p><p>Equivalent to operator* on a C++ iterator. If the element at this iterator is a non-character element, such as an image embedded in the buffer, the Unicode “unknown” character 0xFFFC is returned. If invoked on the end iterator, zero is returned; zero is not a valid Unicode character.</p><p>So you can write a loop which ends when this function returns 0.</p><pre class="pod-block-code">method get-char (--&gt; UInt )
-</pre><p>Return value; a Unicode character, or 0 if <code>$iter</code> is not dereferenceable. </p></section>
-<section name="pod">
-<h2 id="get-chars-in-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-chars-in-line</a></h2>
-<p>Returns the number of characters in the line containing <code>$iter</code>, including the paragraph delimiters.</p><pre class="pod-block-code">method get-chars-in-line (--&gt; Int )
-</pre><p>Return value; number of characters in the line. </p></section>
-<section name="pod">
-<h2 id="get-child-anchor"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-child-anchor</a></h2>
-<p>If the location at <code>$iter</code> contains a child anchor, the anchor is returned.</p><p>Otherwise, undefined is returned.</p><pre class="pod-block-code">method get-child-anchor (--&gt; N-Object )
-</pre><p>Return value; the anchor at <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="get-language"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-language</a></h2>
-<p>Returns the language in effect at <code>$iter</code>.</p><p>If no tags affecting language apply to <code>$iter</code>, the return value is identical to that of <a href="/content-docs/api2/reference/Gtk4/T-textiter.html#get-default-language">.get-default-language().get-default-language() in package Gnome::Gtk4</a>.</p><pre class="pod-block-code">method get-language (--&gt; N-Object )
-</pre><p>Return value; language in effect at <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="get-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-line</a></h2>
-<p>Returns the line number containing the iterator.</p><p>Lines in a <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a> are numbered beginning with 0 for the first line in the buffer.</p><pre class="pod-block-code">method get-line (--&gt; Int )
-</pre><p>Return value; a line number. </p></section>
-<section name="pod">
-<h2 id="get-line-index"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-line-index</a></h2>
-<p>Returns the byte index of the iterator, counting from the start of a newline-terminated line.</p><p>Remember that <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a> encodes text in UTF-8, and that characters can require a variable number of bytes to represent.</p><pre class="pod-block-code">method get-line-index (--&gt; Int )
-</pre><p>Return value; distance from start of line, in bytes. </p></section>
-<section name="pod">
-<h2 id="get-line-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-line-offset</a></h2>
-<p>Returns the character offset of the iterator, counting from the start of a newline-terminated line.</p><p>The first character on the line has offset 0.</p><pre class="pod-block-code">method get-line-offset (--&gt; Int )
-</pre><p>Return value; offset from start of line. </p></section>
-<section name="pod">
-<h2 id="get-marks"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-marks</a></h2>
-<p>Returns a list of all <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> at this location.</p><p>Because marks are not iterable (they don’t take up any &quot;space&quot; in the buffer, they are just marks in between iterable locations), multiple marks can exist in the same place.</p><p>The returned list is not in any meaningful order.</p><pre class="pod-block-code">method get-marks (--&gt; N-SList )
-</pre><p>Return value; list of <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a>. </p></section>
-<section name="pod">
-<h2 id="get-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-offset</a></h2>
-<p>Returns the character offset of an iterator.</p><p>Each character in a <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html">Gnome::Gtk4::TextBuffer</a> has an offset, starting with 0 for the first character in the buffer. Use <a href="/content-docs/api2/reference/Gtk4/TextBuffer.html#get-iter-at-offset">.get-iter-at-offset() in class TextBuffer</a> to convert an offset back into an iterator.</p><pre class="pod-block-code">method get-offset (--&gt; Int )
-</pre><p>Return value; a character offset. </p></section>
-<section name="pod">
-<h2 id="get-paintable"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-paintable</a></h2>
-<p>If the element at <code>$iter</code> is a paintable, the paintable is returned.</p><p>Otherwise, undefined is returned.</p><pre class="pod-block-code">method get-paintable (--&gt; N-Object )
-</pre><p>Return value; the paintable at <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="get-slice"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-slice</a></h2>
-<p>Returns the text in the given range.</p><p>A “slice” is an array of characters encoded in UTF-8 format, including the Unicode “unknown” character 0xFFFC for iterable non-character elements in the buffer, such as images. Because images are encoded in the slice, byte and character offsets in the returned array will correspond to byte offsets in the text buffer. Note that 0xFFFC can occur in normal text as well, so it is not a reliable indicator that a paintable or widget is in the buffer.</p><pre class="pod-block-code">method get-slice ( N-Object $end --&gt; Str )
-</pre><ul>
-<li><p>$end; iterator at end of a range</p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> moved and is not the end iterator. </p>
+<h2 id="free" class="heading "><a href="#" title="go to top of document">free</a><a class="raku-anchor" title="direct link" href="#free">§</a></h2>
+
+<p id="Para_31">Free an iterator allocated on the heap.</p>
+
+<p id="Para_32">This function is intended for use in language bindings, and is not especially useful for applications, because iterators can simply be allocated on the stack.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method free ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-buffer" class="heading "><a href="#" title="go to top of document">get-buffer</a><a class="raku-anchor" title="direct link" href="#get-buffer">§</a></h2>
+
+<p>Returns the <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a> this iterator is associated with. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-buffer (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_33">Return value; the buffer.</p>
+<h2 id="get-bytes-in-line" class="heading "><a href="#" title="go to top of document">get-bytes-in-line</a><a class="raku-anchor" title="direct link" href="#get-bytes-in-line">§</a></h2>
+
+<p>Returns the number of bytes in the line containing <span class="code">$iter</span>, including the paragraph delimiters. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-bytes-in-line (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_34">Return value; number of bytes in the line.</p>
+<h2 id="get-char" class="heading "><a href="#" title="go to top of document">get-char</a><a class="raku-anchor" title="direct link" href="#get-char">§</a></h2>
+
+<p id="Para_35">The Unicode character at this iterator is returned.</p>
+
+<p id="Para_36">Equivalent to operator* on a C++ iterator. If the element at this iterator is a non-character element, such as an image embedded in the buffer, the Unicode “unknown” character 0xFFFC is returned. If invoked on the end iterator, zero is returned; zero is not a valid Unicode character.</p>
+
+<p id="Para_37">So you can write a loop which ends when this function returns 0.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-char (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a Unicode character, or 0 if <span class="code">$iter</span> is not dereferenceable. </p>
+<h2 id="get-chars-in-line" class="heading "><a href="#" title="go to top of document">get-chars-in-line</a><a class="raku-anchor" title="direct link" href="#get-chars-in-line">§</a></h2>
+
+<p>Returns the number of characters in the line containing <span class="code">$iter</span>, including the paragraph delimiters. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-chars-in-line (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_38">Return value; number of characters in the line.</p>
+<h2 id="get-child-anchor" class="heading "><a href="#" title="go to top of document">get-child-anchor</a><a class="raku-anchor" title="direct link" href="#get-child-anchor">§</a></h2>
+
+<p>If the location at <span class="code">$iter</span> contains a child anchor, the anchor is returned. </p>
+
+<p id="Para_39">Otherwise, undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-child-anchor (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the anchor at <span class="code">$iter</span>. </p>
+<h2 id="get-language" class="heading "><a href="#" title="go to top of document">get-language</a><a class="raku-anchor" title="direct link" href="#get-language">§</a></h2>
+
+<p>Returns the language in effect at <span class="code">$iter</span>. </p>
+
+<p>If no tags affecting language apply to <span class="code">$iter</span>, the return value is identical to that of <a href="/content-docs/api2/reference/Gtk4/T-textiter#get-default-language">.get-default-language().get-default-language() in package Gnome::Gtk4</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-language (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; language in effect at <span class="code">$iter</span>. </p>
+<h2 id="get-line" class="heading "><a href="#" title="go to top of document">get-line</a><a class="raku-anchor" title="direct link" href="#get-line">§</a></h2>
+
+<p id="Para_40">Returns the line number containing the iterator.</p>
+
+<p>Lines in a <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a> are numbered beginning with 0 for the first line in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-line (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_41">Return value; a line number.</p>
+<h2 id="get-line-index" class="heading "><a href="#" title="go to top of document">get-line-index</a><a class="raku-anchor" title="direct link" href="#get-line-index">§</a></h2>
+
+<p id="Para_42">Returns the byte index of the iterator, counting from the start of a newline-terminated line.</p>
+
+<p>Remember that <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a> encodes text in UTF-8, and that characters can require a variable number of bytes to represent. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-line-index (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_43">Return value; distance from start of line, in bytes.</p>
+<h2 id="get-line-offset" class="heading "><a href="#" title="go to top of document">get-line-offset</a><a class="raku-anchor" title="direct link" href="#get-line-offset">§</a></h2>
+
+<p id="Para_44">Returns the character offset of the iterator, counting from the start of a newline-terminated line.</p>
+
+<p id="Para_45">The first character on the line has offset 0.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-line-offset (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_46">Return value; offset from start of line.</p>
+<h2 id="get-marks" class="heading "><a href="#" title="go to top of document">get-marks</a><a class="raku-anchor" title="direct link" href="#get-marks">§</a></h2>
+
+<p>Returns a list of all <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> at this location. </p>
+
+<p id="Para_47">Because marks are not iterable (they don’t take up any &quot;space&quot; in the buffer, they are just marks in between iterable locations), multiple marks can exist in the same place.</p>
+
+<p id="Para_48">The returned list is not in any meaningful order.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-marks (--&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; list of <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a>. </p>
+<h2 id="get-offset" class="heading "><a href="#" title="go to top of document">get-offset</a><a class="raku-anchor" title="direct link" href="#get-offset">§</a></h2>
+
+<p id="Para_49">Returns the character offset of an iterator.</p>
+
+<p>Each character in a <a href="/content-docs/api2/reference/Gtk4/TextBuffer">Gnome::Gtk4::TextBuffer</a> has an offset, starting with 0 for the first character in the buffer. Use <a href="/content-docs/api2/reference/Gtk4/TextBuffer#get-iter-at-offset">.get-iter-at-offset() in class TextBuffer</a> to convert an offset back into an iterator. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-offset (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_50">Return value; a character offset.</p>
+<h2 id="get-paintable" class="heading "><a href="#" title="go to top of document">get-paintable</a><a class="raku-anchor" title="direct link" href="#get-paintable">§</a></h2>
+
+<p>If the element at <span class="code">$iter</span> is a paintable, the paintable is returned. </p>
+
+<p id="Para_51">Otherwise, undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-paintable (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the paintable at <span class="code">$iter</span>. </p>
+<h2 id="get-slice" class="heading "><a href="#" title="go to top of document">get-slice</a><a class="raku-anchor" title="direct link" href="#get-slice">§</a></h2>
+
+<p id="Para_52">Returns the text in the given range.</p>
+
+<p id="Para_53">A “slice” is an array of characters encoded in UTF-8 format, including the Unicode “unknown” character 0xFFFC for iterable non-character elements in the buffer, such as images. Because images are encoded in the slice, byte and character offsets in the returned array will correspond to byte offsets in the text buffer. Note that 0xFFFC can occur in normal text as well, so it is not a reliable indicator that a paintable or widget is in the buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-slice ( N-Object $end --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator at end of a range</li>
 </ul>
-<p>Return value; slice of text from the buffer. </p></section>
-<section name="pod">
-<h2 id="get-tags"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-tags</a></h2>
-<p>Returns a list of tags that apply to <code>$iter</code>, in ascending order of priority.</p><p>The highest-priority tags are last.</p><p>The <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>s in the list don’t have a reference added, but you have to free the list itself.</p><pre class="pod-block-code">method get-tags (--&gt; N-SList )
-</pre><p>Return value; list of <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>. </p></section>
-<section name="pod">
-<h2 id="get-text"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-text</a></h2>
-<p>Returns text in the given range.</p><p>If the range contains non-text elements such as images, the character and byte offsets in the returned string will not correspond to character and byte offsets in the buffer. If you want offsets to correspond, see <a href="#get-slice">.get-slice()</a>.</p><pre class="pod-block-code">method get-text ( N-Object $end --&gt; Str )
-</pre><ul>
-<li><p>$end; iterator at end of a range</p></li>
+
+<p id="Para_54">Return value; slice of text from the buffer.</p>
+<h2 id="get-tags" class="heading "><a href="#" title="go to top of document">get-tags</a><a class="raku-anchor" title="direct link" href="#get-tags">§</a></h2>
+
+<p>Returns a list of tags that apply to <span class="code">$iter</span>, in ascending order of priority. </p>
+
+<p id="Para_55">The highest-priority tags are last.</p>
+
+<p>The <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>s in the list don’t have a reference added, but you have to free the list itself. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tags (--&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; list of <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>. </p>
+<h2 id="get-text" class="heading "><a href="#" title="go to top of document">get-text</a><a class="raku-anchor" title="direct link" href="#get-text">§</a></h2>
+
+<p id="Para_56">Returns text in the given range.</p>
+
+<p>If the range contains non-text elements such as images, the character and byte offsets in the returned string will not correspond to character and byte offsets in the buffer. If you want offsets to correspond, see <a href="#get-slice">.get-slice()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-text ( N-Object $end --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator at end of a range</li>
 </ul>
-<p>Return value; array of characters from the buffer. </p></section>
-<section name="pod">
-<h2 id="get-toggled-tags"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-toggled-tags</a></h2>
-<p>Returns a list of <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a> that are toggled on or off at this point.</p><p>If <code>$toggled-on</code> is <code>True</code>, the list contains tags that are toggled on. If a tag is toggled on at <code>$iter</code>, then some non-empty range of characters following <code>$iter</code> has that tag applied to it. If a tag is toggled off, then some non-empty range following <code>$iter</code> does not have the tag applied to it.</p><pre class="pod-block-code">method get-toggled-tags ( Bool() $toggled-on --&gt; N-SList )
-</pre><ul>
-<li><p>$toggled-on; <code>True</code> to get toggled-on tags.</p></li>
+
+<p id="Para_57">Return value; array of characters from the buffer.</p>
+<h2 id="get-toggled-tags" class="heading "><a href="#" title="go to top of document">get-toggled-tags</a><a class="raku-anchor" title="direct link" href="#get-toggled-tags">§</a></h2>
+
+<p>Returns a list of <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a> that are toggled on or off at this point. </p>
+
+<p>If <span class="code">$toggled-on</span> is <span class="code">True</span>, the list contains tags that are toggled on. If a tag is toggled on at <span class="code">$iter</span>, then some non-empty range of characters following <span class="code">$iter</span> has that tag applied to it. If a tag is toggled off, then some non-empty range following <span class="code">$iter</span> does not have the tag applied to it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-toggled-tags ( Bool() $toggled-on --&gt; N-SList )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$toggled-on; <span class="code">True</span> to get toggled-on tags.</li>
 </ul>
-<p>Return value; tags toggled at this point. </p></section>
-<section name="pod">
-<h2 id="get-visible-line-index"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-visible-line-index</a></h2>
-<p>Returns the number of bytes from the start of the line to the given <code>$iter</code>, not counting bytes that are invisible due to tags with the “invisible” flag toggled on.</p><pre class="pod-block-code">method get-visible-line-index (--&gt; Int )
-</pre><p>Return value; byte index of <code>$iter</code> with respect to the start of the line. </p></section>
-<section name="pod">
-<h2 id="get-visible-line-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-visible-line-offset</a></h2>
-<p>Returns the offset in characters from the start of the line to the given <code>$iter</code>, not counting characters that are invisible due to tags with the “invisible” flag toggled on.</p><pre class="pod-block-code">method get-visible-line-offset (--&gt; Int )
-</pre><p>Return value; offset in visible characters from the start of the line. </p></section>
-<section name="pod">
-<h2 id="get-visible-slice"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-visible-slice</a></h2>
-<p>Returns visible text in the given range.</p><p>Like <a href="#get-slice">.get-slice()</a>, but invisible text is not included. Invisible text is usually invisible because a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a> with the “invisible” attribute turned on has been applied to it.</p><pre class="pod-block-code">method get-visible-slice ( N-Object $end --&gt; Str )
-</pre><ul>
-<li><p>$end; iterator at end of range</p></li>
+
+<p id="Para_58">Return value; tags toggled at this point.</p>
+<h2 id="get-visible-line-index" class="heading "><a href="#" title="go to top of document">get-visible-line-index</a><a class="raku-anchor" title="direct link" href="#get-visible-line-index">§</a></h2>
+
+<p>Returns the number of bytes from the start of the line to the given <span class="code">$iter</span>, not counting bytes that are invisible due to tags with the “invisible” flag toggled on. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-line-index (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; byte index of <span class="code">$iter</span> with respect to the start of the line. </p>
+<h2 id="get-visible-line-offset" class="heading "><a href="#" title="go to top of document">get-visible-line-offset</a><a class="raku-anchor" title="direct link" href="#get-visible-line-offset">§</a></h2>
+
+<p>Returns the offset in characters from the start of the line to the given <span class="code">$iter</span>, not counting characters that are invisible due to tags with the “invisible” flag toggled on. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-line-offset (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_59">Return value; offset in visible characters from the start of the line.</p>
+<h2 id="get-visible-slice" class="heading "><a href="#" title="go to top of document">get-visible-slice</a><a class="raku-anchor" title="direct link" href="#get-visible-slice">§</a></h2>
+
+<p id="Para_60">Returns visible text in the given range.</p>
+
+<p>Like <a href="#get-slice">.get-slice()</a>, but invisible text is not included. Invisible text is usually invisible because a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a> with the “invisible” attribute turned on has been applied to it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-slice ( N-Object $end --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator at end of range</li>
 </ul>
-<p>Return value; slice of text from the buffer. </p></section>
-<section name="pod">
-<h2 id="get-visible-text"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">get-visible-text</a></h2>
-<p>Returns visible text in the given range.</p><p>Like <a href="#get-text">.get-text()</a>, but invisible text is not included. Invisible text is usually invisible because a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a> with the “invisible” attribute turned on has been applied to it.</p><pre class="pod-block-code">method get-visible-text ( N-Object $end --&gt; Str )
-</pre><ul>
-<li><p>$end; iterator at end of range</p></li>
+
+<p id="Para_61">Return value; slice of text from the buffer.</p>
+<h2 id="get-visible-text" class="heading "><a href="#" title="go to top of document">get-visible-text</a><a class="raku-anchor" title="direct link" href="#get-visible-text">§</a></h2>
+
+<p id="Para_62">Returns visible text in the given range.</p>
+
+<p>Like <a href="#get-text">.get-text()</a>, but invisible text is not included. Invisible text is usually invisible because a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a> with the “invisible” attribute turned on has been applied to it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visible-text ( N-Object $end --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator at end of range</li>
 </ul>
-<p>Return value; string containing visible text in the range. </p></section>
-<section name="pod">
-<h2 id="has-tag"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">has-tag</a></h2>
-<p>Returns <code>True</code> if <code>$iter</code> points to a character that is part of a range tagged with <code>$tag</code>.</p><p>See also <a href="#starts-tag">.starts-tag()</a> and <a href="#ends-tag">.ends-tag()</a>.</p><pre class="pod-block-code">method has-tag ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+
+<p id="Para_63">Return value; string containing visible text in the range.</p>
+<h2 id="has-tag" class="heading "><a href="#" title="go to top of document">has-tag</a><a class="raku-anchor" title="direct link" href="#has-tag">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> points to a character that is part of a range tagged with <span class="code">$tag</span>. </p>
+
+<p>See also <a href="#starts-tag">.starts-tag()</a> and <a href="#ends-tag">.ends-tag()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method has-tag ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> is tagged with <code>$tag</code>. </p></section>
-<section name="pod">
-<h2 id="in-range"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">in-range</a></h2>
-<p>Checks whether <code>$iter</code> falls in the range [ <code>$start</code>, <code>$end</code>). <code>$start</code> and <code>$end</code> must be in ascending order.</p><pre class="pod-block-code">method in-range ( N-Object $start, N-Object $end --&gt; Bool )
-</pre><ul>
-<li><p>$start; start of range</p></li>
-<li><p>$end; end of range</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> is tagged with <span class="code">$tag</span>. </p>
+<h2 id="in-range" class="heading "><a href="#" title="go to top of document">in-range</a><a class="raku-anchor" title="direct link" href="#in-range">§</a></h2>
+
+<p>Checks whether <span class="code">$iter</span> falls in the range [ <span class="code">$start</span>, <span class="code">$end</span>). <span class="code">$start</span> and <span class="code">$end</span> must be in ascending order. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method in-range ( N-Object $start, N-Object $end --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; start of range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; end of range</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$iter</code> is in the range. </p></section>
-<section name="pod">
-<h2 id="inside-sentence"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">inside-sentence</a></h2>
-<p>Determines whether <code>$iter</code> is inside a sentence (as opposed to in between two sentences, e.g. after a period and before the first letter of the next sentence).</p><p>Sentence boundaries are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method inside-sentence (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is inside a sentence.. </p></section>
-<section name="pod">
-<h2 id="inside-word"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">inside-word</a></h2>
-<p>Determines whether the character pointed by <code>$iter</code> is part of a natural-language word (as opposed to say inside some whitespace).</p><p>Word breaks are determined by Pango and should be correct for nearly any language.</p><p>Note that if <a href="#starts-word">.starts-word()</a> returns <code>True</code>, then this function returns <code>True</code> too, since <code>$iter</code> points to the first character of the word.</p><pre class="pod-block-code">method inside-word (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is inside a word. </p></section>
-<section name="pod">
-<h2 id="is-cursor-position"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">is-cursor-position</a></h2>
-<p>Determine if <code>$iter</code> is at a cursor position.</p><p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> or <strong>Gnome::Pango::N-LogAttr</strong> or <a href="/content-docs/api2/reference/Pango/T-textiter.html#break">.break().break() in package Gnome::Pango</a> for details on what a cursor position is.</p><pre class="pod-block-code">method is-cursor-position (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the cursor can be placed at <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="is-end"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">is-end</a></h2>
-<p>Returns <code>True</code> if <code>$iter</code> is the end iterator.</p><p>This means it is one past the last dereferenceable iterator in the buffer. <a href="#is-end">.is-end()</a> is the most efficient way to check whether an iterator is the end iterator.</p><pre class="pod-block-code">method is-end (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> is the end iterator. </p></section>
-<section name="pod">
-<h2 id="is-start"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">is-start</a></h2>
-<p>Returns <code>True</code> if <code>$iter</code> is the first iterator in the buffer.</p><pre class="pod-block-code">method is-start (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> is the first in the buffer. </p></section>
-<section name="pod">
-<h2 id="order"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">order</a></h2>
-<p>Swaps the value of <code>$first</code> and <code>$second</code> if <code>$second</code> comes before <code>$first</code> in the buffer.</p><p>That is, ensures that <code>$first</code> and <code>$second</code> are in sequence. Most text buffer functions that take a range call this automatically on your behalf, so there’s no real reason to call it yourself in those cases. There are some exceptions, such as <a href="#in-range">.in-range()</a>, that expect a pre-sorted range.</p><pre class="pod-block-code">method order ( N-Object $second )
-</pre><ul>
-<li><p>$second; another <strong>Gnome::Gtk4::N-TextIter</strong></p></li>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is in the range. </p>
+<h2 id="inside-sentence" class="heading "><a href="#" title="go to top of document">inside-sentence</a><a class="raku-anchor" title="direct link" href="#inside-sentence">§</a></h2>
+
+<p>Determines whether <span class="code">$iter</span> is inside a sentence (as opposed to in between two sentences, e.g. after a period and before the first letter of the next sentence). </p>
+
+<p id="Para_64">Sentence boundaries are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method inside-sentence (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is inside a sentence.. </p>
+<h2 id="inside-word" class="heading "><a href="#" title="go to top of document">inside-word</a><a class="raku-anchor" title="direct link" href="#inside-word">§</a></h2>
+
+<p>Determines whether the character pointed by <span class="code">$iter</span> is part of a natural-language word (as opposed to say inside some whitespace). </p>
+
+<p id="Para_65">Word breaks are determined by Pango and should be correct for nearly any language.</p>
+
+<p>Note that if <a href="#starts-word">.starts-word()</a> returns <span class="code">True</span>, then this function returns <span class="code">True</span> too, since <span class="code">$iter</span> points to the first character of the word. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method inside-word (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is inside a word. </p>
+<h2 id="is-cursor-position" class="heading "><a href="#" title="go to top of document">is-cursor-position</a><a class="raku-anchor" title="direct link" href="#is-cursor-position">§</a></h2>
+
+<p>Determine if <span class="code">$iter</span> is at a cursor position. </p>
+
+<p>See <a href="#forward-cursor-position">.forward-cursor-position()</a> or <span class="basis">Gnome::Pango::N-LogAttr</span>  or <a href="/content-docs/api2/reference/Pango/T-textiter#break">.break().break() in package Gnome::Pango</a> for details on what a cursor position is. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-cursor-position (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the cursor can be placed at <span class="code">$iter</span>. </p>
+<h2 id="is-end" class="heading "><a href="#" title="go to top of document">is-end</a><a class="raku-anchor" title="direct link" href="#is-end">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> is the end iterator. </p>
+
+<p>This means it is one past the last dereferenceable iterator in the buffer. <a href="#is-end">.is-end()</a> is the most efficient way to check whether an iterator is the end iterator. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-end (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> is the end iterator. </p>
+<h2 id="is-start" class="heading "><a href="#" title="go to top of document">is-start</a><a class="raku-anchor" title="direct link" href="#is-start">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> is the first iterator in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-start (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> is the first in the buffer. </p>
+<h2 id="order" class="heading "><a href="#" title="go to top of document">order</a><a class="raku-anchor" title="direct link" href="#order">§</a></h2>
+
+<p>Swaps the value of <span class="code">$first</span> and <span class="code">$second</span> if <span class="code">$second</span> comes before <span class="code">$first</span> in the buffer. </p>
+
+<p>That is, ensures that <span class="code">$first</span> and <span class="code">$second</span> are in sequence. Most text buffer functions that take a range call this automatically on your behalf, so there’s no real reason to call it yourself in those cases. There are some exceptions, such as <a href="#in-range">.in-range()</a>, that expect a pre-sorted range. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method order ( N-Object $second )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$second; another <span class="basis">Gnome::Gtk4::N-TextIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-line</a></h2>
-<p>Moves iterator <code>$iter</code> to the start of the line <code>$line-number</code>.</p><p>If <code>$line-number</code> is negative or larger than or equal to the number of lines in the buffer, moves <code>$iter</code> to the start of the last line in the buffer.</p><pre class="pod-block-code">method set-line ( Int() $line-number )
-</pre><ul>
-<li><p>$line-number; line number (counted from 0).</p></li>
+<h2 id="set-line" class="heading "><a href="#" title="go to top of document">set-line</a><a class="raku-anchor" title="direct link" href="#set-line">§</a></h2>
+
+<p>Moves iterator <span class="code">$iter</span> to the start of the line <span class="code">$line-number</span>. </p>
+
+<p>If <span class="code">$line-number</span> is negative or larger than or equal to the number of lines in the buffer, moves <span class="code">$iter</span> to the start of the last line in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-line ( Int() $line-number )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$line-number; line number (counted from 0).</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-line-index"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-line-index</a></h2>
-<p>Same as <a href="#set-line-offset">.set-line-offset()</a>, but works with a byte index. The given byte index must be at the start of a character, it can’t be in the middle of a UTF-8 encoded character.</p><pre class="pod-block-code">method set-line-index ( Int() $byte-on-line )
-</pre><ul>
-<li><p>$byte-on-line; a byte index relative to the start of <code>$iter</code>’s current line.</p></li>
+<h2 id="set-line-index" class="heading "><a href="#" title="go to top of document">set-line-index</a><a class="raku-anchor" title="direct link" href="#set-line-index">§</a></h2>
+
+<p>Same as <a href="#set-line-offset">.set-line-offset()</a>, but works with a byte index. The given byte index must be at the start of a character, it can’t be in the middle of a UTF-8 encoded character. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-line-index ( Int() $byte-on-line )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$byte-on-line; a byte index relative to the start of <span class="code">$iter</span>’s current line.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-line-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-line-offset</a></h2>
-<p>Moves <code>$iter</code> within a line, to a new character (not byte) offset.</p><p>The given character offset must be less than or equal to the number of characters in the line; if equal, <code>$iter</code> moves to the start of the next line. See <a href="#set-line-index">.set-line-index()</a> if you have a byte index rather than a character offset.</p><pre class="pod-block-code">method set-line-offset ( Int() $char-on-line )
-</pre><ul>
-<li><p>$char-on-line; a character offset relative to the start of <code>$iter</code>’s current line.</p></li>
+<h2 id="set-line-offset" class="heading "><a href="#" title="go to top of document">set-line-offset</a><a class="raku-anchor" title="direct link" href="#set-line-offset">§</a></h2>
+
+<p>Moves <span class="code">$iter</span> within a line, to a new character (not byte) offset. </p>
+
+<p>The given character offset must be less than or equal to the number of characters in the line; if equal, <span class="code">$iter</span> moves to the start of the next line. See <a href="#set-line-index">.set-line-index()</a> if you have a byte index rather than a character offset. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-line-offset ( Int() $char-on-line )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$char-on-line; a character offset relative to the start of <span class="code">$iter</span>’s current line.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-offset</a></h2>
-<p>Sets <code>$iter</code> to point to <code>$char-offset</code>. <code>$char-offset</code> counts from the start of the entire text buffer, starting with 0.</p><pre class="pod-block-code">method set-offset ( Int() $char-offset )
-</pre><ul>
-<li><p>$char-offset; a character number.</p></li>
+<h2 id="set-offset" class="heading "><a href="#" title="go to top of document">set-offset</a><a class="raku-anchor" title="direct link" href="#set-offset">§</a></h2>
+
+<p>Sets <span class="code">$iter</span> to point to <span class="code">$char-offset</span>. <span class="code">$char-offset</span> counts from the start of the entire text buffer, starting with 0. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-offset ( Int() $char-offset )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$char-offset; a character number.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-visible-line-index"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-visible-line-index</a></h2>
-<p>Like <a href="#set-line-index">.set-line-index()</a>, but the index is in visible bytes, i.e. text with a tag making it invisible is not counted in the index.</p><pre class="pod-block-code">method set-visible-line-index ( Int() $byte-on-line )
-</pre><ul>
-<li><p>$byte-on-line; a byte index.</p></li>
+<h2 id="set-visible-line-index" class="heading "><a href="#" title="go to top of document">set-visible-line-index</a><a class="raku-anchor" title="direct link" href="#set-visible-line-index">§</a></h2>
+
+<p>Like <a href="#set-line-index">.set-line-index()</a>, but the index is in visible bytes, i.e. text with a tag making it invisible is not counted in the index. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visible-line-index ( Int() $byte-on-line )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$byte-on-line; a byte index.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-visible-line-offset"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">set-visible-line-offset</a></h2>
-<p>Like <a href="#set-line-offset">.set-line-offset()</a>, but the offset is in visible characters, i.e. text with a tag making it invisible is not counted in the offset.</p><pre class="pod-block-code">method set-visible-line-offset ( Int() $char-on-line )
-</pre><ul>
-<li><p>$char-on-line; a character offset.</p></li>
+<h2 id="set-visible-line-offset" class="heading "><a href="#" title="go to top of document">set-visible-line-offset</a><a class="raku-anchor" title="direct link" href="#set-visible-line-offset">§</a></h2>
+
+<p>Like <a href="#set-line-offset">.set-line-offset()</a>, but the offset is in visible characters, i.e. text with a tag making it invisible is not counted in the offset. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visible-line-offset ( Int() $char-on-line )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$char-on-line; a character offset.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="starts-line"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">starts-line</a></h2>
-<p>Returns <code>True</code> if <code>$iter</code> begins a paragraph.</p><p>This is the case if <a href="#get-line-offset">.get-line-offset()</a> would return 0. However this function is potentially more efficient than <a href="#get-line-offset">.get-line-offset()</a>, because it doesn’t have to compute the offset, it just has to see whether it’s 0.</p><pre class="pod-block-code">method starts-line (--&gt; Bool )
-</pre><p>Return value; whether <code>$iter</code> begins a line. </p></section>
-<section name="pod">
-<h2 id="starts-sentence"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">starts-sentence</a></h2>
-<p>Determines whether <code>$iter</code> begins a sentence.</p><p>Sentence boundaries are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method starts-sentence (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is at the start of a sentence.. </p></section>
-<section name="pod">
-<h2 id="starts-tag"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">starts-tag</a></h2>
-<p>Returns <code>True</code> if <code>$tag</code> is toggled on at exactly this point.</p><p>If <code>$tag</code> is undefined, returns <code>True</code> if any tag is toggled on at this point.</p><p>Note that if this function returns <code>True</code>, it means that <code>$iter</code> is at the beginning of the tagged range, and that the character at <code>$iter</code> is inside the tagged range. In other words, unlike <a href="#ends-tag">.ends-tag()</a>, if this function returns <code>True</code>, <a href="#has-tag">.has-tag()</a> will also return <code>True</code> for the same parameters.</p><pre class="pod-block-code">method starts-tag ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+<h2 id="starts-line" class="heading "><a href="#" title="go to top of document">starts-line</a><a class="raku-anchor" title="direct link" href="#starts-line">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$iter</span> begins a paragraph. </p>
+
+<p>This is the case if <a href="#get-line-offset">.get-line-offset()</a> would return 0. However this function is potentially more efficient than <a href="#get-line-offset">.get-line-offset()</a>, because it doesn’t have to compute the offset, it just has to see whether it’s 0. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method starts-line (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$iter</span> begins a line. </p>
+<h2 id="starts-sentence" class="heading "><a href="#" title="go to top of document">starts-sentence</a><a class="raku-anchor" title="direct link" href="#starts-sentence">§</a></h2>
+
+<p>Determines whether <span class="code">$iter</span> begins a sentence. </p>
+
+<p id="Para_66">Sentence boundaries are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method starts-sentence (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is at the start of a sentence.. </p>
+<h2 id="starts-tag" class="heading "><a href="#" title="go to top of document">starts-tag</a><a class="raku-anchor" title="direct link" href="#starts-tag">§</a></h2>
+
+<p>Returns <span class="code">True</span> if <span class="code">$tag</span> is toggled on at exactly this point. </p>
+
+<p>If <span class="code">$tag</span> is undefined, returns <span class="code">True</span> if any tag is toggled on at this point. </p>
+
+<p>Note that if this function returns <span class="code">True</span>, it means that <span class="code">$iter</span> is at the beginning of the tagged range, and that the character at <span class="code">$iter</span> is inside the tagged range. In other words, unlike <a href="#ends-tag">.ends-tag()</a>, if this function returns <span class="code">True</span>, <a href="#has-tag">.has-tag()</a> will also return <span class="code">True</span> for the same parameters. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method starts-tag ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether <code>$iter</code> is the start of a range tagged with <code>$tag</code>. </p></section>
-<section name="pod">
-<h2 id="starts-word"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">starts-word</a></h2>
-<p>Determines whether <code>$iter</code> begins a natural-language word.</p><p>Word breaks are determined by Pango and should be correct for nearly any language.</p><pre class="pod-block-code">method starts-word (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$iter</code> is at the start of a word. </p></section>
-<section name="pod">
-<h2 id="toggles-tag"><a href="#Gnome::Gtk4::N-TextIter" class="u" title="go to top of document">toggles-tag</a></h2>
-<p>Gets whether a range with <code>$tag</code> applied to it begins or ends at <code>$iter</code>.</p><p>This is equivalent to (<code>.starts-tag()</code> || <code>.ends-tag()</code>)</p><pre class="pod-block-code">method toggles-tag ( N-Object() $tag --&gt; Bool )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
+
+<p>Return value; whether <span class="code">$iter</span> is the start of a range tagged with <span class="code">$tag</span>. </p>
+<h2 id="starts-word" class="heading "><a href="#" title="go to top of document">starts-word</a><a class="raku-anchor" title="direct link" href="#starts-word">§</a></h2>
+
+<p>Determines whether <span class="code">$iter</span> begins a natural-language word. </p>
+
+<p id="Para_67">Word breaks are determined by Pango and should be correct for nearly any language.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method starts-word (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$iter</span> is at the start of a word. </p>
+<h2 id="toggles-tag" class="heading "><a href="#" title="go to top of document">toggles-tag</a><a class="raku-anchor" title="direct link" href="#toggles-tag">§</a></h2>
+
+<p>Gets whether a range with <span class="code">$tag</span> applied to it begins or ends at <span class="code">$iter</span>. </p>
+
+<p>This is equivalent to (<span class="code">.starts-tag()</span> || <span class="code">.ends-tag()</span>) </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method toggles-tag ( N-Object() $tag --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
 </ul>
-<p>Return value; whether <code>$tag</code> is toggled on or off at <code>$iter</code>. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-TextIter.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:15Z</span></div></footer>
-	</body>
+
+<p>Return value; whether <span class="code">$tag</span> is toggled on or off at <span class="code">$iter</span>. </p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/N-TextIter.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>

@@ -1,138 +1,630 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::CellView</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::CellView</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::CellView">Gnome::Gtk4::CellView</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-cellview">new-cellview</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-context">new-with-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-markup">new-with-markup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-text">new-with-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-texture">new-with-texture</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-displayed-row">get-displayed-row</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-draw-sensitive">get-draw-sensitive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-fit-model">get-fit-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-displayed-row">set-displayed-row</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-draw-sensitive">set-draw-sensitive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-fit-model">set-fit-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-model">set-model</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">Description</a></h1>
-<p>A widget displaying a single row of a GtkTreeModel</p><p>A <strong>Gnome::Gtk4::CellView</strong> displays a single row of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> using a <a href="/content-docs/api2/reference/Gtk4/CellArea.html">Gnome::Gtk4::CellArea</a> and <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a>. A <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> can be provided to the <strong>Gnome::Gtk4::CellView</strong> at construction time in order to keep the cellview in context of a group of cell views, this ensures that the renderers displayed will be properly aligned with each other (like the aligned cells in the menus of <a href="/content-docs/api2/reference/Gtk4/ComboBox.html">Gnome::Gtk4::ComboBox</a>).</p><p><strong>Gnome::Gtk4::CellView</strong> is <a href="/content-docs/api2/reference/Gtk4/R-Orientable.html">Gnome::Gtk4::R-Orientable</a> in order to decide in which orientation the underlying <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> should be allocated. Taking the <a href="/content-docs/api2/reference/Gtk4/ComboBox.html">Gnome::Gtk4::ComboBox</a> menu as an example, cellviews should be oriented horizontally if the menus are listed top-to-bottom and thus all share the same width but may have separate individual heights (left-to-right menus should be allocated vertically since they all share the same height but may have variable widths).</p>
-<h3 id="CSS_nodes"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">CSS nodes</a></h3>
-<p>GtkCellView has a single CSS node with name cellview.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/CellView.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-cellview"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new-cellview</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::CellView</strong> widget.</p><pre class="pod-block-code">method new-cellview ( --&gt; Gnome::Gtk4::CellView )
-</pre></section>
-<section name="pod">
-<h2 id="new-with-context"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new-with-context</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::CellView</strong> widget with a specific <a href="/content-docs/api2/reference/Gtk4/CellArea.html">Gnome::Gtk4::CellArea</a> to layout cells and a specific <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a>.</p><p>Specifying the same context for a handful of cells lets the underlying area synchronize the geometry for those cells, in this way alignments with cellviews for other rows are possible.</p><pre class="pod-block-code">method new-with-context ( N-Object() $area, N-Object() $context --&gt; Gnome::Gtk4::CellView )
-</pre><ul>
-<li><p>$area; the <a href="/content-docs/api2/reference/Gtk4/CellArea.html">Gnome::Gtk4::CellArea</a> to layout cells.</p></li>
-<li><p>$context; the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> in which to calculate cell geometry.</p></li>
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::CellView"></div><h1 class="title">Gnome::Gtk4::CellView</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-cellview">new-cellview</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-context">new-with-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-markup">new-with-markup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-text">new-with-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-texture">new-with-texture</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-displayed-row">get-displayed-row</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-draw-sensitive">get-draw-sensitive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-fit-model">get-fit-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-model">get-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-displayed-row">set-displayed-row</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-draw-sensitive">set-draw-sensitive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-fit-model">set-fit-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-model">set-model</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">A widget displaying a single row of a GtkTreeModel</p>
+
+<p>A <span class="basis">Gnome::Gtk4::CellView</span> displays a single row of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> using a <a href="/content-docs/api2/reference/Gtk4/CellArea">Gnome::Gtk4::CellArea</a> and <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a>. A <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> can be provided to the <span class="basis">Gnome::Gtk4::CellView</span> at construction time in order to keep the cellview in context of a group of cell views, this ensures that the renderers displayed will be properly aligned with each other (like the aligned cells in the menus of <a href="/content-docs/api2/reference/Gtk4/ComboBox">Gnome::Gtk4::ComboBox</a>). </p>
+
+<p><span class="basis">Gnome::Gtk4::CellView</span> is <a href="/content-docs/api2/reference/Gtk4/R-Orientable">Gnome::Gtk4::R-Orientable</a> in order to decide in which orientation the underlying <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> should be allocated. Taking the <a href="/content-docs/api2/reference/Gtk4/ComboBox">Gnome::Gtk4::ComboBox</a> menu as an example, cellviews should be oriented horizontally if the menus are listed top-to-bottom and thus all share the same width but may have separate individual heights (left-to-right menus should be allocated vertically since they all share the same height but may have variable widths). </p>
+
+<div class="id-target" id="CSS nodes"></div><h3 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h3>
+
+<p id="Para_0">GtkCellView has a single CSS node with name cellview.</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/CellView.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-cellview" class="heading "><a href="#" title="go to top of document">new-cellview</a><a class="raku-anchor" title="direct link" href="#new-cellview">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::CellView</span> widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-cellview ( --&gt; Gnome::Gtk4::CellView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-with-context" class="heading "><a href="#" title="go to top of document">new-with-context</a><a class="raku-anchor" title="direct link" href="#new-with-context">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::CellView</span> widget with a specific <a href="/content-docs/api2/reference/Gtk4/CellArea">Gnome::Gtk4::CellArea</a> to layout cells and a specific <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a>. </p>
+
+<p id="Para_1">Specifying the same context for a handful of cells lets the underlying area synchronize the geometry for those cells, in this way alignments with cellviews for other rows are possible.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-context ( N-Object() $area, N-Object() $context --&gt; Gnome::Gtk4::CellView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$area; the <a href="/content-docs/api2/reference/Gtk4/CellArea">Gnome::Gtk4::CellArea</a> to layout cells.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$context; the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> in which to calculate cell geometry.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-with-markup"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new-with-markup</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::CellView</strong> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererText.html">Gnome::Gtk4::CellRendererText</a> to it, and makes it show <code>$markup</code>. The text can be marked up with the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html).</p><pre class="pod-block-code">method new-with-markup ( Str $markup --&gt; Gnome::Gtk4::CellView )
-</pre><ul>
-<li><p>$markup; the text to display in the cell view.</p></li>
+<h2 id="new-with-markup" class="heading "><a href="#" title="go to top of document">new-with-markup</a><a class="raku-anchor" title="direct link" href="#new-with-markup">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::CellView</span> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererText">Gnome::Gtk4::CellRendererText</a> to it, and makes it show <span class="code">$markup</span>. The text can be marked up with the [Pango text markup language](https://docs.gtk.org/Pango/pango_markup.html). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-markup ( Str $markup --&gt; Gnome::Gtk4::CellView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$markup; the text to display in the cell view.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-with-text"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new-with-text</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::CellView</strong> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererText.html">Gnome::Gtk4::CellRendererText</a> to it, and makes it show <code>$text</code>.</p><pre class="pod-block-code">method new-with-text ( Str $text --&gt; Gnome::Gtk4::CellView )
-</pre><ul>
-<li><p>$text; the text to display in the cell view.</p></li>
+<h2 id="new-with-text" class="heading "><a href="#" title="go to top of document">new-with-text</a><a class="raku-anchor" title="direct link" href="#new-with-text">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::CellView</span> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererText">Gnome::Gtk4::CellRendererText</a> to it, and makes it show <span class="code">$text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-text ( Str $text --&gt; Gnome::Gtk4::CellView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; the text to display in the cell view.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-with-texture"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">new-with-texture</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new <strong>Gnome::Gtk4::CellView</strong> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererPixbuf.html">Gnome::Gtk4::CellRendererPixbuf</a> to it, and makes it show <code>$texture</code>.</p><pre class="pod-block-code">method new-with-texture ( N-Object() $texture --&gt; Gnome::Gtk4::CellView )
-</pre><ul>
-<li><p>$texture; the image to display in the cell view.</p></li>
+<h2 id="new-with-texture" class="heading "><a href="#" title="go to top of document">new-with-texture</a><a class="raku-anchor" title="direct link" href="#new-with-texture">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::CellView</span> widget, adds a <a href="/content-docs/api2/reference/Gtk4/CellRendererPixbuf">Gnome::Gtk4::CellRendererPixbuf</a> to it, and makes it show <span class="code">$texture</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-texture ( N-Object() $texture --&gt; Gnome::Gtk4::CellView )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$texture; the image to display in the cell view.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-displayed-row"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">get-displayed-row</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns a <strong>Gnome::Gtk4::N-TreePath</strong> referring to the currently displayed row. If no row is currently displayed, undefined is returned.</p><pre class="pod-block-code">method get-displayed-row (--&gt; N-Object )
-</pre><p>Return value; the currently displayed row. </p></section>
-<section name="pod">
-<h2 id="get-draw-sensitive"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">get-draw-sensitive</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets whether <code>$cell-view</code> is configured to draw all of its cells in a sensitive state.</p><pre class="pod-block-code">method get-draw-sensitive (--&gt; Bool )
-</pre><p>Return value; whether <code>$cell-view</code> draws all of its cells in a sensitive state. </p></section>
-<section name="pod">
-<h2 id="get-fit-model"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">get-fit-model</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets whether <code>$cell-view</code> is configured to request space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.</p><pre class="pod-block-code">method get-fit-model (--&gt; Bool )
-</pre><p>Return value; whether <code>$cell-view</code> requests space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.. </p></section>
-<section name="pod">
-<h2 id="get-model"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">get-model</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the model for <code>$cell-view</code>. If no model is used undefined is returned.</p><pre class="pod-block-code">method get-model (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> used. </p></section>
-<section name="pod">
-<h2 id="set-displayed-row"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">set-displayed-row</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the row of the model that is currently displayed by the <strong>Gnome::Gtk4::CellView</strong>. If the path is unset, then the contents of the cellview “stick” at their last value; this is not normally a desired result, but may be a needed intermediate state if say, the model for the <strong>Gnome::Gtk4::CellView</strong> becomes temporarily empty.</p><pre class="pod-block-code">method set-displayed-row ( N-Object $path )
-</pre><ul>
-<li><p>$path; a <strong>Gnome::Gtk4::N-TreePath</strong> or undefined to unset.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-displayed-row" class="heading "><a href="#" title="go to top of document">get-displayed-row</a><a class="raku-anchor" title="direct link" href="#get-displayed-row">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns a <span class="basis">Gnome::Gtk4::N-TreePath</span> referring to the currently displayed row. If no row is currently displayed, undefined is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-displayed-row (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; the currently displayed row.</p>
+<h2 id="get-draw-sensitive" class="heading "><a href="#" title="go to top of document">get-draw-sensitive</a><a class="raku-anchor" title="direct link" href="#get-draw-sensitive">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets whether <span class="code">$cell-view</span> is configured to draw all of its cells in a sensitive state. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-draw-sensitive (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$cell-view</span> draws all of its cells in a sensitive state. </p>
+<h2 id="get-fit-model" class="heading "><a href="#" title="go to top of document">get-fit-model</a><a class="raku-anchor" title="direct link" href="#get-fit-model">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets whether <span class="code">$cell-view</span> is configured to request space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-fit-model (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$cell-view</span> requests space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>.. </p>
+<h2 id="get-model" class="heading "><a href="#" title="go to top of document">get-model</a><a class="raku-anchor" title="direct link" href="#get-model">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns the model for <span class="code">$cell-view</span>. If no model is used undefined is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-model (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> used. </p>
+<h2 id="set-displayed-row" class="heading "><a href="#" title="go to top of document">set-displayed-row</a><a class="raku-anchor" title="direct link" href="#set-displayed-row">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets the row of the model that is currently displayed by the <span class="basis">Gnome::Gtk4::CellView</span>. If the path is unset, then the contents of the cellview “stick” at their last value; this is not normally a desired result, but may be a needed intermediate state if say, the model for the <span class="basis">Gnome::Gtk4::CellView</span> becomes temporarily empty. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-displayed-row ( N-Object $path )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; a <span class="basis">Gnome::Gtk4::N-TreePath</span> or undefined to unset.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-draw-sensitive"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">set-draw-sensitive</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether <code>$cell-view</code> should draw all of its cells in a sensitive state, this is used by <a href="/content-docs/api2/reference/Gtk4/ComboBox.html">Gnome::Gtk4::ComboBox</a> menus to ensure that rows with insensitive cells that contain children appear sensitive in the parent menu item.</p><pre class="pod-block-code">method set-draw-sensitive ( Bool() $draw-sensitive )
-</pre><ul>
-<li><p>$draw-sensitive; whether to draw all cells in a sensitive state..</p></li>
+<h2 id="set-draw-sensitive" class="heading "><a href="#" title="go to top of document">set-draw-sensitive</a><a class="raku-anchor" title="direct link" href="#set-draw-sensitive">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets whether <span class="code">$cell-view</span> should draw all of its cells in a sensitive state, this is used by <a href="/content-docs/api2/reference/Gtk4/ComboBox">Gnome::Gtk4::ComboBox</a> menus to ensure that rows with insensitive cells that contain children appear sensitive in the parent menu item. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-draw-sensitive ( Bool() $draw-sensitive )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$draw-sensitive; whether to draw all cells in a sensitive state..</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-fit-model"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">set-fit-model</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets whether <code>$cell-view</code> should request space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.</p><p>This is used by <a href="/content-docs/api2/reference/Gtk4/ComboBox.html">Gnome::Gtk4::ComboBox</a> to ensure that the cell view displayed on the combo box’s button always gets enough space and does not resize when selection changes.</p><pre class="pod-block-code">method set-fit-model ( Bool() $fit-model )
-</pre><ul>
-<li><p>$fit-model; whether <code>$cell-view</code> should request space for the whole model..</p></li>
+<h2 id="set-fit-model" class="heading "><a href="#" title="go to top of document">set-fit-model</a><a class="raku-anchor" title="direct link" href="#set-fit-model">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets whether <span class="code">$cell-view</span> should request space to fit the entire <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>. </p>
+
+<p>This is used by <a href="/content-docs/api2/reference/Gtk4/ComboBox">Gnome::Gtk4::ComboBox</a> to ensure that the cell view displayed on the combo box’s button always gets enough space and does not resize when selection changes. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-fit-model ( Bool() $fit-model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$fit-model; whether <span class="code">$cell-view</span> should request space for the whole model..</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-model"><a href="#Gnome::Gtk4::CellView" class="u" title="go to top of document">set-model</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the model for <code>$cell-view</code>. If <code>$cell-view</code> already has a model set, it will remove it before setting the new model. If <code>$model</code> is undefined, then it will unset the old model.</p><pre class="pod-block-code">method set-model ( N-Object() $model )
-</pre><ul>
-<li><p>$model; a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a>.</p></li>
+<h2 id="set-model" class="heading "><a href="#" title="go to top of document">set-model</a><a class="raku-anchor" title="direct link" href="#set-model">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets the model for <span class="code">$cell-view</span>. If <span class="code">$cell-view</span> already has a model set, it will remove it before setting the new model. If <span class="code">$model</span> is undefined, then it will unset the old model. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-model ( N-Object() $model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/CellView.rakudoc</span></div><div>at <span class="time">2026-05-03T10:25:39Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/CellView.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

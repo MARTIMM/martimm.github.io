@@ -1,101 +1,587 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Expression</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Expression</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Expression">Gnome::Gtk4::Expression</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#GtkExpression_in_GObject_properties">GtkExpression in GObject properties</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#GtkExpression_in_.ui_files">GtkExpression in .ui files</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#bind">bind</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#evaluate">evaluate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-value-type">get-value-type</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-static">is-static</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#ref">ref</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unref">unref</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#watch">watch</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Expression</strong> provides a way to describe references to values.</p><p>An important aspect of expressions is that the value can be obtained from a source that is several steps away. For example, an expression may describe ‘the value of property A of <strong>object1</strong>, which is itself the value of a property of <strong>object2</strong>’. And <strong>object1</strong> may not even exist yet at the time that the expression is created. This is contrast to <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a> property bindings, which can only create direct connections between the properties of two objects that must both exist for the duration of the binding.</p><p>An expression needs to be &quot;evaluated&quot; to obtain the value that it currently refers to. An evaluation always happens in the context of a current object called <strong>this</strong> (it mirrors the behavior of object-oriented languages), which may or may not influence the result of the evaluation. Use <a href="#evaluate">.evaluate()</a> for evaluating an expression.</p><p>Various methods for defining expressions exist, from simple constants via <a href="/content-docs/api2/reference/Gtk4/ConstantExpression.html#newexpression">.newexpression() in class ConstantExpression</a> to looking up properties in a <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a> (even recursively) via <a href="/content-docs/api2/reference/Gtk4/PropertyExpression.html#newexpression">.newexpression() in class PropertyExpression</a> or providing custom functions to transform and combine expressions via <a href="/content-docs/api2/reference/Gtk4/ClosureExpression.html#newexpression">.newexpression() in class ClosureExpression</a>.</p><p>Here is an example of a complex expression:</p><p>when evaluated with <strong>this</strong> being a <a href="/content-docs/api2/reference/Gtk4/ListItem.html">Gnome::Gtk4::ListItem</a>, it will obtain the &quot;item&quot; property from the <a href="/content-docs/api2/reference/Gtk4/ListItem.html">Gnome::Gtk4::ListItem</a>, and then obtain the &quot;name&quot; property from the resulting object (which is assumed to be of type <strong>GTK_TYPE_COLOR</strong>).</p><p>A more concise way to describe this would be</p><p>The most likely place where you will encounter expressions is in the context of list models and list widgets using them. For example, <a href="/content-docs/api2/reference/Gtk4/DropDown.html">Gnome::Gtk4::DropDown</a> is evaluating a <strong>Gnome::Gtk4::Expression</strong> to obtain strings from the items in its model that it can then use to match against the contents of its search entry. <a href="/content-docs/api2/reference/Gtk4/StringFilter.html">Gnome::Gtk4::StringFilter</a> is using a <strong>Gnome::Gtk4::Expression</strong> for similar reasons.</p><p>By default, expressions are not paying attention to changes and evaluation is just a snapshot of the current state at a given time. To get informed about changes, an expression needs to be &quot;watched&quot; via a <strong>Gnome::Gtk4::N-ExpressionWatch</strong> , which will cause a callback to be called whenever the value of the expression may have changed; <a href="#watch">.watch()</a> starts watching an expression, and <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch.html#unwatch">.unwatch() in class ExpressionWatch</a> stops.</p><p>Watches can be created for automatically updating the property of an object, similar to GObject's <a href="/content-docs/api2/reference/GObject/Binding.html">Gnome::GObject::Binding</a> mechanism, by using <a href="#bind">.bind()</a>.</p>
-<h3 id="GtkExpression_in_GObject_properties"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">GtkExpression in GObject properties</a></h3>
-<p>In order to use a <strong>Gnome::Gtk4::Expression</strong> as a <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a> property, you must use the <a href="/content-docs/api2/reference/Gtk4/T-expression.html#param-spec-expression">.param-spec-expression().param-spec-expression() in package Gnome::Gtk4</a> when creating a <a href="/content-docs/api2/reference/GObject/ParamSpec.html">Gnome::GObject::ParamSpec</a> to install in the <a href="/content-docs/api2/reference/GObject/Object.html">Gnome::GObject::Object</a> class being defined; for instance:</p><p>When implementing the <strong>GObjectClass</strong>.set_property` and <strong>GObjectClass</strong>.get_property` virtual functions, you must use <a href="/content-docs/api2/reference/Gtk4/T-expression.html#value-get-expression">.value-get-expression().value-get-expression() in package Gnome::Gtk4</a>, to retrieve the stored <strong>Gnome::Gtk4::Expression</strong> from the <strong>Gnome::GObject::N-Value</strong> container, and <a href="/content-docs/api2/reference/Gtk4/T-expression.html#value-set-expression">.value-set-expression().value-set-expression() in package Gnome::Gtk4</a>, to store the <strong>Gnome::Gtk4::Expression</strong> into the <strong>Gnome::GObject::N-Value</strong>; for instance:</p>
-<h3 id="GtkExpression_in_.ui_files"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">GtkExpression in .ui files</a></h3>
-<p><a href="/content-docs/api2/reference/Gtk4/Builder.html">Gnome::Gtk4::Builder</a> has support for creating expressions. The syntax here can be used where a <strong>Gnome::Gtk4::Expression</strong> object is needed like in a `&lt;property&gt;` tag for an expression property, or in a `&lt;binding name=&quot;property&quot;&gt;` tag to bind a property to an expression.</p><p>To create a property expression, use the `&lt;lookup&gt;` element. It can have a <strong>type</strong> attribute to specify the object type, and a <strong>name</strong> attribute to specify the property to look up. The content of `&lt;lookup&gt;` can either be an element specifying the expression to use the object, or a string that specifies the name of the object to use.</p><p>Example:</p><p>Since the `&lt;lookup&gt;` element creates an expression and its element content can itself be an expression, this means that `&lt;lookup&gt;` tags can also be nested. This is a common idiom when dealing with <a href="/content-docs/api2/reference/Gtk4/ListItem.html">Gnome::Gtk4::ListItem</a>s. See <a href="/content-docs/api2/reference/Gtk4/BuilderListItemFactory.html">Gnome::Gtk4::BuilderListItemFactory</a> for an example of this technique.</p><p>To create a constant expression, use the `&lt;constant&gt;` element. If the type attribute is specified, the element content is interpreted as a value of that type. Otherwise, it is assumed to be an object. For instance:</p><p>To create a closure expression, use the `&lt;closure&gt;` element. The <strong>function</strong> attribute specifies what function to use for the closure, and the <strong>type</strong> attribute specifies its return type. The content of the element contains the expressions for the parameters. For instance:</p><p>To create a property binding, use the `&lt;binding&gt;` element in place of where a `&lt;property&gt;` tag would ordinarily be used. The <strong>name</strong> and <strong>object</strong> attributes are supported. The <strong>name</strong> attribute is required, and pertains to the applicable property name. The <strong>object</strong> attribute is optional. If provided, it will use the specified object as the <strong>this</strong> object when the expression is evaluated. Here is an example in which the <strong>label</strong> property of a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a> is bound to the <strong>string</strong> property of another arbitrary object:</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Expression.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="bind"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">bind</a></h2>
-<p>Bind <strong>target</strong>'s property named <strong>property</strong> to <strong>self</strong>.</p><p>The value that <strong>self</strong> evaluates to is set via <strong>g_object_set</strong>()` on <strong>target</strong>. This is repeated whenever <strong>self</strong> changes to ensure that the object's property stays synchronized with <strong>self</strong>.</p><p>If <strong>self</strong>'s evaluation fails, <strong>target</strong>'s <strong>property</strong> is not updated. You can ensure that this doesn't happen by using a fallback expression.</p><p>Note that this function takes ownership of <strong>self</strong>. If you want to keep it around, you should <a href="#ref">.ref()</a> it beforehand.</p><pre class="pod-block-code">method bind ( gpointer $target, Str $property, gpointer $this --&gt; N-Object )
-</pre><ul>
-<li><p>$target; the target object to bind to.</p></li>
-<li><p>$property; name of the property on <strong>target</strong> to bind to.</p></li>
-<li><p>$this; the this argument for the evaluation of <strong>self</strong>.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Expression"></div><h1 class="title">Gnome::Gtk4::Expression</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#GtkExpression_in_GObject_properties">GtkExpression in GObject properties</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#GtkExpression_in_.ui_files">GtkExpression in .ui files</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#bind">bind</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#evaluate">evaluate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-value-type">get-value-type</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-static">is-static</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#ref">ref</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unref">unref</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#watch">watch</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Expression</span> provides a way to describe references to values. </p>
+
+<p>An important aspect of expressions is that the value can be obtained from a source that is several steps away. For example, an expression may describe ‘the value of property A of <span class="basis">object1</span>, which is itself the value of a property of <span class="basis">object2</span>’. And <span class="basis">object1</span> may not even exist yet at the time that the expression is created. This is contrast to <a href="/content-docs/api2/reference/GObject/Object">Gnome::GObject::Object</a> property bindings, which can only create direct connections between the properties of two objects that must both exist for the duration of the binding. </p>
+
+<p>An expression needs to be &quot;evaluated&quot; to obtain the value that it currently refers to. An evaluation always happens in the context of a current object called <span class="basis">this</span> (it mirrors the behavior of object-oriented languages), which may or may not influence the result of the evaluation. Use <a href="#evaluate">.evaluate()</a> for evaluating an expression. </p>
+
+<p>Various methods for defining expressions exist, from simple constants via <a href="/content-docs/api2/reference/Gtk4/ConstantExpression#newexpression">.newexpression() in class ConstantExpression</a> to looking up properties in a <a href="/content-docs/api2/reference/GObject/Object">Gnome::GObject::Object</a> (even recursively) via <a href="/content-docs/api2/reference/Gtk4/PropertyExpression#newexpression">.newexpression() in class PropertyExpression</a> or providing custom functions to transform and combine expressions via <a href="/content-docs/api2/reference/Gtk4/ClosureExpression#newexpression">.newexpression() in class ClosureExpression</a>. </p>
+
+<p id="Para">Here is an example of a complex expression:</p>
+
+<p>when evaluated with <span class="basis">this</span> being a <a href="/content-docs/api2/reference/Gtk4/ListItem">Gnome::Gtk4::ListItem</a>, it will obtain the &quot;item&quot; property from the <a href="/content-docs/api2/reference/Gtk4/ListItem">Gnome::Gtk4::ListItem</a>, and then obtain the &quot;name&quot; property from the resulting object (which is assumed to be of type <span class="basis">GTK_TYPE_COLOR</span>). </p>
+
+<p id="Para_0">A more concise way to describe this would be</p>
+
+<p>The most likely place where you will encounter expressions is in the context of list models and list widgets using them. For example, <a href="/content-docs/api2/reference/Gtk4/DropDown">Gnome::Gtk4::DropDown</a> is evaluating a <span class="basis">Gnome::Gtk4::Expression</span> to obtain strings from the items in its model that it can then use to match against the contents of its search entry. <a href="/content-docs/api2/reference/Gtk4/StringFilter">Gnome::Gtk4::StringFilter</a> is using a <span class="basis">Gnome::Gtk4::Expression</span> for similar reasons. </p>
+
+<p>By default, expressions are not paying attention to changes and evaluation is just a snapshot of the current state at a given time. To get informed about changes, an expression needs to be &quot;watched&quot; via a <span class="basis">Gnome::Gtk4::N-ExpressionWatch</span> , which will cause a callback to be called whenever the value of the expression may have changed; <a href="#watch">.watch()</a> starts watching an expression, and <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch#unwatch">.unwatch() in class ExpressionWatch</a> stops. </p>
+
+<p>Watches can be created for automatically updating the property of an object, similar to GObject's <a href="/content-docs/api2/reference/GObject/Binding">Gnome::GObject::Binding</a> mechanism, by using <a href="#bind">.bind()</a>. </p>
+
+<div class="id-target" id="GtkExpression in GObject properties"></div><h3 id="GtkExpression_in_GObject_properties" class="heading "><a href="#" title="go to top of document">GtkExpression in GObject properties</a><a class="raku-anchor" title="direct link" href="#GtkExpression in GObject properties">§</a></h3>
+
+<p>In order to use a <span class="basis">Gnome::Gtk4::Expression</span> as a <a href="/content-docs/api2/reference/GObject/Object">Gnome::GObject::Object</a> property, you must use the <a href="/content-docs/api2/reference/Gtk4/T-expression#param-spec-expression">.param-spec-expression().param-spec-expression() in package Gnome::Gtk4</a> when creating a <a href="/content-docs/api2/reference/GObject/ParamSpec">Gnome::GObject::ParamSpec</a> to install in the <a href="/content-docs/api2/reference/GObject/Object">Gnome::GObject::Object</a> class being defined; for instance: </p>
+
+<p>When implementing the <span class="basis">GObjectClass</span>.set_property` and <span class="basis">GObjectClass</span>.get_property` virtual functions, you must use <a href="/content-docs/api2/reference/Gtk4/T-expression#value-get-expression">.value-get-expression().value-get-expression() in package Gnome::Gtk4</a>, to retrieve the stored <span class="basis">Gnome::Gtk4::Expression</span> from the <span class="basis">Gnome::GObject::N-Value</span> container, and <a href="/content-docs/api2/reference/Gtk4/T-expression#value-set-expression">.value-set-expression().value-set-expression() in package Gnome::Gtk4</a>, to store the <span class="basis">Gnome::Gtk4::Expression</span> into the <span class="basis">Gnome::GObject::N-Value</span>; for instance: </p>
+
+<div class="id-target" id="GtkExpression in .ui files"></div><h3 id="GtkExpression_in_.ui_files" class="heading "><a href="#" title="go to top of document">GtkExpression in .ui files</a><a class="raku-anchor" title="direct link" href="#GtkExpression in .ui files">§</a></h3>
+
+<p><a href="/content-docs/api2/reference/Gtk4/Builder">Gnome::Gtk4::Builder</a> has support for creating expressions. The syntax here can be used where a <span class="basis">Gnome::Gtk4::Expression</span> object is needed like in a `&lt;property&gt;` tag for an expression property, or in a `&lt;binding name=&quot;property&quot;&gt;` tag to bind a property to an expression. </p>
+
+<p>To create a property expression, use the `&lt;lookup&gt;` element. It can have a <span class="basis">type</span> attribute to specify the object type, and a <span class="basis">name</span> attribute to specify the property to look up. The content of `&lt;lookup&gt;` can either be an element specifying the expression to use the object, or a string that specifies the name of the object to use. </p>
+
+<p id="Para_1">Example:</p>
+
+<p>Since the `&lt;lookup&gt;` element creates an expression and its element content can itself be an expression, this means that `&lt;lookup&gt;` tags can also be nested. This is a common idiom when dealing with <a href="/content-docs/api2/reference/Gtk4/ListItem">Gnome::Gtk4::ListItem</a>s. See <a href="/content-docs/api2/reference/Gtk4/BuilderListItemFactory">Gnome::Gtk4::BuilderListItemFactory</a> for an example of this technique. </p>
+
+<p id="Para_2">To create a constant expression, use the `&lt;constant&gt;` element. If the type attribute is specified, the element content is interpreted as a value of that type. Otherwise, it is assumed to be an object. For instance:</p>
+
+<p>To create a closure expression, use the `&lt;closure&gt;` element. The <span class="basis">function</span> attribute specifies what function to use for the closure, and the <span class="basis">type</span> attribute specifies its return type. The content of the element contains the expressions for the parameters. For instance: </p>
+
+<p>To create a property binding, use the `&lt;binding&gt;` element in place of where a `&lt;property&gt;` tag would ordinarily be used. The <span class="basis">name</span> and <span class="basis">object</span> attributes are supported. The <span class="basis">name</span> attribute is required, and pertains to the applicable property name. The <span class="basis">object</span> attribute is optional. If provided, it will use the specified object as the <span class="basis">this</span> object when the expression is evaluated. Here is an example in which the <span class="basis">label</span> property of a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a> is bound to the <span class="basis">string</span> property of another arbitrary object: </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Expression.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="bind" class="heading "><a href="#" title="go to top of document">bind</a><a class="raku-anchor" title="direct link" href="#bind">§</a></h2>
+
+<p>Bind <span class="basis">target</span>'s property named <span class="basis">property</span> to <span class="basis">self</span>. </p>
+
+<p>The value that <span class="basis">self</span> evaluates to is set via <span class="basis">g_object_set</span>()` on <span class="basis">target</span>. This is repeated whenever <span class="basis">self</span> changes to ensure that the object's property stays synchronized with <span class="basis">self</span>. </p>
+
+<p>If <span class="basis">self</span>'s evaluation fails, <span class="basis">target</span>'s <span class="basis">property</span> is not updated. You can ensure that this doesn't happen by using a fallback expression. </p>
+
+<p>Note that this function takes ownership of <span class="basis">self</span>. If you want to keep it around, you should <a href="#ref">.ref()</a> it beforehand. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method bind ( gpointer $target, Str $property, gpointer $this --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$target; the target object to bind to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$property; name of the property on <span class="basis">target</span> to bind to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$this; the this argument for the evaluation of <span class="basis">self</span>.</li>
 </ul>
-<p>Return value; a <strong>Gnome::Gtk4::N-ExpressionWatch</strong>. </p></section>
-<section name="pod">
-<h2 id="evaluate"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">evaluate</a></h2>
-<p>Evaluates the given expression and on success stores the result in <code>$value</code>.</p><p>The <strong>Gnome::GObject::Expression</strong> of <strong>value</strong> will be the type given by <a href="#get-value-type">.get-value-type()</a>.</p><p>It is possible that expressions cannot be evaluated - for example when the expression references objects that have been destroyed or set to undefined. In that case <strong>value</strong> will remain empty and <code>False</code> will be returned.</p><pre class="pod-block-code">method evaluate ( gpointer $this, N-Object $value --&gt; Bool )
-</pre><ul>
-<li><p>$this; the this argument for the evaluation.</p></li>
-<li><p>$value; an empty <strong>Gnome::GObject::N-Value</strong></p></li>
+
+<p>Return value; a <span class="basis">Gnome::Gtk4::N-ExpressionWatch</span>. </p>
+<h2 id="evaluate" class="heading "><a href="#" title="go to top of document">evaluate</a><a class="raku-anchor" title="direct link" href="#evaluate">§</a></h2>
+
+<p>Evaluates the given expression and on success stores the result in <span class="code">$value</span>. </p>
+
+<p>The <span class="basis">Gnome::GObject::Expression</span> of <span class="basis">value</span> will be the type given by <a href="#get-value-type">.get-value-type()</a>. </p>
+
+<p>It is possible that expressions cannot be evaluated - for example when the expression references objects that have been destroyed or set to undefined. In that case <span class="basis">value</span> will remain empty and <span class="code">False</span> will be returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method evaluate ( gpointer $this, N-Object $value --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$this; the this argument for the evaluation.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; an empty <span class="basis">Gnome::GObject::N-Value</span></li>
 </ul>
-<p>Return value; <code>True</code> if the expression could be evaluated. </p></section>
-<section name="pod">
-<h2 id="get-value-type"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">get-value-type</a></h2>
-<p>Gets the <strong>Gnome::GObject::Expression</strong> that this expression evaluates to.</p><p>This type is constant and will not change over the lifetime of this expression.</p><pre class="pod-block-code">method get-value-type (--&gt; GType )
-</pre><p>Return value; The type returned from <a href="#evaluate">.evaluate()</a>. </p></section>
-<section name="pod">
-<h2 id="is-static"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">is-static</a></h2>
-<p>Checks if the expression is static.</p><p>A static expression will never change its result when <a href="#evaluate">.evaluate()</a> is called on it with the same arguments.</p><p>That means a call to <a href="#watch">.watch()</a> is not necessary because it will never trigger a notify.</p><pre class="pod-block-code">method is-static (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the expression is static. </p></section>
-<section name="pod">
-<h2 id="ref"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">ref</a></h2>
-<p>Acquires a reference on the given <strong>Gnome::Gtk4::Expression</strong>.</p><pre class="pod-block-code">method ref (--&gt; N-Object )
-</pre><p>Return value; the <strong>Gnome::Gtk4::Expression</strong> with an additional reference. </p></section>
-<section name="pod">
-<h2 id="unref"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">unref</a></h2>
-<p>Releases a reference on the given <strong>Gnome::Gtk4::Expression</strong>.</p><p>If the reference was the last, the resources associated to the <strong>self</strong> are freed.</p><pre class="pod-block-code">method unref ( )
-</pre></section>
-<section name="pod">
-<h2 id="watch"><a href="#Gnome::Gtk4::Expression" class="u" title="go to top of document">watch</a></h2>
-<p>Watch the given <strong>expression</strong> for changes.</p><p>The <code>$notify</code> function will be called whenever the evaluation of <strong>self</strong> may have changed.</p><p>GTK cannot guarantee that the evaluation did indeed change when the <code>$notify</code> gets invoked, but it guarantees the opposite: When it did in fact change, the <code>$notify</code> will be invoked.</p><pre class="pod-block-code">method watch ( gpointer $this, GtkExpressionNotify &amp;notify, gpointer $user-data, GDestroyNotify &amp;user-destroy --&gt; N-Object )
-</pre><ul>
-<li><p>$this; the <strong>this</strong> argument to watch.</p></li>
-<li><p>GtkExpressionNotify &amp;notify; callback to invoke when the expression changes. The function must be specified with the following signature; <code>:( gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data to pass to the <strong>notify</strong> callback.</p></li>
-<li><p>GDestroyNotify &amp;user-destroy; destroy notify for <strong>user_data</strong>. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
+
+<p>Return value; <span class="code">True</span> if the expression could be evaluated. </p>
+<h2 id="get-value-type" class="heading "><a href="#" title="go to top of document">get-value-type</a><a class="raku-anchor" title="direct link" href="#get-value-type">§</a></h2>
+
+<p>Gets the <span class="basis">Gnome::GObject::Expression</span> that this expression evaluates to. </p>
+
+<p id="Para_3">This type is constant and will not change over the lifetime of this expression.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-value-type (--&gt; GType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The type returned from <a href="#evaluate">.evaluate()</a>. </p>
+<h2 id="is-static" class="heading "><a href="#" title="go to top of document">is-static</a><a class="raku-anchor" title="direct link" href="#is-static">§</a></h2>
+
+<p id="Para_4">Checks if the expression is static.</p>
+
+<p>A static expression will never change its result when <a href="#evaluate">.evaluate()</a> is called on it with the same arguments. </p>
+
+<p>That means a call to <a href="#watch">.watch()</a> is not necessary because it will never trigger a notify. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-static (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the expression is static. </p>
+<h2 id="ref" class="heading "><a href="#" title="go to top of document">ref</a><a class="raku-anchor" title="direct link" href="#ref">§</a></h2>
+
+<p>Acquires a reference on the given <span class="basis">Gnome::Gtk4::Expression</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method ref (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the <span class="basis">Gnome::Gtk4::Expression</span> with an additional reference. </p>
+<h2 id="unref" class="heading "><a href="#" title="go to top of document">unref</a><a class="raku-anchor" title="direct link" href="#unref">§</a></h2>
+
+<p>Releases a reference on the given <span class="basis">Gnome::Gtk4::Expression</span>. </p>
+
+<p>If the reference was the last, the resources associated to the <span class="basis">self</span> are freed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unref ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="watch" class="heading "><a href="#" title="go to top of document">watch</a><a class="raku-anchor" title="direct link" href="#watch">§</a></h2>
+
+<p>Watch the given <span class="basis">expression</span> for changes. </p>
+
+<p>The <span class="code">$notify</span> function will be called whenever the evaluation of <span class="basis">self</span> may have changed. </p>
+
+<p>GTK cannot guarantee that the evaluation did indeed change when the <span class="code">$notify</span> gets invoked, but it guarantees the opposite: When it did in fact change, the <span class="code">$notify</span> will be invoked. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method watch ( gpointer $this, GtkExpressionNotify &amp;notify, gpointer $user-data, GDestroyNotify &amp;user-destroy --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$this; the <span class="basis">this</span> argument to watch.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GtkExpressionNotify &amp;notify; callback to invoke when the expression changes. The function must be specified with the following signature; <span class="code">:( gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data to pass to the <span class="basis">notify</span> callback.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GDestroyNotify &amp;user-destroy; destroy notify for <span class="basis">user_data</span>. The function must be specified with the following signature; <span class="code">:( gpointer $data )</span>.</li>
 </ul>
-<p>Return value; The newly installed watch. Note that the only reference held to the watch will be released when the watch is unwatched which can happen automatically, and not just via <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch.html#unwatch">.unwatch() in class ExpressionWatch</a>. You should call <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch.html#ref">.ref() in class ExpressionWatch</a> if you want to keep the watch around.. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Expression.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:24Z</span></div></footer>
-	</body>
+
+<p>Return value; The newly installed watch. Note that the only reference held to the watch will be released when the watch is unwatched which can happen automatically, and not just via <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch#unwatch">.unwatch() in class ExpressionWatch</a>. You should call <a href="/content-docs/api2/reference/Gtk4/ExpressionWatch#ref">.ref() in class ExpressionWatch</a> if you want to keep the watch around.. </p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Expression.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

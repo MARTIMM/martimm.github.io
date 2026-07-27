@@ -1,260 +1,912 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::TreeStore</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::TreeStore</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TreeStore">Gnome::Gtk4::TreeStore</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#GtkTreeStore_as_GtkBuildable">GtkTreeStore as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-treestore">new-treestore</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#newv">newv</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append">append</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#clear">clear</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-after">insert-after</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-before">insert-before</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-with-values">insert-with-values</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-with-valuesv">insert-with-valuesv</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-ancestor">is-ancestor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-depth">iter-depth</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#iter-is-valid">iter-is-valid</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#move-after">move-after</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#move-before">move-before</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prepend">prepend</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reorder">reorder</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set">set</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-column-types">set-column-types</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-valist">set-valist</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-value">set-value</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-valuesv">set-valuesv</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#swap">swap</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">Description</a></h1>
-<p>A tree-like data structure that can be used with the <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::TreeView</a>.</p><p>The <strong>Gnome::Gtk4::TreeStore</strong> object is a list model for use with a <a href="/content-docs/api2/reference/Gtk4/TreeView.html">Gnome::Gtk4::TreeView</a> widget. It implements the <a href="/content-docs/api2/reference/gtk/Gnome-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface, and consequently, can use all of the methods available there. It also implements the <a href="/content-docs/api2/reference/gtk/Gnome-TreeSortable.html">Gnome::Gtk4::R-TreeSortable</a> interface so it can be sorted by the view. Finally, it also implements the tree [drag]<a href="/content-docs/api2/reference/gtk/Gnome-TreeDragSource.html">Gnome::Gtk4::R-TreeDragSource</a> and [drop]<a href="/content-docs/api2/reference/gtk/Gnome-TreeDragDest.html">Gnome::Gtk4::R-TreeDragDest</a> interfaces.</p><p><strong>Gnome::Gtk4::TreeStore</strong> is deprecated since GTK 4.10, and should not be used in newly written code. You should use <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::TreeListModel</a> for a tree-like model object.</p>
-<h3 id="GtkTreeStore_as_GtkBuildable"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">GtkTreeStore as GtkBuildable</a></h3>
-<p>The GtkTreeStore implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface allows to specify the model columns with a `&lt;columns&gt;` element that may contain multiple `&lt;column&gt;` elements, each specifying one model column. The “type” attribute specifies the data type for the column.</p><p>An example of a UI Definition fragment for a tree store:</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/TreeStore.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-treestore"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">new-treestore</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new tree store.</p><p>The tree store will have <code>$n-columns</code>, with each column using the corresponding type passed to this function.</p><p>Note that only types derived from standard GObject fundamental types are supported.</p><p>As an example:</p><p>will create a new <strong>Gnome::Gtk4::TreeStore</strong> with three columns of type <strong>int</strong>, <strong>gchararray</strong>, and <a href="/content-docs/api2/reference/Gdk4/Texture.html">Gnome::Gdk4::Texture</a> respectively.</p><pre class="pod-block-code">method new-treestore ( Int() $n-columns, … --&gt; Gnome::Gtk4::TreeStore )
-</pre><ul>
-<li><p>$n-columns; number of columns in the tree store.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::TreeStore"></div><h1 class="title">Gnome::Gtk4::TreeStore</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#GtkTreeStore_as_GtkBuildable">GtkTreeStore as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-treestore">new-treestore</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#newv">newv</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append">append</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#clear">clear</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert">insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-after">insert-after</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-before">insert-before</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-with-values">insert-with-values</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-with-valuesv">insert-with-valuesv</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-ancestor">is-ancestor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-depth">iter-depth</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#iter-is-valid">iter-is-valid</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#move-after">move-after</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#move-before">move-before</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend">prepend</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reorder">reorder</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set">set</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-column-types">set-column-types</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-valist">set-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-value">set-value</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-valuesv">set-valuesv</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#swap">swap</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>A tree-like data structure that can be used with the <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::TreeView</a>. </p>
+
+<p>The <span class="basis">Gnome::Gtk4::TreeStore</span> object is a list model for use with a <a href="/content-docs/api2/reference/Gtk4/TreeView">Gnome::Gtk4::TreeView</a> widget. It implements the <a href="/content-docs/api2/reference/gtk/Gnome-TreeModel">Gnome::Gtk4::R-TreeModel</a> interface, and consequently, can use all of the methods available there. It also implements the <a href="/content-docs/api2/reference/gtk/Gnome-TreeSortable">Gnome::Gtk4::R-TreeSortable</a> interface so it can be sorted by the view. Finally, it also implements the tree [drag]<a href="/content-docs/api2/reference/gtk/Gnome-TreeDragSource">Gnome::Gtk4::R-TreeDragSource</a> and [drop]<a href="/content-docs/api2/reference/gtk/Gnome-TreeDragDest">Gnome::Gtk4::R-TreeDragDest</a> interfaces. </p>
+
+<p><span class="basis">Gnome::Gtk4::TreeStore</span> is deprecated since GTK 4.10, and should not be used in newly written code. You should use <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::TreeListModel</a> for a tree-like model object. </p>
+
+<div class="id-target" id="GtkTreeStore as GtkBuildable"></div><h3 id="GtkTreeStore_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkTreeStore as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkTreeStore as GtkBuildable">§</a></h3>
+
+<p>The GtkTreeStore implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable">Gnome::Gtk4::R-Buildable</a> interface allows to specify the model columns with a `&lt;columns&gt;` element that may contain multiple `&lt;column&gt;` elements, each specifying one model column. The “type” attribute specifies the data type for the column. </p>
+
+<p id="Para">An example of a UI Definition fragment for a tree store:</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/TreeStore.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-treestore" class="heading "><a href="#" title="go to top of document">new-treestore</a><a class="raku-anchor" title="direct link" href="#new-treestore">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_0">Creates a new tree store.</p>
+
+<p>The tree store will have <span class="code">$n-columns</span>, with each column using the corresponding type passed to this function. </p>
+
+<p id="Para_1">Note that only types derived from standard GObject fundamental types are supported.</p>
+
+<p id="Para_2">As an example:</p>
+
+<p>will create a new <span class="basis">Gnome::Gtk4::TreeStore</span> with three columns of type <span class="basis">int</span>, <span class="basis">gchararray</span>, and <a href="/content-docs/api2/reference/Gdk4/Texture">Gnome::Gdk4::Texture</a> respectively. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-treestore ( Int() $n-columns, … --&gt; Gnome::Gtk4::TreeStore )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-columns; number of columns in the tree store.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="newv"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">newv</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new tree store.</p><p>This constructor is meant for language bindings.</p><pre class="pod-block-code">method newv ( Int() $n-columns, … --&gt; Gnome::Gtk4::TreeStore )
-</pre><ul>
-<li><p>$n-columns; number of columns in the tree store.</p></li>
-<li><p>types; an array of <strong>Gnome::GObject::TreeStore</strong> types for the columns, from first to last. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="newv" class="heading "><a href="#" title="go to top of document">newv</a><a class="raku-anchor" title="direct link" href="#newv">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_3">Creates a new tree store.</p>
+
+<p id="Para_4">This constructor is meant for language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method newv ( Int() $n-columns, … --&gt; Gnome::Gtk4::TreeStore )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-columns; number of columns in the tree store.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >types; an array of <span class="basis">Gnome::GObject::TreeStore</span> types for the columns, from first to last. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="append"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">append</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Appends a new row to <code>$tree-store</code>.</p><p>If <code>$parent</code> is non-undefined, then it will append the new row after the last child of <code>$parent</code>, otherwise it will append a row to the top level.</p><p>The <code>$iter</code> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <code>.set()</code> or <code>.set-value()</code>.</p><pre class="pod-block-code">method append ( N-Object $iter, N-Object $parent )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the appended row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="append" class="heading "><a href="#" title="go to top of document">append</a><a class="raku-anchor" title="direct link" href="#append">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Appends a new row to <span class="code">$tree-store</span>. </p>
+
+<p>If <span class="code">$parent</span> is non-undefined, then it will append the new row after the last child of <span class="code">$parent</span>, otherwise it will append a row to the top level. </p>
+
+<p>The <span class="code">$iter</span> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <span class="code">.set()</span> or <span class="code">.set-value()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append ( N-Object $iter, N-Object $parent )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the appended row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="clear"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">clear</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes all rows from <code>$tree-store</code></p><pre class="pod-block-code">method clear ( )
-</pre></section>
-<section name="pod">
-<h2 id="insert"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">insert</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new row at <code>$position</code>.</p><p>If parent is non-undefined, then the row will be made a child of <code>$parent</code>. Otherwise, the row will be created at the toplevel.</p><p>If <code>$position</code> is `-1` or is larger than the number of rows at that level, then the new row will be inserted to the end of the list.</p><p>The <code>$iter</code> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <code>.set()</code> or <code>.set-value()</code>.</p><pre class="pod-block-code">method insert ( N-Object $iter, N-Object $parent, Int() $position )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the new row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$position; position to insert the new row, or -1 for last.</p></li>
+<h2 id="clear" class="heading "><a href="#" title="go to top of document">clear</a><a class="raku-anchor" title="direct link" href="#clear">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes all rows from <span class="code">$tree-store</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method clear ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="insert" class="heading "><a href="#" title="go to top of document">insert</a><a class="raku-anchor" title="direct link" href="#insert">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new row at <span class="code">$position</span>. </p>
+
+<p>If parent is non-undefined, then the row will be made a child of <span class="code">$parent</span>. Otherwise, the row will be created at the toplevel. </p>
+
+<p>If <span class="code">$position</span> is `-1` or is larger than the number of rows at that level, then the new row will be inserted to the end of the list. </p>
+
+<p>The <span class="code">$iter</span> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <span class="code">.set()</span> or <span class="code">.set-value()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert ( N-Object $iter, N-Object $parent, Int() $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the new row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; position to insert the new row, or -1 for last.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="insert-after"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">insert-after</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Inserts a new row after <code>$sibling</code>.</p><p>If <code>$sibling</code> is undefined, then the row will be prepended to <code>$parent</code>’s children.</p><p>If <code>$parent</code> and <code>$sibling</code> are undefined, then the row will be prepended to the toplevel.</p><p>If both <code>$sibling</code> and <code>$parent</code> are set, then <code>$parent</code> must be the parent of <code>$sibling</code>. When <code>$sibling</code> is set, <code>$parent</code> is optional.</p><p>The <code>$iter</code> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <code>.set()</code> or <code>.set-value()</code>.</p><pre class="pod-block-code">method insert-after ( N-Object $iter, N-Object $parent, N-Object $sibling )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the new row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$sibling; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="insert-after" class="heading "><a href="#" title="go to top of document">insert-after</a><a class="raku-anchor" title="direct link" href="#insert-after">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Inserts a new row after <span class="code">$sibling</span>. </p>
+
+<p>If <span class="code">$sibling</span> is undefined, then the row will be prepended to <span class="code">$parent</span>’s children. </p>
+
+<p>If <span class="code">$parent</span> and <span class="code">$sibling</span> are undefined, then the row will be prepended to the toplevel. </p>
+
+<p>If both <span class="code">$sibling</span> and <span class="code">$parent</span> are set, then <span class="code">$parent</span> must be the parent of <span class="code">$sibling</span>. When <span class="code">$sibling</span> is set, <span class="code">$parent</span> is optional. </p>
+
+<p>The <span class="code">$iter</span> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <span class="code">.set()</span> or <span class="code">.set-value()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-after ( N-Object $iter, N-Object $parent, N-Object $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the new row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="insert-before"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">insert-before</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Inserts a new row before <code>$sibling</code>.</p><p>If <code>$sibling</code> is undefined, then the row will be appended to <code>$parent</code>’s children.</p><p>If <code>$parent</code> and <code>$sibling</code> are undefined, then the row will be appended to the toplevel.</p><p>If both <code>$sibling</code> and <code>$parent</code> are set, then <code>$parent</code> must be the parent of <code>$sibling</code>. When <code>$sibling</code> is set, <code>$parent</code> is optional.</p><p>The <code>$iter</code> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <code>.set()</code> or <code>.set-value()</code>.</p><pre class="pod-block-code">method insert-before ( N-Object $iter, N-Object $parent, N-Object $sibling )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the new row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$sibling; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="insert-before" class="heading "><a href="#" title="go to top of document">insert-before</a><a class="raku-anchor" title="direct link" href="#insert-before">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Inserts a new row before <span class="code">$sibling</span>. </p>
+
+<p>If <span class="code">$sibling</span> is undefined, then the row will be appended to <span class="code">$parent</span>’s children. </p>
+
+<p>If <span class="code">$parent</span> and <span class="code">$sibling</span> are undefined, then the row will be appended to the toplevel. </p>
+
+<p>If both <span class="code">$sibling</span> and <span class="code">$parent</span> are set, then <span class="code">$parent</span> must be the parent of <span class="code">$sibling</span>. When <span class="code">$sibling</span> is set, <span class="code">$parent</span> is optional. </p>
+
+<p>The <span class="code">$iter</span> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <span class="code">.set()</span> or <span class="code">.set-value()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-before ( N-Object $iter, N-Object $parent, N-Object $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the new row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="insert-with-values"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">insert-with-values</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a new row at the given <code>$position</code>.</p><p>The <code>$iter</code> parameter will be changed to point to this new row.</p><p>If <code>$position</code> is -1, or larger than the number of rows on the list, then the new row will be appended to the list. The row will be filled with the values given to this function.</p><p>Calling</p><pre class="pod-block-code">gtk_tree_store_insert_with_values (tree_store, iter, position, ...)</pre><p>has the same effect as calling</p><p>with the different that the former will only emit a row_inserted signal, while the latter will emit row_inserted, row_changed and if the tree store is sorted, rows_reordered.</p><p>Since emitting the rows_reordered signal repeatedly can affect the performance of the program, <code>.insert-with-values()</code> should generally be preferred when inserting rows in a sorted tree store.</p><pre class="pod-block-code">method insert-with-values ( N-Object $iter, N-Object $parent, Int() $position, … )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set the new row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$position; position to insert the new row, or -1 to append after existing rows.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="insert-with-values" class="heading "><a href="#" title="go to top of document">insert-with-values</a><a class="raku-anchor" title="direct link" href="#insert-with-values">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a new row at the given <span class="code">$position</span>. </p>
+
+<p>The <span class="code">$iter</span> parameter will be changed to point to this new row. </p>
+
+<p>If <span class="code">$position</span> is -1, or larger than the number of rows on the list, then the new row will be appended to the list. The row will be filled with the values given to this function. </p>
+
+<p id="Para_5">Calling</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">gtk_tree_store_insert_with_values (tree_store, iter, position, ...)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_6">has the same effect as calling</p>
+
+<p id="Para_7">with the different that the former will only emit a row_inserted signal, while the latter will emit row_inserted, row_changed and if the tree store is sorted, rows_reordered.</p>
+
+<p>Since emitting the rows_reordered signal repeatedly can affect the performance of the program, <span class="code">.insert-with-values()</span> should generally be preferred when inserting rows in a sorted tree store. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-with-values ( N-Object $iter, N-Object $parent, Int() $position, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set the new row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; position to insert the new row, or -1 to append after existing rows.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="insert-with-valuesv"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">insert-with-valuesv</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>A variant of <code>.insert-with-values()</code> which takes the columns and values as two arrays, instead of varargs.</p><p>This function is mainly intended for language bindings.</p><pre class="pod-block-code">method insert-with-valuesv ( N-Object $iter, N-Object $parent, Int() $position, Array[Int] $columns, N-Object $values, Int() $n-values )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set the new row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$position; position to insert the new row, or -1 for last.</p></li>
-<li><p>$columns; an array of column numbers.</p></li>
-<li><p>$values; an array of GValues</p></li>
-<li><p>$n-values; the length of the <code>$columns</code> and <code>$values</code> arrays.</p></li>
+<h2 id="insert-with-valuesv" class="heading "><a href="#" title="go to top of document">insert-with-valuesv</a><a class="raku-anchor" title="direct link" href="#insert-with-valuesv">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>A variant of <span class="code">.insert-with-values()</span> which takes the columns and values as two arrays, instead of varargs. </p>
+
+<p id="Para_8">This function is mainly intended for language bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-with-valuesv ( N-Object $iter, N-Object $parent, Int() $position, Array[Int] $columns, N-Object $values, Int() $n-values )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set the new row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; position to insert the new row, or -1 for last.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$columns; an array of column numbers.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$values; an array of GValues</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-values; the length of the <span class="code">$columns</span> and <span class="code">$values</span> arrays.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="is-ancestor"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">is-ancestor</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Checks if <code>$iter</code> is an ancestor of <code>$descendant</code>.</p><pre class="pod-block-code">method is-ancestor ( N-Object $iter, N-Object $descendant --&gt; Bool )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$descendant; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="is-ancestor" class="heading "><a href="#" title="go to top of document">is-ancestor</a><a class="raku-anchor" title="direct link" href="#is-ancestor">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Checks if <span class="code">$iter</span> is an ancestor of <span class="code">$descendant</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-ancestor ( N-Object $iter, N-Object $descendant --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$descendant; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-<p>Return value; true if <code>$iter</code> is an ancestor of <code>$descendant</code>, and false otherwise. </p></section>
-<section name="pod">
-<h2 id="iter-depth"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">iter-depth</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the depth of the position pointed by the iterator</p><p>The depth will be 0 for anything on the root level, 1 for anything down a level, etc.</p><pre class="pod-block-code">method iter-depth ( N-Object $iter --&gt; Int )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+
+<p>Return value; true if <span class="code">$iter</span> is an ancestor of <span class="code">$descendant</span>, and false otherwise. </p>
+<h2 id="iter-depth" class="heading "><a href="#" title="go to top of document">iter-depth</a><a class="raku-anchor" title="direct link" href="#iter-depth">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_9">Returns the depth of the position pointed by the iterator</p>
+
+<p id="Para_10">The depth will be 0 for anything on the root level, 1 for anything down a level, etc.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-depth ( N-Object $iter --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-<p>Return value; The depth of the position pointed by the iterator. </p></section>
-<section name="pod">
-<h2 id="iter-is-valid"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">iter-is-valid</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Checks if the given iter is a valid iter for this <strong>Gnome::Gtk4::TreeStore</strong>.</p><p>This function is slow. Only use it for debugging and/or testing purposes.</p><pre class="pod-block-code">method iter-is-valid ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; the iterator to check</p></li>
+
+<p id="Para_11">Return value; The depth of the position pointed by the iterator.</p>
+<h2 id="iter-is-valid" class="heading "><a href="#" title="go to top of document">iter-is-valid</a><a class="raku-anchor" title="direct link" href="#iter-is-valid">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Checks if the given iter is a valid iter for this <span class="basis">Gnome::Gtk4::TreeStore</span>. </p>
+
+<p id="Para_12">This function is slow. Only use it for debugging and/or testing purposes.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method iter-is-valid ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; the iterator to check</li>
 </ul>
-<p>Return value; true if the iter is valid, and false otherwise. </p></section>
-<section name="pod">
-<h2 id="move-after"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">move-after</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Moves <code>$iter</code> in <code>$tree-store</code> to the position after <code>$position</code>. <code>$iter</code> and <code>$position</code> should be in the same level.</p><p>Note that this function only works with unsorted stores.</p><p>If <code>$position</code> is undefined, <code>$iter</code> will be moved to the start of the level.</p><pre class="pod-block-code">method move-after ( N-Object $iter, N-Object $position )
-</pre><ul>
-<li><p>$iter; A <strong>Gnome::Gtk4::N-TreeIter</strong>.</p></li>
-<li><p>$position; A <strong>Gnome::Gtk4::N-TreeIter</strong>.</p></li>
+
+<p id="Para_13">Return value; true if the iter is valid, and false otherwise.</p>
+<h2 id="move-after" class="heading "><a href="#" title="go to top of document">move-after</a><a class="raku-anchor" title="direct link" href="#move-after">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Moves <span class="code">$iter</span> in <span class="code">$tree-store</span> to the position after <span class="code">$position</span>. <span class="code">$iter</span> and <span class="code">$position</span> should be in the same level. </p>
+
+<p id="Para_14">Note that this function only works with unsorted stores.</p>
+
+<p>If <span class="code">$position</span> is undefined, <span class="code">$iter</span> will be moved to the start of the level. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method move-after ( N-Object $iter, N-Object $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A <span class="basis">Gnome::Gtk4::N-TreeIter</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; A <span class="basis">Gnome::Gtk4::N-TreeIter</span>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="move-before"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">move-before</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Moves <code>$iter</code> in <code>$tree-store</code> to the position before <code>$position</code>. <code>$iter</code> and <code>$position</code> should be in the same level.</p><p>Note that this function only works with unsorted stores.</p><p>If <code>$position</code> is undefined, <code>$iter</code> will be moved to the end of the level.</p><pre class="pod-block-code">method move-before ( N-Object $iter, N-Object $position )
-</pre><ul>
-<li><p>$iter; A <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
-<li><p>$position; A <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="move-before" class="heading "><a href="#" title="go to top of document">move-before</a><a class="raku-anchor" title="direct link" href="#move-before">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Moves <span class="code">$iter</span> in <span class="code">$tree-store</span> to the position before <span class="code">$position</span>. <span class="code">$iter</span> and <span class="code">$position</span> should be in the same level. </p>
+
+<p id="Para_15">Note that this function only works with unsorted stores.</p>
+
+<p>If <span class="code">$position</span> is undefined, <span class="code">$iter</span> will be moved to the end of the level. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method move-before ( N-Object $iter, N-Object $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; A <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="prepend"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">prepend</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Prepends a new row to <code>$tree-store</code>.</p><p>If <code>$parent</code> is non-undefined, then it will prepend the new row before the first child of <code>$parent</code>, otherwise it will prepend a row to the top level. The <strong>iter</strong> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <code>.set()</code> or <code>.set-value()</code>.</p><pre class="pod-block-code">method prepend ( N-Object $iter, N-Object $parent )
-</pre><ul>
-<li><p>$iter; An unset <strong>Gnome::Gtk4::N-TreeIter</strong> to set to the prepended row</p></li>
-<li><p>$parent; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="prepend" class="heading "><a href="#" title="go to top of document">prepend</a><a class="raku-anchor" title="direct link" href="#prepend">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Prepends a new row to <span class="code">$tree-store</span>. </p>
+
+<p>If <span class="code">$parent</span> is non-undefined, then it will prepend the new row before the first child of <span class="code">$parent</span>, otherwise it will prepend a row to the top level. The <span class="basis">iter</span> parameter will be changed to point to this new row. The row will be empty after this function is called. To fill in values, you need to call <span class="code">.set()</span> or <span class="code">.set-value()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend ( N-Object $iter, N-Object $parent )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; An unset <span class="basis">Gnome::Gtk4::N-TreeIter</span> to set to the prepended row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">remove</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes <code>$iter</code> from <code>$tree-store</code>.</p><p>After being removed, <code>$iter</code> is set to the next valid row at that level, or invalidated if it previously pointed to the last one.</p><pre class="pod-block-code">method remove ( N-Object $iter --&gt; Bool )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong></p></li>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes <span class="code">$iter</span> from <span class="code">$tree-store</span>. </p>
+
+<p>After being removed, <span class="code">$iter</span> is set to the next valid row at that level, or invalidated if it previously pointed to the last one. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-Object $iter --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span></li>
 </ul>
-<p>Return value; true if <code>$iter</code> is still valid, and false otherwise. </p></section>
-<section name="pod">
-<h2 id="reorder"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">reorder</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Reorders the children of <code>$parent</code> in <code>$tree-store</code> to follow the order indicated by <code>$new-order</code>.</p><p>Note that this function only works with unsorted stores.</p><pre class="pod-block-code">method reorder ( N-Object $parent, Array[Int] $new-order )
-</pre><ul>
-<li><p>$parent; the parent of the children to re-order</p></li>
-<li><p>$new-order; an array of integers mapping the new position of each child to its old position before the re-ordering, i.e. <strong>new_order</strong>[newpos] = oldpos`.</p></li>
+
+<p>Return value; true if <span class="code">$iter</span> is still valid, and false otherwise. </p>
+<h2 id="reorder" class="heading "><a href="#" title="go to top of document">reorder</a><a class="raku-anchor" title="direct link" href="#reorder">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Reorders the children of <span class="code">$parent</span> in <span class="code">$tree-store</span> to follow the order indicated by <span class="code">$new-order</span>. </p>
+
+<p id="Para_16">Note that this function only works with unsorted stores.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reorder ( N-Object $parent, Array[Int] $new-order )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$parent; the parent of the children to re-order</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$new-order; an array of integers mapping the new position of each child to its old position before the re-ordering, i.e. <span class="basis">new_order</span>[newpos] = oldpos`.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">set</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the value of one or more cells in the row referenced by <code>$iter</code>.</p><p>The variable argument list should contain integer column numbers, each column number followed by the value to be set.</p><p>The list is terminated by a value of `-1`.</p><p>For example, to set column 0 with type <strong>G_TYPE_STRING</strong> to “Foo”, you would write</p><p>The value will be referenced by the store if it is a <strong>G_TYPE_OBJECT</strong>, and it will be copied if it is a <strong>G_TYPE_STRING</strong> or <strong>G_TYPE_BOXED</strong>.</p><pre class="pod-block-code">method set ( N-Object $iter, … )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> for the row being modified</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="set" class="heading "><a href="#" title="go to top of document">set</a><a class="raku-anchor" title="direct link" href="#set">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets the value of one or more cells in the row referenced by <span class="code">$iter</span>. </p>
+
+<p id="Para_17">The variable argument list should contain integer column numbers, each column number followed by the value to be set.</p>
+
+<p id="Para_18">The list is terminated by a value of `-1`.</p>
+
+<p>For example, to set column 0 with type <span class="basis">G_TYPE_STRING</span> to “Foo”, you would write </p>
+
+<p>The value will be referenced by the store if it is a <span class="basis">G_TYPE_OBJECT</span>, and it will be copied if it is a <span class="basis">G_TYPE_STRING</span> or <span class="basis">G_TYPE_BOXED</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set ( N-Object $iter, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> for the row being modified</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-column-types"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">set-column-types</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the type of the columns in a tree store.</p><p>This function is meant primarily for types that inherit from <strong>Gnome::Gtk4::TreeStore</strong>, and should only be used when constructing a new <strong>Gnome::Gtk4::TreeStore</strong>.</p><p>This functions cannot be called after a row has been added, or a method on the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> interface is called on the tree store.</p><pre class="pod-block-code">method set-column-types ( Int() $n-columns, … )
-</pre><ul>
-<li><p>$n-columns; Number of columns for the tree store.</p></li>
-<li><p>types; An array of <strong>Gnome::GObject::TreeStore</strong> types, one for each column. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="set-column-types" class="heading "><a href="#" title="go to top of document">set-column-types</a><a class="raku-anchor" title="direct link" href="#set-column-types">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_19">Sets the type of the columns in a tree store.</p>
+
+<p>This function is meant primarily for types that inherit from <span class="basis">Gnome::Gtk4::TreeStore</span>, and should only be used when constructing a new <span class="basis">Gnome::Gtk4::TreeStore</span>. </p>
+
+<p>This functions cannot be called after a row has been added, or a method on the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> interface is called on the tree store. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-column-types ( Int() $n-columns, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$n-columns; Number of columns for the tree store.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >types; An array of <span class="basis">Gnome::GObject::TreeStore</span> types, one for each column. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-valist"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">set-valist</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>A version of <code>.set()</code> using <strong>va_list</strong>.</p><pre class="pod-block-code">method set-valist ( N-Object $iter, … )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> for the row being modified</p></li>
-<li><p>var-args; va_list of column/value pairs. Note that each argument must be specified as a type followed by its value!</p></li>
+<h2 id="set-valist" class="heading "><a href="#" title="go to top of document">set-valist</a><a class="raku-anchor" title="direct link" href="#set-valist">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>A version of <span class="code">.set()</span> using <span class="basis">va_list</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-valist ( N-Object $iter, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> for the row being modified</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >var-args; va_list of column/value pairs. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-value"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">set-value</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets the data in the cell specified by <code>$iter</code> and <code>$column</code>.</p><p>The type of <code>$value</code> must be convertible to the type of the column.</p><pre class="pod-block-code">method set-value ( N-Object $iter, Int() $column, N-Object $value )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> for the row being modified</p></li>
-<li><p>$column; column number to modify.</p></li>
-<li><p>$value; new value for the cell</p></li>
+<h2 id="set-value" class="heading "><a href="#" title="go to top of document">set-value</a><a class="raku-anchor" title="direct link" href="#set-value">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets the data in the cell specified by <span class="code">$iter</span> and <span class="code">$column</span>. </p>
+
+<p>The type of <span class="code">$value</span> must be convertible to the type of the column. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-value ( N-Object $iter, Int() $column, N-Object $value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> for the row being modified</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$column; column number to modify.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; new value for the cell</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-valuesv"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">set-valuesv</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>A variant of <code>.set-valist()</code> which takes the columns and values as two arrays, instead of using variadic arguments.</p><p>This function is mainly intended for language bindings or in case the number of columns to change is not known until run-time.</p><pre class="pod-block-code">method set-valuesv ( N-Object $iter, Array[Int] $columns, N-Object $values, Int() $n-values )
-</pre><ul>
-<li><p>$iter; A valid <strong>Gnome::Gtk4::N-TreeIter</strong> for the row being modified</p></li>
-<li><p>$columns; an array of column numbers.</p></li>
-<li><p>$values; an array of GValues</p></li>
-<li><p>$n-values; the length of the <code>$columns</code> and <code>$values</code> arrays.</p></li>
+<h2 id="set-valuesv" class="heading "><a href="#" title="go to top of document">set-valuesv</a><a class="raku-anchor" title="direct link" href="#set-valuesv">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>A variant of <span class="code">.set-valist()</span> which takes the columns and values as two arrays, instead of using variadic arguments. </p>
+
+<p id="Para_20">This function is mainly intended for language bindings or in case the number of columns to change is not known until run-time.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-valuesv ( N-Object $iter, Array[Int] $columns, N-Object $values, Int() $n-values )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; A valid <span class="basis">Gnome::Gtk4::N-TreeIter</span> for the row being modified</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$columns; an array of column numbers.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$values; an array of GValues</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-values; the length of the <span class="code">$columns</span> and <span class="code">$values</span> arrays.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="swap"><a href="#Gnome::Gtk4::TreeStore" class="u" title="go to top of document">swap</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Swaps <code>$a</code> and <code>$b</code> in the same level of <code>$tree-store</code>.</p><p>Note that this function only works with unsorted stores.</p><pre class="pod-block-code">method swap ( N-Object $a, N-Object $b )
-</pre><ul>
-<li><p>$a; A <strong>Gnome::Gtk4::N-TreeIter</strong>.</p></li>
-<li><p>$b; Another <strong>Gnome::Gtk4::N-TreeIter</strong>.</p></li>
+<h2 id="swap" class="heading "><a href="#" title="go to top of document">swap</a><a class="raku-anchor" title="direct link" href="#swap">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Swaps <span class="code">$a</span> and <span class="code">$b</span> in the same level of <span class="code">$tree-store</span>. </p>
+
+<p id="Para_21">Note that this function only works with unsorted stores.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method swap ( N-Object $a, N-Object $b )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$a; A <span class="basis">Gnome::Gtk4::N-TreeIter</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$b; Another <span class="basis">Gnome::Gtk4::N-TreeIter</span>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeStore.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:24Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TreeStore.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

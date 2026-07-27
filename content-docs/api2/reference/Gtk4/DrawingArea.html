@@ -1,118 +1,568 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::DrawingArea</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::DrawingArea</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::DrawingArea">Gnome::Gtk4::DrawingArea</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Simple_GtkDrawingArea_usage">Simple GtkDrawingArea usage</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-drawingarea">new-drawingarea</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-content-height">get-content-height</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-content-width">get-content-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-content-height">set-content-height</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-content-width">set-content-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-draw-func">set-draw-func</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#resize">resize</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::DrawingArea</strong> is a widget that allows drawing with cairo.</p><div class="image-container inline"><img src="asset_files/images/drawingarea.png" width="30%" height="auto" alt="No caption"></div>
-<p>It’s essentially a blank widget; you can draw on it. After creating a drawing area, the application may want to connect to:</p><ul>
-<li><p>The <em>realize defined in Widget</em> signal to take any necessary actions when the widget is instantiated on a particular display. (Create GDK resources in response to this signal.)</p></li>
-<li><p>The <em>resize</em> signal to take any necessary actions when the widget changes size.</p></li>
-<li><p>Call <a href="#set-draw-func">.set-draw-func()</a> to handle redrawing the contents of the widget.</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::DrawingArea"></div><h1 class="title">Gnome::Gtk4::DrawingArea</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Simple_GtkDrawingArea_usage">Simple GtkDrawingArea usage</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-drawingarea">new-drawingarea</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-content-height">get-content-height</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-content-width">get-content-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-content-height">set-content-height</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-content-width">set-content-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-draw-func">set-draw-func</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#resize">resize</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::DrawingArea</span> is a widget that allows drawing with cairo. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/drawingarea.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p id="Para">It’s essentially a blank widget; you can draw on it. After creating a drawing area, the application may want to connect to:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >The <span class="important">realize defined in Widget</span> signal to take any necessary actions when the widget is instantiated on a particular display. (Create GDK resources in response to this signal.)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >The <span class="important">resize</span> signal to take any necessary actions when the widget changes size.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >Call <a href="#set-draw-func">.set-draw-func()</a> to handle redrawing the contents of the widget.</li>
 </ul>
-<p>The following code portion demonstrates using a drawing area to display a circle in the normal widget foreground color.</p>
-<h3 id="Simple_GtkDrawingArea_usage"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Simple GtkDrawingArea usage</a></h3>
-<p>The draw function is normally called when a drawing area first comes onscreen, or when it’s covered by another window and then uncovered. You can also force a redraw by adding to the “damage region” of the drawing area’s window using <a href="/content-docs/api2/reference/Gtk4/Widget.html#queue-draw">.queue-draw() in class Widget</a>. This will cause the drawing area to call the draw function again.</p><p>The available routines for drawing are documented in the [Cairo documentation](https://www.cairographics.org/manual/); GDK offers additional API to integrate with Cairo, like <a href="/content-docs/api2/reference/Gdk4/T-drawingarea.html#cairo-set-source-rgba">.cairo-set-source-rgba().cairo-set-source-rgba() in package Gnome::Gdk4</a> or <a href="/content-docs/api2/reference/Gdk4/T-drawingarea.html#cairo-set-source-pixbuf">.cairo-set-source-pixbuf().cairo-set-source-pixbuf() in package Gnome::Gdk4</a>.</p><p>To receive mouse events on a drawing area, you will need to use event controllers. To receive keyboard events, you will need to set the “can-focus” property on the drawing area, and you should probably draw some user-visible indication that the drawing area is focused.</p><p>If you need more complex control over your widget, you should consider creating your own <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> subclass.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/DrawingArea.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Class initialization</a></h1>
 
-<h2 id="new"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">new</a></h2>
+<p id="Para_0">The following code portion demonstrates using a drawing area to display a circle in the normal widget foreground color.</p>
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-drawingarea"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">new-drawingarea</a></h2>
-<p>Creates a new drawing area.</p><pre class="pod-block-code">method new-drawingarea ( --&gt; Gnome::Gtk4::DrawingArea )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-content-height"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">get-content-height</a></h2>
-<p>Retrieves the content height of the <strong>Gnome::Gtk4::DrawingArea</strong>.</p><pre class="pod-block-code">method get-content-height (--&gt; Int )
-</pre><p>Return value; The height requested for content of the drawing area. </p></section>
-<section name="pod">
-<h2 id="get-content-width"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">get-content-width</a></h2>
-<p>Retrieves the content width of the <strong>Gnome::Gtk4::DrawingArea</strong>.</p><pre class="pod-block-code">method get-content-width (--&gt; Int )
-</pre><p>Return value; The width requested for content of the drawing area. </p></section>
-<section name="pod">
-<h2 id="set-content-height"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">set-content-height</a></h2>
-<p>Sets the desired height of the contents of the drawing area.</p><p>Note that because widgets may be allocated larger sizes than they requested, it is possible that the actual height passed to your draw function is larger than the height set here. You can use <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-valign">.set-valign() in class Widget</a> to avoid that.</p><p>If the height is set to 0 (the default), the drawing area may disappear.</p><pre class="pod-block-code">method set-content-height ( Int() $height )
-</pre><ul>
-<li><p>$height; the height of contents.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-content-width"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">set-content-width</a></h2>
-<p>Sets the desired width of the contents of the drawing area.</p><p>Note that because widgets may be allocated larger sizes than they requested, it is possible that the actual width passed to your draw function is larger than the width set here. You can use <a href="/content-docs/api2/reference/Gtk4/Widget.html#set-halign">.set-halign() in class Widget</a> to avoid that.</p><p>If the width is set to 0 (the default), the drawing area may disappear.</p><pre class="pod-block-code">method set-content-width ( Int() $width )
-</pre><ul>
-<li><p>$width; the width of contents.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-draw-func"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">set-draw-func</a></h2>
-<p>Setting a draw function is the main thing you want to do when using a drawing area.</p><p>The draw function is called whenever GTK needs to draw the contents of the drawing area to the screen.</p><p>The draw function will be called during the drawing stage of GTK. In the drawing stage it is not allowed to change properties of any GTK widgets or call any functions that would cause any properties to be changed. You should restrict yourself exclusively to drawing your contents in the draw function.</p><p>If what you are drawing does change, call <a href="/content-docs/api2/reference/Gtk4/Widget.html#queue-draw">.queue-draw() in class Widget</a> on the drawing area. This will cause a redraw and will call <code>$draw-func</code> again.</p><pre class="pod-block-code">method set-draw-func ( GtkDrawingAreaDrawFunc &amp;draw-func, gpointer $user-data, GDestroyNotify &amp;destroy )
-</pre><ul>
-<li><p>GtkDrawingAreaDrawFunc &amp;draw-func; callback that lets you draw the drawing area's contents. The function must be specified with the following signature; <code>:( N-Object $drawing-area, Cairo::cairo_t $cr, gint $width, gint $height, gpointer $user-data )</code>.</p></li>
-<li><p>$user-data; user data passed to <code>$draw-func</code>.</p></li>
-<li><p>GDestroyNotify &amp;destroy; destroy notifier for <code>$user-data</code>. The function must be specified with the following signature; <code>:( gpointer $data )</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">Signals</a></h1>
+<div class="id-target" id="Simple GtkDrawingArea usage"></div><h3 id="Simple_GtkDrawingArea_usage" class="heading "><a href="#" title="go to top of document">Simple GtkDrawingArea usage</a><a class="raku-anchor" title="direct link" href="#Simple GtkDrawingArea usage">§</a></h3>
 
-<h3 id="resize"><a href="#Gnome::Gtk4::DrawingArea" class="u" title="go to top of document">resize</a></h3>
-<p>Emitted once when the widget is realized, and then each time the widget is changed while realized.</p><p>This is useful in order to keep state up to date with the widget size, like for instance a backing surface.</p><pre class="pod-block-code">method handler (
+<p>The draw function is normally called when a drawing area first comes onscreen, or when it’s covered by another window and then uncovered. You can also force a redraw by adding to the “damage region” of the drawing area’s window using <a href="/content-docs/api2/reference/Gtk4/Widget#queue-draw">.queue-draw() in class Widget</a>. This will cause the drawing area to call the draw function again. </p>
+
+<p>The available routines for drawing are documented in the [Cairo documentation](https://www.cairographics.org/manual/); GDK offers additional API to integrate with Cairo, like <a href="/content-docs/api2/reference/Gdk4/T-drawingarea#cairo-set-source-rgba">.cairo-set-source-rgba().cairo-set-source-rgba() in package Gnome::Gdk4</a> or <a href="/content-docs/api2/reference/Gdk4/T-drawingarea#cairo-set-source-pixbuf">.cairo-set-source-pixbuf().cairo-set-source-pixbuf() in package Gnome::Gdk4</a>. </p>
+
+<p id="Para_1">To receive mouse events on a drawing area, you will need to use event controllers. To receive keyboard events, you will need to set the “can-focus” property on the drawing area, and you should probably draw some user-visible indication that the drawing area is focused.</p>
+
+<p>If you need more complex control over your widget, you should consider creating your own <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> subclass. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/DrawingArea.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-drawingarea" class="heading "><a href="#" title="go to top of document">new-drawingarea</a><a class="raku-anchor" title="direct link" href="#new-drawingarea">§</a></h2>
+
+<p id="Para_2">Creates a new drawing area.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-drawingarea ( --&gt; Gnome::Gtk4::DrawingArea )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-content-height" class="heading "><a href="#" title="go to top of document">get-content-height</a><a class="raku-anchor" title="direct link" href="#get-content-height">§</a></h2>
+
+<p>Retrieves the content height of the <span class="basis">Gnome::Gtk4::DrawingArea</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-content-height (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; The height requested for content of the drawing area.</p>
+<h2 id="get-content-width" class="heading "><a href="#" title="go to top of document">get-content-width</a><a class="raku-anchor" title="direct link" href="#get-content-width">§</a></h2>
+
+<p>Retrieves the content width of the <span class="basis">Gnome::Gtk4::DrawingArea</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-content-width (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_4">Return value; The width requested for content of the drawing area.</p>
+<h2 id="set-content-height" class="heading "><a href="#" title="go to top of document">set-content-height</a><a class="raku-anchor" title="direct link" href="#set-content-height">§</a></h2>
+
+<p id="Para_5">Sets the desired height of the contents of the drawing area.</p>
+
+<p>Note that because widgets may be allocated larger sizes than they requested, it is possible that the actual height passed to your draw function is larger than the height set here. You can use <a href="/content-docs/api2/reference/Gtk4/Widget#set-valign">.set-valign() in class Widget</a> to avoid that. </p>
+
+<p id="Para_6">If the height is set to 0 (the default), the drawing area may disappear.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-content-height ( Int() $height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$height; the height of contents.</li>
+</ul>
+<h2 id="set-content-width" class="heading "><a href="#" title="go to top of document">set-content-width</a><a class="raku-anchor" title="direct link" href="#set-content-width">§</a></h2>
+
+<p id="Para_7">Sets the desired width of the contents of the drawing area.</p>
+
+<p>Note that because widgets may be allocated larger sizes than they requested, it is possible that the actual width passed to your draw function is larger than the width set here. You can use <a href="/content-docs/api2/reference/Gtk4/Widget#set-halign">.set-halign() in class Widget</a> to avoid that. </p>
+
+<p id="Para_8">If the width is set to 0 (the default), the drawing area may disappear.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-content-width ( Int() $width )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$width; the width of contents.</li>
+</ul>
+<h2 id="set-draw-func" class="heading "><a href="#" title="go to top of document">set-draw-func</a><a class="raku-anchor" title="direct link" href="#set-draw-func">§</a></h2>
+
+<p id="Para_9">Setting a draw function is the main thing you want to do when using a drawing area.</p>
+
+<p id="Para_10">The draw function is called whenever GTK needs to draw the contents of the drawing area to the screen.</p>
+
+<p id="Para_11">The draw function will be called during the drawing stage of GTK. In the drawing stage it is not allowed to change properties of any GTK widgets or call any functions that would cause any properties to be changed. You should restrict yourself exclusively to drawing your contents in the draw function.</p>
+
+<p>If what you are drawing does change, call <a href="/content-docs/api2/reference/Gtk4/Widget#queue-draw">.queue-draw() in class Widget</a> on the drawing area. This will cause a redraw and will call <span class="code">$draw-func</span> again. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-draw-func ( GtkDrawingAreaDrawFunc &amp;draw-func, gpointer $user-data, GDestroyNotify &amp;destroy )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkDrawingAreaDrawFunc &amp;draw-func; callback that lets you draw the drawing area's contents. The function must be specified with the following signature; <span class="code">:( N-Object $drawing-area, Cairo::cairo_t $cr, gint $width, gint $height, gpointer $user-data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$user-data; user data passed to <span class="code">$draw-func</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GDestroyNotify &amp;destroy; destroy notifier for <span class="code">$user-data</span>. The function must be specified with the following signature; <span class="code">:( gpointer $data )</span>.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="resize" class="heading "><a href="#" title="go to top of document">resize</a><a class="raku-anchor" title="direct link" href="#resize">§</a></h3>
+
+<p id="Para_12">Emitted once when the widget is realized, and then each time the widget is changed while realized.</p>
+
+<p id="Para_13">This is useful in order to keep state up to date with the widget size, like for instance a backing surface.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gint $width,
   gint $height,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DrawingArea :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$width; the width of the viewport.</p></li>
-<li><p>$height; the height of the viewport.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DrawingArea</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$width; the width of the viewport.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; the height of the viewport.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DrawingArea</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DrawingArea.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:13Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DrawingArea.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

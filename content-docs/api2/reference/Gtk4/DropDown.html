@@ -1,210 +1,751 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::DropDown</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::DropDown</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::DropDown">Gnome::Gtk4::DropDown</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-dropdown">new-dropdown</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-strings">new-from-strings</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-enable-search">get-enable-search</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-expression">get-expression</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-factory">get-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-header-factory">get-header-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-list-factory">get-list-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-model">get-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-search-match-mode">get-search-match-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected">get-selected</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected-item">get-selected-item</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-arrow">get-show-arrow</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-enable-search">set-enable-search</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-expression">set-expression</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-factory">set-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-header-factory">set-header-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-list-factory">set-list-factory</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-model">set-model</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-search-match-mode">set-search-match-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-selected">set-selected</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-arrow">set-show-arrow</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::DropDown</strong> is a widget that allows the user to choose an item from a list of options.</p><div class="image-container inline"><img src="asset_files/images/drop-down.png" width="30%" height="auto" alt="No caption"></div>
-<p>The <strong>Gnome::Gtk4::DropDown</strong> displays the [selected]<em>selected</em> choice.</p><p>The options are given to <strong>Gnome::Gtk4::DropDown</strong> in the form of <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> and how the individual options are represented is determined by a <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a>. The default factory displays simple strings, and adds a checkmark to the selected item in the popup.</p><p>To set your own factory, use <a href="#set-factory">.set-factory()</a>. It is possible to use a separate factory for the items in the popup, with <a href="#set-list-factory">.set-list-factory()</a>.</p><p><strong>Gnome::Gtk4::DropDown</strong> knows how to obtain strings from the items in a <a href="/content-docs/api2/reference/Gtk4/StringList.html">Gnome::Gtk4::StringList</a>; for other models, you have to provide an expression to find the strings via <a href="#set-expression">.set-expression()</a>.</p><p><strong>Gnome::Gtk4::DropDown</strong> can optionally allow search in the popup, which is useful if the list of options is long. To enable the search entry, use <a href="#set-enable-search">.set-enable-search()</a>.</p><p>Here is a UI definition example for <strong>Gnome::Gtk4::DropDown</strong> with a simple model:</p><p>If a <strong>Gnome::Gtk4::DropDown</strong> is created in this manner, or with <a href="#new-from-strings">.new-from-strings()</a>, for instance, the object returned from <a href="#get-selected-item">.get-selected-item()</a> will be a <a href="/content-docs/api2/reference/Gtk4/StringObject.html">Gnome::Gtk4::StringObject</a>.</p><p>To learn more about the list widget framework, see the [overview](section-list-widget.html).</p>
-<h3 id="CSS_nodes"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">CSS nodes</a></h3>
-<p><strong>Gnome::Gtk4::DropDown</strong> has a single CSS node with name dropdown, with the button and popover nodes as children.</p>
-<h3 id="Accessibility"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Accessibility</a></h3>
-<p><strong>Gnome::Gtk4::DropDown</strong> uses the <code>GTK_ACCESSIBLE_ROLE_COMBO_BOX</code> role.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/DropDown.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-dropdown"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">new-dropdown</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::DropDown</strong>.</p><p>You may want to call <a href="#set-factory">.set-factory()</a> to set up a way to map its items to widgets.</p><pre class="pod-block-code">method new-dropdown ( N-List() $model, N-Object() $expression --&gt; Gnome::Gtk4::DropDown )
-</pre><ul>
-<li><p>$model; (transfer ownership: full) the model to use.</p></li>
-<li><p>$expression; (transfer ownership: full) the expression to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="new-from-strings"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">new-from-strings</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::DropDown</strong> that is populated with the strings.</p><pre class="pod-block-code">method new-from-strings ( Array[Str] $strings --&gt; Gnome::Gtk4::DropDown )
-</pre><ul>
-<li><p>$strings; The strings to put in the dropdown.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-enable-search"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-enable-search</a></h2>
-<p>Returns whether search is enabled.</p><pre class="pod-block-code">method get-enable-search (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the popup includes a search entry. </p></section>
-<section name="pod">
-<h2 id="get-expression"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-expression</a></h2>
-<p>Gets the expression set that is used to obtain strings from items.</p><p>See <a href="#set-expression">.set-expression()</a>.</p><pre class="pod-block-code">method get-expression (--&gt; N-Object )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Expression.html">Gnome::Gtk4::Expression</a>. </p></section>
-<section name="pod">
-<h2 id="get-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-factory</a></h2>
-<p>Gets the factory that's currently used to populate list items.</p><p>The factory returned by this function is always used for the item in the button. It is also used for items in the popup if <em>list-factory</em> is not set.</p><pre class="pod-block-code">method get-factory (--&gt; N-Object )
-</pre><p>Return value; The factory in use. </p></section>
-<section name="pod">
-<h2 id="get-header-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-header-factory</a></h2>
-<p>Gets the factory that's currently used to create header widgets for the popup.</p><pre class="pod-block-code">method get-header-factory (--&gt; N-Object )
-</pre><p>Return value; The factory in use. </p></section>
-<section name="pod">
-<h2 id="get-list-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-list-factory</a></h2>
-<p>Gets the factory that's currently used to populate list items in the popup.</p><pre class="pod-block-code">method get-list-factory (--&gt; N-Object )
-</pre><p>Return value; The factory in use. </p></section>
-<section name="pod">
-<h2 id="get-model"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-model</a></h2>
-<p>Gets the model that provides the displayed items.</p><pre class="pod-block-code">method get-model (--&gt; N-List )
-</pre><p>Return value; The model in use. </p></section>
-<section name="pod">
-<h2 id="get-search-match-mode"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-search-match-mode</a></h2>
-<p>Returns the match mode that the search filter is using.</p><pre class="pod-block-code">method get-search-match-mode (--&gt; GtkStringFilterMatchMode )
-</pre><p>Return value; the match mode of the search filter. </p></section>
-<section name="pod">
-<h2 id="get-selected"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-selected</a></h2>
-<p>Gets the position of the selected item.</p><pre class="pod-block-code">method get-selected (--&gt; UInt )
-</pre><p>Return value; the position of the selected item, or <code>GTK_INVALID_LIST_POSITION</code> if not item is selected. </p></section>
-<section name="pod">
-<h2 id="get-selected-item"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-selected-item</a></h2>
-<p>Gets the selected item. If no item is selected, undefined is returned.</p><pre class="pod-block-code">method get-selected-item (--&gt; gpointer )
-</pre><p>Return value; The selected item. </p></section>
-<section name="pod">
-<h2 id="get-show-arrow"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">get-show-arrow</a></h2>
-<p>Returns whether to show an arrow within the widget.</p><pre class="pod-block-code">method get-show-arrow (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if an arrow will be shown.. </p></section>
-<section name="pod">
-<h2 id="set-enable-search"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-enable-search</a></h2>
-<p>Sets whether a search entry will be shown in the popup that allows to search for items in the list.</p><p>Note that <em>expression</em> must be set for search to work.</p><pre class="pod-block-code">method set-enable-search ( Bool() $enable-search )
-</pre><ul>
-<li><p>$enable-search; whether to enable search.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-expression"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-expression</a></h2>
-<p>Sets the expression that gets evaluated to obtain strings from items.</p><p>This is used for search in the popup. The expression must have a value type of <code>G_TYPE_STRING</code>.</p><pre class="pod-block-code">method set-expression ( N-Object() $expression )
-</pre><ul>
-<li><p>$expression; a <a href="/content-docs/api2/reference/Gtk4/Expression.html">Gnome::Gtk4::Expression</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-factory</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a> to use for populating list items.</p><pre class="pod-block-code">method set-factory ( N-Object() $factory )
-</pre><ul>
-<li><p>$factory; the factory to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-header-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-header-factory</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a> to use for creating header widgets for the popup.</p><pre class="pod-block-code">method set-header-factory ( N-Object() $factory )
-</pre><ul>
-<li><p>$factory; the factory to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-list-factory"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-list-factory</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory.html">Gnome::Gtk4::ListItemFactory</a> to use for populating list items in the popup.</p><pre class="pod-block-code">method set-list-factory ( N-Object() $factory )
-</pre><ul>
-<li><p>$factory; the factory to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-model"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-model</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> to use.</p><pre class="pod-block-code">method set-model ( N-List() $model )
-</pre><ul>
-<li><p>$model; the model to use.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-search-match-mode"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-search-match-mode</a></h2>
-<p>Sets the match mode for the search filter.</p><pre class="pod-block-code">method set-search-match-mode ( GtkStringFilterMatchMode $search-match-mode )
-</pre><ul>
-<li><p>$search-match-mode; the new match mode.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-selected"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-selected</a></h2>
-<p>Selects the item at the given position.</p><pre class="pod-block-code">method set-selected ( UInt() $position )
-</pre><ul>
-<li><p>$position; the position of the item to select, or <code>GTK_INVALID_LIST_POSITION</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-show-arrow"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">set-show-arrow</a></h2>
-<p>Sets whether an arrow will be displayed within the widget.</p><pre class="pod-block-code">method set-show-arrow ( Bool() $show-arrow )
-</pre><ul>
-<li><p>$show-arrow; whether to show an arrow within the widget.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate"><a href="#Gnome::Gtk4::DropDown" class="u" title="go to top of document">activate</a></h3>
-<p>Emitted to when the drop down is activated.</p><p>The `::activate` signal on <strong>Gnome::Gtk4::DropDown</strong> is an action signal and emitting it causes the drop down to pop up its dropdown.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::DropDown"></div><h1 class="title">Gnome::Gtk4::DropDown</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-dropdown">new-dropdown</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-strings">new-from-strings</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-enable-search">get-enable-search</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-expression">get-expression</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-factory">get-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-header-factory">get-header-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-list-factory">get-list-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-model">get-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-search-match-mode">get-search-match-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selected">get-selected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selected-item">get-selected-item</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-show-arrow">get-show-arrow</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-enable-search">set-enable-search</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-expression">set-expression</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-factory">set-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-header-factory">set-header-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-list-factory">set-list-factory</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-model">set-model</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-search-match-mode">set-search-match-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-selected">set-selected</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-show-arrow">set-show-arrow</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate">activate</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::DropDown</span> is a widget that allows the user to choose an item from a list of options. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/drop-down.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>The <span class="basis">Gnome::Gtk4::DropDown</span> displays the [selected]<span class="important">selected</span> choice. </p>
+
+<p>The options are given to <span class="basis">Gnome::Gtk4::DropDown</span> in the form of <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> and how the individual options are represented is determined by a <a href="/content-docs/api2/reference/Gtk4/ListItemFactory">Gnome::Gtk4::ListItemFactory</a>. The default factory displays simple strings, and adds a checkmark to the selected item in the popup. </p>
+
+<p>To set your own factory, use <a href="#set-factory">.set-factory()</a>. It is possible to use a separate factory for the items in the popup, with <a href="#set-list-factory">.set-list-factory()</a>. </p>
+
+<p><span class="basis">Gnome::Gtk4::DropDown</span> knows how to obtain strings from the items in a <a href="/content-docs/api2/reference/Gtk4/StringList">Gnome::Gtk4::StringList</a>; for other models, you have to provide an expression to find the strings via <a href="#set-expression">.set-expression()</a>. </p>
+
+<p><span class="basis">Gnome::Gtk4::DropDown</span> can optionally allow search in the popup, which is useful if the list of options is long. To enable the search entry, use <a href="#set-enable-search">.set-enable-search()</a>. </p>
+
+<p>Here is a UI definition example for <span class="basis">Gnome::Gtk4::DropDown</span> with a simple model: </p>
+
+<p>If a <span class="basis">Gnome::Gtk4::DropDown</span> is created in this manner, or with <a href="#new-from-strings">.new-from-strings()</a>, for instance, the object returned from <a href="#get-selected-item">.get-selected-item()</a> will be a <a href="/content-docs/api2/reference/Gtk4/StringObject">Gnome::Gtk4::StringObject</a>. </p>
+
+<p id="Para">To learn more about the list widget framework, see the [overview](section-list-widget.html).</p>
+
+<div class="id-target" id="CSS nodes"></div><h3 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h3>
+
+<p><span class="basis">Gnome::Gtk4::DropDown</span> has a single CSS node with name dropdown, with the button and popover nodes as children. </p>
+<h3 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h3>
+
+<p><span class="basis">Gnome::Gtk4::DropDown</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_COMBO_BOX</span> role. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/DropDown.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-dropdown" class="heading "><a href="#" title="go to top of document">new-dropdown</a><a class="raku-anchor" title="direct link" href="#new-dropdown">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::DropDown</span>. </p>
+
+<p>You may want to call <a href="#set-factory">.set-factory()</a> to set up a way to map its items to widgets. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-dropdown ( N-List() $model, N-Object() $expression --&gt; Gnome::Gtk4::DropDown )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; (transfer ownership: full) the model to use.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$expression; (transfer ownership: full) the expression to use.</li>
+</ul>
+<h2 id="new-from-strings" class="heading "><a href="#" title="go to top of document">new-from-strings</a><a class="raku-anchor" title="direct link" href="#new-from-strings">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::DropDown</span> that is populated with the strings. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-strings ( Array[Str] $strings --&gt; Gnome::Gtk4::DropDown )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$strings; The strings to put in the dropdown.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-enable-search" class="heading "><a href="#" title="go to top of document">get-enable-search</a><a class="raku-anchor" title="direct link" href="#get-enable-search">§</a></h2>
+
+<p id="Para_0">Returns whether search is enabled.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-enable-search (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the popup includes a search entry. </p>
+<h2 id="get-expression" class="heading "><a href="#" title="go to top of document">get-expression</a><a class="raku-anchor" title="direct link" href="#get-expression">§</a></h2>
+
+<p id="Para_1">Gets the expression set that is used to obtain strings from items.</p>
+
+<p>See <a href="#set-expression">.set-expression()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-expression (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/Expression">Gnome::Gtk4::Expression</a>. </p>
+<h2 id="get-factory" class="heading "><a href="#" title="go to top of document">get-factory</a><a class="raku-anchor" title="direct link" href="#get-factory">§</a></h2>
+
+<p id="Para_2">Gets the factory that's currently used to populate list items.</p>
+
+<p>The factory returned by this function is always used for the item in the button. It is also used for items in the popup if <span class="important">list-factory</span> is not set. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-factory (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; The factory in use.</p>
+<h2 id="get-header-factory" class="heading "><a href="#" title="go to top of document">get-header-factory</a><a class="raku-anchor" title="direct link" href="#get-header-factory">§</a></h2>
+
+<p id="Para_4">Gets the factory that's currently used to create header widgets for the popup.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-header-factory (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; The factory in use.</p>
+<h2 id="get-list-factory" class="heading "><a href="#" title="go to top of document">get-list-factory</a><a class="raku-anchor" title="direct link" href="#get-list-factory">§</a></h2>
+
+<p id="Para_6">Gets the factory that's currently used to populate list items in the popup.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-list-factory (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; The factory in use.</p>
+<h2 id="get-model" class="heading "><a href="#" title="go to top of document">get-model</a><a class="raku-anchor" title="direct link" href="#get-model">§</a></h2>
+
+<p id="Para_8">Gets the model that provides the displayed items.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-model (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_9">Return value; The model in use.</p>
+<h2 id="get-search-match-mode" class="heading "><a href="#" title="go to top of document">get-search-match-mode</a><a class="raku-anchor" title="direct link" href="#get-search-match-mode">§</a></h2>
+
+<p id="Para_10">Returns the match mode that the search filter is using.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-search-match-mode (--&gt; GtkStringFilterMatchMode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; the match mode of the search filter.</p>
+<h2 id="get-selected" class="heading "><a href="#" title="go to top of document">get-selected</a><a class="raku-anchor" title="direct link" href="#get-selected">§</a></h2>
+
+<p id="Para_12">Gets the position of the selected item.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selected (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the position of the selected item, or <span class="code">GTK_INVALID_LIST_POSITION</span> if not item is selected. </p>
+<h2 id="get-selected-item" class="heading "><a href="#" title="go to top of document">get-selected-item</a><a class="raku-anchor" title="direct link" href="#get-selected-item">§</a></h2>
+
+<p id="Para_13">Gets the selected item. If no item is selected, undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selected-item (--&gt; gpointer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_14">Return value; The selected item.</p>
+<h2 id="get-show-arrow" class="heading "><a href="#" title="go to top of document">get-show-arrow</a><a class="raku-anchor" title="direct link" href="#get-show-arrow">§</a></h2>
+
+<p id="Para_15">Returns whether to show an arrow within the widget.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-show-arrow (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if an arrow will be shown.. </p>
+<h2 id="set-enable-search" class="heading "><a href="#" title="go to top of document">set-enable-search</a><a class="raku-anchor" title="direct link" href="#set-enable-search">§</a></h2>
+
+<p id="Para_16">Sets whether a search entry will be shown in the popup that allows to search for items in the list.</p>
+
+<p>Note that <span class="important">expression</span> must be set for search to work. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-enable-search ( Bool() $enable-search )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$enable-search; whether to enable search.</li>
+</ul>
+<h2 id="set-expression" class="heading "><a href="#" title="go to top of document">set-expression</a><a class="raku-anchor" title="direct link" href="#set-expression">§</a></h2>
+
+<p id="Para_17">Sets the expression that gets evaluated to obtain strings from items.</p>
+
+<p>This is used for search in the popup. The expression must have a value type of <span class="code">G_TYPE_STRING</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-expression ( N-Object() $expression )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$expression; a <a href="/content-docs/api2/reference/Gtk4/Expression">Gnome::Gtk4::Expression</a>.</li>
+</ul>
+<h2 id="set-factory" class="heading "><a href="#" title="go to top of document">set-factory</a><a class="raku-anchor" title="direct link" href="#set-factory">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory">Gnome::Gtk4::ListItemFactory</a> to use for populating list items. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-factory ( N-Object() $factory )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factory; the factory to use.</li>
+</ul>
+<h2 id="set-header-factory" class="heading "><a href="#" title="go to top of document">set-header-factory</a><a class="raku-anchor" title="direct link" href="#set-header-factory">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory">Gnome::Gtk4::ListItemFactory</a> to use for creating header widgets for the popup. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-header-factory ( N-Object() $factory )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factory; the factory to use.</li>
+</ul>
+<h2 id="set-list-factory" class="heading "><a href="#" title="go to top of document">set-list-factory</a><a class="raku-anchor" title="direct link" href="#set-list-factory">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gtk4/ListItemFactory">Gnome::Gtk4::ListItemFactory</a> to use for populating list items in the popup. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-list-factory ( N-Object() $factory )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$factory; the factory to use.</li>
+</ul>
+<h2 id="set-model" class="heading "><a href="#" title="go to top of document">set-model</a><a class="raku-anchor" title="direct link" href="#set-model">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> to use. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-model ( N-List() $model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; the model to use.</li>
+</ul>
+<h2 id="set-search-match-mode" class="heading "><a href="#" title="go to top of document">set-search-match-mode</a><a class="raku-anchor" title="direct link" href="#set-search-match-mode">§</a></h2>
+
+<p id="Para_18">Sets the match mode for the search filter.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-search-match-mode ( GtkStringFilterMatchMode $search-match-mode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$search-match-mode; the new match mode.</li>
+</ul>
+
+<h2 id="set-selected" class="heading "><a href="#" title="go to top of document">set-selected</a><a class="raku-anchor" title="direct link" href="#set-selected">§</a></h2>
+
+<p id="Para_19">Selects the item at the given position.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-selected ( UInt() $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the position of the item to select, or <span class="code">GTK_INVALID_LIST_POSITION</span>.</li>
+</ul>
+
+<h2 id="set-show-arrow" class="heading "><a href="#" title="go to top of document">set-show-arrow</a><a class="raku-anchor" title="direct link" href="#set-show-arrow">§</a></h2>
+
+<p id="Para_20">Sets whether an arrow will be displayed within the widget.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-show-arrow ( Bool() $show-arrow )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$show-arrow; whether to show an arrow within the widget.</li>
+</ul>
+
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h3>
+
+<p id="Para_21">Emitted to when the drop down is activated.</p>
+
+<p>The `::activate` signal on <span class="basis">Gnome::Gtk4::DropDown</span> is an action signal and emitting it causes the drop down to pop up its dropdown. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropDown :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropDown</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropDown</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropDown.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:15Z</span></div></footer>
-	</body>
+
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropDown.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

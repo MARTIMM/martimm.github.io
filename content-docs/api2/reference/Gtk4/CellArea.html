@@ -1,476 +1,1257 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::CellArea</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::CellArea</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::CellArea">Gnome::Gtk4::CellArea</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Requesting_area_sizes">Requesting area sizes</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Rendering_Areas">Rendering Areas</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Handling_Events_and_Driving_Keyboard_Focus">Handling Events and Driving Keyboard Focus</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#Cell_Properties">Cell Properties</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#activate">activate</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#activate-cell">activate-cell</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add">add</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-focus-sibling">add-focus-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-with-properties">add-with-properties</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#apply-attributes">apply-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-connect">attribute-connect</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-disconnect">attribute-disconnect</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#attribute-get-column">attribute-get-column</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-get">cell-get</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-get-property">cell-get-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-get-valist">cell-get-valist</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-set">cell-set</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-set-property">cell-set-property</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cell-set-valist">cell-set-valist</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#copy-context">copy-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#create-context">create-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#event">event</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#focus">focus</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#foreach">foreach</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#foreach-alloc">foreach-alloc</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-cell-allocation">get-cell-allocation</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-cell-at-position">get-cell-at-position</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-path-string">get-current-path-string</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-edit-widget">get-edit-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-edited-cell">get-edited-cell</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus-cell">get-focus-cell</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus-from-sibling">get-focus-from-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-focus-siblings">get-focus-siblings</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-preferred-height">get-preferred-height</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-preferred-height-for-width">get-preferred-height-for-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-preferred-width">get-preferred-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-preferred-width-for-height">get-preferred-width-for-height</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-request-mode">get-request-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#has-renderer">has-renderer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#inner-cell-area">inner-cell-area</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-activatable">is-activatable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-focus-sibling">is-focus-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove">remove</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-focus-sibling">remove-focus-sibling</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#request-renderer">request-renderer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-focus-cell">set-focus-cell</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#snapshot">snapshot</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#stop-editing">stop-editing</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#add-editable">add-editable</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#apply-attributes_0">apply-attributes</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#focus-changed">focus-changed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#remove-editable">remove-editable</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Description</a></h1>
-<p>An abstract class for laying out <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>s</p><p>The <strong>Gnome::Gtk4::CellArea</strong> is an abstract class for <a href="/content-docs/api2/reference/Gnome/Gtk4/R-CellLayout.html">Gnome::Gtk4::CellAreaBox</a> widgets (also referred to as &quot;layouting widgets&quot;) to interface with an arbitrary number of <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>s and interact with the user for a given <a href="/content-docs/api2/reference/Gnome/Gtk4/R-TreeModel.html">Gnome::Gtk4::CellAreaBox</a> row.</p><p>The cell area handles events, focus navigation, drawing and size requests and allocations for a given row of data.</p><p>Usually users dont have to interact with the <strong>Gnome::Gtk4::CellArea</strong> directly unless they are implementing a cell-layouting widget themselves.</p>
-<h3 id="Requesting_area_sizes"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Requesting area sizes</a></h3>
-<p>As outlined in [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management), GTK uses a height-for-width geometry management system to compute the sizes of widgets and user interfaces. <strong>Gnome::Gtk4::CellArea</strong> uses the same semantics to calculate the size of an area for an arbitrary number of <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> rows.</p><p>When requesting the size of a cell area one needs to calculate the size for a handful of rows, and this will be done differently by different layouting widgets. For instance a <a href="/content-docs/api2/reference/Gtk4/TreeViewColumn.html">Gnome::Gtk4::TreeViewColumn</a> always lines up the areas from top to bottom while a <a href="/content-docs/api2/reference/Gtk4/IconView.html">Gnome::Gtk4::IconView</a> on the other hand might enforce that all areas received the same width and wrap the areas around, requesting height for more cell areas when allocated less width.</p><p>It’s also important for areas to maintain some cell alignments with areas rendered for adjacent rows (cells can appear “columnized” inside an area even when the size of cells are different in each row). For this reason the <strong>Gnome::Gtk4::CellArea</strong> uses a <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> object to store the alignments and sizes along the way (as well as the overall largest minimum and natural size for all the rows which have been calculated with the said context).</p><p>The <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> is an opaque object specific to the <strong>Gnome::Gtk4::CellArea</strong> which created it (see <a href="#create-context">.create-context()</a>).</p><p>The owning cell-layouting widget can create as many contexts as it wishes to calculate sizes of rows which should receive the same size in at least one orientation (horizontally or vertically), However, it’s important that the same <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> which was used to request the sizes for a given <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> row be used when rendering or processing events for that row.</p><p>In order to request the width of all the rows at the root level of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> one would do the following:</p><p>Note that in this example it’s not important to observe the returned minimum and natural width of the area for each row unless the cell-layouting object is actually interested in the widths of individual rows. The overall width is however stored in the accompanying <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> object and can be consulted at any time.</p><p>This can be useful since <a href="/content-docs/api2/reference/Gtk4/R-CellLayout.html">Gnome::Gtk4::R-CellLayout</a> widgets usually have to support requesting and rendering rows in treemodels with an exceedingly large amount of rows. The <a href="/content-docs/api2/reference/Gtk4/R-CellLayout.html">Gnome::Gtk4::R-CellLayout</a> widget in that case would calculate the required width of the rows in an idle or timeout source (see <a href="/content-docs/api2/reference/GLib/T-cellarea.html#timeout-add">.timeout-add().timeout-add() in package Gnome::GLib</a>) and when the widget is requested its actual width in [vfunc <code>$Gtk</code>.Widget.measure] it can simply consult the width accumulated so far in the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> object.</p><p>A simple example where rows are rendered from top to bottom and take up the full width of the layouting widget would look like:</p><p>In the above example the <strong>Foo</strong> widget has to make sure that some row sizes have been calculated (the amount of rows that <strong>Foo</strong> judged was appropriate to request space for in a single timeout iteration) before simply returning the amount of space required by the area via the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a>.</p><p>Requesting the height for width (or width for height) of an area is a similar task except in this case the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a> does not store the data (actually, it does not know how much space the layouting widget plans to allocate it for every row. It’s up to the layouting widget to render each row of data with the appropriate height and width which was requested by the <strong>Gnome::Gtk4::CellArea</strong>).</p><p>In order to request the height for width of all the rows at the root level of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> one would do the following:</p><p>Note that in the above example we would need to cache the heights returned for each row so that we would know what sizes to render the areas for each row. However we would only want to really cache the heights if the request is intended for the layouting widgets real allocation.</p><p>In some cases the layouting widget is requested the height for an arbitrary for_width, this is a special case for layouting widgets who need to request size for tens of thousands of rows. For this case it’s only important that the layouting widget calculate one reasonably sized chunk of rows and return that height synchronously. The reasoning here is that any layouting widget is at least capable of synchronously calculating enough height to fill the screen height (or scrolled window height) in response to a single call to [vfunc <code>$Gtk</code>.Widget.measure]. Returning a perfect height for width that is larger than the screen area is inconsequential since after the layouting receives an allocation from a scrolled window it simply continues to drive the scrollbar values while more and more height is required for the row heights that are calculated in the background.</p>
-<h3 id="Rendering_Areas"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Rendering Areas</a></h3>
-<p>Once area sizes have been acquired at least for the rows in the visible area of the layouting widget they can be rendered at [vfunc <code>$Gtk</code>.Widget.snapshot] time.</p><p>A crude example of how to render all the rows at the root level runs as follows:</p><p>Note that the cached height in this example really depends on how the layouting widget works. The layouting widget might decide to give every row its minimum or natural height or, if the model content is expected to fit inside the layouting widget without scrolling, it would make sense to calculate the allocation for each row at the time the widget is allocated using <a href="/content-docs/api2/reference/Gtk4/T-cellarea.html#distribute-natural-allocation">.distribute-natural-allocation().distribute-natural-allocation() in package Gnome::Gtk4</a>.</p>
-<h3 id="Handling_Events_and_Driving_Keyboard_Focus"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Handling Events and Driving Keyboard Focus</a></h3>
-<p>Passing events to the area is as simple as handling events on any normal widget and then passing them to the <a href="#event">.event()</a> API as they come in. Usually <strong>Gnome::Gtk4::CellArea</strong> is only interested in button events, however some customized derived areas can be implemented who are interested in handling other events. Handling an event can trigger the <em>focus-changed</em> signal to fire; as well as <em>add-editable</em> in the case that an editable cell was clicked and needs to start editing. You can call <a href="#stop-editing">.stop-editing()</a> at any time to cancel any cell editing that is currently in progress.</p><p>The <strong>Gnome::Gtk4::CellArea</strong> drives keyboard focus from cell to cell in a way similar to <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>. For layouting widgets that support giving focus to cells it’s important to remember to pass <strong>GTK_CELL_RENDERER_FOCUSED</strong> to the area functions for the row that has focus and to tell the area to paint the focus at render time.</p><p>Layouting widgets that accept focus on cells should implement the [vfunc <code>$Gtk</code>.Widget.focus] virtual method. The layouting widget is always responsible for knowing where <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> rows are rendered inside the widget, so at [vfunc <code>$Gtk</code>.Widget.focus] time the layouting widget should use the <strong>Gnome::Gtk4::CellArea</strong> methods to navigate focus inside the area and then observe the enumeration <code>DirectionType</code> from <code>Gnome::Gtk4::T-enums</code> to pass the focus to adjacent rows and areas.</p><p>A basic example of how the [vfunc <code>$Gtk</code>.Widget.focus] virtual method should be implemented:</p><p>Note that the layouting widget is responsible for matching the <code>enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</code> values to the way it lays out its cells.</p>
-<h3 id="Cell_Properties"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Cell Properties</a></h3>
-<p>The <strong>Gnome::Gtk4::CellArea</strong> introduces cell properties for <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>s. This provides some general interfaces for defining the relationship cell areas have with their cells. For instance in a <a href="/content-docs/api2/reference/Gtk4/CellAreaBox.html">Gnome::Gtk4::CellAreaBox</a> a cell might “expand” and receive extra space when the area is allocated more than its full natural request, or a cell might be configured to “align” with adjacent rows which were requested and rendered with the same <a href="/content-docs/api2/reference/Gtk4/CellAreaContext.html">Gnome::Gtk4::CellAreaContext</a>.</p><p>Use <a href="/content-docs/api2/reference/Gtk4/CellAreaClass.html#install-cell-property">.install-cell-property() in class CellAreaClass</a> to install cell properties for a cell area class and <a href="/content-docs/api2/reference/Gtk4/CellAreaClass.html#find-cell-property">.find-cell-property() in class CellAreaClass</a> or <a href="/content-docs/api2/reference/Gtk4/CellAreaClass.html#list-cell-properties">.list-cell-properties() in class CellAreaClass</a> to get information about existing cell properties.</p><p>To set the value of a cell property, use <a href="#cell-set-property">.cell-set-property()</a>, <a href="#cell-set">.cell-set()</a> or <a href="#cell-set-valist">.cell-set-valist()</a>. To obtain the value of a cell property, use <a href="#cell-get-property">.cell-get-property()</a> <a href="#cell-get">.cell-get()</a> or <a href="#cell-get-valist">.cell-get-valist()</a>.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/CellArea.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Class initialization</a></h1>
-<p><strong>Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</strong></p>
-<h2 id="new"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">new</a></h2>
+span.unusual {
+  text-decoration: underline; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="activate"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">activate</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Activates <code>$area</code>, usually by activating the currently focused cell, however some subclasses which embed widgets in the area can also activate a widget if it currently has the focus.</p><pre class="pod-block-code">method activate ( N-Object() $context, N-Object() $widget, N-Object $cell-area, UInt $flags, Bool() $edit-only --&gt; Bool )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context in context with the current row data.</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering on.</p></li>
-<li><p>$cell-area; the size and location of <code>$area</code> relative to <code>$widget</code>’s allocation</p></li>
-<li><p>$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>State flags for <code>$area</code> for this row of data..</p></li>
-<li><p>$edit-only; if <code>True</code> then only cell renderers that are <code>GTK_CELL_RENDERER_MODE_EDITABLE</code> will be activated..</p></li>
-</ul>
-<p>Return value; Whether <code>$area</code> was successfully activated.. </p></section>
-<section name="pod">
-<h2 id="activate-cell"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">activate-cell</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This is used by <strong>Gnome::Gtk4::CellArea</strong> subclasses when handling events to activate cells, the base <strong>Gnome::Gtk4::CellArea</strong> class activates cells for keyboard events for free in its own GtkCellArea-&gt;activate() implementation.</p><pre class="pod-block-code">method activate-cell ( N-Object() $widget, N-Object() $renderer, N-Object() $event, N-Object $cell-area, UInt $flags --&gt; Bool )
-</pre><ul>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering onto.</p></li>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> in <code>$area</code> to activate.</p></li>
-<li><p>$event; the <a href="/content-docs/api2/reference/Gdk4/Event.html">Gnome::Gdk4::Event</a> for which cell activation should occur.</p></li>
-<li><p>$cell-area; the <strong>Gnome::Gdk4::N-Rectangle</strong> in <code>$widget</code> relative coordinates of <code>$renderer</code> for the current row.</p></li>
-<li><p>$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>State for <code>$renderer</code>.</p></li>
-</ul>
-<p>Return value; whether cell activation was successful. </p></section>
-<section name="pod">
-<h2 id="add"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">add</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds <code>$renderer</code> to <code>$area</code> with the default child cell properties.</p><pre class="pod-block-code">method add ( N-Object() $renderer )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to add to <code>$area</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-focus-sibling"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">add-focus-sibling</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds <code>$sibling</code> to <code>$renderer</code>’s focusable area, focus will be drawn around <code>$renderer</code> and all of its siblings if <code>$renderer</code> can focus for a given row.</p><p>Events handled by focus siblings can also activate the given focusable <code>$renderer</code>.</p><pre class="pod-block-code">method add-focus-sibling ( N-Object() $renderer, N-Object() $sibling )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> expected to have focus.</p></li>
-<li><p>$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to add to <code>$renderer</code>’s focus area.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-with-properties"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">add-with-properties</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Adds <code>$renderer</code> to <code>$area</code>, setting cell properties at the same time. See <code>.add()</code> and <code>.cell-set()</code> for more details.</p><pre class="pod-block-code">method add-with-properties ( N-Object() $renderer, Str $first-prop-name, … )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to be placed inside <code>$area</code>.</p></li>
-<li><p>$first-prop-name; the name of the first cell property to set.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="apply-attributes"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">apply-attributes</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Applies any connected attributes to the renderers in <code>$area</code> by pulling the values from <code>$tree-model</code>.</p><pre class="pod-block-code">method apply-attributes ( N-Object() $tree-model, N-Object $iter, Bool() $is-expander, Bool() $is-expanded )
-</pre><ul>
-<li><p>$tree-model; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> to pull values from.</p></li>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong> in <code>$tree-model</code> to apply values for</p></li>
-<li><p>$is-expander; whether <code>$iter</code> has children.</p></li>
-<li><p>$is-expanded; whether <code>$iter</code> is expanded in the view and children are visible.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="attribute-connect"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">attribute-connect</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Connects an <code>$attribute</code> to apply values from <code>$column</code> for the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> in use.</p><pre class="pod-block-code">method attribute-connect ( N-Object() $renderer, Str $attribute, Int() $column )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to connect an attribute for.</p></li>
-<li><p>$attribute; the attribute name.</p></li>
-<li><p>$column; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> column to fetch attribute values from.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="attribute-disconnect"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">attribute-disconnect</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Disconnects <code>$attribute</code> for the <code>$renderer</code> in <code>$area</code> so that attribute will no longer be updated with values from the model.</p><pre class="pod-block-code">method attribute-disconnect ( N-Object() $renderer, Str $attribute )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to disconnect an attribute for.</p></li>
-<li><p>$attribute; the attribute name.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="attribute-get-column"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">attribute-get-column</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns the model column that an attribute has been mapped to, or -1 if the attribute is not mapped.</p><pre class="pod-block-code">method attribute-get-column ( N-Object() $renderer, Str $attribute --&gt; Int )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>.</p></li>
-<li><p>$attribute; an attribute on the renderer.</p></li>
-</ul>
-<p>Return value; the model column, or -1. </p></section>
-<section name="pod">
-<h2 id="cell-get"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-get</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the values of one or more cell properties for <code>$renderer</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-get ( N-Object() $renderer, Str $first-prop-name, … )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> which is inside <code>$area</code>.</p></li>
-<li><p>$first-prop-name; the name of the first cell property to get.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="cell-get-property"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-get-property</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the value of a cell property for <code>$renderer</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-get-property ( N-Object() $renderer, Str $property-name, N-Object $value )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> inside <code>$area</code>.</p></li>
-<li><p>$property-name; the name of the property to get.</p></li>
-<li><p>$value; a location to return the value</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="cell-get-valist"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-get-valist</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the values of one or more cell properties for <code>$renderer</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-get-valist ( N-Object() $renderer, Str $first-property-name, … )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> inside <code>$area</code>.</p></li>
-<li><p>$first-property-name; the name of the first property to get.</p></li>
-<li><p>var-args; return location for the first property, followed optionally by more name/return location pairs, followed by undefined. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="cell-set"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-set</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets one or more cell properties for <code>$cell</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-set ( N-Object() $renderer, Str $first-prop-name, … )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> which is a cell inside <code>$area</code>.</p></li>
-<li><p>$first-prop-name; the name of the first cell property to set.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="cell-set-property"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-set-property</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets a cell property for <code>$renderer</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-set-property ( N-Object() $renderer, Str $property-name, N-Object $value )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> inside <code>$area</code>.</p></li>
-<li><p>$property-name; the name of the cell property to set.</p></li>
-<li><p>$value; the value to set the cell property to</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="cell-set-valist"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">cell-set-valist</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Sets one or more cell properties for <code>$renderer</code> in <code>$area</code>.</p><pre class="pod-block-code">method cell-set-valist ( N-Object() $renderer, Str $first-property-name, … )
-</pre><ul>
-<li><p>$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> which inside <code>$area</code>.</p></li>
-<li><p>$first-property-name; the name of the first cell property to set.</p></li>
-<li><p>var-args; a undefined-terminated list of property names and values, starting with <code>$first-prop-name</code>. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="copy-context"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">copy-context</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This is sometimes needed for cases where rows need to share alignments in one orientation but may be separately grouped in the opposing orientation.</p><p>For instance, <a href="/content-docs/api2/reference/Gtk4/IconView.html">Gnome::Gtk4::IconView</a> creates all icons (rows) to have the same width and the cells theirin to have the same horizontal alignments. However each row of icons may have a separate collective height. <a href="/content-docs/api2/reference/Gtk4/IconView.html">Gnome::Gtk4::IconView</a> uses this to request the heights of each row based on a context which was already used to request all the row widths that are to be displayed.</p><pre class="pod-block-code">method copy-context ( N-Object() $context --&gt; N-Object )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context to copy.</p></li>
-</ul>
-<p>Return value; a newly created <strong>Gnome::Gtk4::CellArea</strong>Context copy of <code>$context</code>.. </p></section>
-<section name="pod">
-<h2 id="create-context"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">create-context</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Creates a <strong>Gnome::Gtk4::CellArea</strong>Context to be used with <code>$area</code> for all purposes. <strong>Gnome::Gtk4::CellArea</strong>Context stores geometry information for rows for which it was operated on, it is important to use the same context for the same row of data at all times (i.e. one should render and handle events with the same <strong>Gnome::Gtk4::CellArea</strong>Context which was used to request the size of those rows of data).</p><pre class="pod-block-code">method create-context (--&gt; N-Object )
-</pre><p>Return value; a newly created <strong>Gnome::Gtk4::CellArea</strong>Context which can be used with <code>$area</code>.. </p></section>
-<section name="pod">
-<h2 id="event"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">event</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Delegates event handling to a <strong>Gnome::Gtk4::CellArea</strong>.</p><pre class="pod-block-code">method event ( N-Object() $context, N-Object() $widget, N-Object() $event, N-Object $cell-area, UInt $flags --&gt; Int )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context for this row of data..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering to.</p></li>
-<li><p>$event; the <a href="/content-docs/api2/reference/Gdk4/Event.html">Gnome::Gdk4::Event</a> to handle.</p></li>
-<li><p>$cell-area; the <code>$widget</code> relative coordinates for <code>$area</code></p></li>
-<li><p>$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>State for <code>$area</code> in this row..</p></li>
-</ul>
-<p>Return value; <code>True</code> if the event was handled by <code>$area</code>.. </p></section>
-<section name="pod">
-<h2 id="focus"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">focus</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This should be called by the <code>$area</code>’s owning layout widget when focus is to be passed to <code>$area</code>, or moved within <code>$area</code> for a given <code>$direction</code> and row data.</p><p>Implementing <strong>Gnome::Gtk4::CellArea</strong> classes should implement this method to receive and navigate focus in its own way particular to how it lays out cells.</p><pre class="pod-block-code">method focus ( GtkDirectionType $direction --&gt; Bool )
-</pre><ul>
-<li><p>$direction; the <code>enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</code>.</p></li>
-</ul>
-<p>Return value; <code>True</code> if focus remains inside <code>$area</code> as a result of this call.. </p></section>
-<section name="pod">
-<h2 id="foreach"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">foreach</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Calls <code>$callback</code> for every <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> in <code>$area</code>.</p><pre class="pod-block-code">method foreach ( GtkCellCallback &amp;callback, gpointer $callback-data )
-</pre><ul>
-<li><p>GtkCellCallback &amp;callback; the <strong>Gnome::Gtk4::T-cellarea</strong> to call. The function must be specified with the following signature; <code>:( N-Object $renderer, gpointer $data )</code>.</p></li>
-<li><p>$callback-data; user provided data pointer.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="foreach-alloc"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">foreach-alloc</a></h2>
-<p>Calls <code>$callback</code> for every <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> in <code>$area</code> with the allocated rectangle inside <code>$cell-area</code>.</p><pre class="pod-block-code">method foreach-alloc ( N-Object() $context, N-Object() $widget, N-Object $cell-area, N-Object $background-area, GtkCellAllocCallback &amp;callback, gpointer $callback-data )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context for this row of data..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering to.</p></li>
-<li><p>$cell-area; the <code>$widget</code> relative coordinates and size for <code>$area</code></p></li>
-<li><p>$background-area; the <code>$widget</code> relative coordinates of the background area</p></li>
-<li><p>GtkCellAllocCallback &amp;callback; the <strong>Gnome::Gtk4::T-cellarea</strong> to call. The function must be specified with the following signature; <code>:( N-Object $renderer, N-Object $cell-area, N-Object $cell-background, gpointer $data )</code>.</p></li>
-<li><p>$callback-data; user provided data pointer.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-cell-allocation"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-cell-allocation</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Derives the allocation of <code>$renderer</code> inside <code>$area</code> if <code>$area</code> were to be rendered in <code>$cell-area</code>.</p><pre class="pod-block-code">method get-cell-allocation ( N-Object() $context, N-Object() $widget, N-Object() $renderer, N-Object $cell-area, N-Object $allocation )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context used to hold sizes for <code>$area</code>..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering on.</p></li>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to get the allocation for.</p></li>
-<li><p>$cell-area; the whole allocated area for <code>$area</code> in <code>$widget</code> for this row</p></li>
-<li><p>$allocation; where to store the allocation for <code>$renderer</code></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-cell-at-position"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-cell-at-position</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> at <code>$x</code> and <code>$y</code> coordinates inside <code>$area</code> and optionally returns the full cell allocation for it inside <code>$cell-area</code>.</p><pre class="pod-block-code">method get-cell-at-position ( N-Object() $context, N-Object() $widget, N-Object $cell-area, Int() $x, Int() $y, N-Object $alloc-area --&gt; N-Object )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context used to hold sizes for <code>$area</code>..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering on.</p></li>
-<li><p>$cell-area; the whole allocated area for <code>$area</code> in <code>$widget</code> for this row</p></li>
-<li><p>$x; the x position.</p></li>
-<li><p>$y; the y position.</p></li>
-<li><p>$alloc-area; where to store the inner allocated area of the returned cell renderer</p></li>
-</ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> at <code>$x</code> and <code>$y</code>.. </p></section>
-<section name="pod">
-<h2 id="get-current-path-string"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-current-path-string</a></h2>
-<p>Gets the current <strong>Gnome::Gtk4::N-TreePath</strong> string for the currently applied <strong>Gnome::Gtk4::N-TreeIter</strong>, this is implicitly updated when <code>.apply-attributes()</code> is called and can be used to interact with renderers from <strong>Gnome::Gtk4::CellArea</strong> subclasses.</p><pre class="pod-block-code">method get-current-path-string (--&gt; Str )
-</pre><p>Return value; The current <strong>Gnome::Gtk4::N-TreePath</strong> string for the current attributes applied to <code>$area</code>. This string belongs to the area and should not be freed.. </p></section>
-<section name="pod">
-<h2 id="get-edit-widget"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-edit-widget</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable.html">Gnome::Gtk4::R-CellEditable</a> widget currently used to edit the currently edited cell.</p><pre class="pod-block-code">method get-edit-widget (--&gt; N-Object )
-</pre><p>Return value; The currently active <a href="/content-docs/api2/reference/Gtk4/R-CellEditable.html">Gnome::Gtk4::R-CellEditable</a> widget. </p></section>
-<section name="pod">
-<h2 id="get-edited-cell"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-edited-cell</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> in <code>$area</code> that is currently being edited.</p><pre class="pod-block-code">method get-edited-cell (--&gt; N-Object )
-</pre><p>Return value; The currently edited <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>. </p></section>
-<section name="pod">
-<h2 id="get-focus-cell"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-focus-cell</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Retrieves the currently focused cell for <code>$area</code></p><pre class="pod-block-code">method get-focus-cell (--&gt; N-Object )
-</pre><p>Return value; the currently focused cell in <code>$area</code>.. </p></section>
-<section name="pod">
-<h2 id="get-focus-from-sibling"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-focus-from-sibling</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> which is expected to be focusable for which <code>$renderer</code> is, or may be a sibling.</p><p>This is handy for <strong>Gnome::Gtk4::CellArea</strong> subclasses when handling events, after determining the renderer at the event location it can then chose to activate the focus cell for which the event cell may have been a sibling.</p><pre class="pod-block-code">method get-focus-from-sibling ( N-Object() $renderer --&gt; N-Object )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>.</p></li>
-</ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> for which <code>$renderer</code> is a sibling. </p></section>
-<section name="pod">
-<h2 id="get-focus-siblings"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-focus-siblings</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Gets the focus sibling cell renderers for <code>$renderer</code>.</p><pre class="pod-block-code">method get-focus-siblings ( N-Object() $renderer --&gt; N-List )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> expected to have focus.</p></li>
-</ul>
-<p>Return value; A <strong>Gnome::Glib::N-List</strong> of <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>s. The returned list is internal and should not be freed.. </p></section>
-<section name="pod">
-<h2 id="get-preferred-height"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-preferred-height</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Retrieves a cell area’s initial minimum and natural height. <code>$area</code> will store some geometrical information in <code>$context</code> along the way; when requesting sizes over an arbitrary number of rows, it’s not important to check the <code>$minimum-height</code> and <code>$natural-height</code> of this call but rather to consult <code>.context-get-preferred-height()</code> after a series of requests.</p><pre class="pod-block-code">method get-preferred-height ( N-Object() $context, N-Object() $widget, Array[Int] $minimum-height, Array[Int] $natural-height )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context to perform this request with.</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> where <code>$area</code> will be rendering.</p></li>
-<li><p>$minimum-height; (transfer ownership: full) location to store the minimum height.</p></li>
-<li><p>$natural-height; (transfer ownership: full) location to store the natural height.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-preferred-height-for-width"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-preferred-height-for-width</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Retrieves a cell area’s minimum and natural height if it would be given the specified <code>$width</code>. <code>$area</code> stores some geometrical information in <code>$context</code> along the way while calling <code>.get-preferred-width()</code>. It’s important to perform a series of <code>.get-preferred-width()</code> requests with <code>$context</code> first and then call <code>.get-preferred-height-for-width()</code> on each cell area individually to get the height for width of each fully requested row.</p><p>If at some point, the width of a single row changes, it should be requested with <code>.get-preferred-width()</code> again and then the full width of the requested rows checked again with <code>.context-get-preferred-width()</code>.</p><pre class="pod-block-code">method get-preferred-height-for-width ( N-Object() $context, N-Object() $widget, Int() $width, Array[Int] $minimum-height, Array[Int] $natural-height )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context which has already been requested for widths..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> where <code>$area</code> will be rendering.</p></li>
-<li><p>$width; the width for which to check the height of this area.</p></li>
-<li><p>$minimum-height; (transfer ownership: full) location to store the minimum height.</p></li>
-<li><p>$natural-height; (transfer ownership: full) location to store the natural height.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-preferred-width"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-preferred-width</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Retrieves a cell area’s initial minimum and natural width. <code>$area</code> will store some geometrical information in <code>$context</code> along the way; when requesting sizes over an arbitrary number of rows, it’s not important to check the <code>$minimum-width</code> and <code>$natural-width</code> of this call but rather to consult <code>.context-get-preferred-width()</code> after a series of requests.</p><pre class="pod-block-code">method get-preferred-width ( N-Object() $context, N-Object() $widget, Array[Int] $minimum-width, Array[Int] $natural-width )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context to perform this request with.</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> where <code>$area</code> will be rendering.</p></li>
-<li><p>$minimum-width; (transfer ownership: full) location to store the minimum width.</p></li>
-<li><p>$natural-width; (transfer ownership: full) location to store the natural width.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-preferred-width-for-height"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-preferred-width-for-height</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Retrieves a cell area’s minimum and natural width if it would be given the specified <code>$height</code>. <code>$area</code> stores some geometrical information in <code>$context</code> along the way while calling <code>.get-preferred-height()</code>. It’s important to perform a series of <code>.get-preferred-height()</code> requests with <code>$context</code> first and then call <code>.get-preferred-width-for-height()</code> on each cell area individually to get the height for width of each fully requested row.</p><p>If at some point, the height of a single row changes, it should be requested with <code>.get-preferred-height()</code> again and then the full height of the requested rows checked again with <code>.context-get-preferred-height()</code>.</p><pre class="pod-block-code">method get-preferred-width-for-height ( N-Object() $context, N-Object() $widget, Int() $height, Array[Int] $minimum-width, Array[Int] $natural-width )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context which has already been requested for widths..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> where <code>$area</code> will be rendering.</p></li>
-<li><p>$height; the height for which to check the width of this area.</p></li>
-<li><p>$minimum-width; (transfer ownership: full) location to store the minimum width.</p></li>
-<li><p>$natural-width; (transfer ownership: full) location to store the natural width.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-request-mode"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">get-request-mode</a></h2>
-<p>Gets whether the area prefers a height-for-width layout or a width-for-height layout.</p><pre class="pod-block-code">method get-request-mode (--&gt; GtkSizeRequestMode )
-</pre><p>Return value; The <code>enumeration GtkSizeRequestMode defined in Gnome::Gtk4::T-enums</code> preferred by <code>$area</code>.. </p></section>
-<section name="pod">
-<h2 id="has-renderer"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">has-renderer</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Checks if <code>$area</code> contains <code>$renderer</code>.</p><pre class="pod-block-code">method has-renderer ( N-Object() $renderer --&gt; Bool )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to check.</p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$renderer</code> is in the <code>$area</code>.. </p></section>
-<section name="pod">
-<h2 id="inner-cell-area"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">inner-cell-area</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This is a convenience function for <strong>Gnome::Gtk4::CellArea</strong> implementations to get the inner area where a given <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> will be rendered. It removes any padding previously added by <code>.request-renderer()</code>.</p><pre class="pod-block-code">method inner-cell-area ( N-Object() $widget, N-Object $cell-area, N-Object $inner-area )
-</pre><ul>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering onto.</p></li>
-<li><p>$cell-area; the <code>$widget</code> relative coordinates where one of <code>$area</code>’s cells is to be placed</p></li>
-<li><p>$inner-area; the return location for the inner cell area</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="is-activatable"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">is-activatable</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether the area can do anything when activated, after applying new attributes to <code>$area</code>.</p><pre class="pod-block-code">method is-activatable (--&gt; Bool )
-</pre><p>Return value; whether <code>$area</code> can do anything when activated.. </p></section>
-<section name="pod">
-<h2 id="is-focus-sibling"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">is-focus-sibling</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Returns whether <code>$sibling</code> is one of <code>$renderer</code>’s focus siblings (see <code>.add-focus-sibling()</code>).</p><pre class="pod-block-code">method is-focus-sibling ( N-Object() $renderer, N-Object() $sibling --&gt; Bool )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> expected to have focus.</p></li>
-<li><p>$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to check against <code>$renderer</code>’s sibling list.</p></li>
-</ul>
-<p>Return value; <code>True</code> if <code>$sibling</code> is a focus sibling of <code>$renderer</code>. </p></section>
-<section name="pod">
-<h2 id="remove"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">remove</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes <code>$renderer</code> from <code>$area</code>.</p><pre class="pod-block-code">method remove ( N-Object() $renderer )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to remove from <code>$area</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="remove-focus-sibling"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">remove-focus-sibling</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Removes <code>$sibling</code> from <code>$renderer</code>’s focus sibling list (see <code>.add-focus-sibling()</code>).</p><pre class="pod-block-code">method remove-focus-sibling ( N-Object() $renderer, N-Object() $sibling )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> expected to have focus.</p></li>
-<li><p>$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to remove from <code>$renderer</code>’s focus area.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="request-renderer"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">request-renderer</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>This is a convenience function for <strong>Gnome::Gtk4::CellArea</strong> implementations to request size for cell renderers. It’s important to use this function to request size and then use <code>.inner-cell-area()</code> at render and event time since this function will add padding around the cell for focus painting.</p><pre class="pod-block-code">method request-renderer ( N-Object() $renderer, GtkOrientation $orientation, N-Object() $widget, Int() $for-size, Array[Int] $minimum-size, Array[Int] $natural-size )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to request size for.</p></li>
-<li><p>$orientation; the <code>enumeration GtkOrientation defined in Gnome::Gtk4::T-enums</code> in which to request size.</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering onto.</p></li>
-<li><p>$for-size; the allocation contextual size to request for, or -1 if the base request for the orientation is to be returned..</p></li>
-<li><p>$minimum-size; (transfer ownership: full) location to store the minimum size.</p></li>
-<li><p>$natural-size; (transfer ownership: full) location to store the natural size.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-focus-cell"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">set-focus-cell</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Explicitly sets the currently focused cell to <code>$renderer</code>.</p><p>This is generally called by implementations of <strong>GtkCellAreaClass</strong>.focus()` or <strong>GtkCellAreaClass</strong>.event()`, however it can also be used to implement functions such as gtk_tree_view_set_cursor_on_cell().</p><pre class="pod-block-code">method set-focus-cell ( N-Object() $renderer )
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> to give focus to.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="snapshot"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">snapshot</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Snapshots <code>$area</code>’s cells according to <code>$area</code>’s layout onto at the given coordinates.</p><pre class="pod-block-code">method snapshot ( N-Object() $context, N-Object() $widget, N-Object() $snapshot, N-Object $background-area, N-Object $cell-area, UInt $flags, Bool() $paint-focus )
-</pre><ul>
-<li><p>$context; the <strong>Gnome::Gtk4::CellArea</strong>Context for this row of data..</p></li>
-<li><p>$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> that <code>$area</code> is rendering to.</p></li>
-<li><p>$snapshot; the <a href="/content-docs/api2/reference/Gtk4/Snapshot.html">Gnome::Gtk4::Snapshot</a> to draw to.</p></li>
-<li><p>$background-area; the <code>$widget</code> relative coordinates for <code>$area</code>’s background</p></li>
-<li><p>$cell-area; the <code>$widget</code> relative coordinates for <code>$area</code></p></li>
-<li><p>$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a>State for <code>$area</code> in this row..</p></li>
-<li><p>$paint-focus; whether <code>$area</code> should paint focus on focused cells for focused rows or not..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="stop-editing"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">stop-editing</a></h2>
-<p><strong>Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</strong></p><p>Explicitly stops the editing of the currently edited cell.</p><p>If <code>$canceled</code> is <code>True</code>, the currently edited cell renderer will emit the <em>editing-canceled</em> signal, otherwise the the <em>editing-done</em> signal will be emitted on the current edit widget.</p><p>See <code>.get-edited-cell()</code> and <code>.get-edit-widget()</code>.</p><pre class="pod-block-code">method stop-editing ( Bool() $canceled )
-</pre><ul>
-<li><p>$canceled; whether editing was canceled..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">Signals</a></h1>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id="add-editable"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">add-editable</a></h3>
-<p>Indicates that editing has started on <code>$renderer</code> and that <code>$editable</code> should be added to the owning cell-layouting widget at <code>$cell-area</code>.</p><pre class="pod-block-code">method handler (
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::CellArea"></div><h1 class="title">Gnome::Gtk4::CellArea</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Requesting_area_sizes">Requesting area sizes</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Rendering_Areas">Rendering Areas</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Handling_Events_and_Driving_Keyboard_Focus">Handling Events and Driving Keyboard Focus</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Cell_Properties">Cell Properties</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#activate">activate</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#activate-cell">activate-cell</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add">add</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-focus-sibling">add-focus-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-with-properties">add-with-properties</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#apply-attributes">apply-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#attribute-connect">attribute-connect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#attribute-disconnect">attribute-disconnect</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#attribute-get-column">attribute-get-column</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-get">cell-get</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-get-property">cell-get-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-get-valist">cell-get-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-set">cell-set</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-set-property">cell-set-property</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cell-set-valist">cell-set-valist</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy-context">copy-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#create-context">create-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#event">event</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#focus">focus</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#foreach">foreach</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#foreach-alloc">foreach-alloc</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-cell-allocation">get-cell-allocation</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-cell-at-position">get-cell-at-position</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-path-string">get-current-path-string</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-edit-widget">get-edit-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-edited-cell">get-edited-cell</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-focus-cell">get-focus-cell</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-focus-from-sibling">get-focus-from-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-focus-siblings">get-focus-siblings</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-preferred-height">get-preferred-height</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-preferred-height-for-width">get-preferred-height-for-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-preferred-width">get-preferred-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-preferred-width-for-height">get-preferred-width-for-height</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-request-mode">get-request-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#has-renderer">has-renderer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#inner-cell-area">inner-cell-area</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-activatable">is-activatable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-focus-sibling">is-focus-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove">remove</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-focus-sibling">remove-focus-sibling</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#request-renderer">request-renderer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-focus-cell">set-focus-cell</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#snapshot">snapshot</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#stop-editing">stop-editing</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#add-editable">add-editable</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#apply-attributes_0">apply-attributes</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#focus-changed">focus-changed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#remove-editable">remove-editable</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>An abstract class for laying out <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>s </p>
+
+<p>The <span class="basis">Gnome::Gtk4::CellArea</span> is an abstract class for <a href="/content-docs/api2/reference/Gnome::Gtk4::R-CellLayout">Gnome::Gtk4::CellAreaBox</a> widgets (also referred to as &quot;layouting widgets&quot;) to interface with an arbitrary number of <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>s and interact with the user for a given <a href="/content-docs/api2/reference/Gnome::Gtk4::R-TreeModel">Gnome::Gtk4::CellAreaBox</a> row. </p>
+
+<p id="Para">The cell area handles events, focus navigation, drawing and size requests and allocations for a given row of data.</p>
+
+<p>Usually users dont have to interact with the <span class="basis">Gnome::Gtk4::CellArea</span> directly unless they are implementing a cell-layouting widget themselves. </p>
+
+<div class="id-target" id="Requesting area sizes"></div><h3 id="Requesting_area_sizes" class="heading "><a href="#" title="go to top of document">Requesting area sizes</a><a class="raku-anchor" title="direct link" href="#Requesting area sizes">§</a></h3>
+
+<p>As outlined in [GtkWidget’s geometry management section](class.Widget.html#height-for-width-geometry-management), GTK uses a height-for-width geometry management system to compute the sizes of widgets and user interfaces. <span class="basis">Gnome::Gtk4::CellArea</span> uses the same semantics to calculate the size of an area for an arbitrary number of <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> rows. </p>
+
+<p>When requesting the size of a cell area one needs to calculate the size for a handful of rows, and this will be done differently by different layouting widgets. For instance a <a href="/content-docs/api2/reference/Gtk4/TreeViewColumn">Gnome::Gtk4::TreeViewColumn</a> always lines up the areas from top to bottom while a <a href="/content-docs/api2/reference/Gtk4/IconView">Gnome::Gtk4::IconView</a> on the other hand might enforce that all areas received the same width and wrap the areas around, requesting height for more cell areas when allocated less width. </p>
+
+<p>It’s also important for areas to maintain some cell alignments with areas rendered for adjacent rows (cells can appear “columnized” inside an area even when the size of cells are different in each row). For this reason the <span class="basis">Gnome::Gtk4::CellArea</span> uses a <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> object to store the alignments and sizes along the way (as well as the overall largest minimum and natural size for all the rows which have been calculated with the said context). </p>
+
+<p>The <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> is an opaque object specific to the <span class="basis">Gnome::Gtk4::CellArea</span> which created it (see <a href="#create-context">.create-context()</a>). </p>
+
+<p>The owning cell-layouting widget can create as many contexts as it wishes to calculate sizes of rows which should receive the same size in at least one orientation (horizontally or vertically), However, it’s important that the same <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> which was used to request the sizes for a given <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> row be used when rendering or processing events for that row. </p>
+
+<p>In order to request the width of all the rows at the root level of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> one would do the following: </p>
+
+<p>Note that in this example it’s not important to observe the returned minimum and natural width of the area for each row unless the cell-layouting object is actually interested in the widths of individual rows. The overall width is however stored in the accompanying <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> object and can be consulted at any time. </p>
+
+<p>This can be useful since <a href="/content-docs/api2/reference/Gtk4/R-CellLayout">Gnome::Gtk4::R-CellLayout</a> widgets usually have to support requesting and rendering rows in treemodels with an exceedingly large amount of rows. The <a href="/content-docs/api2/reference/Gtk4/R-CellLayout">Gnome::Gtk4::R-CellLayout</a> widget in that case would calculate the required width of the rows in an idle or timeout source (see <a href="/content-docs/api2/reference/GLib/T-cellarea#timeout-add">.timeout-add().timeout-add() in package Gnome::GLib</a>) and when the widget is requested its actual width in [vfunc <span class="code">$Gtk</span>.Widget.measure] it can simply consult the width accumulated so far in the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> object. </p>
+
+<p id="Para_0">A simple example where rows are rendered from top to bottom and take up the full width of the layouting widget would look like:</p>
+
+<p>In the above example the <span class="basis">Foo</span> widget has to make sure that some row sizes have been calculated (the amount of rows that <span class="basis">Foo</span> judged was appropriate to request space for in a single timeout iteration) before simply returning the amount of space required by the area via the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a>. </p>
+
+<p>Requesting the height for width (or width for height) of an area is a similar task except in this case the <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a> does not store the data (actually, it does not know how much space the layouting widget plans to allocate it for every row. It’s up to the layouting widget to render each row of data with the appropriate height and width which was requested by the <span class="basis">Gnome::Gtk4::CellArea</span>). </p>
+
+<p>In order to request the height for width of all the rows at the root level of a <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> one would do the following: </p>
+
+<p id="Para_1">Note that in the above example we would need to cache the heights returned for each row so that we would know what sizes to render the areas for each row. However we would only want to really cache the heights if the request is intended for the layouting widgets real allocation.</p>
+
+<p>In some cases the layouting widget is requested the height for an arbitrary for_width, this is a special case for layouting widgets who need to request size for tens of thousands of rows. For this case it’s only important that the layouting widget calculate one reasonably sized chunk of rows and return that height synchronously. The reasoning here is that any layouting widget is at least capable of synchronously calculating enough height to fill the screen height (or scrolled window height) in response to a single call to [vfunc <span class="code">$Gtk</span>.Widget.measure]. Returning a perfect height for width that is larger than the screen area is inconsequential since after the layouting receives an allocation from a scrolled window it simply continues to drive the scrollbar values while more and more height is required for the row heights that are calculated in the background. </p>
+
+<div class="id-target" id="Rendering Areas"></div><h3 id="Rendering_Areas" class="heading "><a href="#" title="go to top of document">Rendering Areas</a><a class="raku-anchor" title="direct link" href="#Rendering Areas">§</a></h3>
+
+<p>Once area sizes have been acquired at least for the rows in the visible area of the layouting widget they can be rendered at [vfunc <span class="code">$Gtk</span>.Widget.snapshot] time. </p>
+
+<p id="Para_2">A crude example of how to render all the rows at the root level runs as follows:</p>
+
+<p>Note that the cached height in this example really depends on how the layouting widget works. The layouting widget might decide to give every row its minimum or natural height or, if the model content is expected to fit inside the layouting widget without scrolling, it would make sense to calculate the allocation for each row at the time the widget is allocated using <a href="/content-docs/api2/reference/Gtk4/T-cellarea#distribute-natural-allocation">.distribute-natural-allocation().distribute-natural-allocation() in package Gnome::Gtk4</a>. </p>
+
+<div class="id-target" id="Handling Events and Driving Keyboard Focus"></div><h3 id="Handling_Events_and_Driving_Keyboard_Focus" class="heading "><a href="#" title="go to top of document">Handling Events and Driving Keyboard Focus</a><a class="raku-anchor" title="direct link" href="#Handling Events and Driving Keyboard Focus">§</a></h3>
+
+<p>Passing events to the area is as simple as handling events on any normal widget and then passing them to the <a href="#event">.event()</a> API as they come in. Usually <span class="basis">Gnome::Gtk4::CellArea</span> is only interested in button events, however some customized derived areas can be implemented who are interested in handling other events. Handling an event can trigger the <span class="important">focus-changed</span> signal to fire; as well as <span class="important">add-editable</span> in the case that an editable cell was clicked and needs to start editing. You can call <a href="#stop-editing">.stop-editing()</a> at any time to cancel any cell editing that is currently in progress. </p>
+
+<p>The <span class="basis">Gnome::Gtk4::CellArea</span> drives keyboard focus from cell to cell in a way similar to <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>. For layouting widgets that support giving focus to cells it’s important to remember to pass <span class="basis">GTK_CELL_RENDERER_FOCUSED</span> to the area functions for the row that has focus and to tell the area to paint the focus at render time. </p>
+
+<p>Layouting widgets that accept focus on cells should implement the [vfunc <span class="code">$Gtk</span>.Widget.focus] virtual method. The layouting widget is always responsible for knowing where <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> rows are rendered inside the widget, so at [vfunc <span class="code">$Gtk</span>.Widget.focus] time the layouting widget should use the <span class="basis">Gnome::Gtk4::CellArea</span> methods to navigate focus inside the area and then observe the enumeration <span class="code">DirectionType</span> from <span class="code">Gnome::Gtk4::T-enums</span>  to pass the focus to adjacent rows and areas. </p>
+
+<p>A basic example of how the [vfunc <span class="code">$Gtk</span>.Widget.focus] virtual method should be implemented: </p>
+
+<p>Note that the layouting widget is responsible for matching the <span class="code">enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</span> values to the way it lays out its cells. </p>
+
+<div class="id-target" id="Cell Properties"></div><h3 id="Cell_Properties" class="heading "><a href="#" title="go to top of document">Cell Properties</a><a class="raku-anchor" title="direct link" href="#Cell Properties">§</a></h3>
+
+<p>The <span class="basis">Gnome::Gtk4::CellArea</span> introduces cell properties for <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>s. This provides some general interfaces for defining the relationship cell areas have with their cells. For instance in a <a href="/content-docs/api2/reference/Gtk4/CellAreaBox">Gnome::Gtk4::CellAreaBox</a> a cell might “expand” and receive extra space when the area is allocated more than its full natural request, or a cell might be configured to “align” with adjacent rows which were requested and rendered with the same <a href="/content-docs/api2/reference/Gtk4/CellAreaContext">Gnome::Gtk4::CellAreaContext</a>. </p>
+
+<p>Use <a href="/content-docs/api2/reference/Gtk4/CellAreaClass#install-cell-property">.install-cell-property() in class CellAreaClass</a> to install cell properties for a cell area class and <a href="/content-docs/api2/reference/Gtk4/CellAreaClass#find-cell-property">.find-cell-property() in class CellAreaClass</a> or <a href="/content-docs/api2/reference/Gtk4/CellAreaClass#list-cell-properties">.list-cell-properties() in class CellAreaClass</a> to get information about existing cell properties. </p>
+
+<p>To set the value of a cell property, use <a href="#cell-set-property">.cell-set-property()</a>, <a href="#cell-set">.cell-set()</a> or <a href="#cell-set-valist">.cell-set-valist()</a>. To obtain the value of a cell property, use <a href="#cell-get-property">.cell-get-property()</a> <a href="#cell-get">.cell-get()</a> or <a href="#cell-get-valist">.cell-get-valist()</a>. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/CellArea.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+
+<p><span class="basis">Note: The native version of this class is deprecated in gtk4-lib() since version 4.10</span> </p>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Activates <span class="code">$area</span>, usually by activating the currently focused cell, however some subclasses which embed widgets in the area can also activate a widget if it currently has the focus. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method activate ( N-Object() $context, N-Object() $widget, N-Object $cell-area, UInt $flags, Bool() $edit-only --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context in context with the current row data.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering on.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the size and location of <span class="code">$area</span> relative to <span class="code">$widget</span>’s allocation</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>State flags for <span class="code">$area</span> for this row of data..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$edit-only; if <span class="code">True</span> then only cell renderers that are <span class="code">GTK_CELL_RENDERER_MODE_EDITABLE</span> will be activated..</li>
+</ul>
+
+<p>Return value; Whether <span class="code">$area</span> was successfully activated.. </p>
+<h2 id="activate-cell" class="heading "><a href="#" title="go to top of document">activate-cell</a><a class="raku-anchor" title="direct link" href="#activate-cell">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>This is used by <span class="basis">Gnome::Gtk4::CellArea</span> subclasses when handling events to activate cells, the base <span class="basis">Gnome::Gtk4::CellArea</span> class activates cells for keyboard events for free in its own GtkCellArea-&gt;activate() implementation. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method activate-cell ( N-Object() $widget, N-Object() $renderer, N-Object() $event, N-Object $cell-area, UInt $flags --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering onto.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> in <span class="code">$area</span> to activate.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$event; the <a href="/content-docs/api2/reference/Gdk4/Event">Gnome::Gdk4::Event</a> for which cell activation should occur.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <span class="basis">Gnome::Gdk4::N-Rectangle</span> in <span class="code">$widget</span> relative coordinates of <span class="code">$renderer</span> for the current row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>State for <span class="code">$renderer</span>.</li>
+</ul>
+
+<p id="Para_3">Return value; whether cell activation was successful.</p>
+<h2 id="add" class="heading "><a href="#" title="go to top of document">add</a><a class="raku-anchor" title="direct link" href="#add">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds <span class="code">$renderer</span> to <span class="code">$area</span> with the default child cell properties. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add ( N-Object() $renderer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to add to <span class="code">$area</span>.</li>
+</ul>
+<h2 id="add-focus-sibling" class="heading "><a href="#" title="go to top of document">add-focus-sibling</a><a class="raku-anchor" title="direct link" href="#add-focus-sibling">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds <span class="code">$sibling</span> to <span class="code">$renderer</span>’s focusable area, focus will be drawn around <span class="code">$renderer</span> and all of its siblings if <span class="code">$renderer</span> can focus for a given row. </p>
+
+<p>Events handled by focus siblings can also activate the given focusable <span class="code">$renderer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-focus-sibling ( N-Object() $renderer, N-Object() $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> expected to have focus.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to add to <span class="code">$renderer</span>’s focus area.</li>
+</ul>
+<h2 id="add-with-properties" class="heading "><a href="#" title="go to top of document">add-with-properties</a><a class="raku-anchor" title="direct link" href="#add-with-properties">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Adds <span class="code">$renderer</span> to <span class="code">$area</span>, setting cell properties at the same time. See <span class="code">.add()</span> and <span class="code">.cell-set()</span> for more details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-with-properties ( N-Object() $renderer, Str $first-prop-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to be placed inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-prop-name; the name of the first cell property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="apply-attributes" class="heading "><a href="#" title="go to top of document">apply-attributes</a><a class="raku-anchor" title="direct link" href="#apply-attributes">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Applies any connected attributes to the renderers in <span class="code">$area</span> by pulling the values from <span class="code">$tree-model</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method apply-attributes ( N-Object() $tree-model, N-Object $iter, Bool() $is-expander, Bool() $is-expanded )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tree-model; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> to pull values from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span> in <span class="code">$tree-model</span> to apply values for</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$is-expander; whether <span class="code">$iter</span> has children.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$is-expanded; whether <span class="code">$iter</span> is expanded in the view and children are visible.</li>
+</ul>
+<h2 id="attribute-connect" class="heading "><a href="#" title="go to top of document">attribute-connect</a><a class="raku-anchor" title="direct link" href="#attribute-connect">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Connects an <span class="code">$attribute</span> to apply values from <span class="code">$column</span> for the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> in use. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method attribute-connect ( N-Object() $renderer, Str $attribute, Int() $column )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to connect an attribute for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$attribute; the attribute name.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$column; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> column to fetch attribute values from.</li>
+</ul>
+<h2 id="attribute-disconnect" class="heading "><a href="#" title="go to top of document">attribute-disconnect</a><a class="raku-anchor" title="direct link" href="#attribute-disconnect">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Disconnects <span class="code">$attribute</span> for the <span class="code">$renderer</span> in <span class="code">$area</span> so that attribute will no longer be updated with values from the model. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method attribute-disconnect ( N-Object() $renderer, Str $attribute )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to disconnect an attribute for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$attribute; the attribute name.</li>
+</ul>
+<h2 id="attribute-get-column" class="heading "><a href="#" title="go to top of document">attribute-get-column</a><a class="raku-anchor" title="direct link" href="#attribute-get-column">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_4">Returns the model column that an attribute has been mapped to, or -1 if the attribute is not mapped.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method attribute-get-column ( N-Object() $renderer, Str $attribute --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$attribute; an attribute on the renderer.</li>
+</ul>
+
+<p id="Para_5">Return value; the model column, or -1.</p>
+<h2 id="cell-get" class="heading "><a href="#" title="go to top of document">cell-get</a><a class="raku-anchor" title="direct link" href="#cell-get">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the values of one or more cell properties for <span class="code">$renderer</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-get ( N-Object() $renderer, Str $first-prop-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> which is inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-prop-name; the name of the first cell property to get.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="cell-get-property" class="heading "><a href="#" title="go to top of document">cell-get-property</a><a class="raku-anchor" title="direct link" href="#cell-get-property">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the value of a cell property for <span class="code">$renderer</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-get-property ( N-Object() $renderer, Str $property-name, N-Object $value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$property-name; the name of the property to get.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; a location to return the value</li>
+</ul>
+<h2 id="cell-get-valist" class="heading "><a href="#" title="go to top of document">cell-get-valist</a><a class="raku-anchor" title="direct link" href="#cell-get-valist">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the values of one or more cell properties for <span class="code">$renderer</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-get-valist ( N-Object() $renderer, Str $first-property-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-property-name; the name of the first property to get.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >var-args; return location for the first property, followed optionally by more name/return location pairs, followed by undefined. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="cell-set" class="heading "><a href="#" title="go to top of document">cell-set</a><a class="raku-anchor" title="direct link" href="#cell-set">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets one or more cell properties for <span class="code">$cell</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-set ( N-Object() $renderer, Str $first-prop-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> which is a cell inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-prop-name; the name of the first cell property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="cell-set-property" class="heading "><a href="#" title="go to top of document">cell-set-property</a><a class="raku-anchor" title="direct link" href="#cell-set-property">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets a cell property for <span class="code">$renderer</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-set-property ( N-Object() $renderer, Str $property-name, N-Object $value )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$property-name; the name of the cell property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; the value to set the cell property to</li>
+</ul>
+<h2 id="cell-set-valist" class="heading "><a href="#" title="go to top of document">cell-set-valist</a><a class="raku-anchor" title="direct link" href="#cell-set-valist">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Sets one or more cell properties for <span class="code">$renderer</span> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cell-set-valist ( N-Object() $renderer, Str $first-property-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; a <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> which inside <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-property-name; the name of the first cell property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >var-args; a undefined-terminated list of property names and values, starting with <span class="code">$first-prop-name</span>. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="copy-context" class="heading "><a href="#" title="go to top of document">copy-context</a><a class="raku-anchor" title="direct link" href="#copy-context">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_6">This is sometimes needed for cases where rows need to share alignments in one orientation but may be separately grouped in the opposing orientation.</p>
+
+<p>For instance, <a href="/content-docs/api2/reference/Gtk4/IconView">Gnome::Gtk4::IconView</a> creates all icons (rows) to have the same width and the cells theirin to have the same horizontal alignments. However each row of icons may have a separate collective height. <a href="/content-docs/api2/reference/Gtk4/IconView">Gnome::Gtk4::IconView</a> uses this to request the heights of each row based on a context which was already used to request all the row widths that are to be displayed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy-context ( N-Object() $context --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context to copy.</li>
+</ul>
+
+<p>Return value; a newly created <span class="basis">Gnome::Gtk4::CellArea</span>Context copy of <span class="code">$context</span>.. </p>
+<h2 id="create-context" class="heading "><a href="#" title="go to top of document">create-context</a><a class="raku-anchor" title="direct link" href="#create-context">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Creates a <span class="basis">Gnome::Gtk4::CellArea</span>Context to be used with <span class="code">$area</span> for all purposes. <span class="basis">Gnome::Gtk4::CellArea</span>Context stores geometry information for rows for which it was operated on, it is important to use the same context for the same row of data at all times (i.e. one should render and handle events with the same <span class="basis">Gnome::Gtk4::CellArea</span>Context which was used to request the size of those rows of data). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method create-context (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a newly created <span class="basis">Gnome::Gtk4::CellArea</span>Context which can be used with <span class="code">$area</span>.. </p>
+<h2 id="event" class="heading "><a href="#" title="go to top of document">event</a><a class="raku-anchor" title="direct link" href="#event">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Delegates event handling to a <span class="basis">Gnome::Gtk4::CellArea</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method event ( N-Object() $context, N-Object() $widget, N-Object() $event, N-Object $cell-area, UInt $flags --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context for this row of data..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$event; the <a href="/content-docs/api2/reference/Gdk4/Event">Gnome::Gdk4::Event</a> to handle.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <span class="code">$widget</span> relative coordinates for <span class="code">$area</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>State for <span class="code">$area</span> in this row..</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the event was handled by <span class="code">$area</span>.. </p>
+<h2 id="focus" class="heading "><a href="#" title="go to top of document">focus</a><a class="raku-anchor" title="direct link" href="#focus">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>This should be called by the <span class="code">$area</span>’s owning layout widget when focus is to be passed to <span class="code">$area</span>, or moved within <span class="code">$area</span> for a given <span class="code">$direction</span> and row data. </p>
+
+<p>Implementing <span class="basis">Gnome::Gtk4::CellArea</span> classes should implement this method to receive and navigate focus in its own way particular to how it lays out cells. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method focus ( GtkDirectionType $direction --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$direction; the <span class="code">enumeration GtkDirectionType defined in Gnome::Gtk4::T-enums</span>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if focus remains inside <span class="code">$area</span> as a result of this call.. </p>
+<h2 id="foreach" class="heading "><a href="#" title="go to top of document">foreach</a><a class="raku-anchor" title="direct link" href="#foreach">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Calls <span class="code">$callback</span> for every <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> in <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method foreach ( GtkCellCallback &amp;callback, gpointer $callback-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >GtkCellCallback &amp;callback; the <span class="basis">Gnome::Gtk4::T-cellarea</span> to call. The function must be specified with the following signature; <span class="code">:( N-Object $renderer, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$callback-data; user provided data pointer.</li>
+</ul>
+<h2 id="foreach-alloc" class="heading "><a href="#" title="go to top of document">foreach-alloc</a><a class="raku-anchor" title="direct link" href="#foreach-alloc">§</a></h2>
+
+<p>Calls <span class="code">$callback</span> for every <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> in <span class="code">$area</span> with the allocated rectangle inside <span class="code">$cell-area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method foreach-alloc ( N-Object() $context, N-Object() $widget, N-Object $cell-area, N-Object $background-area, GtkCellAllocCallback &amp;callback, gpointer $callback-data )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context for this row of data..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <span class="code">$widget</span> relative coordinates and size for <span class="code">$area</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$background-area; the <span class="code">$widget</span> relative coordinates of the background area</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >GtkCellAllocCallback &amp;callback; the <span class="basis">Gnome::Gtk4::T-cellarea</span> to call. The function must be specified with the following signature; <span class="code">:( N-Object $renderer, N-Object $cell-area, N-Object $cell-background, gpointer $data )</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$callback-data; user provided data pointer.</li>
+</ul>
+<h2 id="get-cell-allocation" class="heading "><a href="#" title="go to top of document">get-cell-allocation</a><a class="raku-anchor" title="direct link" href="#get-cell-allocation">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Derives the allocation of <span class="code">$renderer</span> inside <span class="code">$area</span> if <span class="code">$area</span> were to be rendered in <span class="code">$cell-area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-cell-allocation ( N-Object() $context, N-Object() $widget, N-Object() $renderer, N-Object $cell-area, N-Object $allocation )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context used to hold sizes for <span class="code">$area</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering on.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to get the allocation for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the whole allocated area for <span class="code">$area</span> in <span class="code">$widget</span> for this row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$allocation; where to store the allocation for <span class="code">$renderer</span></li>
+</ul>
+<h2 id="get-cell-at-position" class="heading "><a href="#" title="go to top of document">get-cell-at-position</a><a class="raku-anchor" title="direct link" href="#get-cell-at-position">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> at <span class="code">$x</span> and <span class="code">$y</span> coordinates inside <span class="code">$area</span> and optionally returns the full cell allocation for it inside <span class="code">$cell-area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-cell-at-position ( N-Object() $context, N-Object() $widget, N-Object $cell-area, Int() $x, Int() $y, N-Object $alloc-area --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context used to hold sizes for <span class="code">$area</span>..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering on.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the whole allocated area for <span class="code">$area</span> in <span class="code">$widget</span> for this row</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; the x position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the y position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$alloc-area; where to store the inner allocated area of the returned cell renderer</li>
+</ul>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> at <span class="code">$x</span> and <span class="code">$y</span>.. </p>
+<h2 id="get-current-path-string" class="heading "><a href="#" title="go to top of document">get-current-path-string</a><a class="raku-anchor" title="direct link" href="#get-current-path-string">§</a></h2>
+
+<p>Gets the current <span class="basis">Gnome::Gtk4::N-TreePath</span> string for the currently applied <span class="basis">Gnome::Gtk4::N-TreeIter</span>, this is implicitly updated when <span class="code">.apply-attributes()</span> is called and can be used to interact with renderers from <span class="basis">Gnome::Gtk4::CellArea</span> subclasses. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-path-string (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The current <span class="basis">Gnome::Gtk4::N-TreePath</span> string for the current attributes applied to <span class="code">$area</span>. This string belongs to the area and should not be freed.. </p>
+<h2 id="get-edit-widget" class="heading "><a href="#" title="go to top of document">get-edit-widget</a><a class="raku-anchor" title="direct link" href="#get-edit-widget">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable">Gnome::Gtk4::R-CellEditable</a> widget currently used to edit the currently edited cell. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-edit-widget (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The currently active <a href="/content-docs/api2/reference/Gtk4/R-CellEditable">Gnome::Gtk4::R-CellEditable</a> widget. </p>
+<h2 id="get-edited-cell" class="heading "><a href="#" title="go to top of document">get-edited-cell</a><a class="raku-anchor" title="direct link" href="#get-edited-cell">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> in <span class="code">$area</span> that is currently being edited. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-edited-cell (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The currently edited <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>. </p>
+<h2 id="get-focus-cell" class="heading "><a href="#" title="go to top of document">get-focus-cell</a><a class="raku-anchor" title="direct link" href="#get-focus-cell">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Retrieves the currently focused cell for <span class="code">$area</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-focus-cell (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the currently focused cell in <span class="code">$area</span>.. </p>
+<h2 id="get-focus-from-sibling" class="heading "><a href="#" title="go to top of document">get-focus-from-sibling</a><a class="raku-anchor" title="direct link" href="#get-focus-from-sibling">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> which is expected to be focusable for which <span class="code">$renderer</span> is, or may be a sibling. </p>
+
+<p>This is handy for <span class="basis">Gnome::Gtk4::CellArea</span> subclasses when handling events, after determining the renderer at the event location it can then chose to activate the focus cell for which the event cell may have been a sibling. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-focus-from-sibling ( N-Object() $renderer --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>.</li>
+</ul>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> for which <span class="code">$renderer</span> is a sibling. </p>
+<h2 id="get-focus-siblings" class="heading "><a href="#" title="go to top of document">get-focus-siblings</a><a class="raku-anchor" title="direct link" href="#get-focus-siblings">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Gets the focus sibling cell renderers for <span class="code">$renderer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-focus-siblings ( N-Object() $renderer --&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> expected to have focus.</li>
+</ul>
+
+<p>Return value; A <span class="basis">Gnome::Glib::N-List</span> of <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>s. The returned list is internal and should not be freed.. </p>
+<h2 id="get-preferred-height" class="heading "><a href="#" title="go to top of document">get-preferred-height</a><a class="raku-anchor" title="direct link" href="#get-preferred-height">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Retrieves a cell area’s initial minimum and natural height. <span class="code">$area</span> will store some geometrical information in <span class="code">$context</span> along the way; when requesting sizes over an arbitrary number of rows, it’s not important to check the <span class="code">$minimum-height</span> and <span class="code">$natural-height</span> of this call but rather to consult <span class="code">.context-get-preferred-height()</span> after a series of requests. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-preferred-height ( N-Object() $context, N-Object() $widget, Array[Int] $minimum-height, Array[Int] $natural-height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context to perform this request with.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> where <span class="code">$area</span> will be rendering.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$minimum-height; (transfer ownership: full) location to store the minimum height.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$natural-height; (transfer ownership: full) location to store the natural height.</li>
+</ul>
+<h2 id="get-preferred-height-for-width" class="heading "><a href="#" title="go to top of document">get-preferred-height-for-width</a><a class="raku-anchor" title="direct link" href="#get-preferred-height-for-width">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Retrieves a cell area’s minimum and natural height if it would be given the specified <span class="code">$width</span>. <span class="code">$area</span> stores some geometrical information in <span class="code">$context</span> along the way while calling <span class="code">.get-preferred-width()</span>. It’s important to perform a series of <span class="code">.get-preferred-width()</span> requests with <span class="code">$context</span> first and then call <span class="code">.get-preferred-height-for-width()</span> on each cell area individually to get the height for width of each fully requested row. </p>
+
+<p>If at some point, the width of a single row changes, it should be requested with <span class="code">.get-preferred-width()</span> again and then the full width of the requested rows checked again with <span class="code">.context-get-preferred-width()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-preferred-height-for-width ( N-Object() $context, N-Object() $widget, Int() $width, Array[Int] $minimum-height, Array[Int] $natural-height )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context which has already been requested for widths..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> where <span class="code">$area</span> will be rendering.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$width; the width for which to check the height of this area.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$minimum-height; (transfer ownership: full) location to store the minimum height.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$natural-height; (transfer ownership: full) location to store the natural height.</li>
+</ul>
+<h2 id="get-preferred-width" class="heading "><a href="#" title="go to top of document">get-preferred-width</a><a class="raku-anchor" title="direct link" href="#get-preferred-width">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Retrieves a cell area’s initial minimum and natural width. <span class="code">$area</span> will store some geometrical information in <span class="code">$context</span> along the way; when requesting sizes over an arbitrary number of rows, it’s not important to check the <span class="code">$minimum-width</span> and <span class="code">$natural-width</span> of this call but rather to consult <span class="code">.context-get-preferred-width()</span> after a series of requests. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-preferred-width ( N-Object() $context, N-Object() $widget, Array[Int] $minimum-width, Array[Int] $natural-width )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context to perform this request with.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> where <span class="code">$area</span> will be rendering.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$minimum-width; (transfer ownership: full) location to store the minimum width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$natural-width; (transfer ownership: full) location to store the natural width.</li>
+</ul>
+<h2 id="get-preferred-width-for-height" class="heading "><a href="#" title="go to top of document">get-preferred-width-for-height</a><a class="raku-anchor" title="direct link" href="#get-preferred-width-for-height">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Retrieves a cell area’s minimum and natural width if it would be given the specified <span class="code">$height</span>. <span class="code">$area</span> stores some geometrical information in <span class="code">$context</span> along the way while calling <span class="code">.get-preferred-height()</span>. It’s important to perform a series of <span class="code">.get-preferred-height()</span> requests with <span class="code">$context</span> first and then call <span class="code">.get-preferred-width-for-height()</span> on each cell area individually to get the height for width of each fully requested row. </p>
+
+<p>If at some point, the height of a single row changes, it should be requested with <span class="code">.get-preferred-height()</span> again and then the full height of the requested rows checked again with <span class="code">.context-get-preferred-height()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-preferred-width-for-height ( N-Object() $context, N-Object() $widget, Int() $height, Array[Int] $minimum-width, Array[Int] $natural-width )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context which has already been requested for widths..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> where <span class="code">$area</span> will be rendering.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$height; the height for which to check the width of this area.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$minimum-width; (transfer ownership: full) location to store the minimum width.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$natural-width; (transfer ownership: full) location to store the natural width.</li>
+</ul>
+<h2 id="get-request-mode" class="heading "><a href="#" title="go to top of document">get-request-mode</a><a class="raku-anchor" title="direct link" href="#get-request-mode">§</a></h2>
+
+<p id="Para_7">Gets whether the area prefers a height-for-width layout or a width-for-height layout.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-request-mode (--&gt; GtkSizeRequestMode )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; The <span class="code">enumeration GtkSizeRequestMode defined in Gnome::Gtk4::T-enums</span> preferred by <span class="code">$area</span>.. </p>
+<h2 id="has-renderer" class="heading "><a href="#" title="go to top of document">has-renderer</a><a class="raku-anchor" title="direct link" href="#has-renderer">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Checks if <span class="code">$area</span> contains <span class="code">$renderer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method has-renderer ( N-Object() $renderer --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to check.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$renderer</span> is in the <span class="code">$area</span>.. </p>
+<h2 id="inner-cell-area" class="heading "><a href="#" title="go to top of document">inner-cell-area</a><a class="raku-anchor" title="direct link" href="#inner-cell-area">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>This is a convenience function for <span class="basis">Gnome::Gtk4::CellArea</span> implementations to get the inner area where a given <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> will be rendered. It removes any padding previously added by <span class="code">.request-renderer()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method inner-cell-area ( N-Object() $widget, N-Object $cell-area, N-Object $inner-area )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering onto.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <span class="code">$widget</span> relative coordinates where one of <span class="code">$area</span>’s cells is to be placed</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$inner-area; the return location for the inner cell area</li>
+</ul>
+<h2 id="is-activatable" class="heading "><a href="#" title="go to top of document">is-activatable</a><a class="raku-anchor" title="direct link" href="#is-activatable">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns whether the area can do anything when activated, after applying new attributes to <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-activatable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; whether <span class="code">$area</span> can do anything when activated.. </p>
+<h2 id="is-focus-sibling" class="heading "><a href="#" title="go to top of document">is-focus-sibling</a><a class="raku-anchor" title="direct link" href="#is-focus-sibling">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Returns whether <span class="code">$sibling</span> is one of <span class="code">$renderer</span>’s focus siblings (see <span class="code">.add-focus-sibling()</span>). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-focus-sibling ( N-Object() $renderer, N-Object() $sibling --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> expected to have focus.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to check against <span class="code">$renderer</span>’s sibling list.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if <span class="code">$sibling</span> is a focus sibling of <span class="code">$renderer</span>. </p>
+<h2 id="remove" class="heading "><a href="#" title="go to top of document">remove</a><a class="raku-anchor" title="direct link" href="#remove">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes <span class="code">$renderer</span> from <span class="code">$area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove ( N-Object() $renderer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to remove from <span class="code">$area</span>.</li>
+</ul>
+<h2 id="remove-focus-sibling" class="heading "><a href="#" title="go to top of document">remove-focus-sibling</a><a class="raku-anchor" title="direct link" href="#remove-focus-sibling">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Removes <span class="code">$sibling</span> from <span class="code">$renderer</span>’s focus sibling list (see <span class="code">.add-focus-sibling()</span>). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-focus-sibling ( N-Object() $renderer, N-Object() $sibling )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> expected to have focus.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$sibling; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to remove from <span class="code">$renderer</span>’s focus area.</li>
+</ul>
+<h2 id="request-renderer" class="heading "><a href="#" title="go to top of document">request-renderer</a><a class="raku-anchor" title="direct link" href="#request-renderer">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>This is a convenience function for <span class="basis">Gnome::Gtk4::CellArea</span> implementations to request size for cell renderers. It’s important to use this function to request size and then use <span class="code">.inner-cell-area()</span> at render and event time since this function will add padding around the cell for focus painting. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method request-renderer ( N-Object() $renderer, GtkOrientation $orientation, N-Object() $widget, Int() $for-size, Array[Int] $minimum-size, Array[Int] $natural-size )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to request size for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$orientation; the <span class="code">enumeration GtkOrientation defined in Gnome::Gtk4::T-enums</span> in which to request size.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering onto.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$for-size; the allocation contextual size to request for, or -1 if the base request for the orientation is to be returned..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$minimum-size; (transfer ownership: full) location to store the minimum size.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$natural-size; (transfer ownership: full) location to store the natural size.</li>
+</ul>
+<h2 id="set-focus-cell" class="heading "><a href="#" title="go to top of document">set-focus-cell</a><a class="raku-anchor" title="direct link" href="#set-focus-cell">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Explicitly sets the currently focused cell to <span class="code">$renderer</span>. </p>
+
+<p>This is generally called by implementations of <span class="basis">GtkCellAreaClass</span>.focus()` or <span class="basis">GtkCellAreaClass</span>.event()`, however it can also be used to implement functions such as gtk_tree_view_set_cursor_on_cell(). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-focus-cell ( N-Object() $renderer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> to give focus to.</li>
+</ul>
+<h2 id="snapshot" class="heading "><a href="#" title="go to top of document">snapshot</a><a class="raku-anchor" title="direct link" href="#snapshot">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p>Snapshots <span class="code">$area</span>’s cells according to <span class="code">$area</span>’s layout onto at the given coordinates. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method snapshot ( N-Object() $context, N-Object() $widget, N-Object() $snapshot, N-Object $background-area, N-Object $cell-area, UInt $flags, Bool() $paint-focus )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$context; the <span class="basis">Gnome::Gtk4::CellArea</span>Context for this row of data..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$widget; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> that <span class="code">$area</span> is rendering to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$snapshot; the <a href="/content-docs/api2/reference/Gtk4/Snapshot">Gnome::Gtk4::Snapshot</a> to draw to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$background-area; the <span class="code">$widget</span> relative coordinates for <span class="code">$area</span>’s background</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <span class="code">$widget</span> relative coordinates for <span class="code">$area</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$flags; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a>State for <span class="code">$area</span> in this row..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$paint-focus; whether <span class="code">$area</span> should paint focus on focused cells for focused rows or not..</li>
+</ul>
+<h2 id="stop-editing" class="heading "><a href="#" title="go to top of document">stop-editing</a><a class="raku-anchor" title="direct link" href="#stop-editing">§</a></h2>
+
+<p><span class="basis">Note: The native version of this routine is deprecated in gtk4-lib() since version 4.10</span> </p>
+
+<p id="Para_8">Explicitly stops the editing of the currently edited cell.</p>
+
+<p>If <span class="code">$canceled</span> is <span class="code">True</span>, the currently edited cell renderer will emit the <span class="important">editing-canceled</span> signal, otherwise the the <span class="important">editing-done</span> signal will be emitted on the current edit widget. </p>
+
+<p>See <span class="code">.get-edited-cell()</span> and <span class="code">.get-edit-widget()</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method stop-editing ( Bool() $canceled )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$canceled; whether editing was canceled..</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="add-editable" class="heading "><a href="#" title="go to top of document">add-editable</a><a class="raku-anchor" title="direct link" href="#add-editable">§</a></h3>
+
+<p>Indicates that editing has started on <span class="code">$renderer</span> and that <span class="code">$editable</span> should be added to the owning cell-layouting widget at <span class="code">$cell-area</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $renderer,
   N-Object $editable,
    $cell-area,
@@ -479,19 +1260,26 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::CellArea :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> that started the edited.</p></li>
-<li><p>$editable; the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable.html">Gnome::Gtk4::R-CellEditable</a> widget to add.</p></li>
-<li><p>$cell-area; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> relative <strong>Gnome::Gdk4::N-Rectangle</strong> coordinates where <code>$editable</code> should be added.</p></li>
-<li><p>$path; the <strong>Gnome::Gtk4::N-TreePath</strong> string this edit was initiated for.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::CellArea</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> that started the edited.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$editable; the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable">Gnome::Gtk4::R-CellEditable</a> widget to add.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$cell-area; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> relative <span class="basis">Gnome::Gdk4::N-Rectangle</span> coordinates where <span class="code">$editable</span> should be added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$path; the <span class="basis">Gnome::Gtk4::N-TreePath</span> string this edit was initiated for.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::CellArea</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
 
-<h3 id="apply-attributes_0"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">apply-attributes</a></h3>
-<p>This signal is emitted whenever applying attributes to <code>$area</code> from <code>$model</code></p><pre class="pod-block-code">method handler (
+<div class="id-target" id="apply-attributes"></div><h3 id="apply-attributes_0" class="heading "><a href="#" title="go to top of document">apply-attributes</a><a class="raku-anchor" title="direct link" href="#apply-attributes">§</a></h3>
+
+<p>This signal is emitted whenever applying attributes to <span class="code">$area</span> from <span class="code">$model</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $model,
   N-Object $iter,
   gboolean $is-expander,
@@ -500,51 +1288,84 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::CellArea :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$model; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel.html">Gnome::Gtk4::R-TreeModel</a> to apply the attributes from.</p></li>
-<li><p>$iter; the <strong>Gnome::Gtk4::N-TreeIter</strong> indicating which row to apply the attributes of.</p></li>
-<li><p>$is-expander; whether the view shows children for this row.</p></li>
-<li><p>$is-expanded; whether the view is currently showing the children of this row.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::CellArea</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="focus-changed"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">focus-changed</a></h3>
-<p>Indicates that focus changed on this <code>$area</code>. This signal is emitted either as a result of focus handling or event handling.</p><p>It's possible that the signal is emitted even if the currently focused renderer did not change, this is because focus may change to the same renderer in the same cell area for a different row of data.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; the <a href="/content-docs/api2/reference/Gtk4/R-TreeModel">Gnome::Gtk4::R-TreeModel</a> to apply the attributes from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$iter; the <span class="basis">Gnome::Gtk4::N-TreeIter</span> indicating which row to apply the attributes of.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$is-expander; whether the view shows children for this row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$is-expanded; whether the view is currently showing the children of this row.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::CellArea</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="focus-changed" class="heading "><a href="#" title="go to top of document">focus-changed</a><a class="raku-anchor" title="direct link" href="#focus-changed">§</a></h3>
+
+<p>Indicates that focus changed on this <span class="code">$area</span>. This signal is emitted either as a result of focus handling or event handling. </p>
+
+<p id="Para_9">It's possible that the signal is emitted even if the currently focused renderer did not change, this is because focus may change to the same renderer in the same cell area for a different row of data.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $renderer,
   Str $path,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::CellArea :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> that has focus.</p></li>
-<li><p>$path; the current <strong>Gnome::Gtk4::N-TreePath</strong> string set for <code>$area</code>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::CellArea</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="remove-editable"><a href="#Gnome::Gtk4::CellArea" class="u" title="go to top of document">remove-editable</a></h3>
-<p>Indicates that editing finished on <code>$renderer</code> and that <code>$editable</code> should be removed from the owning cell-layouting widget.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> that has focus.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$path; the current <span class="basis">Gnome::Gtk4::N-TreePath</span> string set for <span class="code">$area</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::CellArea</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="remove-editable" class="heading "><a href="#" title="go to top of document">remove-editable</a><a class="raku-anchor" title="direct link" href="#remove-editable">§</a></h3>
+
+<p>Indicates that editing finished on <span class="code">$renderer</span> and that <span class="code">$editable</span> should be removed from the owning cell-layouting widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $renderer,
   N-Object $editable,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::CellArea :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer.html">Gnome::Gtk4::CellRenderer</a> that finished editeding.</p></li>
-<li><p>$editable; the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable.html">Gnome::Gtk4::R-CellEditable</a> widget to remove.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::CellArea</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$renderer; the <a href="/content-docs/api2/reference/Gtk4/CellRenderer">Gnome::Gtk4::CellRenderer</a> that finished editeding.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$editable; the <a href="/content-docs/api2/reference/Gtk4/R-CellEditable">Gnome::Gtk4::R-CellEditable</a> widget to remove.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::CellArea</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/CellArea.rakudoc</span></div><div>at <span class="time">2026-05-03T10:25:32Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/CellArea.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

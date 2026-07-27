@@ -1,403 +1,1131 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Text</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Text</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Text">Gnome::Gtk4::Text</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-text">new-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-with-buffer">new-with-buffer</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#compute-cursor-extents">compute-cursor-extents</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-activates-default">get-activates-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-attributes">get-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-buffer">get-buffer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-enable-emoji-completion">get-enable-emoji-completion</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-extra-menu">get-extra-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-input-hints">get-input-hints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-input-purpose">get-input-purpose</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-invisible-char">get-invisible-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-max-length">get-max-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-overwrite-mode">get-overwrite-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-placeholder-text">get-placeholder-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-propagate-text-width">get-propagate-text-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tabs">get-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-text-length">get-text-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-truncate-multiline">get-truncate-multiline</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-visibility">get-visibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#grab-focus-without-selecting">grab-focus-without-selecting</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-activates-default">set-activates-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-attributes">set-attributes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-buffer">set-buffer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-enable-emoji-completion">set-enable-emoji-completion</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-extra-menu">set-extra-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-input-hints">set-input-hints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-input-purpose">set-input-purpose</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-invisible-char">set-invisible-char</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-max-length">set-max-length</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-overwrite-mode">set-overwrite-mode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-placeholder-text">set-placeholder-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-propagate-text-width">set-propagate-text-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tabs">set-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-truncate-multiline">set-truncate-multiline</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-visibility">set-visibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#unset-invisible-char">unset-invisible-char</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#activate">activate</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#backspace">backspace</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#copy-clipboard">copy-clipboard</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#cut-clipboard">cut-clipboard</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#delete-from-cursor">delete-from-cursor</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#insert-at-cursor">insert-at-cursor</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#insert-emoji">insert-emoji</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#move-cursor">move-cursor</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#paste-clipboard">paste-clipboard</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#preedit-changed">preedit-changed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#toggle-overwrite">toggle-overwrite</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Description</a></h1>
-<p>The <strong>Gnome::Gtk4::Text</strong> widget is a single-line text entry widget.</p><p><strong>Gnome::Gtk4::Text</strong> is the common implementation of single-line text editing that is shared between <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Entry</a>, <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::PasswordEntry</a>, <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::SpinButton</a>, and other widgets. In all of these, <strong>Gnome::Gtk4::Text</strong> is used as the delegate for the <a href="/content-docs/api2/reference/gtk/Gnome-Editable.html">Gnome::Gtk4::R-Editable</a> implementation.</p><p>A fairly large set of key bindings are supported by default. If the entered text is longer than the allocation of the widget, the widget will scroll so that the cursor position is visible.</p><p>When using an entry for passwords and other sensitive information, it can be put into “password mode” using <a href="#set-visibility">.set-visibility()</a>. In this mode, entered text is displayed using a “invisible” character. By default, GTK picks the best invisible character that is available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>.</p><p>If you are looking to add icons or progress display in an entry, look at <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Entry</a>. There other alternatives for more specialized use cases, such as <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::SearchEntry</a>.</p><p>If you need multi-line editable text, look at <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::TextView</a>.</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Text</strong> has a main node with the name <strong>text</strong>. Depending on the properties of the widget, the `.read-only` style class may appear.</p><p>When the entry has a selection, it adds a subnode with the name <strong>selection</strong>.</p><p>When the entry is in overwrite mode, it adds a subnode with the name <strong>block</strong>-cursor` that determines how the block cursor is drawn.</p><p>The CSS node for a context menu is added as a subnode with the name <strong>popup</strong>.</p><p>The <strong>undershoot</strong> nodes are used to draw the underflow indication when content is scrolled out of view. These nodes get the `.left` or `.right` style class added depending on where the indication is drawn.</p><p>When touch is used and touch selection handles are shown, they are using CSS nodes with name <strong>cursor</strong>-handle`. They get the `.top` or `.bottom` style class depending on where they are shown in relation to the selection. If there is just a single handle for the text cursor, it gets the style class `.insertion-cursor`.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Text</strong> uses the <code>GTK_ACCESSIBLE_ROLE_NONE</code> role, which causes it to be skipped for accessibility. This is because <strong>Gnome::Gtk4::Text</strong> is expected to be used as a delegate for a <a href="/content-docs/api2/reference/Gtk4/R-Editable.html">Gnome::Gtk4::R-Editable</a> implementation that will be represented to accessibility.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Text.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-text"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">new-text</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Text</strong>.</p><pre class="pod-block-code">method new-text ( --&gt; Gnome::Gtk4::Text )
-</pre></section>
-<section name="pod">
-<h2 id="new-with-buffer"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">new-with-buffer</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Text</strong> with the specified text buffer.</p><pre class="pod-block-code">method new-with-buffer ( N-Object() $buffer --&gt; Gnome::Gtk4::Text )
-</pre><ul>
-<li><p>$buffer; The buffer to use for the new <strong>Gnome::Gtk4::Text</strong>..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="compute-cursor-extents"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">compute-cursor-extents</a></h2>
-<p>Determine the positions of the strong and weak cursors if the insertion point in the layout is at <code>$position</code>.</p><p>The position of each cursor is stored as a zero-width rectangle. The strong cursor location is the location where characters of the directionality equal to the base direction are inserted. The weak cursor location is the location where characters of the directionality opposite to the base direction are inserted.</p><p>The rectangle positions are in widget coordinates.</p><pre class="pod-block-code">method compute-cursor-extents ( Int() $position, N-Object $strong, N-Object $weak )
-</pre><ul>
-<li><p>$position; the character position.</p></li>
-<li><p>$strong; location to store the strong cursor position</p></li>
-<li><p>$weak; location to store the weak cursor position</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-activates-default"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-activates-default</a></h2>
-<p>Returns whether pressing Enter will activate the default widget for the window containing <code>$self</code>.</p><p>See <a href="#set-activates-default">.set-activates-default()</a>.</p><pre class="pod-block-code">method get-activates-default (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the <strong>Gnome::Gtk4::Text</strong> will activate the default widget. </p></section>
-<section name="pod">
-<h2 id="get-attributes"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-attributes</a></h2>
-<p>Gets the attribute list that was set on the <strong>Gnome::Gtk4::Text</strong>.</p><p>See <a href="#set-attributes">.set-attributes()</a>.</p><pre class="pod-block-code">method get-attributes (--&gt; N-Object )
-</pre><p>Return value; the attribute list. </p></section>
-<section name="pod">
-<h2 id="get-buffer"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-buffer</a></h2>
-<p>Get the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget.</p><pre class="pod-block-code">method get-buffer (--&gt; N-Object )
-</pre><p>Return value; A <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object.. </p></section>
-<section name="pod">
-<h2 id="get-enable-emoji-completion"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-enable-emoji-completion</a></h2>
-<p>Returns whether Emoji completion is enabled for this <strong>Gnome::Gtk4::Text</strong> widget.</p><pre class="pod-block-code">method get-enable-emoji-completion (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if Emoji completion is enabled. </p></section>
-<section name="pod">
-<h2 id="get-extra-menu"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-extra-menu</a></h2>
-<p>Gets the menu model for extra items in the context menu.</p><p>See <a href="#set-extra-menu">.set-extra-menu()</a>.</p><pre class="pod-block-code">method get-extra-menu (--&gt; N-Object )
-</pre><p>Return value; the menu model. </p></section>
-<section name="pod">
-<h2 id="get-input-hints"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-input-hints</a></h2>
-<p>Gets the input hints of the <strong>Gnome::Gtk4::Text</strong>.</p><pre class="pod-block-code">method get-input-hints (--&gt; UInt )
-</pre><p>Return value; No documentation about its value and use. </p></section>
-<section name="pod">
-<h2 id="get-input-purpose"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-input-purpose</a></h2>
-<p>Gets the input purpose of the <strong>Gnome::Gtk4::Text</strong>.</p><pre class="pod-block-code">method get-input-purpose (--&gt; GtkInputPurpose )
-</pre><p>Return value; No documentation about its value and use. </p></section>
-<section name="pod">
-<h2 id="get-invisible-char"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-invisible-char</a></h2>
-<p>Retrieves the character displayed when visibility is set to false.</p><p>Note that GTK does not compute this value unless it needs it, so the value returned by this function is not very useful unless it has been explicitly set with <a href="#set-invisible-char">.set-invisible-char()</a>.</p><pre class="pod-block-code">method get-invisible-char (--&gt; UInt )
-</pre><p>Return value; the current invisible char, or 0, if <code>$text</code> does not show invisible text at all.. </p></section>
-<section name="pod">
-<h2 id="get-max-length"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-max-length</a></h2>
-<p>Retrieves the maximum allowed length of the text in <code>$self</code>.</p><p>See <a href="#set-max-length">.set-max-length()</a>.</p><p>This is equivalent to getting <code>$self</code>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-max-length">.get-max-length() in class Gnome</a> on it.</p><pre class="pod-block-code">method get-max-length (--&gt; Int )
-</pre><p>Return value; the maximum allowed number of characters in <strong>Gnome::Gtk4::Text</strong>, or 0 if there is no maximum.. </p></section>
-<section name="pod">
-<h2 id="get-overwrite-mode"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-overwrite-mode</a></h2>
-<p>Gets whether text is overwritten when typing in the <strong>Gnome::Gtk4::Text</strong>.</p><p>See <a href="#set-overwrite-mode">.set-overwrite-mode()</a>.</p><pre class="pod-block-code">method get-overwrite-mode (--&gt; Bool )
-</pre><p>Return value; whether the text is overwritten when typing. </p></section>
-<section name="pod">
-<h2 id="get-placeholder-text"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-placeholder-text</a></h2>
-<p>Retrieves the text that will be displayed when <code>$self</code> is empty and unfocused</p><p>If no placeholder text has been set, undefined will be returned.</p><pre class="pod-block-code">method get-placeholder-text (--&gt; Str )
-</pre><p>Return value; the placeholder text. </p></section>
-<section name="pod">
-<h2 id="get-propagate-text-width"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-propagate-text-width</a></h2>
-<p>Returns whether the <strong>Gnome::Gtk4::Text</strong> will grow and shrink with the content.</p><pre class="pod-block-code">method get-propagate-text-width (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$self</code> will propagate the text width. </p></section>
-<section name="pod">
-<h2 id="get-tabs"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-tabs</a></h2>
-<p>Gets the tabstops that were set on the <strong>Gnome::Gtk4::Text</strong>.</p><p>See <a href="#set-tabs">.set-tabs()</a>.</p><pre class="pod-block-code">method get-tabs (--&gt; N-Object )
-</pre><p>Return value; the tabstops. </p></section>
-<section name="pod">
-<h2 id="get-text-length"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-text-length</a></h2>
-<p>Retrieves the current length of the text in <code>$self</code>.</p><p>This is equivalent to getting <code>$self</code>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-length">.get-length() in class Gnome</a> on it.</p><pre class="pod-block-code">method get-text-length (--&gt; UInt )
-</pre><p>Return value; the current number of characters in <strong>Gnome::Gtk4::Text</strong>, or 0 if there are none.. </p></section>
-<section name="pod">
-<h2 id="get-truncate-multiline"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-truncate-multiline</a></h2>
-<p>Returns whether the <strong>Gnome::Gtk4::Text</strong> will truncate multi-line text that is pasted into the widget</p><pre class="pod-block-code">method get-truncate-multiline (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if <code>$self</code> will truncate multi-line text. </p></section>
-<section name="pod">
-<h2 id="get-visibility"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">get-visibility</a></h2>
-<p>Retrieves whether the text in <code>$self</code> is visible.</p><pre class="pod-block-code">method get-visibility (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the text is currently visible. </p></section>
-<section name="pod">
-<h2 id="grab-focus-without-selecting"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">grab-focus-without-selecting</a></h2>
-<p>Causes <code>$self</code> to have keyboard focus.</p><p>It behaves like <a href="/content-docs/api2/reference/Gtk4/Gnome.html#grab-focus">.grab-focus() in class Gnome</a>, except that it doesn't select the contents of <code>$self</code>. You only want to call this on some special entries which the user usually doesn't want to replace all text in, such as search-as-you-type entries.</p><pre class="pod-block-code">method grab-focus-without-selecting (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if focus is now inside <code>$self</code>. </p></section>
-<section name="pod">
-<h2 id="set-activates-default"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-activates-default</a></h2>
-<p>If <code>$activates</code> is <code>True</code>, pressing Enter will activate the default widget for the window containing <code>$self</code>.</p><p>This usually means that the dialog containing the <strong>Gnome::Gtk4::Text</strong> will be closed, since the default widget is usually one of the dialog buttons.</p><pre class="pod-block-code">method set-activates-default ( Bool() $activates )
-</pre><ul>
-<li><p>$activates; <code>True</code> to activate window’s default widget on Enter keypress.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-attributes"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-attributes</a></h2>
-<p>Sets attributes that are applied to the text.</p><pre class="pod-block-code">method set-attributes ( N-Object $attrs )
-</pre><ul>
-<li><p>$attrs; a <strong>Gnome::Pango::N-AttrList</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-buffer"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-buffer</a></h2>
-<p>Set the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget.</p><pre class="pod-block-code">method set-buffer ( N-Object() $buffer )
-</pre><ul>
-<li><p>$buffer; a <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-enable-emoji-completion"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-enable-emoji-completion</a></h2>
-<p>Sets whether Emoji completion is enabled.</p><p>If it is, typing ':', followed by a recognized keyword, will pop up a window with suggested Emojis matching the keyword.</p><pre class="pod-block-code">method set-enable-emoji-completion ( Bool() $enable-emoji-completion )
-</pre><ul>
-<li><p>$enable-emoji-completion; <code>True</code> to enable Emoji completion.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-extra-menu"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-extra-menu</a></h2>
-<p>Sets a menu model to add when constructing the context menu for <code>$self</code>.</p><pre class="pod-block-code">method set-extra-menu ( N-Object() $model )
-</pre><ul>
-<li><p>$model; a <a href="/content-docs/api2/reference/Gio/MenuModel.html">Gnome::Gio::MenuModel</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-input-hints"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-input-hints</a></h2>
-<p>Sets input hints that allow input methods to fine-tune their behaviour.</p><pre class="pod-block-code">method set-input-hints ( UInt $hints )
-</pre><ul>
-<li><p>$hints; the hints.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-input-purpose"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-input-purpose</a></h2>
-<p>Sets the input purpose of the <strong>Gnome::Gtk4::Text</strong>.</p><p>This can be used by on-screen keyboards and other input methods to adjust their behaviour.</p><pre class="pod-block-code">method set-input-purpose ( GtkInputPurpose $purpose )
-</pre><ul>
-<li><p>$purpose; the purpose.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-invisible-char"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-invisible-char</a></h2>
-<p>Sets the character to use when in “password mode”.</p><p>By default, GTK picks the best invisible char available in the current font. If you set the invisible char to 0, then the user will get no feedback at all; there will be no text on the screen as they type.</p><pre class="pod-block-code">method set-invisible-char ( UInt() $ch )
-</pre><ul>
-<li><p>$ch; a Unicode character.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-max-length"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-max-length</a></h2>
-<p>Sets the maximum allowed length of the contents of the widget.</p><p>If the current contents are longer than the given length, then they will be truncated to fit.</p><p>This is equivalent to getting <code>$self</code>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer.html">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-max-length">.set-max-length() in class Gnome</a> on it.</p><pre class="pod-block-code">method set-max-length ( Int() $length )
-</pre><ul>
-<li><p>$length; the maximum length of the <strong>Gnome::Gtk4::Text</strong>, or 0 for no maximum. (other than the maximum length of entries.) The value passed in will be clamped to the range 0-65536..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-overwrite-mode"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-overwrite-mode</a></h2>
-<p>Sets whether the text is overwritten when typing in the <strong>Gnome::Gtk4::Text</strong>.</p><pre class="pod-block-code">method set-overwrite-mode ( Bool() $overwrite )
-</pre><ul>
-<li><p>$overwrite; new value.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-placeholder-text"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-placeholder-text</a></h2>
-<p>Sets text to be displayed in <code>$self</code> when it is empty.</p><p>This can be used to give a visual hint of the expected contents of the <strong>Gnome::Gtk4::Text</strong>.</p><pre class="pod-block-code">method set-placeholder-text ( Str $text )
-</pre><ul>
-<li><p>$text; a string to be displayed when <code>$self</code> is empty and unfocused.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-propagate-text-width"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-propagate-text-width</a></h2>
-<p>Sets whether the <strong>Gnome::Gtk4::Text</strong> should grow and shrink with the content.</p><pre class="pod-block-code">method set-propagate-text-width ( Bool() $propagate-text-width )
-</pre><ul>
-<li><p>$propagate-text-width; <code>True</code> to propagate the text width.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tabs"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-tabs</a></h2>
-<p>Sets tabstops that are applied to the text.</p><pre class="pod-block-code">method set-tabs ( N-Object $tabs )
-</pre><ul>
-<li><p>$tabs; a <strong>Gnome::Pango::N-TabArray</strong></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-truncate-multiline"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-truncate-multiline</a></h2>
-<p>Sets whether the <strong>Gnome::Gtk4::Text</strong> should truncate multi-line text that is pasted into the widget.</p><pre class="pod-block-code">method set-truncate-multiline ( Bool() $truncate-multiline )
-</pre><ul>
-<li><p>$truncate-multiline; <code>True</code> to truncate multi-line text.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-visibility"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">set-visibility</a></h2>
-<p>Sets whether the contents of the <strong>Gnome::Gtk4::Text</strong> are visible or not.</p><p>When visibility is set to <code>False</code>, characters are displayed as the invisible char, and will also appear that way when the text in the widget is copied to the clipboard.</p><p>By default, GTK picks the best invisible character available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>.</p><p>Note that you probably want to set <em>input-purpose</em> to <code>GTK_INPUT_PURPOSE_PASSWORD</code> or <code>GTK_INPUT_PURPOSE_PIN</code> to inform input methods about the purpose of this self, in addition to setting visibility to <code>False</code>.</p><pre class="pod-block-code">method set-visibility ( Bool() $visible )
-</pre><ul>
-<li><p>$visible; <code>True</code> if the contents of the <strong>Gnome::Gtk4::Text</strong> are displayed as plaintext.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="unset-invisible-char"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">unset-invisible-char</a></h2>
-<p>Unsets the invisible char.</p><p>After calling this, the default invisible char is used again.</p><pre class="pod-block-code">method unset-invisible-char ( )
-</pre></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="activate"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">activate</a></h3>
-<p>Emitted when the user hits the &lt;kbd&gt;Enter&lt;/kbd&gt; key.</p><p>The default bindings for this signal are all forms of the &lt;kbd&gt;Enter&lt;/kbd&gt; key.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Text"></div><h1 class="title">Gnome::Gtk4::Text</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-text">new-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-with-buffer">new-with-buffer</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#compute-cursor-extents">compute-cursor-extents</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-activates-default">get-activates-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-attributes">get-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-buffer">get-buffer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-enable-emoji-completion">get-enable-emoji-completion</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-extra-menu">get-extra-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-input-hints">get-input-hints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-input-purpose">get-input-purpose</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-invisible-char">get-invisible-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-max-length">get-max-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-overwrite-mode">get-overwrite-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-placeholder-text">get-placeholder-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-propagate-text-width">get-propagate-text-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tabs">get-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-text-length">get-text-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-truncate-multiline">get-truncate-multiline</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-visibility">get-visibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#grab-focus-without-selecting">grab-focus-without-selecting</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-activates-default">set-activates-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-attributes">set-attributes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-buffer">set-buffer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-enable-emoji-completion">set-enable-emoji-completion</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-extra-menu">set-extra-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-input-hints">set-input-hints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-input-purpose">set-input-purpose</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-invisible-char">set-invisible-char</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-max-length">set-max-length</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-overwrite-mode">set-overwrite-mode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-placeholder-text">set-placeholder-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-propagate-text-width">set-propagate-text-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tabs">set-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-truncate-multiline">set-truncate-multiline</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-visibility">set-visibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#unset-invisible-char">unset-invisible-char</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#activate">activate</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#backspace">backspace</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#copy-clipboard">copy-clipboard</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#cut-clipboard">cut-clipboard</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#delete-from-cursor">delete-from-cursor</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#insert-at-cursor">insert-at-cursor</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#insert-emoji">insert-emoji</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#move-cursor">move-cursor</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#paste-clipboard">paste-clipboard</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#preedit-changed">preedit-changed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#toggle-overwrite">toggle-overwrite</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>The <span class="basis">Gnome::Gtk4::Text</span> widget is a single-line text entry widget. </p>
+
+<p><span class="basis">Gnome::Gtk4::Text</span> is the common implementation of single-line text editing that is shared between <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::Entry</a>, <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::PasswordEntry</a>, <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::SpinButton</a>, and other widgets. In all of these, <span class="basis">Gnome::Gtk4::Text</span> is used as the delegate for the <a href="/content-docs/api2/reference/gtk/Gnome-Editable">Gnome::Gtk4::R-Editable</a> implementation. </p>
+
+<p id="Para">A fairly large set of key bindings are supported by default. If the entered text is longer than the allocation of the widget, the widget will scroll so that the cursor position is visible.</p>
+
+<p>When using an entry for passwords and other sensitive information, it can be put into “password mode” using <a href="#set-visibility">.set-visibility()</a>. In this mode, entered text is displayed using a “invisible” character. By default, GTK picks the best invisible character that is available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+
+<p>If you are looking to add icons or progress display in an entry, look at <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::Entry</a>. There other alternatives for more specialized use cases, such as <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::SearchEntry</a>. </p>
+
+<p>If you need multi-line editable text, look at <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::TextView</a>. </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Text</span> has a main node with the name <span class="basis">text</span>. Depending on the properties of the widget, the `.read-only` style class may appear. </p>
+
+<p>When the entry has a selection, it adds a subnode with the name <span class="basis">selection</span>. </p>
+
+<p>When the entry is in overwrite mode, it adds a subnode with the name <span class="basis">block</span>-cursor` that determines how the block cursor is drawn. </p>
+
+<p>The CSS node for a context menu is added as a subnode with the name <span class="basis">popup</span>. </p>
+
+<p>The <span class="basis">undershoot</span> nodes are used to draw the underflow indication when content is scrolled out of view. These nodes get the `.left` or `.right` style class added depending on where the indication is drawn. </p>
+
+<p>When touch is used and touch selection handles are shown, they are using CSS nodes with name <span class="basis">cursor</span>-handle`. They get the `.top` or `.bottom` style class depending on where they are shown in relation to the selection. If there is just a single handle for the text cursor, it gets the style class `.insertion-cursor`. </p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Text</span> uses the <span class="code">GTK_ACCESSIBLE_ROLE_NONE</span> role, which causes it to be skipped for accessibility. This is because <span class="basis">Gnome::Gtk4::Text</span> is expected to be used as a delegate for a <a href="/content-docs/api2/reference/Gtk4/R-Editable">Gnome::Gtk4::R-Editable</a> implementation that will be represented to accessibility. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Text.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-text" class="heading "><a href="#" title="go to top of document">new-text</a><a class="raku-anchor" title="direct link" href="#new-text">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-text ( --&gt; Gnome::Gtk4::Text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-with-buffer" class="heading "><a href="#" title="go to top of document">new-with-buffer</a><a class="raku-anchor" title="direct link" href="#new-with-buffer">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Text</span> with the specified text buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-with-buffer ( N-Object() $buffer --&gt; Gnome::Gtk4::Text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$buffer; The buffer to use for the new <span class="basis">Gnome::Gtk4::Text</span>..</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="compute-cursor-extents" class="heading "><a href="#" title="go to top of document">compute-cursor-extents</a><a class="raku-anchor" title="direct link" href="#compute-cursor-extents">§</a></h2>
+
+<p>Determine the positions of the strong and weak cursors if the insertion point in the layout is at <span class="code">$position</span>. </p>
+
+<p id="Para_0">The position of each cursor is stored as a zero-width rectangle. The strong cursor location is the location where characters of the directionality equal to the base direction are inserted. The weak cursor location is the location where characters of the directionality opposite to the base direction are inserted.</p>
+
+<p id="Para_1">The rectangle positions are in widget coordinates.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method compute-cursor-extents ( Int() $position, N-Object $strong, N-Object $weak )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$position; the character position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$strong; location to store the strong cursor position</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$weak; location to store the weak cursor position</li>
+</ul>
+<h2 id="get-activates-default" class="heading "><a href="#" title="go to top of document">get-activates-default</a><a class="raku-anchor" title="direct link" href="#get-activates-default">§</a></h2>
+
+<p>Returns whether pressing Enter will activate the default widget for the window containing <span class="code">$self</span>. </p>
+
+<p>See <a href="#set-activates-default">.set-activates-default()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-activates-default (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the <span class="basis">Gnome::Gtk4::Text</span> will activate the default widget. </p>
+<h2 id="get-attributes" class="heading "><a href="#" title="go to top of document">get-attributes</a><a class="raku-anchor" title="direct link" href="#get-attributes">§</a></h2>
+
+<p>Gets the attribute list that was set on the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+
+<p>See <a href="#set-attributes">.set-attributes()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-attributes (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_2">Return value; the attribute list.</p>
+<h2 id="get-buffer" class="heading "><a href="#" title="go to top of document">get-buffer</a><a class="raku-anchor" title="direct link" href="#get-buffer">§</a></h2>
+
+<p>Get the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-buffer (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; A <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object.. </p>
+<h2 id="get-enable-emoji-completion" class="heading "><a href="#" title="go to top of document">get-enable-emoji-completion</a><a class="raku-anchor" title="direct link" href="#get-enable-emoji-completion">§</a></h2>
+
+<p>Returns whether Emoji completion is enabled for this <span class="basis">Gnome::Gtk4::Text</span> widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-enable-emoji-completion (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if Emoji completion is enabled. </p>
+<h2 id="get-extra-menu" class="heading "><a href="#" title="go to top of document">get-extra-menu</a><a class="raku-anchor" title="direct link" href="#get-extra-menu">§</a></h2>
+
+<p id="Para_3">Gets the menu model for extra items in the context menu.</p>
+
+<p>See <a href="#set-extra-menu">.set-extra-menu()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-extra-menu (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_4">Return value; the menu model.</p>
+<h2 id="get-input-hints" class="heading "><a href="#" title="go to top of document">get-input-hints</a><a class="raku-anchor" title="direct link" href="#get-input-hints">§</a></h2>
+
+<p>Gets the input hints of the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-input-hints (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_5">Return value; No documentation about its value and use.</p>
+<h2 id="get-input-purpose" class="heading "><a href="#" title="go to top of document">get-input-purpose</a><a class="raku-anchor" title="direct link" href="#get-input-purpose">§</a></h2>
+
+<p>Gets the input purpose of the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-input-purpose (--&gt; GtkInputPurpose )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_6">Return value; No documentation about its value and use.</p>
+<h2 id="get-invisible-char" class="heading "><a href="#" title="go to top of document">get-invisible-char</a><a class="raku-anchor" title="direct link" href="#get-invisible-char">§</a></h2>
+
+<p id="Para_7">Retrieves the character displayed when visibility is set to false.</p>
+
+<p>Note that GTK does not compute this value unless it needs it, so the value returned by this function is not very useful unless it has been explicitly set with <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-invisible-char (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the current invisible char, or 0, if <span class="code">$text</span> does not show invisible text at all.. </p>
+<h2 id="get-max-length" class="heading "><a href="#" title="go to top of document">get-max-length</a><a class="raku-anchor" title="direct link" href="#get-max-length">§</a></h2>
+
+<p>Retrieves the maximum allowed length of the text in <span class="code">$self</span>. </p>
+
+<p>See <a href="#set-max-length">.set-max-length()</a>. </p>
+
+<p>This is equivalent to getting <span class="code">$self</span>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome#get-max-length">.get-max-length() in class Gnome</a> on it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-max-length (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the maximum allowed number of characters in <span class="basis">Gnome::Gtk4::Text</span>, or 0 if there is no maximum.. </p>
+<h2 id="get-overwrite-mode" class="heading "><a href="#" title="go to top of document">get-overwrite-mode</a><a class="raku-anchor" title="direct link" href="#get-overwrite-mode">§</a></h2>
+
+<p>Gets whether text is overwritten when typing in the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+
+<p>See <a href="#set-overwrite-mode">.set-overwrite-mode()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-overwrite-mode (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; whether the text is overwritten when typing.</p>
+<h2 id="get-placeholder-text" class="heading "><a href="#" title="go to top of document">get-placeholder-text</a><a class="raku-anchor" title="direct link" href="#get-placeholder-text">§</a></h2>
+
+<p>Retrieves the text that will be displayed when <span class="code">$self</span> is empty and unfocused </p>
+
+<p id="Para_9">If no placeholder text has been set, undefined will be returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-placeholder-text (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_10">Return value; the placeholder text.</p>
+<h2 id="get-propagate-text-width" class="heading "><a href="#" title="go to top of document">get-propagate-text-width</a><a class="raku-anchor" title="direct link" href="#get-propagate-text-width">§</a></h2>
+
+<p>Returns whether the <span class="basis">Gnome::Gtk4::Text</span> will grow and shrink with the content. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-propagate-text-width (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$self</span> will propagate the text width. </p>
+<h2 id="get-tabs" class="heading "><a href="#" title="go to top of document">get-tabs</a><a class="raku-anchor" title="direct link" href="#get-tabs">§</a></h2>
+
+<p>Gets the tabstops that were set on the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+
+<p>See <a href="#set-tabs">.set-tabs()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tabs (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; the tabstops.</p>
+<h2 id="get-text-length" class="heading "><a href="#" title="go to top of document">get-text-length</a><a class="raku-anchor" title="direct link" href="#get-text-length">§</a></h2>
+
+<p>Retrieves the current length of the text in <span class="code">$self</span>. </p>
+
+<p>This is equivalent to getting <span class="code">$self</span>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome#get-length">.get-length() in class Gnome</a> on it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-text-length (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the current number of characters in <span class="basis">Gnome::Gtk4::Text</span>, or 0 if there are none.. </p>
+<h2 id="get-truncate-multiline" class="heading "><a href="#" title="go to top of document">get-truncate-multiline</a><a class="raku-anchor" title="direct link" href="#get-truncate-multiline">§</a></h2>
+
+<p>Returns whether the <span class="basis">Gnome::Gtk4::Text</span> will truncate multi-line text that is pasted into the widget </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-truncate-multiline (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if <span class="code">$self</span> will truncate multi-line text. </p>
+<h2 id="get-visibility" class="heading "><a href="#" title="go to top of document">get-visibility</a><a class="raku-anchor" title="direct link" href="#get-visibility">§</a></h2>
+
+<p>Retrieves whether the text in <span class="code">$self</span> is visible. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-visibility (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the text is currently visible. </p>
+<h2 id="grab-focus-without-selecting" class="heading "><a href="#" title="go to top of document">grab-focus-without-selecting</a><a class="raku-anchor" title="direct link" href="#grab-focus-without-selecting">§</a></h2>
+
+<p>Causes <span class="code">$self</span> to have keyboard focus. </p>
+
+<p>It behaves like <a href="/content-docs/api2/reference/Gtk4/Gnome#grab-focus">.grab-focus() in class Gnome</a>, except that it doesn't select the contents of <span class="code">$self</span>. You only want to call this on some special entries which the user usually doesn't want to replace all text in, such as search-as-you-type entries. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method grab-focus-without-selecting (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if focus is now inside <span class="code">$self</span>. </p>
+<h2 id="set-activates-default" class="heading "><a href="#" title="go to top of document">set-activates-default</a><a class="raku-anchor" title="direct link" href="#set-activates-default">§</a></h2>
+
+<p>If <span class="code">$activates</span> is <span class="code">True</span>, pressing Enter will activate the default widget for the window containing <span class="code">$self</span>. </p>
+
+<p>This usually means that the dialog containing the <span class="basis">Gnome::Gtk4::Text</span> will be closed, since the default widget is usually one of the dialog buttons. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-activates-default ( Bool() $activates )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$activates; <span class="code">True</span> to activate window’s default widget on Enter keypress.</li>
+</ul>
+<h2 id="set-attributes" class="heading "><a href="#" title="go to top of document">set-attributes</a><a class="raku-anchor" title="direct link" href="#set-attributes">§</a></h2>
+
+<p id="Para_12">Sets attributes that are applied to the text.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-attributes ( N-Object $attrs )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$attrs; a <span class="basis">Gnome::Pango::N-AttrList</span></li>
+</ul>
+<h2 id="set-buffer" class="heading "><a href="#" title="go to top of document">set-buffer</a><a class="raku-anchor" title="direct link" href="#set-buffer">§</a></h2>
+
+<p>Set the <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> object which holds the text for this widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-buffer ( N-Object() $buffer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$buffer; a <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a>.</li>
+</ul>
+<h2 id="set-enable-emoji-completion" class="heading "><a href="#" title="go to top of document">set-enable-emoji-completion</a><a class="raku-anchor" title="direct link" href="#set-enable-emoji-completion">§</a></h2>
+
+<p id="Para_13">Sets whether Emoji completion is enabled.</p>
+
+<p id="Para_14">If it is, typing ':', followed by a recognized keyword, will pop up a window with suggested Emojis matching the keyword.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-enable-emoji-completion ( Bool() $enable-emoji-completion )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$enable-emoji-completion; <span class="code">True</span> to enable Emoji completion.</li>
+</ul>
+<h2 id="set-extra-menu" class="heading "><a href="#" title="go to top of document">set-extra-menu</a><a class="raku-anchor" title="direct link" href="#set-extra-menu">§</a></h2>
+
+<p>Sets a menu model to add when constructing the context menu for <span class="code">$self</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-extra-menu ( N-Object() $model )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$model; a <a href="/content-docs/api2/reference/Gio/MenuModel">Gnome::Gio::MenuModel</a>.</li>
+</ul>
+<h2 id="set-input-hints" class="heading "><a href="#" title="go to top of document">set-input-hints</a><a class="raku-anchor" title="direct link" href="#set-input-hints">§</a></h2>
+
+<p id="Para_15">Sets input hints that allow input methods to fine-tune their behaviour.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-input-hints ( UInt $hints )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$hints; the hints.</li>
+</ul>
+<h2 id="set-input-purpose" class="heading "><a href="#" title="go to top of document">set-input-purpose</a><a class="raku-anchor" title="direct link" href="#set-input-purpose">§</a></h2>
+
+<p>Sets the input purpose of the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+
+<p id="Para_16">This can be used by on-screen keyboards and other input methods to adjust their behaviour.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-input-purpose ( GtkInputPurpose $purpose )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$purpose; the purpose.</li>
+</ul>
+<h2 id="set-invisible-char" class="heading "><a href="#" title="go to top of document">set-invisible-char</a><a class="raku-anchor" title="direct link" href="#set-invisible-char">§</a></h2>
+
+<p id="Para_17">Sets the character to use when in “password mode”.</p>
+
+<p id="Para_18">By default, GTK picks the best invisible char available in the current font. If you set the invisible char to 0, then the user will get no feedback at all; there will be no text on the screen as they type.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-invisible-char ( UInt() $ch )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ch; a Unicode character.</li>
+</ul>
+<h2 id="set-max-length" class="heading "><a href="#" title="go to top of document">set-max-length</a><a class="raku-anchor" title="direct link" href="#set-max-length">§</a></h2>
+
+<p id="Para_19">Sets the maximum allowed length of the contents of the widget.</p>
+
+<p id="Para_20">If the current contents are longer than the given length, then they will be truncated to fit.</p>
+
+<p>This is equivalent to getting <span class="code">$self</span>'s <a href="/content-docs/api2/reference/Gtk4/EntryBuffer">Gnome::Gtk4::EntryBuffer</a> and calling <a href="/content-docs/api2/reference/Gtk4/Gnome#set-max-length">.set-max-length() in class Gnome</a> on it. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-max-length ( Int() $length )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$length; the maximum length of the <span class="basis">Gnome::Gtk4::Text</span>, or 0 for no maximum. (other than the maximum length of entries.) The value passed in will be clamped to the range 0-65536..</li>
+</ul>
+<h2 id="set-overwrite-mode" class="heading "><a href="#" title="go to top of document">set-overwrite-mode</a><a class="raku-anchor" title="direct link" href="#set-overwrite-mode">§</a></h2>
+
+<p>Sets whether the text is overwritten when typing in the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-overwrite-mode ( Bool() $overwrite )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$overwrite; new value.</li>
+</ul>
+<h2 id="set-placeholder-text" class="heading "><a href="#" title="go to top of document">set-placeholder-text</a><a class="raku-anchor" title="direct link" href="#set-placeholder-text">§</a></h2>
+
+<p>Sets text to be displayed in <span class="code">$self</span> when it is empty. </p>
+
+<p>This can be used to give a visual hint of the expected contents of the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-placeholder-text ( Str $text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; a string to be displayed when <span class="code">$self</span> is empty and unfocused.</li>
+</ul>
+<h2 id="set-propagate-text-width" class="heading "><a href="#" title="go to top of document">set-propagate-text-width</a><a class="raku-anchor" title="direct link" href="#set-propagate-text-width">§</a></h2>
+
+<p>Sets whether the <span class="basis">Gnome::Gtk4::Text</span> should grow and shrink with the content. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-propagate-text-width ( Bool() $propagate-text-width )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$propagate-text-width; <span class="code">True</span> to propagate the text width.</li>
+</ul>
+<h2 id="set-tabs" class="heading "><a href="#" title="go to top of document">set-tabs</a><a class="raku-anchor" title="direct link" href="#set-tabs">§</a></h2>
+
+<p id="Para_21">Sets tabstops that are applied to the text.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tabs ( N-Object $tabs )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tabs; a <span class="basis">Gnome::Pango::N-TabArray</span></li>
+</ul>
+<h2 id="set-truncate-multiline" class="heading "><a href="#" title="go to top of document">set-truncate-multiline</a><a class="raku-anchor" title="direct link" href="#set-truncate-multiline">§</a></h2>
+
+<p>Sets whether the <span class="basis">Gnome::Gtk4::Text</span> should truncate multi-line text that is pasted into the widget. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-truncate-multiline ( Bool() $truncate-multiline )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$truncate-multiline; <span class="code">True</span> to truncate multi-line text.</li>
+</ul>
+<h2 id="set-visibility" class="heading "><a href="#" title="go to top of document">set-visibility</a><a class="raku-anchor" title="direct link" href="#set-visibility">§</a></h2>
+
+<p>Sets whether the contents of the <span class="basis">Gnome::Gtk4::Text</span> are visible or not. </p>
+
+<p>When visibility is set to <span class="code">False</span>, characters are displayed as the invisible char, and will also appear that way when the text in the widget is copied to the clipboard. </p>
+
+<p>By default, GTK picks the best invisible character available in the current font, but it can be changed with <a href="#set-invisible-char">.set-invisible-char()</a>. </p>
+
+<p>Note that you probably want to set <span class="important">input-purpose</span> to <span class="code">GTK_INPUT_PURPOSE_PASSWORD</span> or <span class="code">GTK_INPUT_PURPOSE_PIN</span> to inform input methods about the purpose of this self, in addition to setting visibility to <span class="code">False</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-visibility ( Bool() $visible )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$visible; <span class="code">True</span> if the contents of the <span class="basis">Gnome::Gtk4::Text</span> are displayed as plaintext.</li>
+</ul>
+<h2 id="unset-invisible-char" class="heading "><a href="#" title="go to top of document">unset-invisible-char</a><a class="raku-anchor" title="direct link" href="#unset-invisible-char">§</a></h2>
+
+<p id="Para_22">Unsets the invisible char.</p>
+
+<p id="Para_23">After calling this, the default invisible char is used again.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method unset-invisible-char ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="activate" class="heading "><a href="#" title="go to top of document">activate</a><a class="raku-anchor" title="direct link" href="#activate">§</a></h3>
+
+<p id="Para_24">Emitted when the user hits the &lt;kbd&gt;Enter&lt;/kbd&gt; key.</p>
+
+<p id="Para_25">The default bindings for this signal are all forms of the &lt;kbd&gt;Enter&lt;/kbd&gt; key.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="backspace"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">backspace</a></h3>
-<p>Emitted when the user asks for it.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are &lt;kbd&gt;Backspace&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Backspace&lt;/kbd&gt;.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="backspace" class="heading "><a href="#" title="go to top of document">backspace</a><a class="raku-anchor" title="direct link" href="#backspace">§</a></h3>
+
+<p id="Para_26">Emitted when the user asks for it.</p>
+
+<p id="Para_27">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_28">The default bindings for this signal are &lt;kbd&gt;Backspace&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Backspace&lt;/kbd&gt;.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="copy-clipboard"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">copy-clipboard</a></h3>
-<p>Emitted to copy the selection to the clipboard.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;c&lt;/kbd&gt; and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Insert&lt;/kbd&gt;.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="copy-clipboard" class="heading "><a href="#" title="go to top of document">copy-clipboard</a><a class="raku-anchor" title="direct link" href="#copy-clipboard">§</a></h3>
+
+<p id="Para_29">Emitted to copy the selection to the clipboard.</p>
+
+<p id="Para_30">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_31">The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;c&lt;/kbd&gt; and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Insert&lt;/kbd&gt;.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="cut-clipboard"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">cut-clipboard</a></h3>
-<p>Emitted to cut the selection to the clipboard.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;x&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt;.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="cut-clipboard" class="heading "><a href="#" title="go to top of document">cut-clipboard</a><a class="raku-anchor" title="direct link" href="#cut-clipboard">§</a></h3>
+
+<p id="Para_32">Emitted to cut the selection to the clipboard.</p>
+
+<p id="Para_33">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_34">The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;x&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt;.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="delete-from-cursor"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">delete-from-cursor</a></h3>
-<p>Emitted when the user initiates a text deletion.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>If the <code>$type</code> is <code>GTK_DELETE_CHARS</code>, GTK deletes the selection if there is one, otherwise it deletes the requested number of characters.</p><p>The default bindings for this signal are &lt;kbd&gt;Delete&lt;/kbd&gt; for deleting a character and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; for deleting a word.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="delete-from-cursor" class="heading "><a href="#" title="go to top of document">delete-from-cursor</a><a class="raku-anchor" title="direct link" href="#delete-from-cursor">§</a></h3>
+
+<p id="Para_35">Emitted when the user initiates a text deletion.</p>
+
+<p id="Para_36">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p>If the <span class="code">$type</span> is <span class="code">GTK_DELETE_CHARS</span>, GTK deletes the selection if there is one, otherwise it deletes the requested number of characters. </p>
+
+<p id="Para_37">The default bindings for this signal are &lt;kbd&gt;Delete&lt;/kbd&gt; for deleting a character and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; for deleting a word.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $type,
   gint $count,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$type; the granularity of the deletion, as a <code>enumeration GtkDeleteType defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>$count; the number of <code>$type</code> units to delete.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="insert-at-cursor"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">insert-at-cursor</a></h3>
-<p>Emitted when the user initiates the insertion of a fixed string at the cursor.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>This signal has no default bindings.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$type; the granularity of the deletion, as a <span class="code">enumeration GtkDeleteType defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$count; the number of <span class="code">$type</span> units to delete.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="insert-at-cursor" class="heading "><a href="#" title="go to top of document">insert-at-cursor</a><a class="raku-anchor" title="direct link" href="#insert-at-cursor">§</a></h3>
+
+<p id="Para_38">Emitted when the user initiates the insertion of a fixed string at the cursor.</p>
+
+<p id="Para_39">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_40">This signal has no default bindings.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Str $string,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$string; the string to insert.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="insert-emoji"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">insert-emoji</a></h3>
-<p>Emitted to present the Emoji chooser for the widget.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;.&lt;/kbd&gt; and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;;&lt;/kbd&gt;</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$string; the string to insert.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="insert-emoji" class="heading "><a href="#" title="go to top of document">insert-emoji</a><a class="raku-anchor" title="direct link" href="#insert-emoji">§</a></h3>
+
+<p id="Para_41">Emitted to present the Emoji chooser for the widget.</p>
+
+<p id="Para_42">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_43">The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;.&lt;/kbd&gt; and &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;;&lt;/kbd&gt;</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="move-cursor"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">move-cursor</a></h3>
-<p>Emitted when the user initiates a cursor movement.</p><p>If the cursor is not visible in <code>$self</code>, this signal causes the viewport to be moved instead.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>Applications should not connect to it, but may emit it with g_signal_emit_by_name() if they need to control the cursor programmatically.</p><p>The default bindings for this signal come in two variants, the variant with the &lt;kbd&gt;Shift&lt;/kbd&gt; modifier extends the selection, the variant without it does not. There are too many key combinations to list them all here.</p><ul>
-<li><p>&lt;kbd&gt;←&lt;/kbd&gt;, &lt;kbd&gt;→&lt;/kbd&gt;, &lt;kbd&gt;↑&lt;/kbd&gt;, &lt;kbd&gt;↓&lt;/kbd&gt; move by individual characters/lines</p></li>
-<li><p>&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;←&lt;/kbd&gt;, etc. move by words/paragraphs</p></li>
-<li><p>&lt;kbd&gt;Home&lt;/kbd&gt; and &lt;kbd&gt;End&lt;/kbd&gt; move to the ends of the buffer</p></li>
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-<pre class="pod-block-code">method handler (
+<h3 id="move-cursor" class="heading "><a href="#" title="go to top of document">move-cursor</a><a class="raku-anchor" title="direct link" href="#move-cursor">§</a></h3>
+
+<p id="Para_44">Emitted when the user initiates a cursor movement.</p>
+
+<p>If the cursor is not visible in <span class="code">$self</span>, this signal causes the viewport to be moved instead. </p>
+
+<p id="Para_45">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_46">Applications should not connect to it, but may emit it with g_signal_emit_by_name() if they need to control the cursor programmatically.</p>
+
+<p id="Para_47">The default bindings for this signal come in two variants, the variant with the &lt;kbd&gt;Shift&lt;/kbd&gt; modifier extends the selection, the variant without it does not. There are too many key combinations to list them all here.</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >&lt;kbd&gt;←&lt;/kbd&gt;, &lt;kbd&gt;→&lt;/kbd&gt;, &lt;kbd&gt;↑&lt;/kbd&gt;, &lt;kbd&gt;↓&lt;/kbd&gt; move by individual characters/lines</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;←&lt;/kbd&gt;, etc. move by words/paragraphs</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&lt;kbd&gt;Home&lt;/kbd&gt; and &lt;kbd&gt;End&lt;/kbd&gt; move to the ends of the buffer</li>
+</ul>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $step,
   gint $count,
   gboolean $extend,
@@ -405,57 +1133,104 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$step; the granularity of the move, as a <code>enumeration GtkMovementStep defined in Gnome::Gtk4::T-enums</code>.</p></li>
-<li><p>$count; the number of <code>$step</code> units to move.</p></li>
-<li><p>$extend; <code>True</code> if the move should extend the selection.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="paste-clipboard"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">paste-clipboard</a></h3>
-<p>Emitted to paste the contents of the clipboard.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;v&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Insert&lt;/kbd&gt;.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$step; the granularity of the move, as a <span class="code">enumeration GtkMovementStep defined in Gnome::Gtk4::T-enums</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$count; the number of <span class="code">$step</span> units to move.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$extend; <span class="code">True</span> if the move should extend the selection.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="paste-clipboard" class="heading "><a href="#" title="go to top of document">paste-clipboard</a><a class="raku-anchor" title="direct link" href="#paste-clipboard">§</a></h3>
+
+<p id="Para_48">Emitted to paste the contents of the clipboard.</p>
+
+<p id="Para_49">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_50">The default bindings for this signal are &lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;v&lt;/kbd&gt; and &lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;Insert&lt;/kbd&gt;.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="preedit-changed"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">preedit-changed</a></h3>
-<p>Emitted when the preedit text changes.</p><p>If an input method is used, the typed text will not immediately be committed to the buffer. So if you are interested in the text, connect to this signal.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="preedit-changed" class="heading "><a href="#" title="go to top of document">preedit-changed</a><a class="raku-anchor" title="direct link" href="#preedit-changed">§</a></h3>
+
+<p id="Para_51">Emitted when the preedit text changes.</p>
+
+<p id="Para_52">If an input method is used, the typed text will not immediately be committed to the buffer. So if you are interested in the text, connect to this signal.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Str $preedit,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$preedit; the current preedit string.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="toggle-overwrite"><a href="#Gnome::Gtk4::Text" class="u" title="go to top of document">toggle-overwrite</a></h3>
-<p>Emitted to toggle the overwrite mode of the <strong>Gnome::Gtk4::Text</strong>.</p><p>This is a [keybinding signal](class.SignalAction.html).</p><p>The default bindings for this signal is &lt;kbd&gt;Insert&lt;/kbd&gt;.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$preedit; the current preedit string.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="toggle-overwrite" class="heading "><a href="#" title="go to top of document">toggle-overwrite</a><a class="raku-anchor" title="direct link" href="#toggle-overwrite">§</a></h3>
+
+<p>Emitted to toggle the overwrite mode of the <span class="basis">Gnome::Gtk4::Text</span>. </p>
+
+<p id="Para_53">This is a [keybinding signal](class.SignalAction.html).</p>
+
+<p id="Para_54">The default bindings for this signal is &lt;kbd&gt;Insert&lt;/kbd&gt;.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Text :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Text</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Text</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Text.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:09Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Text.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

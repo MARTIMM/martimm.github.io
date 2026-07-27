@@ -1,149 +1,667 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::ConstraintLayout</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::ConstraintLayout</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::ConstraintLayout">Gnome::Gtk4::ConstraintLayout</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-4"><td class="toc-text"><a href="#How_do_constraints_work">How do constraints work</a></td></tr>
- <tr class="toc-level-4"><td class="toc-text"><a href="#GtkConstraintLayout_as_GtkBuildable">GtkConstraintLayout as GtkBuildable</a></td></tr>
- <tr class="toc-level-4"><td class="toc-text"><a href="#Using_the_Visual_Format_Language">Using the Visual Format Language</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-constraintlayout">new-constraintlayout</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-constraint">add-constraint</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-constraints-from-description">add-constraints-from-description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-constraints-from-descriptionv">add-constraints-from-descriptionv</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-guide">add-guide</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#observe-constraints">observe-constraints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#observe-guides">observe-guides</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all-constraints">remove-all-constraints</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-constraint">remove-constraint</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-guide">remove-guide</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">Description</a></h1>
-<p>A layout manager using constraints to describe relations between widgets.</p><p><strong>Gnome::Gtk4::ConstraintLayout</strong> is a layout manager that uses relations between widget attributes, expressed via <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a> instances, to measure and allocate widgets.</p>
-<h4 id="How_do_constraints_work"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">How do constraints work</a></h4>
-<p>Constraints are objects defining the relationship between attributes of a widget; you can read the description of the <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a> class to have a more in depth definition.</p><p>By taking multiple constraints and applying them to the children of a widget using <strong>Gnome::Gtk4::ConstraintLayout</strong>, it's possible to describe complex layout policies; each constraint applied to a child or to the parent widgets contributes to the full description of the layout, in terms of parameters for resolving the value of each attribute.</p><p>It is important to note that a layout is defined by the totality of constraints; removing a child, or a constraint, from an existing layout without changing the remaining constraints may result in an unstable or unsolvable layout.</p><p>Constraints have an implicit &quot;reading order&quot;; you should start describing each edge of each child, as well as their relationship with the parent container, from the top left (or top right, in RTL languages), horizontally first, and then vertically.</p><p>A constraint-based layout with too few constraints can become &quot;unstable&quot;, that is: have more than one solution. The behavior of an unstable layout is undefined.</p><p>A constraint-based layout with conflicting constraints may be unsolvable, and lead to an unstable layout. You can use the <em>strength defined in Gnome::Gtk4::Constraint</em> property of <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a> to &quot;nudge&quot; the layout towards a solution.</p>
-<h4 id="GtkConstraintLayout_as_GtkBuildable"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">GtkConstraintLayout as GtkBuildable</a></h4>
-<p><strong>Gnome::Gtk4::ConstraintLayout</strong> implements the <a href="/content-docs/api2/reference/Gnome/Gtk4/R-Buildable.html">Gnome::Gtk4::ConstraintGuide</a> interface and has a custom &quot;constraints&quot; element which allows describing constraints in a <a href="/content-docs/api2/reference/Gtk4/Builder.html">Gnome::Gtk4::Builder</a> UI file.</p><p>An example of a UI definition fragment specifying a constraint:</p><p>The definition above will add two constraints to the GtkConstraintLayout:</p><ul>
-<li><p>a required constraint between the leading edge of &quot;button&quot; and the leading edge of the widget using the constraint layout, plus 12 pixels</p></li>
-<li><p>a strong, constant constraint making the width of &quot;button&quot; greater than, or equal to 250 pixels</p></li>
-</ul>
-<p>The &quot;target&quot; and &quot;target-attribute&quot; attributes are required.</p><p>The &quot;source&quot; and &quot;source-attribute&quot; attributes of the &quot;constraint&quot; element are optional; if they are not specified, the constraint is assumed to be a constant.</p><p>The &quot;relation&quot; attribute is optional; if not specified, the constraint is assumed to be an equality.</p><p>The &quot;strength&quot; attribute is optional; if not specified, the constraint is assumed to be required.</p><p>The &quot;source&quot; and &quot;target&quot; attributes can be set to &quot;super&quot; to indicate that the constraint target is the widget using the GtkConstraintLayout.</p><p>There can be &quot;constant&quot; and &quot;multiplier&quot; attributes.</p><p>Additionally, the &quot;constraints&quot; element can also contain a description of the <strong>GtkConstraintGuides</strong> used by the layout:</p><p>The &quot;guide&quot; element has the following optional attributes:</p><ul>
-<li><p>&quot;min-width&quot;, &quot;nat-width&quot;, and &quot;max-width&quot;, describe the minimum, natural, and maximum width of the guide, respectively</p></li>
-<li><p>&quot;min-height&quot;, &quot;nat-height&quot;, and &quot;max-height&quot;, describe the minimum, natural, and maximum height of the guide, respectively</p></li>
-<li><p>&quot;strength&quot; describes the strength of the constraint on the natural size of the guide; if not specified, the constraint is assumed to have a medium strength</p></li>
-<li><p>&quot;name&quot; describes a name for the guide, useful when debugging</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::ConstraintLayout"></div><h1 class="title">Gnome::Gtk4::ConstraintLayout</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:3;" data-bullet="⁃"><a href="#How_do_constraints_work">How do constraints work</a></div>
+<div class="toc-item" style="--level:3;" data-bullet="⁃"><a href="#GtkConstraintLayout_as_GtkBuildable">GtkConstraintLayout as GtkBuildable</a></div>
+<div class="toc-item" style="--level:3;" data-bullet="⁃"><a href="#Using_the_Visual_Format_Language">Using the Visual Format Language</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-constraintlayout">new-constraintlayout</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-constraint">add-constraint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-constraints-from-description">add-constraints-from-description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-constraints-from-descriptionv">add-constraints-from-descriptionv</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-guide">add-guide</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#observe-constraints">observe-constraints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#observe-guides">observe-guides</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-all-constraints">remove-all-constraints</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-constraint">remove-constraint</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-guide">remove-guide</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p id="Para">A layout manager using constraints to describe relations between widgets.</p>
+
+<p><span class="basis">Gnome::Gtk4::ConstraintLayout</span> is a layout manager that uses relations between widget attributes, expressed via <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a> instances, to measure and allocate widgets. </p>
+
+<div class="id-target" id="How do constraints work"></div><h4 id="How_do_constraints_work" class="heading "><a href="#" title="go to top of document">How do constraints work</a><a class="raku-anchor" title="direct link" href="#How do constraints work">§</a></h4>
+
+<p>Constraints are objects defining the relationship between attributes of a widget; you can read the description of the <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a> class to have a more in depth definition. </p>
+
+<p>By taking multiple constraints and applying them to the children of a widget using <span class="basis">Gnome::Gtk4::ConstraintLayout</span>, it's possible to describe complex layout policies; each constraint applied to a child or to the parent widgets contributes to the full description of the layout, in terms of parameters for resolving the value of each attribute. </p>
+
+<p id="Para_0">It is important to note that a layout is defined by the totality of constraints; removing a child, or a constraint, from an existing layout without changing the remaining constraints may result in an unstable or unsolvable layout.</p>
+
+<p id="Para_1">Constraints have an implicit &quot;reading order&quot;; you should start describing each edge of each child, as well as their relationship with the parent container, from the top left (or top right, in RTL languages), horizontally first, and then vertically.</p>
+
+<p id="Para_2">A constraint-based layout with too few constraints can become &quot;unstable&quot;, that is: have more than one solution. The behavior of an unstable layout is undefined.</p>
+
+<p>A constraint-based layout with conflicting constraints may be unsolvable, and lead to an unstable layout. You can use the <span class="important">strength defined in Gnome::Gtk4::Constraint</span> property of <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a> to &quot;nudge&quot; the layout towards a solution. </p>
+
+<div class="id-target" id="GtkConstraintLayout as GtkBuildable"></div><h4 id="GtkConstraintLayout_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkConstraintLayout as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkConstraintLayout as GtkBuildable">§</a></h4>
+
+<p><span class="basis">Gnome::Gtk4::ConstraintLayout</span> implements the <a href="/content-docs/api2/reference/Gnome::Gtk4::R-Buildable">Gnome::Gtk4::ConstraintGuide</a> interface and has a custom &quot;constraints&quot; element which allows describing constraints in a <a href="/content-docs/api2/reference/Gtk4/Builder">Gnome::Gtk4::Builder</a> UI file. </p>
+
+<p id="Para_3">An example of a UI definition fragment specifying a constraint:</p>
+
+<p id="Para_4">The definition above will add two constraints to the GtkConstraintLayout:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >a required constraint between the leading edge of &quot;button&quot; and the leading edge of the widget using the constraint layout, plus 12 pixels</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >a strong, constant constraint making the width of &quot;button&quot; greater than, or equal to 250 pixels</li>
 </ul>
 
-<h4 id="Using_the_Visual_Format_Language"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">Using the Visual Format Language</a></h4>
-<p>Complex constraints can be described using a compact syntax called VFL, or *Visual Format Language*.</p><p>The Visual Format Language describes all the constraints on a row or column, typically starting from the leading edge towards the trailing one. Each element of the layout is composed by &quot;views&quot;, which identify a <a href="/content-docs/api2/reference/Gnome/Gtk4/R-ConstraintTarget.html">Gnome::Gtk4::ConstraintGuide</a>.</p><p>For instance:</p><p>Describes a constraint that binds the trailing edge of &quot;button&quot; to the leading edge of &quot;textField&quot;, leaving a default space between the two.</p><p>Using VFL is also possible to specify predicates that describe constraints on attributes like width and height:</p><p>The default orientation for a VFL description is horizontal, unless otherwise specified:</p><p>It's also possible to specify multiple predicates, as well as their strength:</p><p>Finally, it's also possible to use simple arithmetic operators:</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/ConstraintLayout.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">Class initialization</a></h1>
+<p id="Para_5">The &quot;target&quot; and &quot;target-attribute&quot; attributes are required.</p>
 
-<h2 id="new"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">new</a></h2>
+<p id="Para_6">The &quot;source&quot; and &quot;source-attribute&quot; attributes of the &quot;constraint&quot; element are optional; if they are not specified, the constraint is assumed to be a constant.</p>
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-constraintlayout"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">new-constraintlayout</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::ConstraintLayout</strong> layout manager.</p><pre class="pod-block-code">method new-constraintlayout ( --&gt; Gnome::Gtk4::ConstraintLayout )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-constraint"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">add-constraint</a></h2>
-<p>Adds a constraint to the layout manager.</p><p>The <em>source defined in Gnome::Gtk4::Constraint</em> and <em>target defined in Gnome::Gtk4::Constraint</em> properties of <strong>constraint</strong> can be:</p><ul>
-<li><p>set to undefined to indicate that the constraint refers to the widget using <strong>layout</strong></p></li>
-<li><p>set to the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> using <strong>layout</strong></p></li>
-<li><p>set to a child of the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> using <strong>layout</strong></p></li>
-<li><p>set to a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide.html">Gnome::Gtk4::ConstraintGuide</a> that is part of <strong>layout</strong></p></li>
+<p id="Para_7">The &quot;relation&quot; attribute is optional; if not specified, the constraint is assumed to be an equality.</p>
+
+<p id="Para_8">The &quot;strength&quot; attribute is optional; if not specified, the constraint is assumed to be required.</p>
+
+<p id="Para_9">The &quot;source&quot; and &quot;target&quot; attributes can be set to &quot;super&quot; to indicate that the constraint target is the widget using the GtkConstraintLayout.</p>
+
+<p id="Para_10">There can be &quot;constant&quot; and &quot;multiplier&quot; attributes.</p>
+
+<p>Additionally, the &quot;constraints&quot; element can also contain a description of the <span class="basis">GtkConstraintGuides</span> used by the layout: </p>
+
+<p id="Para_11">The &quot;guide&quot; element has the following optional attributes:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >&quot;min-width&quot;, &quot;nat-width&quot;, and &quot;max-width&quot;, describe the minimum, natural, and maximum width of the guide, respectively</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&quot;min-height&quot;, &quot;nat-height&quot;, and &quot;max-height&quot;, describe the minimum, natural, and maximum height of the guide, respectively</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&quot;strength&quot; describes the strength of the constraint on the natural size of the guide; if not specified, the constraint is assumed to have a medium strength</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >&quot;name&quot; describes a name for the guide, useful when debugging</li>
 </ul>
-<p>The <code>$layout</code> acquires the ownership of <code>$constraint</code> after calling this function.</p><pre class="pod-block-code">method add-constraint ( Array[Int] $constraint )
-</pre><ul>
-<li><p>$constraint; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a>.</p></li>
+
+<div class="id-target" id="Using the Visual Format Language"></div><h4 id="Using_the_Visual_Format_Language" class="heading "><a href="#" title="go to top of document">Using the Visual Format Language</a><a class="raku-anchor" title="direct link" href="#Using the Visual Format Language">§</a></h4>
+
+<p id="Para_12">Complex constraints can be described using a compact syntax called VFL, or *Visual Format Language*.</p>
+
+<p>The Visual Format Language describes all the constraints on a row or column, typically starting from the leading edge towards the trailing one. Each element of the layout is composed by &quot;views&quot;, which identify a <a href="/content-docs/api2/reference/Gnome::Gtk4::R-ConstraintTarget">Gnome::Gtk4::ConstraintGuide</a>. </p>
+
+<p id="Para_13">For instance:</p>
+
+<p id="Para_14">Describes a constraint that binds the trailing edge of &quot;button&quot; to the leading edge of &quot;textField&quot;, leaving a default space between the two.</p>
+
+<p id="Para_15">Using VFL is also possible to specify predicates that describe constraints on attributes like width and height:</p>
+
+<p id="Para_16">The default orientation for a VFL description is horizontal, unless otherwise specified:</p>
+
+<p id="Para_17">It's also possible to specify multiple predicates, as well as their strength:</p>
+
+<p id="Para_18">Finally, it's also possible to use simple arithmetic operators:</p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/ConstraintLayout.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-constraintlayout" class="heading "><a href="#" title="go to top of document">new-constraintlayout</a><a class="raku-anchor" title="direct link" href="#new-constraintlayout">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::ConstraintLayout</span> layout manager. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-constraintlayout ( --&gt; Gnome::Gtk4::ConstraintLayout )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-constraint" class="heading "><a href="#" title="go to top of document">add-constraint</a><a class="raku-anchor" title="direct link" href="#add-constraint">§</a></h2>
+
+<p id="Para_19">Adds a constraint to the layout manager.</p>
+
+<p>The <span class="important">source defined in Gnome::Gtk4::Constraint</span> and <span class="important">target defined in Gnome::Gtk4::Constraint</span> properties of <span class="basis">constraint</span> can be: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >set to undefined to indicate that the constraint refers to the widget using <span class="basis">layout</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >set to the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> using <span class="basis">layout</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >set to a child of the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> using <span class="basis">layout</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >set to a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide">Gnome::Gtk4::ConstraintGuide</a> that is part of <span class="basis">layout</span></li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="add-constraints-from-description"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">add-constraints-from-description</a></h2>
-<p>Creates a list of constraints from a VFL description.</p><p>This function is a convenience wrapper around <a href="#add-constraints-from-descriptionv">.add-constraints-from-descriptionv()</a>, using variadic arguments to populate the view/target map.</p><pre class="pod-block-code">method add-constraints-from-description ( Array[Str] $lines, Int() $n-lines, Int() $hspacing, Int() $vspacing, N-Object $error, Str $first-view, … --&gt; N-List )
-</pre><ul>
-<li><p>$lines; an array of Visual Format Language lines defining a set of constraints.</p></li>
-<li><p>$n-lines; the number of lines.</p></li>
-<li><p>$hspacing; default horizontal spacing value, or -1 for the fallback value.</p></li>
-<li><p>$vspacing; default vertical spacing value, or -1 for the fallback value.</p></li>
-<li><p>$error; return location for a <strong>Gnome::Glib::N-Error</strong></p></li>
-<li><p>$first-view; the name of a view in the VFL description, followed by the <a href="/content-docs/api2/reference/Gnome/Gtk4/R-ConstraintTarget.html">Gnome::Gtk4::ConstraintGuide</a> to which it maps.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
+
+<p>The <span class="code">$layout</span> acquires the ownership of <span class="code">$constraint</span> after calling this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-constraint ( Array[Int] $constraint )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$constraint; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a>.</li>
 </ul>
-<p>Return value; the list of <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a>s that were added to the layout. </p></section>
-<section name="pod">
-<h2 id="add-constraints-from-descriptionv"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">add-constraints-from-descriptionv</a></h2>
-<p>Creates a list of constraints from a VFL description.</p><p>The Visual Format Language, VFL, is based on Apple's AutoLayout [VFL](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html).</p><p>The <strong>views</strong> dictionary is used to match <a href="/content-docs/api2/reference/Gnome/Gtk4/R-ConstraintTarget.html">Gnome::Gtk4::ConstraintGuide</a> instances to the symbolic view name inside the VFL.</p><p>The VFL grammar is:</p><p>**Note**: The VFL grammar used by GTK is slightly different than the one defined by Apple, as it can use symbolic values for the constraint's strength instead of numeric values; additionally, GTK allows adding simple arithmetic operations inside predicates.</p><p>Examples of VFL descriptions are:</p><pre class="pod-block-code">method add-constraints-from-descriptionv ( Array[Str] $lines, Int() $n-lines, Int() $hspacing, Int() $vspacing, N-Object $views, CArray[N-Error] $err --&gt; N-List )
-</pre><ul>
-<li><p>$lines; an array of Visual Format Language lines defining a set of constraints.</p></li>
-<li><p>$n-lines; the number of lines.</p></li>
-<li><p>$hspacing; default horizontal spacing value, or -1 for the fallback value.</p></li>
-<li><p>$vspacing; default vertical spacing value, or -1 for the fallback value.</p></li>
-<li><p>$views; a dictionary of `[ name, target ]` pairs; the <strong>name</strong> keys map to the view names in the VFL lines, while the <strong>target</strong> values map to children of the widget using a <strong>Gnome::Gtk4::ConstraintLayout</strong>, or guides</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<h2 id="add-constraints-from-description" class="heading "><a href="#" title="go to top of document">add-constraints-from-description</a><a class="raku-anchor" title="direct link" href="#add-constraints-from-description">§</a></h2>
+
+<p id="Para_20">Creates a list of constraints from a VFL description.</p>
+
+<p>This function is a convenience wrapper around <a href="#add-constraints-from-descriptionv">.add-constraints-from-descriptionv()</a>, using variadic arguments to populate the view/target map. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-constraints-from-description ( Array[Str] $lines, Int() $n-lines, Int() $hspacing, Int() $vspacing, N-Object $error, Str $first-view, … --&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$lines; an array of Visual Format Language lines defining a set of constraints.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-lines; the number of lines.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hspacing; default horizontal spacing value, or -1 for the fallback value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$vspacing; default vertical spacing value, or -1 for the fallback value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$error; return location for a <span class="basis">Gnome::Glib::N-Error</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-view; the name of a view in the VFL description, followed by the <a href="/content-docs/api2/reference/Gnome::Gtk4::R-ConstraintTarget">Gnome::Gtk4::ConstraintGuide</a> to which it maps.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
 </ul>
-<p>Return value; the list of <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a> instances that were added to the layout. </p></section>
-<section name="pod">
-<h2 id="add-guide"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">add-guide</a></h2>
-<p>Adds a guide to <strong>layout</strong>.</p><p>A guide can be used as the source or target of constraints, like a widget, but it is not visible.</p><p>The <strong>layout</strong> acquires the ownership of <strong>guide</strong> after calling this function.</p><pre class="pod-block-code">method add-guide ( N-Object() $guide )
-</pre><ul>
-<li><p>$guide; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide.html">Gnome::Gtk4::ConstraintGuide</a> object.</p></li>
+
+<p>Return value; the list of <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a>s that were added to the layout. </p>
+<h2 id="add-constraints-from-descriptionv" class="heading "><a href="#" title="go to top of document">add-constraints-from-descriptionv</a><a class="raku-anchor" title="direct link" href="#add-constraints-from-descriptionv">§</a></h2>
+
+<p id="Para_21">Creates a list of constraints from a VFL description.</p>
+
+<p id="Para_22">The Visual Format Language, VFL, is based on Apple's AutoLayout [VFL](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/VisualFormatLanguage.html).</p>
+
+<p>The <span class="basis">views</span> dictionary is used to match <a href="/content-docs/api2/reference/Gnome::Gtk4::R-ConstraintTarget">Gnome::Gtk4::ConstraintGuide</a> instances to the symbolic view name inside the VFL. </p>
+
+<p id="Para_23">The VFL grammar is:</p>
+
+<p id="Para_24">**Note**: The VFL grammar used by GTK is slightly different than the one defined by Apple, as it can use symbolic values for the constraint's strength instead of numeric values; additionally, GTK allows adding simple arithmetic operations inside predicates.</p>
+
+<p id="Para_25">Examples of VFL descriptions are:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-constraints-from-descriptionv ( Array[Str] $lines, Int() $n-lines, Int() $hspacing, Int() $vspacing, N-Object $views, CArray[N-Error] $err --&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$lines; an array of Visual Format Language lines defining a set of constraints.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-lines; the number of lines.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$hspacing; default horizontal spacing value, or -1 for the fallback value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$vspacing; default vertical spacing value, or -1 for the fallback value.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$views; a dictionary of `[ name, target ]` pairs; the <span class="basis">name</span> keys map to the view names in the VFL lines, while the <span class="basis">target</span> values map to children of the widget using a <span class="basis">Gnome::Gtk4::ConstraintLayout</span>, or guides</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="observe-constraints"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">observe-constraints</a></h2>
-<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> to track the constraints that are part of the layout.</p><p>Calling this function will enable extra internal bookkeeping to track constraints and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-constraints (--&gt; N-List )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> tracking the layout's constraints. </p></section>
-<section name="pod">
-<h2 id="observe-guides"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">observe-guides</a></h2>
-<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> to track the guides that are part of the layout.</p><p>Calling this function will enable extra internal bookkeeping to track guides and emit signals on the returned listmodel. It may slow down operations a lot.</p><p>Applications should try hard to avoid calling this function because of the slowdowns.</p><pre class="pod-block-code">method observe-guides (--&gt; N-List )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> tracking the layout's guides. </p></section>
-<section name="pod">
-<h2 id="remove-all-constraints"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">remove-all-constraints</a></h2>
-<p>Removes all constraints from the layout manager.</p><pre class="pod-block-code">method remove-all-constraints ( )
-</pre></section>
-<section name="pod">
-<h2 id="remove-constraint"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">remove-constraint</a></h2>
-<p>Removes <strong>constraint</strong> from the layout manager, so that it no longer influences the layout.</p><pre class="pod-block-code">method remove-constraint ( Array[Int] $constraint )
-</pre><ul>
-<li><p>$constraint; a <a href="/content-docs/api2/reference/Gtk4/Constraint.html">Gnome::Gtk4::Constraint</a>.</p></li>
+
+<p>Return value; the list of <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a> instances that were added to the layout. </p>
+<h2 id="add-guide" class="heading "><a href="#" title="go to top of document">add-guide</a><a class="raku-anchor" title="direct link" href="#add-guide">§</a></h2>
+
+<p>Adds a guide to <span class="basis">layout</span>. </p>
+
+<p id="Para_26">A guide can be used as the source or target of constraints, like a widget, but it is not visible.</p>
+
+<p>The <span class="basis">layout</span> acquires the ownership of <span class="basis">guide</span> after calling this function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-guide ( N-Object() $guide )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$guide; (transfer ownership: full) a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide">Gnome::Gtk4::ConstraintGuide</a> object.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="remove-guide"><a href="#Gnome::Gtk4::ConstraintLayout" class="u" title="go to top of document">remove-guide</a></h2>
-<p>Removes <strong>guide</strong> from the layout manager, so that it no longer influences the layout.</p><pre class="pod-block-code">method remove-guide ( N-Object() $guide )
-</pre><ul>
-<li><p>$guide; a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide.html">Gnome::Gtk4::ConstraintGuide</a> object.</p></li>
+<h2 id="observe-constraints" class="heading "><a href="#" title="go to top of document">observe-constraints</a><a class="raku-anchor" title="direct link" href="#observe-constraints">§</a></h2>
+
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> to track the constraints that are part of the layout. </p>
+
+<p id="Para_27">Calling this function will enable extra internal bookkeeping to track constraints and emit signals on the returned listmodel. It may slow down operations a lot.</p>
+
+<p id="Para_28">Applications should try hard to avoid calling this function because of the slowdowns.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method observe-constraints (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> tracking the layout's constraints. </p>
+<h2 id="observe-guides" class="heading "><a href="#" title="go to top of document">observe-guides</a><a class="raku-anchor" title="direct link" href="#observe-guides">§</a></h2>
+
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> to track the guides that are part of the layout. </p>
+
+<p id="Para_29">Calling this function will enable extra internal bookkeeping to track guides and emit signals on the returned listmodel. It may slow down operations a lot.</p>
+
+<p id="Para_30">Applications should try hard to avoid calling this function because of the slowdowns.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method observe-guides (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> tracking the layout's guides. </p>
+<h2 id="remove-all-constraints" class="heading "><a href="#" title="go to top of document">remove-all-constraints</a><a class="raku-anchor" title="direct link" href="#remove-all-constraints">§</a></h2>
+
+<p id="Para_31">Removes all constraints from the layout manager.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-all-constraints ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="remove-constraint" class="heading "><a href="#" title="go to top of document">remove-constraint</a><a class="raku-anchor" title="direct link" href="#remove-constraint">§</a></h2>
+
+<p>Removes <span class="basis">constraint</span> from the layout manager, so that it no longer influences the layout. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-constraint ( Array[Int] $constraint )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$constraint; a <a href="/content-docs/api2/reference/Gtk4/Constraint">Gnome::Gtk4::Constraint</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ConstraintLayout.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:08Z</span></div></footer>
-	</body>
+<h2 id="remove-guide" class="heading "><a href="#" title="go to top of document">remove-guide</a><a class="raku-anchor" title="direct link" href="#remove-guide">§</a></h2>
+
+<p>Removes <span class="basis">guide</span> from the layout manager, so that it no longer influences the layout. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-guide ( N-Object() $guide )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$guide; a <a href="/content-docs/api2/reference/Gtk4/ConstraintGuide">Gnome::Gtk4::ConstraintGuide</a> object.</li>
+</ul>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/ConstraintLayout.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

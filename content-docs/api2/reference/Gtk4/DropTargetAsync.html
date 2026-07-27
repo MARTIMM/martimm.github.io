@@ -1,115 +1,548 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::DropTargetAsync</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::DropTargetAsync</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::DropTargetAsync">Gnome::Gtk4::DropTargetAsync</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-droptargetasync">new-droptargetasync</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-actions">get-actions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-formats">get-formats</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reject-drop">reject-drop</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-actions">set-actions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-formats">set-formats</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#accept">accept</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-enter">drag-enter</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-leave">drag-leave</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drag-motion">drag-motion</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#drop">drop</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::DropTargetAsync</strong> is an event controller to receive Drag-and-Drop operations, asynchronously.</p><p>It is the more complete but also more complex method of handling drop operations compared to <a href="/content-docs/api2/reference/Gtk4/DropTarget.html">Gnome::Gtk4::DropTarget</a>, and you should only use it if <a href="/content-docs/api2/reference/Gtk4/DropTarget.html">Gnome::Gtk4::DropTarget</a> doesn't provide all the features you need.</p><p>To use a <strong>Gnome::Gtk4::DropTargetAsync</strong> to receive drops on a widget, you create a <strong>Gnome::Gtk4::DropTargetAsync</strong> object, configure which data formats and actions you support, connect to its signals, and then attach it to the widget with <a href="/content-docs/api2/reference/Gtk4/Widget.html#add-controller">.add-controller() in class Widget</a>.</p><p>During a drag operation, the first signal that a <strong>Gnome::Gtk4::DropTargetAsync</strong> emits is <em>accept</em>, which is meant to determine whether the target is a possible drop site for the ongoing drop. The default handler for the <em>accept</em> signal accepts the drop if it finds a compatible data format and an action that is supported on both sides.</p><p>If it is, and the widget becomes a target, you will receive a <em>drag-enter</em> signal, followed by <em>drag-motion</em> signals as the pointer moves, optionally a <em>drop</em> signal when a drop happens, and finally a <em>drag-leave</em> signal when the pointer moves off the widget.</p><p>The <em>drag-enter</em> and <em>drag-motion</em> handler return a <code>bit field GdkDragAction defined in Gnome::Gdk4::T-enums</code> to update the status of the ongoing operation. The <em>drop</em> handler should decide if it ultimately accepts the drop and if it does, it should initiate the data transfer and finish the operation by calling <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a>.</p><p>Between the <em>drag-enter</em> and <em>drag-leave</em> signals the widget is a current drop target, and will receive the <code>GTK_STATE_FLAG_DROP_ACTIVE</code> state, which can be used by themes to style the widget as a drop target.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/DropTargetAsync.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-droptargetasync"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">new-droptargetasync</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p><pre class="pod-block-code">method new-droptargetasync ( N-Object $formats, UInt $actions --&gt; Gnome::Gtk4::DropTargetAsync )
-</pre><ul>
-<li><p>$formats; (transfer ownership: full) the supported data formats</p></li>
-<li><p>$actions; the supported actions.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::DropTargetAsync"></div><h1 class="title">Gnome::Gtk4::DropTargetAsync</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-droptargetasync">new-droptargetasync</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-actions">get-actions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-formats">get-formats</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reject-drop">reject-drop</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-actions">set-actions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-formats">set-formats</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#accept">accept</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-enter">drag-enter</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-leave">drag-leave</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drag-motion">drag-motion</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#drop">drop</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::DropTargetAsync</span> is an event controller to receive Drag-and-Drop operations, asynchronously. </p>
+
+<p>It is the more complete but also more complex method of handling drop operations compared to <a href="/content-docs/api2/reference/Gtk4/DropTarget">Gnome::Gtk4::DropTarget</a>, and you should only use it if <a href="/content-docs/api2/reference/Gtk4/DropTarget">Gnome::Gtk4::DropTarget</a> doesn't provide all the features you need. </p>
+
+<p>To use a <span class="basis">Gnome::Gtk4::DropTargetAsync</span> to receive drops on a widget, you create a <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object, configure which data formats and actions you support, connect to its signals, and then attach it to the widget with <a href="/content-docs/api2/reference/Gtk4/Widget#add-controller">.add-controller() in class Widget</a>. </p>
+
+<p>During a drag operation, the first signal that a <span class="basis">Gnome::Gtk4::DropTargetAsync</span> emits is <span class="important">accept</span>, which is meant to determine whether the target is a possible drop site for the ongoing drop. The default handler for the <span class="important">accept</span> signal accepts the drop if it finds a compatible data format and an action that is supported on both sides. </p>
+
+<p>If it is, and the widget becomes a target, you will receive a <span class="important">drag-enter</span> signal, followed by <span class="important">drag-motion</span> signals as the pointer moves, optionally a <span class="important">drop</span> signal when a drop happens, and finally a <span class="important">drag-leave</span> signal when the pointer moves off the widget. </p>
+
+<p>The <span class="important">drag-enter</span> and <span class="important">drag-motion</span> handler return a <span class="code">bit field GdkDragAction defined in Gnome::Gdk4::T-enums</span> to update the status of the ongoing operation. The <span class="important">drop</span> handler should decide if it ultimately accepts the drop and if it does, it should initiate the data transfer and finish the operation by calling <a href="/content-docs/api2/reference/Gdk4/Drop#finish">.finish() in class Drop</a>. </p>
+
+<p>Between the <span class="important">drag-enter</span> and <span class="important">drag-leave</span> signals the widget is a current drop target, and will receive the <span class="code">GTK_STATE_FLAG_DROP_ACTIVE</span> state, which can be used by themes to style the widget as a drop target. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/DropTargetAsync.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-droptargetasync" class="heading "><a href="#" title="go to top of document">new-droptargetasync</a><a class="raku-anchor" title="direct link" href="#new-droptargetasync">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-droptargetasync ( N-Object $formats, UInt $actions --&gt; Gnome::Gtk4::DropTargetAsync )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$formats; (transfer ownership: full) the supported data formats</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$actions; the supported actions.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-actions"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">get-actions</a></h2>
-<p>Gets the actions that this drop target supports.</p><pre class="pod-block-code">method get-actions (--&gt; UInt )
-</pre><p>Return value; the actions that this drop target supports. </p></section>
-<section name="pod">
-<h2 id="get-formats"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">get-formats</a></h2>
-<p>Gets the data formats that this drop target accepts.</p><p>If the result is undefined, all formats are expected to be supported.</p><pre class="pod-block-code">method get-formats (--&gt; N-Object )
-</pre><p>Return value; the supported data formats. </p></section>
-<section name="pod">
-<h2 id="reject-drop"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">reject-drop</a></h2>
-<p>Sets the <code>$drop</code> as not accepted on this drag site.</p><p>This function should be used when delaying the decision on whether to accept a drag or not until after reading the data.</p><pre class="pod-block-code">method reject-drop ( N-Object() $drop )
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a> of an ongoing drag operation.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-actions"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">set-actions</a></h2>
-<p>Sets the actions that this drop target supports.</p><pre class="pod-block-code">method set-actions ( UInt $actions )
-</pre><ul>
-<li><p>$actions; the supported actions.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-formats"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">set-formats</a></h2>
-<p>Sets the data formats that this drop target will accept.</p><pre class="pod-block-code">method set-formats ( N-Object $formats )
-</pre><ul>
-<li><p>$formats; the supported data formats or undefined for any format</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">Signals</a></h1>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="get-actions" class="heading "><a href="#" title="go to top of document">get-actions</a><a class="raku-anchor" title="direct link" href="#get-actions">§</a></h2>
 
-<h3 id="accept"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">accept</a></h3>
-<p>Emitted on the drop site when a drop operation is about to begin.</p><p>If the drop is not accepted, <code>False</code> will be returned and the drop target will ignore the drop. If <code>True</code> is returned, the drop is accepted for now but may be rejected later via a call to <a href="#reject-drop">.reject-drop()</a> or ultimately by returning <code>False</code> from a <em>drop</em> handler.</p><p>The default handler for this signal decides whether to accept the drop based on the formats provided by the <code>$drop</code>.</p><p>If the decision whether the drop will be accepted or rejected needs further processing, such as inspecting the data, this function should return <code>True</code> and proceed as is <code>$drop</code> was accepted and if it decides to reject the drop later, it should call <a href="#reject-drop">.reject-drop()</a>.</p><pre class="pod-block-code">method handler (
+<p id="Para">Gets the actions that this drop target supports.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-actions (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_0">Return value; the actions that this drop target supports.</p>
+<h2 id="get-formats" class="heading "><a href="#" title="go to top of document">get-formats</a><a class="raku-anchor" title="direct link" href="#get-formats">§</a></h2>
+
+<p id="Para_1">Gets the data formats that this drop target accepts.</p>
+
+<p id="Para_2">If the result is undefined, all formats are expected to be supported.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-formats (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; the supported data formats.</p>
+<h2 id="reject-drop" class="heading "><a href="#" title="go to top of document">reject-drop</a><a class="raku-anchor" title="direct link" href="#reject-drop">§</a></h2>
+
+<p>Sets the <span class="code">$drop</span> as not accepted on this drag site. </p>
+
+<p id="Para_4">This function should be used when delaying the decision on whether to accept a drag or not until after reading the data.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reject-drop ( N-Object() $drop )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a> of an ongoing drag operation.</li>
+</ul>
+<h2 id="set-actions" class="heading "><a href="#" title="go to top of document">set-actions</a><a class="raku-anchor" title="direct link" href="#set-actions">§</a></h2>
+
+<p id="Para_5">Sets the actions that this drop target supports.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-actions ( UInt $actions )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$actions; the supported actions.</li>
+</ul>
+<h2 id="set-formats" class="heading "><a href="#" title="go to top of document">set-formats</a><a class="raku-anchor" title="direct link" href="#set-formats">§</a></h2>
+
+<p id="Para_6">Sets the data formats that this drop target will accept.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-formats ( N-Object $formats )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$formats; the supported data formats or undefined for any format</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="accept" class="heading "><a href="#" title="go to top of document">accept</a><a class="raku-anchor" title="direct link" href="#accept">§</a></h3>
+
+<p id="Para_7">Emitted on the drop site when a drop operation is about to begin.</p>
+
+<p>If the drop is not accepted, <span class="code">False</span> will be returned and the drop target will ignore the drop. If <span class="code">True</span> is returned, the drop is accepted for now but may be rejected later via a call to <a href="#reject-drop">.reject-drop()</a> or ultimately by returning <span class="code">False</span> from a <span class="important">drop</span> handler. </p>
+
+<p>The default handler for this signal decides whether to accept the drop based on the formats provided by the <span class="code">$drop</span>. </p>
+
+<p>If the decision whether the drop will be accepted or rejected needs further processing, such as inspecting the data, this function should return <span class="code">True</span> and proceed as is <span class="code">$drop</span> was accepted and if it decides to reject the drop later, it should call <a href="#reject-drop">.reject-drop()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drop,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; <code>True</code> if <code>$drop</code> is accepted</p>
-<h3 id="drag-enter"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-enter</a></h3>
-<p>Emitted on the drop site when the pointer enters the widget.</p><p>It can be used to set up custom highlighting.</p><pre class="pod-block-code">method handler (
+
+<p>Return value; <span class="code">True</span> if <span class="code">$drop</span> is accepted </p>
+<h3 id="drag-enter" class="heading "><a href="#" title="go to top of document">drag-enter</a><a class="raku-anchor" title="direct link" href="#drag-enter">§</a></h3>
+
+<p id="Para_8">Emitted on the drop site when the pointer enters the widget.</p>
+
+<p id="Para_9">It can be used to set up custom highlighting.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drop,
   gdouble $x,
   gdouble $y,
@@ -117,33 +550,47 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
-<li><p>$x; the x coordinate of the current pointer position.</p></li>
-<li><p>$y; the y coordinate of the current pointer position.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="drag-leave"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-leave</a></h3>
-<p>Emitted on the drop site when the pointer leaves the widget.</p><p>Its main purpose it to undo things done in <strong>Gnome::Gtk4::DropTargetAsync</strong>::drag-enter.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; the x coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the y coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="drag-leave" class="heading "><a href="#" title="go to top of document">drag-leave</a><a class="raku-anchor" title="direct link" href="#drag-leave">§</a></h3>
+
+<p id="Para_10">Emitted on the drop site when the pointer leaves the widget.</p>
+
+<p>Its main purpose it to undo things done in <span class="basis">Gnome::Gtk4::DropTargetAsync</span>::drag-enter. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drop,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="drag-motion"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drag-motion</a></h3>
-<p>Emitted while the pointer is moving over the drop target.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="drag-motion" class="heading "><a href="#" title="go to top of document">drag-motion</a><a class="raku-anchor" title="direct link" href="#drag-motion">§</a></h3>
+
+<p id="Para_11">Emitted while the pointer is moving over the drop target.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drop,
   gdouble $x,
   gdouble $y,
@@ -151,18 +598,30 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::DropTargetAsync :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
-<li><p>$x; the x coordinate of the current pointer position.</p></li>
-<li><p>$y; the y coordinate of the current pointer position.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="drop"><a href="#Gnome::Gtk4::DropTargetAsync" class="u" title="go to top of document">drop</a></h3>
-<p>Emitted on the drop site when the user drops the data onto the widget.</p><p>The signal handler must determine whether the pointer position is in a drop zone or not. If it is not in a drop zone, it returns <code>False</code> and no further processing is necessary.</p><p>Otherwise, the handler returns <code>True</code>. In this case, this handler will accept the drop. The handler must ensure that <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a> is called to let the source know that the drop is done. The call to <a href="/content-docs/api2/reference/Gdk4/Drop.html#finish">.finish() in class Drop</a> must only be done when all data has been received.</p><p>To receive the data, use one of the read functions provided by <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a> such as <a href="/content-docs/api2/reference/Gdk4/Drop.html#read-async">.read-async() in class Drop</a> or <a href="/content-docs/api2/reference/Gdk4/Drop.html#read-value-async">.read-value-async() in class Drop</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; the x coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the y coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="drop" class="heading "><a href="#" title="go to top of document">drop</a><a class="raku-anchor" title="direct link" href="#drop">§</a></h3>
+
+<p id="Para_12">Emitted on the drop site when the user drops the data onto the widget.</p>
+
+<p>The signal handler must determine whether the pointer position is in a drop zone or not. If it is not in a drop zone, it returns <span class="code">False</span> and no further processing is necessary. </p>
+
+<p>Otherwise, the handler returns <span class="code">True</span>. In this case, this handler will accept the drop. The handler must ensure that <a href="/content-docs/api2/reference/Gdk4/Drop#finish">.finish() in class Drop</a> is called to let the source know that the drop is done. The call to <a href="/content-docs/api2/reference/Gdk4/Drop#finish">.finish() in class Drop</a> must only be done when all data has been received. </p>
+
+<p>To receive the data, use one of the read functions provided by <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a> such as <a href="/content-docs/api2/reference/Gdk4/Drop#read-async">.read-async() in class Drop</a> or <a href="/content-docs/api2/reference/Gdk4/Drop#read-value-async">.read-value-async() in class Drop</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $drop,
   gdouble $x,
   gdouble $y,
@@ -171,16 +630,37 @@
   Gnome::Gtk4::DropTargetAsync :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop.html">Gnome::Gdk4::Drop</a>.</p></li>
-<li><p>$x; the x coordinate of the current pointer position.</p></li>
-<li><p>$y; the y coordinate of the current pointer position.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::DropTargetAsync</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$drop; the <a href="/content-docs/api2/reference/Gdk4/Drop">Gnome::Gdk4::Drop</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$x; the x coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$y; the y coordinate of the current pointer position.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::DropTargetAsync</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; whether the drop is accepted at the given pointer position</p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropTargetAsync.rakudoc</span></div><div>at <span class="time">2025-11-14T20:56:16Z</span></div></footer>
-	</body>
+
+<p id="Para_13">Return value; whether the drop is accepted at the given pointer position</p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/DropTargetAsync.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

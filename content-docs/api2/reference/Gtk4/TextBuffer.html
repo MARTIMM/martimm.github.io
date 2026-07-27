@@ -1,646 +1,1589 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::TextBuffer</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::TextBuffer</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::TextBuffer">Gnome::Gtk4::TextBuffer</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-textbuffer">new-textbuffer</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-mark">add-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-selection-clipboard">add-selection-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#apply-tag">apply-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#apply-tag-by-name">apply-tag-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#backspace">backspace</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#begin-irreversible-action">begin-irreversible-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#begin-user-action">begin-user-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#copy-clipboard">copy-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#create-child-anchor">create-child-anchor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#create-mark">create-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#create-tag">create-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#cut-clipboard">cut-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#delete">delete</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#delete-interactive">delete-interactive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#delete-mark">delete-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#delete-mark-by-name">delete-mark-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#delete-selection">delete-selection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#end-irreversible-action">end-irreversible-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#end-user-action">end-user-action</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-bounds">get-bounds</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-can-redo">get-can-redo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-can-undo">get-can-undo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-char-count">get-char-count</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-enable-undo">get-enable-undo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-end-iter">get-end-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-selection">get-has-selection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-insert">get-insert</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-child-anchor">get-iter-at-child-anchor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-line">get-iter-at-line</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-line-index">get-iter-at-line-index</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-line-offset">get-iter-at-line-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-mark">get-iter-at-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-iter-at-offset">get-iter-at-offset</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-line-count">get-line-count</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-mark">get-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-max-undo-levels">get-max-undo-levels</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-modified">get-modified</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection-bound">get-selection-bound</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection-bounds">get-selection-bounds</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selection-content">get-selection-content</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-slice">get-slice</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-start-iter">get-start-iter</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tag-table">get-tag-table</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-text">get-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert">insert</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-at-cursor">insert-at-cursor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-child-anchor">insert-child-anchor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-interactive">insert-interactive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-interactive-at-cursor">insert-interactive-at-cursor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-markup">insert-markup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-paintable">insert-paintable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-range">insert-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-range-interactive">insert-range-interactive</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-with-tags">insert-with-tags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-with-tags-by-name">insert-with-tags-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#move-mark">move-mark</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#move-mark-by-name">move-mark-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#paste-clipboard">paste-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#place-cursor">place-cursor</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#redo">redo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-all-tags">remove-all-tags</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-selection-clipboard">remove-selection-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-tag">remove-tag</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-tag-by-name">remove-tag-by-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#select-range">select-range</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-enable-undo">set-enable-undo</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-max-undo-levels">set-max-undo-levels</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-modified">set-modified</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-text">set-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#undo">undo</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#apply-tag_0">apply-tag</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#begin-user-action_0">begin-user-action</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#changed">changed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#delete-range">delete-range</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#end-user-action_0">end-user-action</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#insert-child-anchor_0">insert-child-anchor</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#insert-paintable_0">insert-paintable</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#insert-text">insert-text</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#mark-deleted">mark-deleted</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#mark-set">mark-set</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#modified-changed">modified-changed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#paste-done">paste-done</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#redo_0">redo</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#remove-tag_0">remove-tag</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#undo_0">undo</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">Description</a></h1>
-<p>Stores text and attributes for display in a <a href="/content-docs/api2/reference/Gtk4/TextView.html">Gnome::Gtk4::TextView</a>.</p><p>You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p><p>GtkTextBuffer can support undoing changes to the buffer content, see <a href="#set-enable-undo">.set-enable-undo()</a>.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/TextBuffer.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-textbuffer"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">new-textbuffer</a></h2>
-<p>Creates a new text buffer.</p><pre class="pod-block-code">method new-textbuffer ( N-Object() $table --&gt; Gnome::Gtk4::TextBuffer )
-</pre><ul>
-<li><p>$table; a tag table, or undefined to create a new one.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">add-mark</a></h2>
-<p>Adds the mark at position <code>$where</code>.</p><p>The mark must not be added to another buffer, and if its name is defined then there must not be another mark in the buffer with the same name.</p><p>Emits the <em>mark-set</em> signal as notification of the mark's initial placement.</p><pre class="pod-block-code">method add-mark ( N-Object() $mark, N-Object $where )
-</pre><ul>
-<li><p>$mark; the mark to add.</p></li>
-<li><p>$where; location to place mark</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="add-selection-clipboard"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">add-selection-clipboard</a></h2>
-<p>Adds <code>$clipboard</code> to the list of clipboards in which the selection contents of <code>$buffer</code> are available.</p><p>In most cases, <code>$clipboard</code> will be the <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> returned by <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-primary-clipboard">.get-primary-clipboard() in class Gnome</a> for a view of <code>$buffer</code>.</p><pre class="pod-block-code">method add-selection-clipboard ( N-Object() $clipboard )
-</pre><ul>
-<li><p>$clipboard; a <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="apply-tag"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">apply-tag</a></h2>
-<p>Emits the “apply-tag” signal on <code>$buffer</code>.</p><p>The default handler for the signal applies <code>$tag</code> to the given range. <code>$start</code> and <code>$end</code> do not have to be in order.</p><pre class="pod-block-code">method apply-tag ( N-Object() $tag, N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
-<li><p>$start; one bound of range to be tagged</p></li>
-<li><p>$end; other bound of range to be tagged</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="apply-tag-by-name"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">apply-tag-by-name</a></h2>
-<p>Emits the “apply-tag” signal on <code>$buffer</code>.</p><p>Calls <a href="/content-docs/api2/reference/Gtk4/Gnome.html#lookup">.lookup() in class Gnome</a> on the buffer’s tag table to get a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>, then calls <a href="#apply-tag">.apply-tag()</a>.</p><pre class="pod-block-code">method apply-tag-by-name ( Str $name, N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$name; name of a named <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
-<li><p>$start; one bound of range to be tagged</p></li>
-<li><p>$end; other bound of range to be tagged</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="backspace"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">backspace</a></h2>
-<p>Performs the appropriate action as if the user hit the delete key with the cursor at the position specified by <code>$iter</code>.</p><p>In the normal case a single character will be deleted, but when combining accents are involved, more than one character can be deleted, and when precomposed character and accent combinations are involved, less than one character will be deleted.</p><p>Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the <code>$iter</code> will be re-initialized to point to the location where text was deleted.</p><pre class="pod-block-code">method backspace ( N-Object $iter, Bool() $interactive, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$iter; a position in <code>$buffer</code></p></li>
-<li><p>$interactive; whether the deletion is caused by user interaction.</p></li>
-<li><p>$default-editable; whether the buffer is editable by default.</p></li>
-</ul>
-<p>Return value; <code>True</code> if the buffer was modified. </p></section>
-<section name="pod">
-<h2 id="begin-irreversible-action"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">begin-irreversible-action</a></h2>
-<p>Denotes the beginning of an action that may not be undone.</p><p>This will cause any previous operations in the undo/redo queue to be cleared.</p><p>This should be paired with a call to <a href="#end-irreversible-action">.end-irreversible-action()</a> after the irreversible action has completed.</p><p>You may nest calls to <code>.begin-irreversible-action()</code> and <code>.end-irreversible-action()</code> pairs.</p><pre class="pod-block-code">method begin-irreversible-action ( )
-</pre></section>
-<section name="pod">
-<h2 id="begin-user-action"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">begin-user-action</a></h2>
-<p>Called to indicate that the buffer operations between here and a call to <code>.end-user-action()</code> are part of a single user-visible operation.</p><p>The operations between <code>.begin-user-action()</code> and <code>.end-user-action()</code> can then be grouped when creating an undo stack. <strong>Gnome::Gtk4::TextBuffer</strong> maintains a count of calls to <code>.begin-user-action()</code> that have not been closed with a call to <code>.end-user-action()</code>, and emits the “begin-user-action” and “end-user-action” signals only for the outermost pair of calls. This allows you to build user actions from other user actions.</p><p>The “interactive” buffer mutation functions, such as <a href="#insert-interactive">.insert-interactive()</a>, automatically call begin/end user action around the buffer operations they perform, so there's no need to add extra calls if you user action consists solely of a single call to one of those functions.</p><pre class="pod-block-code">method begin-user-action ( )
-</pre></section>
-<section name="pod">
-<h2 id="copy-clipboard"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">copy-clipboard</a></h2>
-<p>Copies the currently-selected text to a clipboard.</p><pre class="pod-block-code">method copy-clipboard ( N-Object() $clipboard )
-</pre><ul>
-<li><p>$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> object to copy to.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="create-child-anchor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">create-child-anchor</a></h2>
-<p>Creates and inserts a child anchor.</p><p>This is a convenience function which simply creates a child anchor with <a href="/content-docs/api2/reference/Gtk4/Gnome.html#newtextbuffer">.newtextbuffer() in class Gnome</a> and inserts it into the buffer with <a href="#insert-child-anchor">.insert-child-anchor()</a>.</p><p>The new anchor is owned by the buffer; no reference count is returned to the caller of this function.</p><pre class="pod-block-code">method create-child-anchor ( N-Object $iter --&gt; N-Object )
-</pre><ul>
-<li><p>$iter; location in the buffer</p></li>
-</ul>
-<p>Return value; the created child anchor. </p></section>
-<section name="pod">
-<h2 id="create-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">create-mark</a></h2>
-<p>Creates a mark at position <code>$where</code>.</p><p>If <code>$mark-name</code> is undefined, the mark is anonymous; otherwise, the mark can be retrieved by name using <a href="#get-mark">.get-mark()</a>. If a mark has left gravity, and text is inserted at the mark’s current location, the mark will be moved to the left of the newly-inserted text. If the mark has right gravity ( <code>$left-gravity</code> = <code>False</code>), the mark will end up on the right of newly-inserted text. The standard left-to-right cursor is a mark with right gravity (when you type, the cursor stays on the right side of the text you’re typing).</p><p>The caller of this function does not own a reference to the returned <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a>, so you can ignore the return value if you like. Marks are owned by the buffer and go away when the buffer does.</p><p>Emits the <em>mark-set</em> signal as notification of the mark's initial placement.</p><pre class="pod-block-code">method create-mark ( Str $mark-name, N-Object $where, Bool() $left-gravity --&gt; N-Object )
-</pre><ul>
-<li><p>$mark-name; name for mark.</p></li>
-<li><p>$where; location to place mark</p></li>
-<li><p>$left-gravity; whether the mark has left gravity.</p></li>
-</ul>
-<p>Return value; the new <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> object. </p></section>
-<section name="pod">
-<h2 id="create-tag"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">create-tag</a></h2>
-<p>Creates a tag and adds it to the tag table for <code>$buffer</code>.</p><p>Equivalent to calling <a href="/content-docs/api2/reference/Gtk4/Gnome.html#newtextbuffer">.newtextbuffer() in class Gnome</a> and then adding the tag to the buffer’s tag table. The returned tag is owned by the buffer’s tag table, so the ref count will be equal to one.</p><p>If <code>$tag-name</code> is undefined, the tag is anonymous.</p><p>If <code>$tag-name</code> is non-undefined, a tag called <code>$tag-name</code> must not already exist in the tag table for this buffer.</p><p>The <code>$first-property-name</code> argument and subsequent arguments are a list of properties to set on the tag, as with g_object_set().</p><pre class="pod-block-code">method create-tag ( Str $tag-name, Str $first-property-name, … --&gt; N-Object )
-</pre><ul>
-<li><p>$tag-name; name of the new tag.</p></li>
-<li><p>$first-property-name; name of first property to set.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-<p>Return value; a new tag. </p></section>
-<section name="pod">
-<h2 id="cut-clipboard"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">cut-clipboard</a></h2>
-<p>Copies the currently-selected text to a clipboard, then deletes said text if it’s editable.</p><pre class="pod-block-code">method cut-clipboard ( N-Object() $clipboard, Bool() $default-editable )
-</pre><ul>
-<li><p>$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> object to cut to.</p></li>
-<li><p>$default-editable; default editability of the buffer.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="delete"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete</a></h2>
-<p>Deletes text between <code>$start</code> and <code>$end</code>.</p><p>The order of <code>$start</code> and <code>$end</code> is not actually relevant; <code>.delete()</code> will reorder them.</p><p>This function actually emits the “delete-range” signal, and the default handler of that signal deletes the text. Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the <code>$start</code> and <code>$end</code> will be re-initialized to point to the location where text was deleted.</p><pre class="pod-block-code">method delete ( N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$start; a position in <code>$buffer</code></p></li>
-<li><p>$end; another position in <code>$buffer</code></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="delete-interactive"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete-interactive</a></h2>
-<p>Deletes all editable text in the given range.</p><p>Calls <a href="#delete">.delete()</a> for each editable sub-range of [ <code>$start</code>, <code>$end</code>). <code>$start</code> and <code>$end</code> are revalidated to point to the location of the last deleted range, or left untouched if no text was deleted.</p><pre class="pod-block-code">method delete-interactive ( N-Object $start-iter, N-Object $end-iter, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$start-iter; start of range to delete</p></li>
-<li><p>$end-iter; end of range</p></li>
-<li><p>$default-editable; whether the buffer is editable by default.</p></li>
-</ul>
-<p>Return value; whether some text was actually deleted. </p></section>
-<section name="pod">
-<h2 id="delete-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete-mark</a></h2>
-<p>Deletes <code>$mark</code>, so that it’s no longer located anywhere in the buffer.</p><p>Removes the reference the buffer holds to the mark, so if you haven’t called g_object_ref() on the mark, it will be freed. Even if the mark isn’t freed, most operations on <code>$mark</code> become invalid, until it gets added to a buffer again with <a href="#add-mark">.add-mark()</a>. Use <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-deleted">.get-deleted() in class Gnome</a> to find out if a mark has been removed from its buffer.</p><p>The <em>mark-deleted</em> signal will be emitted as notification after the mark is deleted.</p><pre class="pod-block-code">method delete-mark ( N-Object() $mark )
-</pre><ul>
-<li><p>$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> in <code>$buffer</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="delete-mark-by-name"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete-mark-by-name</a></h2>
-<p>Deletes the mark named <code>$name</code>; the mark must exist.</p><p>See <a href="#delete-mark">.delete-mark()</a> for details.</p><pre class="pod-block-code">method delete-mark-by-name ( Str $name )
-</pre><ul>
-<li><p>$name; name of a mark in <code>$buffer</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="delete-selection"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete-selection</a></h2>
-<p>Deletes the range between the “insert” and “selection_bound” marks, that is, the currently-selected text.</p><p>If <code>$interactive</code> is <code>True</code>, the editability of the selection will be considered (users can’t delete uneditable text).</p><pre class="pod-block-code">method delete-selection ( Bool() $interactive, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$interactive; whether the deletion is caused by user interaction.</p></li>
-<li><p>$default-editable; whether the buffer is editable by default.</p></li>
-</ul>
-<p>Return value; whether there was a non-empty selection to delete. </p></section>
-<section name="pod">
-<h2 id="end-irreversible-action"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">end-irreversible-action</a></h2>
-<p>Denotes the end of an action that may not be undone.</p><p>This will cause any previous operations in the undo/redo queue to be cleared.</p><p>This should be called after completing modifications to the text buffer after <a href="#begin-irreversible-action">.begin-irreversible-action()</a> was called.</p><p>You may nest calls to <code>.begin-irreversible-action()</code> and <code>.end-irreversible-action()</code> pairs.</p><pre class="pod-block-code">method end-irreversible-action ( )
-</pre></section>
-<section name="pod">
-<h2 id="end-user-action"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">end-user-action</a></h2>
-<p>Ends a user-visible operation.</p><p>Should be paired with a call to <a href="#begin-user-action">.begin-user-action()</a>. See that function for a full explanation.</p><pre class="pod-block-code">method end-user-action ( )
-</pre></section>
-<section name="pod">
-<h2 id="get-bounds"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-bounds</a></h2>
-<p>Retrieves the first and last iterators in the buffer, i.e. the entire buffer lies within the range [ <code>$start</code>, <code>$end</code>).</p><pre class="pod-block-code">method get-bounds ( N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$start; iterator to initialize with first position in the buffer</p></li>
-<li><p>$end; iterator to initialize with the end iterator</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-can-redo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-can-redo</a></h2>
-<p>Gets whether there is a redoable action in the history.</p><pre class="pod-block-code">method get-can-redo (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if there is a redoable action. </p></section>
-<section name="pod">
-<h2 id="get-can-undo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-can-undo</a></h2>
-<p>Gets whether there is an undoable action in the history.</p><pre class="pod-block-code">method get-can-undo (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if there is an undoable action. </p></section>
-<section name="pod">
-<h2 id="get-char-count"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-char-count</a></h2>
-<p>Gets the number of characters in the buffer.</p><p>Note that characters and bytes are not the same, you can’t e.g. expect the contents of the buffer in string form to be this many bytes long.</p><p>The character count is cached, so this function is very fast.</p><pre class="pod-block-code">method get-char-count (--&gt; Int )
-</pre><p>Return value; number of characters in the buffer. </p></section>
-<section name="pod">
-<h2 id="get-enable-undo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-enable-undo</a></h2>
-<p>Gets whether the buffer is saving modifications to the buffer to allow for undo and redo actions.</p><p>See <a href="#begin-irreversible-action">.begin-irreversible-action()</a> and <a href="#end-irreversible-action">.end-irreversible-action()</a> to create changes to the buffer that cannot be undone.</p><pre class="pod-block-code">method get-enable-undo (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if undoing and redoing changes to the buffer is allowed.. </p></section>
-<section name="pod">
-<h2 id="get-end-iter"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-end-iter</a></h2>
-<p>Initializes <code>$iter</code> with the “end iterator,” one past the last valid character in the text buffer.</p><p>If dereferenced with <a href="/content-docs/api2/reference/Gtk4/Gnome-TextIter.html#get-char">.get-char() in class Gnome-TextIter</a>, the end iterator has a character value of 0. The entire buffer lies in the range from the first position in the buffer (call <a href="#get-start-iter">.get-start-iter()</a> to get character position 0) to the end iterator.</p><pre class="pod-block-code">method get-end-iter ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-has-selection"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-has-selection</a></h2>
-<p>Indicates whether the buffer has some text currently selected.</p><pre class="pod-block-code">method get-has-selection (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the there is text selected. </p></section>
-<section name="pod">
-<h2 id="get-insert"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-insert</a></h2>
-<p>Returns the mark that represents the cursor (insertion point).</p><p>Equivalent to calling <a href="#get-mark">.get-mark()</a> to get the mark named “insert”, but very slightly more efficient, and involves less typing.</p><pre class="pod-block-code">method get-insert (--&gt; N-Object )
-</pre><p>Return value; insertion point mark. </p></section>
-<section name="pod">
-<h2 id="get-iter-at-child-anchor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-child-anchor</a></h2>
-<p>Obtains the location of <code>$anchor</code> within <code>$buffer</code>.</p><pre class="pod-block-code">method get-iter-at-child-anchor ( N-Object $iter, N-Object() $anchor )
-</pre><ul>
-<li><p>$iter; an iterator to be initialized</p></li>
-<li><p>$anchor; a child anchor that appears in <code>$buffer</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-iter-at-line"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-line</a></h2>
-<p>Initializes <code>$iter</code> to the start of the given line.</p><p>If <code>$line-number</code> is greater than or equal to the number of lines in the <code>$buffer</code>, the end iterator is returned.</p><pre class="pod-block-code">method get-iter-at-line ( N-Object $iter, Int() $line-number --&gt; Bool )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-<li><p>$line-number; line number counting from 0.</p></li>
-</ul>
-<p>Return value; whether the exact position has been found. </p></section>
-<section name="pod">
-<h2 id="get-iter-at-line-index"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-line-index</a></h2>
-<p>Obtains an iterator pointing to <code>$byte-index</code> within the given line. <code>$byte-index</code> must be the start of a UTF-8 character. Note bytes, not characters; UTF-8 may encode one character as multiple bytes.</p><p>If <code>$line-number</code> is greater than or equal to the number of lines in the <code>$buffer</code>, the end iterator is returned. And if <code>$byte-index</code> is off the end of the line, the iterator at the end of the line is returned.</p><pre class="pod-block-code">method get-iter-at-line-index ( N-Object $iter, Int() $line-number, Int() $byte-index --&gt; Bool )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-<li><p>$line-number; line number counting from 0.</p></li>
-<li><p>$byte-index; byte index from start of line.</p></li>
-</ul>
-<p>Return value; whether the exact position has been found. </p></section>
-<section name="pod">
-<h2 id="get-iter-at-line-offset"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-line-offset</a></h2>
-<p>Obtains an iterator pointing to <code>$char-offset</code> within the given line.</p><p>Note characters, not bytes; UTF-8 may encode one character as multiple bytes.</p><p>If <code>$line-number</code> is greater than or equal to the number of lines in the <code>$buffer</code>, the end iterator is returned. And if <code>$char-offset</code> is off the end of the line, the iterator at the end of the line is returned.</p><pre class="pod-block-code">method get-iter-at-line-offset ( N-Object $iter, Int() $line-number, Int() $char-offset --&gt; Bool )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-<li><p>$line-number; line number counting from 0.</p></li>
-<li><p>$char-offset; char offset from start of line.</p></li>
-</ul>
-<p>Return value; whether the exact position has been found. </p></section>
-<section name="pod">
-<h2 id="get-iter-at-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-mark</a></h2>
-<p>Initializes <code>$iter</code> with the current position of <code>$mark</code>.</p><pre class="pod-block-code">method get-iter-at-mark ( N-Object $iter, N-Object() $mark )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-<li><p>$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> in <code>$buffer</code>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-iter-at-offset"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-iter-at-offset</a></h2>
-<p>Initializes <code>$iter</code> to a position <code>$char-offset</code> chars from the start of the entire buffer.</p><p>If <code>$char-offset</code> is -1 or greater than the number of characters in the buffer, <code>$iter</code> is initialized to the end iterator, the iterator one past the last valid character in the buffer.</p><pre class="pod-block-code">method get-iter-at-offset ( N-Object $iter, Int() $char-offset )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-<li><p>$char-offset; char offset from start of buffer, counting from 0, or -1.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-line-count"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-line-count</a></h2>
-<p>Obtains the number of lines in the buffer.</p><p>This value is cached, so the function is very fast.</p><pre class="pod-block-code">method get-line-count (--&gt; Int )
-</pre><p>Return value; number of lines in the buffer. </p></section>
-<section name="pod">
-<h2 id="get-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-mark</a></h2>
-<p>Returns the mark named <code>$name</code> in buffer <code>$buffer</code>, or undefined if no such mark exists in the buffer.</p><pre class="pod-block-code">method get-mark ( Str $name --&gt; N-Object )
-</pre><ul>
-<li><p>$name; a mark name.</p></li>
-</ul>
-<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a>. </p></section>
-<section name="pod">
-<h2 id="get-max-undo-levels"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-max-undo-levels</a></h2>
-<p>Gets the maximum number of undo levels to perform.</p><p>If 0, unlimited undo actions may be performed. Note that this may have a memory usage impact as it requires storing an additional copy of the inserted or removed text within the text buffer.</p><pre class="pod-block-code">method get-max-undo-levels (--&gt; UInt )
-</pre><p>Return value; The max number of undo levels allowed (0 indicates unlimited).. </p></section>
-<section name="pod">
-<h2 id="get-modified"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-modified</a></h2>
-<p>Indicates whether the buffer has been modified since the last call to <a href="#set-modified">.set-modified()</a> set the modification flag to <code>False</code>.</p><p>Used for example to enable a “save” function in a text editor.</p><pre class="pod-block-code">method get-modified (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the buffer has been modified. </p></section>
-<section name="pod">
-<h2 id="get-selection-bound"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-selection-bound</a></h2>
-<p>Returns the mark that represents the selection bound.</p><p>Equivalent to calling <a href="#get-mark">.get-mark()</a> to get the mark named “selection_bound”, but very slightly more efficient, and involves less typing.</p><p>The currently-selected text in <code>$buffer</code> is the region between the “selection_bound” and “insert” marks. If “selection_bound” and “insert” are in the same place, then there is no current selection. <a href="#get-selection-bounds">.get-selection-bounds()</a> is another convenient function for handling the selection, if you just want to know whether there’s a selection and what its bounds are.</p><pre class="pod-block-code">method get-selection-bound (--&gt; N-Object )
-</pre><p>Return value; selection bound mark. </p></section>
-<section name="pod">
-<h2 id="get-selection-bounds"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-selection-bounds</a></h2>
-<p>Returns <code>True</code> if some text is selected; places the bounds of the selection in <code>$start</code> and <code>$end</code>.</p><p>If the selection has length 0, then <code>$start</code> and <code>$end</code> are filled in with the same value. <code>$start</code> and <code>$end</code> will be in ascending order. If <code>$start</code> and <code>$end</code> are undefined, then they are not filled in, but the return value still indicates whether text is selected.</p><pre class="pod-block-code">method get-selection-bounds ( N-Object $start, N-Object $end --&gt; Bool )
-</pre><ul>
-<li><p>$start; iterator to initialize with selection start</p></li>
-<li><p>$end; iterator to initialize with selection end</p></li>
-</ul>
-<p>Return value; whether the selection has nonzero length. </p></section>
-<section name="pod">
-<h2 id="get-selection-content"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-selection-content</a></h2>
-<p>Get a content provider for this buffer.</p><p>It can be used to make the content of <code>$buffer</code> available in a <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a>, see <a href="/content-docs/api2/reference/Gdk4/Gnome.html#set-content">.set-content() in class Gnome</a>.</p><pre class="pod-block-code">method get-selection-content (--&gt; N-Object )
-</pre><p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/ContentProvider.html">Gnome::Gdk4::ContentProvider</a>.. </p></section>
-<section name="pod">
-<h2 id="get-slice"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-slice</a></h2>
-<p>Returns the text in the range [ <code>$start</code>, <code>$end</code>).</p><p>Excludes undisplayed text (text marked with tags that set the invisibility attribute) if <code>$include-hidden-chars</code> is <code>False</code>. The returned string includes a 0xFFFC character whenever the buffer contains embedded images, so byte and character indexes into the returned string do correspond to byte and character indexes into the buffer. Contrast with <a href="#get-text">.get-text()</a>. Note that 0xFFFC can occur in normal text as well, so it is not a reliable indicator that a paintable or widget is in the buffer.</p><pre class="pod-block-code">method get-slice ( N-Object $start, N-Object $end, Bool() $include-hidden-chars --&gt; Str )
-</pre><ul>
-<li><p>$start; start of a range</p></li>
-<li><p>$end; end of a range</p></li>
-<li><p>$include-hidden-chars; whether to include invisible text.</p></li>
-</ul>
-<p>Return value; an allocated UTF-8 string. </p></section>
-<section name="pod">
-<h2 id="get-start-iter"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-start-iter</a></h2>
-<p>Initialized <code>$iter</code> with the first position in the text buffer.</p><p>This is the same as using <a href="#get-iter-at-offset">.get-iter-at-offset()</a> to get the iter at character offset 0.</p><pre class="pod-block-code">method get-start-iter ( N-Object $iter )
-</pre><ul>
-<li><p>$iter; iterator to initialize</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-tag-table"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-tag-table</a></h2>
-<p>Get the <a href="/content-docs/api2/reference/Gtk4/TextTagTable.html">Gnome::Gtk4::TextTagTable</a> associated with this buffer.</p><pre class="pod-block-code">method get-tag-table (--&gt; N-Object )
-</pre><p>Return value; the buffer’s tag table. </p></section>
-<section name="pod">
-<h2 id="get-text"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">get-text</a></h2>
-<p>Returns the text in the range [ <code>$start</code>, <code>$end</code>).</p><p>Excludes undisplayed text (text marked with tags that set the invisibility attribute) if <code>$include-hidden-chars</code> is <code>False</code>. Does not include characters representing embedded images, so byte and character indexes into the returned string do not correspond to byte and character indexes into the buffer. Contrast with <a href="#get-slice">.get-slice()</a>.</p><pre class="pod-block-code">method get-text ( N-Object $start, N-Object $end, Bool() $include-hidden-chars --&gt; Str )
-</pre><ul>
-<li><p>$start; start of a range</p></li>
-<li><p>$end; end of a range</p></li>
-<li><p>$include-hidden-chars; whether to include invisible text.</p></li>
-</ul>
-<p>Return value; an allocated UTF-8 string. </p></section>
-<section name="pod">
-<h2 id="insert"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert</a></h2>
-<p>Inserts <code>$len</code> bytes of <code>$text</code> at position <code>$iter</code>.</p><p>If <code>$len</code> is -1, <code>$text</code> must be nul-terminated and will be inserted in its entirety. Emits the “insert-text” signal; insertion actually occurs in the default handler for the signal. <code>$iter</code> is invalidated when insertion occurs (because the buffer contents change), but the default signal handler revalidates it to point to the end of the inserted text.</p><pre class="pod-block-code">method insert ( N-Object $iter, Str $text, Int() $len )
-</pre><ul>
-<li><p>$iter; a position in the buffer</p></li>
-<li><p>$text; text in UTF-8 format.</p></li>
-<li><p>$len; length of text in bytes, or -1.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-at-cursor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-at-cursor</a></h2>
-<p>Inserts <code>$text</code> in <code>$buffer</code>.</p><p>Simply calls <a href="#insert">.insert()</a>, using the current cursor position as the insertion point.</p><pre class="pod-block-code">method insert-at-cursor ( Str $text, Int() $len )
-</pre><ul>
-<li><p>$text; text in UTF-8 format.</p></li>
-<li><p>$len; length of text, in bytes.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-child-anchor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-child-anchor</a></h2>
-<p>Inserts a child widget anchor into the text buffer at <code>$iter</code>.</p><p>The anchor will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode “object replacement character” 0xFFFC. Note that the “slice” variants for obtaining portions of the buffer as a string include this character for child anchors, but the “text” variants do not. E.g. see <a href="#get-slice">.get-slice()</a> and <a href="#get-text">.get-text()</a>.</p><p>Consider <a href="#create-child-anchor">.create-child-anchor()</a> as a more convenient alternative to this function. The buffer will add a reference to the anchor, so you can unref it after insertion.</p><pre class="pod-block-code">method insert-child-anchor ( N-Object $iter, N-Object() $anchor )
-</pre><ul>
-<li><p>$iter; location to insert the anchor</p></li>
-<li><p>$anchor; a <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor.html">Gnome::Gtk4::TextChildAnchor</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-interactive"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-interactive</a></h2>
-<p>Inserts <code>$text</code> in <code>$buffer</code>.</p><p>Like <a href="#insert">.insert()</a>, but the insertion will not occur if <code>$iter</code> is at a non-editable location in the buffer. Usually you want to prevent insertions at ineditable locations if the insertion results from a user action (is interactive). <code>$default-editable</code> indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-editable">.get-editable() in class Gnome</a> is appropriate here.</p><pre class="pod-block-code">method insert-interactive ( N-Object $iter, Str $text, Int() $len, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$iter; a position in <code>$buffer</code></p></li>
-<li><p>$text; some UTF-8 text.</p></li>
-<li><p>$len; length of text in bytes, or -1.</p></li>
-<li><p>$default-editable; default editability of buffer.</p></li>
-</ul>
-<p>Return value; whether text was actually inserted. </p></section>
-<section name="pod">
-<h2 id="insert-interactive-at-cursor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-interactive-at-cursor</a></h2>
-<p>Inserts <code>$text</code> in <code>$buffer</code>.</p><p>Calls <a href="#insert-interactive">.insert-interactive()</a> at the cursor position. <code>$default-editable</code> indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-editable">.get-editable() in class Gnome</a> is appropriate here.</p><pre class="pod-block-code">method insert-interactive-at-cursor ( Str $text, Int() $len, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$text; text in UTF-8 format.</p></li>
-<li><p>$len; length of text in bytes, or -1.</p></li>
-<li><p>$default-editable; default editability of buffer.</p></li>
-</ul>
-<p>Return value; whether text was actually inserted. </p></section>
-<section name="pod">
-<h2 id="insert-markup"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-markup</a></h2>
-<p>Inserts the text in <code>$markup</code> at position <code>$iter</code>. <code>$markup</code> will be inserted in its entirety and must be nul-terminated and valid UTF-8. Emits the <em>insert-text</em> signal, possibly multiple times; insertion actually occurs in the default handler for the signal. <code>$iter</code> will point to the end of the inserted text on return.</p><pre class="pod-block-code">method insert-markup ( N-Object $iter, Str $markup, Int() $len )
-</pre><ul>
-<li><p>$iter; location to insert the markup</p></li>
-<li><p>$markup; a nul-terminated UTF-8 string containing Pango markup.</p></li>
-<li><p>$len; length of <code>$markup</code> in bytes, or -1.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-paintable"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-paintable</a></h2>
-<p>Inserts an image into the text buffer at <code>$iter</code>.</p><p>The image will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode “object replacement character” 0xFFFC. Note that the “slice” variants for obtaining portions of the buffer as a string include this character for paintable, but the “text” variants do not. e.g. see <a href="#get-slice">.get-slice()</a> and <a href="#get-text">.get-text()</a>.</p><pre class="pod-block-code">method insert-paintable ( N-Object $iter, N-Object() $paintable )
-</pre><ul>
-<li><p>$iter; location to insert the paintable</p></li>
-<li><p>$paintable; a <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-range"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-range</a></h2>
-<p>Copies text, tags, and paintables between <code>$start</code> and <code>$end</code> and inserts the copy at <code>$iter</code>.</p><p>The order of <code>$start</code> and <code>$end</code> doesn’t matter.</p><p>Used instead of simply getting/inserting text because it preserves images and tags. If <code>$start</code> and <code>$end</code> are in a different buffer from <code>$buffer</code>, the two buffers must share the same tag table.</p><p>Implemented via emissions of the <em>insert-text</em> and <em>apply-tag</em> signals, so expect those.</p><pre class="pod-block-code">method insert-range ( N-Object $iter, N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$iter; a position in <code>$buffer</code></p></li>
-<li><p>$start; a position in a <strong>Gnome::Gtk4::TextBuffer</strong></p></li>
-<li><p>$end; another position in the same buffer as <code>$start</code></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-range-interactive"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-range-interactive</a></h2>
-<p>Copies text, tags, and paintables between <code>$start</code> and <code>$end</code> and inserts the copy at <code>$iter</code>.</p><p>Same as <a href="#insert-range">.insert-range()</a>, but does nothing if the insertion point isn’t editable. The <code>$default-editable</code> parameter indicates whether the text is editable at <code>$iter</code> if no tags enclosing <code>$iter</code> affect editability. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome.html#get-editable">.get-editable() in class Gnome</a> is appropriate here.</p><pre class="pod-block-code">method insert-range-interactive ( N-Object $iter, N-Object $start, N-Object $end, Bool() $default-editable --&gt; Bool )
-</pre><ul>
-<li><p>$iter; a position in <code>$buffer</code></p></li>
-<li><p>$start; a position in a <strong>Gnome::Gtk4::TextBuffer</strong></p></li>
-<li><p>$end; another position in the same buffer as <code>$start</code></p></li>
-<li><p>$default-editable; default editability of the buffer.</p></li>
-</ul>
-<p>Return value; whether an insertion was possible at <code>$iter</code>. </p></section>
-<section name="pod">
-<h2 id="insert-with-tags"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-with-tags</a></h2>
-<p>Inserts <code>$text</code> into <code>$buffer</code> at <code>$iter</code>, applying the list of tags to the newly-inserted text.</p><p>The last tag specified must be undefined to terminate the list. Equivalent to calling <a href="#insert">.insert()</a>, then <a href="#apply-tag">.apply-tag()</a> on the inserted text; this is just a convenience function.</p><pre class="pod-block-code">method insert-with-tags ( N-Object $iter, Str $text, Int() $len, N-Object() $first-tag, … )
-</pre><ul>
-<li><p>$iter; an iterator in <code>$buffer</code></p></li>
-<li><p>$text; UTF-8 text.</p></li>
-<li><p>$len; length of <code>$text</code>, or -1.</p></li>
-<li><p>$first-tag; first tag to apply to <code>$text</code>.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="insert-with-tags-by-name"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-with-tags-by-name</a></h2>
-<p>Inserts <code>$text</code> into <code>$buffer</code> at <code>$iter</code>, applying the list of tags to the newly-inserted text.</p><p>Same as <a href="#insert-with-tags">.insert-with-tags()</a>, but allows you to pass in tag names instead of tag objects.</p><pre class="pod-block-code">method insert-with-tags-by-name ( N-Object $iter, Str $text, Int() $len, Str $first-tag-name, … )
-</pre><ul>
-<li><p>$iter; position in <code>$buffer</code></p></li>
-<li><p>$text; UTF-8 text.</p></li>
-<li><p>$len; length of <code>$text</code>, or -1.</p></li>
-<li><p>$first-tag-name; name of a tag to apply to <code>$text</code>.</p></li>
-<li><p>…; …. Note that each argument must be specified as a type followed by its value!</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="move-mark"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">move-mark</a></h2>
-<p>Moves <code>$mark</code> to the new location <code>$where</code>.</p><p>Emits the <em>mark-set</em> signal as notification of the move.</p><pre class="pod-block-code">method move-mark ( N-Object() $mark, N-Object $where )
-</pre><ul>
-<li><p>$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a>.</p></li>
-<li><p>$where; new location for <code>$mark</code> in <code>$buffer</code></p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="move-mark-by-name"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">move-mark-by-name</a></h2>
-<p>Moves the mark named <code>$name</code> (which must exist) to location <code>$where</code>.</p><p>See <a href="#move-mark">.move-mark()</a> for details.</p><pre class="pod-block-code">method move-mark-by-name ( Str $name, N-Object $where )
-</pre><ul>
-<li><p>$name; name of a mark.</p></li>
-<li><p>$where; new location for mark</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="paste-clipboard"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">paste-clipboard</a></h2>
-<p>Pastes the contents of a clipboard.</p><p>If <code>$override-location</code> is undefined, the pasted text will be inserted at the cursor position, or the buffer selection will be replaced if the selection is non-empty.</p><p>Note: pasting is asynchronous, that is, we’ll ask for the paste data and return, and at some point later after the main loop runs, the paste data will be inserted.</p><pre class="pod-block-code">method paste-clipboard ( N-Object() $clipboard, N-Object $override-location, Bool() $default-editable )
-</pre><ul>
-<li><p>$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> to paste from.</p></li>
-<li><p>$override-location; location to insert pasted text</p></li>
-<li><p>$default-editable; whether the buffer is editable by default.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="place-cursor"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">place-cursor</a></h2>
-<p>This function moves the “insert” and “selection_bound” marks simultaneously.</p><p>If you move them to the same place in two steps with <a href="#move-mark">.move-mark()</a>, you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized.</p><pre class="pod-block-code">method place-cursor ( N-Object $where )
-</pre><ul>
-<li><p>$where; where to put the cursor</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="redo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">redo</a></h2>
-<p>Redoes the next redoable action on the buffer, if there is one.</p><pre class="pod-block-code">method redo ( )
-</pre></section>
-<section name="pod">
-<h2 id="remove-all-tags"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">remove-all-tags</a></h2>
-<p>Removes all tags in the range between <code>$start</code> and <code>$end</code>.</p><p>Be careful with this function; it could remove tags added in code unrelated to the code you’re currently writing. That is, using this function is probably a bad idea if you have two or more unrelated code sections that add tags.</p><pre class="pod-block-code">method remove-all-tags ( N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$start; one bound of range to be untagged</p></li>
-<li><p>$end; other bound of range to be untagged</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="remove-selection-clipboard"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">remove-selection-clipboard</a></h2>
-<p>Removes a <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> added with <a href="#add-selection-clipboard">.add-selection-clipboard()</a></p><pre class="pod-block-code">method remove-selection-clipboard ( N-Object() $clipboard )
-</pre><ul>
-<li><p>$clipboard; a <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> added to <code>$buffer</code> by <a href="#add-selection-clipboard">.add-selection-clipboard()</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="remove-tag"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">remove-tag</a></h2>
-<p>Emits the “remove-tag” signal.</p><p>The default handler for the signal removes all occurrences of <code>$tag</code> from the given range. <code>$start</code> and <code>$end</code> don’t have to be in order.</p><pre class="pod-block-code">method remove-tag ( N-Object() $tag, N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
-<li><p>$start; one bound of range to be untagged</p></li>
-<li><p>$end; other bound of range to be untagged</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="remove-tag-by-name"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">remove-tag-by-name</a></h2>
-<p>Emits the “remove-tag” signal.</p><p>Calls <a href="/content-docs/api2/reference/Gtk4/Gnome.html#lookup">.lookup() in class Gnome</a> on the buffer’s tag table to get a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>, then calls <a href="#remove-tag">.remove-tag()</a>.</p><pre class="pod-block-code">method remove-tag-by-name ( Str $name, N-Object $start, N-Object $end )
-</pre><ul>
-<li><p>$name; name of a <a href="/content-docs/api2/reference/Gtk4/TextTag.html">Gnome::Gtk4::TextTag</a>.</p></li>
-<li><p>$start; one bound of range to be untagged</p></li>
-<li><p>$end; other bound of range to be untagged</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="select-range"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">select-range</a></h2>
-<p>This function moves the “insert” and “selection_bound” marks simultaneously.</p><p>If you move them in two steps with <a href="#move-mark">.move-mark()</a>, you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized.</p><pre class="pod-block-code">method select-range ( N-Object $ins, N-Object $bound )
-</pre><ul>
-<li><p>$ins; where to put the “insert” mark</p></li>
-<li><p>$bound; where to put the “selection_bound” mark</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-enable-undo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">set-enable-undo</a></h2>
-<p>Sets whether or not to enable undoable actions in the text buffer.</p><p>Undoable actions in this context are changes to the text content of the buffer. Changes to tags and marks are not tracked.</p><p>If enabled, the user will be able to undo the last number of actions up to <a href="#get-max-undo-levels">.get-max-undo-levels()</a>.</p><p>See <a href="#begin-irreversible-action">.begin-irreversible-action()</a> and <a href="#end-irreversible-action">.end-irreversible-action()</a> to create changes to the buffer that cannot be undone.</p><pre class="pod-block-code">method set-enable-undo ( Bool() $enable-undo )
-</pre><ul>
-<li><p>$enable-undo; <code>True</code> to enable undo.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-max-undo-levels"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">set-max-undo-levels</a></h2>
-<p>Sets the maximum number of undo levels to perform.</p><p>If 0, unlimited undo actions may be performed. Note that this may have a memory usage impact as it requires storing an additional copy of the inserted or removed text within the text buffer.</p><pre class="pod-block-code">method set-max-undo-levels ( UInt() $max-undo-levels )
-</pre><ul>
-<li><p>$max-undo-levels; the maximum number of undo actions to perform.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-modified"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">set-modified</a></h2>
-<p>Used to keep track of whether the buffer has been modified since the last time it was saved.</p><p>Whenever the buffer is saved to disk, call <strong>gtk_text_buffer_set_modified</strong> ( <code>$buffer</code>, FALSE)`. When the buffer is modified, it will automatically toggle on the modified bit again. When the modified bit flips, the buffer emits the <em>modified-changed</em> signal.</p><pre class="pod-block-code">method set-modified ( Bool() $setting )
-</pre><ul>
-<li><p>$setting; modification flag setting.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-text"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">set-text</a></h2>
-<p>Deletes current contents of <code>$buffer</code>, and inserts <code>$text</code> instead. This is automatically marked as an irreversible action in the undo stack. If you wish to mark this action as part of a larger undo operation, call [method <code>$TextBuffer</code>.delete] and [method <code>$TextBuffer</code>.insert] directly instead.</p><p>If <code>$len</code> is -1, <code>$text</code> must be nul-terminated. <code>$text</code> must be valid UTF-8.</p><pre class="pod-block-code">method set-text ( Str $text, Int() $len )
-</pre><ul>
-<li><p>$text; UTF-8 text to insert.</p></li>
-<li><p>$len; length of <code>$text</code> in bytes.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="undo"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">undo</a></h2>
-<p>Undoes the last undoable action on the buffer, if there is one.</p><pre class="pod-block-code">method undo ( )
-</pre></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="apply-tag_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">apply-tag</a></h3>
-<p>Emitted to apply a tag to a range of text in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Applying actually occurs in the default handler.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$start</code> and <code>$end</code> iters (or has to revalidate them).</p><p>See also: <a href="#apply-tag">.apply-tag()</a>, <a href="#insert-with-tags">.insert-with-tags()</a>, <a href="#insert-range">.insert-range()</a>.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::TextBuffer"></div><h1 class="title">Gnome::Gtk4::TextBuffer</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-textbuffer">new-textbuffer</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-mark">add-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-selection-clipboard">add-selection-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#apply-tag">apply-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#apply-tag-by-name">apply-tag-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#backspace">backspace</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#begin-irreversible-action">begin-irreversible-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#begin-user-action">begin-user-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#copy-clipboard">copy-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#create-child-anchor">create-child-anchor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#create-mark">create-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#create-tag">create-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#cut-clipboard">cut-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete">delete</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete-interactive">delete-interactive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete-mark">delete-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete-mark-by-name">delete-mark-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#delete-selection">delete-selection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#end-irreversible-action">end-irreversible-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#end-user-action">end-user-action</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-bounds">get-bounds</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-can-redo">get-can-redo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-can-undo">get-can-undo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-char-count">get-char-count</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-enable-undo">get-enable-undo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-end-iter">get-end-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-has-selection">get-has-selection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-insert">get-insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-child-anchor">get-iter-at-child-anchor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-line">get-iter-at-line</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-line-index">get-iter-at-line-index</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-line-offset">get-iter-at-line-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-mark">get-iter-at-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-iter-at-offset">get-iter-at-offset</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-line-count">get-line-count</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-mark">get-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-max-undo-levels">get-max-undo-levels</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-modified">get-modified</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selection-bound">get-selection-bound</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selection-bounds">get-selection-bounds</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selection-content">get-selection-content</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-slice">get-slice</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-start-iter">get-start-iter</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tag-table">get-tag-table</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-text">get-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert">insert</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-at-cursor">insert-at-cursor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-child-anchor">insert-child-anchor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-interactive">insert-interactive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-interactive-at-cursor">insert-interactive-at-cursor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-markup">insert-markup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-paintable">insert-paintable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-range">insert-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-range-interactive">insert-range-interactive</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-with-tags">insert-with-tags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-with-tags-by-name">insert-with-tags-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#move-mark">move-mark</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#move-mark-by-name">move-mark-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#paste-clipboard">paste-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#place-cursor">place-cursor</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#redo">redo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-all-tags">remove-all-tags</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-selection-clipboard">remove-selection-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-tag">remove-tag</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-tag-by-name">remove-tag-by-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#select-range">select-range</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-enable-undo">set-enable-undo</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-max-undo-levels">set-max-undo-levels</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-modified">set-modified</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-text">set-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#undo">undo</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#apply-tag_0">apply-tag</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#begin-user-action_0">begin-user-action</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#changed">changed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#delete-range">delete-range</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#end-user-action_0">end-user-action</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#insert-child-anchor_0">insert-child-anchor</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#insert-paintable_0">insert-paintable</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#insert-text">insert-text</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#mark-deleted">mark-deleted</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#mark-set">mark-set</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#modified-changed">modified-changed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#paste-done">paste-done</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#redo_0">redo</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#remove-tag_0">remove-tag</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#undo_0">undo</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p>Stores text and attributes for display in a <a href="/content-docs/api2/reference/Gtk4/TextView">Gnome::Gtk4::TextView</a>. </p>
+
+<p id="Para">You may wish to begin by reading the [text widget conceptual overview](section-text-widget.html), which gives an overview of all the objects and data types related to the text widget and how they work together.</p>
+
+<p>GtkTextBuffer can support undoing changes to the buffer content, see <a href="#set-enable-undo">.set-enable-undo()</a>. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/TextBuffer.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-textbuffer" class="heading "><a href="#" title="go to top of document">new-textbuffer</a><a class="raku-anchor" title="direct link" href="#new-textbuffer">§</a></h2>
+
+<p id="Para_0">Creates a new text buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-textbuffer ( N-Object() $table --&gt; Gnome::Gtk4::TextBuffer )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$table; a tag table, or undefined to create a new one.</li>
+</ul>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-mark" class="heading "><a href="#" title="go to top of document">add-mark</a><a class="raku-anchor" title="direct link" href="#add-mark">§</a></h2>
+
+<p>Adds the mark at position <span class="code">$where</span>. </p>
+
+<p id="Para_1">The mark must not be added to another buffer, and if its name is defined then there must not be another mark in the buffer with the same name.</p>
+
+<p>Emits the <span class="important">mark-set</span> signal as notification of the mark's initial placement. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-mark ( N-Object() $mark, N-Object $where )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mark; the mark to add.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$where; location to place mark</li>
+</ul>
+<h2 id="add-selection-clipboard" class="heading "><a href="#" title="go to top of document">add-selection-clipboard</a><a class="raku-anchor" title="direct link" href="#add-selection-clipboard">§</a></h2>
+
+<p>Adds <span class="code">$clipboard</span> to the list of clipboards in which the selection contents of <span class="code">$buffer</span> are available. </p>
+
+<p>In most cases, <span class="code">$clipboard</span> will be the <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> returned by <a href="/content-docs/api2/reference/Gtk4/Gnome#get-primary-clipboard">.get-primary-clipboard() in class Gnome</a> for a view of <span class="code">$buffer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-selection-clipboard ( N-Object() $clipboard )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; a <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a>.</li>
+</ul>
+<h2 id="apply-tag" class="heading "><a href="#" title="go to top of document">apply-tag</a><a class="raku-anchor" title="direct link" href="#apply-tag">§</a></h2>
+
+<p>Emits the “apply-tag” signal on <span class="code">$buffer</span>. </p>
+
+<p>The default handler for the signal applies <span class="code">$tag</span> to the given range. <span class="code">$start</span> and <span class="code">$end</span> do not have to be in order. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method apply-tag ( N-Object() $tag, N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; one bound of range to be tagged</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; other bound of range to be tagged</li>
+</ul>
+<h2 id="apply-tag-by-name" class="heading "><a href="#" title="go to top of document">apply-tag-by-name</a><a class="raku-anchor" title="direct link" href="#apply-tag-by-name">§</a></h2>
+
+<p>Emits the “apply-tag” signal on <span class="code">$buffer</span>. </p>
+
+<p>Calls <a href="/content-docs/api2/reference/Gtk4/Gnome#lookup">.lookup() in class Gnome</a> on the buffer’s tag table to get a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>, then calls <a href="#apply-tag">.apply-tag()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method apply-tag-by-name ( Str $name, N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; name of a named <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; one bound of range to be tagged</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; other bound of range to be tagged</li>
+</ul>
+<h2 id="backspace" class="heading "><a href="#" title="go to top of document">backspace</a><a class="raku-anchor" title="direct link" href="#backspace">§</a></h2>
+
+<p>Performs the appropriate action as if the user hit the delete key with the cursor at the position specified by <span class="code">$iter</span>. </p>
+
+<p id="Para_2">In the normal case a single character will be deleted, but when combining accents are involved, more than one character can be deleted, and when precomposed character and accent combinations are involved, less than one character will be deleted.</p>
+
+<p>Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the <span class="code">$iter</span> will be re-initialized to point to the location where text was deleted. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method backspace ( N-Object $iter, Bool() $interactive, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$interactive; whether the deletion is caused by user interaction.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; whether the buffer is editable by default.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the buffer was modified. </p>
+<h2 id="begin-irreversible-action" class="heading "><a href="#" title="go to top of document">begin-irreversible-action</a><a class="raku-anchor" title="direct link" href="#begin-irreversible-action">§</a></h2>
+
+<p id="Para_3">Denotes the beginning of an action that may not be undone.</p>
+
+<p id="Para_4">This will cause any previous operations in the undo/redo queue to be cleared.</p>
+
+<p>This should be paired with a call to <a href="#end-irreversible-action">.end-irreversible-action()</a> after the irreversible action has completed. </p>
+
+<p>You may nest calls to <span class="code">.begin-irreversible-action()</span> and <span class="code">.end-irreversible-action()</span> pairs. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method begin-irreversible-action ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="begin-user-action" class="heading "><a href="#" title="go to top of document">begin-user-action</a><a class="raku-anchor" title="direct link" href="#begin-user-action">§</a></h2>
+
+<p>Called to indicate that the buffer operations between here and a call to <span class="code">.end-user-action()</span> are part of a single user-visible operation. </p>
+
+<p>The operations between <span class="code">.begin-user-action()</span> and <span class="code">.end-user-action()</span> can then be grouped when creating an undo stack. <span class="basis">Gnome::Gtk4::TextBuffer</span> maintains a count of calls to <span class="code">.begin-user-action()</span> that have not been closed with a call to <span class="code">.end-user-action()</span>, and emits the “begin-user-action” and “end-user-action” signals only for the outermost pair of calls. This allows you to build user actions from other user actions. </p>
+
+<p>The “interactive” buffer mutation functions, such as <a href="#insert-interactive">.insert-interactive()</a>, automatically call begin/end user action around the buffer operations they perform, so there's no need to add extra calls if you user action consists solely of a single call to one of those functions. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method begin-user-action ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="copy-clipboard" class="heading "><a href="#" title="go to top of document">copy-clipboard</a><a class="raku-anchor" title="direct link" href="#copy-clipboard">§</a></h2>
+
+<p id="Para_5">Copies the currently-selected text to a clipboard.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method copy-clipboard ( N-Object() $clipboard )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> object to copy to.</li>
+</ul>
+<h2 id="create-child-anchor" class="heading "><a href="#" title="go to top of document">create-child-anchor</a><a class="raku-anchor" title="direct link" href="#create-child-anchor">§</a></h2>
+
+<p id="Para_6">Creates and inserts a child anchor.</p>
+
+<p>This is a convenience function which simply creates a child anchor with <a href="/content-docs/api2/reference/Gtk4/Gnome#newtextbuffer">.newtextbuffer() in class Gnome</a> and inserts it into the buffer with <a href="#insert-child-anchor">.insert-child-anchor()</a>. </p>
+
+<p id="Para_7">The new anchor is owned by the buffer; no reference count is returned to the caller of this function.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method create-child-anchor ( N-Object $iter --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; location in the buffer</li>
+</ul>
+
+<p id="Para_8">Return value; the created child anchor.</p>
+<h2 id="create-mark" class="heading "><a href="#" title="go to top of document">create-mark</a><a class="raku-anchor" title="direct link" href="#create-mark">§</a></h2>
+
+<p>Creates a mark at position <span class="code">$where</span>. </p>
+
+<p>If <span class="code">$mark-name</span> is undefined, the mark is anonymous; otherwise, the mark can be retrieved by name using <a href="#get-mark">.get-mark()</a>. If a mark has left gravity, and text is inserted at the mark’s current location, the mark will be moved to the left of the newly-inserted text. If the mark has right gravity ( <span class="code">$left-gravity</span> = <span class="code">False</span>), the mark will end up on the right of newly-inserted text. The standard left-to-right cursor is a mark with right gravity (when you type, the cursor stays on the right side of the text you’re typing). </p>
+
+<p>The caller of this function does not own a reference to the returned <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a>, so you can ignore the return value if you like. Marks are owned by the buffer and go away when the buffer does. </p>
+
+<p>Emits the <span class="important">mark-set</span> signal as notification of the mark's initial placement. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method create-mark ( Str $mark-name, N-Object $where, Bool() $left-gravity --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mark-name; name for mark.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$where; location to place mark</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$left-gravity; whether the mark has left gravity.</li>
+</ul>
+
+<p>Return value; the new <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> object. </p>
+<h2 id="create-tag" class="heading "><a href="#" title="go to top of document">create-tag</a><a class="raku-anchor" title="direct link" href="#create-tag">§</a></h2>
+
+<p>Creates a tag and adds it to the tag table for <span class="code">$buffer</span>. </p>
+
+<p>Equivalent to calling <a href="/content-docs/api2/reference/Gtk4/Gnome#newtextbuffer">.newtextbuffer() in class Gnome</a> and then adding the tag to the buffer’s tag table. The returned tag is owned by the buffer’s tag table, so the ref count will be equal to one. </p>
+
+<p>If <span class="code">$tag-name</span> is undefined, the tag is anonymous. </p>
+
+<p>If <span class="code">$tag-name</span> is non-undefined, a tag called <span class="code">$tag-name</span> must not already exist in the tag table for this buffer. </p>
+
+<p>The <span class="code">$first-property-name</span> argument and subsequent arguments are a list of properties to set on the tag, as with g_object_set(). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method create-tag ( Str $tag-name, Str $first-property-name, … --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag-name; name of the new tag.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-property-name; name of first property to set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+
+<p id="Para_9">Return value; a new tag.</p>
+<h2 id="cut-clipboard" class="heading "><a href="#" title="go to top of document">cut-clipboard</a><a class="raku-anchor" title="direct link" href="#cut-clipboard">§</a></h2>
+
+<p id="Para_10">Copies the currently-selected text to a clipboard, then deletes said text if it’s editable.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method cut-clipboard ( N-Object() $clipboard, Bool() $default-editable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> object to cut to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; default editability of the buffer.</li>
+</ul>
+<h2 id="delete" class="heading "><a href="#" title="go to top of document">delete</a><a class="raku-anchor" title="direct link" href="#delete">§</a></h2>
+
+<p>Deletes text between <span class="code">$start</span> and <span class="code">$end</span>. </p>
+
+<p>The order of <span class="code">$start</span> and <span class="code">$end</span> is not actually relevant; <span class="code">.delete()</span> will reorder them. </p>
+
+<p>This function actually emits the “delete-range” signal, and the default handler of that signal deletes the text. Because the buffer is modified, all outstanding iterators become invalid after calling this function; however, the <span class="code">$start</span> and <span class="code">$end</span> will be re-initialized to point to the location where text was deleted. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete ( N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; a position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; another position in <span class="code">$buffer</span></li>
+</ul>
+<h2 id="delete-interactive" class="heading "><a href="#" title="go to top of document">delete-interactive</a><a class="raku-anchor" title="direct link" href="#delete-interactive">§</a></h2>
+
+<p id="Para_11">Deletes all editable text in the given range.</p>
+
+<p>Calls <a href="#delete">.delete()</a> for each editable sub-range of [ <span class="code">$start</span>, <span class="code">$end</span>). <span class="code">$start</span> and <span class="code">$end</span> are revalidated to point to the location of the last deleted range, or left untouched if no text was deleted. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete-interactive ( N-Object $start-iter, N-Object $end-iter, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start-iter; start of range to delete</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end-iter; end of range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; whether the buffer is editable by default.</li>
+</ul>
+
+<p id="Para_12">Return value; whether some text was actually deleted.</p>
+<h2 id="delete-mark" class="heading "><a href="#" title="go to top of document">delete-mark</a><a class="raku-anchor" title="direct link" href="#delete-mark">§</a></h2>
+
+<p>Deletes <span class="code">$mark</span>, so that it’s no longer located anywhere in the buffer. </p>
+
+<p>Removes the reference the buffer holds to the mark, so if you haven’t called g_object_ref() on the mark, it will be freed. Even if the mark isn’t freed, most operations on <span class="code">$mark</span> become invalid, until it gets added to a buffer again with <a href="#add-mark">.add-mark()</a>. Use <a href="/content-docs/api2/reference/Gtk4/Gnome#get-deleted">.get-deleted() in class Gnome</a> to find out if a mark has been removed from its buffer. </p>
+
+<p>The <span class="important">mark-deleted</span> signal will be emitted as notification after the mark is deleted. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete-mark ( N-Object() $mark )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> in <span class="code">$buffer</span>.</li>
+</ul>
+<h2 id="delete-mark-by-name" class="heading "><a href="#" title="go to top of document">delete-mark-by-name</a><a class="raku-anchor" title="direct link" href="#delete-mark-by-name">§</a></h2>
+
+<p>Deletes the mark named <span class="code">$name</span>; the mark must exist. </p>
+
+<p>See <a href="#delete-mark">.delete-mark()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete-mark-by-name ( Str $name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; name of a mark in <span class="code">$buffer</span>.</li>
+</ul>
+<h2 id="delete-selection" class="heading "><a href="#" title="go to top of document">delete-selection</a><a class="raku-anchor" title="direct link" href="#delete-selection">§</a></h2>
+
+<p id="Para_13">Deletes the range between the “insert” and “selection_bound” marks, that is, the currently-selected text.</p>
+
+<p>If <span class="code">$interactive</span> is <span class="code">True</span>, the editability of the selection will be considered (users can’t delete uneditable text). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method delete-selection ( Bool() $interactive, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$interactive; whether the deletion is caused by user interaction.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; whether the buffer is editable by default.</li>
+</ul>
+
+<p id="Para_14">Return value; whether there was a non-empty selection to delete.</p>
+<h2 id="end-irreversible-action" class="heading "><a href="#" title="go to top of document">end-irreversible-action</a><a class="raku-anchor" title="direct link" href="#end-irreversible-action">§</a></h2>
+
+<p id="Para_15">Denotes the end of an action that may not be undone.</p>
+
+<p id="Para_16">This will cause any previous operations in the undo/redo queue to be cleared.</p>
+
+<p>This should be called after completing modifications to the text buffer after <a href="#begin-irreversible-action">.begin-irreversible-action()</a> was called. </p>
+
+<p>You may nest calls to <span class="code">.begin-irreversible-action()</span> and <span class="code">.end-irreversible-action()</span> pairs. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method end-irreversible-action ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="end-user-action" class="heading "><a href="#" title="go to top of document">end-user-action</a><a class="raku-anchor" title="direct link" href="#end-user-action">§</a></h2>
+
+<p id="Para_17">Ends a user-visible operation.</p>
+
+<p>Should be paired with a call to <a href="#begin-user-action">.begin-user-action()</a>. See that function for a full explanation. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method end-user-action ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-bounds" class="heading "><a href="#" title="go to top of document">get-bounds</a><a class="raku-anchor" title="direct link" href="#get-bounds">§</a></h2>
+
+<p>Retrieves the first and last iterators in the buffer, i.e. the entire buffer lies within the range [ <span class="code">$start</span>, <span class="code">$end</span>). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-bounds ( N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; iterator to initialize with first position in the buffer</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator to initialize with the end iterator</li>
+</ul>
+<h2 id="get-can-redo" class="heading "><a href="#" title="go to top of document">get-can-redo</a><a class="raku-anchor" title="direct link" href="#get-can-redo">§</a></h2>
+
+<p id="Para_18">Gets whether there is a redoable action in the history.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-can-redo (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if there is a redoable action. </p>
+<h2 id="get-can-undo" class="heading "><a href="#" title="go to top of document">get-can-undo</a><a class="raku-anchor" title="direct link" href="#get-can-undo">§</a></h2>
+
+<p id="Para_19">Gets whether there is an undoable action in the history.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-can-undo (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if there is an undoable action. </p>
+<h2 id="get-char-count" class="heading "><a href="#" title="go to top of document">get-char-count</a><a class="raku-anchor" title="direct link" href="#get-char-count">§</a></h2>
+
+<p id="Para_20">Gets the number of characters in the buffer.</p>
+
+<p id="Para_21">Note that characters and bytes are not the same, you can’t e.g. expect the contents of the buffer in string form to be this many bytes long.</p>
+
+<p id="Para_22">The character count is cached, so this function is very fast.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-char-count (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_23">Return value; number of characters in the buffer.</p>
+<h2 id="get-enable-undo" class="heading "><a href="#" title="go to top of document">get-enable-undo</a><a class="raku-anchor" title="direct link" href="#get-enable-undo">§</a></h2>
+
+<p id="Para_24">Gets whether the buffer is saving modifications to the buffer to allow for undo and redo actions.</p>
+
+<p>See <a href="#begin-irreversible-action">.begin-irreversible-action()</a> and <a href="#end-irreversible-action">.end-irreversible-action()</a> to create changes to the buffer that cannot be undone. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-enable-undo (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if undoing and redoing changes to the buffer is allowed.. </p>
+<h2 id="get-end-iter" class="heading "><a href="#" title="go to top of document">get-end-iter</a><a class="raku-anchor" title="direct link" href="#get-end-iter">§</a></h2>
+
+<p>Initializes <span class="code">$iter</span> with the “end iterator,” one past the last valid character in the text buffer. </p>
+
+<p>If dereferenced with <a href="/content-docs/api2/reference/Gtk4/Gnome-TextIter#get-char">.get-char() in class Gnome-TextIter</a>, the end iterator has a character value of 0. The entire buffer lies in the range from the first position in the buffer (call <a href="#get-start-iter">.get-start-iter()</a> to get character position 0) to the end iterator. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-end-iter ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+</ul>
+<h2 id="get-has-selection" class="heading "><a href="#" title="go to top of document">get-has-selection</a><a class="raku-anchor" title="direct link" href="#get-has-selection">§</a></h2>
+
+<p id="Para_25">Indicates whether the buffer has some text currently selected.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-has-selection (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the there is text selected. </p>
+<h2 id="get-insert" class="heading "><a href="#" title="go to top of document">get-insert</a><a class="raku-anchor" title="direct link" href="#get-insert">§</a></h2>
+
+<p id="Para_26">Returns the mark that represents the cursor (insertion point).</p>
+
+<p>Equivalent to calling <a href="#get-mark">.get-mark()</a> to get the mark named “insert”, but very slightly more efficient, and involves less typing. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-insert (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_27">Return value; insertion point mark.</p>
+<h2 id="get-iter-at-child-anchor" class="heading "><a href="#" title="go to top of document">get-iter-at-child-anchor</a><a class="raku-anchor" title="direct link" href="#get-iter-at-child-anchor">§</a></h2>
+
+<p>Obtains the location of <span class="code">$anchor</span> within <span class="code">$buffer</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-child-anchor ( N-Object $iter, N-Object() $anchor )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; an iterator to be initialized</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$anchor; a child anchor that appears in <span class="code">$buffer</span>.</li>
+</ul>
+<h2 id="get-iter-at-line" class="heading "><a href="#" title="go to top of document">get-iter-at-line</a><a class="raku-anchor" title="direct link" href="#get-iter-at-line">§</a></h2>
+
+<p>Initializes <span class="code">$iter</span> to the start of the given line. </p>
+
+<p>If <span class="code">$line-number</span> is greater than or equal to the number of lines in the <span class="code">$buffer</span>, the end iterator is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-line ( N-Object $iter, Int() $line-number --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$line-number; line number counting from 0.</li>
+</ul>
+
+<p id="Para_28">Return value; whether the exact position has been found.</p>
+<h2 id="get-iter-at-line-index" class="heading "><a href="#" title="go to top of document">get-iter-at-line-index</a><a class="raku-anchor" title="direct link" href="#get-iter-at-line-index">§</a></h2>
+
+<p>Obtains an iterator pointing to <span class="code">$byte-index</span> within the given line. <span class="code">$byte-index</span> must be the start of a UTF-8 character. Note bytes, not characters; UTF-8 may encode one character as multiple bytes. </p>
+
+<p>If <span class="code">$line-number</span> is greater than or equal to the number of lines in the <span class="code">$buffer</span>, the end iterator is returned. And if <span class="code">$byte-index</span> is off the end of the line, the iterator at the end of the line is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-line-index ( N-Object $iter, Int() $line-number, Int() $byte-index --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$line-number; line number counting from 0.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$byte-index; byte index from start of line.</li>
+</ul>
+
+<p id="Para_29">Return value; whether the exact position has been found.</p>
+<h2 id="get-iter-at-line-offset" class="heading "><a href="#" title="go to top of document">get-iter-at-line-offset</a><a class="raku-anchor" title="direct link" href="#get-iter-at-line-offset">§</a></h2>
+
+<p>Obtains an iterator pointing to <span class="code">$char-offset</span> within the given line. </p>
+
+<p id="Para_30">Note characters, not bytes; UTF-8 may encode one character as multiple bytes.</p>
+
+<p>If <span class="code">$line-number</span> is greater than or equal to the number of lines in the <span class="code">$buffer</span>, the end iterator is returned. And if <span class="code">$char-offset</span> is off the end of the line, the iterator at the end of the line is returned. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-line-offset ( N-Object $iter, Int() $line-number, Int() $char-offset --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$line-number; line number counting from 0.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$char-offset; char offset from start of line.</li>
+</ul>
+
+<p id="Para_31">Return value; whether the exact position has been found.</p>
+<h2 id="get-iter-at-mark" class="heading "><a href="#" title="go to top of document">get-iter-at-mark</a><a class="raku-anchor" title="direct link" href="#get-iter-at-mark">§</a></h2>
+
+<p>Initializes <span class="code">$iter</span> with the current position of <span class="code">$mark</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-mark ( N-Object $iter, N-Object() $mark )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> in <span class="code">$buffer</span>.</li>
+</ul>
+<h2 id="get-iter-at-offset" class="heading "><a href="#" title="go to top of document">get-iter-at-offset</a><a class="raku-anchor" title="direct link" href="#get-iter-at-offset">§</a></h2>
+
+<p>Initializes <span class="code">$iter</span> to a position <span class="code">$char-offset</span> chars from the start of the entire buffer. </p>
+
+<p>If <span class="code">$char-offset</span> is -1 or greater than the number of characters in the buffer, <span class="code">$iter</span> is initialized to the end iterator, the iterator one past the last valid character in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-iter-at-offset ( N-Object $iter, Int() $char-offset )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$char-offset; char offset from start of buffer, counting from 0, or -1.</li>
+</ul>
+<h2 id="get-line-count" class="heading "><a href="#" title="go to top of document">get-line-count</a><a class="raku-anchor" title="direct link" href="#get-line-count">§</a></h2>
+
+<p id="Para_32">Obtains the number of lines in the buffer.</p>
+
+<p id="Para_33">This value is cached, so the function is very fast.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-line-count (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_34">Return value; number of lines in the buffer.</p>
+<h2 id="get-mark" class="heading "><a href="#" title="go to top of document">get-mark</a><a class="raku-anchor" title="direct link" href="#get-mark">§</a></h2>
+
+<p>Returns the mark named <span class="code">$name</span> in buffer <span class="code">$buffer</span>, or undefined if no such mark exists in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-mark ( Str $name --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; a mark name.</li>
+</ul>
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a>. </p>
+<h2 id="get-max-undo-levels" class="heading "><a href="#" title="go to top of document">get-max-undo-levels</a><a class="raku-anchor" title="direct link" href="#get-max-undo-levels">§</a></h2>
+
+<p id="Para_35">Gets the maximum number of undo levels to perform.</p>
+
+<p id="Para_36">If 0, unlimited undo actions may be performed. Note that this may have a memory usage impact as it requires storing an additional copy of the inserted or removed text within the text buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-max-undo-levels (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_37">Return value; The max number of undo levels allowed (0 indicates unlimited)..</p>
+<h2 id="get-modified" class="heading "><a href="#" title="go to top of document">get-modified</a><a class="raku-anchor" title="direct link" href="#get-modified">§</a></h2>
+
+<p>Indicates whether the buffer has been modified since the last call to <a href="#set-modified">.set-modified()</a> set the modification flag to <span class="code">False</span>. </p>
+
+<p id="Para_38">Used for example to enable a “save” function in a text editor.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-modified (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the buffer has been modified. </p>
+<h2 id="get-selection-bound" class="heading "><a href="#" title="go to top of document">get-selection-bound</a><a class="raku-anchor" title="direct link" href="#get-selection-bound">§</a></h2>
+
+<p id="Para_39">Returns the mark that represents the selection bound.</p>
+
+<p>Equivalent to calling <a href="#get-mark">.get-mark()</a> to get the mark named “selection_bound”, but very slightly more efficient, and involves less typing. </p>
+
+<p>The currently-selected text in <span class="code">$buffer</span> is the region between the “selection_bound” and “insert” marks. If “selection_bound” and “insert” are in the same place, then there is no current selection. <a href="#get-selection-bounds">.get-selection-bounds()</a> is another convenient function for handling the selection, if you just want to know whether there’s a selection and what its bounds are. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selection-bound (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_40">Return value; selection bound mark.</p>
+<h2 id="get-selection-bounds" class="heading "><a href="#" title="go to top of document">get-selection-bounds</a><a class="raku-anchor" title="direct link" href="#get-selection-bounds">§</a></h2>
+
+<p>Returns <span class="code">True</span> if some text is selected; places the bounds of the selection in <span class="code">$start</span> and <span class="code">$end</span>. </p>
+
+<p>If the selection has length 0, then <span class="code">$start</span> and <span class="code">$end</span> are filled in with the same value. <span class="code">$start</span> and <span class="code">$end</span> will be in ascending order. If <span class="code">$start</span> and <span class="code">$end</span> are undefined, then they are not filled in, but the return value still indicates whether text is selected. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selection-bounds ( N-Object $start, N-Object $end --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; iterator to initialize with selection start</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; iterator to initialize with selection end</li>
+</ul>
+
+<p id="Para_41">Return value; whether the selection has nonzero length.</p>
+<h2 id="get-selection-content" class="heading "><a href="#" title="go to top of document">get-selection-content</a><a class="raku-anchor" title="direct link" href="#get-selection-content">§</a></h2>
+
+<p id="Para_42">Get a content provider for this buffer.</p>
+
+<p>It can be used to make the content of <span class="code">$buffer</span> available in a <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a>, see <a href="/content-docs/api2/reference/Gdk4/Gnome#set-content">.set-content() in class Gnome</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selection-content (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/ContentProvider">Gnome::Gdk4::ContentProvider</a>.. </p>
+<h2 id="get-slice" class="heading "><a href="#" title="go to top of document">get-slice</a><a class="raku-anchor" title="direct link" href="#get-slice">§</a></h2>
+
+<p>Returns the text in the range [ <span class="code">$start</span>, <span class="code">$end</span>). </p>
+
+<p>Excludes undisplayed text (text marked with tags that set the invisibility attribute) if <span class="code">$include-hidden-chars</span> is <span class="code">False</span>. The returned string includes a 0xFFFC character whenever the buffer contains embedded images, so byte and character indexes into the returned string do correspond to byte and character indexes into the buffer. Contrast with <a href="#get-text">.get-text()</a>. Note that 0xFFFC can occur in normal text as well, so it is not a reliable indicator that a paintable or widget is in the buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-slice ( N-Object $start, N-Object $end, Bool() $include-hidden-chars --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; start of a range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; end of a range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$include-hidden-chars; whether to include invisible text.</li>
+</ul>
+
+<p id="Para_43">Return value; an allocated UTF-8 string.</p>
+<h2 id="get-start-iter" class="heading "><a href="#" title="go to top of document">get-start-iter</a><a class="raku-anchor" title="direct link" href="#get-start-iter">§</a></h2>
+
+<p>Initialized <span class="code">$iter</span> with the first position in the text buffer. </p>
+
+<p>This is the same as using <a href="#get-iter-at-offset">.get-iter-at-offset()</a> to get the iter at character offset 0. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-start-iter ( N-Object $iter )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; iterator to initialize</li>
+</ul>
+<h2 id="get-tag-table" class="heading "><a href="#" title="go to top of document">get-tag-table</a><a class="raku-anchor" title="direct link" href="#get-tag-table">§</a></h2>
+
+<p>Get the <a href="/content-docs/api2/reference/Gtk4/TextTagTable">Gnome::Gtk4::TextTagTable</a> associated with this buffer. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tag-table (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_44">Return value; the buffer’s tag table.</p>
+<h2 id="get-text" class="heading "><a href="#" title="go to top of document">get-text</a><a class="raku-anchor" title="direct link" href="#get-text">§</a></h2>
+
+<p>Returns the text in the range [ <span class="code">$start</span>, <span class="code">$end</span>). </p>
+
+<p>Excludes undisplayed text (text marked with tags that set the invisibility attribute) if <span class="code">$include-hidden-chars</span> is <span class="code">False</span>. Does not include characters representing embedded images, so byte and character indexes into the returned string do not correspond to byte and character indexes into the buffer. Contrast with <a href="#get-slice">.get-slice()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-text ( N-Object $start, N-Object $end, Bool() $include-hidden-chars --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; start of a range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; end of a range</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$include-hidden-chars; whether to include invisible text.</li>
+</ul>
+
+<p id="Para_45">Return value; an allocated UTF-8 string.</p>
+<h2 id="insert" class="heading "><a href="#" title="go to top of document">insert</a><a class="raku-anchor" title="direct link" href="#insert">§</a></h2>
+
+<p>Inserts <span class="code">$len</span> bytes of <span class="code">$text</span> at position <span class="code">$iter</span>. </p>
+
+<p>If <span class="code">$len</span> is -1, <span class="code">$text</span> must be nul-terminated and will be inserted in its entirety. Emits the “insert-text” signal; insertion actually occurs in the default handler for the signal. <span class="code">$iter</span> is invalidated when insertion occurs (because the buffer contents change), but the default signal handler revalidates it to point to the end of the inserted text. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert ( N-Object $iter, Str $text, Int() $len )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a position in the buffer</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$text; text in UTF-8 format.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of text in bytes, or -1.</li>
+</ul>
+<h2 id="insert-at-cursor" class="heading "><a href="#" title="go to top of document">insert-at-cursor</a><a class="raku-anchor" title="direct link" href="#insert-at-cursor">§</a></h2>
+
+<p>Inserts <span class="code">$text</span> in <span class="code">$buffer</span>. </p>
+
+<p>Simply calls <a href="#insert">.insert()</a>, using the current cursor position as the insertion point. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-at-cursor ( Str $text, Int() $len )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; text in UTF-8 format.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of text, in bytes.</li>
+</ul>
+<h2 id="insert-child-anchor" class="heading "><a href="#" title="go to top of document">insert-child-anchor</a><a class="raku-anchor" title="direct link" href="#insert-child-anchor">§</a></h2>
+
+<p>Inserts a child widget anchor into the text buffer at <span class="code">$iter</span>. </p>
+
+<p>The anchor will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode “object replacement character” 0xFFFC. Note that the “slice” variants for obtaining portions of the buffer as a string include this character for child anchors, but the “text” variants do not. E.g. see <a href="#get-slice">.get-slice()</a> and <a href="#get-text">.get-text()</a>. </p>
+
+<p>Consider <a href="#create-child-anchor">.create-child-anchor()</a> as a more convenient alternative to this function. The buffer will add a reference to the anchor, so you can unref it after insertion. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-child-anchor ( N-Object $iter, N-Object() $anchor )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; location to insert the anchor</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$anchor; a <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor">Gnome::Gtk4::TextChildAnchor</a>.</li>
+</ul>
+<h2 id="insert-interactive" class="heading "><a href="#" title="go to top of document">insert-interactive</a><a class="raku-anchor" title="direct link" href="#insert-interactive">§</a></h2>
+
+<p>Inserts <span class="code">$text</span> in <span class="code">$buffer</span>. </p>
+
+<p>Like <a href="#insert">.insert()</a>, but the insertion will not occur if <span class="code">$iter</span> is at a non-editable location in the buffer. Usually you want to prevent insertions at ineditable locations if the insertion results from a user action (is interactive). <span class="code">$default-editable</span> indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome#get-editable">.get-editable() in class Gnome</a> is appropriate here. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-interactive ( N-Object $iter, Str $text, Int() $len, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$text; some UTF-8 text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of text in bytes, or -1.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; default editability of buffer.</li>
+</ul>
+
+<p id="Para_46">Return value; whether text was actually inserted.</p>
+<h2 id="insert-interactive-at-cursor" class="heading "><a href="#" title="go to top of document">insert-interactive-at-cursor</a><a class="raku-anchor" title="direct link" href="#insert-interactive-at-cursor">§</a></h2>
+
+<p>Inserts <span class="code">$text</span> in <span class="code">$buffer</span>. </p>
+
+<p>Calls <a href="#insert-interactive">.insert-interactive()</a> at the cursor position. <span class="code">$default-editable</span> indicates the editability of text that doesn't have a tag affecting editability applied to it. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome#get-editable">.get-editable() in class Gnome</a> is appropriate here. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-interactive-at-cursor ( Str $text, Int() $len, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; text in UTF-8 format.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of text in bytes, or -1.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; default editability of buffer.</li>
+</ul>
+
+<p id="Para_47">Return value; whether text was actually inserted.</p>
+<h2 id="insert-markup" class="heading "><a href="#" title="go to top of document">insert-markup</a><a class="raku-anchor" title="direct link" href="#insert-markup">§</a></h2>
+
+<p>Inserts the text in <span class="code">$markup</span> at position <span class="code">$iter</span>. <span class="code">$markup</span> will be inserted in its entirety and must be nul-terminated and valid UTF-8. Emits the <span class="important">insert-text</span> signal, possibly multiple times; insertion actually occurs in the default handler for the signal. <span class="code">$iter</span> will point to the end of the inserted text on return. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-markup ( N-Object $iter, Str $markup, Int() $len )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; location to insert the markup</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$markup; a nul-terminated UTF-8 string containing Pango markup.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of <span class="code">$markup</span> in bytes, or -1.</li>
+</ul>
+<h2 id="insert-paintable" class="heading "><a href="#" title="go to top of document">insert-paintable</a><a class="raku-anchor" title="direct link" href="#insert-paintable">§</a></h2>
+
+<p>Inserts an image into the text buffer at <span class="code">$iter</span>. </p>
+
+<p>The image will be counted as one character in character counts, and when obtaining the buffer contents as a string, will be represented by the Unicode “object replacement character” 0xFFFC. Note that the “slice” variants for obtaining portions of the buffer as a string include this character for paintable, but the “text” variants do not. e.g. see <a href="#get-slice">.get-slice()</a> and <a href="#get-text">.get-text()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-paintable ( N-Object $iter, N-Object() $paintable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; location to insert the paintable</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$paintable; a <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a>.</li>
+</ul>
+<h2 id="insert-range" class="heading "><a href="#" title="go to top of document">insert-range</a><a class="raku-anchor" title="direct link" href="#insert-range">§</a></h2>
+
+<p>Copies text, tags, and paintables between <span class="code">$start</span> and <span class="code">$end</span> and inserts the copy at <span class="code">$iter</span>. </p>
+
+<p>The order of <span class="code">$start</span> and <span class="code">$end</span> doesn’t matter. </p>
+
+<p>Used instead of simply getting/inserting text because it preserves images and tags. If <span class="code">$start</span> and <span class="code">$end</span> are in a different buffer from <span class="code">$buffer</span>, the two buffers must share the same tag table. </p>
+
+<p>Implemented via emissions of the <span class="important">insert-text</span> and <span class="important">apply-tag</span> signals, so expect those. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-range ( N-Object $iter, N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; a position in a <span class="basis">Gnome::Gtk4::TextBuffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; another position in the same buffer as <span class="code">$start</span></li>
+</ul>
+<h2 id="insert-range-interactive" class="heading "><a href="#" title="go to top of document">insert-range-interactive</a><a class="raku-anchor" title="direct link" href="#insert-range-interactive">§</a></h2>
+
+<p>Copies text, tags, and paintables between <span class="code">$start</span> and <span class="code">$end</span> and inserts the copy at <span class="code">$iter</span>. </p>
+
+<p>Same as <a href="#insert-range">.insert-range()</a>, but does nothing if the insertion point isn’t editable. The <span class="code">$default-editable</span> parameter indicates whether the text is editable at <span class="code">$iter</span> if no tags enclosing <span class="code">$iter</span> affect editability. Typically the result of <a href="/content-docs/api2/reference/Gtk4/Gnome#get-editable">.get-editable() in class Gnome</a> is appropriate here. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-range-interactive ( N-Object $iter, N-Object $start, N-Object $end, Bool() $default-editable --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; a position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; a position in a <span class="basis">Gnome::Gtk4::TextBuffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; another position in the same buffer as <span class="code">$start</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; default editability of the buffer.</li>
+</ul>
+
+<p>Return value; whether an insertion was possible at <span class="code">$iter</span>. </p>
+<h2 id="insert-with-tags" class="heading "><a href="#" title="go to top of document">insert-with-tags</a><a class="raku-anchor" title="direct link" href="#insert-with-tags">§</a></h2>
+
+<p>Inserts <span class="code">$text</span> into <span class="code">$buffer</span> at <span class="code">$iter</span>, applying the list of tags to the newly-inserted text. </p>
+
+<p>The last tag specified must be undefined to terminate the list. Equivalent to calling <a href="#insert">.insert()</a>, then <a href="#apply-tag">.apply-tag()</a> on the inserted text; this is just a convenience function. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-with-tags ( N-Object $iter, Str $text, Int() $len, N-Object() $first-tag, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; an iterator in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$text; UTF-8 text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of <span class="code">$text</span>, or -1.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-tag; first tag to apply to <span class="code">$text</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="insert-with-tags-by-name" class="heading "><a href="#" title="go to top of document">insert-with-tags-by-name</a><a class="raku-anchor" title="direct link" href="#insert-with-tags-by-name">§</a></h2>
+
+<p>Inserts <span class="code">$text</span> into <span class="code">$buffer</span> at <span class="code">$iter</span>, applying the list of tags to the newly-inserted text. </p>
+
+<p>Same as <a href="#insert-with-tags">.insert-with-tags()</a>, but allows you to pass in tag names instead of tag objects. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-with-tags-by-name ( N-Object $iter, Str $text, Int() $len, Str $first-tag-name, … )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$iter; position in <span class="code">$buffer</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$text; UTF-8 text.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of <span class="code">$text</span>, or -1.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$first-tag-name; name of a tag to apply to <span class="code">$text</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >…; …. Note that each argument must be specified as a type followed by its value!</li>
+</ul>
+<h2 id="move-mark" class="heading "><a href="#" title="go to top of document">move-mark</a><a class="raku-anchor" title="direct link" href="#move-mark">§</a></h2>
+
+<p>Moves <span class="code">$mark</span> to the new location <span class="code">$where</span>. </p>
+
+<p>Emits the <span class="important">mark-set</span> signal as notification of the move. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method move-mark ( N-Object() $mark, N-Object $where )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mark; a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$where; new location for <span class="code">$mark</span> in <span class="code">$buffer</span></li>
+</ul>
+<h2 id="move-mark-by-name" class="heading "><a href="#" title="go to top of document">move-mark-by-name</a><a class="raku-anchor" title="direct link" href="#move-mark-by-name">§</a></h2>
+
+<p>Moves the mark named <span class="code">$name</span> (which must exist) to location <span class="code">$where</span>. </p>
+
+<p>See <a href="#move-mark">.move-mark()</a> for details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method move-mark-by-name ( Str $name, N-Object $where )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; name of a mark.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$where; new location for mark</li>
+</ul>
+<h2 id="paste-clipboard" class="heading "><a href="#" title="go to top of document">paste-clipboard</a><a class="raku-anchor" title="direct link" href="#paste-clipboard">§</a></h2>
+
+<p id="Para_48">Pastes the contents of a clipboard.</p>
+
+<p>If <span class="code">$override-location</span> is undefined, the pasted text will be inserted at the cursor position, or the buffer selection will be replaced if the selection is non-empty. </p>
+
+<p id="Para_49">Note: pasting is asynchronous, that is, we’ll ask for the paste data and return, and at some point later after the main loop runs, the paste data will be inserted.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method paste-clipboard ( N-Object() $clipboard, N-Object $override-location, Bool() $default-editable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> to paste from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$override-location; location to insert pasted text</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$default-editable; whether the buffer is editable by default.</li>
+</ul>
+<h2 id="place-cursor" class="heading "><a href="#" title="go to top of document">place-cursor</a><a class="raku-anchor" title="direct link" href="#place-cursor">§</a></h2>
+
+<p id="Para_50">This function moves the “insert” and “selection_bound” marks simultaneously.</p>
+
+<p>If you move them to the same place in two steps with <a href="#move-mark">.move-mark()</a>, you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method place-cursor ( N-Object $where )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$where; where to put the cursor</li>
+</ul>
+<h2 id="redo" class="heading "><a href="#" title="go to top of document">redo</a><a class="raku-anchor" title="direct link" href="#redo">§</a></h2>
+
+<p id="Para_51">Redoes the next redoable action on the buffer, if there is one.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method redo ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="remove-all-tags" class="heading "><a href="#" title="go to top of document">remove-all-tags</a><a class="raku-anchor" title="direct link" href="#remove-all-tags">§</a></h2>
+
+<p>Removes all tags in the range between <span class="code">$start</span> and <span class="code">$end</span>. </p>
+
+<p id="Para_52">Be careful with this function; it could remove tags added in code unrelated to the code you’re currently writing. That is, using this function is probably a bad idea if you have two or more unrelated code sections that add tags.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-all-tags ( N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; one bound of range to be untagged</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; other bound of range to be untagged</li>
+</ul>
+<h2 id="remove-selection-clipboard" class="heading "><a href="#" title="go to top of document">remove-selection-clipboard</a><a class="raku-anchor" title="direct link" href="#remove-selection-clipboard">§</a></h2>
+
+<p>Removes a <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> added with <a href="#add-selection-clipboard">.add-selection-clipboard()</a> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-selection-clipboard ( N-Object() $clipboard )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; a <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> added to <span class="code">$buffer</span> by <a href="#add-selection-clipboard">.add-selection-clipboard()</a>.</li>
+</ul>
+<h2 id="remove-tag" class="heading "><a href="#" title="go to top of document">remove-tag</a><a class="raku-anchor" title="direct link" href="#remove-tag">§</a></h2>
+
+<p id="Para_53">Emits the “remove-tag” signal.</p>
+
+<p>The default handler for the signal removes all occurrences of <span class="code">$tag</span> from the given range. <span class="code">$start</span> and <span class="code">$end</span> don’t have to be in order. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-tag ( N-Object() $tag, N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; one bound of range to be untagged</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; other bound of range to be untagged</li>
+</ul>
+<h2 id="remove-tag-by-name" class="heading "><a href="#" title="go to top of document">remove-tag-by-name</a><a class="raku-anchor" title="direct link" href="#remove-tag-by-name">§</a></h2>
+
+<p id="Para_54">Emits the “remove-tag” signal.</p>
+
+<p>Calls <a href="/content-docs/api2/reference/Gtk4/Gnome#lookup">.lookup() in class Gnome</a> on the buffer’s tag table to get a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>, then calls <a href="#remove-tag">.remove-tag()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-tag-by-name ( Str $name, N-Object $start, N-Object $end )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; name of a <a href="/content-docs/api2/reference/Gtk4/TextTag">Gnome::Gtk4::TextTag</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; one bound of range to be untagged</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; other bound of range to be untagged</li>
+</ul>
+<h2 id="select-range" class="heading "><a href="#" title="go to top of document">select-range</a><a class="raku-anchor" title="direct link" href="#select-range">§</a></h2>
+
+<p id="Para_55">This function moves the “insert” and “selection_bound” marks simultaneously.</p>
+
+<p>If you move them in two steps with <a href="#move-mark">.move-mark()</a>, you will temporarily select a region in between their old and new locations, which can be pretty inefficient since the temporarily-selected region will force stuff to be recalculated. This function moves them as a unit, which can be optimized. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method select-range ( N-Object $ins, N-Object $bound )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$ins; where to put the “insert” mark</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$bound; where to put the “selection_bound” mark</li>
+</ul>
+<h2 id="set-enable-undo" class="heading "><a href="#" title="go to top of document">set-enable-undo</a><a class="raku-anchor" title="direct link" href="#set-enable-undo">§</a></h2>
+
+<p id="Para_56">Sets whether or not to enable undoable actions in the text buffer.</p>
+
+<p id="Para_57">Undoable actions in this context are changes to the text content of the buffer. Changes to tags and marks are not tracked.</p>
+
+<p>If enabled, the user will be able to undo the last number of actions up to <a href="#get-max-undo-levels">.get-max-undo-levels()</a>. </p>
+
+<p>See <a href="#begin-irreversible-action">.begin-irreversible-action()</a> and <a href="#end-irreversible-action">.end-irreversible-action()</a> to create changes to the buffer that cannot be undone. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-enable-undo ( Bool() $enable-undo )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$enable-undo; <span class="code">True</span> to enable undo.</li>
+</ul>
+<h2 id="set-max-undo-levels" class="heading "><a href="#" title="go to top of document">set-max-undo-levels</a><a class="raku-anchor" title="direct link" href="#set-max-undo-levels">§</a></h2>
+
+<p id="Para_58">Sets the maximum number of undo levels to perform.</p>
+
+<p id="Para_59">If 0, unlimited undo actions may be performed. Note that this may have a memory usage impact as it requires storing an additional copy of the inserted or removed text within the text buffer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-max-undo-levels ( UInt() $max-undo-levels )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$max-undo-levels; the maximum number of undo actions to perform.</li>
+</ul>
+<h2 id="set-modified" class="heading "><a href="#" title="go to top of document">set-modified</a><a class="raku-anchor" title="direct link" href="#set-modified">§</a></h2>
+
+<p id="Para_60">Used to keep track of whether the buffer has been modified since the last time it was saved.</p>
+
+<p>Whenever the buffer is saved to disk, call <span class="basis">gtk_text_buffer_set_modified</span> ( <span class="code">$buffer</span>, FALSE)`. When the buffer is modified, it will automatically toggle on the modified bit again. When the modified bit flips, the buffer emits the <span class="important">modified-changed</span> signal. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-modified ( Bool() $setting )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; modification flag setting.</li>
+</ul>
+<h2 id="set-text" class="heading "><a href="#" title="go to top of document">set-text</a><a class="raku-anchor" title="direct link" href="#set-text">§</a></h2>
+
+<p>Deletes current contents of <span class="code">$buffer</span>, and inserts <span class="code">$text</span> instead. This is automatically marked as an irreversible action in the undo stack. If you wish to mark this action as part of a larger undo operation, call [method <span class="code">$TextBuffer</span>.delete] and [method <span class="code">$TextBuffer</span>.insert] directly instead. </p>
+
+<p>If <span class="code">$len</span> is -1, <span class="code">$text</span> must be nul-terminated. <span class="code">$text</span> must be valid UTF-8. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-text ( Str $text, Int() $len )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$text; UTF-8 text to insert.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of <span class="code">$text</span> in bytes.</li>
+</ul>
+<h2 id="undo" class="heading "><a href="#" title="go to top of document">undo</a><a class="raku-anchor" title="direct link" href="#undo">§</a></h2>
+
+<p id="Para_61">Undoes the last undoable action on the buffer, if there is one.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method undo ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+
+<div class="id-target" id="apply-tag"></div><h3 id="apply-tag_0" class="heading "><a href="#" title="go to top of document">apply-tag</a><a class="raku-anchor" title="direct link" href="#apply-tag">§</a></h3>
+
+<p>Emitted to apply a tag to a range of text in a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p id="Para_62">Applying actually occurs in the default handler.</p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$start</span> and <span class="code">$end</span> iters (or has to revalidate them). </p>
+
+<p>See also: <a href="#apply-tag">.apply-tag()</a>, <a href="#insert-with-tags">.insert-with-tags()</a>, <a href="#insert-range">.insert-range()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $tag,
   N-Object $start,
   N-Object $end,
@@ -648,108 +1591,180 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$tag; the applied tag.</p></li>
-<li><p>$start; the start of the range the tag is applied to.</p></li>
-<li><p>$end; the end of the range the tag is applied to.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; the applied tag.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; the start of the range the tag is applied to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; the end of the range the tag is applied to.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="begin-user-action_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">begin-user-action</a></h3>
-<p>Emitted at the beginning of a single user-visible operation on a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>See also: <a href="#begin-user-action">.begin-user-action()</a>, <a href="#insert-interactive">.insert-interactive()</a>, <a href="#insert-range-interactive">.insert-range-interactive()</a>, <a href="#delete-interactive">.delete-interactive()</a>, <a href="#backspace">.backspace()</a>, <a href="#delete-selection">.delete-selection()</a>.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="begin-user-action"></div><h3 id="begin-user-action_0" class="heading "><a href="#" title="go to top of document">begin-user-action</a><a class="raku-anchor" title="direct link" href="#begin-user-action">§</a></h3>
+
+<p>Emitted at the beginning of a single user-visible operation on a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p>See also: <a href="#begin-user-action">.begin-user-action()</a>, <a href="#insert-interactive">.insert-interactive()</a>, <a href="#insert-range-interactive">.insert-range-interactive()</a>, <a href="#delete-interactive">.delete-interactive()</a>, <a href="#backspace">.backspace()</a>, <a href="#delete-selection">.delete-selection()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="changed"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">changed</a></h3>
-<p>Emitted when the content of a <strong>Gnome::Gtk4::TextBuffer</strong> has changed.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="changed" class="heading "><a href="#" title="go to top of document">changed</a><a class="raku-anchor" title="direct link" href="#changed">§</a></h3>
+
+<p>Emitted when the content of a <span class="basis">Gnome::Gtk4::TextBuffer</span> has changed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="delete-range"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">delete-range</a></h3>
-<p>Emitted to delete a range from a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$start</code> and <code>$end</code> iters (or has to revalidate them). The default signal handler revalidates the <code>$start</code> and <code>$end</code> iters to both point to the location where text was deleted. Handlers which run after the default handler (see g_signal_connect_after()) do not have access to the deleted text.</p><p>See also: <a href="#delete">.delete()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="delete-range" class="heading "><a href="#" title="go to top of document">delete-range</a><a class="raku-anchor" title="direct link" href="#delete-range">§</a></h3>
+
+<p>Emitted to delete a range from a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$start</span> and <span class="code">$end</span> iters (or has to revalidate them). The default signal handler revalidates the <span class="code">$start</span> and <span class="code">$end</span> iters to both point to the location where text was deleted. Handlers which run after the default handler (see g_signal_connect_after()) do not have access to the deleted text. </p>
+
+<p>See also: <a href="#delete">.delete()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $start,
   N-Object $end,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$start; the start of the range to be deleted.</p></li>
-<li><p>$end; the end of the range to be deleted.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$start; the start of the range to be deleted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; the end of the range to be deleted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="end-user-action_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">end-user-action</a></h3>
-<p>Emitted at the end of a single user-visible operation on the <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>See also: <a href="#end-user-action">.end-user-action()</a>, <a href="#insert-interactive">.insert-interactive()</a>, <a href="#insert-range-interactive">.insert-range-interactive()</a>, <a href="#delete-interactive">.delete-interactive()</a>, <a href="#backspace">.backspace()</a>, <a href="#delete-selection">.delete-selection()</a>, <a href="#backspace">.backspace()</a>.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="end-user-action"></div><h3 id="end-user-action_0" class="heading "><a href="#" title="go to top of document">end-user-action</a><a class="raku-anchor" title="direct link" href="#end-user-action">§</a></h3>
+
+<p>Emitted at the end of a single user-visible operation on the <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p>See also: <a href="#end-user-action">.end-user-action()</a>, <a href="#insert-interactive">.insert-interactive()</a>, <a href="#insert-range-interactive">.insert-range-interactive()</a>, <a href="#delete-interactive">.delete-interactive()</a>, <a href="#backspace">.backspace()</a>, <a href="#delete-selection">.delete-selection()</a>, <a href="#backspace">.backspace()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="insert-child-anchor_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-child-anchor</a></h3>
-<p>Emitted to insert a <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor.html">Gnome::Gtk4::TextChildAnchor</a> in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Insertion actually occurs in the default handler.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$location</code> iter (or has to revalidate it). The default signal handler revalidates it to be placed after the inserted <code>$anchor</code>.</p><p>See also: <a href="#insert-child-anchor">.insert-child-anchor()</a>.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="insert-child-anchor"></div><h3 id="insert-child-anchor_0" class="heading "><a href="#" title="go to top of document">insert-child-anchor</a><a class="raku-anchor" title="direct link" href="#insert-child-anchor">§</a></h3>
+
+<p>Emitted to insert a <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor">Gnome::Gtk4::TextChildAnchor</a> in a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p id="Para_63">Insertion actually occurs in the default handler.</p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$location</span> iter (or has to revalidate it). The default signal handler revalidates it to be placed after the inserted <span class="code">$anchor</span>. </p>
+
+<p>See also: <a href="#insert-child-anchor">.insert-child-anchor()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $location,
   N-Object $anchor,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$location; position to insert <code>$anchor</code> in <code>$textbuffer</code>.</p></li>
-<li><p>$anchor; the <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor.html">Gnome::Gtk4::TextChildAnchor</a> to be inserted.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$location; position to insert <span class="code">$anchor</span> in <span class="code">$textbuffer</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$anchor; the <a href="/content-docs/api2/reference/Gtk4/TextChildAnchor">Gnome::Gtk4::TextChildAnchor</a> to be inserted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="insert-paintable_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-paintable</a></h3>
-<p>Emitted to insert a <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Insertion actually occurs in the default handler.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$location</code> iter (or has to revalidate it). The default signal handler revalidates it to be placed after the inserted <code>$paintable</code>.</p><p>See also: <a href="#insert-paintable">.insert-paintable()</a>.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="insert-paintable"></div><h3 id="insert-paintable_0" class="heading "><a href="#" title="go to top of document">insert-paintable</a><a class="raku-anchor" title="direct link" href="#insert-paintable">§</a></h3>
+
+<p>Emitted to insert a <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> in a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p id="Para_64">Insertion actually occurs in the default handler.</p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$location</span> iter (or has to revalidate it). The default signal handler revalidates it to be placed after the inserted <span class="code">$paintable</span>. </p>
+
+<p>See also: <a href="#insert-paintable">.insert-paintable()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $location,
    $paintable,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$location; position to insert <code>$paintable</code> in <code>$textbuffer</code>.</p></li>
-<li><p>$paintable; the <a href="/content-docs/api2/reference/Gdk4/R-Paintable.html">Gnome::Gdk4::R-Paintable</a> to be inserted.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="insert-text"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">insert-text</a></h3>
-<p>Emitted to insert text in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Insertion actually occurs in the default handler.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$location</code> iter (or has to revalidate it). The default signal handler revalidates it to point to the end of the inserted text.</p><p>See also: <a href="#insert">.insert()</a>, <a href="#insert-range">.insert-range()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$location; position to insert <span class="code">$paintable</span> in <span class="code">$textbuffer</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$paintable; the <a href="/content-docs/api2/reference/Gdk4/R-Paintable">Gnome::Gdk4::R-Paintable</a> to be inserted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="insert-text" class="heading "><a href="#" title="go to top of document">insert-text</a><a class="raku-anchor" title="direct link" href="#insert-text">§</a></h3>
+
+<p>Emitted to insert text in a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p id="Para_65">Insertion actually occurs in the default handler.</p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$location</span> iter (or has to revalidate it). The default signal handler revalidates it to point to the end of the inserted text. </p>
+
+<p>See also: <a href="#insert">.insert()</a>, <a href="#insert-range">.insert-range()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $location,
   Str $text,
   gint $len,
@@ -757,91 +1772,143 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$location; position to insert <code>$text</code> in <code>$textbuffer</code>.</p></li>
-<li><p>$text; the UTF-8 text to be inserted.</p></li>
-<li><p>$len; length of the inserted text in bytes.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="mark-deleted"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">mark-deleted</a></h3>
-<p>Emitted as notification after a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> is deleted.</p><p>See also: <a href="#delete-mark">.delete-mark()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$location; position to insert <span class="code">$text</span> in <span class="code">$textbuffer</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$text; the UTF-8 text to be inserted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$len; length of the inserted text in bytes.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="mark-deleted" class="heading "><a href="#" title="go to top of document">mark-deleted</a><a class="raku-anchor" title="direct link" href="#mark-deleted">§</a></h3>
+
+<p>Emitted as notification after a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> is deleted. </p>
+
+<p>See also: <a href="#delete-mark">.delete-mark()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $mark,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$mark; The mark that was deleted.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="mark-set"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">mark-set</a></h3>
-<p>Emitted as notification after a <a href="/content-docs/api2/reference/Gtk4/TextMark.html">Gnome::Gtk4::TextMark</a> is set.</p><p>See also: <a href="#create-mark">.create-mark()</a>, <a href="#move-mark">.move-mark()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$mark; The mark that was deleted.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="mark-set" class="heading "><a href="#" title="go to top of document">mark-set</a><a class="raku-anchor" title="direct link" href="#mark-set">§</a></h3>
+
+<p>Emitted as notification after a <a href="/content-docs/api2/reference/Gtk4/TextMark">Gnome::Gtk4::TextMark</a> is set. </p>
+
+<p>See also: <a href="#create-mark">.create-mark()</a>, <a href="#move-mark">.move-mark()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $location,
   N-Object $mark,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$location; The location of <code>$mark</code> in <code>$textbuffer</code>.</p></li>
-<li><p>$mark; The mark that is set.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="modified-changed"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">modified-changed</a></h3>
-<p>Emitted when the modified bit of a <strong>Gnome::Gtk4::TextBuffer</strong> flips.</p><p>See also: <a href="#set-modified">.set-modified()</a>.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$location; The location of <span class="code">$mark</span> in <span class="code">$textbuffer</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$mark; The mark that is set.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="modified-changed" class="heading "><a href="#" title="go to top of document">modified-changed</a><a class="raku-anchor" title="direct link" href="#modified-changed">§</a></h3>
+
+<p>Emitted when the modified bit of a <span class="basis">Gnome::Gtk4::TextBuffer</span> flips. </p>
+
+<p>See also: <a href="#set-modified">.set-modified()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="paste-done"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">paste-done</a></h3>
-<p>Emitted after paste operation has been completed.</p><p>This is useful to properly scroll the view to the end of the pasted text. See <a href="#paste-clipboard">.paste-clipboard()</a> for more details.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="paste-done" class="heading "><a href="#" title="go to top of document">paste-done</a><a class="raku-anchor" title="direct link" href="#paste-done">§</a></h3>
+
+<p id="Para_66">Emitted after paste operation has been completed.</p>
+
+<p>This is useful to properly scroll the view to the end of the pasted text. See <a href="#paste-clipboard">.paste-clipboard()</a> for more details. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $clipboard,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard.html">Gnome::Gdk4::Clipboard</a> pasted from.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$clipboard; the <a href="/content-docs/api2/reference/Gdk4/Clipboard">Gnome::Gdk4::Clipboard</a> pasted from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="redo_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">redo</a></h3>
-<p>Emitted when a request has been made to redo the previously undone operation.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="redo"></div><h3 id="redo_0" class="heading "><a href="#" title="go to top of document">redo</a><a class="raku-anchor" title="direct link" href="#redo">§</a></h3>
+
+<p id="Para_67">Emitted when a request has been made to redo the previously undone operation.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="remove-tag_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">remove-tag</a></h3>
-<p>Emitted to remove all occurrences of <code>$tag</code> from a range of text in a <strong>Gnome::Gtk4::TextBuffer</strong>.</p><p>Removal actually occurs in the default handler.</p><p>Note that if your handler runs before the default handler it must not invalidate the <code>$start</code> and <code>$end</code> iters (or has to revalidate them).</p><p>See also: <a href="#remove-tag">.remove-tag()</a>.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="remove-tag"></div><h3 id="remove-tag_0" class="heading "><a href="#" title="go to top of document">remove-tag</a><a class="raku-anchor" title="direct link" href="#remove-tag">§</a></h3>
+
+<p>Emitted to remove all occurrences of <span class="code">$tag</span> from a range of text in a <span class="basis">Gnome::Gtk4::TextBuffer</span>. </p>
+
+<p id="Para_68">Removal actually occurs in the default handler.</p>
+
+<p>Note that if your handler runs before the default handler it must not invalidate the <span class="code">$start</span> and <span class="code">$end</span> iters (or has to revalidate them). </p>
+
+<p>See also: <a href="#remove-tag">.remove-tag()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $tag,
   N-Object $start,
   N-Object $end,
@@ -849,29 +1916,55 @@
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$tag; the tag to be removed.</p></li>
-<li><p>$start; the start of the range the tag is removed from.</p></li>
-<li><p>$end; the end of the range the tag is removed from.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$tag; the tag to be removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$start; the start of the range the tag is removed from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$end; the end of the range the tag is removed from.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
 
-<h3 id="undo_0"><a href="#Gnome::Gtk4::TextBuffer" class="u" title="go to top of document">undo</a></h3>
-<p>Emitted when a request has been made to undo the previous operation or set of operations that have been grouped together.</p><pre class="pod-block-code">method handler (
+<div class="id-target" id="undo"></div><h3 id="undo_0" class="heading "><a href="#" title="go to top of document">undo</a><a class="raku-anchor" title="direct link" href="#undo">§</a></h3>
+
+<p id="Para_69">Emitted when a request has been made to undo the previous operation or set of operations that have been grouped together.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::TextBuffer :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::TextBuffer</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::TextBuffer</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TextBuffer.rakudoc</span></div><div>at <span class="time">2025-11-14T20:59:11Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/TextBuffer.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

@@ -1,532 +1,1266 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::Notebook</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::Notebook</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::Notebook">Gnome::Gtk4::Notebook</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkNotebook_as_GtkBuildable">GtkNotebook as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Accessibility">Accessibility</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-notebook">new-notebook</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-page">append-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#append-page-menu">append-page-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#detach-tab">detach-tab</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-action-widget">get-action-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-page">get-current-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-group-name">get-group-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-menu-label">get-menu-label</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-menu-label-text">get-menu-label-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-n-pages">get-n-pages</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-nth-page">get-nth-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-page">get-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-pages">get-pages</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-scrollable">get-scrollable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-border">get-show-border</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-show-tabs">get-show-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-detachable">get-tab-detachable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-label">get-tab-label</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-label-text">get-tab-label-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-pos">get-tab-pos</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-tab-reorderable">get-tab-reorderable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-page">insert-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#insert-page-menu">insert-page-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#next-page">next-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#page-num">page-num</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#popup-disable">popup-disable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#popup-enable">popup-enable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prepend-page">prepend-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prepend-page-menu">prepend-page-menu</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prev-page">prev-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#remove-page">remove-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#reorder-child">reorder-child</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-action-widget">set-action-widget</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-current-page">set-current-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-group-name">set-group-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-menu-label">set-menu-label</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-menu-label-text">set-menu-label-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-scrollable">set-scrollable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-border">set-show-border</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-show-tabs">set-show-tabs</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-detachable">set-tab-detachable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-label">set-tab-label</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-label-text">set-tab-label-text</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-pos">set-tab-pos</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-tab-reorderable">set-tab-reorderable</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#change-current-page">change-current-page</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#create-window">create-window</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#focus-tab">focus-tab</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#move-focus-out">move-focus-out</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#page-added">page-added</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#page-removed">page-removed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#page-reordered">page-reordered</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#reorder-tab">reorder-tab</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#select-page">select-page</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#switch-page">switch-page</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::Notebook</strong> is a container whose children are pages switched between using tabs.</p><div class="image-container inline"><img src="asset_files/images/notebook.png" width="30%" height="auto" alt="No caption"></div>
-<p>There are many configuration options for <strong>Gnome::Gtk4::Notebook</strong>. Among other things, you can choose on which edge the tabs appear (see <a href="#set-tab-pos">.set-tab-pos()</a>), whether, if there are too many tabs to fit the notebook should be made bigger or scrolling arrows added (see <a href="#set-scrollable">.set-scrollable()</a>), and whether there will be a popup menu allowing the users to switch pages. (see <a href="#popup-enable">.popup-enable()</a>).</p>
-<h2 id="GtkNotebook_as_GtkBuildable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">GtkNotebook as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::Notebook</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface supports placing children into tabs by specifying “tab” as the “type” attribute of a `&lt;child&gt;` element. Note that the content of the tab must be created before the tab can be filled. A tab child can be specified without specifying a `&lt;child&gt;` type attribute.</p><p>To add a child widget in the notebooks action area, specify &quot;action-start&quot; or “action-end” as the “type” attribute of the `&lt;child&gt;` element.</p><p>An example of a UI definition fragment with <strong>Gnome::Gtk4::Notebook</strong>:</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::Notebook</strong> has a main CSS node with name <strong>notebook</strong>, a subnode with name <strong>header</strong> and below that a subnode with name <strong>tabs</strong> which contains one subnode per tab with name <strong>tab</strong>.</p><p>If action widgets are present, their CSS nodes are placed next to the <strong>tabs</strong> node. If the notebook is scrollable, CSS nodes with name <strong>arrow</strong> are placed as first and last child of the <strong>tabs</strong> node.</p><p>The main node gets the `.frame` style class when the notebook has a border (see <a href="#set-show-border">.set-show-border()</a>).</p><p>The header node gets one of the style class `.top`, `.bottom`, `.left` or `.right`, depending on where the tabs are placed. For reorderable pages, the tab node gets the `.reorderable-page` class.</p><p>A <strong>tab</strong> node gets the `.dnd` style class while it is moved with drag-and-drop.</p><p>The nodes are always arranged from left-to-right, regardless of text direction.</p>
-<h2 id="Accessibility"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Accessibility</a></h2>
-<p><strong>Gnome::Gtk4::Notebook</strong> uses the following roles:</p><ul>
-<li><p><code>GTK_ACCESSIBLE_ROLE_GROUP</code> for the notebook widget</p></li>
-<li><p><code>GTK_ACCESSIBLE_ROLE_TAB_LIST</code> for the list of tabs</p></li>
-<li><p><code>GTK_ACCESSIBLE_ROLE_TAB</code> role for each tab</p></li>
-<li><p><code>GTK_ACCESSIBLE_ROLE_TAB_PANEL</code> for each page</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::Notebook"></div><h1 class="title">Gnome::Gtk4::Notebook</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkNotebook_as_GtkBuildable">GtkNotebook as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Accessibility">Accessibility</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-notebook">new-notebook</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-page">append-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#append-page-menu">append-page-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#detach-tab">detach-tab</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-action-widget">get-action-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-page">get-current-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-group-name">get-group-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-menu-label">get-menu-label</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-menu-label-text">get-menu-label-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-n-pages">get-n-pages</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-nth-page">get-nth-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-page">get-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-pages">get-pages</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-scrollable">get-scrollable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-show-border">get-show-border</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-show-tabs">get-show-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-detachable">get-tab-detachable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-label">get-tab-label</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-label-text">get-tab-label-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-pos">get-tab-pos</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-tab-reorderable">get-tab-reorderable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-page">insert-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#insert-page-menu">insert-page-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#next-page">next-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#page-num">page-num</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#popup-disable">popup-disable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#popup-enable">popup-enable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend-page">prepend-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepend-page-menu">prepend-page-menu</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prev-page">prev-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#remove-page">remove-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#reorder-child">reorder-child</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-action-widget">set-action-widget</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-current-page">set-current-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-group-name">set-group-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-menu-label">set-menu-label</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-menu-label-text">set-menu-label-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-scrollable">set-scrollable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-show-border">set-show-border</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-show-tabs">set-show-tabs</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-detachable">set-tab-detachable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-label">set-tab-label</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-label-text">set-tab-label-text</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-pos">set-tab-pos</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-tab-reorderable">set-tab-reorderable</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#change-current-page">change-current-page</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#create-window">create-window</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#focus-tab">focus-tab</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#move-focus-out">move-focus-out</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#page-added">page-added</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#page-removed">page-removed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#page-reordered">page-reordered</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#reorder-tab">reorder-tab</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#select-page">select-page</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#switch-page">switch-page</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::Notebook</span> is a container whose children are pages switched between using tabs. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/notebook.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>There are many configuration options for <span class="basis">Gnome::Gtk4::Notebook</span>. Among other things, you can choose on which edge the tabs appear (see <a href="#set-tab-pos">.set-tab-pos()</a>), whether, if there are too many tabs to fit the notebook should be made bigger or scrolling arrows added (see <a href="#set-scrollable">.set-scrollable()</a>), and whether there will be a popup menu allowing the users to switch pages. (see <a href="#popup-enable">.popup-enable()</a>). </p>
+
+<div class="id-target" id="GtkNotebook as GtkBuildable"></div><h2 id="GtkNotebook_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkNotebook as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkNotebook as GtkBuildable">§</a></h2>
+
+<p>The <span class="basis">Gnome::Gtk4::Notebook</span> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable">Gnome::Gtk4::R-Buildable</a> interface supports placing children into tabs by specifying “tab” as the “type” attribute of a `&lt;child&gt;` element. Note that the content of the tab must be created before the tab can be filled. A tab child can be specified without specifying a `&lt;child&gt;` type attribute. </p>
+
+<p id="Para">To add a child widget in the notebooks action area, specify &quot;action-start&quot; or “action-end” as the “type” attribute of the `&lt;child&gt;` element.</p>
+
+<p>An example of a UI definition fragment with <span class="basis">Gnome::Gtk4::Notebook</span>: </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Notebook</span> has a main CSS node with name <span class="basis">notebook</span>, a subnode with name <span class="basis">header</span> and below that a subnode with name <span class="basis">tabs</span> which contains one subnode per tab with name <span class="basis">tab</span>. </p>
+
+<p>If action widgets are present, their CSS nodes are placed next to the <span class="basis">tabs</span> node. If the notebook is scrollable, CSS nodes with name <span class="basis">arrow</span> are placed as first and last child of the <span class="basis">tabs</span> node. </p>
+
+<p>The main node gets the `.frame` style class when the notebook has a border (see <a href="#set-show-border">.set-show-border()</a>). </p>
+
+<p id="Para_0">The header node gets one of the style class `.top`, `.bottom`, `.left` or `.right`, depending on where the tabs are placed. For reorderable pages, the tab node gets the `.reorderable-page` class.</p>
+
+<p>A <span class="basis">tab</span> node gets the `.dnd` style class while it is moved with drag-and-drop. </p>
+
+<p id="Para_1">The nodes are always arranged from left-to-right, regardless of text direction.</p>
+<h2 id="Accessibility" class="heading "><a href="#" title="go to top of document">Accessibility</a><a class="raku-anchor" title="direct link" href="#Accessibility">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::Notebook</span> uses the following roles: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_ACCESSIBLE_ROLE_GROUP</span> for the notebook widget</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_ACCESSIBLE_ROLE_TAB_LIST</span> for the list of tabs</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_ACCESSIBLE_ROLE_TAB</span> role for each tab</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_ACCESSIBLE_ROLE_TAB_PANEL</span> for each page</li>
 </ul>
 
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/Notebook.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Class initialization</a></h1>
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
 
-<h2 id="new"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">new</a></h2>
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/Notebook.png&gt; :width&lt;70\%&gt;<br><br>
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-notebook"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">new-notebook</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::Notebook</strong> widget with no pages.</p><pre class="pod-block-code">method new-notebook ( --&gt; Gnome::Gtk4::Notebook )
-</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="append-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">append-page</a></h2>
-<p>Appends a page to <code>$notebook</code>.</p><pre class="pod-block-code">method append-page ( N-Object() $child, N-Object() $tab-label --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the appended page in the notebook, or -1 if function fails. </p></section>
-<section name="pod">
-<h2 id="append-page-menu"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">append-page-menu</a></h2>
-<p>Appends a page to <code>$notebook</code>, specifying the widget to use as the label in the popup menu.</p><pre class="pod-block-code">method append-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-<li><p>$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <code>$tab-label</code> is a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <code>$tab-label</code>; if <code>$tab-label</code> is not a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>, <code>$menu-label</code> must be specified if the page-switch menu is to be used..</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the appended page in the notebook, or -1 if function fails. </p></section>
-<section name="pod">
-<h2 id="detach-tab"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">detach-tab</a></h2>
-<p>Removes the child from the notebook.</p><p>This function is very similar to <a href="#remove-page">.remove-page()</a>, but additionally informs the notebook that the removal is happening as part of a tab DND operation, which should not be cancelled.</p><pre class="pod-block-code">method detach-tab ( N-Object() $child )
-</pre><ul>
-<li><p>$child; a child.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="get-action-widget"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-action-widget</a></h2>
-<p>Gets one of the action widgets.</p><p>See <a href="#set-action-widget">.set-action-widget()</a>.</p><pre class="pod-block-code">method get-action-widget ( GtkPackType $pack-type --&gt; N-Object )
-</pre><ul>
-<li><p>$pack-type; pack type of the action widget to receive.</p></li>
-</ul>
-<p>Return value; The action widget with the given <code>$pack-type</code> or undefined when this action widget has not been set. </p></section>
-<section name="pod">
-<h2 id="get-current-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-current-page</a></h2>
-<p>Returns the page number of the current page.</p><pre class="pod-block-code">method get-current-page (--&gt; Int )
-</pre><p>Return value; the index (starting from 0) of the current page in the notebook. If the notebook has no pages, then -1 will be returned.. </p></section>
-<section name="pod">
-<h2 id="get-group-name"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-group-name</a></h2>
-<p>Gets the current group name for <code>$notebook</code>.</p><pre class="pod-block-code">method get-group-name (--&gt; Str )
-</pre><p>Return value; the group name, or undefined if none is set. </p></section>
-<section name="pod">
-<h2 id="get-menu-label"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-menu-label</a></h2>
-<p>Retrieves the menu label widget of the page containing <code>$child</code>.</p><pre class="pod-block-code">method get-menu-label ( N-Object() $child --&gt; N-Object )
-</pre><ul>
-<li><p>$child; a widget contained in a page of <code>$notebook</code>.</p></li>
-</ul>
-<p>Return value; the menu label, or undefined if the notebook page does not have a menu label other than the default (the tab label).. </p></section>
-<section name="pod">
-<h2 id="get-menu-label-text"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-menu-label-text</a></h2>
-<p>Retrieves the text of the menu label for the page containing <code>$child</code>.</p><pre class="pod-block-code">method get-menu-label-text ( N-Object() $child --&gt; Str )
-</pre><ul>
-<li><p>$child; the child widget of a page of the notebook..</p></li>
-</ul>
-<p>Return value; the text of the tab label, or undefined if the widget does not have a menu label other than the default menu label, or the menu label widget is not a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>. The string is owned by the widget and must not be freed.. </p></section>
-<section name="pod">
-<h2 id="get-n-pages"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-n-pages</a></h2>
-<p>Gets the number of pages in a notebook.</p><pre class="pod-block-code">method get-n-pages (--&gt; Int )
-</pre><p>Return value; the number of pages in the notebook. </p></section>
-<section name="pod">
-<h2 id="get-nth-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-nth-page</a></h2>
-<p>Returns the child widget contained in page number <code>$page-num</code>.</p><pre class="pod-block-code">method get-nth-page ( Int() $page-num --&gt; N-Object )
-</pre><ul>
-<li><p>$page-num; the index of a page in the notebook, or -1 to get the last page.</p></li>
-</ul>
-<p>Return value; the child widget, or undefined if <code>$page-num</code> is out of bounds. </p></section>
-<section name="pod">
-<h2 id="get-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-page</a></h2>
-<p>Returns the <a href="/content-docs/api2/reference/Gtk4/NotebookPage.html">Gnome::Gtk4::NotebookPage</a> for <code>$child</code>.</p><pre class="pod-block-code">method get-page ( N-Object() $child --&gt; N-Object )
-</pre><ul>
-<li><p>$child; a child of <code>$notebook</code>.</p></li>
-</ul>
-<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/NotebookPage.html">Gnome::Gtk4::NotebookPage</a> for <code>$child</code>. </p></section>
-<section name="pod">
-<h2 id="get-pages"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-pages</a></h2>
-<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> that contains the pages of the notebook.</p><p>This can be used to keep an up-to-date view. The model also implements <a href="/content-docs/api2/reference/Gnome/Gtk4/R-SelectionModel.html">Gnome::Gtk4::NotebookPage</a> and can be used to track and modify the visible page.</p><pre class="pod-block-code">method get-pages (--&gt; N-List )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> for the notebook's children. </p></section>
-<section name="pod">
-<h2 id="get-scrollable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-scrollable</a></h2>
-<p>Returns whether the tab label area has arrows for scrolling.</p><pre class="pod-block-code">method get-scrollable (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if arrows for scrolling are present. </p></section>
-<section name="pod">
-<h2 id="get-show-border"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-show-border</a></h2>
-<p>Returns whether a bevel will be drawn around the notebook pages.</p><pre class="pod-block-code">method get-show-border (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the bevel is drawn. </p></section>
-<section name="pod">
-<h2 id="get-show-tabs"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-show-tabs</a></h2>
-<p>Returns whether the tabs of the notebook are shown.</p><pre class="pod-block-code">method get-show-tabs (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the tabs are shown. </p></section>
-<section name="pod">
-<h2 id="get-tab-detachable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-tab-detachable</a></h2>
-<p>Returns whether the tab contents can be detached from <code>$notebook</code>.</p><pre class="pod-block-code">method get-tab-detachable ( N-Object() $child --&gt; Bool )
-</pre><ul>
-<li><p>$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-</ul>
-<p>Return value; <code>True</code> if the tab is detachable.. </p></section>
-<section name="pod">
-<h2 id="get-tab-label"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-tab-label</a></h2>
-<p>Returns the tab label widget for the page <code>$child</code>.</p><p>undefined is returned if <code>$child</code> is not in <code>$notebook</code> or if no tab label has specifically been set for <code>$child</code>.</p><pre class="pod-block-code">method get-tab-label ( N-Object() $child --&gt; N-Object )
-</pre><ul>
-<li><p>$child; the page.</p></li>
-</ul>
-<p>Return value; the tab label. </p></section>
-<section name="pod">
-<h2 id="get-tab-label-text"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-tab-label-text</a></h2>
-<p>Retrieves the text of the tab label for the page containing <code>$child</code>.</p><pre class="pod-block-code">method get-tab-label-text ( N-Object() $child --&gt; Str )
-</pre><ul>
-<li><p>$child; a widget contained in a page of <code>$notebook</code>.</p></li>
-</ul>
-<p>Return value; the text of the tab label, or undefined if the tab label widget is not a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>. The string is owned by the widget and must not be freed.. </p></section>
-<section name="pod">
-<h2 id="get-tab-pos"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-tab-pos</a></h2>
-<p>Gets the edge at which the tabs are drawn.</p><pre class="pod-block-code">method get-tab-pos (--&gt; GtkPositionType )
-</pre><p>Return value; the edge at which the tabs are drawn. </p></section>
-<section name="pod">
-<h2 id="get-tab-reorderable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">get-tab-reorderable</a></h2>
-<p>Gets whether the tab can be reordered via drag and drop or not.</p><pre class="pod-block-code">method get-tab-reorderable ( N-Object() $child --&gt; Bool )
-</pre><ul>
-<li><p>$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-</ul>
-<p>Return value; <code>True</code> if the tab is reorderable.. </p></section>
-<section name="pod">
-<h2 id="insert-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">insert-page</a></h2>
-<p>Insert a page into <code>$notebook</code> at the given position.</p><pre class="pod-block-code">method insert-page ( N-Object() $child, N-Object() $tab-label, Int() $position --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-<li><p>$position; the index (starting at 0) at which to insert the page, or -1 to append the page after all other pages.</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the inserted page in the notebook, or -1 if function fails. </p></section>
-<section name="pod">
-<h2 id="insert-page-menu"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">insert-page-menu</a></h2>
-<p>Insert a page into <code>$notebook</code> at the given position, specifying the widget to use as the label in the popup menu.</p><pre class="pod-block-code">method insert-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label, Int() $position --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-<li><p>$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <code>$tab-label</code> is a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <code>$tab-label</code>; if <code>$tab-label</code> is not a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>, <code>$menu-label</code> must be specified if the page-switch menu is to be used..</p></li>
-<li><p>$position; the index (starting at 0) at which to insert the page, or -1 to append the page after all other pages..</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the inserted page in the notebook. </p></section>
-<section name="pod">
-<h2 id="next-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">next-page</a></h2>
-<p>Switches to the next page.</p><p>Nothing happens if the current page is the last page.</p><pre class="pod-block-code">method next-page ( )
-</pre></section>
-<section name="pod">
-<h2 id="page-num"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">page-num</a></h2>
-<p>Finds the index of the page which contains the given child widget.</p><pre class="pod-block-code">method page-num ( N-Object() $child --&gt; Int )
-</pre><ul>
-<li><p>$child; a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-</ul>
-<p>Return value; the index of the page containing <code>$child</code>, or -1 if <code>$child</code> is not in the notebook. </p></section>
-<section name="pod">
-<h2 id="popup-disable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">popup-disable</a></h2>
-<p>Disables the popup menu.</p><pre class="pod-block-code">method popup-disable ( )
-</pre></section>
-<section name="pod">
-<h2 id="popup-enable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">popup-enable</a></h2>
-<p>Enables the popup menu.</p><p>If the user clicks with the right mouse button on the tab labels, a menu with all the pages will be popped up.</p><pre class="pod-block-code">method popup-enable ( )
-</pre></section>
-<section name="pod">
-<h2 id="prepend-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">prepend-page</a></h2>
-<p>Prepends a page to <code>$notebook</code>.</p><pre class="pod-block-code">method prepend-page ( N-Object() $child, N-Object() $tab-label --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the prepended page in the notebook, or -1 if function fails. </p></section>
-<section name="pod">
-<h2 id="prepend-page-menu"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">prepend-page-menu</a></h2>
-<p>Prepends a page to <code>$notebook</code>, specifying the widget to use as the label in the popup menu.</p><pre class="pod-block-code">method prepend-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label --&gt; Int )
-</pre><ul>
-<li><p>$child; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to use as the contents of the page.</p></li>
-<li><p>$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</p></li>
-<li><p>$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <code>$tab-label</code> is a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <code>$tab-label</code>; if <code>$tab-label</code> is not a <a href="/content-docs/api2/reference/Gtk4/Label.html">Gnome::Gtk4::Label</a>, <code>$menu-label</code> must be specified if the page-switch menu is to be used..</p></li>
-</ul>
-<p>Return value; the index (starting from 0) of the prepended page in the notebook, or -1 if function fails. </p></section>
-<section name="pod">
-<h2 id="prev-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">prev-page</a></h2>
-<p>Switches to the previous page.</p><p>Nothing happens if the current page is the first page.</p><pre class="pod-block-code">method prev-page ( )
-</pre></section>
-<section name="pod">
-<h2 id="remove-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">remove-page</a></h2>
-<p>Removes a page from the notebook given its index in the notebook.</p><pre class="pod-block-code">method remove-page ( Int() $page-num )
-</pre><ul>
-<li><p>$page-num; the index of a notebook page, starting from 0. If -1, the last page will be removed..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="reorder-child"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">reorder-child</a></h2>
-<p>Reorders the page containing <code>$child</code>, so that it appears in position <code>$position</code>.</p><p>If <code>$position</code> is greater than or equal to the number of children in the list or negative, <code>$child</code> will be moved to the end of the list.</p><pre class="pod-block-code">method reorder-child ( N-Object() $child, Int() $position )
-</pre><ul>
-<li><p>$child; the child to move.</p></li>
-<li><p>$position; the new position, or -1 to move to the end.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-action-widget"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-action-widget</a></h2>
-<p>Sets <code>$widget</code> as one of the action widgets.</p><p>Depending on the pack type the widget will be placed before or after the tabs. You can use a <a href="/content-docs/api2/reference/Gtk4/Box.html">Gnome::Gtk4::Box</a> if you need to pack more than one widget on the same side.</p><pre class="pod-block-code">method set-action-widget ( N-Object() $widget, GtkPackType $pack-type )
-</pre><ul>
-<li><p>$widget; a <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-<li><p>$pack-type; pack type of the action widget.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-current-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-current-page</a></h2>
-<p>Switches to the page number <code>$page-num</code>.</p><p>Note that due to historical reasons, GtkNotebook refuses to switch to a page unless the child widget is visible. Therefore, it is recommended to show child widgets before adding them to a notebook.</p><pre class="pod-block-code">method set-current-page ( Int() $page-num )
-</pre><ul>
-<li><p>$page-num; index of the page to switch to, starting from 0. If negative, the last page will be used. If greater than the number of pages in the notebook, nothing will be done..</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-group-name"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-group-name</a></h2>
-<p>Sets a group name for <code>$notebook</code>.</p><p>Notebooks with the same name will be able to exchange tabs via drag and drop. A notebook with a undefined group name will not be able to exchange tabs with any other notebook.</p><pre class="pod-block-code">method set-group-name ( Str $group-name )
-</pre><ul>
-<li><p>$group-name; the name of the notebook group, or undefined to unset it.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-menu-label"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-menu-label</a></h2>
-<p>Changes the menu label for the page containing <code>$child</code>.</p><pre class="pod-block-code">method set-menu-label ( N-Object() $child, N-Object() $menu-label )
-</pre><ul>
-<li><p>$child; the child widget.</p></li>
-<li><p>$menu-label; the menu label, or undefined for default.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-menu-label-text"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-menu-label-text</a></h2>
-<p>Creates a new label and sets it as the menu label of <code>$child</code>.</p><pre class="pod-block-code">method set-menu-label-text ( N-Object() $child, Str $menu-text )
-</pre><ul>
-<li><p>$child; the child widget.</p></li>
-<li><p>$menu-text; the label text.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-scrollable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-scrollable</a></h2>
-<p>Sets whether the tab label area will have arrows for scrolling if there are too many tabs to fit in the area.</p><pre class="pod-block-code">method set-scrollable ( Bool() $scrollable )
-</pre><ul>
-<li><p>$scrollable; <code>True</code> if scroll arrows should be added.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-show-border"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-show-border</a></h2>
-<p>Sets whether a bevel will be drawn around the notebook pages.</p><p>This only has a visual effect when the tabs are not shown.</p><pre class="pod-block-code">method set-show-border ( Bool() $show-border )
-</pre><ul>
-<li><p>$show-border; <code>True</code> if a bevel should be drawn around the notebook.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-show-tabs"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-show-tabs</a></h2>
-<p>Sets whether to show the tabs for the notebook or not.</p><pre class="pod-block-code">method set-show-tabs ( Bool() $show-tabs )
-</pre><ul>
-<li><p>$show-tabs; <code>True</code> if the tabs should be shown.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-detachable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-tab-detachable</a></h2>
-<p>Sets whether the tab can be detached from <code>$notebook</code> to another notebook or widget.</p><p>Note that two notebooks must share a common group identifier (see <a href="#set-group-name">.set-group-name()</a>) to allow automatic tabs interchange between them.</p><p>If you want a widget to interact with a notebook through DnD (i.e.: accept dragged tabs from it) it must be set as a drop destination by adding to it a <a href="/content-docs/api2/reference/Gtk4/DropTarget.html">Gnome::Gtk4::DropTarget</a> controller that accepts the GType <strong>GTK_TYPE_NOTEBOOK_PAGE</strong>. The `:value` of said drop target will be preloaded with a <a href="/content-docs/api2/reference/Gtk4/NotebookPage.html">Gnome::Gtk4::NotebookPage</a> object that corresponds to the dropped tab, so you can process the value via `::accept` or `::drop` signals.</p><p>Note that you should use <a href="#detach-tab">.detach-tab()</a> instead of <a href="#remove-page">.remove-page()</a> if you want to remove the tab from the source notebook as part of accepting a drop. Otherwise, the source notebook will think that the dragged tab was removed from underneath the ongoing drag operation, and will initiate a drag cancel animation.</p><p>If you want a notebook to accept drags from other widgets, you will have to set your own DnD code to do it.</p><pre class="pod-block-code">method set-tab-detachable ( N-Object() $child, Bool() $detachable )
-</pre><ul>
-<li><p>$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-<li><p>$detachable; whether the tab is detachable or not.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-label"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-tab-label</a></h2>
-<p>Changes the tab label for <code>$child</code>.</p><p>If undefined is specified for <code>$tab-label</code>, then the page will have the label “page N”.</p><pre class="pod-block-code">method set-tab-label ( N-Object() $child, N-Object() $tab-label )
-</pre><ul>
-<li><p>$child; the page.</p></li>
-<li><p>$tab-label; the tab label widget to use, or undefined for default tab label.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-label-text"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-tab-label-text</a></h2>
-<p>Creates a new label and sets it as the tab label for the page containing <code>$child</code>.</p><pre class="pod-block-code">method set-tab-label-text ( N-Object() $child, Str $tab-text )
-</pre><ul>
-<li><p>$child; the page.</p></li>
-<li><p>$tab-text; the label text.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-pos"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-tab-pos</a></h2>
-<p>Sets the edge at which the tabs are drawn.</p><pre class="pod-block-code">method set-tab-pos ( GtkPositionType $pos )
-</pre><ul>
-<li><p>$pos; the edge to draw the tabs at.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="set-tab-reorderable"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">set-tab-reorderable</a></h2>
-<p>Sets whether the notebook tab can be reordered via drag and drop or not.</p><pre class="pod-block-code">method set-tab-reorderable ( N-Object() $child, Bool() $reorderable )
-</pre><ul>
-<li><p>$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a>.</p></li>
-<li><p>$reorderable; whether the tab is reorderable or not.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">Signals</a></h1>
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
 
-<h3 id="change-current-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">change-current-page</a></h3>
-<pre class="pod-block-code">method handler (
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-notebook" class="heading "><a href="#" title="go to top of document">new-notebook</a><a class="raku-anchor" title="direct link" href="#new-notebook">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::Notebook</span> widget with no pages. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-notebook ( --&gt; Gnome::Gtk4::Notebook )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="append-page" class="heading "><a href="#" title="go to top of document">append-page</a><a class="raku-anchor" title="direct link" href="#append-page">§</a></h2>
+
+<p>Appends a page to <span class="code">$notebook</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-page ( N-Object() $child, N-Object() $tab-label --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+</ul>
+
+<p id="Para_2">Return value; the index (starting from 0) of the appended page in the notebook, or -1 if function fails.</p>
+<h2 id="append-page-menu" class="heading "><a href="#" title="go to top of document">append-page-menu</a><a class="raku-anchor" title="direct link" href="#append-page-menu">§</a></h2>
+
+<p>Appends a page to <span class="code">$notebook</span>, specifying the widget to use as the label in the popup menu. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method append-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <span class="code">$tab-label</span> is a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <span class="code">$tab-label</span>; if <span class="code">$tab-label</span> is not a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a>, <span class="code">$menu-label</span> must be specified if the page-switch menu is to be used..</li>
+</ul>
+
+<p id="Para_3">Return value; the index (starting from 0) of the appended page in the notebook, or -1 if function fails.</p>
+<h2 id="detach-tab" class="heading "><a href="#" title="go to top of document">detach-tab</a><a class="raku-anchor" title="direct link" href="#detach-tab">§</a></h2>
+
+<p id="Para_4">Removes the child from the notebook.</p>
+
+<p>This function is very similar to <a href="#remove-page">.remove-page()</a>, but additionally informs the notebook that the removal is happening as part of a tab DND operation, which should not be cancelled. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method detach-tab ( N-Object() $child )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child.</li>
+</ul>
+<h2 id="get-action-widget" class="heading "><a href="#" title="go to top of document">get-action-widget</a><a class="raku-anchor" title="direct link" href="#get-action-widget">§</a></h2>
+
+<p id="Para_5">Gets one of the action widgets.</p>
+
+<p>See <a href="#set-action-widget">.set-action-widget()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-action-widget ( GtkPackType $pack-type --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pack-type; pack type of the action widget to receive.</li>
+</ul>
+
+<p>Return value; The action widget with the given <span class="code">$pack-type</span> or undefined when this action widget has not been set. </p>
+<h2 id="get-current-page" class="heading "><a href="#" title="go to top of document">get-current-page</a><a class="raku-anchor" title="direct link" href="#get-current-page">§</a></h2>
+
+<p id="Para_6">Returns the page number of the current page.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-page (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the index (starting from 0) of the current page in the notebook. If the notebook has no pages, then -1 will be returned..</p>
+<h2 id="get-group-name" class="heading "><a href="#" title="go to top of document">get-group-name</a><a class="raku-anchor" title="direct link" href="#get-group-name">§</a></h2>
+
+<p>Gets the current group name for <span class="code">$notebook</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-group-name (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; the group name, or undefined if none is set.</p>
+<h2 id="get-menu-label" class="heading "><a href="#" title="go to top of document">get-menu-label</a><a class="raku-anchor" title="direct link" href="#get-menu-label">§</a></h2>
+
+<p>Retrieves the menu label widget of the page containing <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-menu-label ( N-Object() $child --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a widget contained in a page of <span class="code">$notebook</span>.</li>
+</ul>
+
+<p id="Para_9">Return value; the menu label, or undefined if the notebook page does not have a menu label other than the default (the tab label)..</p>
+<h2 id="get-menu-label-text" class="heading "><a href="#" title="go to top of document">get-menu-label-text</a><a class="raku-anchor" title="direct link" href="#get-menu-label-text">§</a></h2>
+
+<p>Retrieves the text of the menu label for the page containing <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-menu-label-text ( N-Object() $child --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child widget of a page of the notebook..</li>
+</ul>
+
+<p>Return value; the text of the tab label, or undefined if the widget does not have a menu label other than the default menu label, or the menu label widget is not a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a>. The string is owned by the widget and must not be freed.. </p>
+<h2 id="get-n-pages" class="heading "><a href="#" title="go to top of document">get-n-pages</a><a class="raku-anchor" title="direct link" href="#get-n-pages">§</a></h2>
+
+<p id="Para_10">Gets the number of pages in a notebook.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-n-pages (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; the number of pages in the notebook.</p>
+<h2 id="get-nth-page" class="heading "><a href="#" title="go to top of document">get-nth-page</a><a class="raku-anchor" title="direct link" href="#get-nth-page">§</a></h2>
+
+<p>Returns the child widget contained in page number <span class="code">$page-num</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-nth-page ( Int() $page-num --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the index of a page in the notebook, or -1 to get the last page.</li>
+</ul>
+
+<p>Return value; the child widget, or undefined if <span class="code">$page-num</span> is out of bounds. </p>
+<h2 id="get-page" class="heading "><a href="#" title="go to top of document">get-page</a><a class="raku-anchor" title="direct link" href="#get-page">§</a></h2>
+
+<p>Returns the <a href="/content-docs/api2/reference/Gtk4/NotebookPage">Gnome::Gtk4::NotebookPage</a> for <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-page ( N-Object() $child --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child of <span class="code">$notebook</span>.</li>
+</ul>
+
+<p>Return value; the <a href="/content-docs/api2/reference/Gtk4/NotebookPage">Gnome::Gtk4::NotebookPage</a> for <span class="code">$child</span>. </p>
+<h2 id="get-pages" class="heading "><a href="#" title="go to top of document">get-pages</a><a class="raku-anchor" title="direct link" href="#get-pages">§</a></h2>
+
+<p>Returns a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> that contains the pages of the notebook. </p>
+
+<p>This can be used to keep an up-to-date view. The model also implements <a href="/content-docs/api2/reference/Gnome::Gtk4::R-SelectionModel">Gnome::Gtk4::NotebookPage</a> and can be used to track and modify the visible page. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-pages (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> for the notebook's children. </p>
+<h2 id="get-scrollable" class="heading "><a href="#" title="go to top of document">get-scrollable</a><a class="raku-anchor" title="direct link" href="#get-scrollable">§</a></h2>
+
+<p id="Para_12">Returns whether the tab label area has arrows for scrolling.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-scrollable (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if arrows for scrolling are present. </p>
+<h2 id="get-show-border" class="heading "><a href="#" title="go to top of document">get-show-border</a><a class="raku-anchor" title="direct link" href="#get-show-border">§</a></h2>
+
+<p id="Para_13">Returns whether a bevel will be drawn around the notebook pages.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-show-border (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the bevel is drawn. </p>
+<h2 id="get-show-tabs" class="heading "><a href="#" title="go to top of document">get-show-tabs</a><a class="raku-anchor" title="direct link" href="#get-show-tabs">§</a></h2>
+
+<p id="Para_14">Returns whether the tabs of the notebook are shown.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-show-tabs (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the tabs are shown. </p>
+<h2 id="get-tab-detachable" class="heading "><a href="#" title="go to top of document">get-tab-detachable</a><a class="raku-anchor" title="direct link" href="#get-tab-detachable">§</a></h2>
+
+<p>Returns whether the tab contents can be detached from <span class="code">$notebook</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-detachable ( N-Object() $child --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the tab is detachable.. </p>
+<h2 id="get-tab-label" class="heading "><a href="#" title="go to top of document">get-tab-label</a><a class="raku-anchor" title="direct link" href="#get-tab-label">§</a></h2>
+
+<p>Returns the tab label widget for the page <span class="code">$child</span>. </p>
+
+<p>undefined is returned if <span class="code">$child</span> is not in <span class="code">$notebook</span> or if no tab label has specifically been set for <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-label ( N-Object() $child --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the page.</li>
+</ul>
+
+<p id="Para_15">Return value; the tab label.</p>
+<h2 id="get-tab-label-text" class="heading "><a href="#" title="go to top of document">get-tab-label-text</a><a class="raku-anchor" title="direct link" href="#get-tab-label-text">§</a></h2>
+
+<p>Retrieves the text of the tab label for the page containing <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-label-text ( N-Object() $child --&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a widget contained in a page of <span class="code">$notebook</span>.</li>
+</ul>
+
+<p>Return value; the text of the tab label, or undefined if the tab label widget is not a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a>. The string is owned by the widget and must not be freed.. </p>
+<h2 id="get-tab-pos" class="heading "><a href="#" title="go to top of document">get-tab-pos</a><a class="raku-anchor" title="direct link" href="#get-tab-pos">§</a></h2>
+
+<p id="Para_16">Gets the edge at which the tabs are drawn.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-pos (--&gt; GtkPositionType )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_17">Return value; the edge at which the tabs are drawn.</p>
+<h2 id="get-tab-reorderable" class="heading "><a href="#" title="go to top of document">get-tab-reorderable</a><a class="raku-anchor" title="direct link" href="#get-tab-reorderable">§</a></h2>
+
+<p id="Para_18">Gets whether the tab can be reordered via drag and drop or not.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-tab-reorderable ( N-Object() $child --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the tab is reorderable.. </p>
+<h2 id="insert-page" class="heading "><a href="#" title="go to top of document">insert-page</a><a class="raku-anchor" title="direct link" href="#insert-page">§</a></h2>
+
+<p>Insert a page into <span class="code">$notebook</span> at the given position. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-page ( N-Object() $child, N-Object() $tab-label, Int() $position --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; the index (starting at 0) at which to insert the page, or -1 to append the page after all other pages.</li>
+</ul>
+
+<p id="Para_19">Return value; the index (starting from 0) of the inserted page in the notebook, or -1 if function fails.</p>
+<h2 id="insert-page-menu" class="heading "><a href="#" title="go to top of document">insert-page-menu</a><a class="raku-anchor" title="direct link" href="#insert-page-menu">§</a></h2>
+
+<p>Insert a page into <span class="code">$notebook</span> at the given position, specifying the widget to use as the label in the popup menu. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method insert-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label, Int() $position --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <span class="code">$tab-label</span> is a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <span class="code">$tab-label</span>; if <span class="code">$tab-label</span> is not a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a>, <span class="code">$menu-label</span> must be specified if the page-switch menu is to be used..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; the index (starting at 0) at which to insert the page, or -1 to append the page after all other pages..</li>
+</ul>
+
+<p id="Para_20">Return value; the index (starting from 0) of the inserted page in the notebook.</p>
+<h2 id="next-page" class="heading "><a href="#" title="go to top of document">next-page</a><a class="raku-anchor" title="direct link" href="#next-page">§</a></h2>
+
+<p id="Para_21">Switches to the next page.</p>
+
+<p id="Para_22">Nothing happens if the current page is the last page.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method next-page ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="page-num" class="heading "><a href="#" title="go to top of document">page-num</a><a class="raku-anchor" title="direct link" href="#page-num">§</a></h2>
+
+<p id="Para_23">Finds the index of the page which contains the given child widget.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method page-num ( N-Object() $child --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+</ul>
+
+<p>Return value; the index of the page containing <span class="code">$child</span>, or -1 if <span class="code">$child</span> is not in the notebook. </p>
+<h2 id="popup-disable" class="heading "><a href="#" title="go to top of document">popup-disable</a><a class="raku-anchor" title="direct link" href="#popup-disable">§</a></h2>
+
+<p id="Para_24">Disables the popup menu.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method popup-disable ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="popup-enable" class="heading "><a href="#" title="go to top of document">popup-enable</a><a class="raku-anchor" title="direct link" href="#popup-enable">§</a></h2>
+
+<p id="Para_25">Enables the popup menu.</p>
+
+<p id="Para_26">If the user clicks with the right mouse button on the tab labels, a menu with all the pages will be popped up.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method popup-enable ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="prepend-page" class="heading "><a href="#" title="go to top of document">prepend-page</a><a class="raku-anchor" title="direct link" href="#prepend-page">§</a></h2>
+
+<p>Prepends a page to <span class="code">$notebook</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend-page ( N-Object() $child, N-Object() $tab-label --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+</ul>
+
+<p id="Para_27">Return value; the index (starting from 0) of the prepended page in the notebook, or -1 if function fails.</p>
+<h2 id="prepend-page-menu" class="heading "><a href="#" title="go to top of document">prepend-page-menu</a><a class="raku-anchor" title="direct link" href="#prepend-page-menu">§</a></h2>
+
+<p>Prepends a page to <span class="code">$notebook</span>, specifying the widget to use as the label in the popup menu. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepend-page-menu ( N-Object() $child, N-Object() $tab-label, N-Object() $menu-label --&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to use as the contents of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> to be used as the label for the page, or undefined to use the default label, “page N”.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$menu-label; the widget to use as a label for the page-switch menu, if that is enabled. If undefined, and <span class="code">$tab-label</span> is a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a> or undefined, then the menu label will be a newly created label with the same text as <span class="code">$tab-label</span>; if <span class="code">$tab-label</span> is not a <a href="/content-docs/api2/reference/Gtk4/Label">Gnome::Gtk4::Label</a>, <span class="code">$menu-label</span> must be specified if the page-switch menu is to be used..</li>
+</ul>
+
+<p id="Para_28">Return value; the index (starting from 0) of the prepended page in the notebook, or -1 if function fails.</p>
+<h2 id="prev-page" class="heading "><a href="#" title="go to top of document">prev-page</a><a class="raku-anchor" title="direct link" href="#prev-page">§</a></h2>
+
+<p id="Para_29">Switches to the previous page.</p>
+
+<p id="Para_30">Nothing happens if the current page is the first page.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prev-page ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="remove-page" class="heading "><a href="#" title="go to top of document">remove-page</a><a class="raku-anchor" title="direct link" href="#remove-page">§</a></h2>
+
+<p id="Para_31">Removes a page from the notebook given its index in the notebook.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method remove-page ( Int() $page-num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the index of a notebook page, starting from 0. If -1, the last page will be removed..</li>
+</ul>
+<h2 id="reorder-child" class="heading "><a href="#" title="go to top of document">reorder-child</a><a class="raku-anchor" title="direct link" href="#reorder-child">§</a></h2>
+
+<p>Reorders the page containing <span class="code">$child</span>, so that it appears in position <span class="code">$position</span>. </p>
+
+<p>If <span class="code">$position</span> is greater than or equal to the number of children in the list or negative, <span class="code">$child</span> will be moved to the end of the list. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method reorder-child ( N-Object() $child, Int() $position )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child to move.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$position; the new position, or -1 to move to the end.</li>
+</ul>
+<h2 id="set-action-widget" class="heading "><a href="#" title="go to top of document">set-action-widget</a><a class="raku-anchor" title="direct link" href="#set-action-widget">§</a></h2>
+
+<p>Sets <span class="code">$widget</span> as one of the action widgets. </p>
+
+<p>Depending on the pack type the widget will be placed before or after the tabs. You can use a <a href="/content-docs/api2/reference/Gtk4/Box">Gnome::Gtk4::Box</a> if you need to pack more than one widget on the same side. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-action-widget ( N-Object() $widget, GtkPackType $pack-type )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$widget; a <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$pack-type; pack type of the action widget.</li>
+</ul>
+<h2 id="set-current-page" class="heading "><a href="#" title="go to top of document">set-current-page</a><a class="raku-anchor" title="direct link" href="#set-current-page">§</a></h2>
+
+<p>Switches to the page number <span class="code">$page-num</span>. </p>
+
+<p id="Para_32">Note that due to historical reasons, GtkNotebook refuses to switch to a page unless the child widget is visible. Therefore, it is recommended to show child widgets before adding them to a notebook.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-current-page ( Int() $page-num )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page-num; index of the page to switch to, starting from 0. If negative, the last page will be used. If greater than the number of pages in the notebook, nothing will be done..</li>
+</ul>
+<h2 id="set-group-name" class="heading "><a href="#" title="go to top of document">set-group-name</a><a class="raku-anchor" title="direct link" href="#set-group-name">§</a></h2>
+
+<p>Sets a group name for <span class="code">$notebook</span>. </p>
+
+<p id="Para_33">Notebooks with the same name will be able to exchange tabs via drag and drop. A notebook with a undefined group name will not be able to exchange tabs with any other notebook.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-group-name ( Str $group-name )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$group-name; the name of the notebook group, or undefined to unset it.</li>
+</ul>
+<h2 id="set-menu-label" class="heading "><a href="#" title="go to top of document">set-menu-label</a><a class="raku-anchor" title="direct link" href="#set-menu-label">§</a></h2>
+
+<p>Changes the menu label for the page containing <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-menu-label ( N-Object() $child, N-Object() $menu-label )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child widget.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$menu-label; the menu label, or undefined for default.</li>
+</ul>
+<h2 id="set-menu-label-text" class="heading "><a href="#" title="go to top of document">set-menu-label-text</a><a class="raku-anchor" title="direct link" href="#set-menu-label-text">§</a></h2>
+
+<p>Creates a new label and sets it as the menu label of <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-menu-label-text ( N-Object() $child, Str $menu-text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child widget.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$menu-text; the label text.</li>
+</ul>
+<h2 id="set-scrollable" class="heading "><a href="#" title="go to top of document">set-scrollable</a><a class="raku-anchor" title="direct link" href="#set-scrollable">§</a></h2>
+
+<p id="Para_34">Sets whether the tab label area will have arrows for scrolling if there are too many tabs to fit in the area.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-scrollable ( Bool() $scrollable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$scrollable; <span class="code">True</span> if scroll arrows should be added.</li>
+</ul>
+<h2 id="set-show-border" class="heading "><a href="#" title="go to top of document">set-show-border</a><a class="raku-anchor" title="direct link" href="#set-show-border">§</a></h2>
+
+<p id="Para_35">Sets whether a bevel will be drawn around the notebook pages.</p>
+
+<p id="Para_36">This only has a visual effect when the tabs are not shown.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-show-border ( Bool() $show-border )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$show-border; <span class="code">True</span> if a bevel should be drawn around the notebook.</li>
+</ul>
+<h2 id="set-show-tabs" class="heading "><a href="#" title="go to top of document">set-show-tabs</a><a class="raku-anchor" title="direct link" href="#set-show-tabs">§</a></h2>
+
+<p id="Para_37">Sets whether to show the tabs for the notebook or not.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-show-tabs ( Bool() $show-tabs )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$show-tabs; <span class="code">True</span> if the tabs should be shown.</li>
+</ul>
+<h2 id="set-tab-detachable" class="heading "><a href="#" title="go to top of document">set-tab-detachable</a><a class="raku-anchor" title="direct link" href="#set-tab-detachable">§</a></h2>
+
+<p>Sets whether the tab can be detached from <span class="code">$notebook</span> to another notebook or widget. </p>
+
+<p>Note that two notebooks must share a common group identifier (see <a href="#set-group-name">.set-group-name()</a>) to allow automatic tabs interchange between them. </p>
+
+<p>If you want a widget to interact with a notebook through DnD (i.e.: accept dragged tabs from it) it must be set as a drop destination by adding to it a <a href="/content-docs/api2/reference/Gtk4/DropTarget">Gnome::Gtk4::DropTarget</a> controller that accepts the GType <span class="basis">GTK_TYPE_NOTEBOOK_PAGE</span>. The `:value` of said drop target will be preloaded with a <a href="/content-docs/api2/reference/Gtk4/NotebookPage">Gnome::Gtk4::NotebookPage</a> object that corresponds to the dropped tab, so you can process the value via `::accept` or `::drop` signals. </p>
+
+<p>Note that you should use <a href="#detach-tab">.detach-tab()</a> instead of <a href="#remove-page">.remove-page()</a> if you want to remove the tab from the source notebook as part of accepting a drop. Otherwise, the source notebook will think that the dragged tab was removed from underneath the ongoing drag operation, and will initiate a drag cancel animation. </p>
+
+<p id="Para_38">If you want a notebook to accept drags from other widgets, you will have to set your own DnD code to do it.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-detachable ( N-Object() $child, Bool() $detachable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$detachable; whether the tab is detachable or not.</li>
+</ul>
+<h2 id="set-tab-label" class="heading "><a href="#" title="go to top of document">set-tab-label</a><a class="raku-anchor" title="direct link" href="#set-tab-label">§</a></h2>
+
+<p>Changes the tab label for <span class="code">$child</span>. </p>
+
+<p>If undefined is specified for <span class="code">$tab-label</span>, then the page will have the label “page N”. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-label ( N-Object() $child, N-Object() $tab-label )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the tab label widget to use, or undefined for default tab label.</li>
+</ul>
+<h2 id="set-tab-label-text" class="heading "><a href="#" title="go to top of document">set-tab-label-text</a><a class="raku-anchor" title="direct link" href="#set-tab-label-text">§</a></h2>
+
+<p>Creates a new label and sets it as the tab label for the page containing <span class="code">$child</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-label-text ( N-Object() $child, Str $tab-text )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-text; the label text.</li>
+</ul>
+<h2 id="set-tab-pos" class="heading "><a href="#" title="go to top of document">set-tab-pos</a><a class="raku-anchor" title="direct link" href="#set-tab-pos">§</a></h2>
+
+<p id="Para_39">Sets the edge at which the tabs are drawn.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-pos ( GtkPositionType $pos )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pos; the edge to draw the tabs at.</li>
+</ul>
+<h2 id="set-tab-reorderable" class="heading "><a href="#" title="go to top of document">set-tab-reorderable</a><a class="raku-anchor" title="direct link" href="#set-tab-reorderable">§</a></h2>
+
+<p id="Para_40">Sets whether the notebook tab can be reordered via drag and drop or not.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-tab-reorderable ( N-Object() $child, Bool() $reorderable )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; a child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$reorderable; whether the tab is reorderable or not.</li>
+</ul>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="change-current-page" class="heading "><a href="#" title="go to top of document">change-current-page</a><a class="raku-anchor" title="direct link" href="#change-current-page">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gint $object,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$object; .</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; </p>
-<h3 id="create-window"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">create-window</a></h3>
-<p>The <em>create-window</em> signal is emitted when a detachable tab is dropped on the root window.</p><p>A handler for this signal can create a window containing a notebook where the tab will be attached. It is also responsible for moving/resizing the window and adding the necessary properties to the notebook (e.g. the <strong>Gnome::Gtk4::Notebook</strong>:group-name ).</p><pre class="pod-block-code">method handler (
+
+<p id="Para_41">Return value;</p>
+<h3 id="create-window" class="heading "><a href="#" title="go to top of document">create-window</a><a class="raku-anchor" title="direct link" href="#create-window">§</a></h3>
+
+<p>The <span class="important">create-window</span> signal is emitted when a detachable tab is dropped on the root window. </p>
+
+<p>A handler for this signal can create a window containing a notebook where the tab will be attached. It is also responsible for moving/resizing the window and adding the necessary properties to the notebook (e.g. the <span class="basis">Gnome::Gtk4::Notebook</span>:group-name ). </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $page,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
   --&gt; N-Object
-)
-</pre><ul>
-<li><p>$page; the tab of <code>$notebook</code> that is being detached.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page; the tab of <span class="code">$notebook</span> that is being detached.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; a <strong>Gnome::Gtk4::Notebook</strong> that <code>$page</code> should be added to</p>
-<h3 id="focus-tab"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">focus-tab</a></h3>
-<pre class="pod-block-code">method handler (
+
+<p>Return value; a <span class="basis">Gnome::Gtk4::Notebook</span> that <span class="code">$page</span> should be added to </p>
+<h3 id="focus-tab" class="heading "><a href="#" title="go to top of document">focus-tab</a><a class="raku-anchor" title="direct link" href="#focus-tab">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $object,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$object; .</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; </p>
-<h3 id="move-focus-out"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">move-focus-out</a></h3>
-<pre class="pod-block-code">method handler (
+
+<p id="Para_42">Return value;</p>
+<h3 id="move-focus-out" class="heading "><a href="#" title="go to top of document">move-focus-out</a><a class="raku-anchor" title="direct link" href="#move-focus-out">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $object,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$object; .</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="page-added"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">page-added</a></h3>
-<p>the <em>page-added</em> signal is emitted in the notebook right after a page is added to the notebook.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="page-added" class="heading "><a href="#" title="go to top of document">page-added</a><a class="raku-anchor" title="direct link" href="#page-added">§</a></h3>
+
+<p>the <span class="important">page-added</span> signal is emitted in the notebook right after a page is added to the notebook. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $child,
   guint $page-num,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> affected.</p></li>
-<li><p>$page-num; the new page number for <code>$child</code>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="page-removed"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">page-removed</a></h3>
-<p>the <em>page-removed</em> signal is emitted in the notebook right after a page is removed from the notebook.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> affected.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the new page number for <span class="code">$child</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="page-removed" class="heading "><a href="#" title="go to top of document">page-removed</a><a class="raku-anchor" title="direct link" href="#page-removed">§</a></h3>
+
+<p>the <span class="important">page-removed</span> signal is emitted in the notebook right after a page is removed from the notebook. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $child,
   guint $page-num,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> affected.</p></li>
-<li><p>$page-num; the <code>$child</code> page number.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="page-reordered"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">page-reordered</a></h3>
-<p>the <em>page-reordered</em> signal is emitted in the notebook right after a page has been reordered.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> affected.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the <span class="code">$child</span> page number.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="page-reordered" class="heading "><a href="#" title="go to top of document">page-reordered</a><a class="raku-anchor" title="direct link" href="#page-reordered">§</a></h3>
+
+<p>the <span class="important">page-reordered</span> signal is emitted in the notebook right after a page has been reordered. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $child,
   guint $page-num,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget.html">Gnome::Gtk4::Widget</a> affected.</p></li>
-<li><p>$page-num; the new page number for <code>$child</code>.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="reorder-tab"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">reorder-tab</a></h3>
-<pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the child <a href="/content-docs/api2/reference/Gtk4/Widget">Gnome::Gtk4::Widget</a> affected.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the new page number for <span class="code">$child</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
+</ul>
+<h3 id="reorder-tab" class="heading "><a href="#" title="go to top of document">reorder-tab</a><a class="raku-anchor" title="direct link" href="#reorder-tab">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
    $object,
   gboolean $p0,
   Int :$_handle_id,
@@ -534,48 +1268,82 @@
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$object; .</p></li>
-<li><p>$p0; .</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$p0; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; </p>
-<h3 id="select-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">select-page</a></h3>
-<pre class="pod-block-code">method handler (
+
+<p id="Para_43">Return value;</p>
+<h3 id="select-page" class="heading "><a href="#" title="go to top of document">select-page</a><a class="raku-anchor" title="direct link" href="#select-page">§</a></h3>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gboolean $object,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
   --&gt; gboolean
-)
-</pre><ul>
-<li><p>$object; .</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$object; .</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-<p>Return value; </p>
-<h3 id="switch-page"><a href="#Gnome::Gtk4::Notebook" class="u" title="go to top of document">switch-page</a></h3>
-<p>Emitted when the user or a function changes the current page.</p><pre class="pod-block-code">method handler (
+
+<p id="Para_44">Return value;</p>
+<h3 id="switch-page" class="heading "><a href="#" title="go to top of document">switch-page</a><a class="raku-anchor" title="direct link" href="#switch-page">§</a></h3>
+
+<p id="Para_45">Emitted when the user or a function changes the current page.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $page,
   guint $page-num,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gtk4::Notebook :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$page; the new current page.</p></li>
-<li><p>$page-num; the index of the page.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gtk4::Notebook</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object.html#register-signal">.register-signal() in class Object</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page; the new current page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$page-num; the index of the page.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gtk4::Notebook</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Object#register-signal">.register-signal() in class Object</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Notebook.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:21Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/Notebook.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>

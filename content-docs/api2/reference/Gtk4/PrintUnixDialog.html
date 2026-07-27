@@ -1,177 +1,691 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gtk4::PrintUnixDialog</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gtk4::PrintUnixDialog</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gtk4::PrintUnixDialog">Gnome::Gtk4::PrintUnixDialog</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#GtkPrintUnixDialog_as_GtkBuildable">GtkPrintUnixDialog as GtkBuildable</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#CSS_nodes">CSS nodes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#Uml_Diagram">Uml Diagram</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#"></a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-printunixdialog">new-printunixdialog</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#add-custom-tab">add-custom-tab</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-current-page">get-current-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-embed-page-setup">get-embed-page-setup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-has-selection">get-has-selection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-manual-capabilities_This_function_is_not_yet_available">get-manual-capabilities This function is not yet available</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-page-setup">get-page-setup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-page-setup-set">get-page-setup-set</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-selected-printer">get-selected-printer</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-settings">get-settings</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-support-selection">get-support-selection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-current-page">set-current-page</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-embed-page-setup">set-embed-page-setup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-has-selection">set-has-selection</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-manual-capabilities">set-manual-capabilities</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-page-setup">set-page-setup</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-settings">set-settings</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#set-support-selection">set-support-selection</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gtk4::PrintUnixDialog</strong> implements a print dialog for platforms which don’t provide a native print dialog, like Unix.</p><div class="image-container inline"><img src="asset_files/images/printdialog.png" width="30%" height="auto" alt="No caption"></div>
-<p>It can be used very much like any other GTK dialog, at the cost of the portability offered by the high-level printing API with <a href="/content-docs/api2/reference/Gtk4/PrintOperation.html">Gnome::Gtk4::PrintOperation</a>.</p><p>In order to print something with <strong>Gnome::Gtk4::PrintUnixDialog</strong>, you need to use <a href="#get-selected-printer">.get-selected-printer()</a> to obtain a <a href="/content-docs/api2/reference/Gtk4/Printer.html">Gnome::Gtk4::Printer</a> object and use it to construct a <a href="/content-docs/api2/reference/Gtk4/PrintJob.html">Gnome::Gtk4::PrintJob</a> using <a href="/content-docs/api2/reference/Gtk4/PrintJob.html#newprintunixdialog">.newprintunixdialog() in class PrintJob</a>.</p><p><strong>Gnome::Gtk4::PrintUnixDialog</strong> uses the following response values:</p><ul>
-<li><p><code>GTK_RESPONSE_OK</code>: for the “Print” button</p></li>
-<li><p><code>GTK_RESPONSE_APPLY</code>: for the “Preview” button</p></li>
-<li><p><code>GTK_RESPONSE_CANCEL</code>: for the “Cancel” button</p></li>
+span.unusual {
+  text-decoration: underline; }
+
+span.weighty {
+  font-variant: small-caps; }
+
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gtk4::PrintUnixDialog"></div><h1 class="title">Gnome::Gtk4::PrintUnixDialog</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#GtkPrintUnixDialog_as_GtkBuildable">GtkPrintUnixDialog as GtkBuildable</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#CSS_nodes">CSS nodes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-printunixdialog">new-printunixdialog</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#add-custom-tab">add-custom-tab</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-current-page">get-current-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-embed-page-setup">get-embed-page-setup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-has-selection">get-has-selection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-manual-capabilities_This_function_is_not_yet_available">get-manual-capabilities This function is not yet available</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-page-setup">get-page-setup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-page-setup-set">get-page-setup-set</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-selected-printer">get-selected-printer</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-settings">get-settings</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-support-selection">get-support-selection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-current-page">set-current-page</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-embed-page-setup">set-embed-page-setup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-has-selection">set-has-selection</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-manual-capabilities">set-manual-capabilities</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-page-setup">set-page-setup</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-settings">set-settings</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#set-support-selection">set-support-selection</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gtk4::PrintUnixDialog</span> implements a print dialog for platforms which don’t provide a native print dialog, like Unix. </p>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/printdialog.png&gt; :width&lt;30\%&gt;<br><br>
+
+
+<p>It can be used very much like any other GTK dialog, at the cost of the portability offered by the high-level printing API with <a href="/content-docs/api2/reference/Gtk4/PrintOperation">Gnome::Gtk4::PrintOperation</a>. </p>
+
+<p>In order to print something with <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>, you need to use <a href="#get-selected-printer">.get-selected-printer()</a> to obtain a <a href="/content-docs/api2/reference/Gtk4/Printer">Gnome::Gtk4::Printer</a> object and use it to construct a <a href="/content-docs/api2/reference/Gtk4/PrintJob">Gnome::Gtk4::PrintJob</a> using <a href="/content-docs/api2/reference/Gtk4/PrintJob#newprintunixdialog">.newprintunixdialog() in class PrintJob</a>. </p>
+
+<p><span class="basis">Gnome::Gtk4::PrintUnixDialog</span> uses the following response values: </p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_RESPONSE_OK</span>: for the “Print” button</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_RESPONSE_APPLY</span>: for the “Preview” button</li>
+<li class="item" data-bullet="•" style ="--level:0;"  ><span class="code">GTK_RESPONSE_CANCEL</span>: for the “Cancel” button</li>
 </ul>
 
-<h2 id="GtkPrintUnixDialog_as_GtkBuildable"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">GtkPrintUnixDialog as GtkBuildable</a></h2>
-<p>The <strong>Gnome::Gtk4::PrintUnixDialog</strong> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable.html">Gnome::Gtk4::R-Buildable</a> interface exposes its <code>$notebook</code> internal children with the name “notebook”.</p><p>An example of a <strong>Gnome::Gtk4::PrintUnixDialog</strong> UI definition fragment:</p>
-<h2 id="CSS_nodes"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">CSS nodes</a></h2>
-<p><strong>Gnome::Gtk4::PrintUnixDialog</strong> has a single CSS node with name window. The style classes dialog and print are added.</p>
-<h2 id="Uml_Diagram"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">Uml Diagram</a></h2>
-<div class="image-container inline"><img src="asset_files/images/plantuml/PrintUnixDialog.png" width="70%" height="auto" alt="No caption"></div>
-</section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">Class initialization</a></h1>
+<div class="id-target" id="GtkPrintUnixDialog as GtkBuildable"></div><h2 id="GtkPrintUnixDialog_as_GtkBuildable" class="heading "><a href="#" title="go to top of document">GtkPrintUnixDialog as GtkBuildable</a><a class="raku-anchor" title="direct link" href="#GtkPrintUnixDialog as GtkBuildable">§</a></h2>
 
-<h2 id="new"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">new</a></h2>
+<p>The <span class="basis">Gnome::Gtk4::PrintUnixDialog</span> implementation of the <a href="/content-docs/api2/reference/Gtk4/R-Buildable">Gnome::Gtk4::R-Buildable</a> interface exposes its <span class="code">$notebook</span> internal children with the name “notebook”. </p>
 
-<h3 id=":native-object"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-printunixdialog"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">new-printunixdialog</a></h2>
-<p>Creates a new <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><pre class="pod-block-code">method new-printunixdialog ( Str $title, N-Object() $parent --&gt; Gnome::Gtk4::PrintUnixDialog )
-</pre><ul>
-<li><p>$title; Title of the dialog.</p></li>
-<li><p>$parent; Transient parent of the dialog.</p></li>
+<p>An example of a <span class="basis">Gnome::Gtk4::PrintUnixDialog</span> UI definition fragment: </p>
+
+<div class="id-target" id="CSS nodes"></div><h2 id="CSS_nodes" class="heading "><a href="#" title="go to top of document">CSS nodes</a><a class="raku-anchor" title="direct link" href="#CSS nodes">§</a></h2>
+
+<p><span class="basis">Gnome::Gtk4::PrintUnixDialog</span> has a single CSS node with name window. The style classes dialog and print are added. </p>
+
+<div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
+
+<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
+=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/PrintUnixDialog.png&gt; :width&lt;70\%&gt;<br><br>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-printunixdialog" class="heading "><a href="#" title="go to top of document">new-printunixdialog</a><a class="raku-anchor" title="direct link" href="#new-printunixdialog">§</a></h2>
+
+<p>Creates a new <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-printunixdialog ( Str $title, N-Object() $parent --&gt; Gnome::Gtk4::PrintUnixDialog )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$title; Title of the dialog.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$parent; Transient parent of the dialog.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="add-custom-tab"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">add-custom-tab</a></h2>
-<p>Adds a custom tab to the print dialog.</p><pre class="pod-block-code">method add-custom-tab ( N-Object() $child, N-Object() $tab-label )
-</pre><ul>
-<li><p>$child; the widget to put in the custom tab.</p></li>
-<li><p>$tab-label; the widget to use as tab label.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="add-custom-tab" class="heading "><a href="#" title="go to top of document">add-custom-tab</a><a class="raku-anchor" title="direct link" href="#add-custom-tab">§</a></h2>
+
+<p id="Para">Adds a custom tab to the print dialog.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method add-custom-tab ( N-Object() $child, N-Object() $tab-label )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$child; the widget to put in the custom tab.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$tab-label; the widget to use as tab label.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-current-page"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-current-page</a></h2>
-<p>Gets the current page of the <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><pre class="pod-block-code">method get-current-page (--&gt; Int )
-</pre><p>Return value; the current page of <code>$dialog</code>. </p></section>
-<section name="pod">
-<h2 id="get-embed-page-setup"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-embed-page-setup</a></h2>
-<p>Gets whether to embed the page setup.</p><pre class="pod-block-code">method get-embed-page-setup (--&gt; Bool )
-</pre><p>Return value; whether to embed the page setup. </p></section>
-<section name="pod">
-<h2 id="get-has-selection"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-has-selection</a></h2>
-<p>Gets whether there is a selection.</p><pre class="pod-block-code">method get-has-selection (--&gt; Bool )
-</pre><p>Return value; whether there is a selection. </p></section>
-<section name="pod">
-<h2 id="get-manual-capabilities_This_function_is_not_yet_available"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-manual-capabilities This function is not yet available</a></h2>
-<p>Gets the capabilities that have been set on this <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><pre class="pod-block-code">method get-manual-capabilities (--&gt; UInt )
-</pre><p>Return value; the printing capabilities. </p></section>
-<section name="pod">
-<h2 id="get-page-setup"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-page-setup</a></h2>
-<p>Gets the page setup that is used by the <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><pre class="pod-block-code">method get-page-setup (--&gt; N-Object )
-</pre><p>Return value; the page setup of <code>$dialog</code>.. </p></section>
-<section name="pod">
-<h2 id="get-page-setup-set"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-page-setup-set</a></h2>
-<p>Gets whether a page setup was set by the user.</p><pre class="pod-block-code">method get-page-setup-set (--&gt; Bool )
-</pre><p>Return value; whether a page setup was set by user.. </p></section>
-<section name="pod">
-<h2 id="get-selected-printer"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-selected-printer</a></h2>
-<p>Gets the currently selected printer.</p><pre class="pod-block-code">method get-selected-printer (--&gt; N-Object )
-</pre><p>Return value; the currently selected printer. </p></section>
-<section name="pod">
-<h2 id="get-settings"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-settings</a></h2>
-<p>Gets a new <a href="/content-docs/api2/reference/Gtk4/PrintSettings.html">Gnome::Gtk4::PrintSettings</a> object that represents the current values in the print dialog.</p><p>Note that this creates a new object, and you need to unref it if don’t want to keep it.</p><pre class="pod-block-code">method get-settings (--&gt; N-Object )
-</pre><p>Return value; a new <a href="/content-docs/api2/reference/Gtk4/PrintSettings.html">Gnome::Gtk4::PrintSettings</a> object with the values from <code>$dialog</code>. </p></section>
-<section name="pod">
-<h2 id="get-support-selection"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">get-support-selection</a></h2>
-<p>Gets whether the print dialog allows user to print a selection.</p><pre class="pod-block-code">method get-support-selection (--&gt; Bool )
-</pre><p>Return value; whether the application supports print of selection. </p></section>
-<section name="pod">
-<h2 id="set-current-page"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-current-page</a></h2>
-<p>Sets the current page number.</p><p>If <code>$current-page</code> is not -1, this enables the current page choice for the range of pages to print.</p><pre class="pod-block-code">method set-current-page ( Int() $current-page )
-</pre><ul>
-<li><p>$current-page; the current page number..</p></li>
+<h2 id="get-current-page" class="heading "><a href="#" title="go to top of document">get-current-page</a><a class="raku-anchor" title="direct link" href="#get-current-page">§</a></h2>
+
+<p>Gets the current page of the <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-current-page (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the current page of <span class="code">$dialog</span>. </p>
+<h2 id="get-embed-page-setup" class="heading "><a href="#" title="go to top of document">get-embed-page-setup</a><a class="raku-anchor" title="direct link" href="#get-embed-page-setup">§</a></h2>
+
+<p id="Para_0">Gets whether to embed the page setup.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-embed-page-setup (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_1">Return value; whether to embed the page setup.</p>
+<h2 id="get-has-selection" class="heading "><a href="#" title="go to top of document">get-has-selection</a><a class="raku-anchor" title="direct link" href="#get-has-selection">§</a></h2>
+
+<p id="Para_2">Gets whether there is a selection.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-has-selection (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_3">Return value; whether there is a selection.</p>
+
+<div class="id-target" id="get-manual-capabilities This function is not yet available"></div><h2 id="get-manual-capabilities_This_function_is_not_yet_available" class="heading "><a href="#" title="go to top of document">get-manual-capabilities This function is not yet available</a><a class="raku-anchor" title="direct link" href="#get-manual-capabilities This function is not yet available">§</a></h2>
+
+<p>Gets the capabilities that have been set on this <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-manual-capabilities (--&gt; UInt )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_4">Return value; the printing capabilities.</p>
+<h2 id="get-page-setup" class="heading "><a href="#" title="go to top of document">get-page-setup</a><a class="raku-anchor" title="direct link" href="#get-page-setup">§</a></h2>
+
+<p>Gets the page setup that is used by the <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-page-setup (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the page setup of <span class="code">$dialog</span>.. </p>
+<h2 id="get-page-setup-set" class="heading "><a href="#" title="go to top of document">get-page-setup-set</a><a class="raku-anchor" title="direct link" href="#get-page-setup-set">§</a></h2>
+
+<p id="Para_5">Gets whether a page setup was set by the user.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-page-setup-set (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_6">Return value; whether a page setup was set by user..</p>
+<h2 id="get-selected-printer" class="heading "><a href="#" title="go to top of document">get-selected-printer</a><a class="raku-anchor" title="direct link" href="#get-selected-printer">§</a></h2>
+
+<p id="Para_7">Gets the currently selected printer.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-selected-printer (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_8">Return value; the currently selected printer.</p>
+<h2 id="get-settings" class="heading "><a href="#" title="go to top of document">get-settings</a><a class="raku-anchor" title="direct link" href="#get-settings">§</a></h2>
+
+<p>Gets a new <a href="/content-docs/api2/reference/Gtk4/PrintSettings">Gnome::Gtk4::PrintSettings</a> object that represents the current values in the print dialog. </p>
+
+<p id="Para_9">Note that this creates a new object, and you need to unref it if don’t want to keep it.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-settings (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a new <a href="/content-docs/api2/reference/Gtk4/PrintSettings">Gnome::Gtk4::PrintSettings</a> object with the values from <span class="code">$dialog</span>. </p>
+<h2 id="get-support-selection" class="heading "><a href="#" title="go to top of document">get-support-selection</a><a class="raku-anchor" title="direct link" href="#get-support-selection">§</a></h2>
+
+<p id="Para_10">Gets whether the print dialog allows user to print a selection.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-support-selection (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_11">Return value; whether the application supports print of selection.</p>
+<h2 id="set-current-page" class="heading "><a href="#" title="go to top of document">set-current-page</a><a class="raku-anchor" title="direct link" href="#set-current-page">§</a></h2>
+
+<p id="Para_12">Sets the current page number.</p>
+
+<p>If <span class="code">$current-page</span> is not -1, this enables the current page choice for the range of pages to print. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-current-page ( Int() $current-page )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$current-page; the current page number..</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-embed-page-setup"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-embed-page-setup</a></h2>
-<p>Embed page size combo box and orientation combo box into page setup page.</p><pre class="pod-block-code">method set-embed-page-setup ( Bool() $embed )
-</pre><ul>
-<li><p>$embed; embed page setup selection.</p></li>
+<h2 id="set-embed-page-setup" class="heading "><a href="#" title="go to top of document">set-embed-page-setup</a><a class="raku-anchor" title="direct link" href="#set-embed-page-setup">§</a></h2>
+
+<p id="Para_13">Embed page size combo box and orientation combo box into page setup page.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-embed-page-setup ( Bool() $embed )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$embed; embed page setup selection.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-has-selection"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-has-selection</a></h2>
-<p>Sets whether a selection exists.</p><pre class="pod-block-code">method set-has-selection ( Bool() $has-selection )
-</pre><ul>
-<li><p>$has-selection; <code>True</code> indicates that a selection exists.</p></li>
+<h2 id="set-has-selection" class="heading "><a href="#" title="go to top of document">set-has-selection</a><a class="raku-anchor" title="direct link" href="#set-has-selection">§</a></h2>
+
+<p id="Para_14">Sets whether a selection exists.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-has-selection ( Bool() $has-selection )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$has-selection; <span class="code">True</span> indicates that a selection exists.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-manual-capabilities"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-manual-capabilities</a></h2>
-<p>This lets you specify the printing capabilities your application supports.</p><p>For instance, if you can handle scaling the output then you pass <code>GTK_PRINT_CAPABILITY_SCALE</code>. If you don’t pass that, then the dialog will only let you select the scale if the printing system automatically handles scaling.</p><pre class="pod-block-code">method set-manual-capabilities ( UInt $capabilities )
-</pre><ul>
-<li><p>$capabilities; the printing capabilities of your application.</p></li>
+<h2 id="set-manual-capabilities" class="heading "><a href="#" title="go to top of document">set-manual-capabilities</a><a class="raku-anchor" title="direct link" href="#set-manual-capabilities">§</a></h2>
+
+<p id="Para_15">This lets you specify the printing capabilities your application supports.</p>
+
+<p>For instance, if you can handle scaling the output then you pass <span class="code">GTK_PRINT_CAPABILITY_SCALE</span>. If you don’t pass that, then the dialog will only let you select the scale if the printing system automatically handles scaling. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-manual-capabilities ( UInt $capabilities )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$capabilities; the printing capabilities of your application.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-page-setup"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-page-setup</a></h2>
-<p>Sets the page setup of the <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><pre class="pod-block-code">method set-page-setup ( N-Object() $page-setup )
-</pre><ul>
-<li><p>$page-setup; a <a href="/content-docs/api2/reference/Gtk4/PageSetup.html">Gnome::Gtk4::PageSetup</a>.</p></li>
+<h2 id="set-page-setup" class="heading "><a href="#" title="go to top of document">set-page-setup</a><a class="raku-anchor" title="direct link" href="#set-page-setup">§</a></h2>
+
+<p>Sets the page setup of the <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-page-setup ( N-Object() $page-setup )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$page-setup; a <a href="/content-docs/api2/reference/Gtk4/PageSetup">Gnome::Gtk4::PageSetup</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-settings"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-settings</a></h2>
-<p>Sets the <a href="/content-docs/api2/reference/Gtk4/PrintSettings.html">Gnome::Gtk4::PrintSettings</a> for the <strong>Gnome::Gtk4::PrintUnixDialog</strong>.</p><p>Typically, this is used to restore saved print settings from a previous print operation before the print dialog is shown.</p><pre class="pod-block-code">method set-settings ( N-Object() $settings )
-</pre><ul>
-<li><p>$settings; a <a href="/content-docs/api2/reference/Gtk4/PrintSettings.html">Gnome::Gtk4::PrintSettings</a>.</p></li>
+<h2 id="set-settings" class="heading "><a href="#" title="go to top of document">set-settings</a><a class="raku-anchor" title="direct link" href="#set-settings">§</a></h2>
+
+<p>Sets the <a href="/content-docs/api2/reference/Gtk4/PrintSettings">Gnome::Gtk4::PrintSettings</a> for the <span class="basis">Gnome::Gtk4::PrintUnixDialog</span>. </p>
+
+<p id="Para_16">Typically, this is used to restore saved print settings from a previous print operation before the print dialog is shown.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-settings ( N-Object() $settings )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$settings; a <a href="/content-docs/api2/reference/Gtk4/PrintSettings">Gnome::Gtk4::PrintSettings</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="set-support-selection"><a href="#Gnome::Gtk4::PrintUnixDialog" class="u" title="go to top of document">set-support-selection</a></h2>
-<p>Sets whether the print dialog allows user to print a selection.</p><pre class="pod-block-code">method set-support-selection ( Bool() $support-selection )
-</pre><ul>
-<li><p>$support-selection; <code>True</code> to allow print selection.</p></li>
+<h2 id="set-support-selection" class="heading "><a href="#" title="go to top of document">set-support-selection</a><a class="raku-anchor" title="direct link" href="#set-support-selection">§</a></h2>
+
+<p id="Para_17">Sets whether the print dialog allows user to print a selection.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method set-support-selection ( Bool() $support-selection )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$support-selection; <span class="code">True</span> to allow print selection.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PrintUnixDialog.rakudoc</span></div><div>at <span class="time">2025-11-14T20:57:33Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/PrintUnixDialog.rakudoc</span>
+<span class="footer-field">&nbsp;at 15:28 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+<div class="warnings">    <div class="warnings">
+    <h2 class="warnings-caption">Warnings</h2>
+        <ol>
+        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Description｣.</li>
+<li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
+<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+
+        </ol>
+    </div>
+</div>
+</div>
+
+</body>
 </html>
