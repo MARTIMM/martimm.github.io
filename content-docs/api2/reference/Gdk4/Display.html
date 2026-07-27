@@ -1,315 +1,978 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gdk4::Display</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gdk4::Display</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk4::Display">Gnome::Gdk4::Display</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#beep">beep</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#close">close</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#create-gl-context">create-gl-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#device-is-grabbed">device-is-grabbed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#flush">flush</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-app-launch-context">get-app-launch-context</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-clipboard">get-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default-seat">get-default-seat</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-monitor-at-surface">get-monitor-at-surface</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-monitors">get-monitors</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-name">get-name</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-primary-clipboard">get-primary-clipboard</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-setting">get-setting</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-startup-notification-id">get-startup-notification-id</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-closed">is-closed</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-composited">is-composited</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#is-rgba">is-rgba</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#list-seats">list-seats</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#map-keycode">map-keycode</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#map-keyval">map-keyval</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#notify-startup-complete">notify-startup-complete</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#prepare-gl">prepare-gl</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#put-event">put-event</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#supports-input-shapes">supports-input-shapes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#sync">sync</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#translate-key">translate-key</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Functions">Functions</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-default">get-default</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#open">open</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Signals">Signals</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#closed">closed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#opened">opened</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#seat-added">seat-added</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#seat-removed">seat-removed</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#setting-changed">setting-changed</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gdk4::Display</strong> objects are the GDK representation of a workstation.</p><p>Their purpose are two-fold:</p><ul>
-<li><p>To manage and provide information about input devices (pointers, keyboards, etc)</p></li>
-<li><p>To manage and provide information about output devices (monitors, projectors, etc)</p></li>
-</ul>
-<p>Most of the input device handling has been factored out into separate <a href="/content-docs/api2/reference/Gdk4/Gnome.html">Gnome::Gdk4::Seat</a> objects. Every display has a one or more seats, which can be accessed with <a href="#get-default-seat">.get-default-seat()</a> and <a href="#list-seats">.list-seats()</a>.</p><p>Output devices are represented by <a href="/content-docs/api2/reference/Gdk4/Gnome.html">Gnome::Gdk4::Monitor</a> objects, which can be accessed with <a href="#get-monitor-at-surface">.get-monitor-at-surface()</a> and similar APIs.</p></section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="beep"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">beep</a></h2>
-<p>Emits a short beep on <code>$display</code></p><pre class="pod-block-code">method beep ( )
-</pre></section>
-<section name="pod">
-<h2 id="close"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">close</a></h2>
-<p>Closes the connection to the windowing system for the given display.</p><p>This cleans up associated resources.</p><pre class="pod-block-code">method close ( )
-</pre></section>
-<section name="pod">
-<h2 id="create-gl-context"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">create-gl-context</a></h2>
-<p>Creates a new <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> for the <strong>Gnome::Gdk4::Display</strong>.</p><p>The context is disconnected from any particular surface or surface and cannot be used to draw to any surface. It can only be used to draw to non-surface framebuffers like textures.</p><p>If the creation of the <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> failed, <code>$error</code> will be set. Before using the returned <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>, you will need to call <a href="/content-docs/api2/reference/Gdk4/Gnome.html#make-current">.make-current() in class Gnome</a> or <a href="/content-docs/api2/reference/Gdk4/Gnome.html#realize">.realize() in class Gnome</a>.</p><pre class="pod-block-code">method create-gl-context ( CArray[N-Error] $err --&gt; N-Object )
-</pre><ul>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
-</ul>
-<p>Return value; the newly created <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a>. </p></section>
-<section name="pod">
-<h2 id="device-is-grabbed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">device-is-grabbed</a></h2>
-<p>Returns <code>True</code> if there is an ongoing grab on <code>$device</code> for <code>$display</code>.</p><pre class="pod-block-code">method device-is-grabbed ( N-Object() $device --&gt; Bool )
-</pre><ul>
-<li><p>$device; a <a href="/content-docs/api2/reference/Gdk4/Device.html">Gnome::Gdk4::Device</a>.</p></li>
-</ul>
-<p>Return value; <code>True</code> if there is a grab in effect for <code>$device</code>.. </p></section>
-<section name="pod">
-<h2 id="flush"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">flush</a></h2>
-<p>Flushes any requests queued for the windowing system.</p><p>This happens automatically when the main loop blocks waiting for new events, but if your application is drawing without returning control to the main loop, you may need to call this function explicitly. A common case where this function needs to be called is when an application is executing drawing commands from a thread other than the thread where the main loop is running.</p><p>This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p><pre class="pod-block-code">method flush ( )
-</pre></section>
-<section name="pod">
-<h2 id="get-app-launch-context"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-app-launch-context</a></h2>
-<p>Returns a <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext.html">Gnome::Gdk4::AppLaunchContext</a> suitable for launching applications on the given display.</p><pre class="pod-block-code">method get-app-launch-context (--&gt; N-Object )
-</pre><p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext.html">Gnome::Gdk4::AppLaunchContext</a> for <code>$display</code>. </p></section>
-<section name="pod">
-<h2 id="get-clipboard"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-clipboard</a></h2>
-<p>Gets the clipboard used for copy/paste operations.</p><pre class="pod-block-code">method get-clipboard (--&gt; N-Object )
-</pre><p>Return value; the display's clipboard. </p></section>
-<section name="pod">
-<h2 id="get-default-seat"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-default-seat</a></h2>
-<p>Returns the default <a href="/content-docs/api2/reference/Gdk4/Seat.html">Gnome::Gdk4::Seat</a> for this display.</p><p>Note that a display may not have a seat. In this case, this function will return undefined.</p><pre class="pod-block-code">method get-default-seat (--&gt; N-Object )
-</pre><p>Return value; the default seat.. </p></section>
-<section name="pod">
-<h2 id="get-monitor-at-surface"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-monitor-at-surface</a></h2>
-<p>Gets the monitor in which the largest area of <code>$surface</code> resides.</p><p>Returns a monitor close to <code>$surface</code> if it is outside of all monitors.</p><pre class="pod-block-code">method get-monitor-at-surface ( N-Object() $surface --&gt; N-Object )
-</pre><ul>
-<li><p>$surface; a <a href="/content-docs/api2/reference/Gdk4/Surface.html">Gnome::Gdk4::Surface</a>.</p></li>
-</ul>
-<p>Return value; the monitor with the largest overlap with <code>$surface</code>. </p></section>
-<section name="pod">
-<h2 id="get-monitors"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-monitors</a></h2>
-<p>Gets the list of monitors associated with this display.</p><p>Subsequent calls to this function will always return the same list for the same display.</p><p>You can listen to the GListModel::items-changed signal on this list to monitor changes to the monitor of this display.</p><pre class="pod-block-code">method get-monitors (--&gt; N-List )
-</pre><p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel.html">Gnome::Gio::R-ListModel</a> of <a href="/content-docs/api2/reference/Gdk4/Monitor.html">Gnome::Gdk4::Monitor</a>. </p></section>
-<section name="pod">
-<h2 id="get-name"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-name</a></h2>
-<p>Gets the name of the display.</p><pre class="pod-block-code">method get-name (--&gt; Str )
-</pre><p>Return value; a string representing the display name. This string is owned by GDK and should not be modified or freed.. </p></section>
-<section name="pod">
-<h2 id="get-primary-clipboard"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-primary-clipboard</a></h2>
-<p>Gets the clipboard used for the primary selection.</p><p>On backends where the primary clipboard is not supported natively, GDK emulates this clipboard locally.</p><pre class="pod-block-code">method get-primary-clipboard (--&gt; N-Object )
-</pre><p>Return value; the primary clipboard. </p></section>
-<section name="pod">
-<h2 id="get-setting"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-setting</a></h2>
-<p>Retrieves a desktop-wide setting such as double-click time for the <code>$display</code>.</p><pre class="pod-block-code">method get-setting ( Str $name, N-Object $value --&gt; Bool )
-</pre><ul>
-<li><p>$name; the name of the setting.</p></li>
-<li><p>$value; location to store the value of the setting</p></li>
-</ul>
-<p>Return value; <code>True</code> if the setting existed and a value was stored in <code>$value</code>, <code>False</code> otherwise. </p></section>
-<section name="pod">
-<h2 id="get-startup-notification-id"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-startup-notification-id</a></h2>
-<p>Gets the startup notification ID for a Wayland display, or undefined if no ID has been defined.</p><pre class="pod-block-code">method get-startup-notification-id (--&gt; Str )
-</pre><p>Return value; the startup notification ID for <code>$display</code>. </p></section>
-<section name="pod">
-<h2 id="is-closed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-closed</a></h2>
-<p>Finds out if the display has been closed.</p><pre class="pod-block-code">method is-closed (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if the display is closed.. </p></section>
-<section name="pod">
-<h2 id="is-composited"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-composited</a></h2>
-<p>Returns whether surfaces can reasonably be expected to have their alpha channel drawn correctly on the screen.</p><p>Check <a href="#is-rgba">.is-rgba()</a> for whether the display supports an alpha channel.</p><p>On X11 this function returns whether a compositing manager is compositing on <code>$display</code>.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method is-composited (--&gt; Bool )
-</pre><p>Return value; Whether surfaces with RGBA visuals can reasonably be expected to have their alpha channels drawn correctly on the screen.. </p></section>
-<section name="pod">
-<h2 id="is-rgba"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">is-rgba</a></h2>
-<p>Returns whether surfaces on this <code>$display</code> are created with an alpha channel.</p><p>Even if a <code>True</code> is returned, it is possible that the surface’s alpha channel won’t be honored when displaying the surface on the screen: in particular, for X an appropriate windowing manager and compositing manager must be running to provide appropriate display. Use <a href="#is-composited">.is-composited()</a> to check if that is the case.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method is-rgba (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if surfaces are created with an alpha channel or <code>False</code> if the display does not support this functionality.. </p></section>
-<section name="pod">
-<h2 id="list-seats"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">list-seats</a></h2>
-<p>Returns the list of seats known to <code>$display</code>.</p><pre class="pod-block-code">method list-seats (--&gt; N-List )
-</pre><p>Return value; the list of seats known to the <strong>Gnome::Gdk4::Display</strong>. </p></section>
-<section name="pod">
-<h2 id="map-keycode"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">map-keycode</a></h2>
-<p>Returns the keyvals bound to <code>$keycode</code>.</p><p>The Nth <strong>Gnome::Gdk4::N-KeymapKey</strong> in <code>$keys</code> is bound to the Nth keyval in <code>$keyvals</code>.</p><p>When a keycode is pressed by the user, the keyval from this list of entries is selected by considering the effective keyboard group and level.</p><p>Free the returned arrays with g_free().</p><pre class="pod-block-code">method map-keycode ( UInt() $keycode, N-Object $keys, Array[Int] $keyvals, Array[Int] $n-entries --&gt; Bool )
-</pre><ul>
-<li><p>$keycode; a keycode.</p></li>
-<li><p>$keys; (transfer ownership: full) return location for array of <strong>Gnome::Gdk4::N-KeymapKey</strong></p></li>
-<li><p>$keyvals; (transfer ownership: full) return location for array of keyvals.</p></li>
-<li><p>$n-entries; (transfer ownership: full) length of <code>$keys</code> and <code>$keyvals</code>.</p></li>
-</ul>
-<p>Return value; <code>True</code> if there were any entries. </p></section>
-<section name="pod">
-<h2 id="map-keyval"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">map-keyval</a></h2>
-<p>Obtains a list of keycode/group/level combinations that will generate <code>$keyval</code>.</p><p>Groups and levels are two kinds of keyboard mode; in general, the level determines whether the top or bottom symbol on a key is used, and the group determines whether the left or right symbol is used.</p><p>On US keyboards, the shift key changes the keyboard level, and there are no groups. A group switch key might convert a keyboard between Hebrew to English modes, for example.</p><p><strong>GdkEventKey</strong> contains a %group field that indicates the active keyboard group. The level is computed from the modifier mask.</p><p>The returned array should be freed with g_free().</p><pre class="pod-block-code">method map-keyval ( UInt() $keyval, N-Object $keys, Array[Int] $n-keys --&gt; Bool )
-</pre><ul>
-<li><p>$keyval; a keyval, such as %GDK_KEY_a, %GDK_KEY_Up, %GDK_KEY_Return, etc..</p></li>
-<li><p>$keys; (transfer ownership: full) return location for an array of <strong>Gnome::Gdk4::N-KeymapKey</strong></p></li>
-<li><p>$n-keys; (transfer ownership: full) return location for number of elements in returned array.</p></li>
-</ul>
-<p>Return value; <code>True</code> if keys were found and returned. </p></section>
-<section name="pod">
-<h2 id="notify-startup-complete"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">notify-startup-complete</a></h2>
-<p>Indicates to the GUI environment that the application has finished loading, using a given identifier.</p><p>GTK will call this function automatically for <a href="/content-docs/api2/reference/Gtk4/Gnome.html">Gnome::Gtk4::Window</a> with custom startup-notification identifier unless <a href="/content-docs/api2/reference/Gtk4/Gnome.html#set-auto-startup-notification">.set-auto-startup-notification() in class Gnome</a> is called to disable that feature.</p><pre class="pod-block-code">method notify-startup-complete ( Str $startup-id )
-</pre><ul>
-<li><p>$startup-id; a startup-notification identifier, for which notification process should be completed.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="prepare-gl"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">prepare-gl</a></h2>
-<p>Checks that OpenGL is available for <code>$self</code> and ensures that it is properly initialized. When this fails, an <code>$error</code> will be set describing the error and this function returns <code>False</code>.</p><p>Note that even if this function succeeds, creating a <a href="/content-docs/api2/reference/Gdk4/GLContext.html">Gnome::Gdk4::GLContext</a> may still fail.</p><p>This function is idempotent. Calling it multiple times will just return the same value or error.</p><p>You never need to call this function, GDK will call it automatically as needed. But you can use it as a check when setting up code that might make use of OpenGL.</p><pre class="pod-block-code">method prepare-gl ( CArray[N-Error] $err --&gt; Bool )
-</pre><ul>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
-</ul>
-<p>Return value; <code>True</code> if the display supports OpenGL. </p></section>
-<section name="pod">
-<h2 id="put-event"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">put-event</a></h2>
-<p>Appends the given event onto the front of the event queue for <code>$display</code>.</p><p>This function is only useful in very special situations and should not be used by applications.</p><pre class="pod-block-code">method put-event ( N-Object() $event )
-</pre><ul>
-<li><p>$event; a <a href="/content-docs/api2/reference/Gdk4/Event.html">Gnome::Gdk4::Event</a>.</p></li>
-</ul>
-</section>
-<section name="pod">
-<h2 id="supports-input-shapes"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">supports-input-shapes</a></h2>
-<p>Returns <code>True</code> if the display supports input shapes.</p><p>This means that <a href="/content-docs/api2/reference/Gdk4/Gnome.html#set-input-region">.set-input-region() in class Gnome</a> can be used to modify the input shape of surfaces on <code>$display</code>.</p><p>On modern displays, this value is always <code>True</code>.</p><pre class="pod-block-code">method supports-input-shapes (--&gt; Bool )
-</pre><p>Return value; <code>True</code> if surfaces with modified input shape are supported. </p></section>
-<section name="pod">
-<h2 id="sync"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">sync</a></h2>
-<p>Flushes any requests queued for the windowing system and waits until all requests have been handled.</p><p>This is often used for making sure that the display is synchronized with the current state of the program. Calling <a href="#sync">.sync()</a> before <a href="/content-docs/api2/reference/GdkX11/Gnome.html#error-trap-pop">.error-trap-pop() in class Gnome</a> makes sure that any errors generated from earlier requests are handled before the error trap is removed.</p><p>This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p><pre class="pod-block-code">method sync ( )
-</pre></section>
-<section name="pod">
-<h2 id="translate-key"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">translate-key</a></h2>
-<p>Translates the contents of a <strong>GdkEventKey</strong> into a keyval, effective group, and level.</p><p>Modifiers that affected the translation and are thus unavailable for application use are returned in <code>$consumed-modifiers</code>.</p><p>The <code>$effective-group</code> is the group that was actually used for the translation; some keys such as Enter are not affected by the active keyboard group. The <code>$level</code> is derived from <code>$state</code>. <code>$consumed-modifiers</code> gives modifiers that should be masked out from <code>$state</code> when comparing this key press to a keyboard shortcut. For instance, on a US keyboard, the <strong>plus</strong> symbol is shifted, so when comparing a key press to a `&lt;Control&gt;plus` accelerator `&lt;Shift&gt;` should be masked out.</p><p>This function should rarely be needed, since <strong>GdkEventKey</strong> already contains the translated keyval. It is exported for the benefit of virtualized test environments.</p><pre class="pod-block-code">method translate-key ( UInt() $keycode, UInt $state, Int() $group, Array[Int] $keyval, Array[Int] $effective-group, Array[Int] $level, UInt $consumed --&gt; Bool )
-</pre><ul>
-<li><p>$keycode; a keycode.</p></li>
-<li><p>$state; a modifier state.</p></li>
-<li><p>$group; active keyboard group.</p></li>
-<li><p>$keyval; (transfer ownership: full) return location for keyval.</p></li>
-<li><p>$effective-group; (transfer ownership: full) return location for effective group.</p></li>
-<li><p>$level; (transfer ownership: full) return location for level.</p></li>
-<li><p>$consumed; (transfer ownership: full) return location for modifiers that were used to determine the group or level.</p></li>
-</ul>
-<p>Return value; <code>True</code> if there was a keyval bound to keycode/state/group.. </p></section>
-<section name="pod">
-<h1 id="Functions"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Functions</a></h1>
-</section>
-<section name="pod">
-<h2 id="get-default"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">get-default</a></h2>
-<p>Gets the default <strong>Gnome::Gdk4::Display</strong>.</p><p>This is a convenience function for:</p><pre class="pod-block-code">gdk_display_manager_get_default_display (gdk_display_manager_get ())</pre><pre class="pod-block-code">method get-default (--&gt; N-Object )
-</pre><p>Return value; a <strong>Gnome::Gdk4::Display</strong>, or undefined if there is no default display. </p></section>
-<section name="pod">
-<h2 id="open"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">open</a></h2>
-<p>Opens a display.</p><p>If opening the display fails, undefined is returned.</p><pre class="pod-block-code">method open ( Str $display-name --&gt; N-Object )
-</pre><ul>
-<li><p>$display-name; the name of the display to open.</p></li>
-</ul>
-<p>Return value; a <strong>Gnome::Gdk4::Display</strong>. </p></section>
-<section name="pod">
-<h1 id="Signals"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">Signals</a></h1>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
 
-<h3 id="closed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">closed</a></h3>
-<p>Emitted when the connection to the windowing system for <code>$display</code> is closed.</p><pre class="pod-block-code">method handler (
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gdk4::Display"></div><h1 class="title">Gnome::Gdk4::Display</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#beep">beep</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#close">close</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#create-gl-context">create-gl-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#device-is-grabbed">device-is-grabbed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#flush">flush</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-app-launch-context">get-app-launch-context</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-clipboard">get-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default-seat">get-default-seat</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-monitor-at-surface">get-monitor-at-surface</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-monitors">get-monitors</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-name">get-name</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-primary-clipboard">get-primary-clipboard</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-setting">get-setting</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-startup-notification-id">get-startup-notification-id</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-closed">is-closed</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-composited">is-composited</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#is-rgba">is-rgba</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#list-seats">list-seats</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#map-keycode">map-keycode</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#map-keyval">map-keyval</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#notify-startup-complete">notify-startup-complete</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#prepare-gl">prepare-gl</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#put-event">put-event</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#supports-input-shapes">supports-input-shapes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#sync">sync</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#translate-key">translate-key</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Functions">Functions</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-default">get-default</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#open">open</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Signals">Signals</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#closed">closed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#opened">opened</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#seat-added">seat-added</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#seat-removed">seat-removed</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#setting-changed">setting-changed</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gdk4::Display</span> objects are the GDK representation of a workstation. </p>
+
+<p id="Para">Their purpose are two-fold:</p>
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >To manage and provide information about input devices (pointers, keyboards, etc)</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >To manage and provide information about output devices (monitors, projectors, etc)</li>
+</ul>
+
+<p>Most of the input device handling has been factored out into separate <a href="/content-docs/api2/reference/Gdk4/Gnome">Gnome::Gdk4::Seat</a> objects. Every display has a one or more seats, which can be accessed with <a href="#get-default-seat">.get-default-seat()</a> and <a href="#list-seats">.list-seats()</a>. </p>
+
+<p>Output devices are represented by <a href="/content-docs/api2/reference/Gdk4/Gnome">Gnome::Gdk4::Monitor</a> objects, which can be accessed with <a href="#get-monitor-at-surface">.get-monitor-at-surface()</a> and similar APIs. </p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="beep" class="heading "><a href="#" title="go to top of document">beep</a><a class="raku-anchor" title="direct link" href="#beep">§</a></h2>
+
+<p>Emits a short beep on <span class="code">$display</span> </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method beep ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="close" class="heading "><a href="#" title="go to top of document">close</a><a class="raku-anchor" title="direct link" href="#close">§</a></h2>
+
+<p id="Para_0">Closes the connection to the windowing system for the given display.</p>
+
+<p id="Para_1">This cleans up associated resources.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method close ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="create-gl-context" class="heading "><a href="#" title="go to top of document">create-gl-context</a><a class="raku-anchor" title="direct link" href="#create-gl-context">§</a></h2>
+
+<p>Creates a new <a href="/content-docs/api2/reference/Gdk4/GLContext">Gnome::Gdk4::GLContext</a> for the <span class="basis">Gnome::Gdk4::Display</span>. </p>
+
+<p id="Para_2">The context is disconnected from any particular surface or surface and cannot be used to draw to any surface. It can only be used to draw to non-surface framebuffers like textures.</p>
+
+<p>If the creation of the <a href="/content-docs/api2/reference/Gdk4/GLContext">Gnome::Gdk4::GLContext</a> failed, <span class="code">$error</span> will be set. Before using the returned <a href="/content-docs/api2/reference/Gdk4/GLContext">Gnome::Gdk4::GLContext</a>, you will need to call <a href="/content-docs/api2/reference/Gdk4/Gnome#make-current">.make-current() in class Gnome</a> or <a href="/content-docs/api2/reference/Gdk4/Gnome#realize">.realize() in class Gnome</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method create-gl-context ( CArray[N-Error] $err --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
+</ul>
+
+<p>Return value; the newly created <a href="/content-docs/api2/reference/Gdk4/GLContext">Gnome::Gdk4::GLContext</a>. </p>
+<h2 id="device-is-grabbed" class="heading "><a href="#" title="go to top of document">device-is-grabbed</a><a class="raku-anchor" title="direct link" href="#device-is-grabbed">§</a></h2>
+
+<p>Returns <span class="code">True</span> if there is an ongoing grab on <span class="code">$device</span> for <span class="code">$display</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method device-is-grabbed ( N-Object() $device --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$device; a <a href="/content-docs/api2/reference/Gdk4/Device">Gnome::Gdk4::Device</a>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if there is a grab in effect for <span class="code">$device</span>.. </p>
+<h2 id="flush" class="heading "><a href="#" title="go to top of document">flush</a><a class="raku-anchor" title="direct link" href="#flush">§</a></h2>
+
+<p id="Para_3">Flushes any requests queued for the windowing system.</p>
+
+<p id="Para_4">This happens automatically when the main loop blocks waiting for new events, but if your application is drawing without returning control to the main loop, you may need to call this function explicitly. A common case where this function needs to be called is when an application is executing drawing commands from a thread other than the thread where the main loop is running.</p>
+
+<p id="Para_5">This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method flush ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="get-app-launch-context" class="heading "><a href="#" title="go to top of document">get-app-launch-context</a><a class="raku-anchor" title="direct link" href="#get-app-launch-context">§</a></h2>
+
+<p>Returns a <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext">Gnome::Gdk4::AppLaunchContext</a> suitable for launching applications on the given display. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-app-launch-context (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a new <a href="/content-docs/api2/reference/Gdk4/AppLaunchContext">Gnome::Gdk4::AppLaunchContext</a> for <span class="code">$display</span>. </p>
+<h2 id="get-clipboard" class="heading "><a href="#" title="go to top of document">get-clipboard</a><a class="raku-anchor" title="direct link" href="#get-clipboard">§</a></h2>
+
+<p id="Para_6">Gets the clipboard used for copy/paste operations.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-clipboard (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_7">Return value; the display's clipboard.</p>
+<h2 id="get-default-seat" class="heading "><a href="#" title="go to top of document">get-default-seat</a><a class="raku-anchor" title="direct link" href="#get-default-seat">§</a></h2>
+
+<p>Returns the default <a href="/content-docs/api2/reference/Gdk4/Seat">Gnome::Gdk4::Seat</a> for this display. </p>
+
+<p id="Para_8">Note that a display may not have a seat. In this case, this function will return undefined.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default-seat (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_9">Return value; the default seat..</p>
+<h2 id="get-monitor-at-surface" class="heading "><a href="#" title="go to top of document">get-monitor-at-surface</a><a class="raku-anchor" title="direct link" href="#get-monitor-at-surface">§</a></h2>
+
+<p>Gets the monitor in which the largest area of <span class="code">$surface</span> resides. </p>
+
+<p>Returns a monitor close to <span class="code">$surface</span> if it is outside of all monitors. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-monitor-at-surface ( N-Object() $surface --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$surface; a <a href="/content-docs/api2/reference/Gdk4/Surface">Gnome::Gdk4::Surface</a>.</li>
+</ul>
+
+<p>Return value; the monitor with the largest overlap with <span class="code">$surface</span>. </p>
+<h2 id="get-monitors" class="heading "><a href="#" title="go to top of document">get-monitors</a><a class="raku-anchor" title="direct link" href="#get-monitors">§</a></h2>
+
+<p id="Para_10">Gets the list of monitors associated with this display.</p>
+
+<p id="Para_11">Subsequent calls to this function will always return the same list for the same display.</p>
+
+<p id="Para_12">You can listen to the GListModel::items-changed signal on this list to monitor changes to the monitor of this display.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-monitors (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <a href="/content-docs/api2/reference/Gio/R-ListModel">Gnome::Gio::R-ListModel</a> of <a href="/content-docs/api2/reference/Gdk4/Monitor">Gnome::Gdk4::Monitor</a>. </p>
+<h2 id="get-name" class="heading "><a href="#" title="go to top of document">get-name</a><a class="raku-anchor" title="direct link" href="#get-name">§</a></h2>
+
+<p id="Para_13">Gets the name of the display.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-name (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_14">Return value; a string representing the display name. This string is owned by GDK and should not be modified or freed..</p>
+<h2 id="get-primary-clipboard" class="heading "><a href="#" title="go to top of document">get-primary-clipboard</a><a class="raku-anchor" title="direct link" href="#get-primary-clipboard">§</a></h2>
+
+<p id="Para_15">Gets the clipboard used for the primary selection.</p>
+
+<p id="Para_16">On backends where the primary clipboard is not supported natively, GDK emulates this clipboard locally.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-primary-clipboard (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_17">Return value; the primary clipboard.</p>
+<h2 id="get-setting" class="heading "><a href="#" title="go to top of document">get-setting</a><a class="raku-anchor" title="direct link" href="#get-setting">§</a></h2>
+
+<p>Retrieves a desktop-wide setting such as double-click time for the <span class="code">$display</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-setting ( Str $name, N-Object $value --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$name; the name of the setting.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$value; location to store the value of the setting</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the setting existed and a value was stored in <span class="code">$value</span>, <span class="code">False</span> otherwise. </p>
+<h2 id="get-startup-notification-id" class="heading "><a href="#" title="go to top of document">get-startup-notification-id</a><a class="raku-anchor" title="direct link" href="#get-startup-notification-id">§</a></h2>
+
+<p id="Para_18">Gets the startup notification ID for a Wayland display, or undefined if no ID has been defined.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-startup-notification-id (--&gt; Str )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the startup notification ID for <span class="code">$display</span>. </p>
+<h2 id="is-closed" class="heading "><a href="#" title="go to top of document">is-closed</a><a class="raku-anchor" title="direct link" href="#is-closed">§</a></h2>
+
+<p id="Para_19">Finds out if the display has been closed.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-closed (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if the display is closed.. </p>
+<h2 id="is-composited" class="heading "><a href="#" title="go to top of document">is-composited</a><a class="raku-anchor" title="direct link" href="#is-composited">§</a></h2>
+
+<p id="Para_20">Returns whether surfaces can reasonably be expected to have their alpha channel drawn correctly on the screen.</p>
+
+<p>Check <a href="#is-rgba">.is-rgba()</a> for whether the display supports an alpha channel. </p>
+
+<p>On X11 this function returns whether a compositing manager is compositing on <span class="code">$display</span>. </p>
+
+<p>On modern displays, this value is always <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-composited (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p id="Para_21">Return value; Whether surfaces with RGBA visuals can reasonably be expected to have their alpha channels drawn correctly on the screen..</p>
+<h2 id="is-rgba" class="heading "><a href="#" title="go to top of document">is-rgba</a><a class="raku-anchor" title="direct link" href="#is-rgba">§</a></h2>
+
+<p>Returns whether surfaces on this <span class="code">$display</span> are created with an alpha channel. </p>
+
+<p>Even if a <span class="code">True</span> is returned, it is possible that the surface’s alpha channel won’t be honored when displaying the surface on the screen: in particular, for X an appropriate windowing manager and compositing manager must be running to provide appropriate display. Use <a href="#is-composited">.is-composited()</a> to check if that is the case. </p>
+
+<p>On modern displays, this value is always <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method is-rgba (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if surfaces are created with an alpha channel or <span class="code">False</span> if the display does not support this functionality.. </p>
+<h2 id="list-seats" class="heading "><a href="#" title="go to top of document">list-seats</a><a class="raku-anchor" title="direct link" href="#list-seats">§</a></h2>
+
+<p>Returns the list of seats known to <span class="code">$display</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method list-seats (--&gt; N-List )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the list of seats known to the <span class="basis">Gnome::Gdk4::Display</span>. </p>
+<h2 id="map-keycode" class="heading "><a href="#" title="go to top of document">map-keycode</a><a class="raku-anchor" title="direct link" href="#map-keycode">§</a></h2>
+
+<p>Returns the keyvals bound to <span class="code">$keycode</span>. </p>
+
+<p>The Nth <span class="basis">Gnome::Gdk4::N-KeymapKey</span> in <span class="code">$keys</span> is bound to the Nth keyval in <span class="code">$keyvals</span>. </p>
+
+<p id="Para_22">When a keycode is pressed by the user, the keyval from this list of entries is selected by considering the effective keyboard group and level.</p>
+
+<p id="Para_23">Free the returned arrays with g_free().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method map-keycode ( UInt() $keycode, N-Object $keys, Array[Int] $keyvals, Array[Int] $n-entries --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$keycode; a keycode.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$keys; (transfer ownership: full) return location for array of <span class="basis">Gnome::Gdk4::N-KeymapKey</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$keyvals; (transfer ownership: full) return location for array of keyvals.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-entries; (transfer ownership: full) length of <span class="code">$keys</span> and <span class="code">$keyvals</span>.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if there were any entries. </p>
+<h2 id="map-keyval" class="heading "><a href="#" title="go to top of document">map-keyval</a><a class="raku-anchor" title="direct link" href="#map-keyval">§</a></h2>
+
+<p>Obtains a list of keycode/group/level combinations that will generate <span class="code">$keyval</span>. </p>
+
+<p id="Para_24">Groups and levels are two kinds of keyboard mode; in general, the level determines whether the top or bottom symbol on a key is used, and the group determines whether the left or right symbol is used.</p>
+
+<p id="Para_25">On US keyboards, the shift key changes the keyboard level, and there are no groups. A group switch key might convert a keyboard between Hebrew to English modes, for example.</p>
+
+<p><span class="basis">GdkEventKey</span> contains a %group field that indicates the active keyboard group. The level is computed from the modifier mask. </p>
+
+<p id="Para_26">The returned array should be freed with g_free().</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method map-keyval ( UInt() $keyval, N-Object $keys, Array[Int] $n-keys --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$keyval; a keyval, such as %GDK_KEY_a, %GDK_KEY_Up, %GDK_KEY_Return, etc..</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$keys; (transfer ownership: full) return location for an array of <span class="basis">Gnome::Gdk4::N-KeymapKey</span></li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$n-keys; (transfer ownership: full) return location for number of elements in returned array.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if keys were found and returned. </p>
+<h2 id="notify-startup-complete" class="heading "><a href="#" title="go to top of document">notify-startup-complete</a><a class="raku-anchor" title="direct link" href="#notify-startup-complete">§</a></h2>
+
+<p id="Para_27">Indicates to the GUI environment that the application has finished loading, using a given identifier.</p>
+
+<p>GTK will call this function automatically for <a href="/content-docs/api2/reference/Gtk4/Gnome">Gnome::Gtk4::Window</a> with custom startup-notification identifier unless <a href="/content-docs/api2/reference/Gtk4/Gnome#set-auto-startup-notification">.set-auto-startup-notification() in class Gnome</a> is called to disable that feature. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method notify-startup-complete ( Str $startup-id )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$startup-id; a startup-notification identifier, for which notification process should be completed.</li>
+</ul>
+<h2 id="prepare-gl" class="heading "><a href="#" title="go to top of document">prepare-gl</a><a class="raku-anchor" title="direct link" href="#prepare-gl">§</a></h2>
+
+<p>Checks that OpenGL is available for <span class="code">$self</span> and ensures that it is properly initialized. When this fails, an <span class="code">$error</span> will be set describing the error and this function returns <span class="code">False</span>. </p>
+
+<p>Note that even if this function succeeds, creating a <a href="/content-docs/api2/reference/Gdk4/GLContext">Gnome::Gdk4::GLContext</a> may still fail. </p>
+
+<p id="Para_28">This function is idempotent. Calling it multiple times will just return the same value or error.</p>
+
+<p id="Para_29">You never need to call this function, GDK will call it automatically as needed. But you can use it as a check when setting up code that might make use of OpenGL.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method prepare-gl ( CArray[N-Error] $err --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if the display supports OpenGL. </p>
+<h2 id="put-event" class="heading "><a href="#" title="go to top of document">put-event</a><a class="raku-anchor" title="direct link" href="#put-event">§</a></h2>
+
+<p>Appends the given event onto the front of the event queue for <span class="code">$display</span>. </p>
+
+<p id="Para_30">This function is only useful in very special situations and should not be used by applications.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method put-event ( N-Object() $event )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$event; a <a href="/content-docs/api2/reference/Gdk4/Event">Gnome::Gdk4::Event</a>.</li>
+</ul>
+<h2 id="supports-input-shapes" class="heading "><a href="#" title="go to top of document">supports-input-shapes</a><a class="raku-anchor" title="direct link" href="#supports-input-shapes">§</a></h2>
+
+<p>Returns <span class="code">True</span> if the display supports input shapes. </p>
+
+<p>This means that <a href="/content-docs/api2/reference/Gdk4/Gnome#set-input-region">.set-input-region() in class Gnome</a> can be used to modify the input shape of surfaces on <span class="code">$display</span>. </p>
+
+<p>On modern displays, this value is always <span class="code">True</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method supports-input-shapes (--&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; <span class="code">True</span> if surfaces with modified input shape are supported. </p>
+<h2 id="sync" class="heading "><a href="#" title="go to top of document">sync</a><a class="raku-anchor" title="direct link" href="#sync">§</a></h2>
+
+<p id="Para_31">Flushes any requests queued for the windowing system and waits until all requests have been handled.</p>
+
+<p>This is often used for making sure that the display is synchronized with the current state of the program. Calling <a href="#sync">.sync()</a> before <a href="/content-docs/api2/reference/GdkX11/Gnome#error-trap-pop">.error-trap-pop() in class Gnome</a> makes sure that any errors generated from earlier requests are handled before the error trap is removed. </p>
+
+<p id="Para_32">This is most useful for X11. On windowing systems where requests are handled synchronously, this function will do nothing.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method sync ( )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="translate-key" class="heading "><a href="#" title="go to top of document">translate-key</a><a class="raku-anchor" title="direct link" href="#translate-key">§</a></h2>
+
+<p>Translates the contents of a <span class="basis">GdkEventKey</span> into a keyval, effective group, and level. </p>
+
+<p>Modifiers that affected the translation and are thus unavailable for application use are returned in <span class="code">$consumed-modifiers</span>. </p>
+
+<p>The <span class="code">$effective-group</span> is the group that was actually used for the translation; some keys such as Enter are not affected by the active keyboard group. The <span class="code">$level</span> is derived from <span class="code">$state</span>. <span class="code">$consumed-modifiers</span> gives modifiers that should be masked out from <span class="code">$state</span> when comparing this key press to a keyboard shortcut. For instance, on a US keyboard, the <span class="basis">plus</span> symbol is shifted, so when comparing a key press to a `&lt;Control&gt;plus` accelerator `&lt;Shift&gt;` should be masked out. </p>
+
+<p>This function should rarely be needed, since <span class="basis">GdkEventKey</span> already contains the translated keyval. It is exported for the benefit of virtualized test environments. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method translate-key ( UInt() $keycode, UInt $state, Int() $group, Array[Int] $keyval, Array[Int] $effective-group, Array[Int] $level, UInt $consumed --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$keycode; a keycode.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$state; a modifier state.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$group; active keyboard group.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$keyval; (transfer ownership: full) return location for keyval.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$effective-group; (transfer ownership: full) return location for effective group.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$level; (transfer ownership: full) return location for level.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$consumed; (transfer ownership: full) return location for modifiers that were used to determine the group or level.</li>
+</ul>
+
+<p>Return value; <span class="code">True</span> if there was a keyval bound to keycode/state/group.. </p>
+<h1 id="Functions" class="heading "><a href="#" title="go to top of document">Functions</a><a class="raku-anchor" title="direct link" href="#Functions">§</a></h1>
+<h2 id="get-default" class="heading "><a href="#" title="go to top of document">get-default</a><a class="raku-anchor" title="direct link" href="#get-default">§</a></h2>
+
+<p>Gets the default <span class="basis">Gnome::Gdk4::Display</span>. </p>
+
+<p id="Para_33">This is a convenience function for:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">gdk_display_manager_get_default_display (gdk_display_manager_get ())</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-default (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a <span class="basis">Gnome::Gdk4::Display</span>, or undefined if there is no default display. </p>
+<h2 id="open" class="heading "><a href="#" title="go to top of document">open</a><a class="raku-anchor" title="direct link" href="#open">§</a></h2>
+
+<p id="Para_34">Opens a display.</p>
+
+<p id="Para_35">If opening the display fails, undefined is returned.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method open ( Str $display-name --&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$display-name; the name of the display to open.</li>
+</ul>
+
+<p>Return value; a <span class="basis">Gnome::Gdk4::Display</span>. </p>
+<h1 id="Signals" class="heading "><a href="#" title="go to top of document">Signals</a><a class="raku-anchor" title="direct link" href="#Signals">§</a></h1>
+<h3 id="closed" class="heading "><a href="#" title="go to top of document">closed</a><a class="raku-anchor" title="direct link" href="#closed">§</a></h3>
+
+<p>Emitted when the connection to the windowing system for <span class="code">$display</span> is closed. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   gboolean $is-error,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gdk4::Display :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$is-error; <code>True</code> if the display was closed due to an error.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="opened"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">opened</a></h3>
-<p>Emitted when the connection to the windowing system for <code>$display</code> is opened.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$is-error; <span class="code">True</span> if the display was closed due to an error.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gdk4::Display</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="opened" class="heading "><a href="#" title="go to top of document">opened</a><a class="raku-anchor" title="direct link" href="#opened">§</a></h3>
+
+<p>Emitted when the connection to the windowing system for <span class="code">$display</span> is opened. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gdk4::Display :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="seat-added"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">seat-added</a></h3>
-<p>Emitted whenever a new seat is made known to the windowing system.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gdk4::Display</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="seat-added" class="heading "><a href="#" title="go to top of document">seat-added</a><a class="raku-anchor" title="direct link" href="#seat-added">§</a></h3>
+
+<p id="Para_36">Emitted whenever a new seat is made known to the windowing system.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $seat,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gdk4::Display :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$seat; the seat that was just added.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="seat-removed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">seat-removed</a></h3>
-<p>Emitted whenever a seat is removed by the windowing system.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$seat; the seat that was just added.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gdk4::Display</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="seat-removed" class="heading "><a href="#" title="go to top of document">seat-removed</a><a class="raku-anchor" title="direct link" href="#seat-removed">§</a></h3>
+
+<p id="Para_37">Emitted whenever a seat is removed by the windowing system.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   N-Object $seat,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gdk4::Display :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$seat; the seat that was just removed.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
-</ul>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
 
-<h3 id="setting-changed"><a href="#Gnome::Gdk4::Display" class="u" title="go to top of document">setting-changed</a></h3>
-<p>Emitted whenever a setting changes its value.</p><pre class="pod-block-code">method handler (
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$seat; the seat that was just removed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gdk4::Display</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
+</ul>
+<h3 id="setting-changed" class="heading "><a href="#" title="go to top of document">setting-changed</a><a class="raku-anchor" title="direct link" href="#setting-changed">§</a></h3>
+
+<p id="Para_38">Emitted whenever a setting changes its value.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method handler (
   Str $setting,
   Int :$_handle_id,
   N-GObject :$_native-object,
   Gnome::Gdk4::Display :$_widget,
   *%user-options
-)
-</pre><ul>
-<li><p>$setting; the name of the setting that changed.</p></li>
-<li><p>$_handle_id; The registered event handler id.</p></li>
-<li><p>$_native-object; The native object provided by the Raku object which registered this event. This is a native <strong>Gnome::Gdk4::Display</strong> object.</p></li>
-<li><p>%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome.html#register-signal">.register-signal() in class Gnome</a>.</p></li>
+)</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$setting; the name of the setting that changed.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_handle_id; The registered event handler id.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$_native-object; The native object provided by the Raku object which registered this event. This is a native <span class="basis">Gnome::Gdk4::Display</span> object.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >%user-options; A list of named arguments provided by <a href="/content-docs/api2/reference/GObject/Gnome#register-signal">.register-signal() in class Gnome</a>.</li>
 </ul>
-</section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Display.rakudoc</span></div><div>at <span class="time">2026-05-22T15:14:22Z</span></div></footer>
-	</body>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Display.rakudoc</span>
+<span class="footer-field">&nbsp;at 12:41 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>

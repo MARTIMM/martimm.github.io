@@ -1,128 +1,631 @@
 ---
 ---
-<!doctype html>
-<html lang="en">
-<head>
-<title>Gnome::Gdk4::Texture</title>
-<meta charset="UTF-8" />
+<!DOCTYPE html>
+<html lang="en" class="rakudoc-singlepage">
+    <head>
+    <meta charset="UTF-8" />
+        <title>Gnome::Gdk4::Texture</title>
+    <style>@charset "UTF-8";
+/* !Vanilla CSS, from https://github.com/finanalyst/raku-pod-render.
+   Modified by Marcel Timmerman at 2026/07/20 for the github pages
+   at https://martimm.github.io/.
+*/
+@import url(/assets/css/github-style.css);
+@import url(/assets/css/font-awesome.min.css);
+@import url(/assets/css/rakudoc-extra.css);
+@import url(/assets/css/rakudoc-styling.css);
+span.basis {
+  font-weight: 800; }
 
-<link href="asset_files/images/favicon.ico" rel="icon" type="image/x-icon"/>
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-extra.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/rakudoc-styling.css" />
-<link rel="stylesheet" type="text/css" href="asset_files/css/font-awesome.min.css" />
+span.important {
+  font-style: italic; }
 
-</head>
-	<body class="pod">
-<header><img src="asset_files/images/gtk-raku.png" id="Camelia_bug"><h2 class="title" id="Gnome::Gdk4::Texture">Gnome::Gdk4::Texture</h2></header><div class="pod-content"><nav><div id="_TOC"><table>
-<caption>Table of Contents</caption>
-<tr class="toc-level-1"><td class="toc-text"><a href="#Description">Description</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Class_initialization">Class initialization</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new">new</a></td></tr>
- <tr class="toc-level-3"><td class="toc-text"><a href="#:native-object">:native-object</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-for-pixbuf">new-for-pixbuf</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-bytes">new-from-bytes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-file">new-from-file</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-filename">new-from-filename</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#new-from-resource">new-from-resource</a></td></tr>
- <tr class="toc-level-1"><td class="toc-text"><a href="#Methods">Methods</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#download">download</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-height">get-height</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#get-width">get-width</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save-to-png">save-to-png</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save-to-png-bytes">save-to-png-bytes</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save-to-tiff">save-to-tiff</a></td></tr>
- <tr class="toc-level-2"><td class="toc-text"><a href="#save-to-tiff-bytes">save-to-tiff-bytes</a></td></tr>
-</table></div>
-</nav><div id=""></div><div class="pod-body">
-<section name="___top">
-<h1 id="Description"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">Description</a></h1>
-<p><strong>Gnome::Gdk4::Texture</strong> is the basic element used to refer to pixel data.</p><p>It is primarily meant for pixel data that will not change over multiple frames, and will be used for a long time.</p><p>There are various ways to create <strong>Gnome::Gdk4::Texture</strong> objects from a <strong>Gnome::Gdk4::Texture</strong>, or a Cairo surface, or other pixel data.</p><p>The ownership of the pixel data is transferred to the <strong>Gnome::Gdk4::Texture</strong> instance; you can only make a copy of it, via <a href="#download">.download()</a>.</p><p><strong>Gnome::Gdk4::Texture</strong> is an immutable object: That means you cannot change anything about it other than increasing the reference count via <a href="/content-docs/api2/reference/GObject/Gnome.html#ref">.ref() in class Gnome</a>, and consequently, it is a thread-safe object.</p></section>
-<section name="pod">
-<h1 id="Class_initialization"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">Class initialization</a></h1>
+span.unusual {
+  text-decoration: underline; }
 
-<h2 id="new"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new</a></h2>
+span.weighty {
+  font-variant: small-caps; }
 
-<h3 id=":native-object"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">:native-object</a></h3>
-<p>Create an object using a native object from an object of the same type found elsewhere. See also <strong>Gnome::N::TopLevelSupportClass</strong>.</p><pre class="pod-block-code">multi method new ( N-Object() :$native-object! )</pre></section>
-<section name="pod">
-<h2 id="new-for-pixbuf"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new-for-pixbuf</a></h2>
-<p>Creates a new texture object representing the <a href="/content-docs/api2/reference/GdkPixbuf/Pixbuf.html">Gnome::GdkPixbuf::Pixbuf</a>.</p><p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome.html#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image.</p><pre class="pod-block-code">method new-for-pixbuf ( N-Object() $pixbuf --&gt; Gnome::Gdk4::Texture )
-</pre><ul>
-<li><p>$pixbuf; a <a href="/content-docs/api2/reference/GdkPixbuf/Pixbuf.html">Gnome::GdkPixbuf::Pixbuf</a>.</p></li>
+span.code {
+  font-weight: 500;
+  background-color: linen;
+  display: inline-block;
+  margin: 2px;
+  padding: 2px; }
+
+span.overstrike {
+  text-decoration: line-through; }
+
+span.high {
+  vertical-align: super; }
+
+span.junior {
+  vertical-align: sub; }
+
+span.replace {
+  font-style: italic;
+  font-variant-caps: small-caps;
+  text-shadow: -1px 1px; }
+
+span.indexed {
+  /* The default state: invisible to the reader */
+  transition: background-color 0.5s ease, outline 0.5s ease;
+  padding: 0 2px;
+  border-radius: 3px;
+  /* The "Jumped To" state */ }
+
+span.indexed:target {
+  background-color: #fff3bf;
+  /* Soft yellow highlight */
+  outline: 2px solid #fab005; }
+
+span.indexed:hover::before {
+  content: attr(data-index-text);
+  translate: 0 -1.5em;
+  position: absolute;
+  opacity: 75%;
+  background-color: turquoise;
+  color: indigo;
+  padding: 0 5px; }
+
+span.keyboard {
+  text-shadow: 1px 1px; }
+
+span.terminal {
+  text-decoration: overline underline; }
+
+span.footnote {
+  vertical-align: super; }
+
+a.footnote-anchor {
+  text-decoration: none; }
+
+span.developer-version {
+  display: none;
+  color: red; }
+
+span.developer-version span.developer-note {
+  font-family: "Brush Script MT", cursive; }
+
+span.developer-version:hover {
+  display: inline-block;
+  transform: translate(50px, 100px);
+  z-index: 5; }
+
+span.bad-markdown {
+  text-shadow: 1px 1px red; }
+
+.raku-code pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-code .code-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-input pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-input .input-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+.raku-output pre.rakudoc:first-child {
+  background-color: #eee;
+  margin: 0 1rem;
+  padding: 0.5rem 1rem 0.5rem 1rem; }
+
+.raku-output .output-caption {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 1rem 1rem; }
+
+div.defn-text {
+  margin-left: 1rem; }
+
+div.defn-text p {
+  margin: 0; }
+
+div.defn-term {
+  font-weight: bold;
+  font-style: italic; }
+
+div.defn-term .N {
+  margin-right: 5px; }
+
+div.id-target {
+  display: none; }
+
+div.nested {
+  margin-left: 5rem; }
+
+div.toc {
+  background-color: linen;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  color: black;
+  float: left; }
+
+div.toc .toc-item {
+  margin-left: calc(var(--level) * 1rem); }
+
+div.toc .toc-item::before {
+  content: attr(data-bullet); }
+
+div.toc .toc-item a {
+  padding-left: 0.4rem; }
+
+div.index-section {
+  margin-left: calc((var(--level) - 1) * 1rem); }
+
+div.index-section[data-index-level="1"] {
+  text-shadow: 1px 1px orange; }
+
+div.index-section > a.index-ref {
+  margin-left: calc(var(--level) * 1rem);
+  display: block;
+  width: auto;
+  white-space: normal; }
+
+div.index-section {
+  /*
+  	> a.index-ref {
+  	    white-space: nowrap;
+  	    display:inline-block;
+  	    width: 1em;
+  	    + span {
+  	        display: none;
+  	        width: 0;
+  	    }
+  	    &:hover+span {
+  	        display: inline-block;
+  	        position: absolute;
+  	        width: auto;
+  	        z-index: 5;
+  	        background-color: seashell;
+  	    }
+  	}
+  	*/ }
+
+span.developer-note {
+  display: none;
+  width: 0;
+  color: blue;
+  text-shadow: 2px 2px 5px green; }
+
+span.developer-version {
+  display: none;
+  width: 0;
+  color: red;
+  text-shadow: 2px 2px 5px green; }
+
+.delta::before, span.developer-text::before {
+  content: "🛈";
+  vertical-align: super; }
+
+.delta:hover .developer-version, span.developer-text:hover .developer-version {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  transform: translate(0.5rem, -1rem); }
+
+.delta:hover .developer-note, span.developer-text:hover .developer-note {
+  display: inline-block;
+  position: absolute;
+  width: auto;
+  z-index: 5;
+  margin-left: 1rem; }
+
+span.developer-text:hover {
+  text-decoration: overline; }
+
+div.footer {
+  border-top: 2px dashed;
+  margin: 1rem 0;
+  padding: 2rem; }
+
+div.footer .footer-field {
+  display: inline-block; }
+
+div.footer .footer-line {
+  display: block; }
+
+.heading > a {
+  color: maroon;
+  text-decoration: none; }
+
+h1.title {
+  font-size: 1.5rem;
+  background-color: #F2C100;
+  text-align: center; }
+
+.rakudoc-table {
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  margin: 1rem;
+  width: fit-content; }
+
+.rakudoc-table table, .rakudoc-table th, .rakudoc-table td {
+  border: 1px solid lightgray;
+  border-collapse: collapse; }
+
+.rakudoc-table .table-caption.rakudoc {
+  color: maroon;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+.rakudoc-table .table {
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid black; }
+
+.rakudoc-table .table td, .rakudoc-table .table td {
+  padding: 5px; }
+
+.rakudoc-table .table caption {
+  margin-bottom: 5px; }
+
+tbody.procedural tr.procedural .procedural-cell-left {
+  text-align: left; }
+
+tbody.procedural tr.procedural .procedural-cell-centre {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-center {
+  text-align: center; }
+
+tbody.procedural tr.procedural .procedural-cell-right {
+  text-align: right; }
+
+tbody.procedural tr.procedural .procedural-cell-top {
+  vertical-align: text-top; }
+
+tbody.procedural tr.procedural .procedural-cell-middle {
+  vertical-align: baseline; }
+
+tbody.procedural tr.procedural .procedural-cell-bottom {
+  vertical-align: text-bottom; }
+
+tbody.procedural tr.procedural .procedural-cell-label {
+  font-weight: bold; }
+
+li.item {
+  padding-left: 0.4rem;
+  margin-left: calc(var(--level) * 1rem); }
+
+li.item::marker {
+  content: attr(data-bullet); }
+
+li.item.extended-item > p {
+  margin: 0; }
+
+li.numitem {
+  padding-left: 0.4rem; }
+
+li.numitem::marker {
+  content: attr(data-bullet); }
+
+div.rakudoc-image-placement {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.rakudoc-placement-error {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: red;
+  font-weight: bold; }
+
+.raku-anchor {
+  font-size: 0.9em;
+  text-decoration: none;
+  visibility: hidden; }
+
+.heading:hover .raku-anchor {
+  visibility: visible;
+  padding-left: 5px; }
+
+.enumeration-N {
+  margin: 0 5px 0 5px; }
+
+.formula {
+  margin: 1rem; }
+
+.formula .formula-caption {
+  color: maroon;
+  padding: 0.2rem 0 1rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-style: italic; }
+
+p span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para {
+  margin: 1rem 0; }
+
+div.extended-para span.numpara {
+  position: absolute;
+  text-indent: -3rem; }
+
+div.extended-para p.extended-para {
+  margin: 0.5rem 0; }
+
+/*# sourceMappingURL=rakuast-style.css.map */
+</style>
+
+    </head>
+    <body>
+    <div id="Gnome::Gdk4::Texture"></div><h1 class="title">Gnome::Gdk4::Texture</h1>
+
+<div class="toc">
+<h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-for-pixbuf">new-for-pixbuf</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-bytes">new-from-bytes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-file">new-from-file</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-filename">new-from-filename</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new-from-resource">new-from-resource</a></div>
+<div class="toc-item" style="--level:0;" data-bullet=""><a href="#Methods">Methods</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#download">download</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-height">get-height</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#get-width">get-width</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save-to-png">save-to-png</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save-to-png-bytes">save-to-png-bytes</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save-to-tiff">save-to-tiff</a></div>
+<div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#save-to-tiff-bytes">save-to-tiff-bytes</a></div>
+</div>
+
+    <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
+
+<p><span class="basis">Gnome::Gdk4::Texture</span> is the basic element used to refer to pixel data. </p>
+
+<p id="Para">It is primarily meant for pixel data that will not change over multiple frames, and will be used for a long time.</p>
+
+<p>There are various ways to create <span class="basis">Gnome::Gdk4::Texture</span> objects from a <span class="basis">Gnome::Gdk4::Texture</span>, or a Cairo surface, or other pixel data. </p>
+
+<p>The ownership of the pixel data is transferred to the <span class="basis">Gnome::Gdk4::Texture</span> instance; you can only make a copy of it, via <a href="#download">.download()</a>. </p>
+
+<p><span class="basis">Gnome::Gdk4::Texture</span> is an immutable object: That means you cannot change anything about it other than increasing the reference count via <a href="/content-docs/api2/reference/GObject/Gnome#ref">.ref() in class Gnome</a>, and consequently, it is a thread-safe object. </p>
+
+<div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
+<h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
+<h3 id=":native-object" class="heading "><a href="#" title="go to top of document">:native-object</a><a class="raku-anchor" title="direct link" href="#:native-object">§</a></h3>
+
+<p>Create an object using a native object from an object of the same type found elsewhere. See also <span class="basis">Gnome::N::TopLevelSupportClass</span>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">multi method new ( N-Object() :$native-object! )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+<h2 id="new-for-pixbuf" class="heading "><a href="#" title="go to top of document">new-for-pixbuf</a><a class="raku-anchor" title="direct link" href="#new-for-pixbuf">§</a></h2>
+
+<p>Creates a new texture object representing the <a href="/content-docs/api2/reference/GdkPixbuf/Pixbuf">Gnome::GdkPixbuf::Pixbuf</a>. </p>
+
+<p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-for-pixbuf ( N-Object() $pixbuf --&gt; Gnome::Gdk4::Texture )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$pixbuf; a <a href="/content-docs/api2/reference/GdkPixbuf/Pixbuf">Gnome::GdkPixbuf::Pixbuf</a>.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-from-bytes"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new-from-bytes</a></h2>
-<p>Creates a new texture by loading an image from memory,</p><p>The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p><p>If undefined is returned, then <code>$error</code> will be set.</p><p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome.html#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image.</p><pre class="pod-block-code">method new-from-bytes ( N-Object $bytes, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )
-</pre><ul>
-<li><p>$bytes; a <strong>Gnome::Glib::N-Bytes</strong> containing the data to load</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<h2 id="new-from-bytes" class="heading "><a href="#" title="go to top of document">new-from-bytes</a><a class="raku-anchor" title="direct link" href="#new-from-bytes">§</a></h2>
+
+<p id="Para_0">Creates a new texture by loading an image from memory,</p>
+
+<p id="Para_1">The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p>
+
+<p>If undefined is returned, then <span class="code">$error</span> will be set. </p>
+
+<p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-bytes ( N-Object $bytes, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$bytes; a <span class="basis">Gnome::Glib::N-Bytes</span> containing the data to load</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-from-file"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new-from-file</a></h2>
-<p>Creates a new texture by loading an image from a file.</p><p>The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p><p>If undefined is returned, then <code>$error</code> will be set.</p><p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome.html#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image.</p><pre class="pod-block-code">method new-from-file ( N-Object() $file, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )
-</pre><ul>
-<li><p>$file; <a href="/content-docs/api2/reference/Gio/File.html">Gnome::Gio::File</a> to load.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<h2 id="new-from-file" class="heading "><a href="#" title="go to top of document">new-from-file</a><a class="raku-anchor" title="direct link" href="#new-from-file">§</a></h2>
+
+<p id="Para_2">Creates a new texture by loading an image from a file.</p>
+
+<p id="Para_3">The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p>
+
+<p>If undefined is returned, then <span class="code">$error</span> will be set. </p>
+
+<p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-file ( N-Object() $file, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$file; <a href="/content-docs/api2/reference/Gio/File">Gnome::Gio::File</a> to load.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-from-filename"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new-from-filename</a></h2>
-<p>Creates a new texture by loading an image from a file.</p><p>The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p><p>If undefined is returned, then <code>$error</code> will be set.</p><p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome.html#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image.</p><pre class="pod-block-code">method new-from-filename ( Str $path, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )
-</pre><ul>
-<li><p>$path; the filename to load.</p></li>
-<li><p>$err; Error object. When defined, an error can be returned when there is one. Use <code>Pointer</code> when you want to ignore the error. .</p></li>
+<h2 id="new-from-filename" class="heading "><a href="#" title="go to top of document">new-from-filename</a><a class="raku-anchor" title="direct link" href="#new-from-filename">§</a></h2>
+
+<p id="Para_4">Creates a new texture by loading an image from a file.</p>
+
+<p id="Para_5">The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p>
+
+<p>If undefined is returned, then <span class="code">$error</span> will be set. </p>
+
+<p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-filename ( Str $path, CArray[N-Error] $err --&gt; Gnome::Gdk4::Texture )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$path; the filename to load.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$err; Error object. When defined, an error can be returned when there is one. Use <span class="code">Pointer</span> when you want to ignore the error. .</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="new-from-resource"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">new-from-resource</a></h2>
-<p>Creates a new texture by loading an image from a resource.</p><p>The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p><p>It is a fatal error if <code>$resource-path</code> does not specify a valid image resource and the program will abort if that happens. If you are unsure about the validity of a resource, use <a href="#new-from-file">.new-from-file()</a> to load it.</p><p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome.html#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image.</p><pre class="pod-block-code">method new-from-resource ( Str $resource-path --&gt; Gnome::Gdk4::Texture )
-</pre><ul>
-<li><p>$resource-path; the path of the resource file.</p></li>
+<h2 id="new-from-resource" class="heading "><a href="#" title="go to top of document">new-from-resource</a><a class="raku-anchor" title="direct link" href="#new-from-resource">§</a></h2>
+
+<p id="Para_6">Creates a new texture by loading an image from a resource.</p>
+
+<p id="Para_7">The file format is detected automatically. The supported formats are PNG and JPEG, though more formats might be available.</p>
+
+<p>It is a fatal error if <span class="code">$resource-path</span> does not specify a valid image resource and the program will abort if that happens. If you are unsure about the validity of a resource, use <a href="#new-from-file">.new-from-file()</a> to load it. </p>
+
+<p>This function is threadsafe, so that you can e.g. use GTask and <a href="/content-docs/api2/reference/Gio/Gnome#run-in-thread">.run-in-thread() in class Gnome</a> to avoid blocking the main thread while loading a big image. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method new-from-resource ( Str $resource-path --&gt; Gnome::Gdk4::Texture )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$resource-path; the path of the resource file.</li>
 </ul>
-</section>
-<section name="pod">
-<h1 id="Methods"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">Methods</a></h1>
-</section>
-<section name="pod">
-<h2 id="download"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">download</a></h2>
-<p>Downloads the <code>$texture</code> into local memory.</p><p>This may be an expensive operation, as the actual texture data may reside on a GPU or on a remote display server.</p><p>The data format of the downloaded data is equivalent to %CAIRO_FORMAT_ARGB32, so every downloaded pixel requires 4 bytes of memory.</p><p>Downloading a texture into a Cairo image surface:</p><pre class="pod-block-code">method download ( Str $data, Int() $stride )
-</pre><ul>
-<li><p>$data; pointer to enough memory to be filled with the downloaded data of <code>$texture</code>.</p></li>
-<li><p>$stride; rowstride in bytes.</p></li>
+<h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
+<h2 id="download" class="heading "><a href="#" title="go to top of document">download</a><a class="raku-anchor" title="direct link" href="#download">§</a></h2>
+
+<p>Downloads the <span class="code">$texture</span> into local memory. </p>
+
+<p id="Para_8">This may be an expensive operation, as the actual texture data may reside on a GPU or on a remote display server.</p>
+
+<p id="Para_9">The data format of the downloaded data is equivalent to %CAIRO_FORMAT_ARGB32, so every downloaded pixel requires 4 bytes of memory.</p>
+
+<p id="Para_10">Downloading a texture into a Cairo image surface:</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method download ( Str $data, Int() $stride )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$data; pointer to enough memory to be filled with the downloaded data of <span class="code">$texture</span>.</li>
+<li class="item" data-bullet="•" style ="--level:0;"  >$stride; rowstride in bytes.</li>
 </ul>
-</section>
-<section name="pod">
-<h2 id="get-height"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">get-height</a></h2>
-<p>Returns the height of the <code>$texture</code>, in pixels.</p><pre class="pod-block-code">method get-height (--&gt; Int )
-</pre><p>Return value; the height of the <strong>Gnome::Gdk4::Texture</strong>. </p></section>
-<section name="pod">
-<h2 id="get-width"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">get-width</a></h2>
-<p>Returns the width of <code>$texture</code>, in pixels.</p><pre class="pod-block-code">method get-width (--&gt; Int )
-</pre><p>Return value; the width of the <strong>Gnome::Gdk4::Texture</strong>. </p></section>
-<section name="pod">
-<h2 id="save-to-png"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">save-to-png</a></h2>
-<p>Store the given <code>$texture</code> to the <code>$filename</code> as a PNG file.</p><p>This is a utility function intended for debugging and testing. If you want more control over formats, proper error handling or want to store to a <strong>Gnome::Gdk4::Texture</strong> or other location, you might want to use <a href="#save-to-png-bytes">.save-to-png-bytes()</a> or look into the gdk-pixbuf library.</p><pre class="pod-block-code">method save-to-png ( Str $filename --&gt; Bool )
-</pre><ul>
-<li><p>$filename; the filename to store to.</p></li>
+<h2 id="get-height" class="heading "><a href="#" title="go to top of document">get-height</a><a class="raku-anchor" title="direct link" href="#get-height">§</a></h2>
+
+<p>Returns the height of the <span class="code">$texture</span>, in pixels. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-height (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the height of the <span class="basis">Gnome::Gdk4::Texture</span>. </p>
+<h2 id="get-width" class="heading "><a href="#" title="go to top of document">get-width</a><a class="raku-anchor" title="direct link" href="#get-width">§</a></h2>
+
+<p>Returns the width of <span class="code">$texture</span>, in pixels. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method get-width (--&gt; Int )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; the width of the <span class="basis">Gnome::Gdk4::Texture</span>. </p>
+<h2 id="save-to-png" class="heading "><a href="#" title="go to top of document">save-to-png</a><a class="raku-anchor" title="direct link" href="#save-to-png">§</a></h2>
+
+<p>Store the given <span class="code">$texture</span> to the <span class="code">$filename</span> as a PNG file. </p>
+
+<p>This is a utility function intended for debugging and testing. If you want more control over formats, proper error handling or want to store to a <span class="basis">Gnome::Gdk4::Texture</span> or other location, you might want to use <a href="#save-to-png-bytes">.save-to-png-bytes()</a> or look into the gdk-pixbuf library. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save-to-png ( Str $filename --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$filename; the filename to store to.</li>
 </ul>
-<p>Return value; <code>True</code> if saving succeeded, <code>False</code> on failure.. </p></section>
-<section name="pod">
-<h2 id="save-to-png-bytes"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">save-to-png-bytes</a></h2>
-<p>Store the given <code>$texture</code> in memory as a PNG file.</p><p>Use <a href="#new-from-bytes">.new-from-bytes()</a> to read it back.</p><p>If you want to serialize a texture, this is a convenient and portable way to do that.</p><p>If you need more control over the generated image, such as attaching metadata, you should look into an image handling library such as the gdk-pixbuf library.</p><p>If you are dealing with high dynamic range float data, you might also want to consider <a href="#save-to-tiff-bytes">.save-to-tiff-bytes()</a> instead.</p><pre class="pod-block-code">method save-to-png-bytes (--&gt; N-Object )
-</pre><p>Return value; a newly allocated <strong>Gnome::Glib::N-Bytes</strong> containing PNG data. </p></section>
-<section name="pod">
-<h2 id="save-to-tiff"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">save-to-tiff</a></h2>
-<p>Store the given <code>$texture</code> to the <code>$filename</code> as a TIFF file.</p><p>GTK will attempt to store data without loss.</p><pre class="pod-block-code">method save-to-tiff ( Str $filename --&gt; Bool )
-</pre><ul>
-<li><p>$filename; the filename to store to.</p></li>
+
+<p>Return value; <span class="code">True</span> if saving succeeded, <span class="code">False</span> on failure.. </p>
+<h2 id="save-to-png-bytes" class="heading "><a href="#" title="go to top of document">save-to-png-bytes</a><a class="raku-anchor" title="direct link" href="#save-to-png-bytes">§</a></h2>
+
+<p>Store the given <span class="code">$texture</span> in memory as a PNG file. </p>
+
+<p>Use <a href="#new-from-bytes">.new-from-bytes()</a> to read it back. </p>
+
+<p id="Para_11">If you want to serialize a texture, this is a convenient and portable way to do that.</p>
+
+<p id="Para_12">If you need more control over the generated image, such as attaching metadata, you should look into an image handling library such as the gdk-pixbuf library.</p>
+
+<p>If you are dealing with high dynamic range float data, you might also want to consider <a href="#save-to-tiff-bytes">.save-to-tiff-bytes()</a> instead. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save-to-png-bytes (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a newly allocated <span class="basis">Gnome::Glib::N-Bytes</span> containing PNG data. </p>
+<h2 id="save-to-tiff" class="heading "><a href="#" title="go to top of document">save-to-tiff</a><a class="raku-anchor" title="direct link" href="#save-to-tiff">§</a></h2>
+
+<p>Store the given <span class="code">$texture</span> to the <span class="code">$filename</span> as a TIFF file. </p>
+
+<p id="Para_13">GTK will attempt to store data without loss.</p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save-to-tiff ( Str $filename --&gt; Bool )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$filename; the filename to store to.</li>
 </ul>
-<p>Return value; <code>True</code> if saving succeeded, <code>False</code> on failure.. </p></section>
-<section name="pod">
-<h2 id="save-to-tiff-bytes"><a href="#Gnome::Gdk4::Texture" class="u" title="go to top of document">save-to-tiff-bytes</a></h2>
-<p>Store the given <code>$texture</code> in memory as a TIFF file.</p><p>Use <a href="#new-from-bytes">.new-from-bytes()</a> to read it back.</p><p>This function is intended to store a representation of the texture's data that is as accurate as possible. This is particularly relevant when working with high dynamic range images and floating-point texture data.</p><p>If that is not your concern and you are interested in a smaller size and a more portable format, you might want to use <a href="#save-to-png-bytes">.save-to-png-bytes()</a>.</p><pre class="pod-block-code">method save-to-tiff-bytes (--&gt; N-Object )
-</pre><p>Return value; a newly allocated <strong>Gnome::Glib::N-Bytes</strong> containing TIFF data. </p></section>		</div>
-</div><footer><div>Rendered from <span class="path">/home/marcel/Languages/Raku/Projects/gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Texture.rakudoc</span></div><div>at <span class="time">2026-05-22T15:14:42Z</span></div></footer>
-	</body>
+
+<p>Return value; <span class="code">True</span> if saving succeeded, <span class="code">False</span> on failure.. </p>
+<h2 id="save-to-tiff-bytes" class="heading "><a href="#" title="go to top of document">save-to-tiff-bytes</a><a class="raku-anchor" title="direct link" href="#save-to-tiff-bytes">§</a></h2>
+
+<p>Store the given <span class="code">$texture</span> in memory as a TIFF file. </p>
+
+<p>Use <a href="#new-from-bytes">.new-from-bytes()</a> to read it back. </p>
+
+<p id="Para_14">This function is intended to store a representation of the texture's data that is as accurate as possible. This is particularly relevant when working with high dynamic range images and floating-point texture data.</p>
+
+<p>If that is not your concern and you are interested in a smaller size and a more portable format, you might want to use <a href="#save-to-png-bytes">.save-to-png-bytes()</a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">method save-to-tiff-bytes (--&gt; N-Object )</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+
+<p>Return value; a newly allocated <span class="basis">Gnome::Glib::N-Bytes</span> containing TIFF data. </p>
+
+
+    
+<div class="footer">
+    Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gdk4/doc/Texture.rakudoc</span>
+<span class="footer-field">&nbsp;at 12:41 UTC on 2026-07-27</span>
+<span class="footer-line">Source last modified at 13:31 UTC on 2026-03-08</span>
+
+</div>
+
+</body>
 </html>
