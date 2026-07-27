@@ -246,8 +246,9 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
   my Str $rakudoc = $raku-doc-path.IO.slurp;
   my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp; #(:test);
   $rdp.add-data( 'css', 'doc/Scss/rakuast-style.css'.IO.slurp);
-#  $rdp.debug(True);
-#  $rdp.verbose(True);
+#debug any of: None (default) All AstBlock BlockType Scoping Templates MarkUp
+#  $rdp.debug('All');
+#  $rdp.verbose('All');
   my %source-data = %(
       name     => $raku-doc-path.IO.basename,
       modified => $raku-doc-path.IO.modified,
