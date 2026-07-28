@@ -24,7 +24,7 @@ The information here, goes for all references generated for `:api<2>`. That is, 
 
 ### Module and class names
 
-Standard classes do not have any prefix attached. Examples are **Gnome::Gtk4::Grid** and **Gnome::G
+Standard classes do not have any prefix attached. Examples are **Gnome::Gtk4::Grid** and **Gnome::Gsk4::ColorNode**.
 
 ### Constructors, methods and functions
 
