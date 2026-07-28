@@ -3,13 +3,6 @@
 # References generator to generate html pages of the rakudoc documents. Also
 # it recreates the sidebar if necessary.
 
-# Steps to get everything in place;
-# Only when changed!
-#     sass doc/Scss/github-style.scss assets/css/github-style.css
-#     sass doc/Scss/rakuast-style.scss doc/Scss/rakuast-style.css
-# Then e.g.
-#     bin/generate-md-refs.raku GObjApi2 Object
-
 use v6.d;
 
 use YAMLish;
@@ -101,39 +94,44 @@ my Hash $sidebar-paths = %(
 );
 
 #-------------------------------------------------------------------------------
-# e.g. generate-md-refs.raku Gtk4Api2 AboutDialog.rakudoc
-#      generate-md-refs.raku Gtk4Api2
+# e.g. generate-md-refs.raku Gtk4Api2 AboutDialog
+# or   generate-md-refs.raku Gtk4Api2
 sub MAIN ( Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False ) {
 
-  # Go to Githup Pages root dir
-#  chdir('./content-docs');
-
+  # Check if paths are defined, might be a wrong key.
   if $source-paths{$key}:exists and $destination-paths{$key}:exists {
+    # If defined, only render one file.
     if ?$raku-doc-name {
-      generate-html( $key, $raku-doc-name, :!skip);
+      generate-html(
+        $key, $raku-doc-name.IO.basename.IO.extension('').Str, :!skip
+      );
     }
 
+    # Otherwise, render all files in the source directory
     else {
       for $source-paths{$key}.IO.dir.sort -> Str() $source-file {
-#note "$?LINE $source-file";
+        # Only .rakudoc or .rakumod files can be rendered
         next unless ?$source-file and
                      $source-file ~~ m/ '.' [rakudoc | rakumod]/;
 
-        # Skip Misc module
+        # Skip Misc module, a gtk3 remnant of an empty class
         next if $source-file ~~ m/ Misc /;
 
+        # Render the document to HTML
         $raku-doc-name = $source-file.IO.basename.IO.extension('').Str;
-#note "$?LINE $raku-doc-name";
         generate-html( $key, $raku-doc-name, :$skip);
       }
     }
   }
 
+  # Error when no paths are found. Mostly because given key is wrong.
+  # Show the available keys to shoose from.
   else {
     note "\nNo paths found for key $key\nPossible keys are: ",
          $source-paths.keys.join(', ');
   }
 
+  # At the emd, generate the sidebar.
   generate-sidebar($key) if $sidebar-paths{$key}:exists;
 }
 
@@ -156,7 +154,8 @@ note Q:to/EOUSAGE/;
   Arguments:
     key                 Key used to find paths in hashes
 
-    raku-doc-name       Document holding rakudoc text
+    raku-doc-name       Document holding rakudoc text. If omitted
+                        all files in the source are rendered.
 
   Options:
     skip                Skip previously generated documents
@@ -168,121 +167,73 @@ note Q:to/EOUSAGE/;
 # Read doc and generate HTML and store in $raku-doc-dest
 sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
-  # First check doc directory first
+  # First check document path as a '.rakudoc' first.
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
   $raku-doc-path ~~ s/ 'lib' \/ 'Gnome' .* $/doc\/$doc-name.rakudoc/;
+
+  # If ok, then no further tests
   if $raku-doc-path.IO.r {
   }
 
-  # Then check module directory
+  # If not found, check module directory for a `.rakumod' file.
   elsif ($raku-doc-path = $source-paths{$key} ~ $doc-name ~ '.rakumod').IO.r {
   }
 
+  # If still not found, exit with an error,
   else {
-    die 'Cannot find rakumod nor rakudoc file';
+    die 'Cannot find rakumod nor rakudoc file for $doc-name';
   }
 
-#`{{
-  my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
-  if ($raku-doc-path ~ '.rakumod').IO ~~ :r {
-    $raku-doc-path ~= '.rakumod';
-  }
-
-  else {
-    $raku-doc-path ~~ s/ 'lib' \/ 'Gnome' .* $/doc\/$doc-name.rakudoc/;
-
-    die 'Cannot find rakumod nor rakudoc file' unless $raku-doc-path.IO ~~ :r;
-  }
-}}
-
+  # Check for destination directory and create if not there.
   my Str $raku-doc-dest = $destination-paths{$key};
   mkdir $raku-doc-dest, 0o750 unless $raku-doc-dest.IO ~~ :e;
 
+  # Use short names for messages
   my Str $basename = $raku-doc-path.IO.basename;
-#  note "\n$basename";
-#  note "  Source: $raku-doc-path";
-#  note "  Destination: $raku-doc-dest";
-
   note "\nGenerate $basename from ", $raku-doc-path.IO.basename;
 
+  # Set filename where result is written to.
   my Str $filename = "$raku-doc-dest" ~ $basename.IO.extension('');
+
+  # Do not save if file exists and $skip is True
   return if ($skip and ("$filename.html".IO ~~ :e));
-  
-#  my Array $raku-pod = load-pod($raku-doc-path);
 
   note "  Processing ", $raku-doc-path.IO.basename;
-#  note "shell \"raku --doc=HTML2 $raku-doc-path > $filename.html\"";
-  my Str() $sdir = $raku-doc-path.IO.parent;
-#  my Str() $ddir = $filename.IO.parent;
-#  my Str() $sname = $raku-doc-path.IO.basename;
-#note "\n\nraku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path' > '/tmp/$doc-name'\n ";
 
   # For the moment we need to explicitly turn on RakuAST processing
-  #TODO remove when version raku 6.e
+  #TODO remove when version raku 6.e comes out.
   %*ENV<RAKUDO_RAKUAST> = 1;
 
-  # We want to have an alternative CSS setup using the files from a github
-  # pages theme and css from the previous html generator
-  #%*ENV<ALT_CSS> = 'doc/Scss/rakuast-style.css';
+  # Prepare the processor to generate HTML
+  my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp;
 
-#`{{
-  # Generate the HTML file
-  my Proc $p =
-    shell "raku -MRakuDoc::Render --rakudoc=HTML '$raku-doc-path'", :out;
-
-  # Prefix the text with the github pages frontmatter marks
-  my Str $result = "---\n---\n";
-
-  # Get the result for post processing
-  for $p.out.lines -> Str $line {
-    $result ~= "$line\n";
-  }
-  $p.out.close;
-}}
-
-  # Prefix the text with the github pages frontmatter marks
-  my Str $result = "---\n---\n";
-
-  my Str $rakudoc = $raku-doc-path.IO.slurp;
-  my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp; #(:test);
+  # Add a CSS style to the processor to replace the default
   $rdp.add-data( 'css', 'doc/Scss/rakuast-style.css'.IO.slurp);
-#debug any of: None (default) All AstBlock BlockType Scoping Templates MarkUp
-#  $rdp.debug('All');
-#  $rdp.verbose('All');
+
+  # debug options can be any of: None (default) All AstBlock
+  # BlockType Scoping Templates MarkUp
+  #$rdp.debug('All');
+  #$rdp.verbose('All');
+
+  # Set some info to be displayed at the end of the document
   my %source-data = %(
       name     => $raku-doc-path.IO.basename,
       modified => $raku-doc-path.IO.modified,
       path     => $raku-doc-path.IO.relative.IO.parent,
   );
-  $result ~= $rdp.render( $rakudoc.AST, :%source-data);
-#  $result ~= $rdp.finalize;
 
-  # Change the class for the table of contents
-#  $result ~~ s/ 'class="toc"' /class="toc pod-content"/;
+  # Prefix the result from RakuDoc::Processor with the
+  # github pages frontmatter marks.
+  my Str $result = "---\n---\n";
+
+  # Get the document as a string and provide it to the renderer as an AST.
+  # Append the result to $result.
+  my Str $rakudoc = $raku-doc-path.IO.slurp;
+  $result ~= $rdp.render( $rakudoc.AST, :%source-data);
 
   # Store the result at its proper place.
   note "  Store at $filename.html";
   "$filename.html".IO.spurt($result);
-
-#  %*ENV<RAKOPTS> = 'NoTOC NoMETA NoGloss NoFoot';
-#  my Proc $p = shell "raku --doc=HTML2 $raku-doc-path > $filename.html";
-
-#`{{
-  # See also ProcessedPod.rakumod TWEAK. Can be set via %ENV.
-  # Attributes are defined as 'is rw'
-  with my Pod::To::HTML2 $pr .= new {
-    .pod-file.path = $raku-doc-path;
-    .pod-file.title-target = '____top';
-    .no-toc = True if $raku-doc-path ~~ m/ XMas /;
-    .no-glossary = True;
-    .no-footnotes = True;
-    .process-pod($raku-pod);
-    .no-meta = True;
-    "$filename.html".IO.spurt("---\n---\n" ~ .source-wrap(:$filename));
-  }
-  note $pr.pod-file.gist;
-}}
-
 
   note "  Generated {$filename.IO.basename}.html";
 }
@@ -292,7 +243,6 @@ sub generate-sidebar( Str $key ) {
   my Str $destination-path = $destination-paths{$key};
   my Str $sidebar-path = $sidebar-paths{$key};
 
-#  chdir('./content-docs');
   note "\nAdd entries to sidebar at $sidebar-path";
 
   my @classes = ();
@@ -322,7 +272,6 @@ sub generate-sidebar( Str $key ) {
     }
   }
 
-#note "$?LINE $destination-path";
   # Make sidebar and fill with references of all found html files
   for $destination-path.IO.dir.sort -> $url is copy {
 
@@ -330,14 +279,10 @@ sub generate-sidebar( Str $key ) {
     next if $url.Str !~~ m/ \. html $/;
     next if $url.Str ~~ /'index.html' $/;
 
-#note "$?LINE $url";
-    # Drop path to content-docs
-#    my $cwd = $*CWD;
-#    $url ~~ s/^ $cwd \/ //;
+    # Drop '.' to get relative url
     $url ~~ s/^ '.' //;
-#note "$?LINE $url";
 
-#    $url = "/content-docs/$url";
+    # Get name without the html extension
     my Str() $name = S/ \.html $// with $url;
     $name = $name.IO.basename;
     note "  Url of $name: $url";
@@ -427,115 +372,3 @@ sub generate-sidebar( Str $key ) {
     $sidebar-path.IO.spurt($sidebar);
   }
 }
-
-#`{{
-#-------------------------------------------------------------------------------
-#use MONKEY-SEE-NO-EVAL;
-
-sub load-pod ( Str $file --> Array ) {
-  if $file.IO !~~ :r {
-    note "$file does not exist or isn't readable";
-    return [];
-  }
-
-  my Str $contents = $file.IO.slurp;
-
-  # Old documentation generator will not be changed. We have to do it here.
-  if $file ~~ m/ 'gnome-api1' / {
-    # Change first =head1 into =TITLE
-    $contents ~~ s/ '=head1' /=TITLE/;
-
-    # Remove all =comment lines
-    $contents ~~ s:g/^^ '=comment' .*? $$//;
-
-    # To prevent loading code, all code must be removed before evalling. 
-    # Because we keep all code in the same environment without
-    # cleaning up, clashes with new loaded modules will occur.
-
-    # Drop everything after =finish, there might be some saved experiments.
-    my Int $last-pos = $contents.index('=finish');
-    if ?$last-pos {
-       my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
-       $contents ~~ s/ $last-code $//;
-    }
-
-    # Drop everything between '=end pod' and '=begin pod'.
-    $contents ~~ s:g/ '=' end \s pod .*? '=' begin \s pod
-                    /=end pod\n=begin pod/;
-
-    # Also from begin of program to first '=begin pod' (seems to work without)
-#    $contents ~~ s/^ .*? '=' begin \s pod/=begin pod\n/;
-
-    # from last '=end pod' to end of program.
-    $last-pos = $contents.rindex('=end pod');
-    if ?$last-pos {
-      my Str $last-code = $contents.substr( $last-pos, $contents.chars - 1);
-      $contents ~~ s/ $last-code $//;
-      $contents ~= "=end pod\n";
-    }
-
-    # Remove the end and start pod blocks to turn it into one pod block
-    $contents ~~ s:g/ '=end pod' "\n" '=begin pod' "\n" //;
-
-    # Change all MD image refs into Pod image refs
-    while $contents ~~ m/ $<md-ref> = [
-                                        '![](' [images | plantuml] \/
-                                        <-[\.]>+ \. [png | svg] ')'
-                                      ]
-                        / {
-      my Str $md-ref = $/<md-ref>.Str;
-      if $md-ref ~~ m/ images / {
-        $md-ref ~~ s/ images /asset_files\/images/;
-        $md-ref ~~ s/ '![](' /=for image :src</;
-        $md-ref ~~ s/ ')' /> :width<30%> :class<inline>/;
-      }
-
-      else {
-        $md-ref ~~ s/ plantuml /asset_files\/images\/plantuml/;
-        $md-ref ~~ s/ '![](' /=for image :src</;
-        $md-ref ~~ s/ ')' /> :width<60%> :class<inline>/;
-      }
-
-      $contents ~~ s/ '![](' [images | plantuml] \/
-                      <-[\.]>+ \. [png | svg] ')'
-                    /$md-ref/;
-    }
-  }
-
-  # EVALFILE has limitations so cleanup code is essential
-  # Remove everything after '=finish'
-  if $contents ~~ m/^^ '=finish' $$/ {
-    $contents ~~ s/'=finish' .* $//;
-  }
-
-  # Remove commented out code
-  $contents ~~ s:g/ '#`{{' .*? '}}' //;
-
-  # And drop all pod comments while w're at it
-  $contents ~~ s:g/^^ '=comment' .*? $$//;
-
-  # Drop all code
-  $contents ~~ s:g/ '=end' \s 'pod' .*? '=begin' \s 'pod' //;
-  $contents ~~ s:g/^ .*? '=begin' \s 'pod' /=begin pod/;
-  $contents ~~ s:g/ '=end' \s 'pod' .* $/=end pod/;
-
-
-  my $pod;
-  $contents ~= "\n\n" ~ '$pod = $=pod;' ~ "\n\n";
-
-  try {
-    "/tmp/mod-doc.txt".IO.spurt($contents);
-    EVALFILE "/tmp/mod-doc.txt";
-#    EVAL $contents;
-
-    CATCH {
-      default {
-        .die;
-      }
-    }
-  }
-
-  $pod
-}
-
-}}
