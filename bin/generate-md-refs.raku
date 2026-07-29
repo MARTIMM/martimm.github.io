@@ -190,7 +190,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
   # Use short names for messages
   my Str $basename = $raku-doc-path.IO.basename;
-  note "\nGenerate $basename from ", $raku-doc-path.IO.basename;
+  note "\nGenerate {$basename.IO.extension('')}.html from ", $basename;
 
   # Set filename where result is written to.
   my Str $filename = "$raku-doc-dest" ~ $basename.IO.extension('');
@@ -198,7 +198,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
   # Do not save if file exists and $skip is True
   return if ($skip and ("$filename.html".IO ~~ :e));
 
-  note "  Processing ", $raku-doc-path.IO.basename;
+  note "  Processing ", $basename;
 
   # For the moment we need to explicitly turn on RakuAST processing
   #TODO remove when version raku 6.e comes out.
@@ -217,7 +217,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
   # Set some info to be displayed at the end of the document
   my %source-data = %(
-      name     => $raku-doc-path.IO.basename,
+      name     => $basename,
       modified => $raku-doc-path.IO.modified,
       path     => $raku-doc-path.IO.relative.IO.parent,
   );
