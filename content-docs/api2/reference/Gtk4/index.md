@@ -15,16 +15,7 @@ Some modules are already deprecated by Gnome in Gtk version 4. This only means t
 
 There are too many classes deprecated since Gtk version 4.10 to name them all in a table. However, in the menu the deprecated classes and structures are made visible by coloring them red.
 
-[checklists](http://127.0.0.1:4000/content-docs/api2/check-lists/Gtk4/index.html)
-[library versions](http://127.0.0.1:4000/content-docs/api2/check-lists/lib-versions)
+There are checklists for a few of the distributions. Here is the link to the
+[checklists of Gtk 4 distribution](http://127.0.0.1:4000/content-docs/api2/check-lists/Gtk4/index.html).
 
-## About the reference documents
-
-The information here, goes for all references generated for `:api<2>`. That is, `Gnome::N`, `Gnome::Glib`, `Gnome::GObject`, `Gnome::Gio`, `Gnome::Gdk4`, `Gnome::Gsk4`, and `Gnome::Gtk4`.
-
-### Module and class names
-
-Standard classes do not have any prefix attached. Examples are **Gnome::Gtk4::Grid** and **Gnome::Gsk4::ColorNode**.
-
-### Constructors, methods and functions
-
+There is also a table of [library versions](http://127.0.0.1:4000/content-docs/api2/check-lists/lib-versions) vs versions of the Raku distributions to have an idea of what is available.
