@@ -30,7 +30,7 @@ td:nth-child(2) {
   width: 99%;
 }
 </style>
-# Module Checklist
+# Gnome::Gtk4::ShortcutTrigger Checklist
 
 Checklist for module Gnome::Gtk4::ShortcutTrigger to show the progress of deveopment or whether it is deprecated. Most of the modules are generated but documentation needs to be checked for typos and mistakes. Also examples may be added. Not much will be done for deprecated modules. You might be interested in the [GnomeTools distribution](/content-docs/GnomeTools/index.html) where some of the deprecated modules are rewritten.
 
@@ -40,9 +40,8 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 
 ||State|Name|Tests|
 |-|-|-|-|
-|Module generated|![](/content-docs/asset_files/images/checklist-implement.png)|ShortcutTrigger.rakumod
 |Documentation corrected|![](/content-docs/asset_files/images/checklist-implement.png)|ShortcutTrigger.rakudoc
-|Tests completed|![](/content-docs/asset_files/images/checklist-implement.png)|ShortcutTrigger.rakutest|0 tests|
+|Tests completed|![](/content-docs/asset_files/images/checklist-ok.png)|ShortcutTrigger.rakutest|6 tests|
 
 ### Constructors
 
@@ -59,8 +58,8 @@ Furthermore there is a list of the current versions of [Gnome libraries and Raku
 | compare |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | equal |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | hash |![](/content-docs/asset_files/images/checklist-ok.png)|||
-| print |![](/content-docs/asset_files/images/checklist-ok.png)|||
-| print-label |![](/content-docs/asset_files/images/checklist-ok.png)|||
+| print |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)|||
+| print-label |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)|||
 | to-label |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | to-string |![](/content-docs/asset_files/images/checklist-ok.png)|||
 | trigger |![](/content-docs/asset_files/images/checklist-implement.png)![](/content-docs/asset_files/images/checklist-missing.png)|||
