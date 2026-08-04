@@ -379,6 +379,7 @@ div.extended-para p.extended-para {
 <div class="toc">
 <h2 class="toc-caption">Table of Contents</h2><div class="toc-item" style="--level:0;" data-bullet=""><a href="#Description">Description</a></div>
 <div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#Uml_Diagram">Uml Diagram</a></div>
+<div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#Example">Example</a></div>
 <div class="toc-item" style="--level:0;" data-bullet=""><a href="#Class_initialization">Class initialization</a></div>
 <div class="toc-item" style="--level:1;" data-bullet="▹"><a href="#new">new</a></div>
 <div class="toc-item" style="--level:2;" data-bullet="‣"><a href="#:native-object">:native-object</a></div>
@@ -390,16 +391,31 @@ div.extended-para p.extended-para {
 
     <h1 id="Description" class="heading "><a href="#" title="go to top of document">Description</a><a class="raku-anchor" title="direct link" href="#Description">§</a></h1>
 
-<p>A <a href="/content-docs/api2/reference/Gtk4/ShortcutTrigger">Gnome::Gtk4::ShortcutTrigger</a> that combines two triggers. </p>
-
-<p>The <span class="basis">Gnome::Gtk4::AlternativeTrigger</span> triggers when either of two trigger. </p>
-
-<p id="Para">This can be cascaded to combine more than two triggers.</p>
+<p>A <a href="/content-docs/api2/reference/Gtk4/ShortcutTrigger">Gnome::Gtk4::ShortcutTrigger</a> that combines two triggers. The <span class="basis">Gnome::Gtk4::AlternativeTrigger</span> triggers when either of two trigger. This can be cascaded to combine more than two triggers. </p>
 
 <div class="id-target" id="Uml Diagram"></div><h2 id="Uml_Diagram" class="heading "><a href="#" title="go to top of document">Uml Diagram</a><a class="raku-anchor" title="direct link" href="#Uml Diagram">§</a></h2>
 
-<div class="id-target" id="UNKNOWN image"></div><h1 id="" class="heading "><a href="#" title="go to top of document">UNKNOWN image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN image">§</a></h1>
-=for image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/AlternativeTrigger.png&gt; :width&lt;70\%&gt;<br><br>
+<div class="id-target" id="UNKNOWN Image"></div><h1 id="Image" class="heading "><a href="#" title="go to top of document">UNKNOWN Image</a><a class="raku-anchor" title="direct link" href="#UNKNOWN Image">§</a></h1>
+=for Image :class&lt;inline&gt; :src&lt;asset_files/images/plantuml/AlternativeTrigger.png&gt; :width&lt;70\%&gt;<br><br>
+
+<h3 id="Example" class="heading "><a href="#" title="go to top of document">Example</a><a class="raku-anchor" title="direct link" href="#Example">§</a></h3>
+
+<p>Two examples to set a <span class="basis">Gnome::Gtk4::AlternativeTrigger</span> object. The first example uses the the constructor of this class, the second uses the parser method of its parent class <a href="/content-docs/api2/reference/Gtk4/ShortcutTrigger.html#parse-string"><span class="basis">Gnome::Gtk4::ShortcutTrigger</span></a>. </p>
+    
+    <div class="raku-code">
+    <pre class="rakudoc">my Gnome::Gtk4::ShortcutTrigger $first .= parse-string('&lt;CTRL&gt;F5');
+my Gnome::Gtk4::ShortcutTrigger $second .= parse-string('&lt;ALT&gt;A');
+my Gnome::Gtk4::AlternativeTrigger $alternativetrigger .=
+   new-alternativetrigger( $first, $second);</pre>
+    <div class="code-caption">Code</div>
+    </div>
+    
+    
+    <div class="raku-code">
+    <pre class="rakudoc">my Gnome::Gtk4::AlternativeTrigger $alternativetrigger .=
+   parse-string('&lt;CTRL&gt;F5|&lt;SHIFT&gt;8');</pre>
+    <div class="code-caption">Code</div>
+    </div>
 
 <div class="id-target" id="Class initialization"></div><h1 id="Class_initialization" class="heading "><a href="#" title="go to top of document">Class initialization</a><a class="raku-anchor" title="direct link" href="#Class initialization">§</a></h1>
 <h2 id="new" class="heading "><a href="#" title="go to top of document">new</a><a class="raku-anchor" title="direct link" href="#new">§</a></h2>
@@ -415,7 +431,7 @@ div.extended-para p.extended-para {
 
 <p>Creates a <a href="/content-docs/api2/reference/Gtk4/ShortcutTrigger">Gnome::Gtk4::ShortcutTrigger</a> that will trigger whenever either of the two given triggers gets triggered. </p>
 
-<p id="Para_0">Note that nesting is allowed, so if you want more than two alternative, create a new alternative trigger for each option.</p>
+<p id="Para">Note that nesting is allowed, so if you want more than two alternatives, create a new alternative trigger for each option.</p>
     
     <div class="raku-code">
     <pre class="rakudoc">method new-alternativetrigger (
@@ -424,15 +440,14 @@ div.extended-para p.extended-para {
 )</pre>
     <div class="code-caption">Code</div>
     </div>
-    
-
 <ul class="item-list"><li class="item" data-bullet="•" style ="--level:0;"  >$first; (transfer ownership: full) The first trigger that may trigger.</li>
 <li class="item" data-bullet="•" style ="--level:0;"  >$second; (transfer ownership: full) The second trigger that may trigger.</li>
 </ul>
+
 <h1 id="Methods" class="heading "><a href="#" title="go to top of document">Methods</a><a class="raku-anchor" title="direct link" href="#Methods">§</a></h1>
 <h2 id="get-first" class="heading "><a href="#" title="go to top of document">get-first</a><a class="raku-anchor" title="direct link" href="#get-first">§</a></h2>
 
-<p id="Para_1">Gets the first of the two alternative triggers that may trigger this object.</p>
+<p id="Para_0">Gets the first of the two alternative triggers that may trigger this object.</p>
 
 <p><a href="#get-second">.get-second()</a> will return the other one. </p>
     
@@ -442,10 +457,10 @@ div.extended-para p.extended-para {
     </div>
     
 
-<p id="Para_2">Return value; the first alternative trigger.</p>
+<p id="Para_1">Return value; the first alternative trigger.</p>
 <h2 id="get-second" class="heading "><a href="#" title="go to top of document">get-second</a><a class="raku-anchor" title="direct link" href="#get-second">§</a></h2>
 
-<p id="Para_3">Gets the second of the two alternative triggers that may trigger this object.</p>
+<p id="Para_2">Gets the second of the two alternative triggers that may trigger this object.</p>
 
 <p><a href="#get-first">.get-first()</a> will return the other one. </p>
     
@@ -455,19 +470,18 @@ div.extended-para p.extended-para {
     </div>
     
 
-<p id="Para_4">Return value; the second alternative trigger.</p>
+<p id="Para_3">Return value; the second alternative trigger.</p>
 
 
     
 <div class="footer">
     Rendered from<span class="footer-field">&nbsp;../gnome-source-skim-tool/gnome-api2/gnome-gtk4/doc/AlternativeTrigger.rakudoc</span>
-<span class="footer-field">&nbsp;at 15:27 UTC on 2026-07-27</span>
-<span class="footer-line">Source last modified at 18:15 UTC on 2026-05-04</span>
+<span class="footer-field">&nbsp;at 12:32 UTC on 2026-08-04</span>
+<span class="footer-line">Source last modified at 12:31 UTC on 2026-08-04</span>
 <div class="warnings">    <div class="warnings">
     <h2 class="warnings-caption">Warnings</h2>
         <ol>
-        <li>｢image｣ is not a valid builtin block, is it a misspelt Custom block? in block ｢document｣ with heading ｢Uml Diagram｣.</li>
-<li>Counter base ｢image｣ should follow custom block spelling rule; use a capital-case letter</li>
+        <li>No template exists for custom block ｢Image｣. It has been rendered as unknown in block ｢Image｣ with heading ｢Image｣.</li>
 
         </ol>
     </div>
