@@ -131,7 +131,7 @@ sub MAIN ( Str:D $key, Str $raku-doc-name? is copy, Bool :$skip = False ) {
          $source-paths.keys.join(', ');
   }
 
-  # At the emd, generate the sidebar.
+  # At the end, generate the sidebar.
   generate-sidebar($key) if $sidebar-paths{$key}:exists;
 }
 
@@ -166,6 +166,9 @@ note Q:to/EOUSAGE/;
 #-------------------------------------------------------------------------------
 # Read doc and generate HTML and store in $raku-doc-dest
 sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
+
+  my Hash $image-data = %();
+  my Int $substr-count = 0;
 
   # First check document path as a '.rakudoc' first.
   my Str $raku-doc-path = $source-paths{$key} ~ $doc-name;
@@ -202,7 +205,7 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
 
   # For the moment we need to explicitly turn on RakuAST processing
   #TODO remove when version raku 6.e comes out.
-  %*ENV<RAKUDO_RAKUAST> = 1;
+  #%*ENV<RAKUDO_RAKUAST> = 1;
 
   # Prepare the processor to generate HTML
   my RakuDoc::Processor $rdp = RakuDoc::To::HTML.new.rdp;
@@ -229,7 +232,46 @@ sub generate-html ( Str $key, Str $doc-name, Bool :$skip ) {
   # Get the document as a string and provide it to the renderer as an AST.
   # Append the result to $result.
   my Str $rakudoc = $raku-doc-path.IO.slurp;
+
+  # Temporary mistake of doc generator. =head too close to =for add a newline
+  $rakudoc ~~ s/^^ '=head2' (<-[\n]>+) \n '=for' \s+ 'Image'
+               /=head2 $0\n\n=for Image/;
+
+  # <<<<< BEGIN
+  # Temporary remove of '=for Image' because it is not yet implemented
+  my token prelude { '=' for \s+ Image }
+  my token source { ':' src '<' $<path> = .*? '>' }
+  my token width { ':' width '<' $<w> = \d+ '%>' }
+  my token class { ':' class '<' $<c> = [inline] '>' }
+  my regex for-image-regex { <prelude> \s+ <source> \s+ <width> \s+ <class> }
+
+  while $rakudoc ~~ m/ <for-image-regex> / {
+#note $/.gist;
+#    my $for-image = $/.Str;
+    my $source = $/<for-image-regex><source><path>.Str;
+    my $width = $/<for-image-regex><width><w>.Str;
+    my $class = $/<for-image-regex><class><c>.Str;
+
+    my Str $substr = "__FOR_IMAGE{$substr-count}__";
+    $substr-count++;
+    $image-data{$substr} = [ $source, $width, $class];
+
+#note "$?LINE $for-image";
+    $rakudoc ~~ s/ <for-image-regex> /$substr/;
+  }
+
   $result ~= $rdp.render( $rakudoc.AST, :%source-data);
+
+  for $image-data.keys.sort -> $substr {
+    my $source = $image-data{$substr}[0];
+    my $width = $image-data{$substr}[1];
+    my $class = $image-data{$substr}[2];
+
+    $result ~~ s/ $substr
+                /<img src="$source" width="$width%" class="$class" \/>/;
+#note Q:qq{$?LINE $substr <img src="$source" width="$width%" class="$class" \/>};
+  }
+  # <<<<< END
 
   # Store the result at its proper place.
   note "  Store at $filename.html";
